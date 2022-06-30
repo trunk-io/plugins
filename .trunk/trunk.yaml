@@ -1,0 +1,16 @@
+version: 0.1
+lint:
+  definitions:
+    - name: sqlfluff
+      files: [sql]
+      runtime: python
+      package: sqlfluff
+      commands:
+        - output: sarif
+          run: sqlfluff lint ${target} --format json --dialect ansi --nofail
+          success_codes: [0]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${actionroot}/.trunk/sqlfluff_to_sarif.py
+
