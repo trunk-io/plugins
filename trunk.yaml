@@ -12,5 +12,5 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${actionroot}/.trunk/sqlfluff_to_sarif.py
+            run: ${actionroot}/sqlfluff_to_sarif.py
 
