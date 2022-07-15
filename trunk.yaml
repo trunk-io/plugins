@@ -1,6 +1,25 @@
 version: 0.1
 lint:
   definitions:
+    - name: example
+      files: [ALL]
+      commands:
+        - output: parsable
+          run: ${actionroot}/example_linter.sh ${target}
+          success_codes: [0]
+          read_output_from: stdout
+    - name: codespell
+      files: [ALL]
+      runtime: python
+      package: codespell
+      commands:
+        - output: sarif
+          run: codespell ${target}
+          success_codes: [0, 65]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${actionroot}/codespell_to_sarif.py
     - name: sqlfluff
       files: [sql]
       runtime: python
@@ -13,4 +32,3 @@ lint:
           parser:
             runtime: python
             run: ${actionroot}/sqlfluff_to_sarif.py
-
