@@ -17,6 +17,7 @@ lint:
           run: codespell ${target}
           success_codes: [0, 65]
           read_output_from: stdout
+          batch: true
           parser:
             runtime: python
             run: ${plugin}/codespell_to_sarif.py
