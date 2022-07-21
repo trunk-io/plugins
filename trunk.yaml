@@ -12,7 +12,8 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${actionroot}/codespell/codespell_to_sarif.py
+            run: ${actionroot}/linters/codespell/codespell_to_sarif.py
+
     - name: sqlfluff
       files: [sql]
       runtime: python
@@ -24,4 +25,4 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${actionroot}/sqlfluff/sqlfluff_to_sarif.py
+            run: ${actionroot}/linters/sqlfluff/sqlfluff_to_sarif.py
