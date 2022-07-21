@@ -13,6 +13,7 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/codespell/codespell_to_sarif.py
+          batch: true
 
     - name: sqlfluff
       files: [sql]
