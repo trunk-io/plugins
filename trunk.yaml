@@ -1,13 +1,6 @@
 version: 0.1
 lint:
   definitions:
-    - name: example
-      files: [ALL]
-      commands:
-        - output: parsable
-          run: ${actionroot}/example/example_linter.sh ${target}
-          success_codes: [0]
-          read_output_from: stdout
     - name: codespell
       files: [ALL]
       runtime: python
