@@ -15,3 +15,10 @@ lint:
     - prettier@2.7.1
     - shellcheck@0.8.0
     - shfmt@3.5.0
+actions:
+  definitions:
+    - display_name: Git LFS
+      id: git-lfs
+      run: git lfs "${hook}" "${@}"
+      triggers:
+        - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
