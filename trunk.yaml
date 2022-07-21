@@ -5,7 +5,7 @@ lint:
       files: [ALL]
       commands:
         - output: parsable
-          run: ${actionroot}/example_linter.sh ${target}
+          run: ${actionroot}/example/example_linter.sh ${target}
           success_codes: [0]
           read_output_from: stdout
     - name: codespell
