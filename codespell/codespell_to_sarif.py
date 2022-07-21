@@ -29,9 +29,6 @@ def to_result_sarif(
     }
 
 
-# the engrish langauge is easy to mispell
-
-
 def main(argv):
     results = []
 
