@@ -14,6 +14,7 @@ lint:
             runtime: python
             run: ${plugin}/linters/codespell/codespell_to_sarif.py
           batch: true
+          cache_results: true
 
     - name: sqlfluff
       files: [sql]
