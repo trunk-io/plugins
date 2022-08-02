@@ -8,7 +8,6 @@ lint:
         - output: rewrite
           run: ${plugin}/linters/pragma-once/fix.sh ${target}
           formatter: true
-          in_place: true
           batch: false
           success_codes: [0]
 
