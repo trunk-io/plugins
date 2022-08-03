@@ -18,4 +18,10 @@
   </a>
 </p>
 
-🚧 Docs coming soon 🚧
+This plugin is included in your `trunk` configuration by default, so to use a linter defined here, simply run
+
+```bash
+trunk check enable trunk.$LINTER
+```
+
+Read more about how to use plugins [here](https://docs.trunk.io/plugins).
