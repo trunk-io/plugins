@@ -24,4 +24,4 @@ This plugin is included in your `trunk` configuration by default, so to use a li
 trunk check enable trunk.$LINTER
 ```
 
-Read more about how to use plugins [here](https://docs.trunk.io/plugins).
+Read more about how to use plugins [here](https://docs.trunk.io/docs/plugins).
