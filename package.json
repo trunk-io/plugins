@@ -1,0 +1,19 @@
+{
+    "name": "trunkio-plugins",
+    "version": "1.0.0",
+    "scripts": {
+    },
+    "devDependencies": {
+      "@trunkio/launcher": "^1.0.5"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/trunk-io/plugins.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/trunk-io/plugins/issues"
+    },
+    "homepage": "https://github.com/trunk-io/plugins#readme"
+  }

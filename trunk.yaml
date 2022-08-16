@@ -1,4 +1,12 @@
 version: 0.1
+actions:
+  definitions:
+    - id: commitlint
+      runtime: node
+      packages_file: "actions/commitlint/package.json"
+      run: commitlint --edit ${0}
+      triggers:
+        - git_hooks: [commit-msg]
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
