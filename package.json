@@ -1,7 +1,9 @@
 {
   "name": "trunkio-plugins",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "trunk": "trunk"
+  },
   "devDependencies": {
     "@trunkio/launcher": "^1.1.1"
   },
