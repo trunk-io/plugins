@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {},
   "devDependencies": {
-    "@trunkio/launcher": "^1.0.5"
+    "@trunkio/launcher": "^1.1.1"
   },
   "repository": {
     "type": "git",
