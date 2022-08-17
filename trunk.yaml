@@ -1,4 +1,5 @@
 version: 0.1
+required_trunk_version: ">0.16.1"
 actions:
   definitions:
     - id: commitlint
