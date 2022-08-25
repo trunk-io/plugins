@@ -8,6 +8,12 @@ actions:
       run: commitlint --edit ${1}
       triggers:
         - git_hooks: [commit-msg]
+    - id: git-lfs
+      display_name: Git LFS
+      description: Git LFS hooks
+      run: git lfs "${hook}" "${@}"
+      triggers:
+        - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
