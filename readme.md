@@ -18,10 +18,18 @@
   </a>
 </p>
 
-This plugin is included in your `trunk` configuration by default, so to use a linter defined here, simply run
+Library of linters and actions for integration in [trunk](https://docs.trunk.io)
+
+The trunk-io/plugins repository is included by default in trunk. 
+
+To enable a linter from this plugin repository run:
+
+| language | linters |
+| ALL | cspell |
+
 
 ```bash
-trunk check enable trunk.$LINTER
+trunk check enable {linter}
 ```
 
 Read more about how to use plugins [here](https://docs.trunk.io/docs/plugins).
