@@ -22,4 +22,5 @@ lint:
     - shfmt@3.5.0
 actions:
   enabled:
+    - commitlint
     - git-lfs
