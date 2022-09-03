@@ -32,7 +32,7 @@ By consolidating and sharing integrations for linters/actions into a single repo
 trunk check enable {linter}
 ```
 
-### Enabling a supported linter
+### Enabling a supported action
 
 | action     | description                                                                                                                              |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
