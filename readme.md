@@ -24,12 +24,11 @@ By consolidating and sharing integrations for linters/actions into a single repo
 
 ### Enabling a supported linter
 
-| language | linters  |
-| -------- | -------- |
+| language | linters               |
+| -------- | --------------------- |
 | All      | `cspell`, `codespell` |
-| C++     | pragma-once |
-| SQL      | `sqlfluff` |
-
+| C++      | pragma-once           |
+| SQL      | `sqlfluff`            |
 
 ```bash
 trunk check enable {linter}
