@@ -26,7 +26,10 @@ By consolidating and sharing integrations for linters/actions into a single repo
 
 | language | linters  |
 | -------- | -------- |
-| All      | `cspell` |
+| All      | `cspell`, `codespell` |
+| C++     | pragma-once |
+| SQL      | `sqlfluff` |
+
 
 ```bash
 trunk check enable {linter}
