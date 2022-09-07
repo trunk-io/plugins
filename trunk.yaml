@@ -61,7 +61,7 @@ lint:
       commands:
         - output: regex
           parse_regex: ((?P<path>.*):(?P<line>\d+):(?P<col>\d+) - (?P<message>.*))
-          run: cspell ${target}
+          run: cspell --no-progress --no-summary --show-suggestions ${target}
           batch: true
           read_output_from: stdout
           success_codes: [0, 1]
