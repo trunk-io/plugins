@@ -55,18 +55,7 @@ lint:
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
 
     - name: cspell
-      files:
-        - javascript
-        - typescript
-        - python
-        - php
-        - c#
-        - c++-header
-        - c++-source
-        - latex
-        - go
-        - html
-        - css
+      files: [ALL]
       runtime: node
       package: cspell
       commands:
@@ -76,7 +65,8 @@ lint:
           batch: true
           read_output_from: stdout
           success_codes: [0, 1]
-          cache_results: true
+          cache_results: false
+          run_linter_from: workspace
       direct_configs:
         - .cspell.json
         - cspell.json
