@@ -14,6 +14,13 @@ actions:
       run: git lfs "${hook}" "${@}"
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
+    - id: toggle-local
+      runtime: python
+      packages_file: actions/toggle-local/requirements.txt
+      display_name: Toggle Local
+      description: Toggle using local checkout of plugins repository. Useful for building new actions
+      run: ${plugin}/actions/toggle-local/toggle "${workspace}"
+
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there

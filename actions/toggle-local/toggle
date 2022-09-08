@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+import click
+import yaml
+
+
+def get_source(config, id):
+    sources = config["plugins"]["sources"]
+    for source in sources:
+        if source["id"] == id:
+            return source
+    return None
+
+
+@click.command()
+@click.argument("workspace")
+@click.option("--dry-run", is_flag=True, help="Dry run of toggle operation")
+def toggle(workspace, dry_run):
+    path = workspace + "/.trunk/trunk.yaml"
+    with open(path, "r+") as trunk_file:
+        # The FullLoader parameter handles the conversion from YAML
+        # scalar values to Python the dictionary format
+        config = yaml.load(trunk_file, Loader=yaml.FullLoader)
+        source = get_source(config, "trunk")
+        if source is None:
+            print("'trunk' repo not found in plugins list. nothing to toggle")
+            exit(1)
+
+        # Now toggle the entry.
+        # If the local key exists remove it else add it
+        if "local" not in source.keys():
+            source["local"] = workspace
+        else:
+            del source["local"]
+
+        output = yaml.dump(config, sort_keys=False)
+        if (dry_run):
+            print(output)
+            exit(0)
+
+        trunk_file.seek(0)
+        trunk_file.write(output)
+        trunk_file.truncate()
+        exit(0)
+
+if __name__ == "__main__":
+    toggle()
