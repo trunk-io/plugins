@@ -1,0 +1,10 @@
+codespell
+commitlint
+eamodio
+markdownlint
+nofail
+sarif
+scrollback
+SCRIPTDIR
+sqlfluff
+trunkio

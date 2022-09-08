@@ -8,6 +8,7 @@ cli:
   version: 0.17.0-beta
 lint:
   enabled:
+    - cspell@6.8.1
     - actionlint@1.6.15
     - black@22.6.0
     - flake8@4.0.1:
