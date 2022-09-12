@@ -12,10 +12,17 @@ def get_source(config, id):
     return None
 
 
-@click.command()
+@click.command(context_settings={"ignore_unknown_options": True})
 @click.argument("workspace")
+@click.option("--local", is_flag=True, default=False, help="Force toggle to local")
+@click.option("--remote", is_flag=True, default=False, help="Force toggle to remote")
 @click.option("--dry-run", is_flag=True, help="Dry run of toggle operation")
-def toggle(workspace, dry_run):
+def toggle(workspace, local, remote, dry_run):
+    print("WG", local, remote, dry_run)
+    if local is True and remote is True:
+        print("Cannot set both 'remote' and 'local' to true")
+        exit(1)
+
     path = workspace + "/.trunk/trunk.yaml"
     with open(path, "r+") as trunk_file:
         config = yaml.load(trunk_file, Loader=yaml.FullLoader)
@@ -24,11 +31,19 @@ def toggle(workspace, dry_run):
             print("'trunk' repo not found in plugins list. nothing to toggle")
             exit(1)
 
-        # Now toggle the entry.
-        # If the local key exists remove it else add it
-        if "local" not in source.keys():
+        has_local = "local" in source.keys()
+
+        if local:
+            set_local = True
+        elif remote:
+            set_local = False
+        elif local is False and remote is False:
+            # If the local key exists remove it else add it
+            set_local = "local" not in source.keys()
+
+        if set_local:
             source["local"] = workspace
-        else:
+        elif has_local:
             del source["local"]
 
         output = yaml.dump(config, sort_keys=False)
