@@ -4,6 +4,7 @@ plugins:
   - id: trunk
     ref: v0.0.4
     uri: https://github.com/trunk-io/plugins
+    local: /home/eli/Github/plugins
 cli:
   version: 0.17.0-beta.7
 runtimes:
