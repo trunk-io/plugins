@@ -66,7 +66,7 @@ def toggle(workspace, local, remote, pre_push, dry_run):
 
         # If in pre-push and modified content (return 1)
         if modified and pre_push:
-            print("Clearing 'local' key from plugin repo")
+            print("Clearing 'local' key from plugin repo.")
             exit(1)
         else:
             exit(0)
