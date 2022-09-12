@@ -16,9 +16,9 @@ def get_source(config, id):
 @click.argument("workspace")
 @click.option("--local", is_flag=True, default=False, help="Force toggle to local")
 @click.option("--remote", is_flag=True, default=False, help="Force toggle to remote")
+@click.option("--pre-push", is_flag=True, default=False, help="Running as part of pre-push")
 @click.option("--dry-run", is_flag=True, help="Dry run of toggle operation")
-def toggle(workspace, local, remote, dry_run):
-    print("WG", local, remote, dry_run)
+def toggle(workspace, local, remote, pre_push, dry_run):
     if local is True and remote is True:
         print("Cannot set both 'remote' and 'local' to true")
         exit(1)
@@ -32,29 +32,43 @@ def toggle(workspace, local, remote, dry_run):
             exit(1)
 
         has_local = "local" in source.keys()
-
         if local:
             set_local = True
         elif remote:
             set_local = False
         elif local is False and remote is False:
             # If the local key exists remove it else add it
-            set_local = "local" not in source.keys()
+            set_local = not has_local
 
-        if set_local:
+        modified = False
+        if set_local and not has_local:
             source["local"] = workspace
-        elif has_local:
+            modified = True
+        if not set_local and has_local:
             del source["local"]
+            modified = True
 
         output = yaml.dump(config, sort_keys=False)
         if dry_run:
-            print(output)
+            if modified:
+                print(output)
+            else:
+                print("no changes made")
+            exit(0)
+
+        if not modified:
+            # Nothing changed
             exit(0)
 
         trunk_file.seek(0)
         trunk_file.write(output)
         trunk_file.truncate()
-        exit(0)
+
+        # If in pre-push and modified content (return 1)
+        if modified and pre_push:
+            exit(1)
+        else:
+            exit(0)
 
 
 if __name__ == "__main__":

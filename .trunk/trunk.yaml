@@ -1,43 +1,44 @@
 version: 0.1
 plugins:
   sources:
-    - id: trunk
-      ref: v0.0.4
-      uri: https://github.com/trunk-io/plugins
+  - id: trunk
+    ref: v0.0.4
+    uri: https://github.com/trunk-io/plugins
+    local: /home/eli/Github/plugins
 cli:
   version: 0.17.0-beta.7
 runtimes:
   enabled:
-    - go@1.18.3
-    - node@16.14.2
-    - python@3.10.3
+  - go@1.18.3
+  - node@16.14.2
+  - python@3.10.3
 lint:
   enabled:
-    - actionlint@1.6.15
-    - black@22.6.0
-    - flake8@4.0.1:
-        packages:
-          - flake8-bugbear@21.9.2
-    - git-diff-check@SYSTEM
-    - gitleaks@8.8.12
-    - isort@5.10.1
-    - markdownlint@0.32.0
-    - prettier@2.7.1
-    - shellcheck@0.8.0
-    - shfmt@3.5.0
+  - actionlint@1.6.15
+  - black@22.6.0
+  - flake8@4.0.1:
+      packages:
+      - flake8-bugbear@21.9.2
+  - git-diff-check@SYSTEM
+  - gitleaks@8.8.12
+  - isort@5.10.1
+  - markdownlint@0.32.0
+  - prettier@2.7.1
+  - shellcheck@0.8.0
+  - shfmt@3.5.0
 actions:
   definitions:
-    - id: toggle-local
-      runtime: python
-      display_name: Toggle Local
-      description: Toggle plugins repo between local and remote ref automatically
-      packages_file: actions/toggle-local/requirements.txt
-      run: ${plugin}/actions/toggle-local/toggle ${workspace} ${@}
-      triggers:
-        - git_hooks:
-            - pre-push
-          run: ${plugin}/actions/toggle-local/toggle ${workspace} --remote
+  - id: toggle-local
+    runtime: python
+    display_name: Toggle Local
+    description: Toggle plugins repo between local and remote ref automatically
+    packages_file: actions/toggle-local/requirements.txt
+    run: ${plugin}/actions/toggle-local/toggle ${workspace} ${@}
+    triggers:
+    - git_hooks:
+      - pre-push
+      run: ${plugin}/actions/toggle-local/toggle ${workspace} --remote --pre-push
   enabled:
-    - git-lfs
-    - toggle-local
-    - trunk-fmt-pre-commit
+  - git-lfs
+  - toggle-local
+  - trunk-fmt-pre-commit
