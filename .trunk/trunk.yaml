@@ -28,5 +28,6 @@ lint:
     - shfmt@3.5.0
 actions:
   enabled:
+    - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - git-lfs
