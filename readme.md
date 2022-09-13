@@ -48,4 +48,4 @@ Read more about how to use plugins [here](https://docs.trunk.io/docs/plugins).
 
 ### Mission
 
-Our goal is to make engineering faster, more efficient and dare we say - more fun. This repository will hopefully allow our community to share ideas on the best tools and best practices/workflows to make everyones job of building code a little bit easier, a little bit faster and maybe in the process - a litte bit more fun.
+Our goal is to make engineering faster, more efficient and dare we say - more fun. This repository will hopefully allow our community to share ideas on the best tools and best practices/workflows to make everyone's job of building code a little bit easier, a little bit faster and maybe in the process - a little bit more fun.
