@@ -3,6 +3,7 @@
 import click
 import yaml
 
+
 def get_source(config, id):
     sources = config["plugins"]["sources"]
     for source in sources:
@@ -10,13 +11,27 @@ def get_source(config, id):
             return source
     return None
 
-@click.command(context_settings={"ignore_unknown_options": True})
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@click.argument("workspace")
+def notify(workspace):
+    exit(0)
+
+
+@cli.command(context_settings={"ignore_unknown_options": True})
 @click.argument("workspace")
 @click.option("--local", is_flag=True, default=False, help="Force toggle to local")
 @click.option("--remote", is_flag=True, default=False, help="Force toggle to remote")
-@click.option("--pre-push", is_flag=True, default=False, help="Running as part of pre-push")
+@click.option(
+    "--pre-push", is_flag=True, default=False, help="Running as part of pre-push"
+)
 @click.option("--dry-run", is_flag=True, help="Dry run of toggle operation")
-def toggle(workspace, local, remote, pre_push, dry_run):
+def flip(workspace, local, remote, pre_push, dry_run):
     if local is True and remote is True:
         print("Cannot set both 'remote' and 'local' to true")
         exit(1)
@@ -71,4 +86,4 @@ def toggle(workspace, local, remote, pre_push, dry_run):
 
 
 if __name__ == "__main__":
-    toggle()
+    cli()

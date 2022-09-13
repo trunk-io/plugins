@@ -8,3 +8,5 @@ scrollback
 SCRIPTDIR
 sqlfluff
 trunkio
+elif
+pyyaml

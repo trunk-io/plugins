@@ -4,6 +4,7 @@ plugins:
     - id: trunk
       ref: v0.0.4
       uri: https://github.com/trunk-io/plugins
+      local: /home/eli/Github/plugins
 cli:
   version: 0.17.0-beta.7
 lint:
@@ -28,11 +29,16 @@ actions:
       display_name: Toggle Local
       description: Toggle plugins repo between local and remote ref automatically
       packages_file: actions/toggle-local/requirements.txt
-      run: ${plugin}/actions/toggle-local/toggle ${workspace} ${@}
+      run: ${plugin}/actions/toggle-local/toggle flip ${workspace} ${@}
       triggers:
         - git_hooks:
             - pre-push
-          run: ${plugin}/actions/toggle-local/toggle ${workspace} --remote --pre-push
+          run: ${plugin}/actions/toggle-local/toggle flip ${workspace} --remote --pre-push
+        - files:
+            - plugin.yaml
+            - actions/**
+            - lint/**
+          run: ${plugin}/actions/toggle-local/toggle notify ${workspace}
   enabled:
     - git-lfs
     - toggle-local
