@@ -3,14 +3,12 @@
 import click
 import yaml
 
-
 def get_source(config, id):
     sources = config["plugins"]["sources"]
     for source in sources:
         if source["id"] == id:
             return source
     return None
-
 
 @click.command(context_settings={"ignore_unknown_options": True})
 @click.argument("workspace")
