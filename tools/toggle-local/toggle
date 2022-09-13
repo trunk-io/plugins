@@ -12,14 +12,52 @@ def get_source(config, id):
     return None
 
 
+def get_config(workspace):
+    path = workspace + "/.trunk/trunk.yaml"
+    with open(path, "r+") as trunk_file:
+        config = yaml.load(trunk_file, Loader=yaml.FullLoader)
+        return config
+
+
 @click.group()
 def cli():
     pass
 
-
 @cli.command()
 @click.argument("workspace")
 def notify(workspace):
+    config = get_config(workspace)
+    source = get_source(config, "trunk")
+    if source is None:
+        print("'trunk' repo not found in plugins list. nothing to toggle")
+        exit(1)
+
+    has_local = "local" in source.keys()
+
+    if not has_local:
+        notifications = {
+            "notifications": [
+                {
+                    "id": "toggle-local",
+                    "title": "Use Local",
+                    "message": "Set trunk.yaml to use local plugin code",
+                    "commands": [{"run": "trunk run toggle-local -- --local"}],
+                }
+            ]
+        }
+    else:
+        notifications = {
+            "notifications": [
+                {
+                    "id": "toggle-local",
+                    "title": "Use Remote",
+                    "message": "Set trunk.yaml to use remote plugin code",
+                    "commands": [{"run": "trunk run toggle-local -- --remote"}],
+                }
+            ]
+        }
+    output = yaml.dump(notifications, sort_keys=False)
+    print(output)
     exit(0)
 
 
