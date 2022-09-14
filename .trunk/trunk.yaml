@@ -48,3 +48,4 @@ actions:
     - git-lfs
     - toggle-local
     - trunk-fmt-pre-commit
+    - trunk-check-pre-push
