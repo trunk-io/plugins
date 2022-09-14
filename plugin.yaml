@@ -15,10 +15,6 @@ actions:
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
 
-
-
-
-
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there

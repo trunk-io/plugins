@@ -23,6 +23,7 @@ def get_config(workspace):
 def cli():
     pass
 
+
 @cli.command()
 @click.argument("workspace")
 def notify(workspace):
