@@ -17,6 +17,40 @@ actions:
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
 
+    - id: trunk-announce
+      display_name: Trunk Announce
+      description: Git hook for displaying commits tagged with '/trunk announce'
+      run: trunk show-announcements "${hook}" "${@}"
+      triggers:
+        - git_hooks: [post-checkout, post-merge, pre-rebase]
+      notify_on_error: false
+
+    - id: trunk-cache-prune
+      display_name: Trunk Cache Prune
+      description: Periodically prune cached trunk files that are no longer needed
+      triggers:
+        - schedule: 24h
+      run: trunk cache prune
+      notify_on_error: false
+
+    - id: trunk-fmt-pre-commit
+      description: Run 'trunk fmt' whenever you run 'git commit'
+      display_name: Trunk Fmt Pre-Commit Hook
+      run: trunk fmt -t "git-commit" --index-file '${env.GIT_INDEX_FILE}' --upstream=HEAD
+      interactive: true
+      triggers:
+        - git_hooks: [pre-commit]
+      notify_on_error: false
+
+    - id: trunk-check-pre-push
+      display_name: Trunk Check Pre-Push Hook
+      description: Run 'trunk check' whenever you run 'git push'
+      run: trunk check -n -t git-push --commit-ref-from-pre-push '${hook_stdin_path}'
+      interactive: true
+      triggers:
+        - git_hooks: [pre-push]
+      notify_on_error: false
+
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
