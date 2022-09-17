@@ -51,6 +51,12 @@ actions:
         - git_hooks: [pre-push]
       notify_on_error: false
 
+    - id: buf-gen
+      display_name: Buf generate
+      description: Run 'buf generate' anytime a .proto file changes. Must have a buf.work.yaml to work properly.
+      run: buf generate
+      triggers:
+        - files: ["**/*.proto"]
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
