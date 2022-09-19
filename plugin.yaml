@@ -1,13 +1,15 @@
 version: 0.1
 required_trunk_version: ">=0.17.0-beta.7"
+
 actions:
   definitions:
     - id: commitlint
       runtime: node
-      packages_file: "actions/commitlint/package.json"
+      packages_file: actions/commitlint/package.json
       run: commitlint --edit ${1}
       triggers:
         - git_hooks: [commit-msg]
+
     - id: git-lfs
       display_name: Git LFS
       description: Git LFS hooks
@@ -15,6 +17,43 @@ actions:
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
 
+<<<<<<< HEAD
+=======
+    - id: trunk-announce
+      display_name: Trunk Announce
+      description: Git hook for displaying commits tagged with '/trunk announce'
+      run: trunk show-announcements "${hook}" "${@}"
+      triggers:
+        - git_hooks: [post-checkout, post-merge, pre-rebase]
+      notify_on_error: false
+
+    - id: trunk-cache-prune
+      display_name: Trunk Cache Prune
+      description: Periodically prune cached trunk files that are no longer needed
+      triggers:
+        - schedule: 24h
+      run: trunk cache prune
+      notify_on_error: false
+
+    - id: trunk-fmt-pre-commit
+      description: Run 'trunk fmt' whenever you run 'git commit'
+      display_name: Trunk Fmt Pre-Commit Hook
+      run: trunk fmt -t "git-commit" --index-file '${env.GIT_INDEX_FILE}' --upstream=HEAD
+      interactive: true
+      triggers:
+        - git_hooks: [pre-commit]
+      notify_on_error: false
+
+    - id: trunk-check-pre-push
+      display_name: Trunk Check Pre-Push Hook
+      description: Run 'trunk check' whenever you run 'git push'
+      run: trunk check -n -t git-push --commit-ref-from-pre-push '${hook_stdin_path}'
+      interactive: true
+      triggers:
+        - git_hooks: [pre-push]
+      notify_on_error: false
+
+>>>>>>> main
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
