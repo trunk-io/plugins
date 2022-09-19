@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 0.17.0-beta.7
+  version: 0.17.0-beta.13
 runtimes:
   enabled:
     - go@1.18.3
@@ -11,6 +11,7 @@ plugins:
     - id: trunk
       ref: v0.0.4
       uri: https://github.com/trunk-io/plugins
+      local: /home/eli/Github/plugins
 lint:
   enabled:
     - cspell@6.8.2
