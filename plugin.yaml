@@ -17,8 +17,6 @@ actions:
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
 
-<<<<<<< HEAD
-=======
     - id: trunk-announce
       display_name: Trunk Announce
       description: Git hook for displaying commits tagged with '/trunk announce'
@@ -53,7 +51,6 @@ actions:
         - git_hooks: [pre-push]
       notify_on_error: false
 
->>>>>>> main
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there
