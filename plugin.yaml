@@ -6,7 +6,7 @@ actions:
     - id: commitlint
       runtime: node
       packages_file: actions/commitlint/package.json
-      run: commitlint --edit ${1}
+        run: commitlint --edit ${1}
       triggers:
         - git_hooks: [commit-msg]
 
