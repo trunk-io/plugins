@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 0.17.0-beta.13
+  version: 0.17.0-beta.17
 runtimes:
   enabled:
     - go@1.18.3
@@ -11,12 +11,11 @@ plugins:
     - id: trunk
       ref: v0.0.4
       uri: https://github.com/trunk-io/plugins
-
 lint:
   enabled:
     - actionlint@1.6.15
     - black@22.8.0
-    - cspell@6.8.2
+    - cspell@6.10.1
     - flake8@5.0.4:
         packages:
           - flake8-bugbear@22.9.11
@@ -25,7 +24,7 @@ lint:
     - isort@5.10.1
     - markdownlint@0.32.2
     - prettier@2.7.1
-    - semgrep@0.112.1
+    - semgrep@0.114.0
     - shellcheck@0.8.0
     - shfmt@3.5.0
     - yamllint@1.28.0
@@ -48,9 +47,10 @@ actions:
             - lint/**
           run: ${plugin}/tools/toggle-local/toggle notify ${workspace}
   enabled:
+    - trunk-announce
+    - trunk-cache-prune
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
+    - trunk-upgrade-available
     - git-lfs
     - toggle-local
-    - trunk-fmt-pre-commit
-    - trunk-check-pre-push
