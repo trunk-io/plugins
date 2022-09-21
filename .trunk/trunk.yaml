@@ -30,6 +30,8 @@ lint:
     - yamllint@1.28.0
 actions:
   enabled:
+    - trunk-cache-prune
+    - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - git-lfs
