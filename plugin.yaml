@@ -1,5 +1,5 @@
 version: 0.1
-required_trunk_version: ">=0.17.0-beta.7"
+required_trunk_version: ">=0.18.1-beta"
 
 actions:
   definitions:

@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 0.17.0-beta.8
+  version: 0.18.0-beta
 runtimes:
   enabled:
     - go@1.18.3
@@ -9,8 +9,9 @@ runtimes:
 plugins:
   sources:
     - id: trunk
-      ref: v0.0.4
+      ref: HEAD
       uri: https://github.com/trunk-io/plugins
+      # local: /home/eli/Github/plugins
 lint:
   enabled:
     - actionlint@1.6.15
@@ -30,6 +31,8 @@ lint:
     - yamllint@1.28.0
 actions:
   enabled:
+    - trunk-cache-prune
+    - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - git-lfs
