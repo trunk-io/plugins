@@ -80,7 +80,9 @@ def flip(workspace, local, remote, pre_push, dry_run):
     path = workspace + "/.trunk/trunk.yaml"
     with open(path, "r+") as trunk_file:
         yaml = YAML()
+        yaml.indent(mapping=2, offset = 2, sequence=4)
         config = yaml.load(trunk_file)  # , Loader=YAML.FullLoader)
+
         source = get_source(config, "trunk")
         if source is None:
             print("'trunk' repo not found in plugins list. nothing to toggle")
