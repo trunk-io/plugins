@@ -36,9 +36,10 @@ trunk check enable {linter}
 
 ### Enabling a supported action
 
-| action     | description                                                                                                                              |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format. |
+| action     | description                                                                                                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format.                                               |
+| buf-gen    | generates files from `.proto` files using [`buf`](https://buf.build) whenever protobuf files change. **Must** have a `buf.gen.yaml` and `buf.work.yaml` (if running from project root) |
 
 ```bash
 trunk actions enable {action}
