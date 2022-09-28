@@ -3,7 +3,8 @@
 import io
 
 import click
-from ruamel.yaml import YAML
+import yaml
+# from ruamel.yaml import YAML
 
 
 def get_source(config, id):
