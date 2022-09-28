@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+import io
+
 import click
-import yaml
+from ruamel.yaml import YAML
 
 
 def get_source(config, id):
@@ -15,7 +17,7 @@ def get_source(config, id):
 def get_config(workspace):
     path = workspace + "/.trunk/trunk.yaml"
     with open(path, "r+") as trunk_file:
-        config = yaml.load(trunk_file, Loader=yaml.FullLoader)
+        config = YAML.load(trunk_file, Loader=YAML.FullLoader)
         return config
 
 
@@ -57,7 +59,7 @@ def notify(workspace):
                 }
             ]
         }
-    output = yaml.dump(notifications, sort_keys=False)
+    output = YAML.dump(notifications, sort_keys=False)
     print(output)
     exit(0)
 
@@ -77,7 +79,8 @@ def flip(workspace, local, remote, pre_push, dry_run):
 
     path = workspace + "/.trunk/trunk.yaml"
     with open(path, "r+") as trunk_file:
-        config = yaml.load(trunk_file, Loader=yaml.FullLoader)
+        yaml = YAML()
+        config = yaml.load(trunk_file)  # , Loader=YAML.FullLoader)
         source = get_source(config, "trunk")
         if source is None:
             print("'trunk' repo not found in plugins list. nothing to toggle")
@@ -100,7 +103,9 @@ def flip(workspace, local, remote, pre_push, dry_run):
             del source["local"]
             modified = True
 
-        output = yaml.dump(config, sort_keys=False)
+        buf = io.BytesIO()
+        yaml.dump(config, buf)
+        output = buf.getvalue().decode()
         if dry_run:
             if modified:
                 print(output)
