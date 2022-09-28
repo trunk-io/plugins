@@ -3,6 +3,7 @@
 import click
 import yaml
 
+
 # Properly indent the dumped yaml output
 class IndentedDumper(yaml.Dumper):
     def increase_indent(self, flow=False, *args, **kwargs):
