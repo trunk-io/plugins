@@ -10,4 +10,6 @@ sqlfluff
 trunkio
 elif
 pyyaml
+proto
+protobuf
 runtimes

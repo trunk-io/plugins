@@ -1,12 +1,11 @@
 version: 0.1
-required_trunk_version: ">=0.17.0-beta.7"
-
+required_trunk_version: ">0.17.0"
 actions:
   definitions:
     - id: commitlint
       runtime: node
       packages_file: actions/commitlint/package.json
-        run: commitlint --edit ${1}
+      run: commitlint --edit ${1}
       triggers:
         - git_hooks: [commit-msg]
 
@@ -51,6 +50,12 @@ actions:
         - git_hooks: [pre-push]
       notify_on_error: false
 
+    - id: buf-gen
+      display_name: Buf generate
+      description: Run 'buf generate' anytime a .proto file changes. Must have a buf.work.yaml to work properly.
+      run: buf generate
+      triggers:
+        - files: ["**/*.proto"]
 lint:
   definitions:
     # Inserts "#pragma once" if it wasn't there

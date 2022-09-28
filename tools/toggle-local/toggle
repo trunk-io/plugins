@@ -41,7 +41,7 @@ def notify(workspace):
                 {
                     "id": "toggle-local",
                     "title": "Use Local",
-                    "message": "Set trunk.yaml to use local plugin code",
+                    "message": "Set trunk.yaml to use local plugin code\n",
                     "commands": [{"run": "trunk run toggle-local -- --local"}],
                 }
             ]
