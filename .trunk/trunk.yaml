@@ -47,7 +47,6 @@ actions:
             - lint/**
           run: ${plugin}/tools/toggle-local/toggle notify ${workspace}
   enabled:
-    - trunk-announce
     - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
