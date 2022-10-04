@@ -35,19 +35,19 @@ actions:
       display_name: Toggle Local
       description: Toggle plugins repo between local and remote ref automatically
       packages_file: tools/toggle-local/requirements.txt
-      run: ${plugin}/tools/toggle-local/toggle flip ${workspace} ${@}
+      run: ${workspace}/tools/toggle-local/toggle flip ${workspace} ${@}
       output_type: notification_v1
       triggers:
         - git_hooks:
             - pre-push
-          run: ${plugin}/tools/toggle-local/toggle flip ${workspace} --remote --pre-push
+          run: ${workspace}/tools/toggle-local/toggle flip ${workspace} --remote --pre-push
         - files:
             - plugin.yaml
             - actions/**
             - lint/**
-          run: ${plugin}/tools/toggle-local/toggle notify ${workspace}
+          run: ${workspace}/tools/toggle-local/toggle notify ${workspace}
   enabled:
-    # - toggle-local
+    - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
     - trunk-check-pre-push
