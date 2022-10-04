@@ -108,6 +108,7 @@ lint:
           read_output_from: stdout
           success_codes: [0, 1]
           cache_results: false
+
       direct_configs:
         - .cspell.json
         - cspell.json

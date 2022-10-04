@@ -8,3 +8,10 @@ scrollback
 SCRIPTDIR
 sqlfluff
 trunkio
+elif
+pyyaml
+proto
+protobuf
+runtimes
+indentless
+kwargs
