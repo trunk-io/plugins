@@ -13,14 +13,14 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
-    - actionlint@1.6.15
+    - actionlint@1.6.20
     - black@22.8.0
     - cspell@6.12.0
     - flake8@5.0.4:
         packages:
           - flake8-bugbear@22.9.23
     - git-diff-check@SYSTEM
-    - gitleaks@8.8.12
+    - gitleaks@8.13.0
     - isort@5.10.1
     - markdownlint@0.32.2
     - prettier@2.7.1
@@ -29,7 +29,25 @@ lint:
     - shfmt@3.5.0
     - yamllint@1.28.0
 actions:
+  definitions:
+    - id: toggle-local
+      runtime: python
+      display_name: Toggle Local
+      description: Toggle plugins repo between local and remote ref automatically
+      packages_file: tools/toggle-local/requirements.txt
+      run: ${plugin}/tools/toggle-local/toggle flip ${workspace} ${@}
+      output_type: notification_v1
+      triggers:
+        - git_hooks:
+            - pre-push
+          run: ${plugin}/tools/toggle-local/toggle flip ${workspace} --remote --pre-push
+        - files:
+            - plugin.yaml
+            - actions/**
+            - lint/**
+          run: ${plugin}/tools/toggle-local/toggle notify ${workspace}
   enabled:
+    - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
     - trunk-check-pre-push
