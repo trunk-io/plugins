@@ -9,3 +9,5 @@ SCRIPTDIR
 sqlfluff
 trunkio
 runtimes
+proto
+protobuf
