@@ -3,8 +3,6 @@
 import json
 import sys
 
-# somehting oes here
-
 
 def to_result_sarif(
     path: str, line_number: int, column_number: int, rule_id: str, message: str
