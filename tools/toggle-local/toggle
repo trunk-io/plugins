@@ -77,7 +77,7 @@ def notify(workspace):
 )
 @click.option("--dry-run", is_flag=True, help="Dry run of toggle operation")
 def flip(workspace, local, remote, pre_push, dry_run):
-    if local is True and remote is True:
+    if local and remote:
         print("Cannot set both 'remote' and 'local' to true")
         exit(1)
 
@@ -94,7 +94,7 @@ def flip(workspace, local, remote, pre_push, dry_run):
             set_local = True
         elif remote:
             set_local = False
-        elif local is False and remote is False:
+        elif not local and not remote:
             # If the local key exists remove it else add it
             set_local = not has_local
 
