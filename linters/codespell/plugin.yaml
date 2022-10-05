@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: codespell
+      files: [ALL]
+      runtime: python
+      package: codespell
+      commands:
+        - output: sarif
+          run: codespell ${target}
+          success_codes: [0, 65]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${plugin}/linters/codespell/codespell_to_sarif.py
+          batch: true
+          cache_results: true
