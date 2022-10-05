@@ -1,0 +1,9 @@
+version: 0.1
+actions:
+  definitions:
+    - id: git-lfs
+      display_name: Git LFS
+      description: Git LFS hooks
+      run: git lfs "${hook}" "${@}"
+      triggers:
+        - git_hooks: [post-checkout, post-commit, post-merge, pre-push]

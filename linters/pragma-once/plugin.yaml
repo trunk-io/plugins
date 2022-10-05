@@ -1,0 +1,12 @@
+version: 0.1
+lint:
+  definitions:
+    # Inserts "#pragma once" if it wasn't there
+    - name: pragma-once
+      files: [c-header, c++-header]
+      commands:
+        - output: rewrite
+          run: ${plugin}/linters/pragma-once/fix.sh ${target}
+          formatter: true
+          batch: false
+          success_codes: [0]
