@@ -1,0 +1,9 @@
+version: 0.1
+actions:
+  definitions:
+    - id: buf-gen
+      display_name: Buf generate
+      description: Run 'buf generate' anytime a .proto file changes. Must have a buf.work.yaml to work properly.
+      run: buf generate
+      triggers:
+        - files: ["**/*.proto"]
