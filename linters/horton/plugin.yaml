@@ -1,0 +1,20 @@
+version: 0.1
+lint:
+  downloads:
+    - name: horton
+      version: 0.0.0-sam.1
+      downloads:
+        - os: linux
+          cpu: x86_64
+          url: https://github.com/trunk-io/horton/releases/download/${version}/horton
+
+
+  definitions:
+    - name: horton
+      files: [ALL]
+      download: horton
+      commands:
+        - output: sarif
+          run: horton --upstream ${upstream}
+          success_codes: [0]
+          read_output_from: stdout
