@@ -5,6 +5,7 @@
     "trunk": "trunk"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^17.1.0",
     "@trunkio/launcher": "^1.1.1"
   },
   "repository": {

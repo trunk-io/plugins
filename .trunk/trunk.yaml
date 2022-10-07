@@ -47,6 +47,7 @@ actions:
             - lint/**
           run: tools/toggle-local/toggle notify ${workspace}
   enabled:
+    - commitlint
     - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
