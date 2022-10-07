@@ -6,7 +6,7 @@ plugins:
     - id: trunk
       ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
-      local: /home/sam/plugins
+      local: /home/sam/plugins  # DO NOT LAND
 runtimes:
   enabled:
     - go@1.18.3
