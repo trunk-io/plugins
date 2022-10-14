@@ -1,0 +1,16 @@
+version: 0.1
+lint:
+  definitions:
+    - name: npm-audit
+      runtime: node
+      commands:
+        - output: sarif
+          run: npm audit fix --dry-run --json
+          success_codes: [0]
+          read_output_from: stdout
+      environment:
+        - name: PATH
+          list:
+            [
+              "/home/sam/.cache/trunk/linters/node/16.14.2-793f8dc0dd107c4610e5685da6d88dbf/bin/",
+            ]
