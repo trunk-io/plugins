@@ -6,6 +6,7 @@ plugins:
     - id: trunk
       ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
+      local: /home/eli/Github/plugins
 runtimes:
   enabled:
     - go@1.18.3
@@ -13,6 +14,7 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
+    - sqlfluff@1.3.2
     - actionlint@1.6.20
     - black@22.8.0
     - cspell@6.12.0

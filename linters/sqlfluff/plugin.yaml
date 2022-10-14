@@ -5,9 +5,12 @@ lint:
       files: [sql]
       runtime: python
       package: sqlfluff
+      direct_configs:
+        - .sqlfluff
       commands:
-        - output: sarif
+        - name: lint
           run: sqlfluff lint ${target} --format json --dialect ansi --nofail
+          output: sarif
           success_codes: [0]
           read_output_from: stdout
           parser:
