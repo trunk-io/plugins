@@ -1,0 +1,27 @@
+version: 0.1
+lint:
+  downloads:
+    - name: trivy
+      downloads:
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_Linux-${cpu}.tar.gz
+          os: linux
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
+          os: linux
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM64
+
+  definitions:
+    - name: trivy
+      download: trivy
+      commands:
+        - output: sarif
+          run: trivy fs ${target} --format sarif --no-progress --cache-dir ${shared_cachedir}
+          success_codes: [0]
+          read_output_from: stdout
+      environment:
+        - name: PATH
+          list: ["${linter}"]
