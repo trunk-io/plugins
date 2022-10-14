@@ -13,3 +13,9 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
+        - name: fix
+          run: sqlfluff fix ${target} --dialect ansi --disable_progress_bar
+          output: rewrite
+          formatter: true
+          in_place: true
+          success_codes: [0]
