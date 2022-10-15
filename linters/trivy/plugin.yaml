@@ -9,7 +9,7 @@ lint:
             x86_64: 64bit
             arm_64: ARM
         - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
-          os: linux
+          os: macos
           cpu:
             x86_64: 64bit
             arm_64: ARM64
