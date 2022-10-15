@@ -3,9 +3,10 @@ cli:
   version: 0.18.1-beta.3
 plugins:
   sources:
-    - id: trunk
-      ref: v0.0.5
-      uri: https://github.com/trunk-io/plugins
+    - id: trunk03
+      #ref: v0.0.5
+      #uri: https://github.com/trunk-io/plugins
+      local: /home/sam/plugins
 runtimes:
   enabled:
     - go@1.18.3
@@ -13,6 +14,7 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
+    - npm-audit
     - actionlint@1.6.20
     - black@22.8.0
     - cspell@6.12.0
@@ -28,6 +30,10 @@ lint:
     - shellcheck@0.8.0
     - shfmt@3.5.0
     - yamllint@1.28.0
+  triggers:
+    - linters: [npm-audit]
+      paths: ["**"]
+      targets: [.]
 actions:
   definitions:
     - id: toggle-local

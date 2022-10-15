@@ -4,6 +4,9 @@
   "scripts": {
     "trunk": "trunk"
   },
+  "dependencies": {
+    "webpack-dev-server": "3.10.3"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",
     "@trunkio/launcher": "^1.1.1"
