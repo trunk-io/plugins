@@ -15,3 +15,10 @@ lint:
       comments:
         - dashes-inline
         - slashes-block
+
+    - name: sql-j2
+      extensions:
+        - sql.j2
+      comments:
+        - dashes-inline
+        - slashes-block

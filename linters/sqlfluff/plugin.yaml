@@ -2,7 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: sqlfluff
-      files: [sql]
+      files: [sql, sql-j2, dml, ddl]
       runtime: python
       package: sqlfluff
       direct_configs:
@@ -16,14 +16,8 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
-        - name: fix
-          run: sqlfluff fix ${target} --dialect ansi --disable_progress_bar
-          output: rewrite
-          formatter: true
-          in_place: true
-          success_codes: [0]
     - name: sqlfluff-fix
-      files: [sql, dml, ddl]
+      files: [sql, sql-j2, dml, ddl]
       runtime: python
       package: sqlfluff
       direct_configs:

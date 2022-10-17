@@ -1,4 +1,17 @@
-SET SQL_LOG_BIN=0;
-CREATE USER IF NOT EXISTS '{{ my_user }}'@'%' IDENTIFIED BY '{{ my_pass }}' REQUIRE SSL;
-SET SQL_LOG_BIN=1;
-CHANGE MAIN TO MAIN_USER='{{ my_user }}', MAIN_PASSWORD='{{ my_pass }}' FOR CHANNEL 'where_i_live';
+{% macro foo(
+    bar,
+    zed
+) %}
+
+SELECT
+    colA,
+    colB,
+    COUNT(*) AS num,
+    SUM(num) OVER (
+        PARTITION BY {{ bar }}
+        ORDER BY {{ zed }}
+    ) AS function_cool
+FROM tblA
+GROUP BY 1, 2
+
+{% endmacro %}
