@@ -22,3 +22,16 @@ lint:
           formatter: true
           in_place: true
           success_codes: [0]
+    - name: sqlfluff-fix
+      files: [sql, dml, ddl]
+      runtime: python
+      package: sqlfluff
+      direct_configs:
+        - .sqlfluff
+      commands:
+        - name: fix
+          run: sqlfluff fix ${target} --dialect ansi --disable_progress_bar --force
+          output: rewrite
+          formatter: true
+          in_place: true
+          success_codes: [0]
