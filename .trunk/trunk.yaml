@@ -6,7 +6,6 @@ plugins:
     - id: trunk
       ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
-      local: /home/eli/Github/plugins
 runtimes:
   enabled:
     - go@1.18.3
@@ -50,6 +49,9 @@ actions:
             - actions/**
             - lint/**
           run: tools/toggle-local/toggle notify ${workspace}
+
+
+
   enabled:
     - commitlint
     - toggle-local
