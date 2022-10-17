@@ -1,0 +1,14 @@
+version: 0.1
+lint:
+  definitions:
+    - name: sqlfmt
+      files: [sql]
+      runtime: python
+      package: shandy-sqlfmt
+      commands:
+        - output: rewrite
+          run: sqlfmt ${target}
+          success_codes: [0]
+          read_output_from: stdout
+          formatter: true
+          in_place: true
