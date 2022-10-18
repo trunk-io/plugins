@@ -18,3 +18,4 @@ kwargs
 vuln
 trivy
 cachedir
+sqlfmt
