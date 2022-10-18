@@ -16,3 +16,5 @@ runtimes
 indentless
 kwargs
 vuln
+trivy
+cachedir
