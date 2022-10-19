@@ -4,7 +4,7 @@ actions:
     - id: go-mod-tidy
       display_name: Go Mod Tidy
       description: Runs go mod tidy when changes are detected to go.mod.
-      run: ./go-mod-tidy-vendor.sh
-      import_to_global: true
+      runtime: go
+      run: mod tidy
       triggers:
         - files: [go.mod]
