@@ -13,7 +13,6 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
-    - npm-audit
     - actionlint@1.6.20
     - black@22.8.0
     - cspell@6.12.0
