@@ -3,10 +3,9 @@ cli:
   version: 0.18.1-beta.7
 plugins:
   sources:
-    - id: trunk07
-      #ref: v0.0.5
-      #uri: https://github.com/trunk-io/plugins
-      local: /home/sam/plugins
+    - id: trunk
+      ref: v0.0.5
+      uri: https://github.com/trunk-io/plugins
 runtimes:
   enabled:
     - go@1.18.3
