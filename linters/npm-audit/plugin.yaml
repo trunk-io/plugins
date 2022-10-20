@@ -6,7 +6,7 @@ lint:
       commands:
         - output: sarif
           run: npm audit fix --dry-run --json
-          success_codes: [0]
+          success_codes: [0, 1]
           read_output_from: stdout
           parser:
             runtime: node

@@ -46,31 +46,47 @@ let fs = require("fs");
 //
 //     print(json.dumps(sarif, indent=2))
 
+let to_diagnostic_level = (severity) => {
+  return (
+    {
+      high: "error",
+      moderate: "warning",
+      low: "info",
+    }[severity] || "error"
+  );
+};
+
+let to_message = (vuln) => {
+  if (Object.hasOwn(vuln, "fixAvailable")) {
+    //return `Upgrade ${vuln.fixAvailable.name} to ${vuln.fixAvailable.version}`;
+  }
+  if (typeof vuln.via[0] === "object") {
+    return `${vuln.name}: ${vuln.via[0].title}`;
+  }
+  return `${vuln.name} because ${vuln.via[0]} is vulnerable`;
+};
+
 let to_result_sarif = (vuln) => {
-  try {
-    return {
-      level: vuln.severity,
-      locations: [
-        {
-          physicalLocation: {
-            artifactLocation: {
-              uri: "package.json",
-            },
-            region: {
-              startColumn: 0,
-              startLine: 0,
-            },
+  return {
+    level: to_diagnostic_level(vuln.severity),
+    locations: [
+      {
+        physicalLocation: {
+          artifactLocation: {
+            uri: ".",
+          },
+          region: {
+            startColumn: 0,
+            startLine: 0,
           },
         },
-      ],
-      message: {
-        text: vuln.via[0].title,
       },
-      ruleId: "vulnerability",
-    };
-  } catch (e) {
-    return null;
-  }
+    ],
+    message: {
+      text: to_message(vuln),
+    },
+    ruleId: "vulnerability",
+  };
 };
 
 let main = () => {
@@ -78,10 +94,10 @@ let main = () => {
 
   let results = [];
 
-  let vulns = npm_audit["audit"]["vulnerabilities"];
+  let vulns = npm_audit.audit.vulnerabilities;
   for (const vuln in vulns) {
     let vuln_sarif = to_result_sarif(vulns[vuln]);
-    if (vuln_sarif) {
+    if (vuln_sarif !== null) {
       results.push(vuln_sarif);
     }
   }
