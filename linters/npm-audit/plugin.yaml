@@ -13,7 +13,7 @@ lint:
             run: ${plugin}/linters/npm-audit/json_to_sarif.js
       environment:
         - name: PATH
-          list:
-            [
-              "/home/sam/.cache/trunk/linters/node/16.14.2-793f8dc0dd107c4610e5685da6d88dbf/bin/",
+          list: [
+              # this should eventually become ${runtime}/bin, or even be removed: not sure why runtime_environment isn't coming through
+              /home/sam/.cache/trunk/linters/node/16.14.2-793f8dc0dd107c4610e5685da6d88dbf/bin/,
             ]
