@@ -14,8 +14,8 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
-    - sqlfluff@1.3.3
-    - sqlfluff-fix@1.3.3
+    - sqlfluff@1.3.2
+    - sqlfluff-fix@1.3.2
     - actionlint@1.6.21
     - black@22.10.0
     - cspell@6.12.0
