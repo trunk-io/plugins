@@ -50,7 +50,7 @@ actions:
     - id: sort-dictionary
       display_name: sort `cspell-words`
       description: sort cspell dictionary
-      run: bash -c "sort -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
+      run: bash -c "sort -u -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
       triggers:
         - files:
             - .trunk/cspell-words.txt
