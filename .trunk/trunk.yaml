@@ -55,6 +55,7 @@ actions:
         - files:
             - .trunk/cspell-words.txt
   enabled:
+    - sort-dictionary
     - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
