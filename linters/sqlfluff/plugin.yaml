@@ -16,6 +16,7 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
+
     - name: sqlfluff-fix
       files: [sql, sql-j2, dml, ddl]
       runtime: python

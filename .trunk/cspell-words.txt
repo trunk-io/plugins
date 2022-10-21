@@ -4,6 +4,7 @@ commitlint
 eamodio
 elif
 endmacro
+<<<<<<< HEAD
 indentless
 kwargs
 markdownlint
@@ -20,3 +21,15 @@ sqlfmt
 trivy
 trunkio
 vuln
+=======
+pyyaml
+proto
+protobuf
+runtimes
+indentless
+kwargs
+vuln
+trivy
+cachedir
+sqlfmt
+>>>>>>> main
