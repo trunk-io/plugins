@@ -15,3 +15,7 @@ protobuf
 runtimes
 indentless
 kwargs
+vuln
+trivy
+cachedir
+sqlfmt
