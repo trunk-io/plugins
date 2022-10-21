@@ -5,6 +5,6 @@ actions:
       display_name: Go Mod Tidy
       description: Runs go mod tidy when changes are detected to go.mod.
       runtime: go
-      run: mod tidy
+      run: ${plugin}/actions/go-mod-tidy/go-mod-tidy.sh
       triggers:
         - files: [go.mod]
