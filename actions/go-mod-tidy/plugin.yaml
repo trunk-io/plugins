@@ -1,0 +1,10 @@
+version: 0.1
+actions:
+  definitions:
+    - id: go-mod-tidy
+      display_name: Go Mod Tidy
+      description: Runs go mod tidy when changes are detected to go.mod.
+      runtime: go
+      run: go mod tidy
+      triggers:
+        - files: [go.mod]
