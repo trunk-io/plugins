@@ -48,7 +48,7 @@ actions:
             - lint/**
           run: tools/toggle-local/toggle notify ${workspace}
     - id: sort-dictionary
-      display_name: sort cspell-words
+      display_name: sort `cspell-words`
       description: sort cspell dictionary
       run: bash -c "sort -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
       triggers:
