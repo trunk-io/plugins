@@ -4,6 +4,7 @@ actions:
     - id: go-mod-tidy-vendor
       display_name: Go Mod Tidy & Vendor
       description: Runs go mod tidy followed by go mod vendor.
+      runtime: go
       run: ${plugin}/actions/go-mod-tidy-vendor/go-mod-tidy-vendor.sh
       triggers:
         - files: [go.mod]
