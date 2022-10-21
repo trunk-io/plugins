@@ -51,7 +51,6 @@ actions:
       display_name: sort cspell-words
       description: sort cspell dictionary
       run: bash -c "sort -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
-      output_type: notification_v1
       triggers:
         - files:
             - "**/cspell-words.txt"
