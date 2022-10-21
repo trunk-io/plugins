@@ -1,11 +1,12 @@
 version: 0.1
 cli:
-  version: 0.18.1-beta.6
+  version: 1.0.1
 plugins:
   sources:
     - id: trunk
       ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
+      local: /home/eli/Github/plugins
 runtimes:
   enabled:
     - go@1.18.3
@@ -13,9 +14,7 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
-    - sqlfluff2@1.3.2
     - sqlfluff@1.3.3
-    - sqlfluff-fix@1.3.2
     - actionlint@1.6.21
     - black@22.10.0
     - cspell@6.12.0
@@ -27,7 +26,7 @@ lint:
     - isort@5.10.1
     - markdownlint@0.32.2
     - prettier@2.7.1
-    - semgrep@0.117.0
+    - semgrep@0.118.0
     - shellcheck@0.8.0
     - shfmt@3.5.0
     - yamllint@1.28.0
@@ -49,10 +48,8 @@ actions:
             - actions/**
             - lint/**
           run: tools/toggle-local/toggle notify ${workspace}
-
-
-
   enabled:
+    - trunk-announce
     - commitlint
     - toggle-local
     - trunk-cache-prune
