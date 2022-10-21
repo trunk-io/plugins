@@ -1,2 +1,24 @@
 version: 0.1
 required_trunk_version: ">0.17.0"
+lint:
+  files:
+    - name: dml
+      extensions:
+        - dml
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: ddl
+      extensions:
+        - ddl
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: sql-j2
+      extensions:
+        - sql.j2
+      comments:
+        - dashes-inline
+        - slashes-block

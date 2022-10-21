@@ -9,6 +9,7 @@ SCRIPTDIR
 sqlfluff
 trunkio
 elif
+endmacro
 pyyaml
 proto
 protobuf

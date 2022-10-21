@@ -58,7 +58,7 @@ def notify(workspace):
                 {
                     "id": "toggle-local",
                     "title": "Use Remote",
-                    "message": "Set trunk.yaml to use remote plugin code",
+                    "message": "Set trunk.yaml to use remote plugin code\n",
                     "commands": [{"run": "trunk run toggle-local -- --remote"}],
                 }
             ]

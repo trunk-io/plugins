@@ -1,0 +1,17 @@
+{% macro foo(
+    bar,
+    zed
+) %}
+
+SELECT
+    colA,
+    colB,
+    COUNT(*) AS num,
+    SUM(num) OVER (
+        PARTITION BY {{ bar }}
+        ORDER BY {{ zed }}
+    ) AS function_cool
+FROM tblA
+GROUP BY 1, 2
+
+{% endmacro %}

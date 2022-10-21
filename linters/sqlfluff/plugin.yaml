@@ -2,14 +2,31 @@ version: 0.1
 lint:
   definitions:
     - name: sqlfluff
-      files: [sql]
+      files: [sql, sql-j2, dml, ddl]
       runtime: python
       package: sqlfluff
+      direct_configs:
+        - .sqlfluff
       commands:
-        - output: sarif
+        - name: lint
           run: sqlfluff lint ${target} --format json --dialect ansi --nofail
+          output: sarif
           success_codes: [0]
           read_output_from: stdout
           parser:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
+
+    - name: sqlfluff-fix
+      files: [sql, sql-j2, dml, ddl]
+      runtime: python
+      package: sqlfluff
+      direct_configs:
+        - .sqlfluff
+      commands:
+        - name: fix
+          run: sqlfluff fix ${target} --dialect ansi --disable_progress_bar --force
+          output: rewrite
+          formatter: true
+          in_place: true
+          success_codes: [0]
