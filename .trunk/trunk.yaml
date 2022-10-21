@@ -53,7 +53,7 @@ actions:
       run: bash -c "sort -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
       triggers:
         - files:
-            - "**/cspell-words.txt"
+            - ".trunk/cspell-words.txt"
   enabled:
     - sort-dictionary
     - toggle-local
