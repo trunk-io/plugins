@@ -47,7 +47,15 @@ actions:
             - actions/**
             - lint/**
           run: tools/toggle-local/toggle notify ${workspace}
+    - id: sort-dictionary
+      display_name: sort `cspell-words`
+      description: sort cspell dictionary
+      run: bash -c "sort -u -f -o ${workspace}/.trunk/cspell-words.txt ${workspace}/.trunk/cspell-words.txt"
+      triggers:
+        - files:
+            - .trunk/cspell-words.txt
   enabled:
+    - sort-dictionary
     - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
