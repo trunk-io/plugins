@@ -40,10 +40,10 @@ trunk check enable {linter}
 
 ### Enabling a supported action
 
-| action     | description                                                                                                                              |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format. |
-| buf-gen    | [`buf-gen`](actions/buf/readme.md)                                                                                                       |
+| action                                                               | description                                                |
+| -------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [`commitlint`](https://github.com/conventional-changelog/commitlint) | Enforce conventional commit message for your local commits |
+| [`buf-gen`](actions/buf/readme.md)                                   | Run `buf` on .proto file change                            |
 
 ```bash
 trunk actions enable {action}
