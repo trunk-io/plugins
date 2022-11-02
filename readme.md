@@ -21,17 +21,18 @@
 
 ### Welcome
 
-This repository is the official, managed repository for integration actions and linters into trunk. It is imported by default in all trunk configurations (since v0.17.0-beta).
+This repository is the official, managed repository for integration actions and linters into trunk. It is imported by default in all trunk configurations.
 
 By consolidating and sharing integrations for linters/actions into a single repository we hope to make the discovery, management and integration of new tools as straight-forward as possible.
 
 ### Enabling a supported linter
 
-| language | linters               |
-| -------- | --------------------- |
-| All      | `cspell`, `codespell` |
-| C++      | pragma-once           |
-| SQL      | `sqlfluff`            |
+| language | linters                                                                                                             |
+| -------- | ------------------------------------------------------------------------------------------------------------------- |
+| All      | [cspell](https://github.com/streetsidesoftware/cspell), [codespell](https://github.com/codespell-project/codespell) |
+| C++      | [pragma-once](linters/pragma-once/readme.md)                                                                        |
+| SQL      | [sqlfluff](https://github.com/sqlfluff/sqlfluff), [sqlfmt](https://github.com/tconbeer/sqlfmt)                      |
+| Security | [nancy](https://github.com/sonatype-nexus-community/nancy), [trivy](https://github.com/aquasecurity/trivy)          |
 
 ```bash
 trunk check enable {linter}
@@ -39,10 +40,12 @@ trunk check enable {linter}
 
 ### Enabling a supported action
 
-| action     | description                                                                                                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format.                                               |
-| buf-gen    | generates files from `.proto` files using [`buf`](https://buf.build) whenever protobuf files change. **Must** have a `buf.gen.yaml` and `buf.work.yaml` (if running from project root) |
+| action                                                               | description                                                |
+| -------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [`buf-gen`](actions/buf/readme.md)                                   | run `buf` on .proto file change                            |
+| [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
+| [`go-mod-tidy`](actions/go-mod-tidy/readme.md)                       | automatically tidy go.mod file                             |
+| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/readme.md)         | automatically tidy and vendor go.mod file                  |
 
 ```bash
 trunk actions enable {action}
