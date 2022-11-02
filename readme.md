@@ -21,7 +21,7 @@
 
 ### Welcome
 
-This repository is the official, managed repository for integration actions and linters into trunk. It is imported by default in all trunk configurations (since v0.17.0-beta).
+This repository is the official, managed repository for integration actions and linters into trunk. It is imported by default in all trunk configurations.
 
 By consolidating and sharing integrations for linters/actions into a single repository we hope to make the discovery, management and integration of new tools as straight-forward as possible.
 
@@ -40,10 +40,10 @@ trunk check enable {linter}
 
 ### Enabling a supported action
 
-| action     | description                                                                                                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format.                                               |
-| buf-gen    | generates files from `.proto` files using [`buf`](https://buf.build) whenever protobuf files change. **Must** have a `buf.gen.yaml` and `buf.work.yaml` (if running from project root) |
+| action     | description                                                                                                                              |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| commitlint | [`commitlint`](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the conventional commit format. |
+| buf-gen    | [`buf-gen`](actions/buf/readme.md)                                                                                                       |
 
 ```bash
 trunk actions enable {action}
