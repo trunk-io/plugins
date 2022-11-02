@@ -27,11 +27,12 @@ By consolidating and sharing integrations for linters/actions into a single repo
 
 ### Enabling a supported linter
 
-| language | linters               |
-| -------- | --------------------- |
-| All      | `cspell`, `codespell` |
-| C++      | pragma-once           |
-| SQL      | `sqlfluff`            |
+| language | linters                                                      |
+| -------- | ------------------------------------------------------------ |
+| All      | `cspell`, `codespell`                                        |
+| C++      | pragma-once                                                  |
+| SQL      | `[sqlfluff]`(https://github.com/sqlfluff/sqlfluff)           |
+| Go       | `[nancy]`(https://github.com/sonatype-nexus-community/nancy) |
 
 ```bash
 trunk check enable {linter}
