@@ -42,8 +42,10 @@ trunk check enable {linter}
 
 | action                                                               | description                                                |
 | -------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [`commitlint`](https://github.com/conventional-changelog/commitlint) | Enforce conventional commit message for your local commits |
-| [`buf-gen`](actions/buf/readme.md)                                   | Run `buf` on .proto file change                            |
+| [`buf-gen`](actions/buf/readme.md)                                   | run `buf` on .proto file change                            |
+| [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
+| [`go-mod-tidy`](actions/go-mod-tidy/readme.md)                       | automatically tidy go.mod file                             |
+| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/readme.md)         | automatically tidy and vendor go.mod file                  |
 
 ```bash
 trunk actions enable {action}
