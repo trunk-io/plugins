@@ -2,13 +2,14 @@ version: 0.1
 lint:
   definitions:
     - name: sqlfmt
-      files: [sql]
+      files: [sql, sql-j2]
       runtime: python
       package: shandy-sqlfmt
+      extra_packages: shandy-sqlfmt[jinjafmt]
       commands:
         - output: rewrite
           run: sqlfmt ${target}
           success_codes: [0]
-          read_output_from: stdout
+          read_output_from: stderr
           formatter: true
           in_place: true
