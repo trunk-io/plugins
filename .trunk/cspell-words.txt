@@ -5,6 +5,7 @@ eamodio
 elif
 endmacro
 indentless
+jinjafmt
 kwargs
 markdownlint
 nofail
