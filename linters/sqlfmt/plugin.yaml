@@ -5,7 +5,7 @@ lint:
       files: [sql, sql-j2]
       runtime: python
       package: shandy-sqlfmt
-      extra_packages: [shandy-sqlfmt[jinjafmt]]
+      extra_packages: ["shandy-sqlfmt[jinjafmt]"]
       commands:
         - output: rewrite
           run: sqlfmt ${target}
