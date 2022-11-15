@@ -12,10 +12,11 @@ runtimes:
     - node@16.14.2
     - python@3.10.3
 lint:
+  disabled:
+    - cspell
   enabled:
     - actionlint@1.6.22
     - black@22.10.0
-    - cspell@6.13.3
     - flake8@5.0.4:
         packages:
           - flake8-bugbear@22.10.27
