@@ -22,3 +22,7 @@ lint:
       comments:
         - dashes-inline
         - slashes-block
+
+    - name: png
+      extensions:
+        - png
