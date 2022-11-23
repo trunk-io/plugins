@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 1.0.1
+  version: 1.1.0
 plugins:
   sources:
     - id: trunk
@@ -11,6 +11,8 @@ runtimes:
     - go@1.18.3
     - node@16.14.2
     - python@3.10.3
+api:
+  address: api.dev.trunk-staging.io:8443
 lint:
   disabled:
     - cspell
@@ -21,14 +23,14 @@ lint:
         packages:
           - flake8-bugbear@22.10.27
     - git-diff-check@SYSTEM
-    - gitleaks@8.15.0
+    - gitleaks@8.15.1
     - isort@5.10.1
     - markdownlint@0.32.2
-    - prettier@2.7.1
-    - semgrep@0.120.0
+    - prettier@2.8.0
+    - semgrep@0.122.0
     - shellcheck@0.8.0
     - shfmt@3.5.0
-    - sqlfluff@1.4.1
+    - sqlfluff@1.4.2
     - yamllint@1.28.0
 actions:
   definitions:
