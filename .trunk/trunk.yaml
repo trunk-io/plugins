@@ -55,7 +55,19 @@ actions:
       triggers:
         - files:
             - .trunk/cspell-words.txt
+    - id: plugin-tests
+      runtime: node
+      packages_file: package.json
+      display_name: Plugin Tests
+      description: Run tests on all linter plugin definitions
+      run: bash -c "npm run build-test && npm run test"
+      triggers:
+        - git_hooks:
+            - pre-push
+          # run: alternate run command
+
   enabled:
+    - plugin-tests
     - trunk-announce
     - sort-dictionary
     - toggle-local

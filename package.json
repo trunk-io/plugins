@@ -2,11 +2,17 @@
   "name": "trunkio-plugins",
   "version": "1.0.0",
   "scripts": {
-    "trunk": "trunk"
+    "trunk": "trunk",
+    "build-test": "tsc",
+    "test": "jest tests/index.ts -- "
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",
-    "@trunkio/launcher": "^1.1.1"
+    "@trunkio/launcher": "^1.1.1",
+    "@types/jest": "^29.2.3",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.3"
   },
   "repository": {
     "type": "git",
@@ -17,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/trunk-io/plugins/issues"
   },
-  "homepage": "https://github.com/trunk-io/plugins#readme"
+  "homepage": "https://github.com/trunk-io/plugins#readme",
+  "dependencies": {
+    "ts-command-line-args": "^2.3.1"
+  }
 }
