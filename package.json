@@ -4,7 +4,7 @@
   "scripts": {
     "trunk": "trunk",
     "build-test": "tsc",
-    "test": "jest tests/index.ts -- "
+    "test": "jest"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",

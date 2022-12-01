@@ -60,7 +60,7 @@ actions:
       packages_file: package.json
       display_name: Plugin Tests
       description: Run tests on all linter plugin definitions
-      run: bash -c "npm run build-test && npm run test"
+      run: bash -c "npm run build-test && npm run test" # no bash, ${@}
       triggers:
         - git_hooks:
             - pre-push
