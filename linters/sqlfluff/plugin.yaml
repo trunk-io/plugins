@@ -17,7 +17,7 @@ lint:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
         - name: fix
-          run: sqlfluff fix ${target} --dialect ansi --disable_progress_bar --force
+          run: sqlfluff fix ${target} --dialect ansi --disable-progress-bar --force
           output: rewrite
           formatter: true
           in_place: true
