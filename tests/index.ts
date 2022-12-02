@@ -1,28 +1,24 @@
 import * as fs from "fs";
 import * as path from "path";
-import { exec } from "child_process";
 import { parse } from "ts-command-line-args";
+import { ILinterVersion, ITestingArguments } from "./types";
+import { ITestResult, TrunkDriver } from "./driver/driver";
 
-// TODO: TYLER USE AND SANITIZE INPUTS
+/*
+
+FEATURE LIST TODO:
+1. Documentation
+2. Additional customization by command line
+3. PR workflow
+
+*/
+
+// TODO: TYLER FIX CASING
 const LINTER_DIR = path.join(__dirname, "../linters/");
 const TEST_SUBDIR = "test";
 
-enum ILinterVersion {
-  KnownGoodVersion = 1,
-  Latest,
-}
-
 function parseLinterVersion(value: any) {
   return (value as ILinterVersion) ?? undefined;
-}
-
-interface ITestingArguments {
-  cliVersion?: string;
-  cliPath?: string;
-  linterVersion?: ILinterVersion;
-  linters?: string[];
-  verbose?: boolean;
-  help?: boolean;
 }
 
 const parseInputs = (): ITestingArguments =>
@@ -60,19 +56,6 @@ const parseInputs = (): ITestingArguments =>
   );
 // TODO: TYLER GET THE HELP TEXT WORKING
 
-// TODO: TYLER USE https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback
-//  trunk actions run plugin-tests -- --filter=pylint
-
-// async function execute_trunk(command: string) {
-//   console.log("executing trunk");
-
-//   exec(command, (err: any, stdout: any, stderr: any) => {
-//     console.log(err);
-//     console.log(stdout);
-//     console.log(stderr);
-//   });
-// }
-
 const scanLinterPathForTests = (linter: string): string | undefined => {
   let linter_path = path.join(LINTER_DIR, linter);
   if (!fs.existsSync(linter_path)) {
@@ -89,7 +72,7 @@ const scanLinterPathForTests = (linter: string): string | undefined => {
   ) {
     console.log(`${path.join(linter_path, TEST_SUBDIR)} exists and is dir`);
   } else {
-    console.warn(`'${linter_path}' does not have a test directory`);
+    console.log(`'${linter_path}' does not have a test directory`);
   }
   return linter_path; // TODO: TYLER ONLY PUT THIS INSIDE OF THE FIRST IF
 };
@@ -104,54 +87,98 @@ const scanAllRepoLinters = (): string[] => {
         files.push(linter_path);
       }
     } catch (e) {
-      console.debug(e);
+      console.debug((e as Error).message);
     }
   });
   return files;
 };
 
-describe("Testing linter definitions", () => {
-  // Step 1: Scan to determine testing targets
-  // TODO: TYLER MAKE SURE THIS HAS A GOOD CATCH FOR BAD ARGS
-  let input_args = parseInputs();
-  console.debug("Parsed inputs:");
-  console.debug(input_args);
+/*
+GOALS OF THIS TEST HARNESS:
+1. We are working to migrate all our linter definitions over to the plugin repo
+  a. We need to preserve our testing logic and assertions that we had before
 
-  var linter_targets = [];
-  if ((input_args.linters ?? []).length == 0) {
-    linter_targets = scanAllRepoLinters();
-  } else {
-    input_args.linters?.forEach((linter) => {
-      let linter_path = scanLinterPathForTests(linter);
-      if (linter_path) {
-        linter_targets.push(linter_path);
-      }
-    });
-  }
-  console.log(`Running ${linter_targets.length} tests`);
+2. We want more peace of mind and guiderails for users (and us) who contribute to the plugins repo.
+  a. Should be easy to grasp, easy to run
 
-  // Step 2: Run setup
+3. Test linters with basic.in.py -> basic.out.json (and some custom logic for the json subset asserts)
+4. Test formatters with basic.in.py -> basic.out.py
+5. Keep it simple but extensible
 
-  // Step 3: Asynchronously run each test
+CONSIDERATIONS:
+1. Because of the way trunk is run (git-dependent, trunk.yaml-dependent, etc.) this needs to be sandboxed
+2. Want to easily run this (probs with a trunk action)
+3. Want to easily filter, set cli/linter versions manually, etc.
+*/
 
-  // Step 4: Report output
+/*
+      // TODO: SEE IF JEST DOES THIS WELL ENOUGH
+    // TODO: TYLER USE FILES FOR TARGETS
+    var linter_targets: string[] = [];
+    if ((input_args.linters ?? []).length == 0) {
+      linter_targets = scanAllRepoLinters();
+    } else {
+      input_args.linters?.forEach((linter) => {
+        let linter_path = scanLinterPathForTests(linter);
+        if (linter_path) {
+          linter_targets.push(linter_path);
+        }
+      });
+    }
+    console.log(`***Detected ${linter_targets.length} tests***`);
 
-  // Step 5: Cleanup
+    test("Detected tests", () => {});
+*/
 
-  for (let i = 0; i < 3; i++) {
-    let test_name = ["foo-test", "bar-test", "baz-test"][i];
-    test(test_name, async () => {
-      // await execute_trunk("trunk --version");
-
-      // await exec("trunk --version", (err: any, stdout: any, stderr: any) => {
-      //   console.log("executing trunk");
-      //   console.log(err);
-      //   console.log(stdout);
-      //   console.log(stderr);
-      // });
-
-      expect(1 - 1).toBe(0);
-      // expect(1 - 1).toBe(1);
-    });
-  }
+describe("Testing composite config", () => {
+  // TODO: TYLER TEST ABSOLUTE REPO HEALTH
 });
+
+export const genericTestDefinition = (dirname: string, linterName: string) => {
+  // TODO: TYLER ADD STUFF HERE FOR EXTENSIBILITY
+};
+
+export const defaultTestDefinition = (
+  dirname: string,
+  linterName: string,
+  linter_test_targets: string[] = []
+) => {
+  describe(`Testing linter ${linterName}`, () => {
+    // Step 1: Parse any custom inputs
+    let input_args = parseInputs();
+    console.debug("Parsed inputs:");
+    console.debug(input_args);
+
+    // Step 2: Detect test files within a linter test directory
+
+    // basic.in.py basic.out.py foo.in.py foo.out.py
+    let driver = new TrunkDriver(dirname, input_args);
+    if (linter_test_targets.length == 0) {
+      linter_test_targets = ["basic"]; // TODO: TYLER DETECT ALL THE TESTS
+    }
+
+    // Step 3: Asynchronously run each test
+    // var linter_test_runs = new Map<string, Promise<ITestResult>>();
+
+    linter_test_targets.forEach((test_target) => {
+      it(`${linterName} ${test_target}`, async () => {
+        // Step 4: Run any test setup
+        // TODO: TYLER DO SETUP, USE BEFORE/AFTER
+
+        let test_run_result = await driver.RunCheck(linterName);
+
+        // Step 5: Report output and asserts
+        // TODO: TYLER SNAPSHOTS***
+        // TODO: TYLER JEST PARTIAL MATCHING
+
+        // console.log(test_run_result);
+        console.log(
+          `Got test result with json: ${test_run_result.trunk_run_result.stdout}`
+        );
+
+        // Step 6: Cleanup
+        // TODO: TYLER DO Cleanup, USE BEFORE/AFTER
+      });
+    });
+  });
+};
