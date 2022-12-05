@@ -3,6 +3,10 @@ lint:
   definitions:
     - name: codespell
       files: [ALL]
+      direct_configs: [.codespellrc]
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
       runtime: python
       package: codespell
       commands:
