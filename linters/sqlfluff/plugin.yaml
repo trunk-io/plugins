@@ -36,3 +36,4 @@ lint:
           output: rewrite
           formatter: true
           in_place: true
+          success_codes: [0]
