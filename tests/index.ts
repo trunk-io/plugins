@@ -3,8 +3,14 @@ import * as fs from "fs";
 import * as path from "path";
 import { parse } from "ts-command-line-args";
 
-import { convertToLandingState, ITestResult, ITestTarget, ITrunkVerb, TrunkDriver } from "./driver";
-import { ILandingState, ILinterVersion, ITestingArguments } from "./types";
+import {
+  extractLandingState,
+  ITestResult,
+  ITestTarget,
+  ITrunkVerb,
+  TrunkDriver,
+} from "tests/driver";
+import { ILandingState, ILinterVersion, ITestingArguments } from "tests/types";
 
 /*
 
@@ -187,10 +193,10 @@ export const defaultLinterDefinitionTest = (
           const expected_out_json = JSON.parse(
             fs.readFileSync(expected_out_file, { encoding: "utf-8" })
           );
-          const expected_out = convertToLandingState(expected_out_json);
+          const expected_out = extractLandingState(expected_out_json);
           // TODO: TYLER GET LANDING STATE PARSING WORKING
-          console.log("expected!!");
-          console.log(expected_out);
+          // console.log("expected!!");
+          // console.log(expected_out);
           expect(test_run_result.landingState).toMatchObject(expected_out);
 
           // TODO: TYLER SHOULD SNAPSHOT RUN CONDITIONALLY OR ONLY ON NIGHTLIES?

@@ -1,21 +1,17 @@
 import { exec, execSync } from "child_process";
-import { plainToClass } from "class-transformer";
 import * as fs from "fs";
-import { pick } from "lodash";
 import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
 import * as util from "util";
 
 import {
-  FileIssue,
   IFileIssue,
   ILandingState,
   ILintAction,
   ILinterVersion,
   ITaskFailure,
   ITestingArguments,
-  LandingState,
 } from "../types";
 const execpromise = util.promisify(exec);
 
@@ -30,7 +26,7 @@ export interface ITestTarget {
 }
 
 export interface ITrunkRunResult {
-  exit_code: number;
+  exitCode: number;
   stdout: string;
   stderr: string;
   error?: Error;
@@ -51,50 +47,83 @@ export interface ITestResult {
   landingState?: ILandingState;
 }
 
-export const convertToLandingState = (json: JSON): ILandingState => {
-  return json as ILandingState;
+export const extractLandingState = (json: JSON): ILandingState => {
+  // Remove unwanted fields. Prefer object destructuring to be explicit about required fields
+  // for forward compatibility.
+  const extractFIFields = ({
+    file,
+    line,
+    column,
+    message,
+    code,
+    level,
+    linter,
+    targetType,
+    ranges,
+    issueUrl,
+    ...rest
+  }: IFileIssue): IFileIssue => ({
+    file,
+    line,
+    column,
+    message,
+    code,
+    level,
+    linter,
+    targetType,
+    ranges,
+    issueUrl,
+  });
 
-  // // Doesn't compile
-  // let converted = json as Object as ILandingState;
-  // let invalidKeys = [];
-  // for (const property of Object.keys(converted)) {
-  //   if (!(property in LandingState)) {
-  //     invalidKeys.push(property);
-  //     delete converted[property];
-  //   }
-  // }
+  // Also de-dupe, since sometimes we will have discrepancies in the count for multiple commands
+  const extractLAFields = ({
+    paths,
+    linter,
+    parser,
+    report,
+    upstream,
+    fileGroupName,
+    command,
+    verb,
+    ...rest
+  }: ILintAction): ILintAction => ({
+    paths,
+    linter,
+    parser,
+    report,
+    upstream,
+    fileGroupName,
+    command,
+    verb,
+  });
 
-  // // Doesn't work because the new LandingState() is empty
-  // const specificMembers: string[] = Object.keys(new LandingState());
-  // const specific: ILandingState = pick(json as Object as ILandingState, specificMembers);
-  // return specific;
+  const extractTFFields = ({ name, message, ...rest }: ITaskFailure): ITaskFailure => ({
+    name,
+    message,
+  });
 
-  // // Doesn't work because doesn't recurse
-  // return plainToClass(LandingState, json, { excludeExtraneousValues: true });
+  const extractLSFields = ({
+    issues = [],
+    unformattedFiles = [],
+    lintActions = [],
+    taskFailures = [],
+    ...rest
+  }: ILandingState): ILandingState => {
+    let res = <ILandingState>{
+      issues,
+      unformattedFiles,
+      lintActions,
+      taskFailures,
+    };
+    res.issues = res.issues?.map(extractFIFields);
+    res.unformattedFiles = res.unformattedFiles?.map(extractFIFields);
+    res.lintActions = res.lintActions?.map(extractLAFields);
+    res.taskFailures = res.taskFailures?.map(extractTFFields);
 
-  // const typedObject: LandingState = <ILandingState> json;
-  // console.log(typedObject);
-  // return typedObject;
+    return res;
+  };
 
-  // let result = new LandingState();
-  // return pick(json as Object, Object.keys(result)) as ILandingState;
-
-  //   function extract<T>(properties: Record<keyof T, true>){
-  //     return function<TActual extends T>(value: TActual){
-  //         let result = {} as T;
-  //         for (const property of Object.keys(properties) as Array<keyof T>) {
-  //             result[property] = value[property];
-  //         }
-  //         return result;
-  //     }
-  // }
-  // let obj = json as Object as ILandingState;
-  // let result = new LandingState();
-  // for (const property of Object.keys(result) as Array<keyof ILandingState>) {
-  //   result[property] = obj[property];
-  // }
-  // return new LandingState(json as Object);
-  // return result;
+  return extractLSFields(json as ILandingState);
 };
 
 export class TrunkDriver {
@@ -110,8 +139,12 @@ export class TrunkDriver {
     this.inputArgs = args;
   }
 
-  ParseLandingState(outputJson: JSON): ILandingState {
-    const landingState = convertToLandingState(outputJson);
+  ParseLandingState(outputJson: JSON): ILandingState | undefined {
+    if (!outputJson) {
+      return undefined;
+    }
+
+    const landingState = extractLandingState(outputJson);
 
     const absLinterDir = path.parse(this.testDir).dir;
     const relativeLinterDir = path.relative(REPO_ROOT, absLinterDir);
@@ -125,16 +158,11 @@ export class TrunkDriver {
       return testFileRelativePath;
     };
 
-    landingState.issues?.map((issue: FileIssue) => {
-      // TODO: TYLER REMOVE THESE IFS IF INTERFACE NOT USED
-      if (issue.file) {
-        issue.file = transform_path(issue.file);
-      }
+    landingState.issues?.map((issue: IFileIssue) => {
+      issue.file = transform_path(issue.file);
     });
-    landingState.unformatted_files?.map((issue: FileIssue) => {
-      if (issue.file) {
-        issue.file = transform_path(issue.file);
-      }
+    landingState.unformattedFiles?.map((issue: IFileIssue) => {
+      issue.file = transform_path(issue.file);
     });
     landingState.lintActions?.map((action: ILintAction) => {
       action.paths = action.paths.map(transform_path);
@@ -144,15 +172,17 @@ export class TrunkDriver {
     });
 
     // TODO: TYLER REMOVE
-    console.log("post transform!!");
-    console.log(landingState);
+    // console.log("post transform!!");
+    // console.log(landingState);
+    // console.log("post transform 2!!");
+    // console.log(landingState.lintActions);
 
     return landingState;
   }
 
   ParseCheckResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
     return {
-      success: trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
+      success: trunkRunResult.exitCode == 0 && trunkRunResult.stderr.length == 0,
       trunkRunResult,
       trunkVerb: ITrunkVerb.Check,
       targetPath: targetAbsPath,
@@ -162,7 +192,7 @@ export class TrunkDriver {
 
   ParseFmtResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
     return {
-      success: trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
+      success: trunkRunResult.exitCode == 0 && trunkRunResult.stderr.length == 0,
       trunkRunResult,
       trunkVerb: ITrunkVerb.Format,
       targetPath: targetAbsPath,
@@ -192,8 +222,8 @@ plugins:
       // Create repo
       const sourceDir = path.join(this.testDir, "..");
       fs.cpSync(sourceDir, this.sandboxPath!, { recursive: true });
-      this.gitDriver = git.simpleGit(this.sandboxPath);
-      this.gitDriver.init();
+      // this.gitDriver = git.simpleGit(this.sandboxPath);
+      // this.gitDriver.init({'bare': 'true'});
 
       // Initialize trunk via config
       fs.mkdirSync(path.join(this.sandboxPath, ".trunk"));
@@ -220,6 +250,9 @@ plugins:
   async TearDown() {
     console.log(this.sandboxPath);
     // TODO: TYLER SHOULD THIS DEINIT FIRST IN ORDER TO REMOVE CACHE INFO?
+
+    // const deinitCommand = `${this.inputArgs.cliPath ?? "trunk"} deinit`;
+    // exec(deinitCommand, { cwd: this.sandboxPath, timeout: 1000 });
     // if (this.sandboxPath) {
     //   fs.rmSync(this.sandboxPath, {recursive: true});
     // }
@@ -239,7 +272,7 @@ plugins:
       .then(
         ({ stdout, stderr }) =>
           <ITrunkRunResult>{
-            exit_code: 0,
+            exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
@@ -247,12 +280,19 @@ plugins:
       )
       .then((trunkRunResult) => this.ParseCheckResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
-        console.info(`Failure running 'trunk check' with message ${(error as Error).message}`);
         const trunkRunResult = <ITrunkRunResult>{
-          exit_code: (error as any)["code"],
+          exitCode: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],
         };
+        if (trunkRunResult.exitCode == 1) {
+          // trunk returned issues
+          return this.ParseCheckResult(trunkRunResult, targetAbsPath);
+        }
+
+        console.log("Failure running 'trunk check'");
+        console.log(error);
+
         return <ITestResult>{
           success: false,
           trunkRunResult,
@@ -274,7 +314,7 @@ plugins:
       .then(
         ({ stdout, stderr }) =>
           <ITrunkRunResult>{
-            exit_code: 0,
+            exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
@@ -282,9 +322,10 @@ plugins:
       )
       .then((trunkRunResult) => this.ParseFmtResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
-        console.info(`Failure running 'trunk fmt' with message ${(error as Error).message}`);
+        console.log("Failure running 'trunk fmt'");
+        console.log(error);
         const trunkRunResult = <ITrunkRunResult>{
-          exit_code: (error as any)["code"],
+          exitCode: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],
         };
