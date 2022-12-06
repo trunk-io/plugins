@@ -28,8 +28,11 @@ lint:
     - semgrep@1.1.0
     - shellcheck@0.9.0
     - shfmt@3.5.0
-    - sqlfluff@1.4.2
     - yamllint@1.28.0
+  ignore:
+    - linters: [ALL]
+      paths:
+        - linters/**/test
 actions:
   definitions:
     - id: toggle-local
