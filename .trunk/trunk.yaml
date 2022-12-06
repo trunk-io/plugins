@@ -6,6 +6,7 @@ plugins:
     - id: trunk
       ref: v0.0.6
       uri: https://github.com/trunk-io/plugins
+      local: /home/tyler/repos/plugins
 runtimes:
   enabled:
     - go@1.18.3
@@ -13,8 +14,10 @@ runtimes:
     - python@3.10.3
 lint:
   disabled:
+    - sqlfluff-fix
     - cspell
   enabled:
+    - sqlfluff@1.4.2
     - eslint@8.29.0
     - actionlint@1.6.22
     - black@22.12.0
@@ -31,9 +34,10 @@ lint:
     - shfmt@3.5.0
     - yamllint@1.28.0
   ignore:
-    - linters: [ALL]
+    - linters:
+        - ALL
       paths:
-        - linters/**/test
+        - linters/**/test/*
 actions:
   definitions:
     - id: toggle-local
@@ -66,12 +70,10 @@ actions:
       packages_file: package.json
       display_name: Plugin Tests
       description: Run tests on all linter plugin definitions
-      run: bash -c "npm run build-test && npm run test" # no bash, ${@}
+      run: bash -c "npm run build-test && npm run test"
       triggers:
         - git_hooks:
             - pre-push
-          # run: alternate run command
-
   enabled:
     - plugin-tests
     - trunk-announce

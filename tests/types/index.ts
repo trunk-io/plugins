@@ -4,12 +4,12 @@ export enum ILinterVersion {
 }
 
 export interface ITestingArguments {
+  // Trunk cli version to run in tests
   cliVersion?: string;
+  // Path to a cli binary
   cliPath?: string;
+  // Whether to use a linter's latest or KnownGoodVersion (network connectivity may vary)
   linterVersion?: ILinterVersion;
-  linters?: string[];
-  verbose?: boolean;
-  help?: boolean;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests

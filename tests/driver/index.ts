@@ -1,10 +1,9 @@
 import { exec, execSync } from "child_process";
+import { sort } from "fast-sort";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
-import * as util from "util";
-
 import {
   IFileIssue,
   ILandingState,
@@ -12,7 +11,8 @@ import {
   ILinterVersion,
   ITaskFailure,
   ITestingArguments,
-} from "../types";
+} from "tests/types";
+import * as util from "util";
 const execpromise = util.promisify(exec);
 
 const TEMP_PREFIX = "plugins_";
@@ -61,7 +61,7 @@ export const extractLandingState = (json: JSON): ILandingState => {
     targetType,
     ranges,
     issueUrl,
-    ...rest
+    ..._rest
   }: IFileIssue): IFileIssue => ({
     file,
     line,
@@ -85,7 +85,7 @@ export const extractLandingState = (json: JSON): ILandingState => {
     fileGroupName,
     command,
     verb,
-    ...rest
+    ..._rest
   }: ILintAction): ILintAction => ({
     paths,
     linter,
@@ -97,7 +97,7 @@ export const extractLandingState = (json: JSON): ILandingState => {
     verb,
   });
 
-  const extractTFFields = ({ name, message, ...rest }: ITaskFailure): ITaskFailure => ({
+  const extractTFFields = ({ name, message, ..._rest }: ITaskFailure): ITaskFailure => ({
     name,
     message,
   });
@@ -107,18 +107,38 @@ export const extractLandingState = (json: JSON): ILandingState => {
     unformattedFiles = [],
     lintActions = [],
     taskFailures = [],
-    ...rest
+    ..._rest
   }: ILandingState): ILandingState => {
-    let res = <ILandingState>{
+    const res = <ILandingState>{
       issues,
       unformattedFiles,
       lintActions,
       taskFailures,
     };
-    res.issues = res.issues?.map(extractFIFields);
-    res.unformattedFiles = res.unformattedFiles?.map(extractFIFields);
-    res.lintActions = res.lintActions?.map(extractLAFields);
-    res.taskFailures = res.taskFailures?.map(extractTFFields);
+
+    res.issues = sort(res.issues?.map(extractFIFields) ?? []).asc([
+      (issue) => issue.file,
+      (issue) => issue.line,
+      (issue) => issue.column,
+      (issue) => issue.message,
+    ]);
+    res.unformattedFiles = sort(res.unformattedFiles?.map(extractFIFields) ?? []).asc([
+      (issue) => issue.file,
+      (issue) => issue.line,
+      (issue) => issue.column,
+      (issue) => issue.message,
+    ]);
+    res.lintActions = sort(res.lintActions?.map(extractLAFields) ?? []).asc([
+      (action) => action.linter,
+      (action) => action.command,
+      (action) => action.verb,
+      (action) => action.upstream,
+      (action) => action.paths,
+    ]);
+    res.taskFailures = sort(res.taskFailures?.map(extractTFFields) ?? []).asc([
+      (failure) => failure.name,
+      (failure) => failure.message,
+    ]);
 
     return res;
   };
@@ -139,7 +159,7 @@ export class TrunkDriver {
     this.inputArgs = args;
   }
 
-  ParseLandingState(outputJson: JSON): ILandingState | undefined {
+  TryParseLandingState(outputJson: JSON): ILandingState | undefined {
     if (!outputJson) {
       return undefined;
     }
@@ -186,7 +206,7 @@ export class TrunkDriver {
       trunkRunResult,
       trunkVerb: ITrunkVerb.Check,
       targetPath: targetAbsPath,
-      landingState: this.ParseLandingState(trunkRunResult.outputJson),
+      landingState: this.TryParseLandingState(trunkRunResult.outputJson),
     };
   }
 
@@ -196,10 +216,11 @@ export class TrunkDriver {
       trunkRunResult,
       trunkVerb: ITrunkVerb.Format,
       targetPath: targetAbsPath,
-      landingState: this.ParseLandingState(trunkRunResult.outputJson),
+      landingState: this.TryParseLandingState(trunkRunResult.outputJson),
     };
   }
 
+  // THIS SHOULD NOT USE LATEST. IT SHOULD USE WHAT'S IN THE ROOT TRUNK.YAML IN ORDER TO BE CLEAR (IF NOT SPECIFIED)
   GetLatestTrunkVersion(): string {
     // TODO: TYLER COMPUTE THIS ONCE STATICALLY AT TEST TIME
     return "1.1.1-beta.14";
@@ -221,9 +242,9 @@ plugins:
     if (this.sandboxPath) {
       // Create repo
       const sourceDir = path.join(this.testDir, "..");
-      fs.cpSync(sourceDir, this.sandboxPath!, { recursive: true });
-      // this.gitDriver = git.simpleGit(this.sandboxPath);
-      // this.gitDriver.init({'bare': 'true'});
+      fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
+      this.gitDriver = git.simpleGit(this.sandboxPath);
+      this.gitDriver.init();
 
       // Initialize trunk via config
       fs.mkdirSync(path.join(this.sandboxPath, ".trunk"));
@@ -248,14 +269,11 @@ plugins:
   }
 
   async TearDown() {
-    console.log(this.sandboxPath);
-    // TODO: TYLER SHOULD THIS DEINIT FIRST IN ORDER TO REMOVE CACHE INFO?
-
-    // const deinitCommand = `${this.inputArgs.cliPath ?? "trunk"} deinit`;
-    // exec(deinitCommand, { cwd: this.sandboxPath, timeout: 1000 });
-    // if (this.sandboxPath) {
-    //   fs.rmSync(this.sandboxPath, {recursive: true});
-    // }
+    const deinitCommand = `${this.inputArgs.cliPath ?? "trunk"} deinit`;
+    exec(deinitCommand, { cwd: this.sandboxPath, timeout: 1000 });
+    if (this.sandboxPath) {
+      fs.rmSync(this.sandboxPath, { recursive: true });
+    }
   }
 
   async RunCheck(targetRelativePath: string): Promise<ITestResult> {
@@ -264,41 +282,35 @@ plugins:
 
     const command = `${
       this.inputArgs.cliPath ?? "trunk"
-    } check -n --output-file=${resultJsonPath} --no-progress ${targetAbsPath} --filter=${
+    } check -n --output-file=${resultJsonPath} --no-progress --upstream=false --filter=${
       this.linter
-    }`; // TODO: TYLER ADD FILTER WITH LINTER
+    } ${targetAbsPath}`;
 
     return execpromise(command, { cwd: this.sandboxPath })
-      .then(
-        ({ stdout, stderr }) =>
-          <ITrunkRunResult>{
+      .then(({ stdout, stderr }) =>
+        this.ParseCheckResult(
+          {
             exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          }
+          },
+          targetAbsPath
+        )
       )
-      .then((trunkRunResult) => this.ParseCheckResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
         const trunkRunResult = <ITrunkRunResult>{
           exitCode: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],
+          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         };
-        if (trunkRunResult.exitCode == 1) {
-          // trunk returned issues
-          return this.ParseCheckResult(trunkRunResult, targetAbsPath);
+
+        if (trunkRunResult.exitCode != 1) {
+          console.log("Failure running 'trunk check'");
+          console.log(error);
         }
-
-        console.log("Failure running 'trunk check'");
-        console.log(error);
-
-        return <ITestResult>{
-          success: false,
-          trunkRunResult,
-          trunkVerb: ITrunkVerb.Check,
-          targetPath: targetAbsPath,
-        };
+        return this.ParseCheckResult(trunkRunResult, targetAbsPath);
       });
   }
 
@@ -308,33 +320,32 @@ plugins:
 
     const command = `${
       this.inputArgs.cliPath ?? "trunk"
-    } fmt ${targetAbsPath} --output-file=${resultJsonPath} --no-progress --filter=${this.linter}`; // TODO: TYLER ADD FILTER WITH LINTER
+    } fmt ${targetAbsPath} --output-file=${resultJsonPath} --no-progress --filter=${this.linter}`;
 
     return execpromise(command, { cwd: this.sandboxPath })
-      .then(
-        ({ stdout, stderr }) =>
-          <ITrunkRunResult>{
+      .then(({ stdout, stderr }) =>
+        this.ParseFmtResult(
+          {
             exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          }
+          },
+          targetAbsPath
+        )
       )
-      .then((trunkRunResult) => this.ParseFmtResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
-        console.log("Failure running 'trunk fmt'");
-        console.log(error);
         const trunkRunResult = <ITrunkRunResult>{
           exitCode: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],
+          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         };
-        return <ITestResult>{
-          success: false,
-          trunkRunResult,
-          trunkVerb: ITrunkVerb.Format,
-          targetPath: targetAbsPath,
-        };
+        if (trunkRunResult.exitCode != 1) {
+          console.log("Failure running 'trunk fmt'");
+          console.log(error);
+        }
+        return this.ParseCheckResult(trunkRunResult, targetAbsPath);
       });
   }
 }

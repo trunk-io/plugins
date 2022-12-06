@@ -1,24 +1,14 @@
 import { assert } from "console";
 import * as fs from "fs";
 import * as path from "path";
-import { parse } from "ts-command-line-args";
-
-import {
-  extractLandingState,
-  ITestResult,
-  ITestTarget,
-  ITrunkVerb,
-  TrunkDriver,
-} from "tests/driver";
-import { ILandingState, ILinterVersion, ITestingArguments } from "tests/types";
+import { extractLandingState, ITestTarget, ITrunkVerb, TrunkDriver } from "tests/driver";
+import { ILinterVersion, ITestingArguments } from "tests/types";
 
 /*
 
 FEATURE LIST TODO:
 0. Fix imports
-1. Fix interface/class member assertions
 2. Extract out generic function for testing
-3. Fix command line stuff
 4. Documentation
 5. Poke around PR workflow
 
@@ -30,63 +20,13 @@ function parseLinterVersion(value: any) {
   return (value as ILinterVersion) ?? undefined;
 }
 
-const parseInputs = (): ITestingArguments =>
-  parse<ITestingArguments>(
-    {
-      cliVersion: {
-        type: String,
-        optional: true,
-        description: "trunk cli version to run",
-      },
-      cliPath: {
-        type: String,
-        optional: true,
-        description: "path to the trunk cli binary",
-      },
-      linterVersion: {
-        type: parseLinterVersion,
-        optional: true,
-        description: "linter version to use { KnownGoodVersion | Latest }",
-      },
-      linters: {
-        // TODO: TYLER ADD BETTER FILTER (E.G. COMMA SEPARATED)
-        type: String,
-        optional: true,
-        multiple: true,
-        description: "linter definition(s) to run tests against",
-      },
-      verbose: { type: Boolean, optional: true },
-      help: { type: Boolean, optional: true, alias: "h" },
-    },
-    {
-      helpArg: "help",
-      headerContentSections: [{ header: "Trunk Plugins Testing" }],
-    }
-  );
-// TODO: TYLER GET THE HELP TEXT WORKING
+const parseInputs = () =>
+  <ITestingArguments>{
+    cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
+    cliPath: process.env.PLUGINS_TEST_CLI_PATH,
+    linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION),
+  };
 
-// const scanLinterPathForTests = (linter: string): string | undefined => {
-//   let linterPath = path.join(LINTER_DIR, linter);
-//   if (!fs.existsSync(linterPath)) {
-//     throw new Error(`linter dir '${linterPath}' does not exist`);
-//   }
-
-//   if (!fs.lstatSync(linterPath).isDirectory()) {
-//     throw new Error(`linter '${linterPath}' is not a directory`);
-//   }
-
-//   if (
-//     fs.existsSync(path.join(linterPath, TEST_SUBDIR)) &&
-//     fs.lstatSync(path.join(linterPath, TEST_SUBDIR)).isDirectory()
-//   ) {
-//     console.log(`${path.join(linterPath, TEST_SUBDIR)} exists and is dir`);
-//   } else {
-//     console.log(`'${linterPath}' does not have a test directory`);
-//   }
-//   return linterPath; // TODO: TYLER ONLY PUT THIS INSIDE OF THE FIRST IF
-// };
-
-// TODO: TYLER EXTRACT THIS INTO UTILS
 const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestTarget[] => {
   const parentTestDirName = path.parse(dirname).name;
   const testTargets = new Map<string, ITestTarget>();
@@ -161,14 +101,15 @@ export const defaultLinterDefinitionTest = (
   namedTestPrefixes: string[] = [],
   verb: ITrunkVerb
 ) => {
-  jest.setTimeout(DEFAULT_TEST_TIMEOUT);
-  describe(`Testing linter ${linterName}`, () => {
-    // Step 1: Parse any custom inputs
-    // TODO: TYLER ADD SUPPORT FOR TEST FILTERS, other cli args--sometimes it doesn't work on rerun
-    const inputArgs = parseInputs();
-    console.debug("Parsed inputs:");
+  // Step 1: Parse any custom inputs
+  const inputArgs = parseInputs();
+  if (inputArgs.cliVersion || inputArgs.cliPath || inputArgs.linterVersion) {
     console.debug(inputArgs);
+  }
 
+  jest.setTimeout(DEFAULT_TEST_TIMEOUT);
+
+  describe(`Testing linter ${linterName}`, () => {
     // Step 2: Detect test files within a linter test directory
     const driver = new TrunkDriver(linterName, dirname, inputArgs);
     const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -194,13 +135,10 @@ export const defaultLinterDefinitionTest = (
             fs.readFileSync(expected_out_file, { encoding: "utf-8" })
           );
           const expected_out = extractLandingState(expected_out_json);
-          // TODO: TYLER GET LANDING STATE PARSING WORKING
-          // console.log("expected!!");
-          // console.log(expected_out);
-          expect(test_run_result.landingState).toMatchObject(expected_out);
+          expect(test_run_result.landingState).toEqual(expected_out);
 
           // TODO: TYLER SHOULD SNAPSHOT RUN CONDITIONALLY OR ONLY ON NIGHTLIES?
-          expect(test_run_result.trunkRunResult.outputJson).toMatchSnapshot();
+          expect(test_run_result.landingState).toMatchSnapshot();
         } else {
           const test_run_result = await driver.RunFmt(test_target.inputPath);
           assert(test_run_result.success);

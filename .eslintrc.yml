@@ -84,6 +84,7 @@ rules:
   no-param-reassign: [error, { props: false }]
   no-restricted-syntax: off
   node/no-extraneous-import: [error]
+  node/no-unpublished-import: off
   node/no-unsupported-features/es-syntax: [error, { ignores: [modules, dynamicImport] }]
   simple-import-sort/exports: error
   simple-import-sort/imports: error

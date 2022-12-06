@@ -145,6 +145,17 @@
       "targetType": "sql"
     }
   ],
+  "unformattedFiles": [
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "1",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+      "level": "LEVEL_HIGH",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "linter": "sqlfluff"
+    }
+  ],
   "bucketViolations": [
     {
       "key": "sqlfluff",
@@ -154,7 +165,18 @@
   "compareToUpstream": true,
   "lintActions": [
     {
-      "paths": ["linters/sqlfluff/test/basic_check.in.sql"],
+      "paths": [
+        "linters/sqlfluff/test/basic_check.in.sql"
+      ],
+      "linter": "sqlfluff",
+      "fileGroupName": "sql",
+      "command": "fix",
+      "verb": "TRUNK_VERB_FMT"
+    },
+    {
+      "paths": [
+        "linters/sqlfluff/test/basic_check.in.sql"
+      ],
       "linter": "sqlfluff",
       "fileGroupName": "sql",
       "command": "lint",
@@ -162,7 +184,7 @@
     }
   ],
   "changeStats": {
-    "modified": "4",
-    "added": "14"
+    "modified": "6",
+    "added": "16"
   }
 }
