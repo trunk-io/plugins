@@ -1,3 +1,4 @@
-import { defaultTestDefinition } from "../../../tests";
+import { defaultLinterCheckTest, defaultLinterFmtTest } from "../../../tests";
 
-defaultTestDefinition(__dirname, "sqlfluff");
+defaultLinterCheckTest(__dirname, "sqlfluff", ["basic_check"]);
+// defaultLinterFmtTest(__dirname, "sqlfluff-fix", ["basic_fmt"]);

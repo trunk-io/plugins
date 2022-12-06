@@ -1,21 +1,31 @@
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from "ts-command-line-args";
-import { ILinterVersion, ITestingArguments } from "./types";
-import { ITestResult, TrunkDriver } from "./driver/driver";
+import { ILandingState, ILinterVersion, ITestingArguments } from "./types";
+import {
+  ConvertToLandingState,
+  ITestResult,
+  ITestTarget,
+  ITrunkVerb,
+  TrunkDriver,
+} from "./driver";
+import { assert } from "console";
 
 /*
 
 FEATURE LIST TODO:
-1. Documentation
-2. Additional customization by command line
-3. PR workflow
+1. Fix interface/class member assertions
+2. Extract out generic function for testing
+3. Fix command line stuff
+4. Documentation
+5. Poke around PR workflow
 
 */
 
 // TODO: TYLER FIX CASING
 const LINTER_DIR = path.join(__dirname, "../linters/");
 const TEST_SUBDIR = "test";
+const DEFAULT_TEST_TIMEOUT = 10000;
 
 function parseLinterVersion(value: any) {
   return (value as ILinterVersion) ?? undefined;
@@ -56,41 +66,70 @@ const parseInputs = (): ITestingArguments =>
   );
 // TODO: TYLER GET THE HELP TEXT WORKING
 
-const scanLinterPathForTests = (linter: string): string | undefined => {
-  let linter_path = path.join(LINTER_DIR, linter);
-  if (!fs.existsSync(linter_path)) {
-    throw new Error(`linter dir '${linter_path}' does not exist`);
-  }
+// const scanLinterPathForTests = (linter: string): string | undefined => {
+//   let linterPath = path.join(LINTER_DIR, linter);
+//   if (!fs.existsSync(linterPath)) {
+//     throw new Error(`linter dir '${linterPath}' does not exist`);
+//   }
 
-  if (!fs.lstatSync(linter_path).isDirectory()) {
-    throw new Error(`linter '${linter_path}' is not a directory`);
-  }
+//   if (!fs.lstatSync(linterPath).isDirectory()) {
+//     throw new Error(`linter '${linterPath}' is not a directory`);
+//   }
 
-  if (
-    fs.existsSync(path.join(linter_path, TEST_SUBDIR)) &&
-    fs.lstatSync(path.join(linter_path, TEST_SUBDIR)).isDirectory()
-  ) {
-    console.log(`${path.join(linter_path, TEST_SUBDIR)} exists and is dir`);
-  } else {
-    console.log(`'${linter_path}' does not have a test directory`);
-  }
-  return linter_path; // TODO: TYLER ONLY PUT THIS INSIDE OF THE FIRST IF
-};
+//   if (
+//     fs.existsSync(path.join(linterPath, TEST_SUBDIR)) &&
+//     fs.lstatSync(path.join(linterPath, TEST_SUBDIR)).isDirectory()
+//   ) {
+//     console.log(`${path.join(linterPath, TEST_SUBDIR)} exists and is dir`);
+//   } else {
+//     console.log(`'${linterPath}' does not have a test directory`);
+//   }
+//   return linterPath; // TODO: TYLER ONLY PUT THIS INSIDE OF THE FIRST IF
+// };
 
-const scanAllRepoLinters = (): string[] => {
-  let files: string[] = [];
-  console.log("about to scan...");
-  fs.readdirSync(LINTER_DIR).forEach((linter: string) => {
-    try {
-      let linter_path = scanLinterPathForTests(linter);
-      if (linter_path) {
-        files.push(linter_path);
+// TODO: TYLER EXTRACT THIS INTO UTILS
+const detectTestTargets = (
+  dirname: string,
+  namedTestPrefixes: string[]
+): ITestTarget[] => {
+  let parentTestDirName = path.parse(dirname).name;
+  var testTargets = new Map<string, ITestTarget>();
+  // Sort guarantees basic.in comes before basic.out
+  fs.readdirSync(dirname)
+    .sort()
+    .forEach((file: string) => {
+      const inFileRegex = /(?<prefix>.+)\.in\.(?<extension>.+)$/;
+      let foundIn = file.match(inFileRegex);
+      if (foundIn) {
+        let prefix = foundIn.groups?.prefix;
+        if (
+          prefix &&
+          (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length == 0)
+        ) {
+          testTargets.set(prefix, {
+            prefix,
+            inputPath: path.join(parentTestDirName, file),
+            outputPath: "",
+          });
+        }
+        return;
       }
-    } catch (e) {
-      console.debug((e as Error).message);
-    }
-  });
-  return files;
+
+      const outFileRegex = /(?<prefix>.+)\.out\.(?<extension>.+)$/;
+      let foundOut = file.match(outFileRegex);
+      if (foundOut) {
+        let prefix = foundOut.groups?.prefix;
+        if (prefix) {
+          let maybe_target = testTargets.get(prefix);
+          if (maybe_target) {
+            maybe_target.outputPath = path.join(parentTestDirName, file);
+          }
+        }
+      }
+    });
+  return Array.from(testTargets.values()).filter(
+    (target) => target.outputPath.length > 0
+  );
 };
 
 /*
@@ -111,73 +150,108 @@ CONSIDERATIONS:
 3. Want to easily filter, set cli/linter versions manually, etc.
 */
 
-/*
-      // TODO: SEE IF JEST DOES THIS WELL ENOUGH
-    // TODO: TYLER USE FILES FOR TARGETS
-    var linter_targets: string[] = [];
-    if ((input_args.linters ?? []).length == 0) {
-      linter_targets = scanAllRepoLinters();
-    } else {
-      input_args.linters?.forEach((linter) => {
-        let linter_path = scanLinterPathForTests(linter);
-        if (linter_path) {
-          linter_targets.push(linter_path);
-        }
-      });
-    }
-    console.log(`***Detected ${linter_targets.length} tests***`);
-
-    test("Detected tests", () => {});
-*/
-
 describe("Testing composite config", () => {
-  // TODO: TYLER TEST ABSOLUTE REPO HEALTH
+  // TODO: TYLER TEST ABSOLUTE REPO HEALTH (validate trunk config)
 });
 
-export const genericTestDefinition = (dirname: string, linterName: string) => {
-  // TODO: TYLER ADD STUFF HERE FOR EXTENSIBILITY
+export const genericTestLinterDefinition = (
+  dirname: string,
+  linterName: string
+) => {
+  // TODO: TYLER ADD/REFACTOR STUFF HERE FOR EXTENSIBILITY
+  // 1. Determine tests
+  // 2. Define trunk driver
+  // 3. Define setup/teardown
+  // 4. run each test, inside each:
+  //    - lambda taking in driver and some vars and dictating assertions
+  //    - this is necessary for things like asserting taskFailures, etc.
 };
 
-export const defaultTestDefinition = (
+export const defaultLinterCheckTest = (
   dirname: string,
   linterName: string,
-  linter_test_targets: string[] = []
+  namedTestPrefixes: string[] = []
+) =>
+  defaultLinterDefinitionTest(
+    dirname,
+    linterName,
+    namedTestPrefixes,
+    ITrunkVerb.Check
+  );
+
+export const defaultLinterFmtTest = (
+  dirname: string,
+  linterName: string,
+  namedTestPrefixes: string[] = []
+) =>
+  defaultLinterDefinitionTest(
+    dirname,
+    linterName,
+    namedTestPrefixes,
+    ITrunkVerb.Format
+  );
+
+export const defaultLinterDefinitionTest = (
+  dirname: string,
+  linterName: string,
+  namedTestPrefixes: string[] = [],
+  verb: ITrunkVerb
 ) => {
+  jest.setTimeout(DEFAULT_TEST_TIMEOUT);
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Parse any custom inputs
-    let input_args = parseInputs();
+    // TODO: TYLER ADD SUPPORT FOR TEST FILTERS, other cli args--sometimes it doesn't work on rerun
+    let inputArgs = parseInputs();
     console.debug("Parsed inputs:");
-    console.debug(input_args);
+    console.debug(inputArgs);
 
     // Step 2: Detect test files within a linter test directory
+    let driver = new TrunkDriver(linterName, dirname, inputArgs);
+    let linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
-    // basic.in.py basic.out.py foo.in.py foo.out.py
-    let driver = new TrunkDriver(dirname, input_args);
-    if (linter_test_targets.length == 0) {
-      linter_test_targets = ["basic"]; // TODO: TYLER DETECT ALL THE TESTS
-    }
+    // Step 3: Define test setup and teardown
+    beforeAll(() => {
+      driver.SetUp();
+    });
 
-    // Step 3: Asynchronously run each test
-    // var linter_test_runs = new Map<string, Promise<ITestResult>>();
+    afterAll(() => {
+      driver.TearDown();
+    });
 
-    linter_test_targets.forEach((test_target) => {
-      it(`${linterName} ${test_target}`, async () => {
-        // Step 4: Run any test setup
-        // TODO: TYLER DO SETUP, USE BEFORE/AFTER
+    // Step 4: Asynchronously run each test
+    linterTestTargets.forEach((test_target) => {
+      it(test_target.prefix, async () => {
+        if (verb == ITrunkVerb.Check) {
+          let test_run_result = await driver.RunCheck(test_target.inputPath);
+          assert(test_run_result.success);
 
-        let test_run_result = await driver.RunCheck(linterName);
+          let expected_out_file = path.join(
+            dirname,
+            path.parse(test_target.outputPath).base
+          );
+          let expected_out_json = JSON.parse(
+            fs.readFileSync(expected_out_file, { encoding: "utf-8" })
+          );
+          let expected_out = ConvertToLandingState(expected_out_json);
+          // TODO: TYLER GET LANDING STATE PARSING WORKING
+          console.log("expected!!");
+          console.log(expected_out);
+          expect(test_run_result.landingState).toMatchObject(expected_out);
 
-        // Step 5: Report output and asserts
-        // TODO: TYLER SNAPSHOTS***
-        // TODO: TYLER JEST PARTIAL MATCHING
+          // TODO: TYLER SHOULD SNAPSHOT RUN CONDITIONALLY OR ONLY ON NIGHTLIES?
+          expect(test_run_result.trunkRunResult.outputJson).toMatchSnapshot();
+        } else {
+          let test_run_result = await driver.RunFmt(test_target.inputPath);
+          assert(test_run_result.success);
 
-        // console.log(test_run_result);
-        console.log(
-          `Got test result with json: ${test_run_result.trunk_run_result.stdout}`
-        );
-
-        // Step 6: Cleanup
-        // TODO: TYLER DO Cleanup, USE BEFORE/AFTER
+          let expected_out_file = path.join(
+            dirname,
+            path.parse(test_target.outputPath).base
+          );
+          expect(
+            fs.readFileSync(test_run_result.targetPath).toString()
+          ).toEqual(fs.readFileSync(expected_out_file).toString());
+        }
       });
     });
   });
