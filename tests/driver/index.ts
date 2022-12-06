@@ -1,8 +1,12 @@
-import * as fs from "fs";
-import * as os from "os";
 import { exec, execSync } from "child_process";
+import { plainToClass } from "class-transformer";
+import * as fs from "fs";
+import { pick } from "lodash";
+import * as os from "os";
 import path from "path";
+import * as git from "simple-git";
 import * as util from "util";
+
 import {
   FileIssue,
   IFileIssue,
@@ -13,9 +17,6 @@ import {
   ITestingArguments,
   LandingState,
 } from "../types";
-import * as git from "simple-git";
-import { pick } from "lodash";
-import { plainToClass } from "class-transformer";
 const execpromise = util.promisify(exec);
 
 const TEMP_PREFIX = "plugins_";
@@ -50,7 +51,7 @@ export interface ITestResult {
   landingState?: ILandingState;
 }
 
-export const ConvertToLandingState = (json: JSON): ILandingState => {
+export const convertToLandingState = (json: JSON): ILandingState => {
   return json as ILandingState;
 
   // // Doesn't compile
@@ -110,14 +111,14 @@ export class TrunkDriver {
   }
 
   ParseLandingState(outputJson: JSON): ILandingState {
-    let landingState = ConvertToLandingState(outputJson);
+    const landingState = convertToLandingState(outputJson);
 
-    let absLinterDir = path.parse(this.testDir).dir;
-    let relativeLinterDir = path.relative(REPO_ROOT, absLinterDir);
+    const absLinterDir = path.parse(this.testDir).dir;
+    const relativeLinterDir = path.relative(REPO_ROOT, absLinterDir);
 
-    let transform_path = (testFileRelativePath: string): string => {
+    const transform_path = (testFileRelativePath: string): string => {
       // validate path is parsable
-      let parsed = path.parse(testFileRelativePath);
+      const parsed = path.parse(testFileRelativePath);
       if (parsed.dir.length > 0) {
         return path.join(relativeLinterDir, testFileRelativePath);
       }
@@ -149,13 +150,9 @@ export class TrunkDriver {
     return landingState;
   }
 
-  ParseCheckResult(
-    trunkRunResult: ITrunkRunResult,
-    targetAbsPath: string
-  ): ITestResult {
+  ParseCheckResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
     return {
-      success:
-        trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
+      success: trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
       trunkRunResult,
       trunkVerb: ITrunkVerb.Check,
       targetPath: targetAbsPath,
@@ -163,13 +160,9 @@ export class TrunkDriver {
     };
   }
 
-  ParseFmtResult(
-    trunkRunResult: ITrunkRunResult,
-    targetAbsPath: string
-  ): ITestResult {
+  ParseFmtResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
     return {
-      success:
-        trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
+      success: trunkRunResult.exit_code == 0 && trunkRunResult.stderr.length == 0,
       trunkRunResult,
       trunkVerb: ITrunkVerb.Format,
       targetPath: targetAbsPath,
@@ -197,38 +190,29 @@ plugins:
     this.sandboxPath = fs.mkdtempSync(path.join(os.tmpdir(), TEMP_PREFIX));
     if (this.sandboxPath) {
       // Create repo
-      let sourceDir = path.join(this.testDir, "..");
+      const sourceDir = path.join(this.testDir, "..");
       fs.cpSync(sourceDir, this.sandboxPath!, { recursive: true });
       this.gitDriver = git.simpleGit(this.sandboxPath);
       this.gitDriver.init();
 
       // Initialize trunk via config
       fs.mkdirSync(path.join(this.sandboxPath, ".trunk"));
-      fs.writeFileSync(
-        path.join(this.sandboxPath, ".trunk/trunk.yaml"),
-        this.TrunkYamlContents()
-      );
+      fs.writeFileSync(path.join(this.sandboxPath, ".trunk/trunk.yaml"), this.TrunkYamlContents());
 
       // Enable tested linter
       // TODO: TYLER DO SOMETHING BETTER THAN A TIMEOUT HERE
-      let daemonCommand = `${
-        this.inputArgs.cliPath ?? "trunk"
-      } daemon launch --monitor=false`;
+      const daemonCommand = `${this.inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
       exec(daemonCommand, { cwd: this.sandboxPath, timeout: 1000 });
 
       // TODO: TYLER HANDLE VERSIONING OF LINTER
       try {
         // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-        let enableCommand = `${
-          this.inputArgs.cliPath ?? "trunk"
-        } check enable ${this.linter} --monitor=false`;
+        const enableCommand = `${this.inputArgs.cliPath ?? "trunk"} check enable ${
+          this.linter
+        } --monitor=false`;
         execSync(enableCommand, { cwd: this.sandboxPath });
       } catch (error) {
-        console.warn(
-          `Failed to enable ${this.linter} with message ${
-            (error as Error).message
-          }`
-        );
+        console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
       }
     }
   }
@@ -242,10 +226,10 @@ plugins:
   }
 
   async RunCheck(targetRelativePath: string): Promise<ITestResult> {
-    let targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
-    let resultJsonPath = `${targetAbsPath}.json`;
+    const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
+    const resultJsonPath = `${targetAbsPath}.json`;
 
-    let command = `${
+    const command = `${
       this.inputArgs.cliPath ?? "trunk"
     } check -n --output-file=${resultJsonPath} --no-progress ${targetAbsPath} --filter=${
       this.linter
@@ -258,21 +242,13 @@ plugins:
             exit_code: 0,
             stdout,
             stderr,
-            outputJson: JSON.parse(
-              fs.readFileSync(resultJsonPath, { encoding: "utf-8" })
-            ),
+            outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
           }
       )
-      .then((trunkRunResult) =>
-        this.ParseCheckResult(trunkRunResult, targetAbsPath)
-      )
+      .then((trunkRunResult) => this.ParseCheckResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
-        console.info(
-          `Failure running 'trunk check' with message ${
-            (error as Error).message
-          }`
-        );
-        let trunkRunResult = <ITrunkRunResult>{
+        console.info(`Failure running 'trunk check' with message ${(error as Error).message}`);
+        const trunkRunResult = <ITrunkRunResult>{
           exit_code: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],
@@ -287,14 +263,12 @@ plugins:
   }
 
   async RunFmt(targetRelativePath: string): Promise<ITestResult> {
-    let targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
-    let resultJsonPath = `${targetAbsPath}.json`;
+    const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
+    const resultJsonPath = `${targetAbsPath}.json`;
 
-    let command = `${
+    const command = `${
       this.inputArgs.cliPath ?? "trunk"
-    } fmt ${targetAbsPath} --output-file=${resultJsonPath} --no-progress --filter=${
-      this.linter
-    }`; // TODO: TYLER ADD FILTER WITH LINTER
+    } fmt ${targetAbsPath} --output-file=${resultJsonPath} --no-progress --filter=${this.linter}`; // TODO: TYLER ADD FILTER WITH LINTER
 
     return execpromise(command, { cwd: this.sandboxPath })
       .then(
@@ -303,19 +277,13 @@ plugins:
             exit_code: 0,
             stdout,
             stderr,
-            outputJson: JSON.parse(
-              fs.readFileSync(resultJsonPath, { encoding: "utf-8" })
-            ),
+            outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
           }
       )
-      .then((trunkRunResult) =>
-        this.ParseFmtResult(trunkRunResult, targetAbsPath)
-      )
+      .then((trunkRunResult) => this.ParseFmtResult(trunkRunResult, targetAbsPath))
       .catch((error: Error) => {
-        console.info(
-          `Failure running 'trunk fmt' with message ${(error as Error).message}`
-        );
-        let trunkRunResult = <ITrunkRunResult>{
+        console.info(`Failure running 'trunk fmt' with message ${(error as Error).message}`);
+        const trunkRunResult = <ITrunkRunResult>{
           exit_code: (error as any)["code"],
           stdout: (error as any)["stdout"],
           stderr: (error as any)["stderr"],

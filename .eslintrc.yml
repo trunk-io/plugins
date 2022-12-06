@@ -1,0 +1,105 @@
+root: true
+
+env:
+  browser: true
+  es2021: true
+  node: true
+
+plugins:
+  - simple-import-sort
+
+extends:
+  # Order matters, later configs purposefully override settings from earlier configs
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/recommended
+  - plugin:node/recommended
+  - prettier # this actually turns OFF all prettier rules running via eslint
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+rules:
+  # Turn off base eslint rules in lieu of @typescript-eslint rules (just below)
+  no-return-await: off
+  no-shadow: off
+  no-unused-expressions: off
+  no-unused-vars: off
+  no-use-before-define: off
+  no-useless-constructor: off
+
+  "@typescript-eslint/lines-between-class-members": [error, always, { exceptAfterSingleLine: true }]
+  "@typescript-eslint/naming-convention":
+    - error
+    # Starting with a minimal set of uncontroversial rules. We should add more to cover the many
+    # selectors for which we should have consistent style.
+    - selector: typeLike
+      format: [PascalCase]
+    - selector: variable
+      modifiers: [global, const]
+      # The plugin can't differentiate between:
+      # - values, which should be UPPER_CASE
+      # - arrow functions, which should be camelCase
+      format: [UPPER_CASE, camelCase]
+  "@typescript-eslint/no-shadow": error
+  "@typescript-eslint/no-unused-expressions": [error]
+  "@typescript-eslint/no-unused-vars": [error, { argsIgnorePattern: ^_ }]
+  "@typescript-eslint/no-use-before-define": [error]
+  "@typescript-eslint/no-useless-constructor": [error]
+
+  class-methods-use-this: off
+  curly: error
+  func-names: [error, as-needed]
+  func-style: [error, expression, { "allowArrowFunctions": true }]
+  import/extensions:
+    - error
+    - ignorePackages
+    - js: never
+      ts: never
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies:
+        - jest.config.ts
+        - jest-resolver.js
+        - "**/*.test.ts"
+        - "**/*.spec.ts"
+        - "**/*.test.tsx"
+        - "**/__tests__/**"
+        - "**/__mocks__/**"
+        - "**/playwright.config.ts"
+  import/no-unresolved: off
+  import/prefer-default-export: off
+  lines-between-class-members: off
+  max-len:
+    - error
+    - code: 120
+      comments: 130
+      tabWidth: 2
+      ignoreComments: false
+      ignoreTrailingComments: false
+      ignoreUrls: true
+      ignoreStrings: true
+      ignoreTemplateLiterals: true
+      ignoreRegExpLiterals: true
+  no-continue: off
+  no-param-reassign: [error, { props: false }]
+  no-restricted-syntax: off
+  node/no-extraneous-import: [error]
+  node/no-unsupported-features/es-syntax: [error, { ignores: [modules, dynamicImport] }]
+  simple-import-sort/exports: error
+  simple-import-sort/imports: error
+
+settings:
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+
+overrides:
+  - files: ["**/__tests__/**", "**/__mocks__/**"]
+    env:
+      jest: true
+    plugins:
+      - jest
+      - jest-dom
+    extends:
+      - plugin:jest/recommended
+      - plugin:jest-dom/recommended

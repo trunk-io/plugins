@@ -14,7 +14,8 @@ export interface ITestingArguments {
   help?: boolean;
 }
 
-// LandingState and its subfields must be strongly typed in order for tests to be most effective in asserting relevant, idempotent information.
+// LandingState and its subfields must be strongly typed in order for tests
+// to be most effective in asserting relevant, idempotent information.
 // Unimportant assertion fields omitted here.
 export class FileIssue {
   @Expose() file?: string; // requires path transformation
@@ -68,5 +69,5 @@ export class LandingState {
   // bad_config?: boolean;
 }
 
-export interface ILandingState extends LandingState {}
-export interface IFileIssue extends FileIssue {}
+export type ILandingState = LandingState;
+export type IFileIssue = FileIssue;

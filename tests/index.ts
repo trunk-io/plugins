@@ -1,19 +1,15 @@
+import { assert } from "console";
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from "ts-command-line-args";
+
+import { convertToLandingState, ITestResult, ITestTarget, ITrunkVerb, TrunkDriver } from "./driver";
 import { ILandingState, ILinterVersion, ITestingArguments } from "./types";
-import {
-  ConvertToLandingState,
-  ITestResult,
-  ITestTarget,
-  ITrunkVerb,
-  TrunkDriver,
-} from "./driver";
-import { assert } from "console";
 
 /*
 
 FEATURE LIST TODO:
+0. Fix imports
 1. Fix interface/class member assertions
 2. Extract out generic function for testing
 3. Fix command line stuff
@@ -22,9 +18,6 @@ FEATURE LIST TODO:
 
 */
 
-// TODO: TYLER FIX CASING
-const LINTER_DIR = path.join(__dirname, "../linters/");
-const TEST_SUBDIR = "test";
 const DEFAULT_TEST_TIMEOUT = 10000;
 
 function parseLinterVersion(value: any) {
@@ -88,24 +81,18 @@ const parseInputs = (): ITestingArguments =>
 // };
 
 // TODO: TYLER EXTRACT THIS INTO UTILS
-const detectTestTargets = (
-  dirname: string,
-  namedTestPrefixes: string[]
-): ITestTarget[] => {
-  let parentTestDirName = path.parse(dirname).name;
-  var testTargets = new Map<string, ITestTarget>();
+const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestTarget[] => {
+  const parentTestDirName = path.parse(dirname).name;
+  const testTargets = new Map<string, ITestTarget>();
   // Sort guarantees basic.in comes before basic.out
   fs.readdirSync(dirname)
     .sort()
     .forEach((file: string) => {
       const inFileRegex = /(?<prefix>.+)\.in\.(?<extension>.+)$/;
-      let foundIn = file.match(inFileRegex);
+      const foundIn = file.match(inFileRegex);
       if (foundIn) {
-        let prefix = foundIn.groups?.prefix;
-        if (
-          prefix &&
-          (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length == 0)
-        ) {
+        const prefix = foundIn.groups?.prefix;
+        if (prefix && (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length == 0)) {
           testTargets.set(prefix, {
             prefix,
             inputPath: path.join(parentTestDirName, file),
@@ -116,20 +103,18 @@ const detectTestTargets = (
       }
 
       const outFileRegex = /(?<prefix>.+)\.out\.(?<extension>.+)$/;
-      let foundOut = file.match(outFileRegex);
+      const foundOut = file.match(outFileRegex);
       if (foundOut) {
-        let prefix = foundOut.groups?.prefix;
+        const prefix = foundOut.groups?.prefix;
         if (prefix) {
-          let maybe_target = testTargets.get(prefix);
+          const maybe_target = testTargets.get(prefix);
           if (maybe_target) {
             maybe_target.outputPath = path.join(parentTestDirName, file);
           }
         }
       }
     });
-  return Array.from(testTargets.values()).filter(
-    (target) => target.outputPath.length > 0
-  );
+  return Array.from(testTargets.values()).filter((target) => target.outputPath.length > 0);
 };
 
 /*
@@ -154,42 +139,15 @@ describe("Testing composite config", () => {
   // TODO: TYLER TEST ABSOLUTE REPO HEALTH (validate trunk config)
 });
 
-export const genericTestLinterDefinition = (
-  dirname: string,
-  linterName: string
-) => {
-  // TODO: TYLER ADD/REFACTOR STUFF HERE FOR EXTENSIBILITY
-  // 1. Determine tests
-  // 2. Define trunk driver
-  // 3. Define setup/teardown
-  // 4. run each test, inside each:
-  //    - lambda taking in driver and some vars and dictating assertions
-  //    - this is necessary for things like asserting taskFailures, etc.
-};
-
-export const defaultLinterCheckTest = (
-  dirname: string,
-  linterName: string,
-  namedTestPrefixes: string[] = []
-) =>
-  defaultLinterDefinitionTest(
-    dirname,
-    linterName,
-    namedTestPrefixes,
-    ITrunkVerb.Check
-  );
-
-export const defaultLinterFmtTest = (
-  dirname: string,
-  linterName: string,
-  namedTestPrefixes: string[] = []
-) =>
-  defaultLinterDefinitionTest(
-    dirname,
-    linterName,
-    namedTestPrefixes,
-    ITrunkVerb.Format
-  );
+// export const genericTestLinterDefinition = (dirname: string, linterName: string) => {
+//   // TODO: TYLER ADD/REFACTOR STUFF HERE FOR EXTENSIBILITY
+//   // 1. Determine tests
+//   // 2. Define trunk driver
+//   // 3. Define setup/teardown
+//   // 4. run each test, inside each:
+//   //    - lambda taking in driver and some vars and dictating assertions
+//   //    - this is necessary for things like asserting taskFailures, etc.
+// };
 
 export const defaultLinterDefinitionTest = (
   dirname: string,
@@ -201,13 +159,13 @@ export const defaultLinterDefinitionTest = (
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Parse any custom inputs
     // TODO: TYLER ADD SUPPORT FOR TEST FILTERS, other cli args--sometimes it doesn't work on rerun
-    let inputArgs = parseInputs();
+    const inputArgs = parseInputs();
     console.debug("Parsed inputs:");
     console.debug(inputArgs);
 
     // Step 2: Detect test files within a linter test directory
-    let driver = new TrunkDriver(linterName, dirname, inputArgs);
-    let linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
+    const driver = new TrunkDriver(linterName, dirname, inputArgs);
+    const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
     // Step 3: Define test setup and teardown
     beforeAll(() => {
@@ -222,17 +180,14 @@ export const defaultLinterDefinitionTest = (
     linterTestTargets.forEach((test_target) => {
       it(test_target.prefix, async () => {
         if (verb == ITrunkVerb.Check) {
-          let test_run_result = await driver.RunCheck(test_target.inputPath);
+          const test_run_result = await driver.RunCheck(test_target.inputPath);
           assert(test_run_result.success);
 
-          let expected_out_file = path.join(
-            dirname,
-            path.parse(test_target.outputPath).base
-          );
-          let expected_out_json = JSON.parse(
+          const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
+          const expected_out_json = JSON.parse(
             fs.readFileSync(expected_out_file, { encoding: "utf-8" })
           );
-          let expected_out = ConvertToLandingState(expected_out_json);
+          const expected_out = convertToLandingState(expected_out_json);
           // TODO: TYLER GET LANDING STATE PARSING WORKING
           console.log("expected!!");
           console.log(expected_out);
@@ -241,18 +196,27 @@ export const defaultLinterDefinitionTest = (
           // TODO: TYLER SHOULD SNAPSHOT RUN CONDITIONALLY OR ONLY ON NIGHTLIES?
           expect(test_run_result.trunkRunResult.outputJson).toMatchSnapshot();
         } else {
-          let test_run_result = await driver.RunFmt(test_target.inputPath);
+          const test_run_result = await driver.RunFmt(test_target.inputPath);
           assert(test_run_result.success);
 
-          let expected_out_file = path.join(
-            dirname,
-            path.parse(test_target.outputPath).base
+          const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
+          expect(fs.readFileSync(test_run_result.targetPath).toString()).toEqual(
+            fs.readFileSync(expected_out_file).toString()
           );
-          expect(
-            fs.readFileSync(test_run_result.targetPath).toString()
-          ).toEqual(fs.readFileSync(expected_out_file).toString());
         }
       });
     });
   });
 };
+
+export const defaultLinterCheckTest = (
+  dirname: string,
+  linterName: string,
+  namedTestPrefixes: string[] = []
+) => defaultLinterDefinitionTest(dirname, linterName, namedTestPrefixes, ITrunkVerb.Check);
+
+export const defaultLinterFmtTest = (
+  dirname: string,
+  linterName: string,
+  namedTestPrefixes: string[] = []
+) => defaultLinterDefinitionTest(dirname, linterName, namedTestPrefixes, ITrunkVerb.Format);
