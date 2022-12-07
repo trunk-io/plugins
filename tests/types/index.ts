@@ -29,7 +29,7 @@ export interface IFileIssue {
   linter: string;
   targetType: string;
   // autofixOptions: any[];
-  ranges: any[];
+  // ranges: any[];
   issueUrl: string;
 }
 

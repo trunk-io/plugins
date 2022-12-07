@@ -12,7 +12,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Keywords must be consistently upper case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -24,7 +23,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Query produces an unknown number of result columns.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -36,7 +34,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Select targets should be on a new line unless there is only one select target.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -48,7 +45,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Column expression without alias. Use explicit \`AS\` clause.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -60,7 +56,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Keywords must be consistently upper case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -72,7 +67,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unnecessary whitespace found.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -84,7 +78,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unquoted identifiers must be consistently lower case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -96,7 +89,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unnecessary whitespace found.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -108,7 +100,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Keywords must be consistently upper case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -120,7 +111,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unquoted identifiers must be consistently lower case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -132,7 +122,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unquoted identifiers must be consistently lower case.",
-      "ranges": undefined,
       "targetType": "sql",
     },
     {
@@ -144,7 +133,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Unnecessary whitespace found.",
-      "ranges": undefined,
       "targetType": "sql",
     },
   ],
@@ -185,7 +173,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "line": "1",
       "linter": "sqlfluff",
       "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
-      "ranges": undefined,
       "targetType": undefined,
     },
   ],

@@ -8,6 +8,7 @@ const config: Config = {
   testMatch: ["/tests/index.ts", "/**/*test.ts"],
   moduleFileExtensions: ["ts", "js", "json", "node"],
   modulePaths: ["<rootDir>"],
+  setupFilesAfterEnv: ["./setup.ts"],
 };
 
 export default config;

@@ -1,31 +1,36 @@
-import { assert } from "console";
 import * as fs from "fs";
 import * as path from "path";
-import { extractLandingState, ITestTarget, ITrunkVerb, TrunkDriver } from "tests/driver";
+import { extractLandingState, ISetupSettings, ITestTarget, TrunkDriver } from "tests/driver";
 import { ILinterVersion, ITestingArguments } from "tests/types";
 
 /*
 
+// TODO: TYLER
 FEATURE LIST TODO:
 0. Fix imports
-2. Extract out generic function for testing
 4. Documentation
 5. Poke around PR workflow
 
 */
 
-const DEFAULT_TEST_TIMEOUT = 10000;
+let printed_args = false;
 
-function parseLinterVersion(value: any) {
+const parseLinterVersion = (value: any): ILinterVersion | undefined => {
   return (value as ILinterVersion) ?? undefined;
-}
+};
 
-const parseInputs = () =>
-  <ITestingArguments>{
+export const parseInputs = () => {
+  const args = <ITestingArguments>{
     cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
     cliPath: process.env.PLUGINS_TEST_CLI_PATH,
     linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION),
   };
+  if (!printed_args && (args.cliVersion || args.cliPath || args.linterVersion)) {
+    console.debug(args);
+    printed_args = true;
+  }
+  return args;
+};
 
 const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestTarget[] => {
   const parentTestDirName = path.parse(dirname).name;
@@ -63,104 +68,84 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestT
   return Array.from(testTargets.values()).filter((target) => target.outputPath.length > 0);
 };
 
-/*
-GOALS OF THIS TEST HARNESS:
-1. We are working to migrate all our linter definitions over to the plugin repo
-  a. We need to preserve our testing logic and assertions that we had before
-
-2. We want more peace of mind and guiderails for users (and us) who contribute to the plugins repo.
-  a. Should be easy to grasp, easy to run
-
-3. Test linters with basic.in.py -> basic.out.json (and some custom logic for the json subset asserts)
-4. Test formatters with basic.in.py -> basic.out.py
-5. Keep it simple but extensible
-
-CONSIDERATIONS:
-1. Because of the way trunk is run (git-dependent, trunk.yaml-dependent, etc.) this needs to be sandboxed
-2. Want to easily run this (probs with a trunk action)
-3. Want to easily filter, set cli/linter versions manually, etc.
-*/
-
-describe("Testing composite config", () => {
-  // TODO: TYLER TEST ABSOLUTE REPO HEALTH (validate trunk config)
-});
-
-// export const genericTestLinterDefinition = (dirname: string, linterName: string) => {
-//   // TODO: TYLER ADD/REFACTOR STUFF HERE FOR EXTENSIBILITY
-//   // 1. Determine tests
-//   // 2. Define trunk driver
-//   // 3. Define setup/teardown
-//   // 4. run each test, inside each:
-//   //    - lambda taking in driver and some vars and dictating assertions
-//   //    - this is necessary for things like asserting taskFailures, etc.
-// };
-
-export const defaultLinterDefinitionTest = (
+export const setupDriver = (
   dirname: string,
-  linterName: string,
-  namedTestPrefixes: string[] = [],
-  verb: ITrunkVerb
-) => {
-  // Step 1: Parse any custom inputs
-  const inputArgs = parseInputs();
-  if (inputArgs.cliVersion || inputArgs.cliPath || inputArgs.linterVersion) {
-    console.debug(inputArgs);
-  }
+  inputArgs: ITestingArguments,
+  setupSettings: ISetupSettings,
+  linterName?: string
+): TrunkDriver => {
+  const driver = new TrunkDriver(dirname, inputArgs, setupSettings, linterName);
 
-  jest.setTimeout(DEFAULT_TEST_TIMEOUT);
-
-  describe(`Testing linter ${linterName}`, () => {
-    // Step 2: Detect test files within a linter test directory
-    const driver = new TrunkDriver(linterName, dirname, inputArgs);
-    const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
-
-    // Step 3: Define test setup and teardown
-    beforeAll(() => {
-      driver.SetUp();
-    });
-
-    afterAll(() => {
-      driver.TearDown();
-    });
-
-    // Step 4: Asynchronously run each test
-    linterTestTargets.forEach((test_target) => {
-      it(test_target.prefix, async () => {
-        if (verb == ITrunkVerb.Check) {
-          const test_run_result = await driver.RunCheck(test_target.inputPath);
-          assert(test_run_result.success);
-
-          const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
-          const expected_out_json = JSON.parse(
-            fs.readFileSync(expected_out_file, { encoding: "utf-8" })
-          );
-          const expected_out = extractLandingState(expected_out_json);
-          expect(test_run_result.landingState).toEqual(expected_out);
-
-          // TODO: TYLER SHOULD SNAPSHOT RUN CONDITIONALLY OR ONLY ON NIGHTLIES?
-          expect(test_run_result.landingState).toMatchSnapshot();
-        } else {
-          const test_run_result = await driver.RunFmt(test_target.inputPath);
-          assert(test_run_result.success);
-
-          const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
-          expect(fs.readFileSync(test_run_result.targetPath).toString()).toEqual(
-            fs.readFileSync(expected_out_file).toString()
-          );
-        }
-      });
-    });
+  beforeAll(() => {
+    driver.SetUp();
   });
+
+  afterAll(() => {
+    driver.TearDown();
+  });
+  return driver;
 };
 
 export const defaultLinterCheckTest = (
   dirname: string,
   linterName: string,
   namedTestPrefixes: string[] = []
-) => defaultLinterDefinitionTest(dirname, linterName, namedTestPrefixes, ITrunkVerb.Check);
+) => {
+  describe(`Testing linter ${linterName}`, () => {
+    // Step 1: Parse any custom inputs
+    const inputArgs = parseInputs();
+
+    // Step 2: Define test setup and teardown
+    const driver = setupDriver(dirname, inputArgs, {}, linterName);
+
+    // Step 3: Detect test files to run
+    const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
+
+    // Step 4: Asynchronously run each test
+    linterTestTargets.forEach((test_target) => {
+      it(test_target.prefix, async () => {
+        const test_run_result = await driver.RunCheckUnit(test_target.inputPath, linterName);
+        expect(test_run_result.success);
+
+        const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
+        const expected_out_json = JSON.parse(
+          fs.readFileSync(expected_out_file, { encoding: "utf-8" })
+        );
+        const expected_out = extractLandingState(expected_out_json);
+        expect(test_run_result.landingState).toEqual(expected_out);
+
+        expect(test_run_result.landingState).toMatchSnapshot();
+      });
+    });
+  });
+};
 
 export const defaultLinterFmtTest = (
   dirname: string,
   linterName: string,
   namedTestPrefixes: string[] = []
-) => defaultLinterDefinitionTest(dirname, linterName, namedTestPrefixes, ITrunkVerb.Format);
+) => {
+  describe(`Testing formatter ${linterName}`, () => {
+    // Step 1: Parse any custom inputs
+    const inputArgs = parseInputs();
+
+    // Step 2: Define test setup and teardown
+    const driver = setupDriver(dirname, inputArgs, {}, linterName);
+
+    // Step 3: Detect test files to run
+    const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
+
+    // Step 4: Asynchronously run each test
+    linterTestTargets.forEach((test_target) => {
+      it(test_target.prefix, async () => {
+        const test_run_result = await driver.RunFmtUnit(test_target.inputPath, linterName);
+        expect(test_run_result.success);
+
+        const expected_out_file = path.join(dirname, path.parse(test_target.outputPath).base);
+        expect(fs.readFileSync(test_run_result.targetPath!).toString()).toEqual(
+          fs.readFileSync(expected_out_file).toString()
+        );
+      });
+    });
+  });
+};

@@ -1,4 +1,4 @@
-import { exec, execSync } from "child_process";
+import { exec, ExecOptions, execSync } from "child_process";
 import { sort } from "fast-sort";
 import * as fs from "fs";
 import * as os from "os";
@@ -16,8 +16,8 @@ import * as util from "util";
 const execpromise = util.promisify(exec);
 
 const TEMP_PREFIX = "plugins_";
-const REPO_ROOT = path.join(__dirname, "../..");
-const ENABLE_TIMEOUT = 2000;
+export const REPO_ROOT = path.join(__dirname, "../..");
+const ENABLE_TIMEOUT = 1000;
 
 export interface ITestTarget {
   prefix: string;
@@ -43,7 +43,7 @@ export interface ITestResult {
   success: boolean;
   trunkRunResult: ITrunkRunResult;
   trunkVerb: ITrunkVerb;
-  targetPath: string;
+  targetPath?: string;
   landingState?: ILandingState;
 }
 
@@ -59,7 +59,6 @@ export const extractLandingState = (json: JSON): ILandingState => {
     level,
     linter,
     targetType,
-    ranges,
     issueUrl,
     ..._rest
   }: IFileIssue): IFileIssue => ({
@@ -71,7 +70,6 @@ export const extractLandingState = (json: JSON): ILandingState => {
     level,
     linter,
     targetType,
-    ranges,
     issueUrl,
   });
 
@@ -146,17 +144,32 @@ export const extractLandingState = (json: JSON): ILandingState => {
   return extractLSFields(json as ILandingState);
 };
 
+export interface ISetupSettings {
+  setupGit?: boolean;
+  setupTrunk?: boolean;
+}
+
 export class TrunkDriver {
-  linter: string; // The name of the linter
+  linter?: string; // The name of the linter. If defined, enable the linter during setup
   testDir: string; // Refers to the path to the test subdir inside a linter directory
   inputArgs: ITestingArguments;
   sandboxPath?: string; // Created in /tmp during setup
-  gitDriver?: git.SimpleGit;
+  gitDriver?: git.SimpleGit; // Created during setup
+  setupSettings: ISetupSettings;
 
-  constructor(linter: string, testDir: string, args: ITestingArguments) {
+  constructor(
+    testDir: string,
+    args: ITestingArguments,
+    { setupGit, setupTrunk }: ISetupSettings,
+    linter?: string
+  ) {
     this.linter = linter;
     this.testDir = testDir;
     this.inputArgs = args;
+    this.setupSettings = {
+      setupGit: setupGit ?? true,
+      setupTrunk: setupTrunk ?? true,
+    };
   }
 
   TryParseLandingState(outputJson: JSON): ILandingState | undefined {
@@ -191,45 +204,33 @@ export class TrunkDriver {
       failure.message = transform_path(failure.message);
     });
 
-    // TODO: TYLER REMOVE
-    // console.log("post transform!!");
-    // console.log(landingState);
-    // console.log("post transform 2!!");
-    // console.log(landingState.lintActions);
-
     return landingState;
   }
 
-  ParseCheckResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
+  ParseRunResult(
+    trunkRunResult: ITrunkRunResult,
+    trunkVerb: ITrunkVerb,
+    targetAbsPath?: string
+  ): ITestResult {
     return {
       success: trunkRunResult.exitCode == 0 && trunkRunResult.stderr.length == 0,
       trunkRunResult,
-      trunkVerb: ITrunkVerb.Check,
+      trunkVerb,
       targetPath: targetAbsPath,
       landingState: this.TryParseLandingState(trunkRunResult.outputJson),
     };
   }
 
-  ParseFmtResult(trunkRunResult: ITrunkRunResult, targetAbsPath: string): ITestResult {
-    return {
-      success: trunkRunResult.exitCode == 0 && trunkRunResult.stderr.length == 0,
-      trunkRunResult,
-      trunkVerb: ITrunkVerb.Format,
-      targetPath: targetAbsPath,
-      landingState: this.TryParseLandingState(trunkRunResult.outputJson),
-    };
-  }
-
-  // THIS SHOULD NOT USE LATEST. IT SHOULD USE WHAT'S IN THE ROOT TRUNK.YAML IN ORDER TO BE CLEAR (IF NOT SPECIFIED)
-  GetLatestTrunkVersion(): string {
+  // TODO: TYLER THIS SHOULD NOT USE LATEST. IT SHOULD USE WHAT'S IN THE ROOT TRUNK.YAML IN ORDER TO BE CLEAR (IF NOT SPECIFIED)
+  GetTrunkVersion(): string {
     // TODO: TYLER COMPUTE THIS ONCE STATICALLY AT TEST TIME
-    return "1.1.1-beta.14";
+    return this.inputArgs.cliVersion ?? "1.1.1-beta.14";
   }
 
   TrunkYamlContents(): string {
     return `version: 0.1
 cli:
-  version: ${this.inputArgs.cliVersion ?? this.GetLatestTrunkVersion()}
+  version: ${this.GetTrunkVersion()}
 plugins:
   sources:
   - id: trunk
@@ -243,27 +244,34 @@ plugins:
       // Create repo
       const sourceDir = path.join(this.testDir, "..");
       fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
-      this.gitDriver = git.simpleGit(this.sandboxPath);
-      this.gitDriver.init();
 
-      // Initialize trunk via config
-      fs.mkdirSync(path.join(this.sandboxPath, ".trunk"));
-      fs.writeFileSync(path.join(this.sandboxPath, ".trunk/trunk.yaml"), this.TrunkYamlContents());
+      if (this.setupSettings.setupGit) {
+        this.gitDriver = git.simpleGit(this.sandboxPath);
+        this.gitDriver.init();
+      }
 
-      // Enable tested linter
-      // TODO: TYLER DO SOMETHING BETTER THAN A TIMEOUT HERE
-      const daemonCommand = `${this.inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
-      exec(daemonCommand, { cwd: this.sandboxPath, timeout: 1000 });
+      if (this.setupSettings.setupTrunk) {
+        // Initialize trunk via config
+        fs.mkdirSync(path.join(this.sandboxPath, ".trunk"));
+        fs.writeFileSync(
+          path.join(this.sandboxPath, ".trunk/trunk.yaml"),
+          this.TrunkYamlContents()
+        );
+      }
 
-      // TODO: TYLER HANDLE VERSIONING OF LINTER
-      try {
-        // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-        const enableCommand = `${this.inputArgs.cliPath ?? "trunk"} check enable ${
-          this.linter
-        } --monitor=false`;
-        execSync(enableCommand, { cwd: this.sandboxPath });
-      } catch (error) {
-        console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
+      // Enable tested linter if specified
+      if (this.linter) {
+        const daemonCommand = `${this.inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
+        exec(daemonCommand, { cwd: this.sandboxPath, timeout: ENABLE_TIMEOUT });
+        try {
+          // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
+          const enableCommand = `${this.inputArgs.cliPath ?? "trunk"} check enable ${
+            this.linter
+          } --monitor=false`;
+          execSync(enableCommand, { cwd: this.sandboxPath });
+        } catch (error) {
+          console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
+        }
       }
     }
   }
@@ -276,25 +284,28 @@ plugins:
     }
   }
 
-  async RunCheck(targetRelativePath: string): Promise<ITestResult> {
-    const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
-    const resultJsonPath = `${targetAbsPath}.json`;
+  async Run(args: string, execOptions?: ExecOptions) {
+    const fullCommand = `${this.inputArgs.cliPath ?? "trunk"} ${args}`;
+    return execpromise(fullCommand, { cwd: this.sandboxPath, ...execOptions });
+  }
 
-    const command = `${
-      this.inputArgs.cliPath ?? "trunk"
-    } check -n --output-file=${resultJsonPath} --no-progress --upstream=false --filter=${
-      this.linter
-    } ${targetAbsPath}`;
+  async RunCheck(
+    args = "",
+    targetAbsPath?: string,
+    resultJsonPath: string = path.join(this.sandboxPath ?? "", "result.json")
+  ) {
+    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress ${args}`;
 
-    return execpromise(command, { cwd: this.sandboxPath })
+    return this.Run(fullArgs)
       .then(({ stdout, stderr }) =>
-        this.ParseCheckResult(
+        this.ParseRunResult(
           {
             exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
           },
+          ITrunkVerb.Check,
           targetAbsPath
         )
       )
@@ -310,27 +321,33 @@ plugins:
           console.log("Failure running 'trunk check'");
           console.log(error);
         }
-        return this.ParseCheckResult(trunkRunResult, targetAbsPath);
+        return this.ParseRunResult(trunkRunResult, ITrunkVerb.Check, targetAbsPath);
       });
   }
 
-  async RunFmt(targetRelativePath: string): Promise<ITestResult> {
+  async RunCheckUnit(targetRelativePath: string, linter: string): Promise<ITestResult> {
+    const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
+    const resultJsonPath = `${targetAbsPath}.json`;
+    const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
+    return this.RunCheck(args, targetAbsPath, resultJsonPath);
+  }
+
+  async RunFmtUnit(targetRelativePath: string, linter: string): Promise<ITestResult> {
     const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
 
-    const command = `${
-      this.inputArgs.cliPath ?? "trunk"
-    } fmt ${targetAbsPath} --output-file=${resultJsonPath} --no-progress --filter=${this.linter}`;
+    const args = `fmt --output-file=${resultJsonPath} --no-progress --filter=${linter} ${targetAbsPath}`;
 
-    return execpromise(command, { cwd: this.sandboxPath })
+    return this.Run(args)
       .then(({ stdout, stderr }) =>
-        this.ParseFmtResult(
+        this.ParseRunResult(
           {
             exitCode: 0,
             stdout,
             stderr,
             outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
           },
+          ITrunkVerb.Format,
           targetAbsPath
         )
       )
@@ -345,7 +362,7 @@ plugins:
           console.log("Failure running 'trunk fmt'");
           console.log(error);
         }
-        return this.ParseCheckResult(trunkRunResult, targetAbsPath);
+        return this.ParseRunResult(trunkRunResult, ITrunkVerb.Format, targetAbsPath);
       });
   }
 }
