@@ -22,3 +22,23 @@ jobs:
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
+
+  plugins_test:
+    name: Plugins Test Runner
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        linter-version: [KnownGoodVersion, Latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Build tests
+        run: npm run build-test
+      - name: Run tests
+        run: PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test
