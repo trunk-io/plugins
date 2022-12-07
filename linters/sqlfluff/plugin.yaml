@@ -22,6 +22,7 @@ lint:
           formatter: true
           in_place: true
           success_codes: [0]
+          enabled: false
 
     - name: sqlfluff-fix
       files: [sql, sql-j2, dml, ddl]
