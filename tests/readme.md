@@ -63,7 +63,7 @@ npm run build-test && npm run test ${path_to_linter_subdir}
 ### Test Configuration
 
 `defaultLinterCheckTest` or `defaultLinterFmtTest` should be sufficient for most linters and
-formatters. If your test requires additional setup, follow the example of
+formatters. If your test requires additional setup, follow the example of setup in
 [config_check_test.ts](./config_check_test.ts).
 
 ### Environment Overrides

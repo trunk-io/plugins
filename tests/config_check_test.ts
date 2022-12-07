@@ -3,7 +3,7 @@ import path from "path";
 import { parseInputs, setupDriver } from "tests";
 import { REPO_ROOT } from "tests/driver";
 
-// Run trunk check from the root of the repository to verify a healthy config
+// Run 'trunk config print' from the root of the repository to verify a healthy config
 describe(`Global config health check`, () => {
   // Step 1: Parse any custom inputs
   const inputArgs = parseInputs();
@@ -34,9 +34,8 @@ describe(`Global config health check`, () => {
       });
     }
 
-    const test_run_result = await driver.RunCheck();
-    expect(test_run_result.success);
-    expect(test_run_result.landingState).toBeDefined();
-    expect(test_run_result.landingState?.taskFailures).toHaveLength(0);
+    // Test that config healthily resolves
+    const test_run_result = await driver.Run("config print");
+    expect(test_run_result.stdout).toContain("version: 0.1");
   });
 });
