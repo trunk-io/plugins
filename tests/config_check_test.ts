@@ -15,11 +15,8 @@ describe(`Global config health check`, () => {
     setupTrunk: false,
   });
 
-  // Step 3: Run check
-  it("trunk check from repo root", async () => {
-    const daemonCommand = `${inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
-    exec(daemonCommand, { cwd: driver.sandboxPath, timeout: 1000 });
-
+  // Step 3: Validate config
+  it("trunk config print from repo root", async () => {
     const trunkConfig = driver.GetTrunkConfig();
     let alreadyLocal = false;
     for (const source of trunkConfig["plugins"]["sources"]) {
@@ -29,6 +26,9 @@ describe(`Global config health check`, () => {
     }
 
     if (!alreadyLocal) {
+      const daemonCommand = `${inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
+      exec(daemonCommand, { cwd: driver.sandboxPath, timeout: 5000 });
+
       await driver.Run("run toggle-local").catch((error: Error) => {
         console.log(error);
       });
