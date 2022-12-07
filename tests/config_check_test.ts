@@ -27,7 +27,7 @@ describe(`Global config health check`, () => {
 
     if (!alreadyLocal) {
       const runner = exec(
-        "run toggle-local",
+        `${inputArgs.cliPath ?? "trunk"} run toggle-local`,
         { cwd: driver.sandboxPath, timeout: 5000 },
         (_error, _stdout, _stderr) => {}
       );
