@@ -14,18 +14,23 @@ import {
 } from "tests/types";
 import * as util from "util";
 import YAML from "yaml";
-const execpromise = util.promisify(exec);
 
+const execpromise = util.promisify(exec);
 const TEMP_PREFIX = "plugins_";
 export const REPO_ROOT = path.join(__dirname, "../..");
 const ENABLE_TIMEOUT = 1000;
 
+// A specified test target to run on, identified by a prefix.
+// inputPath and outputPath should be relative paths relative to the
+// specific linter subdirectory.
 export interface ITestTarget {
   prefix: string;
   inputPath: string;
   outputPath: string;
 }
 
+// The result of running a 'trunk check' or 'trunk fmt' command.
+// outputJson will attempt to be parsed from the result if successful.
 export interface ITrunkRunResult {
   exitCode: number;
   stdout: string;
@@ -34,11 +39,14 @@ export interface ITrunkRunResult {
   outputJson: JSON;
 }
 
+// Which primary trunk command was run.
 export enum ITrunkVerb {
   Check = 1,
   Format,
 }
 
+// The result of all invocations run during an individual test. This includes
+// additional information parsed from the resulting json if successful.
 export interface ITestResult {
   success: boolean;
   trunkRunResult: ITrunkRunResult;
@@ -47,11 +55,14 @@ export interface ITestResult {
   landingState?: ILandingState;
 }
 
-export const parseTrunkYaml = (filePath: string) => {
-  const trunkYamlContents = fs.readFileSync(filePath, "utf8");
-  return YAML.parse(trunkYamlContents);
+// Read and parse a YAML file.
+export const parseYaml = (filePath: string) => {
+  const yamlContents = fs.readFileSync(filePath, "utf8");
+  return YAML.parse(yamlContents);
 };
 
+// Extract the LandingState from an input 'json', only retrieving assertable fields. Discard
+// fields that depend on git and cache states. Also sorts repeatable fields deterministically.
 export const extractLandingState = (json: JSON): ILandingState => {
   // Remove unwanted fields. Prefer object destructuring to be explicit about required fields
   // for forward compatibility.
@@ -149,11 +160,13 @@ export const extractLandingState = (json: JSON): ILandingState => {
   return extractLSFields(json as ILandingState);
 };
 
+// Configuration for when a TrunkDriver instance runs 'SetUp'.
 export interface ISetupSettings {
   setupGit?: boolean;
   setupTrunk?: boolean;
 }
 
+// The primary means for setting up and running trunk commands in a test
 export class TrunkDriver {
   linter?: string; // The name of the linter. If defined, enable the linter during setup
   testDir: string; // Refers to the path to the test subdir inside a linter directory
@@ -161,7 +174,6 @@ export class TrunkDriver {
   sandboxPath?: string; // Created in /tmp during setup
   gitDriver?: git.SimpleGit; // Created during setup
   setupSettings: ISetupSettings;
-  fullTrunkConfig?: string;
 
   constructor(
     testDir: string,
@@ -178,6 +190,9 @@ export class TrunkDriver {
     };
   }
 
+  // Attempt to parse the JSON result of a 'trunk check' or 'trunk fmt' run into
+  // A landing state, transforming all relative paths to match them as they would appear
+  // from the repo root.
   TryParseLandingState(outputJson: JSON): ILandingState | undefined {
     if (!outputJson) {
       return undefined;
@@ -213,6 +228,7 @@ export class TrunkDriver {
     return landingState;
   }
 
+  // Convert a ITrunkRunResult into a full ITestResult.
   ParseRunResult(
     trunkRunResult: ITrunkRunResult,
     trunkVerb: ITrunkVerb,
@@ -227,13 +243,14 @@ export class TrunkDriver {
     };
   }
 
+  // Retrieve the desired trunk version for tests. Prefer the environment variable-specified version,
+  // then the cli version in the .trunk/trunk.yaml of the repository root.
   GetTrunkVersion(): string {
-    const repoCliVersion = parseTrunkYaml(path.join(REPO_ROOT, ".trunk/trunk.yaml"))["cli"][
-      "version"
-    ];
+    const repoCliVersion = parseYaml(path.join(REPO_ROOT, ".trunk/trunk.yaml"))["cli"]["version"];
     return this.inputArgs.cliVersion ?? repoCliVersion ?? "1.1.1-beta.14";
   }
 
+  // Generate contents for a newly generated, empty trunk.yaml.
   TrunkYamlContents(): string {
     return `version: 0.1
 cli:
@@ -245,22 +262,19 @@ plugins:
   `;
   }
 
+  // Return the yaml result of parsing the .trunk/trunk.yaml in the test sandbox.
   GetTrunkConfig = () => {
     const trunkYamlPath = path.join(this.sandboxPath ?? "", ".trunk/trunk.yaml");
-    return parseTrunkYaml(trunkYamlPath);
+    return parseYaml(trunkYamlPath);
   };
 
+  // Return the yaml result of parsing the output of 'trunk config print' in the test sandbox.
   GetFullTrunkConfig = () => {
-    if (this.fullTrunkConfig) {
-      return this.fullTrunkConfig;
-    }
-
-    const trunkYamlPath = path.join(this.sandboxPath ?? "", ".trunk/trunk.yaml");
-    this.fullTrunkConfig = parseTrunkYaml(trunkYamlPath);
     const printConfig = execSync(`${this.inputArgs.cliPath ?? "trunk"} config print`);
     return YAML.parse(printConfig.toString());
   };
 
+  // Parse the result of 'GetFullTrunkConfig' in the context of 'inputArgs' to identify the desired linter version to enable.
   ExtractLinterVersion = (): string => {
     if (!this.inputArgs.linterVersion || this.inputArgs.linterVersion == ILinterVersion.Latest) {
       return "";
@@ -277,6 +291,10 @@ plugins:
     }
   };
 
+  // Setup a sandbox test directory by copying in test contents and conditionally:
+  // 1. Creating a git repo
+  // 2. Dumping a newly generated trunk.yaml
+  // 3. Enabling the specified 'linter'
   async SetUp() {
     this.sandboxPath = fs.mkdtempSync(path.join(os.tmpdir(), TEMP_PREFIX));
     if (this.sandboxPath) {
@@ -319,6 +337,8 @@ plugins:
     }
   }
 
+  // Delete the sandbox testing directory and its contents, as well as removing any trunk information
+  // associated with it in order to prune the cache.
   async TearDown() {
     const deinitCommand = `${this.inputArgs.cliPath ?? "trunk"} deinit`;
     exec(deinitCommand, { cwd: this.sandboxPath, timeout: 1000 });
@@ -327,11 +347,13 @@ plugins:
     }
   }
 
+  // Run a specified trunk command with 'args' (omit 'trunk') and additional options.
   async Run(args: string, execOptions?: ExecOptions) {
     const fullCommand = `${this.inputArgs.cliPath ?? "trunk"} ${args}`;
     return execpromise(fullCommand, { cwd: this.sandboxPath, ...execOptions });
   }
 
+  // Run a 'trunk check' command with additional options.
   async RunCheck(
     args = "",
     targetAbsPath?: string,
@@ -369,6 +391,8 @@ plugins:
       });
   }
 
+  // Run 'trunk check' on a specified target 'targetRelativePath' with a 'linter' filter.
+  // Prefer this to 'RunCheck' when possible.
   async RunCheckUnit(targetRelativePath: string, linter: string): Promise<ITestResult> {
     const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
@@ -376,6 +400,7 @@ plugins:
     return this.RunCheck(args, targetAbsPath, resultJsonPath);
   }
 
+  // Run 'trunk fmt' on a specified target 'targetRelativePath' with a 'linter' filter.
   async RunFmtUnit(targetRelativePath: string, linter: string): Promise<ITestResult> {
     const targetAbsPath = path.join(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;

@@ -3,18 +3,12 @@ import * as path from "path";
 import { extractLandingState, ISetupSettings, ITestTarget, TrunkDriver } from "tests/driver";
 import { ILinterVersion, ITestingArguments } from "tests/types";
 
-/*
-
-// TODO: TYLER
-FEATURE LIST TODO:
-0. Fix imports
-4. Documentation
-5. Poke around PR workflow
-
-*/
-
 let printed_args = false;
 
+// Parse the environment variable-specified linter version. This can either be
+// - KnownGoodVersion, which parses the linter definition and attempts to specify a known_good_version
+// - Latest, which automatically retrieves the latest linter version if network connectivity is available
+// - A specified version. Note that this will apply to all tests, so only use this environment variable when tests are filtered
 const parseLinterVersion = (value: string): ILinterVersion | string | undefined => {
   if (value == "KnownGoodVersion") {
     return ILinterVersion.KnownGoodVersion;
@@ -26,6 +20,10 @@ const parseLinterVersion = (value: string): ILinterVersion | string | undefined 
   return undefined;
 };
 
+// Parse the global testing config inputs, specified as environment variables.
+// - PLUGINS_TEST_CLI_VERSION replaces the repo-wide trunk.yaml's specified cli-version
+// - PLUGINS_TEST_CLI_PATH specifies an alternative path to a trunk binary
+// - PLUGINS_TEST_LINTER_VERSION specifies a linter version semantic (see 'parseLinterVersion')
 export const parseInputs = () => {
   const args = <ITestingArguments>{
     cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
@@ -39,6 +37,8 @@ export const parseInputs = () => {
   return args;
 };
 
+// If 'namedTestPrefixes' are specified, checks for their existence in 'dirname'. Otherwise,
+// automatically scan 'dirname' for all available test input/output pairs.
 const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestTarget[] => {
   const parentTestDirName = path.parse(dirname).name;
   const testTargets = new Map<string, ITestTarget>();
@@ -75,6 +75,8 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): ITestT
   return Array.from(testTargets.values()).filter((target) => target.outputPath.length > 0);
 };
 
+// Setup the TrunkDriver to run tests in a 'dirname'. 'dirname' should be the path to the test subdirectory in a linter folder
+// If a 'linterName' is specified, that linter will be enabled during setup according to specification in 'inputArgs'.
 export const setupDriver = (
   dirname: string,
   inputArgs: ITestingArguments,
@@ -93,6 +95,9 @@ export const setupDriver = (
   return driver;
 };
 
+// Test that running a linter filtered by 'linterName' on the test files in 'dirname' produces the desired output json.
+// Either detect input and ouptut files automatically, or specify their prefixes as `namedTestPrefixes`. Output files should be of
+// .json type, regardless of the input file format.
 export const defaultLinterCheckTest = (
   dirname: string,
   linterName: string,
@@ -127,6 +132,8 @@ export const defaultLinterCheckTest = (
   });
 };
 
+// Test that running a formatter filtered by 'linterName' on the test files in 'dirname' produces the desired output files.
+// Either detect input and ouptut files automatically, or specify their prefixes as `namedTestPrefixes`.
 export const defaultLinterFmtTest = (
   dirname: string,
   linterName: string,
