@@ -26,12 +26,15 @@ describe(`Global config health check`, () => {
     }
 
     if (!alreadyLocal) {
-      const daemonCommand = `${inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
-      exec(daemonCommand, { cwd: driver.sandboxPath, timeout: 5000 });
-
-      await driver.Run("run toggle-local").catch((error: Error) => {
-        console.log(error);
+      const runner = exec(
+        "run toggle-local",
+        { cwd: driver.sandboxPath, timeout: 5000 },
+        (_error, _stdout, _stderr) => {}
+      );
+      runner.on("close", () => {
+        runner.kill();
       });
+      // await runner;
     }
 
     // Test that config healthily resolves
