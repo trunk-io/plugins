@@ -26,6 +26,7 @@ jobs:
   plugins_test:
     name: Plugins Test Runner
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     strategy:
       matrix:
         linter-version: [KnownGoodVersion, Latest]
