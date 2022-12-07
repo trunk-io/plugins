@@ -15,14 +15,14 @@ Please create a directory structure in your linter/formatter definition analogou
 
 ```
 linters/
-  my-linter/
-    plugin.yaml
-    readme.md (optional)
-    my-config.json (optional)
-    test/
-      basic.in.py
-      basic.out.json
-      my_linter_test.ts
+└─my-linter/
+  │ plugin.yaml
+  │ readme.md (optional)
+  │ my-config.json (optional)
+  └─test/
+    │ basic.in.py
+    │ basic.out.json
+    │ my_linter_test.ts
 ```
 
 - Specify a `readme.md` if your linter integration requires additional explanation or configuration.
