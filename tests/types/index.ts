@@ -1,4 +1,4 @@
-export enum ILinterVersion {
+export const enum ILinterVersion {
   KnownGoodVersion = 1,
   Latest,
 }
@@ -9,7 +9,7 @@ export interface ITestingArguments {
   // Path to a cli binary
   cliPath?: string;
   // Whether to use a linter's latest or KnownGoodVersion (network connectivity may vary)
-  linterVersion?: ILinterVersion;
+  linterVersion?: ILinterVersion | string;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests

@@ -13,6 +13,7 @@ import {
   ITestingArguments,
 } from "tests/types";
 import * as util from "util";
+import YAML from "yaml";
 const execpromise = util.promisify(exec);
 
 const TEMP_PREFIX = "plugins_";
@@ -39,13 +40,17 @@ export enum ITrunkVerb {
 }
 
 export interface ITestResult {
-  // TODO: TYLER SPECIFY BOTH VERSIONS
   success: boolean;
   trunkRunResult: ITrunkRunResult;
   trunkVerb: ITrunkVerb;
   targetPath?: string;
   landingState?: ILandingState;
 }
+
+export const parseTrunkYaml = (filePath: string) => {
+  const trunkYamlContents = fs.readFileSync(filePath, "utf8");
+  return YAML.parse(trunkYamlContents);
+};
 
 export const extractLandingState = (json: JSON): ILandingState => {
   // Remove unwanted fields. Prefer object destructuring to be explicit about required fields
@@ -156,6 +161,7 @@ export class TrunkDriver {
   sandboxPath?: string; // Created in /tmp during setup
   gitDriver?: git.SimpleGit; // Created during setup
   setupSettings: ISetupSettings;
+  fullTrunkConfig?: string;
 
   constructor(
     testDir: string,
@@ -221,10 +227,11 @@ export class TrunkDriver {
     };
   }
 
-  // TODO: TYLER THIS SHOULD NOT USE LATEST. IT SHOULD USE WHAT'S IN THE ROOT TRUNK.YAML IN ORDER TO BE CLEAR (IF NOT SPECIFIED)
   GetTrunkVersion(): string {
-    // TODO: TYLER COMPUTE THIS ONCE STATICALLY AT TEST TIME
-    return this.inputArgs.cliVersion ?? "1.1.1-beta.14";
+    const repoCliVersion = parseTrunkYaml(path.join(REPO_ROOT, ".trunk/trunk.yaml"))["cli"][
+      "version"
+    ];
+    return this.inputArgs.cliVersion ?? repoCliVersion ?? "1.1.1-beta.14";
   }
 
   TrunkYamlContents(): string {
@@ -237,6 +244,38 @@ plugins:
     local: ${REPO_ROOT}
   `;
   }
+
+  GetTrunkConfig = () => {
+    const trunkYamlPath = path.join(this.sandboxPath ?? "", ".trunk/trunk.yaml");
+    return parseTrunkYaml(trunkYamlPath);
+  };
+
+  GetFullTrunkConfig = () => {
+    if (this.fullTrunkConfig) {
+      return this.fullTrunkConfig;
+    }
+
+    const trunkYamlPath = path.join(this.sandboxPath ?? "", ".trunk/trunk.yaml");
+    this.fullTrunkConfig = parseTrunkYaml(trunkYamlPath);
+    const printConfig = execSync(`${this.inputArgs.cliPath ?? "trunk"} config print`);
+    return YAML.parse(printConfig.toString());
+  };
+
+  ExtractLinterVersion = (): string => {
+    if (!this.inputArgs.linterVersion || this.inputArgs.linterVersion == ILinterVersion.Latest) {
+      return "";
+    } else if (this.inputArgs.linterVersion == ILinterVersion.KnownGoodVersion) {
+      const fullTrunkConfig = this.GetFullTrunkConfig();
+      for (const def of fullTrunkConfig["lint"]["definitions"]) {
+        if (def["name"] == this.linter) {
+          return def["known_good_version"] ?? "";
+        }
+      }
+      return "";
+    } else {
+      return this.inputArgs.linterVersion;
+    }
+  };
 
   async SetUp() {
     this.sandboxPath = fs.mkdtempSync(path.join(os.tmpdir(), TEMP_PREFIX));
@@ -264,10 +303,14 @@ plugins:
         const daemonCommand = `${this.inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
         exec(daemonCommand, { cwd: this.sandboxPath, timeout: ENABLE_TIMEOUT });
         try {
+          const version = this.ExtractLinterVersion();
+          const versionString = version.length > 0 ? `@${version}` : "";
+          const linterVersionString = `${versionString}${this.linter}`;
+
           // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-          const enableCommand = `${this.inputArgs.cliPath ?? "trunk"} check enable ${
-            this.linter
-          } --monitor=false`;
+          const enableCommand = `${
+            this.inputArgs.cliPath ?? "trunk"
+          } check enable ${linterVersionString} --monitor=false`;
           execSync(enableCommand, { cwd: this.sandboxPath });
         } catch (error) {
           console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
@@ -310,10 +353,11 @@ plugins:
         )
       )
       .catch((error: Error) => {
+        const er = error as any;
         const trunkRunResult = <ITrunkRunResult>{
-          exitCode: (error as any)["code"],
-          stdout: (error as any)["stdout"],
-          stderr: (error as any)["stderr"],
+          exitCode: er["code"],
+          stdout: er["stdout"],
+          stderr: er["stderr"],
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         };
 
@@ -352,10 +396,11 @@ plugins:
         )
       )
       .catch((error: Error) => {
+        const er = error as any;
         const trunkRunResult = <ITrunkRunResult>{
-          exitCode: (error as any)["code"],
-          stdout: (error as any)["stdout"],
-          stderr: (error as any)["stderr"],
+          exitCode: er["code"],
+          stdout: er["stdout"],
+          stderr: er["stderr"],
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         };
         if (trunkRunResult.exitCode != 1) {

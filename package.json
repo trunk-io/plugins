@@ -14,6 +14,7 @@
     "@trunkio/launcher": "^1.1.1",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",
+    "@types/yaml": "^1.9.7",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
@@ -45,6 +46,7 @@
   "homepage": "https://github.com/trunk-io/plugins#readme",
   "dependencies": {
     "fast-sort": "^3.2.0",
-    "simple-git": "^3.15.1"
+    "simple-git": "^3.15.1",
+    "yaml": "^2.1.3"
   }
 }

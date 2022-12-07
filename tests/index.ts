@@ -15,15 +15,22 @@ FEATURE LIST TODO:
 
 let printed_args = false;
 
-const parseLinterVersion = (value: any): ILinterVersion | undefined => {
-  return (value as ILinterVersion) ?? undefined;
+const parseLinterVersion = (value: string): ILinterVersion | string | undefined => {
+  if (value == "KnownGoodVersion") {
+    return ILinterVersion.KnownGoodVersion;
+  } else if (value == "Latest") {
+    return ILinterVersion.Latest;
+  } else if (value && value.length > 0) {
+    return value;
+  }
+  return undefined;
 };
 
 export const parseInputs = () => {
   const args = <ITestingArguments>{
     cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
     cliPath: process.env.PLUGINS_TEST_CLI_PATH,
-    linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION),
+    linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION ?? ""),
   };
   if (!printed_args && (args.cliVersion || args.cliPath || args.linterVersion)) {
     console.debug(args);

@@ -20,10 +20,19 @@ describe(`Global config health check`, () => {
     const daemonCommand = `${inputArgs.cliPath ?? "trunk"} daemon launch --monitor=false`;
     exec(daemonCommand, { cwd: driver.sandboxPath, timeout: 1000 });
 
-    // TODO: TYLER THIS SHOULD NOT UNILATERALLY TOGGLE--either introspect or init from scratch
-    await driver.Run("run toggle-local").catch((error: Error) => {
-      console.log(error);
-    });
+    const trunkConfig = driver.GetTrunkConfig();
+    let alreadyLocal = false;
+    for (const source of trunkConfig["plugins"]["sources"]) {
+      if (source["id"] == "trunk" && source["local"]) {
+        alreadyLocal = true;
+      }
+    }
+
+    if (!alreadyLocal) {
+      await driver.Run("run toggle-local").catch((error: Error) => {
+        console.log(error);
+      });
+    }
 
     const test_run_result = await driver.RunCheck();
     expect(test_run_result.success);
