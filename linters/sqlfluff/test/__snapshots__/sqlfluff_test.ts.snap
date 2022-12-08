@@ -138,18 +138,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
   ],
   "lintActions": [
     {
-      "command": "fix",
-      "fileGroupName": "sql",
-      "linter": "sqlfluff",
-      "parser": undefined,
-      "paths": [
-        "linters/sqlfluff/test/basic_check.in.sql",
-      ],
-      "report": undefined,
-      "upstream": undefined,
-      "verb": "TRUNK_VERB_FMT",
-    },
-    {
       "command": "lint",
       "fileGroupName": "sql",
       "linter": "sqlfluff",
@@ -163,18 +151,6 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
     },
   ],
   "taskFailures": [],
-  "unformattedFiles": [
-    {
-      "code": undefined,
-      "column": "1",
-      "file": "linters/sqlfluff/test/basic_check.in.sql",
-      "issueUrl": undefined,
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "sqlfluff",
-      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
-      "targetType": undefined,
-    },
-  ],
+  "unformattedFiles": [],
 }
 `;

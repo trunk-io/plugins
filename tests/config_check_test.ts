@@ -1,33 +1,30 @@
 import { exec } from "child_process";
 import path from "path";
-import { parseInputs, setupDriver } from "tests";
-import { REPO_ROOT } from "tests/driver";
+import { setupDriver } from "tests";
+import { ARGS, REPO_ROOT } from "tests/utils";
+import { getTrunkConfig } from "tests/utils/trunk_config";
 
 // Run 'trunk config print' from the root of the repository to verify a healthy config
-describe(`Global config health check`, () => {
-  // Step 1: Parse any custom inputs
-  const inputArgs = parseInputs();
 
-  // Step 2: Define test setup and teardown
-  const subfolder = path.join(REPO_ROOT, "linters");
-  const driver = setupDriver(subfolder, inputArgs, {
+// Step 1: Define test setup and teardown
+const subfolder = path.resolve(REPO_ROOT, "linters");
+
+describe("Global config health check", () => {
+  const driver = setupDriver(subfolder, {
     setupGit: false,
     setupTrunk: false,
   });
 
-  // Step 3: Validate config
+  // Step 2: Validate config
   it("trunk config print from repo root", async () => {
-    const trunkConfig = driver.GetTrunkConfig();
-    let alreadyLocal = false;
-    for (const source of trunkConfig["plugins"]["sources"]) {
-      if (source["id"] == "trunk" && source["local"]) {
-        alreadyLocal = true;
-      }
-    }
+    const trunkConfig = getTrunkConfig(driver.sandboxPath ?? "");
+    const alreadyLocal = trunkConfig.plugins.sources.some(
+      ({ id, local }: { id: string; local: boolean }) => id === "trunk" && local
+    );
 
     if (!alreadyLocal) {
       const runner = exec(
-        `${inputArgs.cliPath ?? "trunk"} run toggle-local`,
+        `${ARGS.cliPath ?? "trunk"} run toggle-local`,
         { cwd: driver.sandboxPath, timeout: 5000 },
         (_error, _stdout, _stderr) => {}
       );
@@ -38,7 +35,7 @@ describe(`Global config health check`, () => {
     }
 
     // Test that config healthily resolves
-    const test_run_result = await driver.Run("config print");
-    expect(test_run_result.stdout).toContain("version: 0.1");
+    const testRunResult = await driver.run("config print");
+    expect(testRunResult.stdout).toContain("version: 0.1");
   });
 });

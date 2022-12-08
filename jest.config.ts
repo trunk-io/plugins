@@ -5,8 +5,8 @@ const config: Config = {
   testEnvironment: "node",
   verbose: false,
 
-  testMatch: ["/tests/index.ts", "/**/*test.ts"],
-  moduleFileExtensions: ["ts", "js", "json", "node"],
+  testMatch: ["/**/*test.ts"],
+  moduleFileExtensions: ["ts", "js"],
   modulePaths: ["<rootDir>"],
   setupFilesAfterEnv: ["./setup.ts"],
 };

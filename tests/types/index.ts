@@ -1,21 +1,32 @@
-export const enum ILinterVersion {
-  KnownGoodVersion = 1,
-  Latest,
-}
+/**
+ * Which primary trunk command was run.
+ */
+export type TrunkVerb = "Check" | "Format";
 
-export interface ITestingArguments {
-  // Trunk cli version to run in tests
+/**
+ * Version of a linter to enable and test against.
+ * 1. KnownGoodVersion: attempt to parse the linter definition for a known_good_version. Fallback to latest.
+ * 2. Latest: use network connection to query for the latest linter verison (default)
+ * 3. string: a manually specified version. Note that this will apply to all tests.
+ */
+export type LinterVersion = "KnownGoodVersion" | "Latest" | string;
+
+/**
+ * Global testing configuration based on environment variables.
+ */
+export interface TestingArguments {
+  /** Trunk cli version to run in tests. */
   cliVersion?: string;
-  // Path to a cli binary
+  /** Path to a cli binary. */
   cliPath?: string;
-  // Whether to use a linter's latest or KnownGoodVersion (network connectivity may vary)
-  linterVersion?: ILinterVersion | string;
+  /** Version of linters to enable and test against. */
+  linterVersion?: LinterVersion | string;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests
 // to be most effective in asserting relevant, idempotent information.
 // Unimportant assertion fields omitted here.
-export interface IFileIssue {
+export interface FileIssue {
   file: string; // requires path transformation
   line: number;
   column: number;
@@ -33,7 +44,7 @@ export interface IFileIssue {
   issueUrl: string;
 }
 
-export interface ILintAction {
+export interface LintAction {
   paths: string[]; // require path transformations
   linter: string;
   parser: string;
@@ -45,24 +56,27 @@ export interface ILintAction {
   verb: string;
 }
 
-export interface ITaskFailure {
+export interface TaskFailure {
   name: string;
   message: string; // may require path transformation
   // detailPath: string;
 }
 
-export interface ILandingState {
-  issues?: IFileIssue[];
-  unformattedFiles?: IFileIssue[];
+/**
+ * The data result of a `trunk check` or `trunk fmt` run.
+ */
+export interface LandingState {
+  issues?: FileIssue[];
+  unformattedFiles?: FileIssue[];
   // bucketViolations?: any[];
   // compareToUpstream?: boolean;
-  lintActions?: ILintAction[];
+  lintActions?: LintAction[];
   // discards?: any[];
   // changeStats?: any[];
   // show_new_user_hint?: boolean;
   // ignores?: any[];
   // check_skipped?: boolean;
-  taskFailures?: ITaskFailure[];
+  taskFailures?: TaskFailure[];
   // notices?: any[];
   // bad_config?: boolean;
 }

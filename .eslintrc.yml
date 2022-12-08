@@ -12,12 +12,15 @@ extends:
   # Order matters, later configs purposefully override settings from earlier configs
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:import/recommended
   - plugin:node/recommended
   - prettier # this actually turns OFF all prettier rules running via eslint
 parserOptions:
   ecmaVersion: latest
   sourceType: module
+  tsconfigRootDir: .
+  project: [./tsconfig.json]
 rules:
   # Turn off base eslint rules in lieu of @typescript-eslint rules (just below)
   no-return-await: off
@@ -30,10 +33,10 @@ rules:
   "@typescript-eslint/lines-between-class-members": [error, always, { exceptAfterSingleLine: true }]
   "@typescript-eslint/naming-convention":
     - error
-    # Starting with a minimal set of uncontroversial rules. We should add more to cover the many
-    # selectors for which we should have consistent style.
     - selector: typeLike
       format: [PascalCase]
+    - selector: function
+      format: [camelCase]
     - selector: variable
       modifiers: [global, const]
       # The plugin can't differentiate between:
@@ -60,12 +63,10 @@ rules:
     - devDependencies:
         - jest.config.ts
         - jest-resolver.js
-        - "**/*.test.ts"
+        - "**/*_test.ts"
         - "**/*.spec.ts"
-        - "**/*.test.tsx"
         - "**/__tests__/**"
         - "**/__mocks__/**"
-        - "**/playwright.config.ts"
         - "tests/**/*.ts"
   import/no-unresolved: off
   import/prefer-default-export: off
@@ -102,7 +103,5 @@ overrides:
       jest: true
     plugins:
       - jest
-      - jest-dom
     extends:
       - plugin:jest/recommended
-      - plugin:jest-dom/recommended
