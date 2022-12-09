@@ -49,13 +49,13 @@ examples.
 To run all tests, run
 
 ```bash
-npm run build-test && npm run test
+npm run test
 ```
 
 To run an individual test, run
 
 ```bash
-npm run build-test && npm run test ${path_to_linter_subdir}
+npm run test ${path_to_linter_subdir}
 ```
 
 ## Additional Options
