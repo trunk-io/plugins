@@ -153,7 +153,12 @@ export class TrunkDriver {
 
     if (this.setupSettings.setupGit) {
       this.gitDriver = git.simpleGit(this.sandboxPath);
-      await this.gitDriver.init().add(".").commit("first commit");
+      await this.gitDriver
+        .init()
+        .add(".")
+        .addConfig("user.name", "Plugin Author")
+        .addConfig("user.email", "trunk-plugins@example.com")
+        .commit("first commit");
     }
 
     if (this.setupSettings.setupTrunk) {
@@ -184,11 +189,11 @@ export class TrunkDriver {
       const version = this.extractLinterVersion();
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${versionString}${this.linter}`;
-
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles runtimes, etc.
       await this.run(`check enable ${linterVersionString} --monitor=false`);
     } catch (error) {
       console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
+      console.warn(error);
     }
   }
 
@@ -212,7 +217,10 @@ export class TrunkDriver {
    */
   async run(args: string, execOptions?: ExecOptions) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return execFilePromise(trunkPath, args.split(" "), { cwd: this.sandboxPath, ...execOptions });
+    return await execFilePromise(trunkPath, args.split(" "), {
+      cwd: this.sandboxPath,
+      ...execOptions,
+    });
   }
 
   /**
