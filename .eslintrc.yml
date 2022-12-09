@@ -62,12 +62,11 @@ rules:
     - error
     - devDependencies:
         - jest.config.ts
-        - jest-resolver.js
         - "**/*_test.ts"
         - "**/*.spec.ts"
         - "**/__tests__/**"
         - "**/__mocks__/**"
-        - "tests/**/*.ts"
+        - "**/tests/**/*.ts"
   import/no-unresolved: off
   import/prefer-default-export: off
   lines-between-class-members: off
