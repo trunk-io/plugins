@@ -16,7 +16,7 @@
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",
     "@types/yaml": "^1.9.7",
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/eslint-plugin": "^5.46.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
