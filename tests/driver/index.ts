@@ -1,5 +1,4 @@
-import { exec, spawn, spawnSync, ExecOptions, execSync, execFile } from "child_process";
-// import { spawn } from "node-pty";
+import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
@@ -11,9 +10,8 @@ import { newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
-const execPromise = util.promisify(exec);
+const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
-const ENABLE_TIMEOUT = 1000;
 
 /**
  * A specified test target to run on, identified by a prefix.
@@ -64,6 +62,8 @@ export interface SetupSettings {
   setupGit?: boolean;
   /** Whether or not to create a new .trunk/trunk.yaml */
   setupTrunk?: boolean;
+  /** Whether or not to launch the daemon on setup. */
+  launchDaemon?: boolean;
 }
 
 /**
@@ -80,6 +80,8 @@ export class TrunkDriver {
   gitDriver?: git.SimpleGit;
   /** What customization to use during setup. */
   setupSettings: SetupSettings;
+
+  daemon?: ChildProcess;
 
   constructor(testDir: string, setupSettings: SetupSettings, linter?: string) {
     this.linter = linter;
@@ -107,9 +109,10 @@ export class TrunkDriver {
   /**
    * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
    */
-  getFullTrunkConfig = () => {
-    // TODO: TYLER THIS NEEDS TO BE CWD'D
-    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`);
+  getFullTrunkConfig = (): any => {
+    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
+      cwd: this.sandboxPath,
+    });
     return YAML.parse(printConfig.toString());
   };
 
@@ -117,15 +120,16 @@ export class TrunkDriver {
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
    */
   extractLinterVersion = (): string => {
-    // TODO: TYLER STORE THIS ON THE DRIVER
     if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
       return "";
     } else if (ARGS.linterVersion === "KnownGoodVersion") {
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
-        this.getFullTrunkConfig().lint.definitions.find(
+        (this.getFullTrunkConfig().lint.definitions.find(
           ({ name }: { name: string }) => name === this.linter
-        )?.known_good_version ?? ""
+        )?.known_good_version as string) ?? ""
       );
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     } else {
       return ARGS.linterVersion;
     }
@@ -135,7 +139,8 @@ export class TrunkDriver {
    * Setup a sandbox test directory by copying in test contents and conditionally:
    * 1. Creating a git repo
    * 2. Dumping a newly generated trunk.yaml
-   * 3. Enabling the specified 'linter'
+   * 3. Launching the daemon
+   * 4. Enabling the specified 'linter'
    */
   async setUp() {
     this.sandboxPath = fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX));
@@ -148,8 +153,7 @@ export class TrunkDriver {
 
     if (this.setupSettings.setupGit) {
       this.gitDriver = git.simpleGit(this.sandboxPath);
-      this.gitDriver.init();
-      this.gitDriver.add(".").commit("first commit");
+      await this.gitDriver.init().add(".").commit("first commit");
     }
 
     if (this.setupSettings.setupTrunk) {
@@ -158,139 +162,47 @@ export class TrunkDriver {
       fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
     }
 
+    // Launch daemon if specified
+    if (!this.setupSettings.launchDaemon) {
+      return;
+    }
+
+    // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
+    const trunkCommand = ARGS.cliPath ?? "trunk";
+    const daemonArgs = ["daemon", "launch", "--monitor=false"];
+
+    this.daemon = execFile(trunkCommand, daemonArgs, {
+      cwd: this.sandboxPath,
+    });
+
     // Enable tested linter if specified
     if (!this.linter) {
       return;
     }
-
-    const version = this.extractLinterVersion();
-    const versionString = version.length > 0 ? `@${version}` : "";
-    const linterVersionString = `${versionString}${this.linter}`;
-
-    // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-    const cliCommand = ARGS.cliPath ?? "trunk";
-    const args = `check enable ${linterVersionString} --monitor=false`;
-
-    let stdout: Buffer;
-    let stderr: Buffer;
-
-    // const daemon = spawn(cliCommand, ["daemon", "launch", "--monitor=false"], { cwd: this.sandboxPath, timeout: 5000});
-    // const daemon = spawn(`${cliCommand} daemon launch --monitor=false`, { cwd: this.sandboxPath });
-    // daemon.stdout.on('data', (data) => {
-    //   console.log(`data written ${data}`);
-    //   stdout.write(data);
-    // });
-
-    // console.log("about to run check enable");
-
-    // try {
-    //   execSync(`${cliCommand} ${args}`, { cwd: this.sandboxPath });
-    // } catch (er: any) {
-    //   console.log(er as Error);
-    //   console.log(er.stdout.toString());
-    //   console.log(er.stderr.toString());
-    // }
-
-    // console.log("killing the daemon");
-
-    // daemon.kill();
-
-    // console.log("killed the daemon");
-
-    //////////////////////////////////////
-    // (async () => {
-    //   console.log('Spawn:');
-
-    //   const ptyProcess = spawn(cliCommand, args, { cwd: this.sandboxPath! });
-
-    //   ptyProcess.onData((data: string) => {
-    //     stdout.write(data);
-    //   });
-
-    //   const interval = setInterval(() => {
-    //     ptyProcess.write('y\n');
-    //   }, 1000);
-
-    //   ptyProcess.onExit(() => {
-    //     clearInterval(interval);
-    //   });
-    // })();
-
-    ///////////////////////////////
-
-    // const daemonCommand = `${ARGS.cliPath ?? "trunk"} daemon launch --monitor=false`;
-    // exec(daemonCommand, { cwd: this.sandboxPath, timeout: ENABLE_TIMEOUT });
-    // try {
-    //   const version = this.extractLinterVersion();
-    //   const versionString = version.length > 0 ? `@${version}` : "";
-    //   const linterVersionString = `${versionString}${this.linter}`;
-
-    //   // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-    //   const enableCommand = `${
-    //     ARGS.cliPath ?? "trunk"
-    //   } check enable ${linterVersionString} --monitor=false`;
-    //   execSync(enableCommand, { cwd: this.sandboxPath });
-    // } catch (error) {
-    //   console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
-    // }
-
-    ///////////////////
-
-    const daemonCommand = ARGS.cliPath ?? "trunk";
-    const daemonArgs = ["daemon", "launch", "--monitor=false"];
-
-    console.log(daemonCommand);
-    console.log(daemonArgs);
-    // const daemonLaunch = execFile(ARGS.cliPath ?? "trunk", ["daemon", "launch", "--monitor=false"], { cwd: this.sandboxPath, shell: false }, (error, stdout, stderr) => {
-    // // const daemonLaunch = execFile(daemonCommand, { cwd: this.sandboxPath, shell: false }, (error, stdout, stderr) => {
-    //   console.log("completed!");
-    // });
-    const daemonLaunch = execFile(daemonCommand, daemonArgs, {
-      cwd: this.sandboxPath,
-      shell: false,
-    });
-
-    console.log(`My PID: ${daemonLaunch.pid}`);
-
-    // daemonLaunch.on("message", (data) => {
-    //   console.log(data);
-    // });
 
     try {
       const version = this.extractLinterVersion();
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${versionString}${this.linter}`;
 
-      // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-      const enableCommand = `${
-        ARGS.cliPath ?? "trunk"
-      } check enable ${linterVersionString} --monitor=false`;
-      execSync(enableCommand, { cwd: this.sandboxPath });
+      // Prefer calling `check enable` over editing trunk.yaml directly because it also handles runtimes, etc.
+      await this.run(`check enable ${linterVersionString} --monitor=false`);
     } catch (error) {
       console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
     }
-
-    console.log("about to kill");
-
-    daemonLaunch.kill("SIGKILL");
-
-    console.log("done killing");
   }
 
   /**
    * Delete the sandbox testing directory and its contents, as well as removing any trunk information
    * associated with it in order to prune the cache.
    */
-  async tearDown() {
-    // console.log(this.sandboxPath);
-    console.log("about to deinit");
-    // TODO: TYLER persistent cache dir for tests (put the cache stuff differently)
-    const deinitCommand = `${ARGS.cliPath ?? "trunk"} deinit`;
-    exec(deinitCommand, { cwd: this.sandboxPath, timeout: 1000 });
+  tearDown() {
+    // TODO(Tyler): Use persistent test cache dir and call `this.daemon?.kill("SIGKILL")` instead of deinit.
+    const trunkCommand = ARGS.cliPath ?? "trunk";
+    execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
-    console.log("done deinit");
   }
 
   /**
@@ -299,8 +211,8 @@ export class TrunkDriver {
    * @param execOptions
    */
   async run(args: string, execOptions?: ExecOptions) {
-    const fullCommand = `${ARGS.cliPath ?? "trunk"} ${args}`;
-    return execPromise(fullCommand, { cwd: this.sandboxPath, ...execOptions, timeout: 10000 });
+    const trunkPath = ARGS.cliPath ?? "trunk";
+    return execFilePromise(trunkPath, args.split(" "), { cwd: this.sandboxPath, ...execOptions });
   }
 
   /**
@@ -320,36 +232,34 @@ export class TrunkDriver {
     resultJsonPath?: string;
   }) {
     const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress ${args}`;
-
-    return this.run(fullArgs)
-      .then(({ stdout, stderr }) =>
-        this.parseRunResult(
-          {
-            exitCode: 0,
-            stdout,
-            stderr,
-            outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          },
-          "Check",
-          targetAbsPath
-        )
-      )
-      .catch((error: Error) => {
-        const er = error as any;
-        const trunkRunResult = <TrunkRunResult>{
-          exitCode: er.code,
-          stdout: er.stdout,
-          stderr: er.stderr,
+    try {
+      const { stdout, stderr } = await this.run(fullArgs);
+      return this.parseRunResult(
+        {
+          exitCode: 0,
+          stdout,
+          stderr,
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          error: error,
-        };
-
-        if (trunkRunResult.exitCode !== 1) {
-          console.log("Failure running 'trunk check'");
-          console.log(error);
-        }
-        return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
-      });
+        },
+        "Check",
+        targetAbsPath
+      );
+    } catch (error: any) {
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      const trunkRunResult = <TrunkRunResult>{
+        exitCode: error.code as number,
+        stdout: error.stdout as string,
+        stderr: error.stderr as string,
+        outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+        error: error as Error,
+      };
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
+      if (trunkRunResult.exitCode != 1) {
+        console.log("Failure running 'trunk check'");
+        console.log(error);
+      }
+      return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
+    }
   }
 
   /**
@@ -360,10 +270,7 @@ export class TrunkDriver {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
     const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
-    console.log("about to  checking");
-    let res = this.runCheck({ args, targetAbsPath, resultJsonPath });
-    console.log("done checking");
-    return res;
+    return await this.runCheck({ args, targetAbsPath, resultJsonPath });
   }
 
   /**
@@ -375,33 +282,33 @@ export class TrunkDriver {
 
     const args = `fmt --output-file=${resultJsonPath} --no-progress --filter=${linter} ${targetAbsPath}`;
 
-    return this.run(args)
-      .then(({ stdout, stderr }) =>
-        this.parseRunResult(
-          {
-            exitCode: 0,
-            stdout,
-            stderr,
-            outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          },
-          "Format",
-          targetAbsPath
-        )
-      )
-      .catch((error: Error) => {
-        const er = error as any;
-        const trunkRunResult = <TrunkRunResult>{
-          exitCode: er.code,
-          stdout: er.stdout,
-          stderr: er.stderr,
+    try {
+      const { stdout, stderr } = await this.run(args);
+      return this.parseRunResult(
+        {
+          exitCode: 0,
+          stdout,
+          stderr,
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
-          error: error,
-        };
-        if (trunkRunResult.exitCode !== 1) {
-          console.log("Failure running 'trunk fmt'");
-          console.log(error);
-        }
-        return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
-      });
+        },
+        "Format",
+        targetAbsPath
+      );
+    } catch (error: any) {
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      const trunkRunResult = <TrunkRunResult>{
+        exitCode: error.code as number,
+        stdout: error.stdout as string,
+        stderr: error.stderr as string,
+        outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+        error: error as Error,
+      };
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
+      if (trunkRunResult.exitCode != 1) {
+        console.log("Failure running 'trunk fmt'");
+        console.log(error);
+      }
+      return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
+    }
   }
 }

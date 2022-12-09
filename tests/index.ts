@@ -3,6 +3,11 @@ import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import { extractLandingState } from "tests/utils/landing_state";
 
+export interface TestCallbacks {
+  preCheck?: (driver: TrunkDriver) => void;
+  postCheck?: (driver: TrunkDriver) => void;
+}
+
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`. Otherwise,
  * automatically scan `dirname` for all available test input/output pairs.
@@ -55,13 +60,16 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  */
 export const setupDriver = (
   dirname: string,
-  { setupGit = true, setupTrunk = true }: SetupSettings,
-  linterName?: string
+  { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
+  linterName?: string,
+  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
+  { preCheck = () => {} }: TestCallbacks = {}
 ): TrunkDriver => {
-  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk }, linterName);
+  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk, launchDaemon }, linterName);
 
-  beforeAll(() => {
-    driver.setUp();
+  beforeAll(async () => {
+    await driver.setUp();
+    preCheck(driver);
   });
 
   afterAll(() => {
@@ -70,9 +78,6 @@ export const setupDriver = (
   return driver;
 };
 
-//
-//
-//
 /**
  * Test that running a linter filtered by `linterName` on the test files in `dirname` produces the desired output json.
  * Either detect input and ouptut files automatically, or specify their prefixes as `namedTestPrefixes`. Output files should be of
@@ -84,14 +89,16 @@ export const setupDriver = (
 export const defaultLinterCheckTest = (
   dirname: string,
   linterName: string,
-  namedTestPrefixes: string[] = []
+  namedTestPrefixes: string[] = [],
+  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
+  { preCheck = () => {}, postCheck = () => {} }: TestCallbacks = {}
 ) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing linter ${linterName}`, () => {
     // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName);
+    const driver = setupDriver(dirname, {}, linterName, { preCheck });
 
     // Step 3: Asynchronously run each test
     linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {
@@ -99,12 +106,14 @@ export const defaultLinterCheckTest = (
         const testRunResult = await driver.runCheckUnit(inputPath, linterName);
         expect(testRunResult).toMatchObject({
           success: true,
+          // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
           landingState: expect.objectContaining({
             taskFailures: [],
           }),
         });
 
         const expectedOutFile = path.resolve(dirname, path.parse(outputPath).base);
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
         const expectedOutJson = JSON.parse(fs.readFileSync(expectedOutFile, { encoding: "utf-8" }));
         const expectedOut = extractLandingState(expectedOutJson);
         expect(testRunResult.landingState).toEqual(expectedOut);
@@ -112,6 +121,7 @@ export const defaultLinterCheckTest = (
         expect(testRunResult.landingState).toMatchSnapshot();
       });
     });
+    postCheck(driver);
   });
 };
 
@@ -125,14 +135,16 @@ export const defaultLinterCheckTest = (
 export const defaultLinterFmtTest = (
   dirname: string,
   linterName: string,
-  namedTestPrefixes: string[] = []
+  namedTestPrefixes: string[] = [],
+  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
+  { preCheck = () => {}, postCheck = () => {} }: TestCallbacks = {}
 ) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing formatter ${linterName}`, () => {
     // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName);
+    const driver = setupDriver(dirname, {}, linterName, { preCheck });
 
     // Step 3: Asynchronously run each test
     linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {
@@ -140,6 +152,7 @@ export const defaultLinterFmtTest = (
         const testRunResult = await driver.runFmtUnit(inputPath, linterName);
         expect(testRunResult).toMatchObject({
           success: true,
+          // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
           landingState: expect.objectContaining({
             taskFailures: [],
           }),
@@ -151,5 +164,6 @@ export const defaultLinterFmtTest = (
         );
       });
     });
+    postCheck(driver);
   });
 };

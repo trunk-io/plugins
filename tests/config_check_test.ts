@@ -1,7 +1,6 @@
-import { exec } from "child_process";
 import path from "path";
 import { setupDriver } from "tests";
-import { ARGS, REPO_ROOT } from "tests/utils";
+import { REPO_ROOT } from "tests/utils";
 import { getTrunkConfig } from "tests/utils/trunk_config";
 
 // Run 'trunk config print' from the root of the repository to verify a healthy config
@@ -13,29 +12,26 @@ describe("Global config health check", () => {
   const driver = setupDriver(subfolder, {
     setupGit: false,
     setupTrunk: false,
+    launchDaemon: true,
   });
 
   // Step 2: Validate config
   it("trunk config print from repo root", async () => {
+    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
     const trunkConfig = getTrunkConfig(driver.sandboxPath ?? "");
-    const alreadyLocal = trunkConfig.plugins.sources.some(
+    // trunk-ignore(eslint)
+    const alreadyLocal: boolean = trunkConfig.plugins.sources.some(
       ({ id, local }: { id: string; local: boolean }) => id === "trunk" && local
     );
 
+    // Ensure config includes the local copy of this repo as a plugin source
     if (!alreadyLocal) {
-      const runner = exec(
-        `${ARGS.cliPath ?? "trunk"} run toggle-local`,
-        { cwd: driver.sandboxPath, timeout: 5000 },
-        (_error, _stdout, _stderr) => {}
-      );
-      runner.on("close", () => {
-        runner.kill();
-      });
-      // await runner;
+      await driver.run("run toggle-local");
     }
 
     // Test that config healthily resolves
     const testRunResult = await driver.run("config print");
     expect(testRunResult.stdout).toContain("version: 0.1");
+    expect(testRunResult.stdout).toContain("local:");
   });
 });

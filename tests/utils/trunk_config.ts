@@ -8,7 +8,7 @@ import { ARGS, REPO_ROOT } from ".";
  * Read and parse a YAML file. Throws on failure.
  * @param filePath Absolute path
  */
-export const parseYaml = (filePath: string) => {
+export const parseYaml = (filePath: string): any => {
   const yamlContents = fs.readFileSync(filePath, "utf8");
   return YAML.parse(yamlContents);
 };
@@ -16,7 +16,7 @@ export const parseYaml = (filePath: string) => {
 /**
  * Return the yaml result of parsing the .trunk/trunk.yaml in a specified repo root.
  */
-export const getTrunkConfig = (repoRoot: string) => {
+export const getTrunkConfig = (repoRoot: string): any => {
   const trunkYamlPath = path.resolve(repoRoot ?? "", ".trunk/trunk.yaml");
   return parseYaml(trunkYamlPath);
 };
@@ -26,7 +26,8 @@ export const getTrunkConfig = (repoRoot: string) => {
  * then the cli version in the .trunk/trunk.yaml of the repository root.
  */
 export const getTrunkVersion = (): string => {
-  const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version;
+  // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+  const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string;
   return ARGS.cliVersion ?? repoCliVersion ?? "1.1.1-beta.14";
 };
 
