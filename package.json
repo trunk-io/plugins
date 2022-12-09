@@ -4,7 +4,7 @@
   "scripts": {
     "trunk": "trunk",
     "build-test": "tsc",
-    "test": "jest",
+    "test": "jest --runInBand",
     "pretest": "npm run build-test"
   },
   "engines": {
