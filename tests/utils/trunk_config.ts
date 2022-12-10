@@ -1,8 +1,7 @@
 import * as fs from "fs";
 import path from "path";
+import { ARGS, REPO_ROOT } from "tests/utils";
 import YAML from "yaml";
-
-import { ARGS, REPO_ROOT } from ".";
 
 /**
  * Read and parse a YAML file. Throws on failure.

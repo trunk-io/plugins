@@ -48,6 +48,7 @@ rules:
   "@typescript-eslint/no-unused-vars": [error, { argsIgnorePattern: ^_ }]
   "@typescript-eslint/no-use-before-define": [error]
   "@typescript-eslint/no-useless-constructor": [error]
+  "@typescript-eslint/no-explicit-any": off
 
   class-methods-use-this: off
   curly: error
@@ -97,7 +98,7 @@ settings:
       alwaysTryTypes: true
 
 overrides:
-  - files: ["**/__tests__/**", "**/__mocks__/**"]
+  - files: ["**/*test.ts"]
     env:
       jest: true
     plugins:

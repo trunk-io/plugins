@@ -1,8 +1,7 @@
 import { sort } from "fast-sort";
 import path from "path";
 import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
-
-import { REPO_ROOT } from ".";
+import { REPO_ROOT } from "tests/utils";
 
 const extractFIFields = ({
   file,

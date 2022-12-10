@@ -13,7 +13,7 @@ start by following the instructions below:
 
 Please create a directory structure in your linter/formatter definition analogous to the following:
 
-```
+```text
 linters/
 └─my-linter/
   │ plugin.yaml

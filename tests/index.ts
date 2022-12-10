@@ -62,8 +62,11 @@ export const setupDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
   linterName?: string,
-  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
-  { preCheck = () => {} }: TestCallbacks = {}
+  {
+    preCheck = () => {
+      // noop
+    },
+  }: TestCallbacks = {}
 ): TrunkDriver => {
   const driver = new TrunkDriver(dirname, { setupGit, setupTrunk, launchDaemon }, linterName);
 
@@ -90,8 +93,14 @@ export const defaultLinterCheckTest = (
   dirname: string,
   linterName: string,
   namedTestPrefixes: string[] = [],
-  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
-  { preCheck = () => {}, postCheck = () => {} }: TestCallbacks = {}
+  {
+    preCheck = () => {
+      // noop
+    },
+    postCheck = () => {
+      // noop
+    },
+  }: TestCallbacks = {}
 ) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -136,8 +145,14 @@ export const defaultLinterFmtTest = (
   dirname: string,
   linterName: string,
   namedTestPrefixes: string[] = [],
-  // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
-  { preCheck = () => {}, postCheck = () => {} }: TestCallbacks = {}
+  {
+    preCheck = () => {
+      // noop
+    },
+    postCheck = () => {
+      // noop
+    },
+  }: TestCallbacks = {}
 ) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -159,6 +174,7 @@ export const defaultLinterFmtTest = (
         });
 
         const expectedOutFile = path.resolve(dirname, path.parse(outputPath).base);
+        // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
         expect(fs.readFileSync(testRunResult.targetPath!).toString()).toEqual(
           fs.readFileSync(expectedOutFile).toString()
         );

@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "trunk": "trunk",
-    "build-test": "tsc",
-    "test": "jest --runInBand",
-    "pretest": "npm run build-test"
+    "test": "jest --runInBand"
   },
   "engines": {
     "node": ">=10.0.0"

@@ -192,7 +192,7 @@ export class TrunkDriver {
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles runtimes, etc.
       await this.run(`check enable ${linterVersionString} --monitor=false`);
     } catch (error) {
-      console.warn(`Failed to enable ${this.linter} with message ${(error as Error).message}`);
+      console.warn(`Failed to enable ${this.linter}`);
       console.warn(error);
     }
   }
@@ -254,7 +254,7 @@ export class TrunkDriver {
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
-      const trunkRunResult = <TrunkRunResult>{
+      const trunkRunResult: TrunkRunResult = {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
@@ -304,7 +304,7 @@ export class TrunkDriver {
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
-      const trunkRunResult = <TrunkRunResult>{
+      const trunkRunResult: TrunkRunResult = {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
