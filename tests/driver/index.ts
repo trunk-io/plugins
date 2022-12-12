@@ -6,7 +6,7 @@ import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
-import { newTrunkYamlContents } from "tests/utils/trunk_config";
+import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
@@ -163,8 +163,8 @@ export class TrunkDriver {
     const sourceDir = path.resolve(this.testDir, "..");
     fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
 
+    this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
-      this.gitDriver = git.simpleGit(this.sandboxPath);
       await this.gitDriver
         .init()
         .add(".")
@@ -175,23 +175,67 @@ export class TrunkDriver {
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
-      fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"));
-      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
+      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
+        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
+      }
+      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk/trunk.yaml")))) {
+        fs.writeFileSync(
+          path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+          newTrunkYamlContents()
+        );
+      } else {
+        fs.copyFileSync(
+          path.resolve(this.sandboxPath, ".trunk/trunk_other.yaml"),
+          path.resolve(this.sandboxPath, ".trunk/trunk.yaml")
+        );
+      }
+    }
+
+    // Run a cli-dependent command to verify trunk is installed
+    const trunkCommand = ARGS.cliPath ?? "trunk";
+    const helpArgs = "--help";
+    try {
+      const helpRun = await this.run(helpArgs);
+      console.log(
+        `Called exec on small check.\nstdout: ${helpRun.stdout.length}\nstderr: ${helpRun.stderr}`
+      );
+    } catch (e: any) {
+      console.log(e);
     }
 
     // Launch daemon if specified
+    console.log(`Skip launch daemon! ${!this.setupSettings.launchDaemon}`);
     if (!this.setupSettings.launchDaemon) {
       return;
     }
 
-    // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-    const trunkCommand = ARGS.cliPath ?? "trunk";
     const daemonArgs = ["daemon", "launch", "--monitor=false"];
-
     this.daemon = execFile(trunkCommand, daemonArgs, {
       cwd: this.sandboxPath,
       env: executionEnv(),
     });
+    // Verify the daemon has finished launching
+    console.log("Called exec on daemon launch");
+
+    // try {
+    //   const checkDisable = await this.run(`daemon status`);
+    //   console.log(
+    //     `Called daemon status.\nstdout: ${checkDisable.stdout}\nstderr: ${checkDisable.stderr}`
+    //   );
+    // } catch (e: any) {
+    //   console.log(e);
+    // }
+
+    // try {
+    //   const checkDisable = await this.run(`check disable clang-tidy`);
+    //   console.log(
+    //     `Called exec on small check.\nstdout: ${checkDisable.stdout}\nstderr: ${checkDisable.stderr}`
+    //   );
+    // } catch (e: any) {
+    //   console.log(e);
+    // }
+
+    await new Promise((r) => setTimeout(r, 2000));
 
     // Enable tested linter if specified
     if (!this.linter) {
@@ -348,4 +392,10 @@ export class TrunkDriver {
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }
+
+  getTrunkConfig = (): any => {
+    if (this.sandboxPath) {
+      return getTrunkConfig(this.sandboxPath);
+    }
+  };
 }
