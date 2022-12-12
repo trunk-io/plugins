@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",
-    "@trunkio/launcher": "^1.1.1",
+    "@trunkio/launcher": "^1.2.3",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",
     "@types/yaml": "^1.9.7",
@@ -46,5 +46,8 @@
   "bugs": {
     "url": "https://github.com/trunk-io/plugins/issues"
   },
-  "homepage": "https://github.com/trunk-io/plugins#readme"
+  "homepage": "https://github.com/trunk-io/plugins#readme",
+  "bundleDependencies": [
+    "tests"
+  ]
 }
