@@ -1,4 +1,11 @@
-import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
+import {
+  ChildProcess,
+  execFile,
+  execFileSync,
+  ExecOptions,
+  execSync,
+  spawnSync,
+} from "child_process";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
@@ -12,6 +19,7 @@ import YAML from "yaml";
 
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
+const MAX_DAEMON_RETRIES = 5;
 
 const executionEnv = () => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
@@ -178,64 +186,18 @@ export class TrunkDriver {
       if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
         fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
       }
-      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk/trunk.yaml")))) {
-        fs.writeFileSync(
-          path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-          newTrunkYamlContents()
-        );
-      } else {
-        fs.copyFileSync(
-          path.resolve(this.sandboxPath, ".trunk/trunk_other.yaml"),
-          path.resolve(this.sandboxPath, ".trunk/trunk.yaml")
-        );
-      }
+      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
     }
 
-    // Run a cli-dependent command to verify trunk is installed
-    const trunkCommand = ARGS.cliPath ?? "trunk";
-    const helpArgs = "--help";
-    try {
-      const helpRun = await this.run(helpArgs);
-      console.log(
-        `Called exec on small check.\nstdout: ${helpRun.stdout.length}\nstderr: ${helpRun.stderr}`
-      );
-    } catch (e: any) {
-      console.log(e);
-    }
+    // Run a cli-dependent command to wait on and verify trunk is installed
+    // (Run this regardless of setup requirements. Trunk should be in the path)
+    await this.run("--help");
 
     // Launch daemon if specified
-    console.log(`Skip launch daemon! ${!this.setupSettings.launchDaemon}`);
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-
-    const daemonArgs = ["daemon", "launch", "--monitor=false"];
-    this.daemon = execFile(trunkCommand, daemonArgs, {
-      cwd: this.sandboxPath,
-      env: executionEnv(),
-    });
-    // Verify the daemon has finished launching
-    console.log("Called exec on daemon launch");
-
-    // try {
-    //   const checkDisable = await this.run(`daemon status`);
-    //   console.log(
-    //     `Called daemon status.\nstdout: ${checkDisable.stdout}\nstderr: ${checkDisable.stderr}`
-    //   );
-    // } catch (e: any) {
-    //   console.log(e);
-    // }
-
-    // try {
-    //   const checkDisable = await this.run(`check disable clang-tidy`);
-    //   console.log(
-    //     `Called exec on small check.\nstdout: ${checkDisable.stdout}\nstderr: ${checkDisable.stderr}`
-    //   );
-    // } catch (e: any) {
-    //   console.log(e);
-    // }
-
-    await new Promise((r) => setTimeout(r, 2000));
+    this.launchDaemonAsync();
 
     // Enable tested linter if specified
     if (!this.linter) {
@@ -278,6 +240,41 @@ export class TrunkDriver {
       env: executionEnv(),
       ...execOptions,
     });
+  }
+
+  /**
+   * Launch the daemon (during setup). This is required to verify parallelism
+   * works as intended.
+   */
+  async launchDaemonAsync() {
+    const trunkCommand = ARGS.cliPath ?? "trunk";
+    const daemonArgs = ["daemon", "launch", "--monitor=false"];
+    this.daemon = execFile(trunkCommand, daemonArgs, {
+      cwd: this.sandboxPath,
+      env: executionEnv(),
+    });
+
+    await new Promise((r) => setTimeout(r, 2000));
+
+    // // Verify the daemon has finished launching
+    // for (let i = 0; i < MAX_DAEMON_RETRIES; i++) {
+    //     const status = spawnSync(trunkCommand, ["daemon", "status"], { cwd: this.sandboxPath });
+    //     if (!status.error) {
+    //       break;
+
+    //     }
+    //     console.log(status.error);
+    //     // daemon status throws if daemon is not running
+    //     await new Promise((r) => setTimeout(r, 1000));
+    //   // try {
+    //   //   this.run("daemon status");
+    //   //   break;
+    //   // } catch (_e: any) {
+    //   //   console.log(_e as Error);
+    //   //   // daemon status throws if daemon is not running
+    //   //   await new Promise((r) => setTimeout(r, 1000));
+    //   // }
+    // }
   }
 
   /**
