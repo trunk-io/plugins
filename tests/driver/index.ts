@@ -13,6 +13,18 @@ import YAML from "yaml";
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
 
+const executionEnv = () => {
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
+  const { PWD, INIT_CWD, ...strippedEnv } = process.env;
+  return {
+    ...strippedEnv,
+    TRUNK_DOWNLOAD_CACHE: path.resolve(
+      fs.realpathSync(os.tmpdir()),
+      `${TEMP_PREFIX}testing_download_cache`
+    ),
+  };
+};
+
 /**
  * A specified test target to run on, identified by a prefix.
  * `inputPath` and `outputPath` should be relative paths relative to the
@@ -178,6 +190,7 @@ export class TrunkDriver {
 
     this.daemon = execFile(trunkCommand, daemonArgs, {
       cwd: this.sandboxPath,
+      env: executionEnv(),
     });
 
     // Enable tested linter if specified
@@ -219,6 +232,7 @@ export class TrunkDriver {
     const trunkPath = ARGS.cliPath ?? "trunk";
     return await execFilePromise(trunkPath, args.split(" "), {
       cwd: this.sandboxPath,
+      env: executionEnv(),
       ...execOptions,
     });
   }
