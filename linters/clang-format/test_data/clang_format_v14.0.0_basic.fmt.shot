@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter clang-format test basic 1`] = `
+"int foo() {}
+
+inline int bar() {}
+
+inline int baz() {
+  int a = 1;
+  int b = a * 2;
+  return b;
+}
+"
+`;

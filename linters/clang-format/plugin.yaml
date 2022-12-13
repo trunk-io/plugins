@@ -1,0 +1,35 @@
+version: 0.1
+lint:
+  downloads:
+    - name: clang-format
+      version: 14.0.1
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          url: https://trunk.io/releases/clang-format-${version}-macos-x86_64.tar.gz
+          version: <14.0.0
+        - os:
+            linux: linux
+            macos: macos
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://trunk.io/releases/clang-format-${version}-${os}-${cpu}.tar.gz
+  definitions:
+    - name: clang-format
+      files: [c/c++, proto]
+      type: rewrite
+      command: [clang-format, "--assume-filename=${target}"]
+      download: clang-format
+      stdin: true
+      success_codes: [0]
+      direct_configs: [.clang-format]
+      cache_results: true
+      formatter: true
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 14.0.0
+      version_command:
+        parse_regex: ${semver}
+        run: clang-format --version
