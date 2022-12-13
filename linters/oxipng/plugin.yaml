@@ -25,6 +25,7 @@ lint:
           list: ["${linter}"]
       include_lfs: true
       good_without_config: true
+      known_good_version: 7.0.0
       version_command:
         parse_regex: ${semver}
         run: oxipng --version
