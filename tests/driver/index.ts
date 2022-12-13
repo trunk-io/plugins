@@ -193,8 +193,6 @@ export class TrunkDriver {
     // (Run this regardless of setup requirements. Trunk should be in the path)
     await this.run("--help");
 
-    console.log("Done installing"); // TODO: TYLER REMOVE
-
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
       return;
@@ -206,22 +204,16 @@ export class TrunkDriver {
       return;
     }
 
-    console.log("About to enable"); // TODO: TYLER REMOVE
-
     try {
       const version = this.extractLinterVersion();
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${versionString}${this.linter}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
-      console.log(`About to enable ${linterVersionString}`); // TODO: TYLER REMOVE
-      const enabled = await this.run(`check enable ${linterVersionString} --monitor=false`);
-      console.log(`stdout: ${enabled.stdout}\nstderr: ${enabled.stderr}`); // TODO: TYLER REMOVE
+      await this.run(`check enable ${linterVersionString} --monitor=false`);
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`);
       console.warn(error);
     }
-
-    console.log("Done enable"); // TODO: TYLER REMOVE
   }
 
   /**
@@ -255,32 +247,19 @@ export class TrunkDriver {
    * works as intended.
    */
   async launchDaemonAsync() {
-    console.log("Gonna spawn daemon"); // TODO: TYLER REMOVE
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    const daemonArgs = ["daemon", "launch", "--monitor=false", "--debug"];
-    this.daemon = execFile(
-      trunkCommand,
-      daemonArgs,
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(),
-      },
-      (error, stdout, stderr) => {
-        // TODO: TYLER REMOVE
-        console.log(error);
-        console.log(stdout);
-        console.log(stderr);
-      }
-    );
+    const daemonArgs = ["daemon", "launch", "--monitor=false"];
+    this.daemon = execFile(trunkCommand, daemonArgs, {
+      cwd: this.sandboxPath,
+      env: executionEnv(),
+    });
 
     // Verify the daemon has finished launching
     for (let i = 0; i < MAX_DAEMON_RETRIES; i++) {
       const status = spawnSync(trunkCommand, ["daemon", "status"], { cwd: this.sandboxPath });
       if (!status.error) {
-        console.log("Daemon up!"); // TODO: TYLER REMOVE
         return;
       }
-      console.log(status.error); // TODO: TYLER REMOVE
       await new Promise((r) => setTimeout(r, 1000));
     }
     console.log("Failed to confirm daemon status");
