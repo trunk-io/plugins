@@ -27,7 +27,7 @@ export const getTrunkConfig = (repoRoot: string): any => {
 export const getTrunkVersion = (): string => {
   // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
   const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string;
-  return ARGS.cliVersion ?? repoCliVersion ?? "1.1.1-beta.14";
+  return ARGS.cliVersion ?? repoCliVersion ?? "1.2.0";
 };
 
 /**

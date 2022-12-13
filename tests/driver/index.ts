@@ -143,7 +143,7 @@ export class TrunkDriver {
    * 4. Enabling the specified 'linter'
    */
   async setUp() {
-    this.sandboxPath = fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX));
+    this.sandboxPath = fs.realpathSync(fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX)));
     if (!this.sandboxPath) {
       return;
     }
@@ -254,11 +254,19 @@ export class TrunkDriver {
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      // If critical failure occurs, JSON file might be empty
+      let jsonContents = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
+      if (!jsonContents) {
+        jsonContents = "{}";
+        console.log(error.stdout as string);
+        console.log(error.stderr as string);
+      }
+
       const trunkRunResult: TrunkRunResult = {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
-        outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+        outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
@@ -304,11 +312,19 @@ export class TrunkDriver {
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      // If critical failure occurs, JSON file might be empty
+      let jsonContents = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
+      if (!jsonContents) {
+        jsonContents = "{}";
+        console.log(error.stdout as string);
+        console.log(error.stderr as string);
+      }
+
       const trunkRunResult: TrunkRunResult = {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
-        outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+        outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
