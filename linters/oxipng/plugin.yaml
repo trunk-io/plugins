@@ -18,6 +18,7 @@ lint:
         - output: rewrite
           run: oxipng --strip safe ${target}
           success_codes: [0]
+          formatter: true
           in_place: true
           disable_upstream: true
       environment:
