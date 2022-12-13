@@ -215,7 +215,6 @@ export class TrunkDriver {
    * associated with it in order to prune the cache.
    */
   tearDown() {
-    // TODO(Tyler): Use persistent test cache dir and call `this.daemon?.kill("SIGKILL")` instead of deinit.
     const trunkCommand = ARGS.cliPath ?? "trunk";
     execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
     if (this.sandboxPath) {

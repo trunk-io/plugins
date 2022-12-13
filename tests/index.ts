@@ -1,12 +1,10 @@
+import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import { extractLandingState } from "tests/utils/landing_state";
 
-export interface TestCallbacks {
-  preCheck?: (driver: TrunkDriver) => void;
-  postCheck?: (driver: TrunkDriver) => void;
-}
+export type TestCallback = (driver: TrunkDriver) => void;
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`. Otherwise,
@@ -62,11 +60,9 @@ export const setupDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
   linterName?: string,
-  {
-    preCheck = () => {
-      // noop
-    },
-  }: TestCallbacks = {}
+  preCheck: TestCallback = () => {
+    // noop
+  }
 ): TrunkDriver => {
   const driver = new TrunkDriver(dirname, { setupGit, setupTrunk, launchDaemon }, linterName);
 
@@ -89,25 +85,29 @@ export const setupDriver = (
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input/output pair `basic.in.py`/`basic.out.json`, prefix is `basic`
  */
-export const defaultLinterCheckTest = (
-  dirname: string,
-  linterName: string,
-  namedTestPrefixes: string[] = [],
-  {
-    preCheck = () => {
-      // noop
-    },
-    postCheck = () => {
-      // noop
-    },
-  }: TestCallbacks = {}
-) => {
+export const defaultLinterCheckTest = ({
+  linterName,
+  dirname = path.dirname(caller()),
+  namedTestPrefixes = [],
+  preCheck = () => {
+    // noop
+  },
+  postCheck = () => {
+    // noop
+  },
+}: {
+  linterName: string;
+  dirname?: string;
+  namedTestPrefixes?: string[];
+  preCheck?: TestCallback;
+  postCheck?: TestCallback;
+}) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing linter ${linterName}`, () => {
     // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName, { preCheck });
+    const driver = setupDriver(dirname, {}, linterName, preCheck);
 
     // Step 3: Asynchronously run each test
     linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {
@@ -141,25 +141,29 @@ export const defaultLinterCheckTest = (
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input/output pair `basic.in.py`/`basic.out.py`, prefix is `basic`
  */
-export const defaultLinterFmtTest = (
-  dirname: string,
-  linterName: string,
-  namedTestPrefixes: string[] = [],
-  {
-    preCheck = () => {
-      // noop
-    },
-    postCheck = () => {
-      // noop
-    },
-  }: TestCallbacks = {}
-) => {
+export const defaultLinterFmtTest = ({
+  linterName,
+  dirname = path.dirname(caller()),
+  namedTestPrefixes = [],
+  preCheck = () => {
+    // noop
+  },
+  postCheck = () => {
+    // noop
+  },
+}: {
+  linterName: string;
+  dirname?: string;
+  namedTestPrefixes?: string[];
+  preCheck?: TestCallback;
+  postCheck?: TestCallback;
+}) => {
   // Step 1: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing formatter ${linterName}`, () => {
     // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName, { preCheck });
+    const driver = setupDriver(dirname, {}, linterName, preCheck);
 
     // Step 3: Asynchronously run each test
     linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {

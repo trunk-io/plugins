@@ -38,15 +38,15 @@ linters/
     file should be the result of running
     `trunk fmt ${path_to_input_file} --force --filter=${my_linter} --output=json` and should have
     the same file extension as the input file.
-  - The typescript test file should call `defaultLinterCheckTest` or `defaultLinterFmtTest` with
-    `__dirname`, the name of your linter, and (optionally) the prefixes of your input/output files.
+  - The typescript test file should call `defaultLinterCheckTest` or `defaultLinterFmtTest` with the
+    name of your linter and (optionally) the prefixes of your input/output files.
 
 Refer to [sqlfluff](../linters/sqlfluff) or [pragma-once](../linters/pragma-once) as testing
 examples.
 
 ## Running Tests
 
-To run all tests, run
+To run all tests, run `npm install` and then run:
 
 ```bash
 npm run test
@@ -68,8 +68,8 @@ formatters. If your test requires additional setup, follow the example of setup 
 
 ### Environment Overrides
 
-Additional configuration can be passed by running `npm run build-test` and then prepending
-`npm run test` with environment variables. Options include:
+Additional configuration can be passed by prepending `npm run test` with environment variables.
+Options include:
 
 - `PLUGINS_TEST_CLI_VERSION` replaces the repo-wide trunk.yaml's specified cli-version
 - `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk binary

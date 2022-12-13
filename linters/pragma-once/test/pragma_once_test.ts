@@ -1,3 +1,3 @@
 import { defaultLinterFmtTest } from "tests";
 
-defaultLinterFmtTest(__dirname, "pragma-once");
+defaultLinterFmtTest({linterName: "pragma-once"});
