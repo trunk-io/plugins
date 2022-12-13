@@ -1,0 +1,25 @@
+version: 0.1
+lint:
+  definitions:
+    - name: autopep8
+      files: [python]
+      type: rewrite
+      command: [autopep8, --in-place, "${target}"]
+      runtime: python
+      package: autopep8
+      success_codes: [0, 2]
+      direct_configs: [.pep8]
+      cache_results: true
+      affects_cache:
+        - .flake8
+        - pyproject.toml
+        - setup.cfg
+        - tox.ini
+      formatter: true
+      issue_url_format: https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
+      known_good_version: 1.5.7
+      version_command:
+        parse_regex: autopep8 ${semver}
+        run: autopep8 --version
+      in_place: true
+      batch: true
