@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: cue-fmt
+      files: [cue]
+      type: rewrite
+      command: [cue, fmt, "${target}"]
+      runtime: go
+      package: cuelang.org/go/cmd/cue
+      good_without_config: true
+      success_codes: [0]
+      formatter: true
+      known_good_version: 0.4.3
+      version_command:
+        parse_regex: cue version ${semver} .*
+        run: cue version
+      in_place: true
