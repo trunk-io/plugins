@@ -3,8 +3,14 @@ import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import { extractLandingState } from "tests/utils/landing_state";
+import specific_snapshot = require("jest-specific-snapshot");
+
+// trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
+const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
 
 export type TestCallback = (driver: TrunkDriver) => void;
+
+const SNAPSHOT_DIR = "__snapshots__";
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`. Otherwise,
@@ -121,13 +127,25 @@ export const linterCheckTest = ({
           }),
         });
 
+        // The toMatchObject() call is used to verify that the shape of the output data from trunk is explicitly aligned to
+        // an expected schema. This should match the result of a user's manual check run in the repo. However, this approach
+        // is not especially resilient to linter tooling changes and will be extended in the future. For now, we add the
+        // additional assertion of toMatchSpecificSnapshot() to validate on a trunk check output, per a specific linter version.
+        // TODO(Tyler): Extend object match assertion to include optional version specification.
+        // TODO(Tyler): Extend snapshot assertion to include trunk cli version.
         const expectedOutFile = path.resolve(dirname, path.parse(outputPath).base);
         // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
         const expectedOutJson = JSON.parse(fs.readFileSync(expectedOutFile, { encoding: "utf-8" }));
-        const expectedOut = extractLandingState(expectedOutJson);
-        expect(testRunResult.landingState).toEqual(expectedOut);
+        const expectedOut = extractLandingState(expectedOutJson, /*skipMessage=*/ true);
+        expect(testRunResult.landingState).toMatchObject(expectedOut);
 
-        expect(testRunResult.landingState).toMatchSnapshot();
+        let snapshotName = `${linterName}_test.ts.shot`;
+        if (driver.enabledVersion) {
+          snapshotName = `${linterName}_v${driver.enabledVersion}_test.ts.shot`;
+        }
+        expect(testRunResult.landingState).toMatchSpecificSnapshot(
+          path.resolve(dirname, SNAPSHOT_DIR, snapshotName)
+        );
       });
     });
     postCheck(driver);

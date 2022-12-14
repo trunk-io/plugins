@@ -13,7 +13,7 @@ import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
-import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
+import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
@@ -72,6 +72,8 @@ export interface TestResult {
   targetPath?: string;
   /** Attempt at parsing the outputJson and extracting only relevant information. */
   landingState?: LandingState;
+  cliVersion: string;
+  linterVersion?: string;
 }
 
 /**
@@ -92,6 +94,8 @@ export interface SetupSettings {
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
+  /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
+  enabledVersion?: string;
   /** Refers to the absolute path to the repo's test subdir inside a linter directory. */
   testDir: string;
   /** Created in /tmp during setup. */
@@ -123,6 +127,8 @@ export class TrunkDriver {
       trunkVerb,
       targetPath: targetAbsPath,
       landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
+      cliVersion: getTrunkVersion(),
+      linterVersion: this.enabledVersion,
     };
   }
 
@@ -207,9 +213,20 @@ export class TrunkDriver {
     try {
       const version = this.extractLinterVersion();
       const versionString = version.length > 0 ? `@${version}` : "";
-      const linterVersionString = `${versionString}${this.linter}`;
+      const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       await this.run(`check enable ${linterVersionString} --monitor=false`);
+
+      // Retrieve the enabled version
+      const newTrunkContents = fs.readFileSync(
+        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+        "utf8"
+      );
+      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n$`;
+      const foundIn = newTrunkContents.match(enabledVersionRegex);
+      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
+        this.enabledVersion = foundIn.groups.version;
+      }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`);
       console.warn(error);
