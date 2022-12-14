@@ -1,2 +1,5 @@
 # Node
 node_modules
+tests/*.js
+tests/*.js.map
+out

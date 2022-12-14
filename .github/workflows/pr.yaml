@@ -14,5 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install Dependencies
+        run: npm ci
+
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
