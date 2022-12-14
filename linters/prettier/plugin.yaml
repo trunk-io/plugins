@@ -1,0 +1,43 @@
+version: 0.1
+lint:
+  definitions:
+    - name: prettier
+      files:
+        - typescript
+        - yaml
+        - css
+        - sass
+        - html
+        - markdown
+        - json
+        - javascript
+        - graphql
+        - prettier_supported_configs
+      type: rewrite
+      command: [prettier, -w, "${target}"]
+      runtime: node
+      package: prettier
+      good_without_config: true
+      success_codes: [0]
+      direct_configs:
+        - .prettierrc
+        - .prettierrc.json
+        - .prettierrc.yml
+        - .prettierrc.yaml
+        - .prettierrc.json5
+        - .prettierrc.js
+        - .prettierrc.cjs
+        - prettier.config.js
+        - prettier.config.cjs
+        - .prettierrc.toml
+        - .prettierignore
+      affects_cache:
+        - package.json
+        - .editorconfig # Undocumented config file
+      formatter: true
+      known_good_version: 2.6.2
+      version_command:
+        parse_regex: ${semver}
+        run: prettier --version
+      in_place: true
+      batch: true
