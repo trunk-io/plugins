@@ -1,0 +1,30 @@
+version: 0.1
+lint:
+  definitions:
+    - name: ktlint
+      files: [kotlin]
+      download: ktlint
+      runtime: java
+      commands:
+        - name: format
+          run: ktlint -F "${target}"
+          output: rewrite
+          cache_results: true
+          formatter: true
+          in_place: true
+          batch: true
+          success_codes: [0, 1]
+      affects_cache:
+        - .editorconfig
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+        - name: LANG
+          # C.UTF-8 is preferred for machine output, but mac barfs on that
+          value: en_US.UTF-8
+      good_without_config: true
+      is_recommended: true
+      known_good_version: 0.43.2
+      version_command:
+        parse_regex: ${semver}
+        run: ktlint --version
