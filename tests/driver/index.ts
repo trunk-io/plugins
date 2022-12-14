@@ -207,7 +207,7 @@ export class TrunkDriver {
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
-        .init()
+        .init({ "--initial-branch": "main" })
         .add(".")
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")

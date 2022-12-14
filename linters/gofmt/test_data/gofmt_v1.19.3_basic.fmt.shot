@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter gofmt test basic 1`] = `
+"package main
+
+// 🧗.
+func main() {
+
+}
+"
+`;

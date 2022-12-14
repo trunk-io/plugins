@@ -11,6 +11,7 @@ const preCheck = (driver: TrunkDriver) => {
   }
 };
 
+// TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 linterCheckTest({ linterName: "detekt", namedTestPrefixes: ["basic_detekt"], preCheck });
 
 // detekt-explicit has no default settings, leading to an empty result

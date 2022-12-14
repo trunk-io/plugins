@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter gofmt test empty 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [],
+  "taskFailures": Array [
+    Object {
+      "message": "test_data/empty.in.go",
+      "name": "gofmt",
+    },
+  ],
+  "unformattedFiles": Array [],
+}
+`;

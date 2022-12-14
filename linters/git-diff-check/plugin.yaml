@@ -1,0 +1,18 @@
+version: 0.1
+lint:
+  definitions:
+    - name: git-diff-check
+      files: [ALL]
+      commands:
+        - output: regex
+          name: lint
+          parse_regex: ((?P<path>.*):(?P<line>-?\d+):(?P<message>.*))
+          success_codes: [0, 1, 2]
+          run: git diff --check ${target}
+          read_output_from: stdout
+          batch: true
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      good_without_config: true
+      known_good_version: ""
