@@ -36,14 +36,15 @@ jobs:
 
       - name: Locate trunk
         shell: bash
-        run: |
-          # Locate trunk
-          ./locate_trunk.sh
+        run: ./locate_trunk.sh
+
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+
       - name: Install Dependencies
         run: npm ci
+
       - name: Run Plugin Tests
         run: PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm run test
