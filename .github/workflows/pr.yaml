@@ -46,10 +46,5 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Shutdown trunk
-        # TODO(Tyler): Cleanup daemon wiring and lifetime
-        shell: bash
-        run: trunk daemon shutdown
-
       - name: Run Plugin Tests
         run: PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm run test
