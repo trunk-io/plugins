@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import path from "path";
-import { defaultLinterCheckTest, defaultLinterFmtTest, TestCallback } from "tests";
+import { linterCheckTest, linterFmtTest, TestCallback } from "tests";
 
-defaultLinterCheckTest({linterName: "sqlfluff", namedTestPrefixes: ["basic_check"]});
+linterCheckTest({linterName: "sqlfluff", namedTestPrefixes: ["basic_check"]});
 
 // Due to sqlfluff's fix subcommand being disabled by default, we need to manually enable it in our test's
 // trunk.yaml.
@@ -14,4 +14,4 @@ const fmtCallbacks: TestCallback = (driver) => {
     fs.writeFileSync(trunkYamlPath, newContents);
 };
 
-defaultLinterFmtTest({linterName: "sqlfluff", namedTestPrefixes: ["basic_fmt"], preCheck: fmtCallbacks});
+linterFmtTest({linterName: "sqlfluff", namedTestPrefixes: ["basic_fmt"], preCheck: fmtCallbacks});

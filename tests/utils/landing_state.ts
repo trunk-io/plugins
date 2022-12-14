@@ -3,7 +3,7 @@ import path from "path";
 import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
 import { REPO_ROOT } from "tests/utils";
 
-const extractFIFields = ({
+const extractFileIssueFields = ({
   file,
   line,
   column,
@@ -27,7 +27,7 @@ const extractFIFields = ({
 });
 
 // Also de-dupe, since sometimes we will have discrepancies in the count for multiple commands
-const extractLAFields = ({
+const extractLintActionFields = ({
   paths,
   linter,
   parser,
@@ -48,7 +48,7 @@ const extractLAFields = ({
   verb,
 });
 
-const extractTFFields = ({ name, message, ..._rest }: TaskFailure): TaskFailure => ({
+const extractTaskFailureFields = ({ name, message, ..._rest }: TaskFailure): TaskFailure => ({
   name,
   message,
 });
@@ -57,33 +57,33 @@ const extractTFFields = ({ name, message, ..._rest }: TaskFailure): TaskFailure 
  * Remove unwanted fields. Prefer object destructuring to be explicit about required fields
  * for forward compatibility.
  */
-const extractLSFields = ({
+const extractLandingStateFields = ({
   issues = [],
   unformattedFiles = [],
   lintActions = [],
   taskFailures = [],
 }: LandingState) =>
   <LandingState>{
-    issues: sort(issues.map(extractFIFields)).asc([
+    issues: sort(issues.map(extractFileIssueFields)).asc([
       (issue) => issue.file,
       (issue) => issue.line,
       (issue) => issue.column,
       (issue) => issue.message,
     ]),
-    unformattedFiles: sort(unformattedFiles.map(extractFIFields)).asc([
+    unformattedFiles: sort(unformattedFiles.map(extractFileIssueFields)).asc([
       (issue) => issue.file,
       (issue) => issue.line,
       (issue) => issue.column,
       (issue) => issue.message,
     ]),
-    lintActions: sort(lintActions.map(extractLAFields)).asc([
+    lintActions: sort(lintActions.map(extractLintActionFields)).asc([
       (action) => action.linter,
       (action) => action.command,
       (action) => action.verb,
       (action) => action.upstream,
       (action) => action.paths,
     ]),
-    taskFailures: sort(taskFailures.map(extractTFFields)).asc([
+    taskFailures: sort(taskFailures.map(extractTaskFailureFields)).asc([
       (failure) => failure.name,
       (failure) => failure.message,
     ]),
@@ -95,12 +95,16 @@ const extractLSFields = ({
  * @param json The nonempty `outputJson` from a `TrunkRunResult`
  */
 export const extractLandingState = (json: unknown): LandingState =>
-  extractLSFields(json as LandingState);
+  extractLandingStateFields(json as LandingState);
 
 /**
  * Attempt to parse the JSON result of a `trunk check` or `trunk fmt` run into
  * A landing state, transforming all relative paths to match them as they would appear
- * from the repo root.
+ * from the repo root. Sandboxed testing currently creates a repo root centered around the linter
+ * subdirectory. In order to match diagnostics as run from the original repo root, the paths must be
+ * modified.
+ *
+ * TODO(Tyler): Investigate creating a shadow tree rather than sandboxing on a subdirectory.
  */
 export const tryParseLandingState = (
   repoTestDir: string,

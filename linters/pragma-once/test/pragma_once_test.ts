@@ -1,3 +1,3 @@
-import { defaultLinterFmtTest } from "tests";
+import { linterFmtTest } from "tests";
 
-defaultLinterFmtTest({linterName: "pragma-once"});
+linterFmtTest({linterName: "pragma-once"});

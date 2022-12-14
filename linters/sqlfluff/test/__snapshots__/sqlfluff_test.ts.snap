@@ -66,7 +66,7 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "sqlfluff",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before naked identifier. Found '  '.",
       "targetType": "sql",
     },
     {
@@ -88,7 +88,7 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "sqlfluff",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before 'from' keyword. Found '  '.",
       "targetType": "sql",
     },
     {
@@ -132,7 +132,7 @@ exports[`Testing linter sqlfluff basic_check 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "sqlfluff",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before star '*'. Found '  '.",
       "targetType": "sql",
     },
   ],

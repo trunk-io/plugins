@@ -30,14 +30,25 @@ linters/
   config file is sufficient to enable your linter in ALL cases. This will be created whenever
   someone enables your linter.
 - Inside of `test/`, provide a testing file and at least one pair of input/output files.
+
   - For linters, specify a sample input file (with an appropriate file extension). Your output file
-    should be the result of running
-    `trunk check ${path_to_input_file} --force --filter=${my_linter} --output=json` and should have
-    a `.json` file extension.
+    should be the result of running:
+
+    ```bash
+    trunk check ${path_to_input_file} --force --filter=${my_linter} --output=json
+    ```
+
+    and should have a `.json` file extension.
+
   - For formatters, specify a sample input file (with an appropriate file extension). Your output
-    file should be the result of running
-    `trunk fmt ${path_to_input_file} --force --filter=${my_linter} --output=json` and should have
-    the same file extension as the input file.
+    file should be the result of running:
+
+    ```bash
+    cat ${path_to_input_file} | trunk format-stdin ${path_to_input_file} --filter=${my_linter}
+    ```
+
+    and should have the same file extension as the input file.
+
   - The typescript test file should call `defaultLinterCheckTest` or `defaultLinterFmtTest` with the
     name of your linter and (optionally) the prefixes of your input/output files.
 
@@ -52,7 +63,7 @@ To run all tests, run `npm install` and then run:
 npm run test
 ```
 
-To run an individual test, run
+To run an individual test, run:
 
 ```bash
 npm run test ${path_to_linter_subdir}

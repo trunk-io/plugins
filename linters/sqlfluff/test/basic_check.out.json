@@ -40,7 +40,7 @@
       "file": "linters/sqlfluff/test/basic_check.in.sql",
       "line": "1",
       "column": "7",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before star '*'. Found '  '.",
       "code": "L039",
       "level": "LEVEL_HIGH",
       "bucket": "sqlfluff",
@@ -76,7 +76,7 @@
       "file": "linters/sqlfluff/test/basic_check.in.sql",
       "line": "1",
       "column": "22",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before naked identifier. Found '  '.",
       "code": "L039",
       "level": "LEVEL_HIGH",
       "bucket": "sqlfluff",
@@ -100,7 +100,7 @@
       "file": "linters/sqlfluff/test/basic_check.in.sql",
       "line": "1",
       "column": "27",
-      "message": "Unnecessary whitespace found.",
+      "message": "Expected only single space before 'from' keyword. Found '  '.",
       "code": "L039",
       "level": "LEVEL_HIGH",
       "bucket": "sqlfluff",
@@ -145,26 +145,17 @@
       "targetType": "sql"
     }
   ],
-  "bucketViolations": [
-    {
-      "key": "sqlfluff",
-      "newCount": 12
-    }
-  ],
+  "bucketViolations": [{ "key": "sqlfluff", "newCount": 12 }],
   "compareToUpstream": true,
   "lintActions": [
     {
-      "paths": [
-        "linters/sqlfluff/test/basic_check.in.sql"
-      ],
+      "paths": ["linters/sqlfluff/test/basic_check.in.sql"],
       "linter": "sqlfluff",
       "fileGroupName": "sql",
       "command": "lint",
-      "verb": "TRUNK_VERB_CHECK"
+      "verb": "TRUNK_VERB_CHECK",
+      "actionDurationMs": "310"
     }
   ],
-  "changeStats": {
-    "modified": "7",
-    "added": "23"
-  }
+  "changeStats": { "modified": "6", "added": "25" }
 }

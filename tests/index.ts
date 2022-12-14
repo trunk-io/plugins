@@ -85,7 +85,7 @@ export const setupDriver = (
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input/output pair `basic.in.py`/`basic.out.json`, prefix is `basic`
  */
-export const defaultLinterCheckTest = ({
+export const linterCheckTest = ({
   linterName,
   dirname = path.dirname(caller()),
   namedTestPrefixes = [],
@@ -141,7 +141,7 @@ export const defaultLinterCheckTest = ({
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input/output pair `basic.in.py`/`basic.out.py`, prefix is `basic`
  */
-export const defaultLinterFmtTest = ({
+export const linterFmtTest = ({
   linterName,
   dirname = path.dirname(caller()),
   namedTestPrefixes = [],
