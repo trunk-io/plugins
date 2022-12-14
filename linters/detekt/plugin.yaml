@@ -1,0 +1,63 @@
+version: 0.1
+lint:
+  downloads:
+    - name: detekt
+      version: 1.19.0
+      downloads:
+        # Cross-platform download
+        - url: https://github.com/detekt/detekt/releases/download/v${version}/detekt-cli-${version}.zip
+          strip_components: 1
+  definitions:
+    - name: detekt
+      files: [kotlin]
+      type: sarif
+      download: detekt
+      command:
+        - detekt-cli
+        - --build-upon-default-config
+        - --config
+        - .detekt.yaml
+        - --input
+        - ${target,}
+        - --report
+        - sarif:${tmpfile}
+      cache_results: true
+      read_output_from: tmp_file
+      direct_configs: [.detekt.yaml]
+      success_codes: [0, 2]
+      runtime: java
+      is_recommended: false
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      known_good_version: 1.19.0
+      version_command:
+        parse_regex: ${semver}
+        run: detekt-cli --version
+      batch: true
+
+    - name: detekt-explicit
+      files: [kotlin]
+      type: sarif
+      download: detekt
+      command:
+        - detekt-cli
+        - --config
+        - .detekt.yaml
+        - --input
+        - ${target}
+        - --report
+        - sarif:${tmpfile}
+        - --auto-correct
+      read_output_from: tmp_file
+      direct_configs: [.detekt.yaml]
+      success_codes: [0, 2]
+      runtime: java
+      is_recommended: false
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      known_good_version: 1.19.0
+      version_command:
+        parse_regex: ${semver}
+        run: detekt-cli --version
