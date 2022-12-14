@@ -30,7 +30,7 @@ export interface FileIssue {
   file: string; // requires path transformation
   line: number;
   column: number;
-  message: string;
+  message?: string;
   // detailPath: string;
   code: string;
   level: string;

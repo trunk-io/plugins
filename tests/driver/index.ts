@@ -1,4 +1,11 @@
-import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
+import {
+  ChildProcess,
+  execFile,
+  execFileSync,
+  ExecOptions,
+  execSync,
+  spawnSync,
+} from "child_process";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
@@ -6,12 +13,13 @@ import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
-import { newTrunkYamlContents } from "tests/utils/trunk_config";
+import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
+const MAX_DAEMON_RETRIES = 5;
 
 const executionEnv = () => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
@@ -64,6 +72,8 @@ export interface TestResult {
   targetPath?: string;
   /** Attempt at parsing the outputJson and extracting only relevant information. */
   landingState?: LandingState;
+  cliVersion: string;
+  linterVersion?: string;
 }
 
 /**
@@ -84,6 +94,8 @@ export interface SetupSettings {
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
+  /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
+  enabledVersion?: string;
   /** Refers to the absolute path to the repo's test subdir inside a linter directory. */
   testDir: string;
   /** Created in /tmp during setup. */
@@ -115,6 +127,8 @@ export class TrunkDriver {
       trunkVerb,
       targetPath: targetAbsPath,
       landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
+      cliVersion: getTrunkVersion(),
+      linterVersion: this.enabledVersion,
     };
   }
 
@@ -163,8 +177,8 @@ export class TrunkDriver {
     const sourceDir = path.resolve(this.testDir, "..");
     fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
 
+    this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
-      this.gitDriver = git.simpleGit(this.sandboxPath);
       await this.gitDriver
         .init()
         .add(".")
@@ -175,23 +189,21 @@ export class TrunkDriver {
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
-      fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"));
+      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
+        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
+      }
       fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
     }
+
+    // Run a cli-dependent command to wait on and verify trunk is installed
+    // (Run this regardless of setup requirements. Trunk should be in the path)
+    await this.run("--help");
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-
-    // Prefer calling enable over editing trunk.yaml directly because it also handles runtimes, etc.
-    const trunkCommand = ARGS.cliPath ?? "trunk";
-    const daemonArgs = ["daemon", "launch", "--monitor=false"];
-
-    this.daemon = execFile(trunkCommand, daemonArgs, {
-      cwd: this.sandboxPath,
-      env: executionEnv(),
-    });
+    await this.launchDaemonAsync();
 
     // Enable tested linter if specified
     if (!this.linter) {
@@ -201,9 +213,20 @@ export class TrunkDriver {
     try {
       const version = this.extractLinterVersion();
       const versionString = version.length > 0 ? `@${version}` : "";
-      const linterVersionString = `${versionString}${this.linter}`;
-      // Prefer calling `check enable` over editing trunk.yaml directly because it also handles runtimes, etc.
+      const linterVersionString = `${this.linter}${versionString}`;
+      // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       await this.run(`check enable ${linterVersionString} --monitor=false`);
+
+      // Retrieve the enabled version
+      const newTrunkContents = fs.readFileSync(
+        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+        "utf8"
+      );
+      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n$`;
+      const foundIn = newTrunkContents.match(enabledVersionRegex);
+      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
+        this.enabledVersion = foundIn.groups.version;
+      }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`);
       console.warn(error);
@@ -234,6 +257,29 @@ export class TrunkDriver {
       env: executionEnv(),
       ...execOptions,
     });
+  }
+
+  /**
+   * Launch the daemon (during setup). This is required to verify parallelism
+   * works as intended.
+   */
+  async launchDaemonAsync() {
+    const trunkCommand = ARGS.cliPath ?? "trunk";
+    const daemonArgs = ["daemon", "launch", "--monitor=false"];
+    this.daemon = execFile(trunkCommand, daemonArgs, {
+      cwd: this.sandboxPath,
+      env: executionEnv(),
+    });
+
+    // Verify the daemon has finished launching
+    for (let i = 0; i < MAX_DAEMON_RETRIES; i++) {
+      const status = spawnSync(trunkCommand, ["daemon", "status"], { cwd: this.sandboxPath });
+      if (!status.error) {
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+    console.log("Failed to confirm daemon status");
   }
 
   /**
@@ -348,4 +394,10 @@ export class TrunkDriver {
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }
+
+  getTrunkConfig = (): any => {
+    if (this.sandboxPath) {
+      return getTrunkConfig(this.sandboxPath);
+    }
+  };
 }

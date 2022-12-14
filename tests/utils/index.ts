@@ -11,9 +11,9 @@ export const REPO_ROOT = path.resolve(__dirname, "../..");
  */
 const parseLinterVersion = (value: string): LinterVersion | undefined => {
   if (value && value.length > 0) {
-    return undefined;
+    return value;
   }
-  return value;
+  return undefined;
 };
 
 /**

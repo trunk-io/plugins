@@ -1,7 +1,6 @@
 import path from "path";
 import { setupDriver } from "tests";
 import { REPO_ROOT } from "tests/utils";
-import { getTrunkConfig } from "tests/utils/trunk_config";
 
 // Run 'trunk config print' from the root of the repository to verify a healthy config
 
@@ -18,7 +17,7 @@ describe("Global config health check", () => {
   // Step 2: Validate config
   it("trunk config print from repo root", async () => {
     // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-    const trunkConfig = getTrunkConfig(driver.sandboxPath ?? "");
+    const trunkConfig = driver.getTrunkConfig();
     // trunk-ignore(eslint)
     const alreadyLocal: boolean = trunkConfig.plugins.sources.some(
       ({ id, local }: { id: string; local: boolean }) => id === "trunk" && local

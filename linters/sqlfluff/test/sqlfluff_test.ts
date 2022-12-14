@@ -2,6 +2,8 @@ import * as fs from "fs";
 import path from "path";
 import { linterCheckTest, linterFmtTest, TestCallback } from "tests";
 
+// basic_check.out.json is the result of running:
+// trunk check linters/sqlfluff/test/basic_check.in.sql --force --filter=sqlfluff --output=json
 linterCheckTest({linterName: "sqlfluff", namedTestPrefixes: ["basic_check"]});
 
 // Due to sqlfluff's fix subcommand being disabled by default, we need to manually enable it in our test's
