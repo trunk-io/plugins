@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: todo-linter
+      files: [c++]
+      commands:
+        - name: lint
+          success_codes: [0]
+          run: bash -c 'echo -n "${target} " && grep 'TODO' "${target}" -n'
+          output: regex
+          parse_regex: (?P<path>.*) (?P<line>\d+):(?P<message>.*)\n
+        - name: fix
+          output: rewrite
+          run: sed -i '/TODO/d' "${target}"
+          formatter: true
+          in_place: true
+          success_codes: [0]
