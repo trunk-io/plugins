@@ -36,7 +36,7 @@ lint:
     - linters:
         - ALL
       paths:
-        - linters/**/test/*
+        - linters/**/test*/*
 actions:
   definitions:
     - id: toggle-local
@@ -53,7 +53,7 @@ actions:
         - files:
             - plugin.yaml
             - actions/**
-            - lint/**
+            - linters/**
           run: tools/toggle-local/toggle notify ${workspace}
     - id: sort-dictionary
       display_name: sort `cspell-words`
