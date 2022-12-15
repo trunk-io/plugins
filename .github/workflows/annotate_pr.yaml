@@ -2,7 +2,7 @@ name: Annotate PR with trunk issues
 
 on:
   workflow_run:
-    workflows: ["Pull Request"]
+    workflows: [Pull Request]
     types:
       - completed
 
