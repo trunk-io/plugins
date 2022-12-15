@@ -1,0 +1,23 @@
+version: 0.1
+lint:
+  downloads:
+    - name: kube-linter
+      version: 0.5.0
+      downloads:
+        - os: linux
+          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-linux
+        - os: macos
+          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-darwin
+  definitions:
+    - name: kube-linter
+      download: kube-linter
+      files:
+        - yaml
+      commands:
+        - output: sarif
+          run: kube-linter lint ${target} --format sarif
+          success_codes: [0, 1]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: 0.5.0
