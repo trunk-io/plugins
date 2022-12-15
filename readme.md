@@ -1,4 +1,3 @@
-<!-- trunk-ignore(markdownlint/MD041) -->
 <p align="center">
   <a href="https://docs.trunk.io">
     <img height="260" src="https://static.trunk.io/assets/trunk_plugins_logo.png" />
@@ -27,13 +26,14 @@ By consolidating and sharing integrations for linters/actions into a single repo
 
 ### Enabling a supported linter
 
-| technology | linters                                                                                                             |
-| ---------- | ------------------------------------------------------------------------------------------------------------------- |
-| All        | [cspell](https://github.com/streetsidesoftware/cspell), [codespell](https://github.com/codespell-project/codespell) |
-| C++        | [pragma-once](linters/pragma-once/readme.md)                                                                        |
-| PNG        | [oxipng](https://github.com/shssoichiro/oxipng)                                                                     |
-| SQL        | [sqlfluff](https://github.com/sqlfluff/sqlfluff), [sqlfmt](https://github.com/tconbeer/sqlfmt)                      |
-| Security   | [nancy](https://github.com/sonatype-nexus-community/nancy), [trivy](https://github.com/aquasecurity/trivy)          |
+| technology      | linters                                                                                                             |
+| --------------- | ------------------------------------------------------------------------------------------------------------------- |
+| All             | [cspell](https://github.com/streetsidesoftware/cspell), [codespell](https://github.com/codespell-project/codespell) |
+| C++             | [pragma-once](linters/pragma-once/readme.md)                                                                        |
+| PNG             | [oxipng](https://github.com/shssoichiro/oxipng)                                                                     |
+| SQL             | [sqlfluff](https://github.com/sqlfluff/sqlfluff), [sqlfmt](https://github.com/tconbeer/sqlfmt)                      |
+| Security        | [nancy](https://github.com/sonatype-nexus-community/nancy), [trivy](https://github.com/aquasecurity/trivy)          |
+| CircleCI Config | [circleci](https://github.com/CircleCI-Public/circleci-cli#readme)                                                  |
 
 ```bash
 trunk check enable {linter}
