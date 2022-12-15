@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter todo-linter basic_check 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "code": "error",
+      "column": "1",
+      "file": "linters/todo-linter/test/basic_check.in.cc",
+      "issueUrl": undefined,
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "todo-linter",
+      "message": "// TODO: Remove this line",
+      "targetType": "c++-source",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "fix",
+      "fileGroupName": "c++-source",
+      "linter": "todo-linter",
+      "parser": undefined,
+      "paths": Array [
+        "linters/todo-linter/test/basic_check.in.cc",
+      ],
+      "report": undefined,
+      "upstream": undefined,
+      "verb": "TRUNK_VERB_FMT",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "c++-source",
+      "linter": "todo-linter",
+      "parser": undefined,
+      "paths": Array [
+        "linters/todo-linter/test/basic_check.in.cc",
+      ],
+      "report": undefined,
+      "upstream": undefined,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [
+    Object {
+      "code": undefined,
+      "column": "1",
+      "file": "linters/todo-linter/test/basic_check.in.cc",
+      "issueUrl": undefined,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "todo-linter",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+      "targetType": undefined,
+    },
+  ],
+}
+`;

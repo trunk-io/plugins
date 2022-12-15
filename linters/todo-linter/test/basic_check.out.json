@@ -1,0 +1,48 @@
+{
+  "issues": [
+    {
+      "file": "linters/todo-linter/test/basic_check.in.cc",
+      "line": "2",
+      "column": "1",
+      "message": "// TODO: Remove this line",
+      "code": "error",
+      "level": "LEVEL_HIGH",
+      "bucket": "todo-linter",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "todo-linter",
+      "targetType": "c++-source"
+    }
+  ],
+  "unformattedFiles": [
+    {
+      "file": "linters/todo-linter/test/basic_check.in.cc",
+      "line": "1",
+      "column": "1",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+      "level": "LEVEL_HIGH",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "linter": "todo-linter"
+    }
+  ],
+  "bucketViolations": [{ "key": "todo-linter", "newCount": 1 }],
+  "compareToUpstream": true,
+  "lintActions": [
+    {
+      "paths": ["linters/todo-linter/test/basic_check.in.cc"],
+      "linter": "todo-linter",
+      "fileGroupName": "c++-source",
+      "command": "lint",
+      "verb": "TRUNK_VERB_CHECK",
+      "actionDurationMs": "3"
+    },
+    {
+      "paths": ["linters/todo-linter/test/basic_check.in.cc"],
+      "linter": "todo-linter",
+      "fileGroupName": "c++-source",
+      "command": "fix",
+      "verb": "TRUNK_VERB_FMT",
+      "actionDurationMs": "3"
+    }
+  ],
+  "changeStats": { "modified": "1", "added": "9" }
+}
