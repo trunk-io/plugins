@@ -11,7 +11,7 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "todo-linter",
-      "message": "// TODO: Remove this line",
+      "message": "// TODO: Remove this line22",
       "targetType": "c++-source",
     },
   ],
