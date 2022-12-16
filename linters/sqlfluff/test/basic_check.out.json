@@ -1,0 +1,161 @@
+{
+  "issues": [
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "1",
+      "message": "Keywords must be consistently upper case.",
+      "code": "L010",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "1",
+      "message": "Select targets should be on a new line unless there is only one select target.",
+      "code": "L036",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "1",
+      "message": "Query produces an unknown number of result columns.",
+      "code": "L044",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "7",
+      "message": "Expected only single space before star '*'. Found '  '.",
+      "code": "L039",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "12",
+      "message": "Column expression without alias. Use explicit `AS` clause.",
+      "code": "L013",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "20",
+      "message": "Keywords must be consistently upper case.",
+      "code": "L010",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "22",
+      "message": "Expected only single space before naked identifier. Found '  '.",
+      "code": "L039",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "24",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "code": "L014",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "27",
+      "message": "Expected only single space before 'from' keyword. Found '  '.",
+      "code": "L039",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "29",
+      "message": "Keywords must be consistently upper case.",
+      "code": "L010",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "34",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "code": "L014",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    },
+    {
+      "file": "linters/sqlfluff/test/basic_check.in.sql",
+      "line": "1",
+      "column": "43",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "code": "L014",
+      "level": "LEVEL_HIGH",
+      "bucket": "sqlfluff",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "sqlfluff",
+      "targetType": "sql"
+    }
+  ],
+  "bucketViolations": [{ "key": "sqlfluff", "newCount": 12 }],
+  "compareToUpstream": true,
+  "lintActions": [
+    {
+      "paths": ["linters/sqlfluff/test/basic_check.in.sql"],
+      "linter": "sqlfluff",
+      "fileGroupName": "sql",
+      "command": "lint",
+      "verb": "TRUNK_VERB_CHECK",
+      "actionDurationMs": "310"
+    }
+  ],
+  "changeStats": { "modified": "6", "added": "25" }
+}

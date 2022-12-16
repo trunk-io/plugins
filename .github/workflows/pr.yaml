@@ -14,5 +14,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install Dependencies
+        run: npm ci
+
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
+
+  plugins_test:
+    name: Plugins Test Runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        linter-version: [KnownGoodVersion, Latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Locate trunk
+        shell: bash
+        run: ./locate_trunk.sh
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Plugin Tests
+        run: PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm run test
