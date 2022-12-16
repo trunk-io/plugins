@@ -106,9 +106,6 @@ export const linterCheckTest = ({
       it(prefix, async () => {
         const testRunResult = await driver.runCheckUnit(inputPath, linterName);
 
-        // TODO: Tyler lowest snapshot name (match down):
-        // TODO: Tyler nightlies leverage with gitleaks
-
         // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
         // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
         // If the linter is not versioned, the same snapshot will be used every time.
