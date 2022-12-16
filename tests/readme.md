@@ -71,9 +71,10 @@ fileIssues, no taskFailures).
 
 Missing snapshots will be automatically created based on test input files. If an existing test fails
 because a new linter version has introduced a breaking change, rather than running
-`npm run test -- -u`, **instead run** `PLUGINS_TEST_NEW_SNAPSHOT=true npm run test`. This is used to
-track historical test behavior and ensure compatibility with trunk across multiple linter versions.
-See "Environment Overrides" below.
+`npm run test -- -u`, **instead run**
+`PLUGINS_TEST_NEW_SNAPSHOT=true npm run test ${path_to_failing_test}`. This is used to track
+historical test behavior and ensure compatibility with trunk across multiple linter versions. See
+"Environment Overrides" below.
 
 ## Additional Options
 
