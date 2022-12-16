@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter pragma-once basic 1`] = `
+Object {
+  "data": Array [
+    35,
+    112,
+    114,
+    97,
+    103,
+    109,
+    97,
+    32,
+    111,
+    110,
+    99,
+    101,
+    10,
+    118,
+    111,
+    105,
+    100,
+    32,
+    109,
+    121,
+    70,
+    117,
+    110,
+    99,
+    40,
+    41,
+    59,
+    10,
+  ],
+  "type": "Buffer",
+}
+`;

@@ -41,8 +41,6 @@ const executionEnv = () => {
 export interface TestTarget {
   /** Prefix of input and output file names */
   prefix: string;
-  /** Relative path to output file from specific linter subdirectory */
-  outputPath: string;
   /** Relative path to input file from specific linter subdirectory */
   inputPath: string;
 }
