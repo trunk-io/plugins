@@ -16,21 +16,22 @@ describe("Global config health check", () => {
 
   // Step 2: Validate config
   it("trunk config print from repo root", async () => {
-    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-    const trunkConfig = driver.getTrunkConfig();
-    // trunk-ignore(eslint)
-    const alreadyLocal: boolean = trunkConfig.plugins.sources.some(
-      ({ id, local }: { id: string; local: boolean }) => id === "trunk" && local
-    );
+    // // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+    // const trunkConfig = driver.getTrunkConfig();
+    // // trunk-ignore(eslint)
+    // const alreadyLocal: boolean = trunkConfig.plugins.sources.some(
+    //   ({ id, local }: { id: string; local: boolean }) => id === "trunk" && local
+    // );
 
-    // Ensure config includes the local copy of this repo as a plugin source
-    if (!alreadyLocal) {
-      await driver.run("run toggle-local");
-    }
+    // // Ensure config includes the local copy of this repo as a plugin source
+    // if (!alreadyLocal) {
+    //   await driver.run("run toggle-local");
+    // }
 
-    // Test that config healthily resolves
-    const testRunResult = await driver.run("config print");
-    expect(testRunResult.stdout).toContain("version: 0.1");
-    expect(testRunResult.stdout).toContain("local:");
+    // // Test that config healthily resolves
+    // const testRunResult = await driver.run("config print");
+    // expect(testRunResult.stdout).toContain("version: 0.1");
+    // expect(testRunResult.stdout).toContain("local:");
+    expect(1).toEqual(2);
   });
 });
