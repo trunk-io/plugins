@@ -3,10 +3,13 @@ import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import specific_snapshot = require("jest-specific-snapshot");
+import Debug from "debug";
 import { getSnapshotPath } from "tests/utils";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
+
+const baseDebug = Debug("Tests");
 
 export type TestCallback = (driver: TrunkDriver) => void;
 
@@ -104,7 +107,11 @@ export const linterCheckTest = ({
     // Step 3: Asynchronously run each test
     linterTestTargets.forEach(({ prefix, inputPath }) => {
       it(prefix, async () => {
+        const debug = baseDebug.extend(driver.debugNamespace);
         const testRunResult = await driver.runCheckUnit(inputPath, linterName);
+        expect(testRunResult).toMatchObject({
+          success: true,
+        });
 
         // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
         // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
@@ -122,6 +129,7 @@ export const linterCheckTest = ({
           prefix,
           driver.enabledVersion
         );
+        debug("Using snapshot %s", path.basename(snapshotPath));
         expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
       });
     });

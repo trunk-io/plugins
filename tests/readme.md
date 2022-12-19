@@ -96,3 +96,26 @@ Options include:
 - `PLUGINS_TEST_NEW_SNAPSHOT` if "true" tells tests to use an exact match of the linter version when
   checking the output. Only set this if a linter has introduced a results change with a version
   change
+
+### Debugging
+
+Errors encountered during test runs are reported through the standard `console`, but additional
+debugging is provided using [debug](https://www.npmjs.com/package/debug). The namespace convention
+used is `<Location>:<linter>:<#>`, where Location is `Driver | Tests`, linter is the name of the
+linter being tested (alternatively `test<#>` if no linter is specified), and # is a counter used to
+distinguish between multiple tests with the same linter.
+
+Accordingly, in order to view debug logs for all sqlfluff tests, you can set the environment
+variable:
+
+```bash
+DEBUG=*:sqlfluff*
+```
+
+To just see debug logs from the test driver, use:
+
+```bash
+DEBUG=Driver:*
+```
+
+We also recommend setting `DEBUG_COLORS=true` for clarity.

@@ -1,3 +1,4 @@
+import Debug from "debug";
 import fs from "fs";
 import path from "path";
 import semver from "semver";
@@ -23,6 +24,7 @@ const parseLinterVersion = (value: string): LinterVersion | undefined => {
  * - PLUGINS_TEST_CLI_VERSION replaces the repo-wide trunk.yaml's specified cli-version.
  * - PLUGINS_TEST_CLI_PATH specifies an alternative path to a trunk binary.
  * - PLUGINS_TEST_LINTER_VERSION specifies a linter version semantic (see `parseLinterVersion`).
+ * - PLUGINS_TEST_NEW_SNAPSHOT uses the snapshot from the enabled version of the linter, creating a new snapshot if necessary.
  */
 export const ARGS: TestingArguments = {
   cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
@@ -31,7 +33,7 @@ export const ARGS: TestingArguments = {
   dumpNewSnapshot: process.env.PLUGINS_TEST_NEW_SNAPSHOT?.toLowerCase() === "true",
 };
 if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapshot) {
-  console.debug(ARGS);
+  Debug("Tests").extend("Global")("%o", ARGS);
 }
 
 /**
