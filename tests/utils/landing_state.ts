@@ -3,6 +3,8 @@ import path from "path";
 import { LandingState, LintAction, TaskFailure } from "tests/types";
 import { REPO_ROOT } from "tests/utils";
 
+// TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
+// we should preserve the original structure and use jest matchers on the non-deterministic fields.
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
   ...rest
@@ -28,36 +30,36 @@ const extractLandingStateFields = ({
   taskFailures = [],
 }: LandingState) =>
   <LandingState>{
-    issues: sort(issues).asc([
-      (issue) => issue.file,
-      (issue) => issue.line,
-      (issue) => issue.column,
-      (issue) => issue.code,
-      (issue) => issue.message,
+    issues: sort(issues).asc((issue) => [
+      issue.file,
+      issue.line,
+      issue.column,
+      issue.code,
+      issue.message,
     ]),
-    unformattedFiles: sort(unformattedFiles).asc([
-      (issue) => issue.file,
-      (issue) => issue.line,
-      (issue) => issue.column,
-      (issue) => issue.code,
-      (issue) => issue.message,
+    unformattedFiles: sort(unformattedFiles).asc((issue) => [
+      issue.file,
+      issue.line,
+      issue.column,
+      issue.code,
+      issue.message,
     ]),
-    lintActions: sort(lintActions.map(extractLintActionFields)).asc([
-      (action) => action.linter,
-      (action) => action.command,
-      (action) => action.verb,
-      (action) => action.upstream,
-      (action) => action.paths,
+    lintActions: sort(lintActions.map(extractLintActionFields)).asc((action) => [
+      action.linter,
+      action.command,
+      action.verb,
+      action.upstream,
+      action.paths,
     ]),
-    taskFailures: sort(taskFailures.map(extractTaskFailureFields)).asc([
-      (failure) => failure.name,
-      (failure) => failure.message,
+    taskFailures: sort(taskFailures.map(extractTaskFailureFields)).asc((failure) => [
+      failure.name,
+      failure.message,
     ]),
   };
 
 /**
- * Extract the LandingState from an input `json`, discarding time-based fields.
- * Also sorts repeatable fields deterministically.
+ * Extract the LandingState from an input `json`, returning a deterministic landing state
+ * (e.g. timing-dependent fields are removed, repeated fields are sorted deterministically).
  * @param json The nonempty `outputJson` from a `TrunkRunResult`
  */
 export const extractLandingState = (json: unknown): LandingState =>

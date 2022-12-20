@@ -69,7 +69,7 @@ actions:
       packages_file: package.json
       display_name: Plugin Tests
       description: Run tests on all linter plugin definitions
-      run: npm run test
+      run: npm test
       triggers:
         - git_hooks:
             - pre-push

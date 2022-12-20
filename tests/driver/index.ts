@@ -173,6 +173,7 @@ export class TrunkDriver {
     } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
       return "";
     } else if (ARGS.linterVersion === "KnownGoodVersion") {
+      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().lint.definitions.find(

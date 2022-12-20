@@ -7,11 +7,15 @@ import { LinterVersion, TestingArguments } from "tests/types";
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const SNAPSHOT_DIR = "__snapshots__";
 
+// As this file and folder increase in complexity, extract out functionality into other categories.
+// Avoid overpolluting a `utils` folder.
+
 /**
  * Parse the environment variable-specified linter version. This can either be:
- * 1. KnownGoodVersion, which parses the linter definition and attempts to specify a known_good_version
+ * 1. KnownGoodVersion, which parses the linter definition and attempts to specify a known_good_version.
  * 2. Latest, which automatically retrieves the latest linter version if network connectivity is available.
- * 3. A specified version. Note that this will apply to all tests, so only use this environment variable when tests are filtered.
+ * 3. Snapshots, which runs tests against all of the generated snapshots for a linter or formatter.
+ * 4. A specified version. Note that this will apply to all tests, so only use this environment variable when tests are filtered.
  */
 const parseLinterVersion = (value: string): LinterVersion | undefined => {
   if (value && value.length > 0) {
@@ -25,14 +29,16 @@ const parseLinterVersion = (value: string): LinterVersion | undefined => {
  * - PLUGINS_TEST_CLI_VERSION replaces the repo-wide trunk.yaml's specified cli-version.
  * - PLUGINS_TEST_CLI_PATH specifies an alternative path to a trunk binary.
  * - PLUGINS_TEST_LINTER_VERSION specifies a linter version semantic (see `parseLinterVersion`).
- * - PLUGINS_TEST_NEW_SNAPSHOT uses the snapshot from the enabled version of the linter, creating a new snapshot if necessary.
+ * - PLUGINS_TEST_UPDATE_SNAPSHOTS uses the snapshot from the enabled version of the linter, creating a new snapshot if necessary.
  */
 export const ARGS: TestingArguments = {
   cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
   cliPath: process.env.PLUGINS_TEST_CLI_PATH,
   linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION ?? ""),
-  dumpNewSnapshot: process.env.PLUGINS_TEST_NEW_SNAPSHOT?.toLowerCase() === "true",
+  dumpNewSnapshot: Boolean(process.env.PLUGINS_TEST_UPDATE_SNAPSHOTS),
 };
+// TODO(Tyler): PLUGINS_TEST_LINTER_VERSION is a string version, we should mandate that a test filter is applied
+// to avoid accidental enables.
 if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapshot) {
   Debug("Tests").extend("Global")("%o", ARGS);
 }
@@ -62,6 +68,7 @@ export const getSnapshotPath = (
     snapshotDirPath,
     `${linterName}_v${linterVersion}_${prefix}.shot`
   );
+  // TODO(Tyler): When npm test -- -u is suggested, we should also call out PLUGINS_TEST_UPDATE_SNAPSHOTS
   if (ARGS.dumpNewSnapshot) {
     return specificVersionSnapshotName;
   }
@@ -89,7 +96,6 @@ export const getSnapshotPath = (
       }
     }
   }
-
   return specificVersionSnapshotName;
 };
 

@@ -3,12 +3,16 @@ import fs from "fs";
 import path from "path";
 import { REPO_ROOT } from "tests/utils";
 
-// TODO(Tyler): Burndown this list.
+// TODO(Tyler): Burndown this list (currently all linters defined before the testing framework was implemented).
 const excludedLinters: string[] = ["codespell", "cspell", "nancy", "oxipng", "sqlfmt", "trivy"];
 
+// This test asserts that all linters have at least one test. All new linters are expected to have
+// test coverage. Review tests/readme.md for testing guidelines. Prefer using npm test for indirection
+// in this test so that we get an accurate list of all tests, regardless of any changes to the test spec
+// in jest.config.ts.
 describe("All linters must have tests", () => {
   // Find all tests detected by jest
-  const stdout = execSync("npm run test -- --listTests", { cwd: REPO_ROOT }).toString();
+  const stdout = execSync("npm test -- --listTests", { cwd: REPO_ROOT }).toString();
   const testFiles = stdout
     .split("\n")
     .filter((file) => file.startsWith("/"))

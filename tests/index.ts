@@ -112,7 +112,7 @@ export const linterCheckTest = ({
         // Step 2: Define test setup and teardown
         const driver = setupDriver(dirname, {}, linterName, version, preCheck);
 
-        // Step 3: Asynchronously run each test
+        // Step 3: Run each test
         linterTestTargets.forEach(({ prefix, inputPath }) => {
           it(prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
@@ -122,7 +122,7 @@ export const linterCheckTest = ({
             });
 
             // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
-            // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
+            // If args.PLUGINS_TEST_UPDATE_SNAPSHOTS is passed, a new snapshot will be created for the currently tested version.
             // If the linter is not versioned, the same snapshot will be used every time.
             // E.g. Snapshot file names may be:
             // sqlfluff_v1.4.0_basic.shot
@@ -171,19 +171,18 @@ export const linterFmtTest = ({
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
-  // Step 1: Detect test files to run
+  // Step 1: Detect test files to run and versions for asserts.
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
+  const linterVersions = getVersionsForTest(dirname, linterName);
 
   describe(`Testing formatter ${linterName}`, () => {
-    const linterVersions = getVersionsForTest(dirname, linterName);
-
     linterVersions.forEach((version) => {
       // TODO: TYLER FIND OUT A RELIABLE WAY TO TITLE THE TESTS THAT DON'T VIOLATE SNAPSHOT EXPORT NAMES
       describe("test", () => {
         // Step 2: Define test setup and teardown
         const driver = setupDriver(dirname, {}, linterName, version, preCheck);
 
-        // Step 3: Asynchronously run each test
+        // Step 3: Run each test
         linterTestTargets.forEach(({ prefix, inputPath }) => {
           it(prefix, async () => {
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);

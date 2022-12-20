@@ -23,7 +23,7 @@ export interface TestingArguments {
   linterVersion?: LinterVersion | string;
   /** Whether tests should create new snapshot files if snapshots already exist
    * even if a match is found. */
-  dumpNewSnapshot?: boolean;
+  dumpNewSnapshot: boolean;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests
