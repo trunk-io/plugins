@@ -30,7 +30,7 @@ export interface TestingArguments {
 // to be most effective in asserting relevant, idempotent information.
 // Unimportant assertion fields omitted here.
 export interface FileIssue {
-  file: string; // requires path transformation
+  file: string;
   line: number;
   column: number;
   message?: string;
@@ -48,7 +48,7 @@ export interface FileIssue {
 }
 
 export interface LintAction {
-  paths: string[]; // require path transformations
+  paths: string[];
   linter: string;
   parser: string;
   report: string;
@@ -62,7 +62,7 @@ export interface LintAction {
 
 export interface TaskFailure {
   name: string;
-  message: string; // may require path transformation
+  message: string;
   detailPath?: string;
 }
 

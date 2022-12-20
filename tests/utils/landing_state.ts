@@ -1,7 +1,5 @@
 import { sort } from "fast-sort";
-import path from "path";
 import { LandingState, LintAction, TaskFailure } from "tests/types";
-import { REPO_ROOT } from "tests/utils";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
 // we should preserve the original structure and use jest matchers on the non-deterministic fields.
@@ -67,10 +65,7 @@ export const extractLandingState = (json: unknown): LandingState =>
 
 /**
  * Attempt to parse the JSON result of a `trunk check` or `trunk fmt` run into
- * A landing state, transforming all relative paths to match them as they would appear
- * from the repo root. Sandboxed testing currently creates a repo root centered around the linter
- * subdirectory. In order to match diagnostics as run from the original repo root, the paths must be
- * modified.
+ * A landing state, removing any non-deterministic fields.
  *
  * TODO(Tyler): Investigate creating a shadow tree rather than sandboxing on a subdirectory.
  */
@@ -82,39 +77,5 @@ export const tryParseLandingState = (
     return undefined;
   }
 
-  const landingState = extractLandingState(outputJson);
-
-  const absLinterDir = path.parse(repoTestDir).dir;
-  const relativeLinterDir = path.relative(REPO_ROOT, absLinterDir);
-
-  const transformPath = (testFileRelativePath: string): string => {
-    // validate path is parsable
-    const parsed = path.parse(testFileRelativePath);
-    if (parsed.dir.length > 0) {
-      return path.join(relativeLinterDir, testFileRelativePath);
-    }
-    return testFileRelativePath;
-  };
-
-  const normalizedLandingState = {
-    ...landingState,
-    issues: (landingState.issues ?? []).map(({ file, ...issue }) => ({
-      ...issue,
-      file: transformPath(file),
-    })),
-    unformattedFiles: (landingState.unformattedFiles ?? []).map(({ file, ...unformattedFile }) => ({
-      ...unformattedFile,
-      file: transformPath(file),
-    })),
-    lintActions: (landingState.lintActions ?? []).map(({ paths, ...lintAction }) => ({
-      ...lintAction,
-      paths: paths.map(transformPath),
-    })),
-    taskFailures: (landingState.taskFailures ?? []).map(({ message, ...taskFailure }) => ({
-      ...taskFailure,
-      message: transformPath(message),
-    })),
-  };
-
-  return normalizedLandingState;
+  return extractLandingState(outputJson);
 };

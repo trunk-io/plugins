@@ -5,7 +5,7 @@ import semver from "semver";
 import { LinterVersion, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
-export const SNAPSHOT_DIR = "__snapshots__";
+export const TEST_DATA = "test_data";
 
 // As this file and folder increase in complexity, extract out functionality into other categories.
 // Avoid overpolluting a `utils` folder.
@@ -44,37 +44,78 @@ if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapsho
 }
 
 /**
+ * Calculate the name for a given snapshot file. Use this as a standardized convention.
+ * Rationale for each component:
+ *  - linterName is required because a user could define multiple linters and have them run on the same target
+ *  - prefix is required because a user could have a linter run on multiple targets (the driver currently is one target each)
+ *  - checkType is required because a linter could have lint and fix subcommands and run on the same target
+ *  - linterVersion is required because of linter changes (see tests/readme.md)
+ * In the future we may want to segment these by directories for each test case/target, but for now we keep everything
+ * proximally located for clarity and simplicity.
+ * The check and fmt versions may not have the same count, since formatters tend to be more stable than linter diagnostics.
+ *
+ * @param linterName the name of the linter being tested. Does not include subcommand
+ * @param prefix the prefix of the named file tested against
+ * @param checkType "check" or "fmt"
+ * @param linterVersion optionally, the version of the linter that was enabled. If not set, assume versionless.
+ */
+export const getSnapshotName = (
+  linterName: string,
+  prefix: string,
+  checkType: "check" | "fmt",
+  linterVersion?: string
+) => {
+  const normalizedName = linterName.replace("-", "_");
+  if (!linterVersion) {
+    return `${normalizedName}_${prefix}.${checkType}.shot`;
+  }
+  return `${normalizedName}_v${linterVersion}_${prefix}.${checkType}.shot`;
+};
+
+/**
+ * Calculate the regex for a given snapshot file to determine available versions. Use this as a standardized convention.
+ * @param linterName the name of the linter being tested. Does not include subcommand
+ * @param prefix the prefix of the named file tested against
+ * @param checkType "check" or "fmt"
+ */
+export const getSnapshotRegex = (linterName: string, prefix: string, checkType: "check" | "fmt") =>
+  `${linterName.replace("-", "_")}_v(?<version>(\\d.?)+)_${prefix}.${checkType}.shot`;
+
+/**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
  *
  * @param snapshotDirPath absolute path to snapshot directory
  * @param linterName name of the linter being tested
  * @param prefix prefix of the file being checked
+ * @param checkType "check" or "fmt"
  * @param linterVersion version of the linter that was enabled (may be undefined)
  * @returns absolute path to the relevant snapshot file
  */
-export const getSnapshotPath = (
+export const getSnapshotPathForAssert = (
   snapshotDirPath: string,
   linterName: string,
   prefix: string,
+  checkType: "check" | "fmt",
   linterVersion?: string
 ): string => {
+  const specificVersionSnapshotName = path.resolve(
+    snapshotDirPath,
+    getSnapshotName(linterName, prefix, checkType, linterVersion)
+  );
+
   // If this is a versionless linter, don't specify a version.
   if (!linterVersion) {
-    return path.resolve(snapshotDirPath, `${linterName}_${prefix}.shot`);
+    return specificVersionSnapshotName;
   }
 
   // If this is a versioned linter && dumpNewSnapshot, return its generated name.
-  const specificVersionSnapshotName = path.resolve(
-    snapshotDirPath,
-    `${linterName}_v${linterVersion}_${prefix}.shot`
-  );
-  // TODO(Tyler): When npm test -- -u is suggested, we should also call out PLUGINS_TEST_UPDATE_SNAPSHOTS
+  // TODO(Tyler): When npm test -- -u is suggested, we should also call out PLUGINS_TEST_UPDATE_SNAPSHOTS in the output
   if (ARGS.dumpNewSnapshot) {
     return specificVersionSnapshotName;
   }
 
   // Otherwise, find the most recent matching snapshot.
-  const snapshotFileRegex = `${linterName}_v(?<version>(\\d.?)+)_${prefix}.shot$`;
+  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType);
   const availableSnapshots = fs
     .readdirSync(snapshotDirPath)
     .filter((name) => name.match(snapshotFileRegex))
@@ -99,17 +140,21 @@ export const getSnapshotPath = (
   return specificVersionSnapshotName;
 };
 
-export const getVersionsForTest = (dirname: string, linterName: string) => {
+export const getVersionsForTest = (
+  dirname: string,
+  linterName: string,
+  prefix: string,
+  checkType: "check" | "fmt"
+) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
   if (ARGS.linterVersion !== "Snapshots") {
     return [undefined];
   }
 
-  const regex = `${linterName}_v(?<version>(\\d.?)+)_(.*).shot$`;
   const versionsList = fs
-    .readdirSync(path.resolve(dirname, SNAPSHOT_DIR))
+    .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
-      const fileMatch = file.match(regex);
+      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType));
       if (fileMatch) {
         return fileMatch.groups?.version;
       }

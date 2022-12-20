@@ -17,18 +17,20 @@ Please create a directory structure in your linter/formatter definition analogou
 linters/
 └─my-linter/
   │ plugin.yaml
+  │ my_linter_test.ts
   │ readme.md (optional)
   │ my-config.json (optional)
-  └─test/
+  └─test_data/
     │ basic.in.py
-    │ my_linter_test.ts
 ```
 
 - Specify a `readme.md` if your linter integration requires additional explanation or configuration.
 - Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if providing this
   config file is sufficient to enable your linter in ALL cases. This will be created whenever
   someone enables your linter.
-- Inside of `test/`, provide a testing file and at least one input file.
+- Specify a typescript test file that calls `linterCheckTest` or `linterFmtTest` with the name of
+  your linter and (optionally) the prefixes of your input files and any special callbacks.
+- Inside of `test_data/`, provide at least one input file.
 
   - For linters, specify a sample input file (with an appropriate file extension). For reference,
     the tests will run the following command against your input file:
@@ -43,9 +45,6 @@ linters/
     ```bash
     cat ${path_to_input_file} | trunk format-stdin ${path_to_input_file} --filter=${my_linter}
     ```
-
-  - The typescript test file should call `linterCheckTest` or `linterFmtTest` with the name of your
-    linter and (optionally) the prefixes of your input files and any special callbacks.
 
 Refer to [sqlfluff](../linters/sqlfluff) or [pragma-once](../linters/pragma-once) as testing
 examples.
@@ -136,6 +135,9 @@ PRs will run 4 types of tests:
 4. Assert that all linters have test coverage.
 
 ### Debugging
+
+Occasionally, tests may take a while to run due to installing of linter dependencies. Subsequent
+runs will not experience this problem.
 
 Errors encountered during test runs are reported through the standard `console`, but additional
 debugging is provided using [debug](https://www.npmjs.com/package/debug). The namespace convention

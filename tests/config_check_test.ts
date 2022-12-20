@@ -1,8 +1,5 @@
-import path from "path";
 import { setupDriver } from "tests";
 import { REPO_ROOT } from "tests/utils";
-
-const subfolder = path.resolve(REPO_ROOT, "linters");
 
 // This test runs 'trunk config print' from the root of the repository to verify a healthy config.
 // This serves as a general, basic healthcheck and asserts that all definitions resolve correctly,
@@ -10,7 +7,7 @@ const subfolder = path.resolve(REPO_ROOT, "linters");
 // when sourcing plugins from this repository.
 describe("Global config health check", () => {
   // Step 1: Define test setup and teardown
-  const driver = setupDriver(subfolder, {
+  const driver = setupDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
     launchDaemon: false,

@@ -36,7 +36,7 @@ lint:
     - linters:
         - ALL
       paths:
-        - linters/**/test*/*
+        - linters/**/test_data/*
 actions:
   definitions:
     - id: toggle-local

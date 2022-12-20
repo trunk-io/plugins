@@ -111,7 +111,7 @@ export class TrunkDriver {
   toEnableVersion?: string;
   /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
   enabledVersion?: string;
-  /** Refers to the absolute path to the repo's test subdir inside a linter directory. */
+  /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */
   sandboxPath?: string;
@@ -202,8 +202,7 @@ export class TrunkDriver {
       return;
     }
     // Create repo
-    const sourceDir = path.resolve(this.testDir, "..");
-    fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
+    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
 
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
