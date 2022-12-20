@@ -108,7 +108,7 @@ export const linterCheckTest = ({
       // Step 1b: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
       const linterVersions = getVersionsForTest(dirname, linterName, prefix, "check");
       linterVersions.forEach((linterVersion) => {
-        // TODO: TYLER FIND OUT A RELIABLE WAY TO TITLE THE TESTS THAT DON'T VIOLATE SNAPSHOT EXPORT NAMES
+        // TODO(Tyler): Find a reliable way to replace the name "test" that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
           const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
@@ -181,7 +181,7 @@ export const linterFmtTest = ({
       // Step 1b: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
       const linterVersions = getVersionsForTest(dirname, linterName, prefix, "fmt");
       linterVersions.forEach((linterVersion) => {
-        // TODO: TYLER FIND OUT A RELIABLE WAY TO TITLE THE TESTS THAT DON'T VIOLATE SNAPSHOT EXPORT NAMES
+        // TODO(Tyler): Find a reliable way to replace the name "test" that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
           const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
