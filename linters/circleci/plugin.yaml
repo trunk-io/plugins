@@ -7,7 +7,6 @@ lint:
         - .circleci/config.yml
   downloads:
     - name: circleci
-      version: 0.1.22770
       downloads:
         - os: macos
           cpu: arm_64
