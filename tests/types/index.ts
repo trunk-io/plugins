@@ -9,7 +9,7 @@ export type TrunkVerb = "Check" | "Format";
  * 2. Latest: use network connection to query for the latest linter verison (default)
  * 3. string: a manually specified version. Note that this will apply to all tests.
  */
-export type LinterVersion = "KnownGoodVersion" | "Latest" | string;
+export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 
 /**
  * Global testing configuration based on environment variables.

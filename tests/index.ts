@@ -4,7 +4,7 @@ import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
-import { getSnapshotPath } from "tests/utils";
+import { getSnapshotPath, getVersionsForTest, SNAPSHOT_DIR } from "tests/utils";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -12,8 +12,6 @@ const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
 const baseDebug = Debug("Tests");
 
 export type TestCallback = (driver: TrunkDriver) => void;
-
-const SNAPSHOT_DIR = "__snapshots__";
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`. Otherwise,
@@ -55,11 +53,17 @@ export const setupDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
   linterName?: string,
+  version?: string,
   preCheck: TestCallback = () => {
     // noop
   }
 ): TrunkDriver => {
-  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk, launchDaemon }, linterName);
+  const driver = new TrunkDriver(
+    dirname,
+    { setupGit, setupTrunk, launchDaemon },
+    linterName,
+    version
+  );
 
   beforeAll(async () => {
     await driver.setUp();
@@ -101,39 +105,45 @@ export const linterCheckTest = ({
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing linter ${linterName}`, () => {
-    // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName, preCheck);
+    const linterVersions = getVersionsForTest(dirname, linterName);
 
-    // Step 3: Asynchronously run each test
-    linterTestTargets.forEach(({ prefix, inputPath }) => {
-      it(prefix, async () => {
-        const debug = baseDebug.extend(driver.debugNamespace);
-        const testRunResult = await driver.runCheckUnit(inputPath, linterName);
-        expect(testRunResult).toMatchObject({
-          success: true,
+    linterVersions.forEach((version) => {
+      describe("test", () => {
+        // Step 2: Define test setup and teardown
+        const driver = setupDriver(dirname, {}, linterName, version, preCheck);
+
+        // Step 3: Asynchronously run each test
+        linterTestTargets.forEach(({ prefix, inputPath }) => {
+          it(prefix, async () => {
+            const debug = baseDebug.extend(driver.debugNamespace);
+            const testRunResult = await driver.runCheckUnit(inputPath, linterName);
+            expect(testRunResult).toMatchObject({
+              success: true,
+            });
+
+            // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
+            // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
+            // If the linter is not versioned, the same snapshot will be used every time.
+            // E.g. Snapshot file names may be:
+            // sqlfluff_v1.4.0_basic.shot
+            // sqlfluff_v1.4.3_basic.shot // versions skipped because v1.4.0 is still sufficient.
+            // sqlfluff_v1.4.4_basic.shot
+            // TODO(Tyler): Extend snapshot assertion to include trunk cli version.
+
+            const snapshotDir = path.resolve(dirname, SNAPSHOT_DIR);
+            const snapshotPath = getSnapshotPath(
+              snapshotDir,
+              linterName,
+              prefix,
+              driver.enabledVersion
+            );
+            debug("Using snapshot %s", path.basename(snapshotPath));
+            expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
+          });
         });
-
-        // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
-        // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
-        // If the linter is not versioned, the same snapshot will be used every time.
-        // E.g. Snapshot file names may be:
-        // sqlfluff_v1.4.0_basic.shot
-        // sqlfluff_v1.4.3_basic.shot // versions skipped because v1.4.0 is still sufficient.
-        // sqlfluff_v1.4.4_basic.shot
-        // TODO(Tyler): Extend snapshot assertion to include trunk cli version.
-
-        const snapshotDir = path.resolve(dirname, SNAPSHOT_DIR);
-        const snapshotPath = getSnapshotPath(
-          snapshotDir,
-          linterName,
-          prefix,
-          driver.enabledVersion
-        );
-        debug("Using snapshot %s", path.basename(snapshotPath));
-        expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
+        postCheck(driver);
       });
     });
-    postCheck(driver);
   });
 };
 
@@ -165,28 +175,35 @@ export const linterFmtTest = ({
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 
   describe(`Testing formatter ${linterName}`, () => {
-    // Step 2: Define test setup and teardown
-    const driver = setupDriver(dirname, {}, linterName, preCheck);
+    const linterVersions = getVersionsForTest(dirname, linterName);
 
-    // Step 3: Asynchronously run each test
-    linterTestTargets.forEach(({ prefix, inputPath }) => {
-      it(prefix, async () => {
-        const testRunResult = await driver.runFmtUnit(inputPath, linterName);
-        expect(testRunResult).toMatchObject({
-          success: true,
+    linterVersions.forEach((version) => {
+      // TODO: TYLER FIND OUT A RELIABLE WAY TO TITLE THE TESTS THAT DON'T VIOLATE SNAPSHOT EXPORT NAMES
+      describe("test", () => {
+        // Step 2: Define test setup and teardown
+        const driver = setupDriver(dirname, {}, linterName, version, preCheck);
+
+        // Step 3: Asynchronously run each test
+        linterTestTargets.forEach(({ prefix, inputPath }) => {
+          it(prefix, async () => {
+            const testRunResult = await driver.runFmtUnit(inputPath, linterName);
+            expect(testRunResult).toMatchObject({
+              success: true,
+            });
+
+            const formatSnapshotPath = path.resolve(
+              dirname,
+              SNAPSHOT_DIR,
+              `${linterName}_${prefix}_fmt.shot`
+            );
+            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
+            expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
+              formatSnapshotPath
+            );
+          });
         });
-
-        const formatSnapshotPath = path.resolve(
-          dirname,
-          SNAPSHOT_DIR,
-          `${linterName}_${prefix}_fmt.shot`
-        );
-        // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
-        expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
-          formatSnapshotPath
-        );
+        postCheck(driver);
       });
     });
-    postCheck(driver);
   });
 };

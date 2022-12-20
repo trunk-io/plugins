@@ -1,7 +1,7 @@
-import { REPO_ROOT } from "tests/utils";
-import fs from "fs";
 import { execSync } from "child_process";
+import fs from "fs";
 import path from "path";
+import { REPO_ROOT } from "tests/utils";
 
 // TODO(Tyler): Burndown this list.
 const excludedLinters: string[] = ["codespell", "cspell", "nancy", "oxipng", "sqlfmt", "trivy"];
@@ -16,7 +16,7 @@ describe("All linters must have tests", () => {
 
   // Key the tests by their linter subdirectory
   const testDirMap = testFiles.reduce((accumulator: Map<string, string[]>, file: string) => {
-    const linterSubdir = file.match(/linters\/[^\/]+/);
+    const linterSubdir = file.match(/linters\/[^/]+/);
     if (linterSubdir) {
       const matches = accumulator.get(linterSubdir[0]) ?? [];
       accumulator.set(linterSubdir[0], [...matches, file]);
@@ -35,6 +35,7 @@ describe("All linters must have tests", () => {
   linters
     .filter((linter) => !excludedLinters.includes(linter))
     .forEach((linter) => {
+      // trunk-ignore(eslint/jest/valid-title)
       it(linter, () => {
         const linterSubdir = path.join("linters", linter);
         expect(testDirObject).toHaveProperty(linterSubdir);

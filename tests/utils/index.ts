@@ -5,6 +5,7 @@ import semver from "semver";
 import { LinterVersion, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
+export const SNAPSHOT_DIR = "__snapshots__";
 
 /**
  * Parse the environment variable-specified linter version. This can either be:
@@ -90,4 +91,28 @@ export const getSnapshotPath = (
   }
 
   return specificVersionSnapshotName;
+};
+
+export const getVersionsForTest = (dirname: string, linterName: string) => {
+  // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
+  if (ARGS.linterVersion !== "Snapshots") {
+    return [undefined];
+  }
+
+  const regex = `${linterName}_v(?<version>(\\d.?)+)_(.*).shot$`;
+  const versionsList = fs
+    .readdirSync(path.resolve(dirname, SNAPSHOT_DIR))
+    .map((file) => {
+      const fileMatch = file.match(regex);
+      if (fileMatch) {
+        return fileMatch.groups?.version;
+      }
+    })
+    .filter(Boolean);
+
+  if (versionsList.length === 0) {
+    return [undefined];
+  }
+
+  return new Set(versionsList);
 };

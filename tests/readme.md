@@ -76,12 +76,15 @@ because a new linter version has introduced a breaking change, rather than runni
 historical test behavior and ensure compatibility with trunk across multiple linter versions. See
 "Environment Overrides" below.
 
+If you need to run tests for all the existing snapshots, run
+`PLUGINS_TEST_LINTER_VERSION=Snapshots npm run test`.
+
 ## Additional Options
 
 ### Test Configuration
 
-`defaultLinterCheckTest` or `defaultLinterFmtTest` should be sufficient for most linters and
-formatters. If your test requires additional setup, follow the example of setup in
+`linterCheckTest` or `linterFmtTest` should be sufficient for most linters and formatters. If your
+test requires additional setup, follow the example of setup in
 [config_check_test.ts](./config_check_test.ts).
 
 ### Environment Overrides
@@ -92,7 +95,7 @@ Options include:
 - `PLUGINS_TEST_CLI_VERSION` replaces the repo-wide trunk.yaml's specified cli-version
 - `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk binary
 - `PLUGINS_TEST_LINTER_VERSION` specifies a linter version semantic (KnownGoodVersion | Latest |
-  version)
+  Snapshots | version)
 - `PLUGINS_TEST_NEW_SNAPSHOT` if "true" tells tests to use an exact match of the linter version when
   checking the output. Only set this if a linter has introduced a results change with a version
   change

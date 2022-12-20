@@ -43,11 +43,9 @@ const getDebugger = (linter?: string) => {
     return baseDebug.extend(`test${testNum++}`);
   }
   const numLinterTests = linterTests.get(linter);
-  if (numLinterTests) {
-    return baseDebug.extend(linter).extend(`${numLinterTests + 1}`);
-  }
-  linterTests.set(linter, (numLinterTests ?? 0) + 1);
-  return baseDebug.extend(linter);
+  const newNum = (numLinterTests ?? 0) + 1;
+  linterTests.set(linter, newNum);
+  return baseDebug.extend(linter).extend(`${newNum}`);
 };
 
 /**
@@ -109,6 +107,8 @@ export interface SetupSettings {
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
+  /** Dictated version to enable based on logic of parsing environment variables. */
+  toEnableVersion?: string;
   /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
   enabledVersion?: string;
   /** Refers to the absolute path to the repo's test subdir inside a linter directory. */
@@ -126,8 +126,9 @@ export class TrunkDriver {
   /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
   debugNamespace: string;
 
-  constructor(testDir: string, setupSettings: SetupSettings, linter?: string) {
+  constructor(testDir: string, setupSettings: SetupSettings, linter?: string, version?: string) {
     this.linter = linter;
+    this.toEnableVersion = version;
     this.testDir = testDir;
     this.setupSettings = setupSettings;
     this.debug = getDebugger(linter);
@@ -167,7 +168,9 @@ export class TrunkDriver {
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
    */
   extractLinterVersion = (): string => {
-    if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
+    if (this.toEnableVersion) {
+      return this.toEnableVersion;
+    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
       return "";
     } else if (ARGS.linterVersion === "KnownGoodVersion") {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
@@ -177,8 +180,10 @@ export class TrunkDriver {
         )?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else {
+    } else if (ARGS.linterVersion !== "Snapshots") {
       return ARGS.linterVersion;
+    } else {
+      return "";
     }
   };
 

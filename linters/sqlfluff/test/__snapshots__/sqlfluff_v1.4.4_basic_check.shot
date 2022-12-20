@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter sqlfluff basic_check 1`] = `
+exports[`Testing linter sqlfluff test basic_check 1`] = `
 Object {
   "issues": Array [
     Object {
