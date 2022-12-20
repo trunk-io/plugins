@@ -40,5 +40,3 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: circleci version
-  enabled:
-    - circleci@0.1.22770
