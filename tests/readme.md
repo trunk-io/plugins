@@ -21,7 +21,6 @@ linters/
   │ my-config.json (optional)
   └─test/
     │ basic.in.py
-    │ basic.out.json
     │ my_linter_test.ts
 ```
 
@@ -29,28 +28,24 @@ linters/
 - Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if providing this
   config file is sufficient to enable your linter in ALL cases. This will be created whenever
   someone enables your linter.
-- Inside of `test/`, provide a testing file and at least one pair of input/output files.
+- Inside of `test/`, provide a testing file and at least one input file.
 
-  - For linters, specify a sample input file (with an appropriate file extension). Your output file
-    should be the result of running:
+  - For linters, specify a sample input file (with an appropriate file extension). For reference,
+    the tests will run the following command against your input file:
 
     ```bash
     trunk check ${path_to_input_file} --force --filter=${my_linter} --output=json
     ```
 
-    and should have a `.json` file extension.
-
-  - For formatters, specify a sample input file (with an appropriate file extension). Your output
-    file should be the result of running:
+  - For formatters, specify a sample input file (with an appropriate file extension). For reference,
+    the tests will run the following command against your input file:
 
     ```bash
     cat ${path_to_input_file} | trunk format-stdin ${path_to_input_file} --filter=${my_linter}
     ```
 
-    and should have the same file extension as the input file.
-
-  - The typescript test file should call `defaultLinterCheckTest` or `defaultLinterFmtTest` with the
-    name of your linter and (optionally) the prefixes of your input/output files.
+  - The typescript test file should call `linterCheckTest` or `linterFmtTest` with the name of your
+    linter and (optionally) the prefixes of your input files.
 
 Refer to [sqlfluff](../linters/sqlfluff) or [pragma-once](../linters/pragma-once) as testing
 examples.
@@ -69,6 +64,18 @@ To run an individual test, run:
 npm run test ${path_to_linter_subdir}
 ```
 
+Then verify that the generated snapshot file includes the results you would expect (e.g. several
+fileIssues, no taskFailures).
+
+### Linter Versioning
+
+Missing snapshots will be automatically created based on test input files. If an existing test fails
+because a new linter version has introduced a breaking change, rather than running
+`npm run test -- -u`, **instead run**
+`PLUGINS_TEST_NEW_SNAPSHOT=true npm run test ${path_to_failing_test}`. This is used to track
+historical test behavior and ensure compatibility with trunk across multiple linter versions. See
+"Environment Overrides" below.
+
 ## Additional Options
 
 ### Test Configuration
@@ -86,3 +93,6 @@ Options include:
 - `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk binary
 - `PLUGINS_TEST_LINTER_VERSION` specifies a linter version semantic (KnownGoodVersion | Latest |
   version)
+- `PLUGINS_TEST_NEW_SNAPSHOT` if "true" tells tests to use an exact match of the linter version when
+  checking the output. Only set this if a linter has introduced a results change with a version
+  change

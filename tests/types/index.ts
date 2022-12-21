@@ -21,6 +21,9 @@ export interface TestingArguments {
   cliPath?: string;
   /** Version of linters to enable and test against. */
   linterVersion?: LinterVersion | string;
+  /** Whether tests should create new snapshot files if snapshots already exist
+   * even if a match is found. */
+  dumpNewSnapshot?: boolean;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests
@@ -54,12 +57,13 @@ export interface LintAction {
   fileGroupName: string;
   command: string;
   verb: string;
+  actionDurationMs?: number;
 }
 
 export interface TaskFailure {
   name: string;
   message: string; // may require path transformation
-  // detailPath: string;
+  detailPath?: string;
 }
 
 /**

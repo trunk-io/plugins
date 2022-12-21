@@ -1,4 +1,7 @@
-SELECT
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter sqlfluff basic_fmt 1`] = `
+"SELECT
     col_a,
     col_b,
     COUNT(*) AS num,
@@ -8,3 +11,5 @@ SELECT
     ) AS an_aggregate_function
 FROM tbl_a
 GROUP BY 1, 2
+"
+`;

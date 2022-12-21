@@ -2,8 +2,8 @@ import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
-import { extractLandingState } from "tests/utils/landing_state";
 import specific_snapshot = require("jest-specific-snapshot");
+import { getSnapshotPath } from "tests/utils";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -32,28 +32,14 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
         const prefix = foundIn.groups?.prefix;
         if (prefix && (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length === 0)) {
           const inputPath = path.join(parentTestDirName, file);
-          accumulator.set(prefix, { prefix, inputPath, outputPath: "" });
+          accumulator.set(prefix, { prefix, inputPath });
           return accumulator;
-        }
-      }
-
-      // Check if this is an output file and its input file is in the accumulator.
-      // If so, set it in the accumulator.
-      const outFileRegex = /(?<prefix>.+)\.out\.(?<extension>.+)$/;
-      const foundOut = file.match(outFileRegex);
-      if (foundOut) {
-        const prefix = foundOut.groups?.prefix;
-        if (prefix) {
-          const maybeTarget = accumulator.get(prefix);
-          if (maybeTarget) {
-            maybeTarget.outputPath = path.join(parentTestDirName, file);
-          }
         }
       }
       return accumulator;
     }, new Map<string, TestTarget>());
 
-  return [...testTargets.values()].filter((target) => target.outputPath.length > 0);
+  return [...testTargets.values()];
 };
 
 /**
@@ -116,36 +102,27 @@ export const linterCheckTest = ({
     const driver = setupDriver(dirname, {}, linterName, preCheck);
 
     // Step 3: Asynchronously run each test
-    linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {
+    linterTestTargets.forEach(({ prefix, inputPath }) => {
       it(prefix, async () => {
         const testRunResult = await driver.runCheckUnit(inputPath, linterName);
-        expect(testRunResult).toMatchObject({
-          success: true,
-          // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-          landingState: expect.objectContaining({
-            taskFailures: [],
-          }),
-        });
 
-        // The toMatchObject() call is used to verify that the shape of the output data from trunk is explicitly aligned to
-        // an expected schema. This should match the result of a user's manual check run in the repo. However, this approach
-        // is not especially resilient to linter tooling changes and will be extended in the future. For now, we add the
-        // additional assertion of toMatchSpecificSnapshot() to validate on a trunk check output, per a specific linter version.
-        // TODO(Tyler): Extend object match assertion to include optional version specification.
+        // If the linter being tested is versioned, the latest matching snapshot version will be asserted against.
+        // If args.PLUGINS_TEST_NEW_SNAPSHOT is passed, a new snapshot will be created for the currently tested version.
+        // If the linter is not versioned, the same snapshot will be used every time.
+        // E.g. Snapshot file names may be:
+        // sqlfluff_v1.4.0_basic.shot
+        // sqlfluff_v1.4.3_basic.shot // versions skipped because v1.4.0 is still sufficient.
+        // sqlfluff_v1.4.4_basic.shot
         // TODO(Tyler): Extend snapshot assertion to include trunk cli version.
-        const expectedOutFile = path.resolve(dirname, path.parse(outputPath).base);
-        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-        const expectedOutJson = JSON.parse(fs.readFileSync(expectedOutFile, { encoding: "utf-8" }));
-        const expectedOut = extractLandingState(expectedOutJson, /*skipMessage=*/ true);
-        expect(testRunResult.landingState).toMatchObject(expectedOut);
 
-        let snapshotName = `${linterName}_test.ts.shot`;
-        if (driver.enabledVersion) {
-          snapshotName = `${linterName}_v${driver.enabledVersion}_test.ts.shot`;
-        }
-        expect(testRunResult.landingState).toMatchSpecificSnapshot(
-          path.resolve(dirname, SNAPSHOT_DIR, snapshotName)
+        const snapshotDir = path.resolve(dirname, SNAPSHOT_DIR);
+        const snapshotPath = getSnapshotPath(
+          snapshotDir,
+          linterName,
+          prefix,
+          driver.enabledVersion
         );
+        expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
       });
     });
     postCheck(driver);
@@ -184,21 +161,21 @@ export const linterFmtTest = ({
     const driver = setupDriver(dirname, {}, linterName, preCheck);
 
     // Step 3: Asynchronously run each test
-    linterTestTargets.forEach(({ prefix, inputPath, outputPath }) => {
+    linterTestTargets.forEach(({ prefix, inputPath }) => {
       it(prefix, async () => {
         const testRunResult = await driver.runFmtUnit(inputPath, linterName);
         expect(testRunResult).toMatchObject({
           success: true,
-          // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-          landingState: expect.objectContaining({
-            taskFailures: [],
-          }),
         });
 
-        const expectedOutFile = path.resolve(dirname, path.parse(outputPath).base);
+        const formatSnapshotPath = path.resolve(
+          dirname,
+          SNAPSHOT_DIR,
+          `${linterName}_${prefix}_fmt.shot`
+        );
         // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
-        expect(fs.readFileSync(testRunResult.targetPath!).toString()).toEqual(
-          fs.readFileSync(expectedOutFile).toString()
+        expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
+          formatSnapshotPath
         );
       });
     });
