@@ -2,7 +2,7 @@ import Debug from "debug";
 import fs from "fs";
 import path from "path";
 import semver from "semver";
-import { LinterVersion, TestingArguments } from "tests/types";
+import { CheckType, LinterVersion, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
@@ -62,7 +62,7 @@ if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapsho
 export const getSnapshotName = (
   linterName: string,
   prefix: string,
-  checkType: "check" | "fmt",
+  checkType: CheckType,
   linterVersion?: string
 ) => {
   const normalizedName = linterName.replace("-", "_");
@@ -78,8 +78,8 @@ export const getSnapshotName = (
  * @param prefix the prefix of the named file tested against
  * @param checkType "check" or "fmt"
  */
-export const getSnapshotRegex = (linterName: string, prefix: string, checkType: "check" | "fmt") =>
-  `${linterName.replace("-", "_")}_v(?<version>(\\d.?)+)_${prefix}.${checkType}.shot`;
+export const getSnapshotRegex = (linterName: string, prefix: string, checkType: CheckType) =>
+  `${linterName.replace("-", "_")}_v(?<version>[^_]+)_${prefix}.${checkType}.shot`;
 
 /**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
@@ -95,7 +95,7 @@ export const getSnapshotPathForAssert = (
   snapshotDirPath: string,
   linterName: string,
   prefix: string,
-  checkType: "check" | "fmt",
+  checkType: CheckType,
   linterVersion?: string
 ): string => {
   const specificVersionSnapshotName = path.resolve(
@@ -144,7 +144,7 @@ export const getVersionsForTest = (
   dirname: string,
   linterName: string,
   prefix: string,
-  checkType: "check" | "fmt"
+  checkType: CheckType
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
   if (ARGS.linterVersion !== "Snapshots") {
@@ -165,5 +165,5 @@ export const getVersionsForTest = (
     return [undefined];
   }
 
-  return new Set(versionsList);
+  return versionsList;
 };

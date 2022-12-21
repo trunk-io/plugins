@@ -4,6 +4,11 @@
 export type TrunkVerb = "Check" | "Format";
 
 /**
+ * Which snapshot type to generate based on trunk command.
+ */
+export type CheckType = "check" | "fmt";
+
+/**
  * Version of a linter to enable and test against.
  * 1. KnownGoodVersion: attempt to parse the linter definition for a known_good_version. Fallback to latest.
  * 2. Latest: use network connection to query for the latest linter verison (default)
