@@ -1,3 +1,4 @@
+<!-- trunk-ignore(markdownlint/MD041) -->
 <p align="center">
   <a href="https://docs.trunk.io">
     <img height="260" src="https://static.trunk.io/assets/trunk_plugins_logo.png" />
