@@ -192,6 +192,9 @@ export const linterFmtTest = ({
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
             expect(testRunResult).toMatchObject({
               success: true,
+              landingState: {
+                taskFailures: [],
+              },
             });
 
             const snapshotDir = path.resolve(dirname, TEST_DATA);
