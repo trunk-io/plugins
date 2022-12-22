@@ -4,12 +4,17 @@
 export type TrunkVerb = "Check" | "Format";
 
 /**
+ * Which snapshot type to generate based on trunk command.
+ */
+export type CheckType = "check" | "fmt";
+
+/**
  * Version of a linter to enable and test against.
  * 1. KnownGoodVersion: attempt to parse the linter definition for a known_good_version. Fallback to latest.
  * 2. Latest: use network connection to query for the latest linter verison (default)
  * 3. string: a manually specified version. Note that this will apply to all tests.
  */
-export type LinterVersion = "KnownGoodVersion" | "Latest" | string;
+export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 
 /**
  * Global testing configuration based on environment variables.
@@ -23,14 +28,14 @@ export interface TestingArguments {
   linterVersion?: LinterVersion | string;
   /** Whether tests should create new snapshot files if snapshots already exist
    * even if a match is found. */
-  dumpNewSnapshot?: boolean;
+  dumpNewSnapshot: boolean;
 }
 
 // LandingState and its subfields must be strongly typed in order for tests
 // to be most effective in asserting relevant, idempotent information.
 // Unimportant assertion fields omitted here.
 export interface FileIssue {
-  file: string; // requires path transformation
+  file: string;
   line: number;
   column: number;
   message?: string;
@@ -48,7 +53,7 @@ export interface FileIssue {
 }
 
 export interface LintAction {
-  paths: string[]; // require path transformations
+  paths: string[];
   linter: string;
   parser: string;
   report: string;
@@ -62,7 +67,7 @@ export interface LintAction {
 
 export interface TaskFailure {
   name: string;
-  message: string; // may require path transformation
+  message: string;
   detailPath?: string;
 }
 
