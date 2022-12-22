@@ -6,6 +6,7 @@ import {
   execSync,
   spawnSync,
 } from "child_process";
+import Debug, { Debugger } from "debug";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
@@ -17,9 +18,12 @@ import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/uti
 import * as util from "util";
 import YAML from "yaml";
 
+const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
 const MAX_DAEMON_RETRIES = 5;
+let testNum = 1;
+const linterTests = new Map<string, number>();
 
 const executionEnv = () => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
@@ -31,6 +35,17 @@ const executionEnv = () => {
       `${TEMP_PREFIX}testing_download_cache`
     ),
   };
+};
+
+const getDebugger = (linter?: string) => {
+  if (!linter) {
+    // If a linter is not provided, provide a counter for easy distinction
+    return baseDebug.extend(`test${testNum++}`);
+  }
+  const numLinterTests = linterTests.get(linter);
+  const newNum = (numLinterTests ?? 0) + 1;
+  linterTests.set(linter, newNum);
+  return baseDebug.extend(linter).extend(`${newNum}`);
 };
 
 /**
@@ -92,9 +107,11 @@ export interface SetupSettings {
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
+  /** Dictated version to enable based on logic of parsing environment variables. */
+  toEnableVersion?: string;
   /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
   enabledVersion?: string;
-  /** Refers to the absolute path to the repo's test subdir inside a linter directory. */
+  /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */
   sandboxPath?: string;
@@ -102,13 +119,20 @@ export class TrunkDriver {
   gitDriver?: git.SimpleGit;
   /** What customization to use during setup. */
   setupSettings: SetupSettings;
-
+  /** The process of the daemon, if one was created during setup. */
   daemon?: ChildProcess;
+  /** A debugger for use with all this driver's operations. */
+  debug: Debugger;
+  /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
+  debugNamespace: string;
 
-  constructor(testDir: string, setupSettings: SetupSettings, linter?: string) {
+  constructor(testDir: string, setupSettings: SetupSettings, linter?: string, version?: string) {
     this.linter = linter;
+    this.toEnableVersion = version;
     this.testDir = testDir;
     this.setupSettings = setupSettings;
+    this.debug = getDebugger(linter);
+    this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
 
   /**
@@ -120,7 +144,7 @@ export class TrunkDriver {
     targetAbsPath?: string
   ): TestResult {
     return {
-      success: [0, 1].includes(trunkRunResult.exitCode) && trunkRunResult.stderr.length === 0,
+      success: [0, 1].includes(trunkRunResult.exitCode),
       trunkRunResult,
       trunkVerb,
       targetPath: targetAbsPath,
@@ -144,9 +168,12 @@ export class TrunkDriver {
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
    */
   extractLinterVersion = (): string => {
-    if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
+    if (this.toEnableVersion) {
+      return this.toEnableVersion;
+    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
       return "";
     } else if (ARGS.linterVersion === "KnownGoodVersion") {
+      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().lint.definitions.find(
@@ -154,8 +181,10 @@ export class TrunkDriver {
         )?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else {
+    } else if (ARGS.linterVersion !== "Snapshots") {
       return ARGS.linterVersion;
+    } else {
+      return "";
     }
   };
 
@@ -168,12 +197,12 @@ export class TrunkDriver {
    */
   async setUp() {
     this.sandboxPath = fs.realpathSync(fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX)));
+    this.debug("Created sandbox path %s from %s", this.sandboxPath, this.testDir);
     if (!this.sandboxPath) {
       return;
     }
     // Create repo
-    const sourceDir = path.resolve(this.testDir, "..");
-    fs.cpSync(sourceDir, this.sandboxPath, { recursive: true });
+    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
 
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
@@ -202,6 +231,7 @@ export class TrunkDriver {
       return;
     }
     await this.launchDaemonAsync();
+    this.debug("Launched daemon");
 
     // Enable tested linter if specified
     if (!this.linter) {
@@ -214,6 +244,7 @@ export class TrunkDriver {
       const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       await this.run(`check enable ${linterVersionString} --monitor=false`);
+      this.debug("Enabled %s", linterVersionString);
 
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
@@ -226,8 +257,7 @@ export class TrunkDriver {
         this.enabledVersion = foundIn.groups.version;
       }
     } catch (error) {
-      console.warn(`Failed to enable ${this.linter}`);
-      console.warn(error);
+      console.warn(`Failed to enable ${this.linter}`, error);
     }
   }
 
@@ -236,6 +266,7 @@ export class TrunkDriver {
    * associated with it in order to prune the cache.
    */
   tearDown() {
+    this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
     execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
     if (this.sandboxPath) {
@@ -328,8 +359,7 @@ export class TrunkDriver {
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk check'");
-        console.log(error);
+        console.log("Failure running 'trunk check'", error);
       }
       return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
     }
@@ -343,6 +373,7 @@ export class TrunkDriver {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
     const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
+    this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, targetAbsPath, resultJsonPath });
   }
 
@@ -356,6 +387,7 @@ export class TrunkDriver {
     const args = `fmt --output-file=${resultJsonPath} --no-progress --filter=${linter} ${targetAbsPath}`;
 
     try {
+      this.debug("Running `trunk fmt` on %s", targetRelativePath);
       const { stdout, stderr } = await this.run(args);
       return this.parseRunResult(
         {
@@ -386,8 +418,7 @@ export class TrunkDriver {
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk fmt'");
-        console.log(error);
+        console.log("Failure running 'trunk fmt'", error);
       }
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
