@@ -159,7 +159,8 @@ export const getVersionsForTest = (
         return fileMatch.groups?.version;
       }
     })
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort();
 
   if (versionsList.length === 0) {
     return [undefined];
