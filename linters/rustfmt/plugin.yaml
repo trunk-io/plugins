@@ -3,19 +3,21 @@ lint:
   definitions:
     - name: rustfmt
       files: [rust]
-      type: rewrite
       download: rust
-      command: [rustfmt]
-      stdin: true
-      success_codes: [0]
-      formatter: true
+      commands:
+        - name: format
+          output: rewrite
+          run: rustfmt
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
       affects_cache:
         - Cargo.toml
         - Cargo.lock
       direct_configs:
         - rustfmt.toml
         - .rustfmt.toml
-      cache_results: true
       known_good_version: 1.65.0
       environment:
         - name: PATH

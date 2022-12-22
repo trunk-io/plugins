@@ -3,22 +3,24 @@ lint:
   definitions:
     - name: isort
       files: [python]
-      type: rewrite
-      command: [isort, -q, --overwrite-in-place, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: isort -q --overwrite-in-place ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          formatter: true
       runtime: python
       package: isort
-      success_codes: [0]
       direct_configs: [.isort.cfg]
       affects_cache:
         - pyproject.toml
         - setup.cfg
         - tox.ini
         - .editorconfig
-      formatter: true
       issue_url_format: https://pypi.org/project/flake8-isort/
       known_good_version: 5.9.3
       version_command:
         parse_regex: ${semver}
         run: isort --version-number
-      in_place: true
-      batch: true

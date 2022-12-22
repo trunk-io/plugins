@@ -18,17 +18,20 @@ lint:
   definitions:
     - name: dotenv-linter
       files: [dotenv]
-      type: rewrite
-      formatter: true
-      cache_results: true
       download: dotenv-linter
-      command: [dotenv-linter, --not-check-updates, fix, --quiet, --no-backup, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: dotenv-linter --not-check-updates fix --quiet --no-backup ${target}
+          success_codes: [0]
+          in_place: true
+          cache_results: true
+          formatter: true
       good_without_config: true
       environment:
         - name: PATH
           list: ["${linter}"]
-      success_codes: [0]
       version_command:
         parse_regex: dotenv-linter ${semver}
         run: dotenv-linter --version
-      in_place: true
+      known_good_version: 3.2.0

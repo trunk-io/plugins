@@ -3,38 +3,43 @@ lint:
   definitions:
     - name: black
       files: [python, jupyter]
-      type: rewrite
-      command: [black, -q, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: black -q ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
       runtime: python
       package: black[python2,jupyter]
       good_without_config: true
-      cache_results: true
-      success_codes: [0]
       affects_cache: [pyproject.toml]
-      formatter: true
-      allow_empty_files: false
       known_good_version: 22.3.0
       version_command:
         parse_regex: black, version (.*)
         run: black --version
-      in_place: true
-      batch: true
 
     # This name is here for backwards compat, but is no longer created by trunk init
     - name: black-py
       files: [python]
-      type: rewrite
-      command: [black, -q, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: black -q ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
       runtime: python
       package: black[python2]
-      cache_results: true
-      success_codes: [0]
       affects_cache: [pyproject.toml]
       formatter: true
-      allow_empty_files: false
       known_good_version: 22.3.0
       version_command:
         parse_regex: black, version (.*)
         run: black --version
-      in_place: true
-      batch: true

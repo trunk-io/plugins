@@ -10,21 +10,18 @@ lint:
   definitions:
     - name: detekt
       files: [kotlin]
-      type: sarif
       download: detekt
-      command:
-        - detekt-cli
-        - --build-upon-default-config
-        - --config
-        - .detekt.yaml
-        - --input
-        - ${target,}
-        - --report
-        - sarif:${tmpfile}
-      cache_results: true
-      read_output_from: tmp_file
+      commands:
+        - name: lint
+          output: sarif
+          run:
+            detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
+            sarif:${tmpfile}
+          success_codes: [0, 2]
+          read_output_from: tmp_file
+          batch: true
+          cache_results: true
       direct_configs: [.detekt.yaml]
-      success_codes: [0, 2]
       runtime: java
       is_recommended: false
       environment:
@@ -34,24 +31,19 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: detekt-cli --version
-      batch: true
 
     - name: detekt-explicit
       files: [kotlin]
-      type: sarif
       download: detekt
-      command:
-        - detekt-cli
-        - --config
-        - .detekt.yaml
-        - --input
-        - ${target}
-        - --report
-        - sarif:${tmpfile}
-        - --auto-correct
-      read_output_from: tmp_file
+      commands:
+        - name: lint
+          output: sarif
+          run:
+            detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
+            --auto-correct
+          success_codes: [0, 2]
+          read_output_from: tmp_file
       direct_configs: [.detekt.yaml]
-      success_codes: [0, 2]
       runtime: java
       is_recommended: false
       environment:

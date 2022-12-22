@@ -18,14 +18,16 @@ lint:
   definitions:
     - name: clang-format
       files: [c/c++, proto]
-      type: rewrite
-      command: [clang-format, "--assume-filename=${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: clang-format --assume-filename=${target}
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
       download: clang-format
-      stdin: true
-      success_codes: [0]
       direct_configs: [.clang-format]
-      cache_results: true
-      formatter: true
       environment:
         - name: PATH
           list: ["${linter}/bin"]

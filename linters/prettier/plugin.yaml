@@ -13,12 +13,17 @@ lint:
         - javascript
         - graphql
         - prettier_supported_configs
-      type: rewrite
-      command: [prettier, -w, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: prettier -w ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          formatter: true
       runtime: node
       package: prettier
       good_without_config: true
-      success_codes: [0]
       direct_configs:
         - .prettierrc
         - .prettierrc.json
@@ -34,10 +39,7 @@ lint:
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      formatter: true
       known_good_version: 2.6.2
       version_command:
         parse_regex: ${semver}
         run: prettier --version
-      in_place: true
-      batch: true

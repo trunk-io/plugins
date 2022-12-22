@@ -18,16 +18,18 @@ lint:
   definitions:
     - name: scalafmt
       files: [scala]
-      type: rewrite
       download: scalafmt
-      stdin: true
-      success_codes: [0]
-      formatter: true
       direct_configs: [.scalafmt.conf]
-      cache_results: true
-      command: [scalafmt, --stdin, --stdout]
-      run_linter_from: root_file
-      run_from_root_target: .scalafmt.conf
+      commands:
+        - name: format
+          output: rewrite
+          run: scalafmt --stdin --stdout
+          success_codes: [0]
+          run_linter_from: root_file
+          run_from_root_target: .scalafmt.conf
+          stdin: true
+          cache_results: true
+          formatter: true
       environment:
         - name: PATH
           list: ["${linter}"]

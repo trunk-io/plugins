@@ -3,14 +3,16 @@ lint:
   definitions:
     - name: gofmt
       files: [go]
-      type: rewrite
-      command: [gofmt, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: gofmt ${target}
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
       download: go # loaded by default with trunk
       good_without_config: true
-      stdin: true
-      success_codes: [0]
-      cache_results: true
-      formatter: true
       known_good_version: 1.19.3
       environment:
         - name: PATH

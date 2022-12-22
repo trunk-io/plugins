@@ -6,6 +6,7 @@ lint:
         - typescript
         - javascript
       commands:
+        # Prefer names 'lint' and 'format'. Keeping this as-is for backwards compatibility
         - name: check
           output: regex
           parse_regex:

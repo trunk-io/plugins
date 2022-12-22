@@ -3,8 +3,16 @@ lint:
   definitions:
     - name: yapf
       files: [python]
-      type: rewrite
-      command: [yapf, --in-place, "${target}"]
+      commands:
+        - name: format
+          output: rewrite
+          run: yapf --in-place ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
       runtime: python
       package: yapf
       extra_packages: [toml]
@@ -14,13 +22,7 @@ lint:
       affects_cache:
         - setup.cfg
         - pyproject.toml
-      cache_results: true
-      success_codes: [0]
-      formatter: true
-      allow_empty_files: false
       known_good_version: 0.32.0
       version_command:
         parse_regex: yapf ${semver}
         run: yapf --version
-      in_place: true
-      batch: true
