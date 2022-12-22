@@ -34,6 +34,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache test downloads
+        uses: actions/cache@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # key on .trunk/trunk.yaml since tests are dependent on trunk cli versionß
+          key: trunk-${{ runner.os }}-${{ hashFiles('.trunk/trunk.yaml') }}
+
       - name: Locate trunk
         shell: bash
         run: ./locate_trunk.sh
