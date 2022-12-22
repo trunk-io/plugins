@@ -1,0 +1,5 @@
+object: {True: 1, 1: True}
+foo: 'bar'
+stuff:
+  - key 2: v
+    key 1: val

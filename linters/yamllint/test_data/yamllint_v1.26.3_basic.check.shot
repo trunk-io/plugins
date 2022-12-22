@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter yamllint test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "yamllint",
+      "code": "document-start",
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "issueUrl": "https://yamllint.readthedocs.io/en/stable/rules.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "yamllint",
+      "message": "missing document start \\"---\\"",
+      "targetType": "yaml",
+    },
+    Object {
+      "bucket": "yamllint",
+      "code": "truthy",
+      "column": "10",
+      "file": "test_data/basic.in.yaml",
+      "issueUrl": "https://yamllint.readthedocs.io/en/stable/rules.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "yamllint",
+      "message": "truthy value should be one of [false, true]",
+      "targetType": "yaml",
+    },
+    Object {
+      "bucket": "yamllint",
+      "code": "truthy",
+      "column": "22",
+      "file": "test_data/basic.in.yaml",
+      "issueUrl": "https://yamllint.readthedocs.io/en/stable/rules.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "yamllint",
+      "message": "truthy value should be one of [false, true]",
+      "targetType": "yaml",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "yaml",
+      "linter": "yamllint",
+      "paths": Array [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
