@@ -1,0 +1,42 @@
+version: 0.1
+lint:
+  files:
+    - name: circleci-config
+      comments: [hash]
+      filenames:
+        - .circleci/config.yml
+  downloads:
+    - name: circleci
+      downloads:
+        - os: macos
+          cpu: arm_64
+          url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_darwin_amd64.tar.gz
+          strip_components: 1
+        - os: macos
+          cpu: x86_64
+          url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_darwin_amd64.tar.gz
+          strip_components: 1
+        - os: linux
+          cpu: x86_64
+          url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_linux_amd64.tar.gz
+          strip_components: 1
+        - os: linux
+          cpu: arm_64
+          url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_linux_arm64.tar.gz
+          strip_components: 1
+  definitions:
+    - name: circleci
+      files: [circleci-config]
+      download: circleci
+      known_good_version: 0.1.22770
+      commands:
+        - name: validate
+          output: pass_fail
+          run: 'circleci --skip-update-check config validate "${target}"'
+          success_codes: [0, 1]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: ${semver}
+        run: circleci version
