@@ -11,7 +11,7 @@ const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
 
 const baseDebug = Debug("Tests");
 
-export type TestCallback = (driver: TrunkDriver) => void;
+export type TestCallback = (driver: TrunkDriver) => unknown;
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
@@ -54,9 +54,7 @@ export const setupDriver = (
   { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
   linterName?: string,
   version?: string,
-  preCheck: TestCallback = () => {
-    // noop
-  }
+  preCheck?: TestCallback
 ): TrunkDriver => {
   const driver = new TrunkDriver(
     dirname,
@@ -67,7 +65,10 @@ export const setupDriver = (
 
   beforeAll(async () => {
     await driver.setUp();
-    preCheck(driver);
+    if (preCheck) {
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
   });
 
   afterAll(() => {
@@ -87,12 +88,8 @@ export const linterCheckTest = ({
   linterName,
   dirname = path.dirname(caller()),
   namedTestPrefixes = [],
-  preCheck = () => {
-    // noop
-  },
-  postCheck = () => {
-    // noop
-  },
+  preCheck,
+  postCheck,
 }: {
   linterName: string;
   dirname?: string;
@@ -142,7 +139,10 @@ export const linterCheckTest = ({
             expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
           });
 
-          postCheck(driver);
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
         });
       });
     });

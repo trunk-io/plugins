@@ -327,7 +327,7 @@ export class TrunkDriver {
     targetAbsPath?: string;
     resultJsonPath?: string;
   }) {
-    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress ${args}`;
+    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${args}`;
     try {
       const { stdout, stderr } = await this.run(fullArgs);
       return this.parseRunResult(
@@ -384,7 +384,7 @@ export class TrunkDriver {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
 
-    const args = `fmt --output-file=${resultJsonPath} --no-progress --filter=${linter} ${targetAbsPath}`;
+    const args = `fmt --output-file=${resultJsonPath} --no-progress --ignore-git-state --filter=${linter} ${targetAbsPath}`;
 
     try {
       this.debug("Running `trunk fmt` on %s", targetRelativePath);
