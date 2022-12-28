@@ -1,82 +1,73 @@
 version: 0.1
+
 cli:
   version: 1.2.1
+
 plugins:
   sources:
     - id: trunk
-      ref: v0.0.6
       uri: https://github.com/trunk-io/plugins
+      ref: v0.0.8
+
 runtimes:
   enabled:
     - go@1.18.3
-    - node@16.14.2
+    - node@18.12.1
     - python@3.10.3
+
 lint:
-  disabled:
-    - sqlfluff-fix
-    - cspell
   enabled:
-    - sqlfluff@1.4.2
-    - eslint@8.29.0
     - actionlint@1.6.22
     - black@22.12.0
+    - eslint@8.30.0
     - flake8@6.0.0:
         packages:
           - flake8-bugbear@22.12.6
     - git-diff-check
     - gitleaks@8.15.2
-    - isort@5.11.2
+    - isort@5.11.4
     - markdownlint@0.32.2
     - prettier@2.8.1
-    - semgrep@1.1.0
+    - semgrep@1.2.1
     - shellcheck@0.9.0
     - shfmt@3.5.0
+    - sqlfluff@1.4.5
     - yamllint@1.28.0
+
   ignore:
-    - linters:
-        - ALL
-      paths:
-        - linters/**/test_data/*
+    - linters: [ALL]
+      paths: ["**/test_data/**"]
+
 actions:
   definitions:
     - id: toggle-local
-      runtime: python
       display_name: Toggle Local
       description: Toggle plugins repo between local and remote ref automatically
+      runtime: python
       packages_file: tools/toggle-local/requirements.txt
       run: tools/toggle-local/toggle flip ${workspace} ${@}
       output_type: notification_v1
       triggers:
-        - git_hooks:
-            - pre-push
+        - git_hooks: [pre-push]
           run: tools/toggle-local/toggle flip ${workspace} --remote --pre-push
         - files:
             - plugin.yaml
             - actions/**
             - linters/**
           run: tools/toggle-local/toggle notify ${workspace}
-    - id: sort-dictionary
-      display_name: sort `cspell-words`
-      description: sort cspell dictionary
-      run:
-        bash -c "sort -u -f -o ${workspace}/.trunk/cspell-words.txt
-        ${workspace}/.trunk/cspell-words.txt"
-      triggers:
-        - files:
-            - .trunk/cspell-words.txt
+
     - id: plugin-tests
-      runtime: node
-      packages_file: package.json
       display_name: Plugin Tests
       description: Run tests on all linter plugin definitions
+      runtime: node
+      packages_file: package.json
       run: npm test
       triggers:
-        - git_hooks:
-            - pre-push
+        - git_hooks: [pre-push]
+
   enabled:
     - plugin-tests
     - trunk-announce
-    - sort-dictionary
     - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available

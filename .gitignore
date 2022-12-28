@@ -1,5 +1,8 @@
+# Mac
+.DS_Store
+
 # Node
-node_modules
-tests/*.js
-tests/*.js.map
-out
+node_modules/
+
+# Typescript
+out/

@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Install Dependencies
         run: npm ci
@@ -30,6 +32,7 @@ jobs:
     strategy:
       matrix:
         linter-version: [KnownGoodVersion, Latest]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,17 +44,13 @@ jobs:
           # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
 
-      - name: Locate trunk
-        shell: bash
-        run: ./locate_trunk.sh
-
-      - name: Use Node.js 16.x
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18
 
       - name: Install Dependencies
         run: npm ci
 
       - name: Run Plugin Tests
-        run: PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test
+        run: PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test

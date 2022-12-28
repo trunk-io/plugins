@@ -1,11 +1,10 @@
 root: true
 
 env:
-  browser: true
-  es2021: true
   node: true
 
 plugins:
+  - prefer-arrow-functions
   - simple-import-sort
 
 extends:
@@ -16,11 +15,12 @@ extends:
   - plugin:import/recommended
   - plugin:node/recommended
   - prettier # this actually turns OFF all prettier rules running via eslint
+
 parserOptions:
   ecmaVersion: latest
   sourceType: module
-  tsconfigRootDir: .
-  project: [./tsconfig.json]
+  project: tsconfig.json
+
 rules:
   # Turn off base eslint rules in lieu of @typescript-eslint rules (just below)
   no-return-await: off
@@ -29,7 +29,6 @@ rules:
   no-unused-vars: off
   no-use-before-define: off
   no-useless-constructor: off
-
   "@typescript-eslint/lines-between-class-members": [error, always, { exceptAfterSingleLine: true }]
   "@typescript-eslint/naming-convention":
     - error
@@ -49,7 +48,6 @@ rules:
   "@typescript-eslint/no-use-before-define": [error]
   "@typescript-eslint/no-useless-constructor": [error]
   "@typescript-eslint/no-explicit-any": off
-
   class-methods-use-this: off
   curly: error
   func-names: [error, as-needed]
@@ -61,13 +59,7 @@ rules:
       ts: never
   import/no-extraneous-dependencies:
     - error
-    - devDependencies:
-        - jest.config.ts
-        - "**/*_test.ts"
-        - "**/*.spec.ts"
-        - "**/__tests__/**"
-        - "**/__mocks__/**"
-        - "**/tests/**/*.ts"
+    - devDependencies: ["**/*.test.ts", "**/tests/**"]
   import/no-unresolved: off
   import/prefer-default-export: off
   lines-between-class-members: off
@@ -89,6 +81,9 @@ rules:
   node/no-unpublished-import: off
   node/no-missing-import: off
   node/no-unsupported-features/es-syntax: [error, { ignores: [modules, dynamicImport] }]
+  prefer-arrow-functions/prefer-arrow-functions:
+    - error # only allow arrow functions
+    - returnStyle: implicit # required to be set for autofixes
   simple-import-sort/exports: error
   simple-import-sort/imports: error
 
