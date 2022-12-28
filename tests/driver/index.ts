@@ -204,7 +204,7 @@ export class TrunkDriver {
     // Create repo
     fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
 
-    this.gitDriver = git.simpleGit(this.sandboxPath);
+    this.gitDriver = git.simpleGit(this.sandboxPath).clean(CleanOptions.FORCE);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
         .init()
