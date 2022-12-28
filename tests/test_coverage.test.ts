@@ -17,7 +17,7 @@ const excludedLinters: string[] = [
 // This test asserts that all linters have at least one test. All new linters are expected to have
 // test coverage. Review tests/readme.md for testing guidelines. Prefer using npm test for indirection
 // in this test so that we get an accurate list of all tests, regardless of any changes to the test spec
-// in jest.config.ts.
+// in jest.config.json.
 describe("All linters must have tests", () => {
   // Find all tests detected by jest
   const stdout = execSync("npm test -- --listTests", { cwd: REPO_ROOT }).toString();

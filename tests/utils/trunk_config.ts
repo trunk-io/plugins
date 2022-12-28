@@ -33,8 +33,7 @@ export const getTrunkVersion = (): string => {
 /**
  * Generate contents for a newly generated, empty trunk.yaml.
  */
-export const newTrunkYamlContents = (): string => {
-  return `version: 0.1
+export const newTrunkYamlContents = (): string => `version: 0.1
 cli:
   version: ${getTrunkVersion()}
 plugins:
@@ -42,4 +41,3 @@ plugins:
   - id: trunk
     local: ${REPO_ROOT}
   `;
-};

@@ -211,6 +211,7 @@ export class TrunkDriver {
         .add(".")
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
+        .addConfig("commit.gpgsign", "false")
         .commit("first commit");
     }
 
