@@ -9,7 +9,7 @@ import { REPO_ROOT } from "tests/utils";
 const preCheck = (driver: TrunkDriver) => {
   if (driver.sandboxPath) {
     fs.copyFileSync(
-      path.resolve(REPO_ROOT, ".prettierrc.yaml"),
+      path.resolve(REPO_ROOT, ".trunk/configs/.prettierrc.yaml"),
       // trunk-ignore(semgrep): driver.sandboxPath is generated deterministically and is safe
       path.resolve(driver.sandboxPath, ".prettierrc.yaml")
     );
