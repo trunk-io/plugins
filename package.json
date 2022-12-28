@@ -38,8 +38,5 @@
   },
   "bundledDependencies": [
     "tests"
-  ],
-  "bundleDependencies": [
-    "tests"
   ]
 }
