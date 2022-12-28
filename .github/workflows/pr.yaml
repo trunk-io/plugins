@@ -26,13 +26,20 @@ jobs:
   plugins_test:
     name: Plugins Test Runner
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 20
     strategy:
       matrix:
         linter-version: [KnownGoodVersion, Latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache tool downloads
+        uses: actions/cache@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
 
       - name: Locate trunk
         shell: bash
