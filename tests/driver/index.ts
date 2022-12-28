@@ -204,13 +204,14 @@ export class TrunkDriver {
     // Create repo
     fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
 
-    this.gitDriver = git.simpleGit(this.sandboxPath).clean(CleanOptions.FORCE);
+    this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
         .init()
         .add(".")
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
+        .addConfig("commit.gpgsign", "false")
         .commit("first commit");
     }
 
