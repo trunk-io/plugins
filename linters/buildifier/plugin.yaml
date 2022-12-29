@@ -1,0 +1,47 @@
+version: 0.1
+lint:
+  downloads:
+    - name: buildifier
+      version: 5.1.0
+      executable: true
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          version: <4.2.0
+          url: https://github.com/bazelbuild/buildtools/releases/download/${version}/buildifier-darwin-amd64
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/bazelbuild/buildtools/releases/download/${version}/buildifier-${os}-${cpu}
+          version: ">=4.0.0"
+  definitions:
+    - name: buildifier
+      files: [starlark, bazel-build, bazel-workspace]
+      download: buildifier
+      commands:
+        - name: fix
+          run: buildifier --lint=fix --warnings=all "${target}"
+          output: rewrite
+          cache_results: true
+          formatter: true
+          in_place: true
+          batch: true
+          success_codes: [0]
+        - name: warn
+          run: buildifier --lint=warn --warnings=all --format=json --mode=check "${target}"
+          # This is a custom parser type defined in the trunk cli to handle buildifier's JSON output.
+          output: buildifier
+          cache_results: true
+          batch: true
+          success_codes: [0]
+      good_without_config: true
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: 4.0.1
+      version_command:
+        parse_regex: ${semver}
+        run: buildifier --version
