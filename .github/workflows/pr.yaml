@@ -14,21 +14,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
 
   plugins_test:
-    name: Plugins Test Runner
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
+    name: Plugin Tests
+    # trunk-ignore(actionlint/runner-label)
+    runs-on: [ubuntu-latest-8-cores]
+    timeout-minutes: 60
     strategy:
       matrix:
         linter-version: [KnownGoodVersion, Latest]
@@ -44,13 +45,15 @@ jobs:
           # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Run Plugin Tests
-        run: PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test
+      - name: Run plugin tests
+        run:
+          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test
+          --ci

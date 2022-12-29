@@ -10,6 +10,7 @@ const excludedLinters: string[] = [
   "cspell",
   "nancy",
   "oxipng",
+  "sort-package-json",
   "sqlfmt",
   "trivy",
 ];
