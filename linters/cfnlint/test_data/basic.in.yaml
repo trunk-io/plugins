@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cloudformation template for creating test.io SSL Certificate.
+
+Parameters:
+  HostedZoneId:
+    Type: String
+    Default: 0
+Resources:
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: test.io
+      DomainValidationOptions:
+        - DomainName: test.io
+          HostedZoneId: !Ref HostedZoneId
+        - DomainName: www.test.io
+          HostedZoneId: !Ref HostedZoneId
+      # E3030 should trigger here since DNSS != [EMAIL, DNS]
+      ValidationMethod: DNSS
+      # E3002 should trigger here since SubjectAlternativeNames expects an array
+      SubjectAlternativeNames: "*.test.io"
+
+Outputs:
+  CertificateArn:
+    Description: The ARN of the generated certificate.
+    Value: !Ref Certificate
