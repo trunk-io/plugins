@@ -8,7 +8,7 @@ lint:
       direct_configs: [.bandit]
       commands:
         - name: lint
-          # This is a custom parser type defined in the trunk cli to handle bandit's JSON output.
+          # Custom parser type defined in the trunk cli to handle bandit's JSON output.
           output: bandit
           run: bandit --exit-zero --format json ${target}
           success_codes: [0]

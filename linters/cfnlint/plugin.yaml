@@ -5,7 +5,7 @@ lint:
       files: [yaml]
       commands:
         - name: lint
-          # This is a custom parser type defined in the trunk cli to handle cfnlint's JSON output and triggers.
+          # Custom parser type defined in the trunk cli to handle cfnlint's JSON output and triggers.
           output: cfnlint
           run: cfn-lint -t ${target} -f=json
           error_codes: [32]

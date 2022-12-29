@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter markdownlint test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "markdownlint",
+      "code": "MD025",
+      "file": "test_data/basic.in.md",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025",
+      "level": "LEVEL_LOW",
+      "line": "3",
+      "linter": "markdownlint",
+      "message": "Multiple top-level headings in the same document",
+      "targetType": "markdown",
+    },
+    Object {
+      "bucket": "markdownlint",
+      "code": "MD013",
+      "file": "test_data/basic.in.md",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD013",
+      "level": "LEVEL_LOW",
+      "line": "5",
+      "linter": "markdownlint",
+      "message": "Line length",
+      "targetType": "markdown",
+    },
+    Object {
+      "bucket": "markdownlint",
+      "code": "MD013",
+      "file": "test_data/basic.in.md",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD013",
+      "level": "LEVEL_LOW",
+      "line": "8",
+      "linter": "markdownlint",
+      "message": "Line length",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "markdownlint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

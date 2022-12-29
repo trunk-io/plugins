@@ -32,7 +32,7 @@ lint:
           success_codes: [0]
         - name: warn
           run: buildifier --lint=warn --warnings=all --format=json --mode=check "${target}"
-          # This is a custom parser type defined in the trunk cli to handle buildifier's JSON output.
+          # Custom parser type defined in the trunk cli to handle buildifier's JSON output.
           output: buildifier
           cache_results: true
           batch: true

@@ -5,7 +5,7 @@ lint:
       files: [haml]
       commands:
         - name: lint
-          # This is a custom parser type defined in the trunk cli to handle haml_lint's JSON output.
+          # Custom parser type defined in the trunk cli to handle haml_lint's JSON output.
           output: haml_lint
           run: haml-lint ${target} --reporter=json
           success_codes: [0, 65]
