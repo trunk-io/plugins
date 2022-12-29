@@ -1,1 +1,1 @@
-jest.setTimeout(120000); // 120s
+jest.setTimeout(180000); // 180s
