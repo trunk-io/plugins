@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter haml-lint test empty 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "haml",
+      "linter": "haml-lint",
+      "paths": Array [
+        "test_data/empty.in.haml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

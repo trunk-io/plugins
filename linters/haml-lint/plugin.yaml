@@ -1,0 +1,22 @@
+version: 0.1
+lint:
+  definitions:
+    - name: haml-lint
+      files: [haml]
+      commands:
+        - name: lint
+          # This is a custom parser type defined in the trunk cli to handle haml_lint's JSON output.
+          output: haml_lint
+          run: haml-lint ${target} --reporter=json
+          success_codes: [0, 65]
+          batch: true
+          cache_results: false
+      direct_configs: [.haml-lint.yml]
+      runtime: ruby
+      package: haml_lint
+      good_without_config: true
+      is_recommended: true
+      known_good_version: 0.40.0
+      version_command:
+        parse_regex: ${semver}
+        run: haml-lint --version
