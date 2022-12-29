@@ -61,7 +61,7 @@ actions:
       description: Run tests on all linter plugin definitions
       runtime: node
       packages_file: package.json
-      run: bash -c "DEBUG=Driver:*,Tests:* DEBUG_COLORS=true npm test"
+      run: npm test
       triggers:
         - git_hooks: [pre-push]
 
