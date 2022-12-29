@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter shfmt test basic 1`] = `
+"#!/bin/bash
+num=\`awk '{print $1}' $i\`
+if (( $num >= 1000 )); then  # potential CPU hogs?
+"
+`;
