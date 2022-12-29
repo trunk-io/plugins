@@ -27,8 +27,9 @@ jobs:
 
   plugins_test:
     name: Plugin Tests
-    # trunk-ignore(actionlint/runner-label)
-    runs-on: [ubuntu-latest-8-cores]
+    runs-on:
+      # trunk-ignore(actionlint/syntax-check)
+      labels: ubuntu-latest-8-cores
     timeout-minutes: 60
     strategy:
       matrix:
