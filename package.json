@@ -35,8 +35,5 @@
   },
   "engines": {
     "node": ">=16"
-  },
-  "bundledDependencies": [
-    "tests"
-  ]
+  }
 }
