@@ -1,0 +1,44 @@
+version: 0.1
+lint:
+  definitions:
+    - name: rubocop
+      files: [ruby, gemspec]
+      direct_configs: [.rubocop.yml]
+      runtime: ruby
+      package: rubocop
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle rubocop's JSON output.
+          output: rubocop
+          run: rubocop --format json ${target}
+          success_codes: [0, 1, 2]
+          batch: true
+        - name: fix-layout
+          formatter: true
+          output: rewrite
+          run: rubocop --fix-layout ${target}
+          success_codes: [0, 1, 2]
+          in_place: true
+          batch: true
+      issue_url_format: https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/{}
+      known_good_version: 1.39.0
+      version_command:
+        parse_regex: ${semver}
+        run: rubocop --version
+
+    - name: rubocop-fmt
+      files: [ruby, gemspec]
+      type: rewrite
+      command: [rubocop, --fix-layout, "${target}"]
+      direct_configs: [.rubocop.yml]
+      runtime: ruby
+      package: rubocop
+      success_codes: [0, 1]
+      formatter: true
+      known_good_version: 1.39.0
+      version_command:
+        parse_regex: ${semver}
+        run: rubocop --version
+      in_place: true
+      batch: true
+      deprecated: rubocop-fmt is now handled by rubocop. Please delete rubocop-fmt from your config
