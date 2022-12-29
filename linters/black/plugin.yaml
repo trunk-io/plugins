@@ -1,0 +1,45 @@
+version: 0.1
+lint:
+  definitions:
+    - name: black
+      files: [python, jupyter]
+      commands:
+        - name: format
+          output: rewrite
+          run: black -q ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
+      runtime: python
+      package: black[python2,jupyter]
+      good_without_config: true
+      affects_cache: [pyproject.toml]
+      known_good_version: 22.3.0
+      version_command:
+        parse_regex: black, version (.*)
+        run: black --version
+
+    # This name is here for backwards compat, but is no longer created by trunk init
+    - name: black-py
+      files: [python]
+      commands:
+        - name: format
+          output: rewrite
+          run: black -q ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
+      runtime: python
+      package: black[python2]
+      affects_cache: [pyproject.toml]
+      formatter: true
+      known_good_version: 22.3.0
+      version_command:
+        parse_regex: black, version (.*)
+        run: black --version

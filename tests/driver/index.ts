@@ -207,7 +207,7 @@ export class TrunkDriver {
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
-        .init()
+        .init({ "--initial-branch": "main" })
         .add(".")
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
@@ -244,8 +244,8 @@ export class TrunkDriver {
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
+      this.debug("Enabling %s", linterVersionString);
       await this.run(`check enable ${linterVersionString} --monitor=false`);
-      this.debug("Enabled %s", linterVersionString);
 
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
@@ -256,6 +256,7 @@ export class TrunkDriver {
       const foundIn = newTrunkContents.match(enabledVersionRegex);
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
+        this.debug("Enabled %s", this.enabledVersion);
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`, error);

@@ -1,0 +1,19 @@
+version: 0.1
+lint:
+  definitions:
+    - name: goimports
+      files: [go]
+      commands:
+        - name: format
+          output: rewrite
+          run: goimports ${target}
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
+      runtime: go
+      package: golang.org/x/tools/cmd/goimports
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 0.1.10

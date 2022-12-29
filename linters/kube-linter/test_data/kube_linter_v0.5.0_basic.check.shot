@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter kube-linter test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "kube-linter",
+      "code": "latest-tag",
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "kube-linter",
+      "message": "The container \\"sec-ctx-demo\\" is using an invalid container image, \\"busybox\\". Please use images that are not blocked by the \`BlockList\` criteria : [\\".*:(latest)$\\" \\"^[^:]*$\\" \\"(.*/[^:]+)$\\"]
+object: <no namespace>/security-context-demo /v1, Kind=Pod",
+      "targetType": "yaml",
+    },
+    Object {
+      "bucket": "kube-linter",
+      "code": "no-read-only-root-fs",
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "kube-linter",
+      "message": "container \\"sec-ctx-demo\\" does not have a read-only root file system
+object: <no namespace>/security-context-demo /v1, Kind=Pod",
+      "targetType": "yaml",
+    },
+    Object {
+      "bucket": "kube-linter",
+      "code": "unset-cpu-requirements",
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "kube-linter",
+      "message": "container \\"sec-ctx-demo\\" has cpu limit 0
+object: <no namespace>/security-context-demo /v1, Kind=Pod",
+      "targetType": "yaml",
+    },
+    Object {
+      "bucket": "kube-linter",
+      "code": "unset-memory-requirements",
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "kube-linter",
+      "message": "container \\"sec-ctx-demo\\" has memory limit 0
+object: <no namespace>/security-context-demo /v1, Kind=Pod",
+      "targetType": "yaml",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "yaml",
+      "linter": "kube-linter",
+      "paths": Array [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

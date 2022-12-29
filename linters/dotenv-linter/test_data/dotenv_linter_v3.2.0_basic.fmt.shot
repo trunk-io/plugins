@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter dotenv-linter test basic 1`] = `
+"ABC=2345
+ASFD=123
+FOO=BAR
+# FOO=BAZ
+"
+`;

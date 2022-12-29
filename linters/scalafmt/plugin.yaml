@@ -1,0 +1,39 @@
+version: 0.1
+lint:
+  downloads:
+    - name: scalafmt
+      version: 3.4.3
+      executable: true
+      downloads:
+        - os: linux
+          cpu: x86_64
+          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-linux-musl
+        - os: macos
+          cpu: x86_64
+          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+        # Use rosetta
+        - os: macos
+          cpu: arm_64
+          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+  definitions:
+    - name: scalafmt
+      files: [scala]
+      download: scalafmt
+      direct_configs: [.scalafmt.conf]
+      commands:
+        - name: format
+          output: rewrite
+          run: scalafmt --stdin --stdout
+          success_codes: [0]
+          run_linter_from: root_file
+          run_from_root_target: .scalafmt.conf
+          stdin: true
+          cache_results: true
+          formatter: true
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: scalafmt ${semver}
+        run: scalafmt --version
+      known_good_version: 3.4.3

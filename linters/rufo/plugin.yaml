@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: rufo
+      files: [ruby]
+      commands:
+        - name: format
+          output: rewrite
+          run: rufo ${target}
+          success_codes: [0, 3]
+          batch: true
+          in_place: true
+          cache_results: true
+          formatter: true
+      direct_configs: [.rufo]
+      runtime: ruby
+      package: rufo
+      known_good_version: 0.13.0
+      version_command:
+        parse_regex: ${semver}
+        run: rufo --version

@@ -26,3 +26,4 @@ lint:
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
+      known_good_version: 1.0.41

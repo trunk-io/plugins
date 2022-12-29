@@ -1,0 +1,18 @@
+version: 0.1
+lint:
+  definitions:
+    - name: sql-formatter
+      files: [sql]
+      commands:
+        - output: rewrite
+          # sql-formatter does not autodetect dialect, so this may not be sufficient for all setups
+          run: sql-formatter
+          success_codes: [0]
+          formatter: true
+          stdin: true
+      runtime: node
+      package: sql-formatter
+      known_good_version: 7.0.1
+      version_command:
+        parse_regex: ${semver}
+        run: sql-formatter --version

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter clang-format test proto 1`] = `
+"syntax = \\"proto3\\";
+
+message MyMessage {
+  int32 a = 1;
+  repeated string b = 2;
+  optional string c = 3;
+}
+"
+`;

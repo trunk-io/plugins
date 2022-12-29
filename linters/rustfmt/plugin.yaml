@@ -1,0 +1,27 @@
+version: 0.1
+lint:
+  definitions:
+    - name: rustfmt
+      files: [rust]
+      download: rust
+      commands:
+        - name: format
+          output: rewrite
+          run: rustfmt
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
+      affects_cache:
+        - Cargo.toml
+        - Cargo.lock
+      direct_configs:
+        - rustfmt.toml
+        - .rustfmt.toml
+      known_good_version: 1.65.0
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      version_command:
+        parse_regex: ${semver}
+        run: rustfmt --version

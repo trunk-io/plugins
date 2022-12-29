@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    # while svgo could be a formatter, it is optimizing, not formatting, so it's more intuitive to run on `trunk check`
+    - name: svgo
+      files: [svg]
+      commands:
+        - name: lint
+          output: rewrite
+          run: svgo --multipass ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+      runtime: node
+      package: svgo
+      direct_configs: [svgo.config.js, svgo.config.mjs, svgo.config.cjs]
+      known_good_version: 2.8.0
+      version_command:
+        parse_regex: ${semver}
+        run: svgo --version
+      include_lfs: true

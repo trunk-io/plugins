@@ -1,0 +1,28 @@
+version: 0.1
+lint:
+  definitions:
+    - name: yapf
+      files: [python]
+      commands:
+        - name: format
+          output: rewrite
+          run: yapf --in-place ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
+      runtime: python
+      package: yapf
+      extra_packages: [toml]
+      direct_configs:
+        - .style.yapf
+        - .yapfignore
+      affects_cache:
+        - setup.cfg
+        - pyproject.toml
+      known_good_version: 0.32.0
+      version_command:
+        parse_regex: yapf ${semver}
+        run: yapf --version

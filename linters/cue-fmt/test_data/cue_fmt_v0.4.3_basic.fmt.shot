@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter cue-fmt test basic 1`] = `
+"#Bar: {
+	a:  string
+	b?: int // a useful comment
+}
+foo: #Bar
+foo: {a: \\"a\\"}
+"
+`;
