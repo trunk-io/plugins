@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter bandit test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "bandit",
+      "code": "B403",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "https://pypi.org/project/bandit/",
+      "level": "LEVEL_LOW",
+      "line": "1",
+      "linter": "bandit",
+      "message": "Consider possible security implications associated with dill module.",
+      "targetType": "python",
+    },
+    Object {
+      "bucket": "bandit",
+      "code": "B301",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "https://pypi.org/project/bandit/",
+      "level": "LEVEL_MEDIUM",
+      "line": "6",
+      "linter": "bandit",
+      "message": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "bandit",
+      "paths": Array [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
