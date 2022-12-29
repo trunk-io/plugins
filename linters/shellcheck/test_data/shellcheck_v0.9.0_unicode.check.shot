@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter shellcheck test unicode 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "autofixOptions": Array [
+        Object {
+          "replacements": Array [
+            Object {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "66",
+              "replacementText": "\\"",
+            },
+            Object {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "75",
+              "replacementText": "\\"",
+            },
+          ],
+        },
+      ],
+      "bucket": "shellcheck",
+      "code": "SC2086",
+      "column": "6",
+      "file": "test_data/unicode.in.sh",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2086",
+      "level": "LEVEL_LOW",
+      "line": "6",
+      "linter": "shellcheck",
+      "message": "Double quote to prevent globbing and word splitting.",
+      "ranges": Array [
+        Object {
+          "filePath": "test_data/unicode.in.sh",
+          "length": "9",
+          "offset": "66",
+        },
+      ],
+      "targetType": "shell",
+    },
+    Object {
+      "autofixOptions": Array [
+        Object {
+          "replacements": Array [
+            Object {
+              "filePath": "test_data/unicode.in.sh",
+              "length": "1",
+              "offset": "66",
+              "replacementText": "\${",
+            },
+            Object {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "75",
+              "replacementText": "}",
+            },
+          ],
+        },
+      ],
+      "bucket": "shellcheck",
+      "code": "SC2250",
+      "column": "6",
+      "file": "test_data/unicode.in.sh",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2250",
+      "level": "LEVEL_LOW",
+      "line": "6",
+      "linter": "shellcheck",
+      "message": "Prefer putting braces around variable references even when not strictly required.",
+      "ranges": Array [
+        Object {
+          "filePath": "test_data/unicode.in.sh",
+          "length": "9",
+          "offset": "66",
+        },
+      ],
+      "targetType": "shell",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": Array [
+        "test_data/unicode.in.sh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
