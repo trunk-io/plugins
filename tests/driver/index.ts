@@ -103,6 +103,7 @@ export interface SetupSettings {
 
 /**
  * The primary means for setting up and running trunk commands in a test.
+ * Offers helper methods for configuring a sandbox testing environment. Each test's TrunkDriver should be independent.
  */
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */

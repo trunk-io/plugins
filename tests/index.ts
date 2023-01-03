@@ -63,15 +63,16 @@ export const setupDriver = (
     version
   );
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await driver.setUp();
     if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
       await preCheck(driver);
       driver.debug("Finished running custom preCheck hook");
     }
   });
 
-  afterAll(() => {
+  afterEach(() => {
     driver.tearDown();
   });
   return driver;
@@ -111,7 +112,6 @@ export const linterCheckTest = ({
           const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
-
           it(prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runCheckUnit(inputPath, linterName);
