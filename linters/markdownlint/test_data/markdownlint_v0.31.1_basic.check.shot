@@ -14,28 +14,6 @@ Object {
       "message": "Multiple top-level headings in the same document",
       "targetType": "markdown",
     },
-    Object {
-      "bucket": "markdownlint",
-      "code": "MD013",
-      "file": "test_data/basic.in.md",
-      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD013",
-      "level": "LEVEL_LOW",
-      "line": "5",
-      "linter": "markdownlint",
-      "message": "Line length",
-      "targetType": "markdown",
-    },
-    Object {
-      "bucket": "markdownlint",
-      "code": "MD013",
-      "file": "test_data/basic.in.md",
-      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD013",
-      "level": "LEVEL_LOW",
-      "line": "8",
-      "linter": "markdownlint",
-      "message": "Line length",
-      "targetType": "markdown",
-    },
   ],
   "lintActions": Array [
     Object {

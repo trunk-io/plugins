@@ -157,5 +157,3 @@ To just see debug logs from the test driver, use:
 ```bash
 DEBUG=Driver:*
 ```
-
-We also recommend setting `DEBUG_COLORS=true` for clarity.
