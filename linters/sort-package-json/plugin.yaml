@@ -1,0 +1,20 @@
+version: 0.1
+lint:
+  files:
+    - name: package-json
+      filenames: [package.json]
+
+  definitions:
+    - name: sort-package-json
+      files: [package-json]
+      commands:
+        - name: format
+          output: rewrite
+          run: sort-package-json ${target}
+          success_codes: [0]
+          in_place: true
+          formatter: true
+      runtime: node
+      package: sort-package-json
+      # good_without_config: true # decide whether this is something we want on by default
+      known_good_version: 2.1.0
