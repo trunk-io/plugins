@@ -53,6 +53,5 @@ jobs:
         run: npm ci
 
       - name: Run plugin tests
-        run:
-          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test
-          --ci
+        run: |
+          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci
