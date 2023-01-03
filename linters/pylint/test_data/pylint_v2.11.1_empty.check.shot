@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pylint test empty 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "pylint",
+      "paths": Array [
+        "test_data/empty.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

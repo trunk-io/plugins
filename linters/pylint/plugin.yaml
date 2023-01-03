@@ -1,0 +1,27 @@
+version: 0.1
+lint:
+  definitions:
+    - name: pylint
+      files: [python]
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle pylint's JSON output.
+          output: pylint
+          run: pylint --exit-zero --output ${tmpfile} --output-format json ${target}
+          success_codes: [0]
+          read_output_from: tmp_file
+          batch: true
+          cache_results: true
+      runtime: python
+      package: pylint
+      direct_configs:
+        - pylintrc
+        - .pylintrc
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
+      issue_url_format: http://pylint-messages.wikidot.com/messages:{}
+      known_good_version: 2.11.1
+      version_command:
+        parse_regex: pylint ${semver}
+        run: pylint --version

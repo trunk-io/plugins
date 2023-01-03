@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: bandit
+      files: [python]
+      runtime: python
+      package: bandit
+      direct_configs: [.bandit]
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle bandit's JSON output.
+          output: bandit
+          run: bandit --exit-zero --format json ${target}
+          success_codes: [0]
+          batch: true
+          cache_results: true
+      issue_url_format: https://pypi.org/project/bandit/
+      known_good_version: 1.7.3
+      version_command:
+        parse_regex: ${semver}
+        run: bandit --version

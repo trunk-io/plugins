@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: shfmt
+      files: [shell]
+      commands:
+        - name: format
+          output: shfmt
+          run: shfmt -s -filename ${target} -
+          success_codes: [0, 1]
+          stdin: true
+          cache_results: true
+          formatter: true
+      runtime: go
+      package: mvdan.cc/sh/v${major_version}/cmd/shfmt
+      good_without_config: true
+      affects_cache: [.editorconfig]
+      known_good_version: 3.5.0
+      version_command:
+        parse_regex: ${semver}
+        run: shfmt --version

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter cfnlint test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "cfnlint",
+      "code": "E3030",
+      "column": "7",
+      "file": "test_data/basic.in.yaml",
+      "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
+      "level": "LEVEL_HIGH",
+      "line": "19",
+      "linter": "cfnlint",
+      "message": "You must specify a valid value for ValidationMethod (DNSS). Valid values are [\\"DNS\\", \\"EMAIL\\"]",
+      "targetType": "cloudformation",
+    },
+    Object {
+      "bucket": "cfnlint",
+      "code": "E3002",
+      "column": "7",
+      "file": "test_data/basic.in.yaml",
+      "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
+      "level": "LEVEL_HIGH",
+      "line": "21",
+      "linter": "cfnlint",
+      "message": "Property SubjectAlternativeNames should be of type List for resource Certificate",
+      "targetType": "cloudformation",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "cloudformation",
+      "linter": "cfnlint",
+      "paths": Array [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

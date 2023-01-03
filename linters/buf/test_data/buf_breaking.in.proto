@@ -1,0 +1,9 @@
+
+syntax = "proto3";
+
+package trunk;
+
+message HelloWorld {
+  string hello = 1;
+  string world = 2;
+}

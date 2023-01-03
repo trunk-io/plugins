@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter shfmt test empty 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [
+    Object {
+      "command": "format",
+      "fileGroupName": "shell",
+      "linter": "shfmt",
+      "paths": Array [
+        "test_data/empty.in.sh",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [
+    Object {
+      "column": "1",
+      "file": "test_data/empty.in.sh",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "shfmt",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

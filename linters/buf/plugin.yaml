@@ -1,0 +1,100 @@
+version: 0.1
+lint:
+  downloads:
+    - name: buf
+      version: 1.0.0-rc11
+      executable: true
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          version: <0.42.0
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
+        - os:
+            linux: Linux
+            macos: Darwin
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+  definitions:
+    - name: buf-format
+      files: [proto]
+      download: buf
+      commands:
+        - name: format
+          output: rewrite
+          run: buf format ${target}
+          success_codes: [0, 100]
+          cache_results: true
+          formatter: true
+      environment:
+        - name: PATH
+          # needs system path for `diff`
+          list: ["${linter}", "${env.PATH}"]
+        - name: BUF_TOKEN
+          list: ["${env.BUF_TOKEN}"]
+          optional: true
+      issue_url_format: https://docs.buf.build/lint/rules#{}
+      known_good_version: 1.2.0 # format subcommand was added in 1.2.0
+      version_command:
+        parse_regex: ${semver}
+        run: buf --version
+
+    - name: buf-lint
+      files: [proto]
+      download: buf
+      commands:
+        - name: lint
+          output: buf
+          run: buf lint --path ${target} --error-format json
+          success_codes: [0, 100]
+          run_linter_from: root_file
+      run_from_root_file: buf.yaml
+      direct_configs: [buf.yaml]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+        - name: BUF_TOKEN
+          list: ["${env.BUF_TOKEN}"]
+          optional: true
+      affects_cache:
+        - buf.yaml
+        - buf.lock
+        - buf.gen.yaml
+        - buf.work.yaml
+      issue_url_format: https://docs.buf.build/lint/rules#{}
+      known_good_version: 1.1.0
+      version_command:
+        parse_regex: ${semver}
+        run: buf --version
+
+    - name: buf-breaking
+      files: [proto]
+      download: buf
+      commands:
+        - name: lint
+          output: buf
+          run:
+            buf breaking --against .git#branch=${upstream-ref} --error-format json --path ${target}
+          success_codes: [0, 100]
+          run_linter_from: root_file
+      run_from_root_file: buf.work.yaml
+      direct_configs: [buf.yaml, buf.work.yaml]
+      environment:
+        - name: PATH
+          # Buf requires access to git to checkout/build upstream
+          list: ["${linter}", "${env.PATH}"]
+        - name: BUF_TOKEN
+          list: ["${env.BUF_TOKEN}"]
+          optional: true
+      affects_cache:
+        - buf.yaml
+        - buf.lock
+        - buf.gen.yaml
+        - buf.work.yaml
+      is_recommended: false
+      issue_url_format: https://docs.buf.build/breaking/rules#{}
+      known_good_version: 1.1.0
+      version_command:
+        parse_regex: ${semver}
+        run: buf --version

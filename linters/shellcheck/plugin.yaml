@@ -1,0 +1,42 @@
+version: 0.1
+lint:
+  downloads:
+    - name: shellcheck
+      version: 0.8.0
+      downloads:
+        - os: linux
+          cpu: x86_64
+          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.linux.x86_64.tar.xz
+          strip_components: 1
+        - os: macos
+          cpu: x86_64
+          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+          strip_components: 1
+          # Use rosetta
+        - os: macos
+          cpu: arm_64
+          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+          strip_components: 1
+  definitions:
+    - name: shellcheck
+      files: [shell]
+      download: shellcheck
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle rubocop's JSON output.
+          output: shellcheck
+          run: shellcheck ${target} -f json --external-sources
+          error_codes: [2]
+      direct_configs:
+        - .shellcheckrc
+        - shellcheckrc
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      issue_url_format: https://github.com/koalaman/shellcheck/wiki/{}
+      known_good_version: 0.8.0
+      # uncached because shellcheck can follow includes, e.g. source other.sh
+      cache_results: false
+      version_command:
+        parse_regex: ${semver}
+        run: shellcheck --version

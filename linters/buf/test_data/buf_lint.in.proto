@@ -1,0 +1,9 @@
+
+syntax = "proto3";
+
+package trunk;
+
+enum GoodEnum {
+  lower_case_UNSPECIFIED = 0;
+  GOOD_ENUM_VALUE_1 = 1;
+}
