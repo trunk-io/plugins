@@ -236,11 +236,23 @@ export class TrunkDriver {
 
   /**** Repository file manipulation ****/
 
+  /**
+   * Returns the generated sandboxPath for this test. Throws if setup has not yet been called.
+   */
   getSandbox(): string {
     if (!this.sandboxPath) {
       throw new Error(UNINITIALIZED_ERROR);
     }
     return this.sandboxPath;
+  }
+
+  /**
+   * Reads the contents of the file at `relPath`, relative to the sandbox root.
+   */
+  readFile(relPath: string): string {
+    const sandboxPath = this.getSandbox();
+    const targetPath = path.resolve(sandboxPath, relPath);
+    return fs.readFileSync(targetPath, "utf8");
   }
 
   /**
