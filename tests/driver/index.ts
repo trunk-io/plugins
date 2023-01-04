@@ -12,7 +12,7 @@ import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS } from "tests/utils";
+import { ARGS, REPO_ROOT } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
@@ -22,6 +22,8 @@ const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
 const MAX_DAEMON_RETRIES = 5;
+const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
+Please call this method after setup has been called.`;
 let testNum = 1;
 const linterTests = new Map<string, number>();
 
@@ -136,58 +138,7 @@ export class TrunkDriver {
     this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
 
-  /**
-   * Convert a TrunkRunResult into a full TestResult.
-   */
-  parseRunResult(
-    trunkRunResult: TrunkRunResult,
-    trunkVerb: TrunkVerb,
-    targetAbsPath?: string
-  ): TestResult {
-    return {
-      success: [0, 1].includes(trunkRunResult.exitCode),
-      trunkRunResult,
-      trunkVerb,
-      targetPath: targetAbsPath,
-      landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
-      cliVersion: getTrunkVersion(),
-      linterVersion: this.enabledVersion,
-    };
-  }
-
-  /**
-   * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
-   */
-  getFullTrunkConfig = (): any => {
-    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
-      cwd: this.sandboxPath,
-    });
-    return YAML.parse(printConfig.toString());
-  };
-
-  /**
-   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
-   */
-  extractLinterVersion = (): string => {
-    if (this.toEnableVersion) {
-      return this.toEnableVersion;
-    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
-      return "";
-    } else if (ARGS.linterVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-      return (
-        (this.getFullTrunkConfig().lint.definitions.find(
-          ({ name }: { name: string }) => name === this.linter
-        )?.known_good_version as string) ?? ""
-      );
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else if (ARGS.linterVersion !== "Snapshots") {
-      return ARGS.linterVersion;
-    } else {
-      return "";
-    }
-  };
+  /**** Test setup/teardown methods ****/
 
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
@@ -226,7 +177,13 @@ export class TrunkDriver {
 
     // Run a cli-dependent command to wait on and verify trunk is installed
     // (Run this regardless of setup requirements. Trunk should be in the path)
-    await this.run("--help");
+    try {
+      await this.run("--help");
+    } catch (error) {
+      // TODO(Tyler): Occasionally launcher logs errors at high test volume. Until this is resolved,
+      // Don't block on errors here.
+      console.warn(error);
+    }
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
@@ -275,6 +232,128 @@ export class TrunkDriver {
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
+  }
+
+  /**** Repository file manipulation ****/
+
+  getSandbox(): string {
+    if (!this.sandboxPath) {
+      throw new Error(UNINITIALIZED_ERROR);
+    }
+    return this.sandboxPath;
+  }
+
+  /**
+   * Writes `contents` to a file with at the `relPath`, relative to the sandbox root.
+   * Recursively create its parent directory if it does not exist.
+   */
+  writeFile(relPath: string, contents: string) {
+    const sandboxPath = this.getSandbox();
+    const destPath = path.resolve(sandboxPath, relPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.writeFileSync(destPath, contents);
+  }
+
+  /**
+   * Copies a file at the `relPath` inside the repository root to the same relative path in the sandbox root.
+   * Recursively creates its parent directory if it does not exist.
+   */
+  copyFileFromRoot(relPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(REPO_ROOT, relPath);
+    const destPath = path.resolve(sandboxPath, relPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.copyFileSync(sourcePath, destPath);
+  }
+
+  /**
+   * Moves/renames a file at from the `sourceRelPath` inside the sandbox to the `destRelPath`.
+   * Recursively creates the destination's parent directory if it does not exist.
+   */
+  moveFile(sourceRelPath: string, destRelPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(sandboxPath, sourceRelPath);
+    const destPath = path.resolve(sandboxPath, destRelPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.renameSync(sourcePath, destPath);
+  }
+
+  /**
+   * Deletes a file at the `relPath` inside the sandbox root.
+   */
+  deleteFile(relPath: string) {
+    const sandboxPath = this.getSandbox();
+    const targetPath = path.resolve(sandboxPath, relPath);
+    fs.rmSync(targetPath);
+  }
+
+  /**** Trunk config methods ****/
+
+  /**
+   * Return the yaml result of parsing the sandbox's .trunk/trunk.yaml file.
+   */
+  getTrunkConfig = (): any => {
+    if (this.sandboxPath) {
+      return getTrunkConfig(this.sandboxPath);
+    }
+  };
+
+  /**
+   * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
+   */
+  getFullTrunkConfig = (): any => {
+    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
+      cwd: this.sandboxPath,
+    });
+    return YAML.parse(printConfig.toString());
+  };
+
+  /**
+   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
+   */
+  extractLinterVersion = (): string => {
+    if (this.toEnableVersion) {
+      return this.toEnableVersion;
+    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
+      return "";
+    } else if (ARGS.linterVersion === "KnownGoodVersion") {
+      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      return (
+        (this.getFullTrunkConfig().lint.definitions.find(
+          ({ name }: { name: string }) => name === this.linter
+        )?.known_good_version as string) ?? ""
+      );
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    } else if (ARGS.linterVersion !== "Snapshots") {
+      return ARGS.linterVersion;
+    } else {
+      return "";
+    }
+  };
+
+  /**** Execution methods ****/
+
+  /**
+   * Convert a TrunkRunResult into a full TestResult.
+   */
+  parseRunResult(
+    trunkRunResult: TrunkRunResult,
+    trunkVerb: TrunkVerb,
+    targetAbsPath?: string
+  ): TestResult {
+    return {
+      success: [0, 1].includes(trunkRunResult.exitCode),
+      trunkRunResult,
+      trunkVerb,
+      targetPath: targetAbsPath,
+      landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
+      cliVersion: getTrunkVersion(),
+      linterVersion: this.enabledVersion,
+    };
   }
 
   /**
@@ -426,10 +505,4 @@ export class TrunkDriver {
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }
-
-  getTrunkConfig = (): any => {
-    if (this.sandboxPath) {
-      return getTrunkConfig(this.sandboxPath);
-    }
-  };
 }
