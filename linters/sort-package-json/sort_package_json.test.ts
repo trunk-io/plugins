@@ -3,6 +3,7 @@ import { customLinterCheckTest, customLinterFmtTest } from "tests";
 import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
+// Use file with malformed json
 const preCheck = (driver: TrunkDriver) => {
   driver.moveFile(path.join(TEST_DATA, "bad_package.json"), path.join(TEST_DATA, "package.json"));
 };
