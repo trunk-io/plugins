@@ -373,7 +373,7 @@ export class TrunkDriver {
    */
   async run(args: string, execOptions?: ExecOptions) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.split(" "), {
+    return await execFilePromise(trunkPath, args.split(" ").filter(Boolean), {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
