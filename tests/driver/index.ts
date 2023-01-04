@@ -27,15 +27,18 @@ Please call this method after setup has been called.`;
 let testNum = 1;
 const linterTests = new Map<string, number>();
 
-const executionEnv = () => {
+const executionEnv = (sandbox: string) => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
   const { PWD, INIT_CWD, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
+    // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
       `${TEMP_PREFIX}testing_download_cache`
     ),
+    // This is necessary to prevent launcher collision of non-atomic operations
+    TMPDIR: path.resolve(sandbox, "tmp"),
   };
 };
 
@@ -153,8 +156,9 @@ export class TrunkDriver {
     if (!this.sandboxPath) {
       return;
     }
-    // Create repo
-    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
+    // Create repo. Don't copy snapshot files
+    const snapshotFilter = (file: string) => !file.endsWith(".shot");
+    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true, filter: snapshotFilter });
 
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
@@ -177,13 +181,7 @@ export class TrunkDriver {
 
     // Run a cli-dependent command to wait on and verify trunk is installed
     // (Run this regardless of setup requirements. Trunk should be in the path)
-    try {
-      await this.run("--help");
-    } catch (error) {
-      // TODO(Tyler): Occasionally launcher logs errors at high test volume. Until this is resolved,
-      // Don't block on errors here.
-      console.warn(error);
-    }
+    await this.run("--help");
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
@@ -377,7 +375,7 @@ export class TrunkDriver {
     const trunkPath = ARGS.cliPath ?? "trunk";
     return await execFilePromise(trunkPath, args.split(" "), {
       cwd: this.sandboxPath,
-      env: executionEnv(),
+      env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
     });
   }
@@ -391,7 +389,7 @@ export class TrunkDriver {
     const daemonArgs = ["daemon", "launch", "--monitor=false"];
     this.daemon = execFile(trunkCommand, daemonArgs, {
       cwd: this.sandboxPath,
-      env: executionEnv(),
+      env: executionEnv(this.sandboxPath ?? ""),
     });
 
     // Verify the daemon has finished launching
@@ -407,21 +405,26 @@ export class TrunkDriver {
 
   /**
    * Run a `trunk check` command with additional options.
-   * Prefer using runCheckUnit unless you don't want to run on a specified target.
+   * Prefer using `runCheckUnit` unless you don't want to run on a specified target.
    * @param args arguments to append in addition to the boilerplate args/options
-   * @param targetAbsPath optional absolute path to a target to run check against
+   * @param linter optional linter to filter run
+   * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
    * @param resultJsonPath where to write the JSON result to
    */
   async runCheck({
     args = "",
+    linter,
     targetAbsPath,
     resultJsonPath = path.resolve(this.sandboxPath ?? "", "result.json"),
   }: {
     args?: string;
+    linter?: string;
     targetAbsPath?: string;
     resultJsonPath?: string;
   }) {
-    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${args}`;
+    // Note that args "prefer last", so specifying options like `-y` are still viable.
+    const linterFilter = linter ? `--filter=${linter}` : "";
+    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${linterFilter} ${args}`;
     try {
       const { stdout, stderr } = await this.run(fullArgs);
       return this.parseRunResult(
@@ -468,21 +471,33 @@ export class TrunkDriver {
     const resultJsonPath = `${targetAbsPath}.json`;
     const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
-    return await this.runCheck({ args, targetAbsPath, resultJsonPath });
+    return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }
 
   /**
-   * Run `trunk fmt` on a specified target `targetRelativePath` with a `linter` filter.
+   * Run a `trunk fmt` command with additional options.
+   * Prefer using `runFmtUnit` unless you don't want to run on a specified target.
+   * @param args arguments to append in addition to the boilerplate args/options
+   * @param linter optional linter to filter run
+   * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
+   * @param resultJsonPath where to write the JSON result to
    */
-  async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
-    const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
-    const resultJsonPath = `${targetAbsPath}.json`;
-
-    const args = `fmt --output-file=${resultJsonPath} --no-progress --ignore-git-state --filter=${linter} ${targetAbsPath}`;
+  async runFmt({
+    args = "",
+    linter,
+    targetAbsPath,
+    resultJsonPath = path.resolve(this.sandboxPath ?? "", "result.json"),
+  }: {
+    args?: string;
+    linter?: string;
+    targetAbsPath?: string;
+    resultJsonPath?: string;
+  }) {
+    const linterFilter = linter ? `--filter=${linter}` : "";
+    const fullArgs = `fmt --output-file=${resultJsonPath} --no-progress --ignore-git-state ${linterFilter} ${args}`;
 
     try {
-      this.debug("Running `trunk fmt` on %s", targetRelativePath);
-      const { stdout, stderr } = await this.run(args);
+      const { stdout, stderr } = await this.run(fullArgs);
       return this.parseRunResult(
         {
           exitCode: 0,
@@ -516,5 +531,17 @@ export class TrunkDriver {
       }
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
+  }
+
+  /**
+   * Run `trunk fmt` on a specified target `targetRelativePath` with a `linter` filter.
+   * Prefer this to 'runFmt' when possible.
+   */
+  async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
+    const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
+    const resultJsonPath = `${targetAbsPath}.json`;
+    const args = `--upstream=false ${targetAbsPath}`;
+    this.debug("Running `trunk fmt` on %s", targetRelativePath);
+    return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
   }
 }
