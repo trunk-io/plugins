@@ -1,0 +1,7 @@
+[package]
+name = "test"
+version = "0.0.1"
+authors = ["test <test@trunk.io>"]
+license = "MIT"
+description = "trunk plugin test"
+edition = "2018"

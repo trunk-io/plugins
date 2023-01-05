@@ -1,0 +1,37 @@
+version: 0.1
+lint:
+  definitions:
+    # clippy has 3 lint severities: deny, warn, and allow. Unfortunately deny causes rustc to
+    # fail eagerly due to its implementation (https://github.com/rust-lang/rust/pull/87337),
+    # We use --cap-lints to downgrade "deny" severity lints to warn. So rustc will find all
+    # issues instead of hard stopping. There are currently only 70 of them, so we could hardcode
+    # the list to fix their severity levels correctly.
+    - name: clippy
+      files: [rust]
+      download: rust
+      commands:
+        - name: lint
+          output: clippy
+          run: cargo clippy --message-format json -- --cap-lints=warn --no-deps
+          success_codes: [0, 101, 383]
+          run_linter_from: directory
+          disable_upstream: true
+      affects_cache:
+        - Cargo.toml
+        - Cargo.lock
+      direct_configs:
+        - clippy.toml
+        - .clippy.toml
+      environment:
+        - name: PATH
+          list: ["${linter}/bin", "${env.PATH}"]
+        - name: CARGO_HOME
+          value: ${cachedir}/cargo_home
+        - name: CARGO_TARGET_DIR
+          value: ${cachedir}/cargo_target_dir
+      good_without_config: true
+      known_good_version: 1.65.0
+      version_command:
+        parse_regex: ${semver}
+        run: cargo clippy --version
+      issue_url_format: https://rust-lang.github.io/rust-clippy/master/#{}

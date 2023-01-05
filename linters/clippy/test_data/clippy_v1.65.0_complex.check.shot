@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter clippy test complex 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "clippy",
+      "code": "dead_code",
+      "column": "4",
+      "file": "src/high.rs",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://rust-lang.github.io/rust-clippy/master/#dead_code",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "clippy",
+      "message": "function \`do_bad_math\` is never used",
+      "ranges": Array [
+        Object {
+          "filePath": ".",
+          "length": "11",
+          "offset": "3",
+        },
+      ],
+      "targetType": "rust",
+    },
+    Object {
+      "bucket": "clippy",
+      "code": "arithmetic_overflow",
+      "column": "13",
+      "file": "src/high.rs",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://rust-lang.github.io/rust-clippy/master/#arithmetic_overflow",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "clippy",
+      "message": "this arithmetic operation will overflow",
+      "ranges": Array [
+        Object {
+          "filePath": ".",
+          "length": "11",
+          "offset": "31",
+        },
+      ],
+      "targetType": "rust",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "rust",
+      "linter": "clippy",
+      "paths": Array [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
