@@ -113,7 +113,7 @@ export interface SetupSettings {
 export class TrunkDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
-  /** Dictated version to enable based on logic of parsing environment variables. */
+  /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */
   toEnableVersion?: string;
   /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
   enabledVersion?: string;
@@ -325,11 +325,11 @@ export class TrunkDriver {
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
    */
   extractLinterVersion = (): string => {
-    if (this.toEnableVersion) {
-      return this.toEnableVersion;
-    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
+    const toEnableVersion = this.toEnableVersion ?? ARGS.linterVersion;
+
+    if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
-    } else if (ARGS.linterVersion === "KnownGoodVersion") {
+    } else if (toEnableVersion === "KnownGoodVersion") {
       // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
@@ -338,8 +338,9 @@ export class TrunkDriver {
         )?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else if (ARGS.linterVersion !== "Snapshots") {
-      return ARGS.linterVersion;
+    } else if (toEnableVersion !== "Snapshots") {
+      // toEnableVersion is a version string
+      return toEnableVersion;
     } else {
       return "";
     }

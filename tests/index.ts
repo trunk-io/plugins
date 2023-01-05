@@ -50,6 +50,7 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  * @param dirname absolute path to the test subdirectory in a linter folder.
  * @param setupSettings configuration for the driver's repo setup. setupGit and setupTrunk default to true.
  * @param linterName if specified, enables this linter during setup.
+ * @param version the version of a linter to enable, if specified. May be a version string or one of `LinterVersion`
  */
 export const setupDriver = (
   dirname: string,

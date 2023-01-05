@@ -147,10 +147,6 @@ export const getVersionsForTest = (
   checkType: CheckType
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
-  if (ARGS.linterVersion !== "Snapshots") {
-    return [undefined];
-  }
-
   const versionsList = fs
     .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
@@ -162,9 +158,17 @@ export const getVersionsForTest = (
     .filter(Boolean)
     .sort();
 
+  // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
   if (versionsList.length === 0) {
-    return [undefined];
+    console.log(
+      `No snapshots detected for ${linterName} ${prefix} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
+    );
+    return ["KnownGoodVersion"];
   }
 
-  return versionsList;
+  if (ARGS.linterVersion === "Snapshots") {
+    return versionsList;
+  }
+
+  return [undefined];
 };
