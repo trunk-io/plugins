@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter tflint test bad_config 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [],
+  "taskFailures": Array [
+    Object {
+      "message": "Preparing workspace",
+      "name": "tflint",
+    },
+  ],
+  "unformattedFiles": Array [],
+}
+`;

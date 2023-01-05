@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter tflint test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "tflint",
+      "code": "aws_instance_invalid_type",
+      "column": "19",
+      "file": "aws.tf",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "tflint",
+      "message": "\\"t1.2xlarge\\" is an invalid value as instance_type",
+      "targetType": "terraform",
+    },
+    Object {
+      "bucket": "tflint",
+      "code": "aws_instance_previous_type",
+      "column": "19",
+      "file": "aws.tf",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_MEDIUM",
+      "line": "2",
+      "linter": "tflint",
+      "message": "\\"t1.2xlarge\\" is previous generation instance type.",
+      "targetType": "terraform",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "terraform",
+      "linter": "tflint",
+      "paths": Array [
+        "aws.tf",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

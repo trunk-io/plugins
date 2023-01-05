@@ -81,6 +81,8 @@ export const setupDriver = (
   return driver;
 };
 
+// TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
+// TODO(Tyler): Add additional options to the custom checks, including OS and CI-specific runs.
 /**
  * Test that running a linter filtered by `linterName` with any custom `args` produces the desired output
  * json. Optionally specify additional file paths to snapshot.
