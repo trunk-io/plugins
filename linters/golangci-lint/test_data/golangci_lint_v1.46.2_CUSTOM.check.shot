@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter golangci-lint test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "golangci-lint",
+      "code": "deadcode",
+      "column": "6",
+      "file": "test_data/unused_func.go",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "golangci-lint",
+      "message": "\`helper\` is unused",
+      "targetType": "go",
+    },
+    Object {
+      "bucket": "golangci-lint",
+      "code": "typecheck",
+      "column": "23",
+      "file": "test_data/wrapper/printer.go",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "golangci-lint",
+      "message": "undeclared name: \`Wrapper2\`",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": Array [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

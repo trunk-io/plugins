@@ -297,7 +297,7 @@ export class TrunkDriver {
   deleteFile(relPath: string) {
     const sandboxPath = this.getSandbox();
     const targetPath = path.resolve(sandboxPath, relPath);
-    fs.rmSync(targetPath);
+    fs.rmSync(targetPath, { recursive: true });
   }
 
   /**** Trunk config methods ****/

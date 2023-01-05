@@ -1,5 +1,5 @@
 import { sort } from "fast-sort";
-import { LandingState, LintAction, TaskFailure } from "tests/types";
+import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
 // we should preserve the original structure and use jest matchers on the non-deterministic fields.
@@ -17,6 +17,14 @@ const extractTaskFailureFields = ({
   ...rest,
 });
 
+// Replace any occurrences of the nondeterministic sandbox path in the output message
+const normalizeMessage = (message?: string) => message?.replace(/\/plugins_.{6}/gm, "/plugins_");
+
+const normalizeIssues = ({ message: _message, ...rest }: FileIssue): FileIssue => ({
+  ...rest,
+  message: normalizeMessage(_message),
+});
+
 /**
  * Remove unwanted fields. Prefer object destructuring to be explicit about required fields
  * for forward compatibility.
@@ -28,14 +36,14 @@ const extractLandingStateFields = ({
   taskFailures = [],
 }: LandingState) =>
   <LandingState>{
-    issues: sort(issues).asc((issue) => [
+    issues: sort(issues.map(normalizeIssues)).asc((issue) => [
       issue.file,
       issue.line,
       issue.column,
       issue.code,
       issue.message,
     ]),
-    unformattedFiles: sort(unformattedFiles).asc((issue) => [
+    unformattedFiles: sort(unformattedFiles.map(normalizeIssues)).asc((issue) => [
       issue.file,
       issue.line,
       issue.column,
