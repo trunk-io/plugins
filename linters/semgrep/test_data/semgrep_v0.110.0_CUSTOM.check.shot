@@ -7,7 +7,7 @@ Object {
       "bucket": "semgrep",
       "code": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
       "column": "12",
-      "file": "test_data/basic.in.go",
+      "file": "test_data/basic.go",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "8",
@@ -19,7 +19,7 @@ Object {
       "bucket": "semgrep",
       "code": "go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5",
       "column": "12",
-      "file": "test_data/basic.in.go",
+      "file": "test_data/basic.go",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "8",
@@ -31,7 +31,7 @@ Object {
       "bucket": "semgrep",
       "code": "python.django.security.injection.code.globals-misuse-code-execution.globals-misuse-code-execution",
       "column": "5",
-      "file": "test_data/request.in.py",
+      "file": "test_data/request.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "3",
@@ -43,7 +43,7 @@ Object {
       "bucket": "semgrep",
       "code": "python.lang.security.dangerous-globals-use.dangerous-globals-use",
       "column": "16",
-      "file": "test_data/request.in.py",
+      "file": "test_data/request.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "4",
@@ -58,7 +58,7 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/basic.in.go",
+        "test_data/basic.go",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -67,7 +67,7 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/element.in.ts",
+        "test_data/element.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -76,7 +76,7 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/empty.in.go",
+        "test_data/empty_go.go",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -85,7 +85,7 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/request.in.py",
+        "test_data/empty_js.js",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -94,9 +94,8 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/basic.in.go",
+        "test_data/empty_py.py",
       ],
-      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
     Object {
@@ -104,9 +103,8 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/element.in.ts",
+        "test_data/request.py",
       ],
-      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
     Object {
@@ -114,7 +112,7 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/empty.in.go",
+        "test_data/basic.go",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
@@ -124,7 +122,47 @@ Object {
       "fileGroupName": "ALL",
       "linter": "semgrep",
       "paths": Array [
-        "test_data/request.in.py",
+        "test_data/element.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/empty_go.go",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/empty_js.js",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/empty_py.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/request.py",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
