@@ -119,7 +119,6 @@ export const getSnapshotPathForAssert = (
   const availableSnapshots = fs
     .readdirSync(snapshotDirPath)
     .filter((name) => name.match(snapshotFileRegex))
-    .sort()
     .reverse();
 
   // No snapshots exist.
@@ -127,16 +126,26 @@ export const getSnapshotPathForAssert = (
     return specificVersionSnapshotName;
   }
 
-  // Newest are checked first. Find the closest version such that version <= linterVersion
+  // Find the closest version such that version <= linterVersion
+  let closestMatch;
+  let closestMatchPath;
   for (const snapshotName of availableSnapshots) {
     const match = snapshotName.match(snapshotFileRegex);
     if (match && match.groups) {
       const snapshotVersion = match.groups.version;
-      if (semver.gte(linterVersion, snapshotVersion)) {
-        return path.resolve(snapshotDirPath, snapshotName);
+      if (
+        semver.gte(linterVersion, snapshotVersion) &&
+        (!closestMatch || semver.gt(snapshotVersion, closestMatch))
+      ) {
+        closestMatch = snapshotVersion;
+        closestMatchPath = path.resolve(snapshotDirPath, snapshotName);
       }
     }
   }
+  if (closestMatchPath) {
+    return closestMatchPath;
+  }
+
   return specificVersionSnapshotName;
 };
 
