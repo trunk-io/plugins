@@ -1,0 +1,37 @@
+version: 0.1
+lint:
+  downloads:
+    - name: actionlint
+      version: 1.6.9
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_darwin_amd64.tar.gz
+          version: <1.4.1
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
+  definitions:
+    - name: actionlint
+      files: [yaml]
+      # This type is a custom trigger that the trunk cli uses to identify and parse targets
+      type: actionlint
+      download: actionlint
+      command: [actionlint, -format, "{{json .}}", "${target}"]
+      good_without_config: true
+      success_codes: [0, 1]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      direct_configs:
+        - .github/actionlint.yaml
+        - .github/actionlint.yml
+      issue_url_format: https://github.com/rhysd/actionlint/blob/main/docs/checks.md
+      known_good_version: 1.6.9
+      version_command:
+        parse_regex: ${semver}
+        run: actionlint --version
