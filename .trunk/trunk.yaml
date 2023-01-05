@@ -66,8 +66,18 @@ actions:
       triggers:
         - git_hooks: [pre-push]
 
+    - id: linter-test-helper
+      display_name: Test Generator
+      description: Generate boilerplate test code when new linters are defined
+      runtime: python
+      packages_file: tools/linter-test-helper/requirements.txt
+      run: tools/linter-test-helper/generate scan ${workspace}
+      triggers:
+        - files: [linters/**]
+
   enabled:
     - plugin-tests
+    - linter-test-helper
     - trunk-announce
     - toggle-local
     - trunk-cache-prune
