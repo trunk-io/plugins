@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter semgrep test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "semgrep",
+      "code": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+      "column": "12",
+      "file": "test_data/basic.in.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "semgrep",
+      "message": "Detected use of an insecure cryptographic hashing method. This method is known to be broken and easily compromised. Use SHA256 or SHA3 instead.",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "semgrep",
+      "code": "go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5",
+      "column": "12",
+      "file": "test_data/basic.in.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "semgrep",
+      "message": "Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "semgrep",
+      "code": "python.django.security.injection.code.globals-misuse-code-execution.globals-misuse-code-execution",
+      "column": "5",
+      "file": "test_data/request.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "semgrep",
+      "message": "Found request data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "semgrep",
+      "code": "python.lang.security.dangerous-globals-use.dangerous-globals-use",
+      "column": "16",
+      "file": "test_data/request.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "semgrep",
+      "message": "Found non static data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/basic.in.go",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/element.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/empty.in.go",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/request.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/basic.in.go",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/element.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/empty.in.go",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": Array [
+        "test_data/request.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
