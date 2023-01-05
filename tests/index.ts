@@ -66,7 +66,7 @@ export const setupDriver = (
     version
   );
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await driver.setUp();
     if (preCheck) {
       // preCheck is not always async, but we must await in case it is.
@@ -75,7 +75,7 @@ export const setupDriver = (
     }
   });
 
-  afterEach(() => {
+  afterAll(() => {
     driver.tearDown();
   });
   return driver;

@@ -65,7 +65,7 @@ export const getSnapshotName = (
   checkType: CheckType,
   linterVersion?: string
 ) => {
-  const normalizedName = linterName.replace("-", "_");
+  const normalizedName = linterName.replace(/-/g, "_");
   if (!linterVersion) {
     return `${normalizedName}_${prefix}.${checkType}.shot`;
   }
@@ -79,7 +79,7 @@ export const getSnapshotName = (
  * @param checkType "check" or "fmt"
  */
 export const getSnapshotRegex = (linterName: string, prefix: string, checkType: CheckType) =>
-  `${linterName.replace("-", "_")}_v(?<version>[^_]+)_${prefix}.${checkType}.shot`;
+  `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
 
 /**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
@@ -147,11 +147,14 @@ export const getVersionsForTest = (
   checkType: CheckType
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
+  let matchExists = false;
+
   const versionsList = fs
     .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
       const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType));
       if (fileMatch) {
+        matchExists = true;
         return fileMatch.groups?.version;
       }
     })
@@ -159,7 +162,7 @@ export const getVersionsForTest = (
     .sort();
 
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
-  if (versionsList.length === 0) {
+  if (!matchExists) {
     console.log(
       `No snapshots detected for ${linterName} ${prefix} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
     );
