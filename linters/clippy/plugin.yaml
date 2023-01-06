@@ -11,6 +11,7 @@ lint:
       download: rust
       commands:
         - name: lint
+          # Custom parser type defined in the trunk cli to handle clippy's JSON output.
           output: clippy
           run: cargo clippy --message-format json -- --cap-lints=warn --no-deps
           success_codes: [0, 101, 383]

@@ -16,6 +16,7 @@ lint:
       run_from_root_file: go.mod
       commands:
         - name: lint
+          # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
           output: golangci_lint
           # Exclude go linters we already include.
           run:

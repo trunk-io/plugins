@@ -5,6 +5,7 @@ lint:
       files: [ruby]
       commands:
         - name: lint
+          # Custom parser type defined in the trunk cli to handle brakeman's JSON output.
           output: brakeman
           run: brakeman -p ${target} -f json --no-pager
           success_codes: [0, 1, 3]

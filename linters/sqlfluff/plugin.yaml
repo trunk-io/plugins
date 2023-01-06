@@ -23,19 +23,3 @@ lint:
           in_place: true
           success_codes: [0]
           enabled: false
-
-    - name: sqlfluff-fix
-      files: [sql, sql-j2, dml, ddl]
-      runtime: python
-      package: sqlfluff
-      deprecated:
-        "'sqlfluff-fix' is now handled by 'sqlfluff'. Please delete 'sqlfluff-fix' from your config"
-      direct_configs:
-        - .sqlfluff
-      commands:
-        - name: fix
-          run: sqlfluff fix ${target} --dialect ansi --disable-progress-bar --force
-          output: rewrite
-          formatter: true
-          in_place: true
-          success_codes: [0]

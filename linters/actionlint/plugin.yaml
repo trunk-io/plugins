@@ -18,7 +18,7 @@ lint:
   definitions:
     - name: actionlint
       files: [yaml]
-      # This type is a custom trigger that the trunk cli uses to identify and parse targets
+      # Custom parser/trigger type defined in the trunk cli.
       type: actionlint
       download: actionlint
       command: [actionlint, -format, "{{json .}}", "${target}"]

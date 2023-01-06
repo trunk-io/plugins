@@ -22,6 +22,7 @@ lint:
       download: hadolint
       commands:
         - name: lint
+          # Custom parser type defined in the trunk cli to handle hadolint's JSON output.
           output: hadolint
           run: hadolint ${target} -f json --no-fail
           success_codes: [0]
