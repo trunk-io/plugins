@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter gitleaks test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "gitleaks",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "gitleaks",
+      "message": "AWS Access Key secret detected",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "gitleaks",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "gitleaks",
+      "message": "AWS Access Key secret detected",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "gitleaks",
+      "paths": Array [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
