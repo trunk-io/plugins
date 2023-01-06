@@ -1,0 +1,55 @@
+version: 0.1
+lint:
+  downloads:
+    - name: terraform
+      version: 1.1.4
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_darwin_amd64.zip
+          version: <1.0.2
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${os}_${cpu}.zip
+  definitions:
+    - name: terraform
+      files: [terraform]
+      download: terraform
+      commands:
+        - name: validate
+          # Custom parser type defined in the trunk cli to handle terraform's JSON output.
+          output: terraform_validate
+          run: terraform validate -json
+          run_linter_from: directory
+          success_codes: [0, 1]
+          enabled: false
+        - name: fmt
+          output: rewrite
+          formatter: true
+          run: terraform fmt -no-color -
+          stdin: true
+          success_codes: [0]
+          # cache_results: true
+          # TODO - need cache_results to be by verb
+      good_without_config: true
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+        - name: GITHUB_APP_ID
+          value: ${env.GITHUB_APP_ID}
+          optional: true
+        - name: GITHUB_APP_INSTALLATION_ID
+          value: ${env.GITHUB_APP_INSTALLATION_ID}
+          optional: true
+        - name: GITHUB_APP_PEM_FILE
+          value: ${env.GITHUB_APP_PEM_FILE}
+          optional: true
+      known_good_version: 1.1.0
+      is_recommended: false
+      version_command:
+        parse_regex: ${semver}
+        run: terraform --version
