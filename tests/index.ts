@@ -115,7 +115,7 @@ export const customLinterCheckTest = ({
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
-    const linterVersions = getVersionsForTest(dirname, linterName, testName, "check");
+    const linterVersions = getVersionsForTest(dirname, linterName, testName, "check", true);
     linterVersions.forEach((linterVersion) => {
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
@@ -139,7 +139,8 @@ export const customLinterCheckTest = ({
             linterName,
             testName,
             "check",
-            driver.enabledVersion
+            driver.enabledVersion,
+            true
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
           expect(testRunResult.landingState).toMatchSpecificSnapshot(primarySnapshotPath);
@@ -152,7 +153,8 @@ export const customLinterCheckTest = ({
               linterName,
               normalizedName,
               "check",
-              driver.enabledVersion
+              driver.enabledVersion,
+              true
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
@@ -200,7 +202,7 @@ export const customLinterFmtTest = ({
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
-    const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt");
+    const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt", true);
     linterVersions.forEach((linterVersion) => {
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
@@ -228,7 +230,8 @@ export const customLinterFmtTest = ({
               linterName,
               normalizedName,
               "fmt",
-              driver.enabledVersion
+              driver.enabledVersion,
+              true
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
