@@ -38,6 +38,9 @@ Run `trunk run toggle-local` to quickly toggle this setting.
 The specified source defines additional linters and actions that users can enable in their
 repositories. For more information, see our [docs](https://docs.trunk.io/docs/plugins).
 
+If you would like to request a new feature or seek help with a problem, please see our
+[Features Page](https://features.trunk.io/) or our [Slack](https://slack.trunk.io/).
+
 ## Releases
 
 We aim to provide a fairly regular release cadence for this repository. Releases are tied to minimum
