@@ -2,9 +2,6 @@
 
 ## Overview
 
-Thank you for contributing to the trunk plugins repository! We appreciate your support as we work to
-streamline the discovery, management and integration of new tools.
-
 We ask that new linter definitions in this repository add some basic testing logic. This should be a
 straightforward and simple process, with minimal overhead, but let us know if you need help! Please
 start by following the instructions below:
