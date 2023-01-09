@@ -57,7 +57,7 @@ export interface LintAction {
   linter: string;
   parser: string;
   report: string;
-  // cacheHit: boolean;
+  cacheHit?: boolean;
   upstream: boolean;
   fileGroupName: string;
   command: string;

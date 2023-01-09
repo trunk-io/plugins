@@ -5,6 +5,7 @@ import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
 // we should preserve the original structure and use jest matchers on the non-deterministic fields.
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
+  cacheHit: _cacheHit,
   ...rest
 }: LintAction): LintAction => ({
   ...rest,
