@@ -3,13 +3,39 @@ on:
   schedule:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
+  pull_request: {}
+  workflow_dispatch: {}
 
 jobs:
+  check_nightly:
+    name: Should Run Nightly
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run-nightly: ${{ steps.changes.outputs.nightly }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Filter changed nightly.yaml
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            nightly:
+              - '.github/workflows/nightly.yaml'
+
   plugins_test:
     name: Nightly Plugin Tests
+    needs: check_nightly
+    # Only run if triggered from PR and this file was modified OR triggered from workflow_dispatch or nightly
+    if:
+      ${{ needs.check_nightly.outputs.run-nightly }} == 'true' || $GITHUB_EVENT_NAME !=
+      "pull_request"
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
+      fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
 
@@ -17,14 +43,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-        # TODO(Tyler): Determine if we want to wipe the download cache and start fresh each night.
-
       - name: Cache tool downloads
         uses: actions/cache@v3
         with:
           path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
+          # No need to key on trunk version or trunk.yaml unless we change how we store downloads.
           key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -36,4 +71,6 @@ jobs:
 
       - name: Run plugin tests
         run: |
-          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci
+          PATH=$(npm bin):$PATH npm test --ci
+        env:
+          PLUGINS_TEST_LINTER_VERSION: ${{ matrix.linter-version }}
