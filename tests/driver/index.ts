@@ -188,7 +188,7 @@ export class TrunkDriver {
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-    await this.launchDaemonAsync();
+    // await this.launchDaemonAsync();
     this.debug("Launched daemon");
 
     // Enable tested linter if specified
@@ -374,7 +374,7 @@ export class TrunkDriver {
    */
   async run(args: string, execOptions?: ExecOptions) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.split(" ").filter(Boolean), {
+    return await execFilePromise(trunkPath, args.split(" ").concat(["--debug"]).filter(Boolean), {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
