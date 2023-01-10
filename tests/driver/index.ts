@@ -195,7 +195,6 @@ export class TrunkDriver {
       return;
     }
 
-    // try {
     const version = await this.extractLinterVersion();
     this.debug("Parsed print config");
     const versionString = version.length > 0 ? `@${version}` : "";
@@ -215,9 +214,6 @@ export class TrunkDriver {
       this.enabledVersion = foundIn.groups.version;
       this.debug("Enabled %s", this.enabledVersion);
     }
-    // } catch (error) {
-    //   console.warn(`Failed to enable ${this.linter}`, error);
-    // }
 
     this.debug("Running check install");
     await this.run("install");
@@ -240,7 +236,7 @@ export class TrunkDriver {
       this.debug("Cleaning... deinit'd %s", this.sandboxPath);
       // this.daemon?.kill();
       // this.debug("Cleaning... kill'd %s", this.sandboxPath);
-      // fs.rmSync(this.sandboxPath, { recursive: true });
+      fs.rmSync(this.sandboxPath, { recursive: true });
     }
     this.debug("Done cleaning up %s", this.sandboxPath);
   }
@@ -329,7 +325,7 @@ export class TrunkDriver {
    */
   getFullTrunkConfig = async (): Promise<any> => {
     this.debug("Getting full trunk config");
-    const printConfig = await this.run("config print --log-file=print.txt", {}, true); // TODO: TYLER SPECIFY LOG FILE
+    const printConfig = await this.run("config print --log-file=print.txt", {}, false); // TODO: TYLER SPECIFY LOG FILE
     return YAML.parse(printConfig.stdout.toString());
   };
 
