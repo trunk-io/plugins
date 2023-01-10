@@ -36,6 +36,7 @@ const executionEnv = (sandbox: string) => {
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
       `${TEMP_PREFIX}testing_download_cache`
+      // TODO: TYLER REMOVE THIS COMMENT
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, "tmp"),
