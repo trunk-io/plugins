@@ -54,13 +54,13 @@ jobs:
 
       - name: Run plugin tests
         run: |
-          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci
+          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci -- --forceExit
 
-      - name: Save tool downloads cache
-        # Only restore cache if using latest version to prevent cache corruption.
-        if: ${{ matrix.linter-version }} == "Latest"
-        uses: actions/cache/save@v3
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
+      # - name: Save tool downloads cache
+      #   # Only restore cache if using latest version to prevent cache corruption.
+      #   if: ${{ matrix.linter-version }} == "Latest"
+      #   uses: actions/cache/save@v3
+      #   with:
+      #     path: /tmp/plugins_testing_download_cache
+      #     # No need to key on trunk version unless we change how we store downloads.
+      #     key: trunk-${{ runner.os }}

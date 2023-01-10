@@ -36,7 +36,6 @@ const executionEnv = (sandbox: string) => {
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
       `${TEMP_PREFIX}testing_download_cache`
-      // TODO: TYLER REMOVE THIS COMMENT 2
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, "tmp"),
@@ -188,7 +187,7 @@ export class TrunkDriver {
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-    await this.launchDaemonAsync();
+    // await this.launchDaemonAsync();
     this.debug("Launched daemon");
 
     // Enable tested linter if specified
@@ -196,41 +195,54 @@ export class TrunkDriver {
       return;
     }
 
-    try {
-      const version = this.extractLinterVersion();
-      const versionString = version.length > 0 ? `@${version}` : "";
-      const linterVersionString = `${this.linter}${versionString}`;
-      // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
-      this.debug("Enabling %s", linterVersionString);
-      await this.run(`check enable ${linterVersionString} --monitor=false`);
+    // try {
+    const version = await this.extractLinterVersion();
+    this.debug("Parsed print config");
+    const versionString = version.length > 0 ? `@${version}` : "";
+    const linterVersionString = `${this.linter}${versionString}`;
+    // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
+    this.debug("Enabling %s", linterVersionString);
+    await this.run(`check enable ${linterVersionString} --monitor=false`);
 
-      // Retrieve the enabled version
-      const newTrunkContents = fs.readFileSync(
-        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        "utf8"
-      );
-      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n$`;
-      const foundIn = newTrunkContents.match(enabledVersionRegex);
-      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
-        this.enabledVersion = foundIn.groups.version;
-        this.debug("Enabled %s", this.enabledVersion);
-      }
-    } catch (error) {
-      console.warn(`Failed to enable ${this.linter}`, error);
+    // Retrieve the enabled version
+    const newTrunkContents = fs.readFileSync(
+      path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+      "utf8"
+    );
+    const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n$`;
+    const foundIn = newTrunkContents.match(enabledVersionRegex);
+    if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
+      this.enabledVersion = foundIn.groups.version;
+      this.debug("Enabled %s", this.enabledVersion);
     }
+    // } catch (error) {
+    //   console.warn(`Failed to enable ${this.linter}`, error);
+    // }
+
+    this.debug("Running check install");
+    await this.run("install");
+    this.debug("Finished installing");
   }
 
   /**
    * Delete the sandbox testing directory and its contents, as well as removing any trunk information
    * associated with it in order to prune the cache.
    */
-  tearDown() {
+  async tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
     if (this.sandboxPath) {
-      fs.rmSync(this.sandboxPath, { recursive: true });
+      await this.run(
+        "daemon shutdown --log-level=trace --log-file=shutdown.txt",
+        { timeout: 30000 },
+        true
+      ); // TODO: TYLER REMOVE TIMEOUT
+      this.debug("Cleaning... deinit'd %s", this.sandboxPath);
+      // this.daemon?.kill();
+      // this.debug("Cleaning... kill'd %s", this.sandboxPath);
+      // fs.rmSync(this.sandboxPath, { recursive: true });
     }
+    this.debug("Done cleaning up %s", this.sandboxPath);
   }
 
   /**** Repository file manipulation ****/
@@ -315,17 +327,16 @@ export class TrunkDriver {
   /**
    * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
    */
-  getFullTrunkConfig = (): any => {
-    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
-      cwd: this.sandboxPath,
-    });
-    return YAML.parse(printConfig.toString());
+  getFullTrunkConfig = async (): Promise<any> => {
+    this.debug("Getting full trunk config");
+    const printConfig = await this.run("config print --log-file=print.txt", {}, true); // TODO: TYLER SPECIFY LOG FILE
+    return YAML.parse(printConfig.stdout.toString());
   };
 
   /**
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
    */
-  extractLinterVersion = (): string => {
+  extractLinterVersion = async (): Promise<string> => {
     if (this.toEnableVersion) {
       return this.toEnableVersion;
     } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
@@ -333,10 +344,10 @@ export class TrunkDriver {
     } else if (ARGS.linterVersion === "KnownGoodVersion") {
       // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      const config = await this.getFullTrunkConfig();
       return (
-        (this.getFullTrunkConfig().lint.definitions.find(
-          ({ name }: { name: string }) => name === this.linter
-        )?.known_good_version as string) ?? ""
+        (config.lint.definitions.find(({ name }: { name: string }) => name === this.linter)
+          ?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     } else if (ARGS.linterVersion !== "Snapshots") {
@@ -372,13 +383,29 @@ export class TrunkDriver {
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-  async run(args: string, execOptions?: ExecOptions) {
+  async run(args: string, execOptions?: ExecOptions, debug = true) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.split(" ").filter(Boolean), {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.sandboxPath ?? ""),
-      ...execOptions,
-    });
+    if (debug) {
+      return await execFilePromise(
+        trunkPath,
+        args.split(" ").concat(["--debug", "--log-level=trace"]).filter(Boolean),
+        {
+          cwd: this.sandboxPath,
+          env: executionEnv(this.sandboxPath ?? ""),
+          ...execOptions,
+        }
+      );
+    } else {
+      return await execFilePromise(
+        trunkPath,
+        args.split(" ").concat(["--log-level=trace"]).filter(Boolean),
+        {
+          cwd: this.sandboxPath,
+          env: executionEnv(this.getSandbox()),
+          ...execOptions,
+        }
+      );
+    }
   }
 
   /**

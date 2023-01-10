@@ -38,6 +38,16 @@ cli:
   version: ${getTrunkVersion()}
 plugins:
   sources:
-  - id: trunk
-    local: ${REPO_ROOT}
+    - id: trunk
+      local: ${REPO_ROOT}
+actions:
+  disabled:
+    - trunk-announce
+    - trunk-check-pre-push
+    - trunk-cache-prune
+    - trunk-upgrade-available
+    - trunk-fmt-pre-commit
+    - trunk-share-with-everyone
+    - trunk-single-player-auto-upgrade
+    - trunk-single-player-auto-on-upgrade
   `;

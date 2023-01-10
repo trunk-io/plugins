@@ -74,8 +74,8 @@ export const setupDriver = (
     }
   });
 
-  afterEach(() => {
-    driver.tearDown();
+  afterEach(async () => {
+    await driver.tearDown();
   });
   return driver;
 };
