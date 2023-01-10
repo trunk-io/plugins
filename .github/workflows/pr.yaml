@@ -31,14 +31,14 @@ jobs:
     timeout-minutes: 25
     strategy:
       matrix:
-        linter-version: [KnownGoodVersion, KnownGoodVersion, KnownGoodVersion]
+        linter-version: [KnownGoodVersion, Latest]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Cache tool downloads
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -55,3 +55,12 @@ jobs:
       - name: Run plugin tests
         run: |
           PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci
+
+      - name: Save tool downloads cache
+        # Only restore cache if using latest version to prevent cache corruption.
+        if: ${{ matrix.linter-version }} == "Latest"
+        uses: actions/cache/save@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}

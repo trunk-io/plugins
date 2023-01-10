@@ -35,11 +35,10 @@ const executionEnv = (sandbox: string) => {
     // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
-      `${TEMP_PREFIX}testing_download_cache_10`
+      `${TEMP_PREFIX}testing_download_cache`
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, "tmp"),
-    // Useless comment 9
   };
 };
 
@@ -188,7 +187,7 @@ export class TrunkDriver {
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-    // await this.launchDaemonAsync();
+    await this.launchDaemonAsync();
     this.debug("Launched daemon");
 
     // Enable tested linter if specified
@@ -374,7 +373,7 @@ export class TrunkDriver {
    */
   async run(args: string, execOptions?: ExecOptions) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.split(" ").concat(["--debug"]).filter(Boolean), {
+    return await execFilePromise(trunkPath, args.split(" ").filter(Boolean), {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
