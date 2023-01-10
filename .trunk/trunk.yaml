@@ -16,7 +16,15 @@ runtimes:
     - python@3.10.3
 
 lint:
+  definitions:
+    - name: phpcs-fake
+      files: [ALL]
+      commands:
+        - output: sarif
+          success_codes: [0, 1]
+          run: ${workspace}/phpcs-fake.sh ${target}
   enabled:
+    - phpcs-fake
     - actionlint@1.6.22
     - black@22.12.0
     - eslint@8.31.0
