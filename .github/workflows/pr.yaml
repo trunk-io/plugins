@@ -28,7 +28,7 @@ jobs:
   plugins_test:
     name: Plugin Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     strategy:
       matrix:
         linter-version: [Latest]
