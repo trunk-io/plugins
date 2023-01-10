@@ -35,7 +35,7 @@ const executionEnv = (sandbox: string) => {
     // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
-      `${TEMP_PREFIX}testing_download_cache_${ARGS.linterVersion}`
+      `${TEMP_PREFIX}testing_download_cache_10`
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, "tmp"),
