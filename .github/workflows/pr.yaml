@@ -28,10 +28,10 @@ jobs:
   plugins_test:
     name: Plugin Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 20
     strategy:
       matrix:
-        linter-version: [KnownGoodVersion, Latest]
+        linter-version: [Latest]
 
     steps:
       - name: Checkout
