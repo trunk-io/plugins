@@ -14,11 +14,11 @@ Please create a directory structure in your linter/formatter definition analogou
 linters/
 └─my-linter/
   │ plugin.yaml
-  │ my_linter_test.ts
+  │ my_linter.test.ts
   │ readme.md (optional)
   │ my-config.json (optional)
   └─test_data/
-    │ basic.in.py
+    └─basic.in.py
 ```
 
 - Specify a `readme.md` if your linter integration requires additional explanation or configuration.
@@ -116,7 +116,7 @@ Additional configuration can be passed by prepending `npm test` with environment
 include:
 
 - `PLUGINS_TEST_CLI_VERSION` replaces the repo-wide trunk.yaml's specified cli-version
-- `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk binary
+- `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk launcher
 - `PLUGINS_TEST_LINTER_VERSION` specifies a linter version semantic (KnownGoodVersion | Latest |
   Snapshots | version). Latest is the default.
 - `PLUGINS_TEST_UPDATE_SNAPSHOTS` if "true" tells tests to use an exact match of the linter version
@@ -138,7 +138,7 @@ PRs will run 4 types of tests:
 
 ### Debugging
 
-Occasionally, tests may take a while to run due to installing of linter dependencies. Subsequent
+Occasionally, tests may take a while to run due to installation of linter dependencies. Subsequent
 runs will not experience this problem.
 
 Errors encountered during test runs are reported through the standard `console`, but additional
