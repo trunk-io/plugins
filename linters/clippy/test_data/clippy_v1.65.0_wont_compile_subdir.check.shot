@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter clippy test wont_compile_subdir 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [],
+  "taskFailures": Array [
+    Object {
+      "message": "test_data/wont_compile_subdir",
+      "name": "clippy",
+    },
+  ],
+  "unformattedFiles": Array [],
+}
+`;

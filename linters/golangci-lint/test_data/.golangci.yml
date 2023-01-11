@@ -1,0 +1,36 @@
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+linters:
+  enable:
+    - govet
+    - asciicheck
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - errcheck
+    - exportloopref
+    - gochecknoinits
+    - godot
+    - gofmt
+    - goheader
+    - goimports
+    - goprintffuncname
+    - gosimple
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - nakedret
+    - nolintlint
+    - rowserrcheck
+    - scopelint
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unused
+    - varcheck
+    - whitespace

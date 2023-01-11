@@ -1,6 +1,11 @@
-import { linterCheckTest } from "tests";
+import path from "path";
+import { customLinterCheckTest } from "tests";
+import { TEST_DATA } from "tests/utils";
 
-// TODO(Tyler): As mentioned in the plugin.yaml, svgo could be a formatter, but is not classified as such.
-// Thus, the diagnostic in the test just lists it as unformatted. We should add a `check -y` option to the test
-// for better coverage.
-linterCheckTest({ linterName: "svgo" });
+// As mentioned in the plugin.yaml, svgo could be a formatter, but is not classified as such.
+// Thus, rather than having just a diagnostic telling us the file is unformatted, we run with `check -y` to assert its formats.
+customLinterCheckTest({
+  linterName: "svgo",
+  args: "-y",
+  pathsToSnapshot: [path.join(TEST_DATA, "basic.svg")],
+});

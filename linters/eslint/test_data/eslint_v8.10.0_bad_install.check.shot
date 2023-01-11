@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter eslint test bad_install 1`] = `
+Object {
+  "issues": Array [],
+  "lintActions": Array [],
+  "taskFailures": Array [
+    Object {
+      "message": "test_data/eof_autofix.ts... (4 files)",
+      "name": "eslint",
+    },
+    Object {
+      "message": "test_data/eof_autofix.ts... (4 files)",
+      "name": "eslint",
+    },
+  ],
+  "unformattedFiles": Array [],
+}
+`;

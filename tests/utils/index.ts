@@ -65,7 +65,7 @@ export const getSnapshotName = (
   checkType: CheckType,
   linterVersion?: string
 ) => {
-  const normalizedName = linterName.replace("-", "_");
+  const normalizedName = linterName.replace(/-/g, "_");
   if (!linterVersion) {
     return `${normalizedName}_${prefix}.${checkType}.shot`;
   }
@@ -77,9 +77,20 @@ export const getSnapshotName = (
  * @param linterName the name of the linter being tested. Does not include subcommand
  * @param prefix the prefix of the named file tested against
  * @param checkType "check" or "fmt"
+ * @param custom whether or not this is invoked from a customLinterCheckTest/customFmtCheckTest
  */
-export const getSnapshotRegex = (linterName: string, prefix: string, checkType: CheckType) =>
-  `${linterName.replace("-", "_")}_v(?<version>[^_]+)_${prefix}.${checkType}.shot`;
+export const getSnapshotRegex = (
+  linterName: string,
+  prefix: string,
+  checkType: CheckType,
+  custom: boolean
+) => {
+  if (checkType == "fmt" && custom) {
+    // For custom fmt tests, there is no central prefixed snapshot, only specific files.
+    return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?(?<file>.+).${checkType}.shot`;
+  }
+  return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
+};
 
 /**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
@@ -96,7 +107,8 @@ export const getSnapshotPathForAssert = (
   linterName: string,
   prefix: string,
   checkType: CheckType,
-  linterVersion?: string
+  linterVersion?: string,
+  custom = false
 ): string => {
   const specificVersionSnapshotName = path.resolve(
     snapshotDirPath,
@@ -115,11 +127,10 @@ export const getSnapshotPathForAssert = (
   }
 
   // Otherwise, find the most recent matching snapshot.
-  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType);
+  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType, custom);
   const availableSnapshots = fs
     .readdirSync(snapshotDirPath)
     .filter((name) => name.match(snapshotFileRegex))
-    .sort()
     .reverse();
 
   // No snapshots exist.
@@ -127,16 +138,26 @@ export const getSnapshotPathForAssert = (
     return specificVersionSnapshotName;
   }
 
-  // Newest are checked first. Find the closest version such that version <= linterVersion
+  // Find the closest version such that version <= linterVersion
+  let closestMatch;
+  let closestMatchPath;
   for (const snapshotName of availableSnapshots) {
     const match = snapshotName.match(snapshotFileRegex);
     if (match && match.groups) {
       const snapshotVersion = match.groups.version;
-      if (semver.gte(linterVersion, snapshotVersion)) {
-        return path.resolve(snapshotDirPath, snapshotName);
+      if (
+        semver.gte(linterVersion, snapshotVersion) &&
+        (!closestMatch || semver.gt(snapshotVersion, closestMatch))
+      ) {
+        closestMatch = snapshotVersion;
+        closestMatchPath = path.resolve(snapshotDirPath, snapshotName);
       }
     }
   }
+  if (closestMatchPath) {
+    return closestMatchPath;
+  }
+
   return specificVersionSnapshotName;
 };
 
@@ -144,27 +165,35 @@ export const getVersionsForTest = (
   dirname: string,
   linterName: string,
   prefix: string,
-  checkType: CheckType
+  checkType: CheckType,
+  custom = false
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
-  if (ARGS.linterVersion !== "Snapshots") {
-    return [undefined];
-  }
+  let matchExists = false;
 
   const versionsList = fs
     .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
-      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType));
+      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType, custom));
       if (fileMatch) {
+        matchExists = true;
         return fileMatch.groups?.version;
       }
     })
     .filter(Boolean)
     .sort();
 
-  if (versionsList.length === 0) {
-    return [undefined];
+  // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
+  if (!matchExists) {
+    console.log(
+      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
+    );
+    return ["KnownGoodVersion"];
   }
 
-  return versionsList;
+  if (ARGS.linterVersion === "Snapshots") {
+    return versionsList;
+  }
+
+  return [undefined];
 };
