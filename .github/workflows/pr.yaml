@@ -28,7 +28,7 @@ jobs:
   plugins_test:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
