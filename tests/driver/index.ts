@@ -12,7 +12,7 @@ import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS } from "tests/utils";
+import { ARGS, REPO_ROOT } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
@@ -22,18 +22,23 @@ const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
 const MAX_DAEMON_RETRIES = 5;
+const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
+Please call this method after setup has been called.`;
 let testNum = 1;
 const linterTests = new Map<string, number>();
 
-const executionEnv = () => {
+const executionEnv = (sandbox: string) => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
   const { PWD, INIT_CWD, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
+    // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
       `${TEMP_PREFIX}testing_download_cache`
     ),
+    // This is necessary to prevent launcher collision of non-atomic operations
+    TMPDIR: path.resolve(sandbox, "tmp"),
   };
 };
 
@@ -136,58 +141,7 @@ export class TrunkDriver {
     this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
 
-  /**
-   * Convert a TrunkRunResult into a full TestResult.
-   */
-  parseRunResult(
-    trunkRunResult: TrunkRunResult,
-    trunkVerb: TrunkVerb,
-    targetAbsPath?: string
-  ): TestResult {
-    return {
-      success: [0, 1].includes(trunkRunResult.exitCode),
-      trunkRunResult,
-      trunkVerb,
-      targetPath: targetAbsPath,
-      landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
-      cliVersion: getTrunkVersion(),
-      linterVersion: this.enabledVersion,
-    };
-  }
-
-  /**
-   * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
-   */
-  getFullTrunkConfig = (): any => {
-    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
-      cwd: this.sandboxPath,
-    });
-    return YAML.parse(printConfig.toString());
-  };
-
-  /**
-   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
-   */
-  extractLinterVersion = (): string => {
-    if (this.toEnableVersion) {
-      return this.toEnableVersion;
-    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
-      return "";
-    } else if (ARGS.linterVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-      return (
-        (this.getFullTrunkConfig().lint.definitions.find(
-          ({ name }: { name: string }) => name === this.linter
-        )?.known_good_version as string) ?? ""
-      );
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else if (ARGS.linterVersion !== "Snapshots") {
-      return ARGS.linterVersion;
-    } else {
-      return "";
-    }
-  };
+  /**** Test setup/teardown methods ****/
 
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
@@ -202,8 +156,9 @@ export class TrunkDriver {
     if (!this.sandboxPath) {
       return;
     }
-    // Create repo
-    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true });
+    // Create repo. Don't copy snapshot files
+    const snapshotFilter = (file: string) => !file.endsWith(".shot");
+    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true, filter: snapshotFilter });
 
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
@@ -277,6 +232,140 @@ export class TrunkDriver {
     }
   }
 
+  /**** Repository file manipulation ****/
+
+  /**
+   * Returns the generated sandboxPath for this test. Throws if setup has not yet been called.
+   */
+  getSandbox(): string {
+    if (!this.sandboxPath) {
+      throw new Error(UNINITIALIZED_ERROR);
+    }
+    return this.sandboxPath;
+  }
+
+  /**
+   * Reads the contents of the file at `relPath`, relative to the sandbox root.
+   */
+  readFile(relPath: string): string {
+    const sandboxPath = this.getSandbox();
+    const targetPath = path.resolve(sandboxPath, relPath);
+    return fs.readFileSync(targetPath, "utf8");
+  }
+
+  /**
+   * Writes `contents` to a file with at the `relPath`, relative to the sandbox root.
+   * Recursively create its parent directory if it does not exist.
+   */
+  writeFile(relPath: string, contents: string) {
+    const sandboxPath = this.getSandbox();
+    const destPath = path.resolve(sandboxPath, relPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.writeFileSync(destPath, contents);
+  }
+
+  /**
+   * Copies a file at the `relPath` inside the repository root to the same relative path in the sandbox root.
+   * Recursively creates its parent directory if it does not exist.
+   */
+  copyFileFromRoot(relPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(REPO_ROOT, relPath);
+    const destPath = path.resolve(sandboxPath, relPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.copyFileSync(sourcePath, destPath);
+  }
+
+  /**
+   * Moves/renames a file at from the `sourceRelPath` inside the sandbox to the `destRelPath`.
+   * Recursively creates the destination's parent directory if it does not exist.
+   */
+  moveFile(sourceRelPath: string, destRelPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(sandboxPath, sourceRelPath);
+    const destPath = path.resolve(sandboxPath, destRelPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.renameSync(sourcePath, destPath);
+  }
+
+  /**
+   * Deletes a file at the `relPath` inside the sandbox root.
+   */
+  deleteFile(relPath: string) {
+    const sandboxPath = this.getSandbox();
+    const targetPath = path.resolve(sandboxPath, relPath);
+    fs.rmSync(targetPath);
+  }
+
+  /**** Trunk config methods ****/
+
+  /**
+   * Return the yaml result of parsing the sandbox's .trunk/trunk.yaml file.
+   */
+  getTrunkConfig = (): any => {
+    if (this.sandboxPath) {
+      return getTrunkConfig(this.sandboxPath);
+    }
+  };
+
+  /**
+   * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
+   */
+  getFullTrunkConfig = (): any => {
+    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
+      cwd: this.sandboxPath,
+    });
+    return YAML.parse(printConfig.toString());
+  };
+
+  /**
+   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
+   */
+  extractLinterVersion = (): string => {
+    if (this.toEnableVersion) {
+      return this.toEnableVersion;
+    } else if (!ARGS.linterVersion || ARGS.linterVersion === "Latest") {
+      return "";
+    } else if (ARGS.linterVersion === "KnownGoodVersion") {
+      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      return (
+        (this.getFullTrunkConfig().lint.definitions.find(
+          ({ name }: { name: string }) => name === this.linter
+        )?.known_good_version as string) ?? ""
+      );
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    } else if (ARGS.linterVersion !== "Snapshots") {
+      return ARGS.linterVersion;
+    } else {
+      return "";
+    }
+  };
+
+  /**** Execution methods ****/
+
+  /**
+   * Convert a TrunkRunResult into a full TestResult.
+   */
+  parseRunResult(
+    trunkRunResult: TrunkRunResult,
+    trunkVerb: TrunkVerb,
+    targetAbsPath?: string
+  ): TestResult {
+    return {
+      success: [0, 1].includes(trunkRunResult.exitCode),
+      trunkRunResult,
+      trunkVerb,
+      targetPath: targetAbsPath,
+      landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
+      cliVersion: getTrunkVersion(),
+      linterVersion: this.enabledVersion,
+    };
+  }
+
   /**
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
@@ -284,9 +373,9 @@ export class TrunkDriver {
    */
   async run(args: string, execOptions?: ExecOptions) {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.split(" "), {
+    return await execFilePromise(trunkPath, args.split(" ").filter(Boolean), {
       cwd: this.sandboxPath,
-      env: executionEnv(),
+      env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
     });
   }
@@ -300,7 +389,7 @@ export class TrunkDriver {
     const daemonArgs = ["daemon", "launch", "--monitor=false"];
     this.daemon = execFile(trunkCommand, daemonArgs, {
       cwd: this.sandboxPath,
-      env: executionEnv(),
+      env: executionEnv(this.sandboxPath ?? ""),
     });
 
     // Verify the daemon has finished launching
@@ -316,21 +405,26 @@ export class TrunkDriver {
 
   /**
    * Run a `trunk check` command with additional options.
-   * Prefer using runCheckUnit unless you don't want to run on a specified target.
+   * Prefer using `runCheckUnit` unless you don't want to run on a specified target.
    * @param args arguments to append in addition to the boilerplate args/options
-   * @param targetAbsPath optional absolute path to a target to run check against
+   * @param linter optional linter to filter run
+   * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
    * @param resultJsonPath where to write the JSON result to
    */
   async runCheck({
     args = "",
+    linter,
     targetAbsPath,
     resultJsonPath = path.resolve(this.sandboxPath ?? "", "result.json"),
   }: {
     args?: string;
+    linter?: string;
     targetAbsPath?: string;
     resultJsonPath?: string;
   }) {
-    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${args}`;
+    // Note that args "prefer last", so specifying options like `-y` are still viable.
+    const linterFilter = linter ? `--filter=${linter}` : "";
+    const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${linterFilter} ${args}`;
     try {
       const { stdout, stderr } = await this.run(fullArgs);
       return this.parseRunResult(
@@ -377,21 +471,33 @@ export class TrunkDriver {
     const resultJsonPath = `${targetAbsPath}.json`;
     const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
-    return await this.runCheck({ args, targetAbsPath, resultJsonPath });
+    return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }
 
   /**
-   * Run `trunk fmt` on a specified target `targetRelativePath` with a `linter` filter.
+   * Run a `trunk fmt` command with additional options.
+   * Prefer using `runFmtUnit` unless you don't want to run on a specified target.
+   * @param args arguments to append in addition to the boilerplate args/options
+   * @param linter optional linter to filter run
+   * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
+   * @param resultJsonPath where to write the JSON result to
    */
-  async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
-    const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
-    const resultJsonPath = `${targetAbsPath}.json`;
-
-    const args = `fmt --output-file=${resultJsonPath} --no-progress --ignore-git-state --filter=${linter} ${targetAbsPath}`;
+  async runFmt({
+    args = "",
+    linter,
+    targetAbsPath,
+    resultJsonPath = path.resolve(this.sandboxPath ?? "", "result.json"),
+  }: {
+    args?: string;
+    linter?: string;
+    targetAbsPath?: string;
+    resultJsonPath?: string;
+  }) {
+    const linterFilter = linter ? `--filter=${linter}` : "";
+    const fullArgs = `fmt --output-file=${resultJsonPath} --no-progress --ignore-git-state ${linterFilter} ${args}`;
 
     try {
-      this.debug("Running `trunk fmt` on %s", targetRelativePath);
-      const { stdout, stderr } = await this.run(args);
+      const { stdout, stderr } = await this.run(fullArgs);
       return this.parseRunResult(
         {
           exitCode: 0,
@@ -427,9 +533,15 @@ export class TrunkDriver {
     }
   }
 
-  getTrunkConfig = (): any => {
-    if (this.sandboxPath) {
-      return getTrunkConfig(this.sandboxPath);
-    }
-  };
+  /**
+   * Run `trunk fmt` on a specified target `targetRelativePath` with a `linter` filter.
+   * Prefer this to 'runFmt' when possible.
+   */
+  async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
+    const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
+    const resultJsonPath = `${targetAbsPath}.json`;
+    const args = `--upstream=false ${targetAbsPath}`;
+    this.debug("Running `trunk fmt` on %s", targetRelativePath);
+    return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
+  }
 }
