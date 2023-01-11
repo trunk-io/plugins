@@ -5,8 +5,9 @@ lint:
     - name: svgo
       files: [svg]
       commands:
-        - name: lint
+        - name: fmt
           output: rewrite
+          formatter: true
           run: svgo --multipass ${target}
           success_codes: [0]
           batch: true
