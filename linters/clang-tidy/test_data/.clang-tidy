@@ -1,0 +1,182 @@
+### Enable all checks
+# *,                                                          # Enable all checks
+
+### Disable inapplicable platforms
+# -altera-*,                                                  # We're not programming for the altera fpga
+# -fuchsia-*,                                                 # We're not programming for fuchsia OS
+# -llvmlibc-*,                                                # We're not programming libc
+# -zircon-*,                                                  # We're not programming for the zircon kernel
+
+### Disable slow checks
+# -bugprone-lambda-function-name,                             # It's slow
+# -bugprone-reserved-identifier,                              # It's slow
+# -misc-no-recursion,                                         # It's slow
+# -misc-confusable-identifiers,                               # Measured this to take 616 seconds
+# -performance-unnecessary-value-param,                       # It's slow
+# -readability-use-anyofallof,                                # It's slow
+
+### Disabled because using common dependencies violate them
+# -cert-err58-cpp,                                            # GoogleTest violates this in macros
+# -clang-diagnostic-macro-redefined,                          # Produced by building w/ -U_FORTIFY_SOURCE
+# -cppcoreguidelines-avoid-goto,                              # GoogleTest violates this in macros
+# -cppcoreguidelines-avoid-non-const-global-variables,        # GoogleTest violates this in macros
+# -cppcoreguidelines-pro-bounds-array-to-pointer-decay,       # The assert macro does this internally
+
+### Disabled for style reasons
+# -llvm-namespace-comment,                                    # Clang-format handles this
+# -llvm-header-guard,                                         # We use #pragma once
+# -llvm-include-order,                                        # Disagrees with clang-format
+# -modernize-use-trailing-return-type,                        # Unusual style
+# -modernize-use-nodiscard,                                   # This is extremely verbose for little benefit
+
+### Disabled because of false positives or broken autofixes
+# -bugprone-implicit-widening-of-multiplication-result,       # Produces bad autofixes
+# -clang-analyzer-*,                                          # False positives
+# -modernize-return-braced-init-list,                         # Produces bad autofixes
+
+### Disabled because they're overly restrictive
+# -bugprone-assignment-in-if-condition,                       # Overly restrictive
+# -bugprone-easily-swappable-parameters,                      # Overly restrictive
+# -bugprone-exception-escape,                                 # Overly restrictive
+# -concurrency-mt-unsafe,                                     # Overly strict, doesn't allow things like getenv
+# -cppcoreguidelines-owning-memory,                           # We aren't using gsl types to communicate ownership
+# -cppcoreguidelines-pro-bounds-constant-array-index,         # We don't use gsl
+# -cppcoreguidelines-pro-bounds-pointer-arithmetic,           # Overly restrictive
+# -hicpp-*,                                                   # Outdated, mostly aliases anyway
+# -readability-magic-numbers,                                 # Makes it difficult to write unit tests
+# -readability-identifier-length,                             # Disallows things like loop variables named 'i'
+
+### Disable alias rules; Running the same checks multiple times is slow and gives dupe results
+### https://clang.llvm.org/extra/clang-tidy/checks/list.html#id119
+# -cert-con36-c,                                              # Alias of bugprone-spuriously-wake-up-functions
+# -cert-con54-cpp,                                            # Alias of bugprone-spuriously-wake-up-functions
+# -cert-dcl03-c,                                              # Alias of misc-static-assert
+# -cert-dcl16-c,                                              # Alias of readability-uppercase-literal-suffix
+# -cert-dcl37-c,                                              # Alias of bugprone-reserved-identifier
+# -cert-dcl51-cpp,                                            # Alias of bugprone-reserved-identifier
+# -cert-dcl54-cpp,                                            # Alias of misc-new-delete-overloads
+# -cert-dcl59-cpp,                                            # Alias of google-build-namespaces
+# -cert-err09-cpp,                                            # Alias of misc-throw-by-value-catch-by-reference
+# -cert-err61-cpp,                                            # Alias of misc-throw-by-value-catch-by-reference
+# -cert-fio38-c,                                              # Alias of misc-non-copyable-objects
+# -cert-msc30-c,                                              # Alias of cert-msc50-cpp
+# -cert-msc32-c,                                              # Alias of cert-msc51-cpp
+# -cert-oop11-cpp,                                            # Alias of performance-move-constructor-init
+# -cert-oop54-cpp,                                            # Alias of bugprone-unhandled-self-assignment
+# -cert-pos44-c,                                              # Alias of bugprone-bad-signal-to-kill-thread
+# -cert-pos47-c,                                              # Alias of concurrency-thread-canceltype-asynchronous
+# -cert-sig30-c,                                              # Alias of bugprone-signal-handler
+# -cert-str34-c,                                              # Alias of bugprone-signed-char-misuse
+# -cppcoreguidelines-avoid-c-arrays,                          # Alias of modernize-avoid-c-arrays
+# -cppcoreguidelines-avoid-magic-numbers,                     # Alias of readability-magic-numbers
+# -cppcoreguidelines-c-copy-assignment-signature,             # Alias of misc-unconventional-assign-operator
+# -cppcoreguidelines-explicit-virtual-functions,              # Alias of modernize-use-override
+# -cppcoreguidelines-non-private-member-variables-in-classes, # Alias of misc-non-private-member-variables-in-classes
+# -google-readability-braces-around-statements,               # Alias of readability-braces-around-statements
+# -google-readability-function-size,                          # Alias of readability-function-size
+# -google-readability-namespace-comments,                     # Alias of llvm-namespace-comment
+# -llvm-else-after-return,                                    # Alias of readability-else-after-return
+# -llvm-qualified-auto,                                       # Alias of readability-qualified-auto
+# -clang-diagnostic-unused-parameter                          # Alias of misc-unused-parameters
+
+Checks: >-
+  *,
+  -altera-*,
+  -fuchsia-*,
+  -llvmlibc-*,
+  -zircon-*,
+  -bugprone-lambda-function-name,
+  -bugprone-reserved-identifier,
+  -misc-no-recursion,
+  -misc-confusable-identifiers,
+  -performance-unnecessary-value-param,
+  -readability-use-anyofallof,
+  -cert-err58-cpp,
+  -clang-diagnostic-macro-redefined,
+  -cppcoreguidelines-avoid-goto,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -llvm-namespace-comment,
+  -llvm-header-guard,
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard,
+  -bugprone-implicit-widening-of-multiplication-result,
+  -clang-analyzer-*,
+  -modernize-return-braced-init-list,
+  -bugprone-assignment-in-if-condition,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-exception-escape,
+  -concurrency-mt-unsafe,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -hicpp-*,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -cert-con36-c,
+  -cert-con54-cpp,
+  -cert-dcl03-c,
+  -cert-dcl16-c,
+  -cert-dcl37-c,
+  -cert-dcl51-cpp,
+  -cert-dcl54-cpp,
+  -cert-dcl59-cpp,
+  -cert-err09-cpp,
+  -cert-err61-cpp,
+  -cert-fio38-c,
+  -cert-msc30-c,
+  -cert-msc32-c,
+  -cert-oop11-cpp,
+  -cert-oop54-cpp,
+  -cert-pos44-c,
+  -cert-pos47-c,
+  -cert-sig30-c,
+  -cert-str34-c,
+  -cppcoreguidelines-avoid-c-arrays,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-c-copy-assignment-signature,
+  -cppcoreguidelines-explicit-virtual-functions,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -google-readability-braces-around-statements,
+  -google-readability-function-size,
+  -google-readability-namespace-comments,
+  -llvm-else-after-return,
+  -llvm-include-order,
+  -llvm-qualified-auto,
+  -clang-diagnostic-unused-parameter,
+
+CheckOptions:
+  - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value: true
+  - key: readability-function-cognitive-complexity.Threshold
+    value: 120
+  - key: readability-function-cognitive-complexity.IgnoreMacros
+    value: true
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstexprVariablePrefix
+    value: k
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumConstantPrefix
+    value: k
+  - key: readability-identifier-naming.FunctionCase
+    value: CamelCase
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: CamelCase
+  - key: readability-identifier-naming.GlobalVariablePrefix
+    value: g
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: _
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: misc-unused-parameters.StrictMode
+    value: true
+
+HeaderFilterRegex: \./.+
