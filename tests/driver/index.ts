@@ -180,7 +180,6 @@ export class TrunkDriver {
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
-    // (Run this regardless of setup requirements. Trunk should be in the path)
     await this.run("--help");
 
     // Launch daemon if specified

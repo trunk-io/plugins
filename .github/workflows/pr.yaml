@@ -27,11 +27,12 @@ jobs:
 
   plugins_test:
     name: Plugin Tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, macos-latest]
         linter-version: [KnownGoodVersion, Latest]
 
     steps:
