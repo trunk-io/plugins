@@ -3,35 +3,13 @@ on:
   schedule:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
-  pull_request: {}
+  pull_request:
+    paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
 jobs:
-  check_nightly:
-    name: Should Run Nightly
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    outputs:
-      run-nightly: ${{ steps.changes.outputs.nightly }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Filter changed nightly.yaml
-        uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            nightly:
-              - '.github/workflows/nightly.yaml'
-
   plugins_test:
     name: Nightly Plugin Tests
-    needs: check_nightly
-    # Only run if triggered from PR and this file was modified OR triggered from workflow_dispatch or nightly
-    if:
-      ${{ needs.check_nightly.outputs.run-nightly }} == 'true' || $GITHUB_EVENT_NAME !=
-      "pull_request"
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
