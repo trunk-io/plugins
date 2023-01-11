@@ -62,16 +62,16 @@ of how trunk invokes linters, proceed with the following:
 2. Inside this new directory, create the following structure. If you have run `trunk check` in this
    repository recently, some of these files will be automatically created for you:
 
-```text
-linters/
-└─my-linter/
-  │ plugin.yaml
-  │ my_linter.test.ts
-  │ readme.md (optional)
-  │ my-config.json (optional)
-  └─test_data/
-    └─basic.in.py (with appropriate extension)
-```
+   ```text
+   linters/
+   └─my-linter/
+   │ plugin.yaml
+   │ my_linter.test.ts
+   │ readme.md (optional)
+   │ my-config.json (optional)
+   └─test_data/
+      └─basic.in.py (with appropriate extension)
+   ```
 
 3. Modify plugin.yaml to define your new linter. Refer to the other definitions in this repository
    as examples.
@@ -96,12 +96,12 @@ actions, proceed with the following:
 1. Create a directory inside `actions/` with the name of your new action.
 2. Inside this new directory, create the following structure:
 
-```text
-actions/
-└─my-action/
-  │ plugin.yaml
-  └─readme.md
-```
+   ```text
+   actions/
+   └─my-action/
+   │ plugin.yaml
+   └─readme.md
+   ```
 
 3. Modify plugin.yaml to define your new action. Refer to the other definitions in this repository
    as examples.
