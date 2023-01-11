@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter stringslint test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "stringslint",
+      "code": "missing_comment",
+      "column": "1",
+      "file": "test_data/Localizable.strings",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "stringslint",
+      "message": "MissingComment Violation: Comment for Localized string \\"abc\\" is missing",
+      "targetType": "strings",
+    },
+    Object {
+      "bucket": "stringslint",
+      "code": "unused",
+      "column": "1",
+      "file": "test_data/Localizable.strings",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "stringslint",
+      "message": "Unused Violation: Localized string \\"abc\\" is unused",
+      "targetType": "strings",
+    },
+    Object {
+      "bucket": "stringslint",
+      "code": "missing",
+      "column": "1",
+      "file": "test_data/basic.in.swift",
+      "level": "LEVEL_MEDIUM",
+      "line": "3",
+      "linter": "stringslint",
+      "message": "Missing Violation: Localized string \\"test\\" is missing",
+      "targetType": "swift",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "strings",
+      "linter": "stringslint",
+      "paths": Array [
+        "test_data/Localizable.strings",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "stringslint",
+      "paths": Array [
+        "test_data/basic.in.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
