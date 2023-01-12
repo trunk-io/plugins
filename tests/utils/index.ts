@@ -203,4 +203,4 @@ export const getVersionsForTest = (
 export const isValidOS = (excludedOS: string[]) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
-export const osTimeoutMultiplier = process.platform === "darwin" ? 2 : 1;
+export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
