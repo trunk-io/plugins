@@ -191,7 +191,8 @@ export const getVersionsForTest = (
     return ["KnownGoodVersion"];
   }
 
-  if (ARGS.linterVersion === "Snapshots") {
+  // Versionless linters must return a non-empty array, so check the list's length here.
+  if (ARGS.linterVersion === "Snapshots" && versionsList.length > 0) {
     return versionsList;
   }
 
@@ -201,3 +202,5 @@ export const getVersionsForTest = (
 
 export const isValidOS = (excludedOS: string[]) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
+
+export const osTimeoutMultiplier = process.platform === "darwin" ? 2 : 1;

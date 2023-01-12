@@ -17,6 +17,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         linter-version: [Snapshots, Latest]
+    env:
+      TRIGGER: $GITHUB_EVENT_NAME
 
     steps:
       - name: Checkout
@@ -30,6 +32,8 @@ jobs:
           key: trunk-${{ runner.os }}
 
       - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
         run: |
           if [ -d "/tmp/plugins_testing_download_cache" ]
           then
