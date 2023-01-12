@@ -198,3 +198,6 @@ export const getVersionsForTest = (
   // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string
   return [undefined];
 };
+
+export const isValidOS = (excludedOS: string[]) =>
+  excludedOS.length === 0 || excludedOS.includes(process.platform);
