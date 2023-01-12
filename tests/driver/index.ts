@@ -469,7 +469,7 @@ export class TrunkDriver {
   async runCheckUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
-    const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
+    const args = `--upstream=false ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }

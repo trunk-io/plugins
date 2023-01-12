@@ -29,7 +29,7 @@ Object {
       "bucket": "stringslint",
       "code": "missing",
       "column": "1",
-      "file": "test_data/basic.in.swift",
+      "file": "test_data/basic.swift",
       "level": "LEVEL_MEDIUM",
       "line": "3",
       "linter": "stringslint",
@@ -52,7 +52,7 @@ Object {
       "fileGroupName": "swift",
       "linter": "stringslint",
       "paths": Array [
-        "test_data/basic.in.swift",
+        "test_data/basic.swift",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

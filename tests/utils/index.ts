@@ -184,7 +184,7 @@ export const getVersionsForTest = (
     .sort();
 
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
-  if (!matchExists) {
+  if (!matchExists && !ARGS.linterVersion) {
     console.log(
       `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
     );
@@ -195,5 +195,6 @@ export const getVersionsForTest = (
     return versionsList;
   }
 
+  // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string
   return [undefined];
 };
