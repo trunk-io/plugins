@@ -1,3 +1,4 @@
-import { linterCheckTest } from "tests";
+import { customLinterCheckTest } from "tests";
 
-linterCheckTest({ linterName: "standardrb" });
+// Ruby build is quite slow on Mac, so only run tests on linux for now
+customLinterCheckTest({ linterName: "standardrb", args: "-a", exclusiveOS: ["linux"] });
