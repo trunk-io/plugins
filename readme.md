@@ -46,9 +46,9 @@ make the discovery, management and integration of new tools as straight-forward 
 | Go              | [gofmt], [golangci-lint], [semgrep], [goimports]                                |
 | HAML            | [haml-lint]                                                                     |
 | Java            | [semgrep]                                                                       |
-| Javascript      | [eslint], [prettier], [semgrep]                                                 |
+| Javascript      | [eslint], [prettier], [rome], [semgrep]                                         |
 | JSON            | [eslint], [prettier], [semgrep]                                                 |
-| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>                                 |
+| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                       |
 | Kubernetes      | [kube-linter]                                                                   |
 | Markdown        | [markdownlint]                                                                  |
 | package.json    | [sort-package-json]                                                             |
@@ -62,7 +62,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                           |
 | SVG             | [svgo]                                                                          |
 | Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup> |
-| Typescript      | [eslint], [prettier], [semgrep]                                                 |
+| Typescript      | [eslint], [prettier], [rome], [semgrep]                                         |
 | YAML            | [prettier], [semgrep], [yamllint]                                               |
 
 [actionlint]: https://github.com/rhysd/actionlint#readme
@@ -93,6 +93,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
 [isort]: https://github.com/PyCQA/isort#readme
+[ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
@@ -100,6 +101,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
+[rome]: https://github.com/rome/tools#readme
 [rubocop]: https://github.com/rubocop/rubocop#readme
 [rufo]: https://github.com/ruby-formatter/rufo#readme
 [rustfmt]: https://github.com/rust-lang/rustfmt#readme
