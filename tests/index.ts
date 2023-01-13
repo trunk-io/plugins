@@ -14,11 +14,11 @@ const baseDebug = Debug("Tests");
 const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
 
 const conditionalTest = (
-  exclusiveOS: string[],
+  skipTest: boolean,
   name: string,
   fn?: jest.ProvidesCallback | undefined,
   timeout?: number | undefined
-) => (isValidOS(exclusiveOS) ? it(name, fn, timeout) : it.skip(name, fn, timeout));
+) => (skipTest ? it(name, fn, timeout) : it.skip(name, fn, timeout));
 
 export type TestCallback = (driver: TrunkDriver) => unknown;
 
@@ -111,6 +111,7 @@ export const customLinterCheckTest = ({
   args = "",
   pathsToSnapshot = [],
   exclusiveOS = [],
+  checkLinterVersionForInclusion = (_version: string) => true,
   preCheck,
   postCheck,
 }: {
@@ -120,6 +121,7 @@ export const customLinterCheckTest = ({
   args?: string;
   pathsToSnapshot?: string[];
   exclusiveOS?: string[];
+  checkLinterVersionForInclusion?: (version: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -133,7 +135,10 @@ export const customLinterCheckTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        conditionalTest(exclusiveOS, testName, async () => {
+        const shouldRunTest =
+          isValidOS(exclusiveOS) &&
+          (!linterVersion || checkLinterVersionForInclusion(linterVersion));
+        conditionalTest(shouldRunTest, testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
@@ -201,6 +206,7 @@ export const customLinterFmtTest = ({
   args = "",
   pathsToSnapshot = [],
   exclusiveOS = [],
+  checkLinterVersionForInclusion = (_version: string) => true,
   preCheck,
   postCheck,
 }: {
@@ -210,6 +216,7 @@ export const customLinterFmtTest = ({
   args?: string;
   pathsToSnapshot?: string[];
   exclusiveOS?: string[];
+  checkLinterVersionForInclusion?: (version: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -223,7 +230,10 @@ export const customLinterFmtTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        conditionalTest(exclusiveOS, testName, async () => {
+        const shouldRunTest =
+          isValidOS(exclusiveOS) &&
+          (!linterVersion || checkLinterVersionForInclusion(linterVersion));
+        conditionalTest(shouldRunTest, testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runFmt({ args, linter: linterName });
