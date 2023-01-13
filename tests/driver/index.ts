@@ -186,8 +186,11 @@ export class TrunkDriver {
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-    await this.launchDaemonAsync();
-    this.debug("Launched daemon");
+
+    if (process.platform !== "darwin") {
+      await this.launchDaemonAsync();
+      this.debug("Launched daemon");
+    }
 
     // Enable tested linter if specified
     if (!this.linter) {
