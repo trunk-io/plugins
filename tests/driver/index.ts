@@ -225,7 +225,10 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
+    execFileSync(trunkCommand, ["deinit"], {
+      cwd: this.sandboxPath,
+      env: executionEnv(this.getSandbox()),
+    });
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
