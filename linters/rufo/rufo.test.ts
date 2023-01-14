@@ -1,6 +1,6 @@
 import path from "path";
 import { customLinterCheckTest, customLinterFmtTest } from "tests";
-import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
+import { osTimeoutMultiplier, skipOS, TEST_DATA } from "tests/utils";
 
 // Note that the first-time ruby/rufo download can sometimes take a while.
 // Ruby build is quite slow on Mac, so only run tests on linux for now
@@ -11,12 +11,12 @@ customLinterCheckTest({
   linterName: "rufo",
   testName: "empty",
   args: "-a",
-  exclusiveOS: ["linux"],
+  skipTestIf: skipOS(["linux"]),
 });
 
 customLinterFmtTest({
   linterName: "rufo",
   args: "-a",
   pathsToSnapshot: [path.join(TEST_DATA, "basic.rb")],
-  exclusiveOS: ["linux"],
+  skipTestIf: skipOS(["linux"]),
 });

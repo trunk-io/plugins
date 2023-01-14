@@ -197,10 +197,17 @@ export const getVersionsForTest = (
   }
 
   // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string
+  if (ARGS.linterVersion) {
+    return [ARGS.linterVersion];
+  }
   return [undefined];
 };
 
-export const isValidOS = (excludedOS: string[]) =>
+/**
+ * Helper callback that skips a test if the OS is included in excludedOS.
+ * Intended to be passed to `skipTestIf`.
+ */
+export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
 export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;

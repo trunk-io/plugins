@@ -4,7 +4,7 @@ import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
-import { getSnapshotPathForAssert, getVersionsForTest, isValidOS, TEST_DATA } from "tests/utils";
+import { getSnapshotPathForAssert, getVersionsForTest, TEST_DATA } from "tests/utils";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -100,7 +100,8 @@ export const setupDriver = (
  * @param args args to append to the `trunk check` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
- * @param exclusiveOS if nonempty, and an OS is used that is not in this list, the test is skipped.
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -110,8 +111,7 @@ export const customLinterCheckTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
-  exclusiveOS = [],
-  checkLinterVersionForInclusion = (_version: string) => true,
+  skipTestIf = (_version?: string) => true,
   preCheck,
   postCheck,
 }: {
@@ -120,8 +120,7 @@ export const customLinterCheckTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
-  exclusiveOS?: string[];
-  checkLinterVersionForInclusion?: (version: string) => boolean;
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -135,10 +134,7 @@ export const customLinterCheckTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        const shouldRunTest =
-          isValidOS(exclusiveOS) &&
-          (!linterVersion || checkLinterVersionForInclusion(linterVersion));
-        conditionalTest(shouldRunTest, testName, async () => {
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
@@ -195,7 +191,8 @@ export const customLinterCheckTest = ({
  * @param args args to append to the `trunk fmt` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
- * @param exclusiveOS if nonempty, and an OS is used that is not in this list, the test is skipped.
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -205,8 +202,7 @@ export const customLinterFmtTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
-  exclusiveOS = [],
-  checkLinterVersionForInclusion = (_version: string) => true,
+  skipTestIf = (_version?: string) => true,
   preCheck,
   postCheck,
 }: {
@@ -215,8 +211,7 @@ export const customLinterFmtTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
-  exclusiveOS?: string[];
-  checkLinterVersionForInclusion?: (version: string) => boolean;
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -230,10 +225,7 @@ export const customLinterFmtTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        const shouldRunTest =
-          isValidOS(exclusiveOS) &&
-          (!linterVersion || checkLinterVersionForInclusion(linterVersion));
-        conditionalTest(shouldRunTest, testName, async () => {
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runFmt({ args, linter: linterName });
