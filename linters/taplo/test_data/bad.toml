@@ -1,0 +1,10 @@
+# THIS WILL NOT WORK
+spelling = "favorite"
+"spelling" = "favourite"
+# DO NOT DO THIS EITHER
+
+[fruit]
+apple = "red"
+
+[fruit.apple]
+texture = "smooth"
