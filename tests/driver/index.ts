@@ -198,7 +198,8 @@ export class TrunkDriver {
     }
 
     try {
-      const version = this.extractLinterVersion();
+      // Cast version to string in case of decimal representation (e.g. 0.40)
+      const version = `${this.extractLinterVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
