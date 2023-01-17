@@ -100,6 +100,8 @@ export const setupDriver = (
  * @param args args to append to the `trunk check` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
+ * @param versionGreaterThanOrEqual custom gte comparator for use with non-semver linters.
+ *                                  Custom versions must not include underscores.
  * @param skipTestIf callback to check if test should be skipped or run.
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
@@ -111,6 +113,7 @@ export const customLinterCheckTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
+  versionGreaterThanOrEqual,
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
@@ -120,6 +123,7 @@ export const customLinterCheckTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean;
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
@@ -151,7 +155,8 @@ export const customLinterCheckTest = ({
             testName,
             "check",
             driver.enabledVersion,
-            true
+            true,
+            versionGreaterThanOrEqual
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
           expect(testRunResult.landingState).toMatchSpecificSnapshot(primarySnapshotPath);
@@ -165,7 +170,8 @@ export const customLinterCheckTest = ({
               normalizedName,
               "check",
               driver.enabledVersion,
-              true
+              true,
+              versionGreaterThanOrEqual
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
@@ -191,6 +197,8 @@ export const customLinterCheckTest = ({
  * @param args args to append to the `trunk fmt` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
+ * @param versionGreaterThanOrEqual custom gte comparator for use with non-semver linters.
+ *                                  Custom versions must not include underscores.
  * @param skipTestIf callback to check if test should be skipped or run.
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
@@ -202,6 +210,7 @@ export const customLinterFmtTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
+  versionGreaterThanOrEqual,
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
@@ -211,6 +220,7 @@ export const customLinterFmtTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean;
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
@@ -246,7 +256,8 @@ export const customLinterFmtTest = ({
               normalizedName,
               "fmt",
               driver.enabledVersion,
-              true
+              true,
+              versionGreaterThanOrEqual
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);

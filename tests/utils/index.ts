@@ -100,6 +100,8 @@ export const getSnapshotRegex = (
  * @param prefix prefix of the file being checked
  * @param checkType "check" or "fmt"
  * @param linterVersion version of the linter that was enabled (may be undefined)
+ * @param custom denotes whether this is a custom test, for use with custom fmt test naming
+ * @param versionGreaterThanOrEqual optional comparator for sorting non-semver linter snapshots
  * @returns absolute path to the relevant snapshot file
  */
 export const getSnapshotPathForAssert = (
@@ -108,7 +110,8 @@ export const getSnapshotPathForAssert = (
   prefix: string,
   checkType: CheckType,
   linterVersion?: string,
-  custom = false
+  custom = false,
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean
 ): string => {
   const specificVersionSnapshotName = path.resolve(
     snapshotDirPath,
@@ -145,9 +148,10 @@ export const getSnapshotPathForAssert = (
     const match = snapshotName.match(snapshotFileRegex);
     if (match && match.groups) {
       const snapshotVersion = match.groups.version;
+      const comparator = versionGreaterThanOrEqual ?? semver.gte;
       if (
-        semver.gte(linterVersion, snapshotVersion) &&
-        (!closestMatch || semver.gt(snapshotVersion, closestMatch))
+        comparator(linterVersion, snapshotVersion) &&
+        (!closestMatch || comparator(snapshotVersion, closestMatch))
       ) {
         closestMatch = snapshotVersion;
         closestMatchPath = path.resolve(snapshotDirPath, snapshotName);
