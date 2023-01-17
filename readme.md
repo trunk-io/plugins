@@ -21,7 +21,7 @@
 
 ### Welcome
 
-This repository is the official, managed repository for integration actions and linters into trunk.
+TThis repository is the official, managed repository for integration actions and linters into trunk.
 It is imported by default in all trunk configurations.
 
 By consolidating and sharing integrations for linters/actions into a single repository we hope to
