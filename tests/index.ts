@@ -18,7 +18,7 @@ const conditionalTest = (
   name: string,
   fn?: jest.ProvidesCallback | undefined,
   timeout?: number | undefined
-) => (skipTest ? it(name, fn, timeout) : it.skip(name, fn, timeout));
+) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
 
 export type TestCallback = (driver: TrunkDriver) => unknown;
 
@@ -111,7 +111,7 @@ export const customLinterCheckTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
-  skipTestIf = (_version?: string) => true,
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {
@@ -202,7 +202,7 @@ export const customLinterFmtTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
-  skipTestIf = (_version?: string) => true,
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {

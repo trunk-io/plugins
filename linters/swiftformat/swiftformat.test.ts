@@ -6,5 +6,5 @@ customLinterFmtTest({
   linterName: "swiftformat",
   args: "-a",
   pathsToSnapshot: [path.join(TEST_DATA, "basic.swift")],
-  skipTestIf: skipOS(["darwin"]),
+  skipTestIf: skipOS(["linux"]),
 });

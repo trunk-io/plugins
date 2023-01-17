@@ -11,12 +11,12 @@ customLinterCheckTest({
   linterName: "rufo",
   testName: "empty",
   args: "-a",
-  skipTestIf: skipOS(["linux"]),
+  skipTestIf: skipOS(["darwin"]),
 });
 
 customLinterFmtTest({
   linterName: "rufo",
   args: "-a",
   pathsToSnapshot: [path.join(TEST_DATA, "basic.rb")],
-  skipTestIf: skipOS(["linux"]),
+  skipTestIf: skipOS(["darwin"]),
 });
