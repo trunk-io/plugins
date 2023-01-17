@@ -61,6 +61,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Security        | [nancy], [trivy]                                                                |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                           |
 | SVG             | [svgo]                                                                          |
+| Swift           | [stringslint], [swiftlint], [swiftformat]                                       |
 | Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup> |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                         |
 | YAML            | [prettier], [semgrep], [yamllint]                                               |
@@ -114,8 +115,11 @@ make the discovery, management and integration of new tools as straight-forward 
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff#readme
 [sqlfmt]: https://github.com/tconbeer/sqlfmt#readme
 [standardrb]: https://github.com/testdouble/standard#readme
+[stringslint]: https://github.com/dral3x/StringsLint#readme
 [stylelint]: https://github.com/stylelint/stylelint#readme
 [svgo]: https://github.com/svg/svgo#readme
+[swiftlint]: https://github.com/realm/SwiftLint#readme
+[swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [trivy]: https://github.com/aquasecurity/trivy#readme

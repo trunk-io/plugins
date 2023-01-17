@@ -1,0 +1,37 @@
+version: 0.1
+lint:
+  downloads:
+    - name: swiftlint
+      version: 0.49.1
+      downloads:
+        # macOS only, universal binary supports x86_64 and arm64
+        - os: macos
+          url: https://github.com/realm/SwiftLint/releases/download/${version}/portable_swiftlint.zip
+
+  definitions:
+    - name: swiftlint
+      files:
+        - swift
+      download: swiftlint
+      commands:
+        - name: lint
+          output: regex
+          parse_regex:
+            '(?P<path>.*?):(?P<line>\d+):(?P<col>\d+): (?P<severity>.*?): (?P<message>.*)
+            \((?P<code>.*?)\)'
+          run: swiftlint --quiet ${target}
+          # swiftlint returns 2 when errors are found, but ran successfully.
+          success_codes: [0, 2]
+          batch: true
+          cache_results: true
+      direct_configs:
+        - .swiftlint.yml
+        - .swiftlint.yaml
+        - .swiftlint
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: 0.49.1
+      version_command:
+        parse_regex: ${semver}
+        run: swiftlint --version

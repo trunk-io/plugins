@@ -9,7 +9,16 @@ Object {
       "fileGroupName": "ruby",
       "linter": "rufo",
       "paths": Array [
-        "test_data/empty.in.rb",
+        "test_data/basic.rb",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    Object {
+      "command": "format",
+      "fileGroupName": "ruby",
+      "linter": "rufo",
+      "paths": Array [
+        "test_data/empty.rb",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
@@ -18,7 +27,16 @@ Object {
   "unformattedFiles": Array [
     Object {
       "column": "1",
-      "file": "test_data/empty.in.rb",
+      "file": "test_data/basic.rb",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "rufo",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+    Object {
+      "column": "1",
+      "file": "test_data/empty.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
       "level": "LEVEL_HIGH",
       "line": "1",

@@ -1,3 +1,5 @@
-import { linterCheckTest } from "tests";
+import { customLinterCheckTest } from "tests";
+import { skipOS } from "tests/utils";
 
-linterCheckTest({ linterName: "standardrb" });
+// Ruby build is quite slow on Mac, so only run tests on linux for now
+customLinterCheckTest({ linterName: "standardrb", args: "-a", skipTestIf: skipOS(["darwin"]) });

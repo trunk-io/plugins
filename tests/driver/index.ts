@@ -180,15 +180,17 @@ export class TrunkDriver {
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
-    // (Run this regardless of setup requirements. Trunk should be in the path)
     await this.run("--help");
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
       return;
     }
-    await this.launchDaemonAsync();
-    this.debug("Launched daemon");
+
+    if (process.platform !== "darwin") {
+      await this.launchDaemonAsync();
+      this.debug("Launched daemon");
+    }
 
     // Enable tested linter if specified
     if (!this.linter) {
@@ -226,7 +228,10 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    execFileSync(trunkCommand, ["deinit"], { cwd: this.sandboxPath });
+    execFileSync(trunkCommand, ["deinit"], {
+      cwd: this.sandboxPath,
+      env: executionEnv(this.getSandbox()),
+    });
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
@@ -470,7 +475,7 @@ export class TrunkDriver {
   async runCheckUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
-    const args = `--upstream=false --filter=${linter} ${targetAbsPath}`;
+    const args = `--upstream=false ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }

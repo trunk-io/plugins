@@ -184,16 +184,30 @@ export const getVersionsForTest = (
     .sort();
 
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
-  if (!matchExists) {
+  if (!matchExists && !ARGS.linterVersion) {
     console.log(
       `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
     );
     return ["KnownGoodVersion"];
   }
 
-  if (ARGS.linterVersion === "Snapshots") {
+  // Versionless linters must return a non-empty array, so check the list's length here.
+  if (ARGS.linterVersion === "Snapshots" && versionsList.length > 0) {
     return versionsList;
   }
 
+  // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string
+  if (ARGS.linterVersion) {
+    return [ARGS.linterVersion];
+  }
   return [undefined];
 };
+
+/**
+ * Helper callback that skips a test if the OS is included in excludedOS.
+ * Intended to be passed to `skipTestIf`.
+ */
+export const skipOS = (excludedOS: string[]) => (_version?: string) =>
+  excludedOS.length === 0 || excludedOS.includes(process.platform);
+
+export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;

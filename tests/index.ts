@@ -13,6 +13,13 @@ const baseDebug = Debug("Tests");
 
 const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
 
+const conditionalTest = (
+  skipTest: boolean,
+  name: string,
+  fn?: jest.ProvidesCallback | undefined,
+  timeout?: number | undefined
+) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
+
 export type TestCallback = (driver: TrunkDriver) => unknown;
 
 /**
@@ -93,6 +100,8 @@ export const setupDriver = (
  * @param args args to append to the `trunk check` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -102,6 +111,7 @@ export const customLinterCheckTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {
@@ -110,6 +120,7 @@ export const customLinterCheckTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -123,7 +134,7 @@ export const customLinterCheckTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        it(testName, async () => {
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
@@ -180,6 +191,8 @@ export const customLinterCheckTest = ({
  * @param args args to append to the `trunk fmt` call (e.g. file paths, flags, etc.)
  * @param pathsToSnapshot file paths that should be used to generate snapshots, such as for when passing `-y` as an arg.
  *                        Paths should be relative to the specific linter subdirectory (or relative to the sandbox root).
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -189,6 +202,7 @@ export const customLinterFmtTest = ({
   dirname = path.dirname(caller()),
   args = "",
   pathsToSnapshot = [],
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {
@@ -197,6 +211,7 @@ export const customLinterFmtTest = ({
   dirname?: string;
   args?: string;
   pathsToSnapshot?: string[];
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -210,7 +225,7 @@ export const customLinterFmtTest = ({
         const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
-        it(testName, async () => {
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runFmt({ args, linter: linterName });

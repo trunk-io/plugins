@@ -6,7 +6,8 @@ Object {
     Object {
       "bucket": "gitleaks",
       "column": "1",
-      "file": "test_data/basic.in.py",
+      "file": "test_data/basic.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "gitleaks",
@@ -16,7 +17,8 @@ Object {
     Object {
       "bucket": "gitleaks",
       "column": "1",
-      "file": "test_data/basic.in.py",
+      "file": "test_data/basic.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "gitleaks",
@@ -30,8 +32,18 @@ Object {
       "fileGroupName": "ALL",
       "linter": "gitleaks",
       "paths": Array [
-        "test_data/basic.in.py",
+        "test_data/basic.py",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "gitleaks",
+      "paths": Array [
+        "test_data/basic.py",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

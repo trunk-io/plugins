@@ -1,0 +1,39 @@
+version: 0.1
+lint:
+  downloads:
+    # This is a Mac-exclusive linter
+    - name: stringslint
+      version: 0.1.1
+      downloads:
+        # macOS only, universal binary supports x86_64 and arm64
+        - os: macos
+          url: https://github.com/dral3x/StringsLint/releases/download/${version}/portable_stringslint.zip
+  definitions:
+    - name: stringslint
+      files:
+        - swift
+        - objective-c-source
+        - strings
+        - xib
+        - storyboard
+      download: stringslint
+      commands:
+        - name: lint
+          output: regex
+          parse_regex:
+            '(?P<path>.*?):(?P<line>\d+): (?P<severity>.*?): (?P<message>.*) \((?P<code>.*?)\)'
+          run: stringslint lint ${target}
+          success_codes: [0]
+          batch: true
+          cache_results: true
+      direct_configs:
+        - .stringslint.yml
+        - .stringslint.yaml
+        - .stringslint
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: 0.1.1
+      version_command:
+        parse_regex: ${semver}
+        run: swiftlint --version

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter haml-lint test basic 1`] = `
+exports[`Testing linter haml-lint test CUSTOM 1`] = `
 Object {
   "issues": Array [
     Object {
       "bucket": "haml-lint",
       "code": "IdNames",
-      "file": "test_data/basic.in.haml",
+      "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
       "line": "2",
       "linter": "haml-lint",
@@ -16,7 +16,7 @@ Object {
     Object {
       "bucket": "haml-lint",
       "code": "EmptyScript",
-      "file": "test_data/basic.in.haml",
+      "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
       "line": "5",
       "linter": "haml-lint",
@@ -26,7 +26,7 @@ Object {
     Object {
       "bucket": "haml-lint",
       "code": "SpaceBeforeScript",
-      "file": "test_data/basic.in.haml",
+      "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
       "line": "5",
       "linter": "haml-lint",
@@ -40,7 +40,16 @@ Object {
       "fileGroupName": "haml",
       "linter": "haml-lint",
       "paths": Array [
-        "test_data/basic.in.haml",
+        "test_data/basic.haml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "haml",
+      "linter": "haml-lint",
+      "paths": Array [
+        "test_data/empty.haml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

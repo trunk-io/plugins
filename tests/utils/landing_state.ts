@@ -1,4 +1,6 @@
 import { sort } from "fast-sort";
+import * as fs from "fs";
+import * as os from "os";
 import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
@@ -19,7 +21,8 @@ const extractTaskFailureFields = ({
 });
 
 // Replace any occurrences of the nondeterministic sandbox path in the output message
-const normalizeMessage = (message?: string) => message?.replace(/\/plugins_.{6}/gm, "/plugins_");
+const normalizeMessage = (message?: string) =>
+  message?.replace(fs.realpathSync(os.tmpdir()), "/tmp").replace(/\/plugins_.{6}/gm, "/plugins_");
 
 const normalizeIssues = ({ message: _message, ...rest }: FileIssue): FileIssue => ({
   ...rest,
