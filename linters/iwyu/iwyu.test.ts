@@ -6,7 +6,7 @@ import { TEST_DATA } from "tests/utils";
 
 // iwyu doesn't use semver versioning, so we need to pass a custom callback.
 // Examples of iwyu versions include 0.10, 0.19
-const versionGreaterThan = (a: string, b: string) => [a.split(".")] > [b.split(".")];
+const versionGreaterThanOrEqual = (a: string, b: string) => [a.split(".")] > [b.split(".")];
 
 const preCheck = (driver: TrunkDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
@@ -45,6 +45,6 @@ customLinterCheckTest({
   linterName: "include-what-you-use",
   args: "-a -y",
   pathsToSnapshot: ["test.cc"],
-  versionGreaterThan,
+  versionGreaterThanOrEqual,
   preCheck,
 });
