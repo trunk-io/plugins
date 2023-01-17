@@ -8,7 +8,7 @@ import { TEST_DATA } from "tests/utils";
 const versionGreaterThanOrEqual = (a: string, b: string) => {
   const normalizedA = a.replace("release-cli-", "").replace("release-taplo-cli-", "");
   const normalizedB = b.replace("release-cli-", "").replace("release-taplo-cli-", "");
-  return semver.gt(normalizedA, normalizedB);
+  return semver.gte(normalizedA, normalizedB);
 };
 
 customLinterCheckTest({
