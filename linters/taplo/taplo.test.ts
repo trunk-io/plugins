@@ -1,6 +1,6 @@
-import { customLinterCheckTest, customLinterFmtTest } from "tests";
-import semver from "semver";
 import path from "path";
+import semver from "semver";
+import { customLinterCheckTest } from "tests";
 import { TEST_DATA } from "tests/utils";
 
 // taplo doesn't use semver versioning
