@@ -36,35 +36,6 @@ export const getTrunkVersion = (): string => {
 export const newTrunkYamlContents = (): string => `version: 0.1
 cli:
   version: ${getTrunkVersion()}
-downloads:
-  - name: jdk-17
-    downloads:
-      - os:
-          linux: linux
-          macos: macosx
-        cpu:
-          x86_64: x64
-          arm_64: aarch64
-        url: https://cdn.azul.com/zulu/bin/zulu17.38.21-ca-jdk17.0.5-\${os}_\${cpu}.tar.gz
-        strip_components: 1
-
-  - name: jdk-11
-    downloads:
-      - os:
-          linux: linux
-          macos: macosx
-        cpu:
-          x86_64: x64
-          arm_64: aarch64
-        url: https://cdn.azul.com/zulu/bin/zulu11.60.19-ca-jdk11.0.17-\${os}_\${cpu}.tar.gz
-        strip_components: 1
-runtimes:
-  definitions:
-    - type: java
-      download: jdk-11
-  enabled:
-    - java@foo
-
 plugins:
   sources:
   - id: trunk
