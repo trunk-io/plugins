@@ -2,10 +2,7 @@
 
 ## Overview
 
-Thank you for contributing to the trunk plugins repository! We appreciate your support as we work to
-streamline the discovery, management and integration of new tools.
-
-We ask that new linter definitions in this repository add some basic testing logic. This should be a
+We ask that all new linter definitions in this repository add some basic testing. This should be a
 straightforward and simple process, with minimal overhead, but let us know if you need help! Please
 start by following the instructions below:
 
@@ -17,11 +14,11 @@ Please create a directory structure in your linter/formatter definition analogou
 linters/
 └─my-linter/
   │ plugin.yaml
-  │ my_linter_test.ts
+  │ my_linter.test.ts
   │ readme.md (optional)
   │ my-config.json (optional)
   └─test_data/
-    │ basic.in.py
+    └─basic.in.py (with appropriate extension)
 ```
 
 - Specify a `readme.md` if your linter integration requires additional explanation or configuration.
@@ -63,7 +60,7 @@ To run an individual test, run:
 npm test ${path_to_linter_subdir}
 ```
 
-Then verify that the generated snapshot file includes the results you would expect (e.g. an Object
+Then, verify that the generated snapshot file includes the results you would expect (e.g. an Object
 with several fileIssues, no taskFailures).
 
 ### Linter Versioning
@@ -90,13 +87,13 @@ The process of resolving snapshots for asserting output correctness is as follow
    snapshot with this version does not exist, a new snapshot is created.
 3. Otherwise, use the most recent snapshot version that precedes the enabled version of the linter.
    If such a snapshot does not exist, a new snapshot is created with the enabled version of the
-   linter (use debug logging to see what version was enabled).
+   linter (use [debug logging](#debugging) to see what version was enabled).
 
 The reasoning for this setup is threefold:
 
-1. Linters can update their outputs on occasion, which can lead to a different trunk output. We
-   would like to be aware of these changes, particularly if they require trunk to accept a different
-   output format entirely.
+1. Linters can update their arguments or outputs on occasion, which can lead to a different trunk
+   output. We would like to be aware of these changes, particularly if they require trunk to accept
+   a different output format entirely.
 2. We want to ensure we can support older versions of linters when possible. Thus, when changes are
    introduced, set `PLUGINS_TEST_UPDATE_SNAPSHOTS` rather than running with the `-u` flag. This
    preserves the older snapshots.
@@ -107,10 +104,16 @@ The reasoning for this setup is threefold:
 
 ## Additional Options
 
+### System Prereqs
+
+trunk is [compatible](https://docs.trunk.io/docs/compatibility) with most versions of Linux and
+macOS. If your linter only runs on certain OSs, refer to the example of
+[stringslint](linters/stringslint/stringslint.test.ts) to skip OS-dependent test runs.
+
 ### Test Configuration
 
 `linterCheckTest` or `linterFmtTest` should be sufficient for most linters and formatters. If your
-test requires additional setup, follow the example of setup in
+test requires additional setup, follow the example of `preCheck` in
 [sqlfluff_test.ts](../linters/sqlfluff/test/sqlfluff_test.ts).
 
 ### Environment Overrides
@@ -118,17 +121,18 @@ test requires additional setup, follow the example of setup in
 Additional configuration can be passed by prepending `npm test` with environment variables. Options
 include:
 
-- `PLUGINS_TEST_CLI_VERSION` replaces the repo-wide trunk.yaml's specified cli-version
-- `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk binary
+- `PLUGINS_TEST_CLI_VERSION` replaces the repo-wide [`trunk.yaml`](../.trunk/trunk.yaml)'s specified
+  cli-version
+- `PLUGINS_TEST_CLI_PATH` specifies an alternative path to a trunk launcher
 - `PLUGINS_TEST_LINTER_VERSION` specifies a linter version semantic (KnownGoodVersion | Latest |
   Snapshots | version). Latest is the default.
-- `PLUGINS_TEST_UPDATE_SNAPSHOTS` if "true" tells tests to use an exact match of the linter version
-  when checking the output. Only set this if a linter has introduced a results change with a version
-  change.
+- `PLUGINS_TEST_UPDATE_SNAPSHOTS` if `true`, tells tests to use an exact match of the linter version
+  when checking the output. Only set this if a linter has introduced a output variation with a
+  version change.
 
 ### CI
 
-PRs will run 4 types of tests:
+PRs will run 5 types of tests across both ubuntu and macOS:
 
 1. Enable and test all linters with their `known_good_version`, if applicable. To replicate this
    behavior, run: `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test`. If the
@@ -138,11 +142,13 @@ PRs will run 4 types of tests:
    run: `npm test`.
 3. Assert that all linters pass config validation. This is also validated while running: `npm test`.
 4. Assert that all linters have test coverage.
+5. Assert that all linters are included in the [`readme.md`](../readme.md).
 
 ### Debugging
 
-Occasionally, tests may take a while to run due to installing of linter dependencies. Subsequent
-runs will not experience this problem.
+Tests normally complete in less than 1 minute. They may take up to 5 minutes or so if the dependency
+cache is empty (linters need to be downloaded and installed to run the linter tests). Subsequent
+runs will not experience this delay.
 
 Errors encountered during test runs are reported through the standard `console`, but additional
 debugging is provided using [debug](https://www.npmjs.com/package/debug). The namespace convention
