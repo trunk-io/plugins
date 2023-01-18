@@ -19,7 +19,8 @@ linterCheckTest({ linterName: "detekt-explicit", namedTestPrefixes: ["basic_expl
 // TODO(Tyler): Because of this setup, this leads to reduced coverage for different versions. We should augment this logic
 // without using a static jar.
 const gradlePreCheck: TestCallback = (driver) => {
-  // Move files to root
+  // Based on plugin.yaml, trunk invokes ${workspace}/gradlew and expects gradlew, etc. to exist at the workspace root.
+  // However, we expect .trunk/trunk.yaml to exist at the workspace root as well, so we move each file up to the workspace.
   // trunk-ignore-begin(semgrep): paths used here are safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA, "detekt_gradle")).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, "detekt_gradle", file), file);
