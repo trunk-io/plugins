@@ -53,3 +53,34 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: detekt-cli --version
+
+    - name: detekt-gradle
+      files: [kotlin]
+      commands:
+        - name: lint
+          # Custom parser/trigger type defined in the trunk cli.
+          output: detekt_gradle
+          run: ${workspace}/gradlew detekt --info --continue
+          success_codes: [0, 1]
+          disable_upstream: true
+      is_recommended: false
+      environment:
+        - name: GRADLE_OPTS
+          value: ${env.GRADLE_OPTS}
+          optional: true
+        - name: GRADLE_USER_HOME
+          value: ${env.GRADLE_USER_HOME}
+          optional: true
+        - name: JAVA_HOME
+          value: ${env.JAVA_HOME}
+          optional: true
+        - name: LANG
+          value: ${env.LANG}
+          optional: true
+        - name: PATH
+          list: ["${env.PATH}"]
+        - name: GRADLE_ENTERPRISE_ACCESS_KEY
+          value: ${env.GRADLE_ENTERPRISE_ACCESS_KEY}
+          optional: true
+      # crank up timeout: gradle installation and daemon start can be slow
+      run_timeout: 10m

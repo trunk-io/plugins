@@ -49,6 +49,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Sync lfs
+        run: git lfs pull
+
       - name: Install dependencies
         run: npm ci
 
