@@ -37,14 +37,14 @@ Adding a plugin source lets users run `trunk check enable` or `trunk actions ena
 and actions defined in that plugin. For more information, see our
 [docs](https://docs.trunk.io/docs/plugins).
 
-If you want to request a new feature or need help, please see our
-[Features Page](https://features.trunk.io/) or our [Slack](https://slack.trunk.io/).
+If you have questions, please [stop by our community Slack](https://slack.trunk.io/), and if you
+have a feature request, you can [file it here](https://features.trunk.io/).
 
 ## Releases
 
-Plugins are released on a fairly regular cadence that is independent of PRs. Users will pick up
-these configuration changes by running `trunk upgrade` to automatically update their plugin version
-to the latest release.
+`trunk-io/plugins` is released on a fairly regular cadence that is independent of PRs. Users will
+pick up these configuration changes by running `trunk upgrade` to automatically update their plugin
+version to the latest release.
 
 ```yaml
 plugins:
