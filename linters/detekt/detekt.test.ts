@@ -39,6 +39,7 @@ const skipIfNoLfs = (_version?: string) => {
   }
 };
 
+// Make sure to run `git lfs pull` before running this test.
 customLinterCheckTest({
   linterName: "detekt-gradle",
   args: "-a",
