@@ -138,8 +138,9 @@ PRs will run 4 types of tests:
 
 ### Debugging
 
-Occasionally, tests may take a while to run due to installation of linter dependencies. Subsequent
-runs will not experience this problem.
+Tests normally complete in less than 1 minute. They may take up to ~5 minutes or so if the
+dependency cache is empty (linters need to be downloaded and installed to run the linter tests).
+Subsequent runs will not experience this delay.
 
 Errors encountered during test runs are reported through the standard `console`, but additional
 debugging is provided using [debug](https://www.npmjs.com/package/debug). The namespace convention

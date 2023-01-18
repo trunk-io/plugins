@@ -28,7 +28,7 @@ Plugins can also be loaded from local paths, as below:
 plugins:
   sources:
     - id: trunk
-      local: /path/to/repo/root
+      local: </path/to/repo/root>
 ```
 
 Run `trunk run toggle-local` to quickly toggle this setting.
