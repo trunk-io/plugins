@@ -51,7 +51,7 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v0.0.8 # will change to v0.0.9
+      ref: v0.0.8 # will change to v0.0.9 on next `trunk upgrade`
 ```
 
 We recommend only setting the above `ref` field to be our released tags, but if you need a linter or
