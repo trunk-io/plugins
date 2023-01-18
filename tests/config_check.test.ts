@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import path from "path";
 import { setupDriver } from "tests";
 import { REPO_ROOT } from "tests/utils";
 
@@ -15,6 +17,10 @@ describe("Global config health check", () => {
 
   // Step 2: Validate config
   it("trunk config print from repo root", async () => {
+    // Remove user.yaml if it exists, since some definitions may not exist in composite config.
+    // Specifying force avoid errors being thrown if it doesn't exist.
+    fs.rmSync(path.resolve(driver.getSandbox(), ".trunk/user.yaml"), { force: true });
+
     // Test that config healthily resolves
     const testRunResult = await driver.run("config print");
     expect(testRunResult.stdout).toContain("version: 0.1");

@@ -1,0 +1,62 @@
+name: Nightly
+on:
+  schedule:
+    # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
+    - cron: 0 8 * * 1-5
+  pull_request:
+    paths: [.github/workflows/nightly.yaml]
+  workflow_dispatch: {}
+
+jobs:
+  plugins_test:
+    name: Nightly Plugin Tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        linter-version: [Snapshots, Latest]
+    env:
+      TRIGGER: $GITHUB_EVENT_NAME
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache tool downloads
+        uses: actions/cache@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version or trunk.yaml unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Sync lfs
+        run: git lfs pull
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run plugin tests
+        run: |
+          PATH=$(npm bin):$PATH npm test --ci
+        env:
+          PLUGINS_TEST_LINTER_VERSION: ${{ matrix.linter-version }}

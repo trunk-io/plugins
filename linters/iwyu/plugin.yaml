@@ -1,0 +1,37 @@
+version: 0.1
+lint:
+  downloads:
+    - name: include-what-you-use
+      version: 0.19
+      downloads:
+        - os:
+            linux: linux
+            macos: macos
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
+  definitions:
+    - name: include-what-you-use
+      files: [c/c++-source]
+      download: include-what-you-use
+      commands:
+        - name: lint
+          run_linter_from: compile_command
+          run: include-what-you-use -Xiwyu --no_fwd_decls "${compile_command}"
+          # Custom parser type defined in the trunk cli to handle iwyu's output.
+          output: iwyu
+          cache_results: true
+          success_codes: [0]
+          disable_upstream: true
+          read_output_from: stderr
+      hold_the_line: false
+      include_scanner_type: compile_command
+      query_compile_commands: true
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 0.19
+      version_command:
+        parse_regex: include-what-you-use ([^ ]+).*
+        run: include-what-you-use --version

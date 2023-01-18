@@ -27,10 +27,12 @@ jobs:
 
   plugins_test:
     name: Plugin Tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-latest, macos-latest]
         linter-version: [KnownGoodVersion, Latest]
 
     steps:
@@ -49,9 +51,14 @@ jobs:
         with:
           node-version: 18
 
+      - name: Sync lfs
+        run: git lfs pull
+
       - name: Install dependencies
         run: npm ci
 
       - name: Run plugin tests
         run: |
-          PATH=$(npm bin):$PATH PLUGINS_TEST_LINTER_VERSION=${{ matrix.linter-version }} npm test --ci
+          PATH=$(npm bin):$PATH npm test --ci
+        env:
+          PLUGINS_TEST_LINTER_VERSION: ${{ matrix.linter-version }}

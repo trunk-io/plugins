@@ -1,0 +1,27 @@
+[
+  {
+    "command": "clang -c a_includes.cc",
+    "file": "a_includes.cc",
+    "directory": "${EXECUTION_ROOT}"
+  },
+  {
+    "command": "clang -c b_includes.cc",
+    "file": "b_includes.cc",
+    "directory": "${EXECUTION_ROOT}"
+  },
+  {
+    "command": "clang -c basic.cc",
+    "file": "basic.cc",
+    "directory": "${EXECUTION_ROOT}"
+  },
+  {
+    "command": "clang -c test.cc",
+    "file": "test.cc",
+    "directory": "${EXECUTION_ROOT}"
+  },
+  {
+    "command": "clang -c invalid_case_style.cc",
+    "file": "invalid_case_style.cc",
+    "directory": "${EXECUTION_ROOT}"
+  }
+]

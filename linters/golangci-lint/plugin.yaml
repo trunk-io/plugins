@@ -1,0 +1,51 @@
+version: 0.1
+lint:
+  definitions:
+    - name: golangci-lint
+      files: [go]
+      type: golangci_lint
+      environment:
+        - name: GOLANGCI_LINT_CACHE
+          value: ${cachedir}
+        - name: PATH
+          list: ["${env.PATH}"] # Needs to use system `diff`
+        - name: GO111MODULE
+          value: auto
+      runtime: go
+      package: github.com/golangci/golangci-lint/cmd/golangci-lint
+      run_from_root_file: go.mod
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
+          output: golangci_lint
+          # Exclude go linters we already include.
+          run:
+            golangci-lint run --out-format json --timeout 10m --concurrency 1 --exclude gofmt
+            --allow-parallel-runners --issues-exit-code 0 ${target}
+          # exit codes
+          # 0 - success
+          # 1 - issues found -> we override this to be 0
+          # 2 - warning in test
+          # 3 - failure
+          # 4 - timeout
+          # 5 - no go files
+          # 6 - no config file detected
+          # 7 - error logged
+          success_codes: [0, 2, 7]
+          run_linter_from: root_file
+          disable_upstream: true # TODO(Sam): re-enable the upstream for golang (needs test coverage)
+      good_without_config: true
+      direct_configs:
+        - .golangci.json
+        - .golangci.toml
+        - .golangci.yaml
+        - .golangci.yml
+      affects_cache:
+        - go.mod
+        - go.sum
+      issue_url_format: https://golangci-lint.run/usage/linters/
+      known_good_version: 1.46.2
+      version_command:
+        parse_regex: ${semver}
+        run: golangci-lint --version
+      run_timeout: 10m

@@ -68,11 +68,16 @@ with several fileIssues, no taskFailures).
 
 ### Linter Versioning
 
-Missing snapshots will be automatically created based on test input files. If an existing test fails
-because a new linter version has introduced a breaking change, rather than running `npm test -- -u`,
-**instead run** `PLUGINS_TEST_UPDATE_SNAPSHOTS=true npm test ${path_to_failing_test}`. This is used
-to track historical test behavior and ensure compatibility with trunk across multiple linter
-versions. See "Environment Overrides" below.
+The first time a test runs, it will attempt to run against a linter's `known_good_version`. This
+snapshot is required for CI mirrors the behavior in CI and is used to validate that a linter runs as
+expected across multiple versions. Subsequent test runs will only run against its latest version
+unless otherwise specified (See [Environment Overrides](#environment-overrides)).
+
+If this causes the test to fail when run with the latest version, this is most likely because there
+are discrepancies in the linter output across versions. Rather than running `npm test -- -u`,
+**instead run** `PLUGINS_TEST_UPDATE_SNAPSHOTS=true npm test ${path_to_failing_test}`. This will
+create an additional snapshot for the latest version and is used to track historical test behavior
+and ensure compatibility with trunk across multiple linter versions.
 
 If you need to run tests for all the existing snapshots, run
 `PLUGINS_TEST_LINTER_VERSION=Snapshots npm test`.
@@ -85,7 +90,7 @@ The process of resolving snapshots for asserting output correctness is as follow
    snapshot with this version does not exist, a new snapshot is created.
 3. Otherwise, use the most recent snapshot version that precedes the enabled version of the linter.
    If such a snapshot does not exist, a new snapshot is created with the enabled version of the
-   linter.
+   linter (use debug logging to see what version was enabled).
 
 The reasoning for this setup is threefold:
 

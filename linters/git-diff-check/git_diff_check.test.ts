@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import * as path from "path";
 import { linterCheckTest } from "tests";
 import { TrunkDriver } from "tests/driver";
@@ -6,19 +5,16 @@ import { TEST_DATA } from "tests/utils";
 
 // Simulate the creation of a merge conflict
 const preCheck = async (driver: TrunkDriver) => {
-  if (driver.sandboxPath && driver.gitDriver) {
-    // trunk-ignore-begin(semgrep): driver.sandboxPath is generated deterministically and is safe
-    const testPath = path.resolve(driver.sandboxPath, TEST_DATA);
+  if (driver.gitDriver) {
     const inputName = "basic.in.txt";
-    const inputPath = path.resolve(testPath, inputName);
-    // trunk-ignore-end(semgrep)
+    const inputPath = path.join(TEST_DATA, inputName);
 
     await driver.gitDriver.checkoutLocalBranch("branchA");
-    fs.writeFileSync(inputPath, "Branch A contents");
+    driver.writeFile(inputPath, "Branch A contents");
     await driver.gitDriver.add(inputPath).commit("Branch A changes");
 
     await driver.gitDriver.checkoutBranch("branchB", "main");
-    fs.writeFileSync(inputPath, "Branch B contents");
+    driver.writeFile(inputPath, "Branch B contents");
     await driver.gitDriver.add(inputPath).commit("Branch B changes");
 
     try {

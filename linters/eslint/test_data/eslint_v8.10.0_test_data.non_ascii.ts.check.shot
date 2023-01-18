@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter eslint test CUSTOM 1`] = `
+"!false;
+// some of these non-ascii chars (✔, », ✖) trigger wrong offsets
+"
+`;

@@ -1,0 +1,41 @@
+version: 0.1
+lint:
+  downloads:
+    - name: clang-tidy
+      version: 15.0.6
+      downloads:
+        # macos arm64 was introduced after this version.
+        - os: macos
+          url: https://trunk.io/releases/clang-tidy-${version}-macos-x86_64.tar.gz
+          version: <14.0.0
+        - os:
+            linux: linux
+            macos: macos
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
+  definitions:
+    - name: clang-tidy
+      files: [c/c++-source]
+      commands:
+        - name: lint
+          output: llvm
+          run: clang-tidy --export-fixes=${tmpfile} ${target} -p ${compile_commands_dir}
+          success_codes: [0, 1]
+          cache_results: true
+          run_linter_from: compile_command
+          read_output_from: tmp_file
+      download: clang-tidy
+      direct_configs: [.clang-tidy]
+      include_scanner_type: compile_command
+      query_compile_commands: true
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/{}.html
+      known_good_version: 15.0.6
+      version_command:
+        parse_regex: ${semver}
+        run: clang-tidy --version
+      run_timeout: 10m

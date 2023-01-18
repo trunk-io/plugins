@@ -1,0 +1,33 @@
+version: 0.1
+lint:
+  definitions:
+    - name: semgrep
+      files: [ALL]
+      runtime: python
+      package: semgrep
+      commands:
+        - name: check
+          output: sarif
+          # We use include filters instead of explicit paths because otherwise semgrep will run
+          # linters for every possible language for files that it does not recognize an extension for.
+          run: semgrep --config=auto --sarif --output=${tmpfile} --include=${target}
+          read_output_from: tmp_file
+          success_codes: [0]
+          batch: true
+          cache_results: true
+          # TODO(Chris): We need a new configuration option which means copy files into a sandbox.
+          # This is an abuse of in_place which implies that.
+          in_place: true
+      direct_configs:
+        - .semgrep.yaml
+        - .semgrep.yml
+      affects_cache:
+        - .semgrepignore
+        - .semgrep
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      known_good_version: 0.110.0
+      version_command:
+        parse_regex: ${semver}
+        run: semgrep --version
