@@ -25,7 +25,8 @@ const preCheck = (driver: TrunkDriver) => {
   compile_commands: json`);
   driver.writeFile(trunkYamlPath, newContents);
 
-  // Move files to root
+  // Based on plugin.yaml, trunk expects compile_commands.json to exist at the workspace root.
+  // However, we expect .trunk/trunk.yaml to exist at the workspace root as well, so we move each file up to the workspace.
   // trunk-ignore-begin(semgrep): paths used here are safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, file), file);
