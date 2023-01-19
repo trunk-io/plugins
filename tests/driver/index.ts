@@ -21,7 +21,7 @@ import YAML from "yaml";
 const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
-const MAX_DAEMON_RETRIES = 5;
+const MAX_DAEMON_RETRIES = 10;
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
 let testNum = 1;
@@ -160,6 +160,14 @@ export class TrunkDriver {
     const snapshotFilter = (file: string) => !file.endsWith(".shot");
     fs.cpSync(this.testDir, this.sandboxPath, { recursive: true, filter: snapshotFilter });
 
+    if (this.setupSettings.setupTrunk) {
+      // Initialize trunk via config
+      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
+        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
+      }
+      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
+    }
+
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
@@ -169,14 +177,6 @@ export class TrunkDriver {
         .addConfig("user.email", "trunk-plugins@example.com")
         .addConfig("commit.gpgsign", "false")
         .commit("first commit");
-    }
-
-    if (this.setupSettings.setupTrunk) {
-      // Initialize trunk via config
-      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
-        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
-      }
-      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed

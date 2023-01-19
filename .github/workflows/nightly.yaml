@@ -10,8 +10,10 @@ on:
 jobs:
   # Run tests against all linters for snapshots and latest version
   linter_tests:
+    name: Plugin Tests
     uses: ./.github/workflows/linter_tests.yaml
     strategy:
+      fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
     with:
@@ -19,4 +21,5 @@ jobs:
       cache-tools: true
   # Run repo healthcheck tests
   repo_tests:
+    name: Repo Tests
     uses: ./.github/workflows/repo_tests.yaml
