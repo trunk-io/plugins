@@ -27,7 +27,7 @@ jobs:
   linter_tests:
     name: Linter Tests
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 40
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
