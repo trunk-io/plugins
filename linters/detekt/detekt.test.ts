@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest, linterCheckTest, TestCallback } from "tests";
@@ -29,20 +28,9 @@ const gradlePreCheck: TestCallback = (driver) => {
   // trunk-ignore-end(semgrep)
 };
 
-const skipIfNoLfs = (_version?: string) => {
-  try {
-    // If git-lfs does not exist, exec will throw. To prevent extraneous failures, skip this test.
-    execSync("command -v git-lfs");
-    return false;
-  } catch (err) {
-    return true;
-  }
-};
-
 // Make sure to run `git lfs pull` before running this test.
 customLinterCheckTest({
   linterName: "detekt-gradle",
   args: "-a",
   preCheck: gradlePreCheck,
-  skipTestIf: skipIfNoLfs,
 });
