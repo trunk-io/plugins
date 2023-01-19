@@ -180,7 +180,14 @@ export class TrunkDriver {
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
-    await this.run("--help");
+    try {
+      await this.run("--help");
+    } catch (error) {
+      // The trunk launcher is not designed to handle concurrent installs.
+      // This command may fail if another test installs at the same time.
+      // Don't block if this happens.
+      console.warn(`Error running --help`, error);
+    }
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
