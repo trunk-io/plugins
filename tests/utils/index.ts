@@ -24,6 +24,13 @@ const parseLinterVersion = (value: string): LinterVersion | undefined => {
   return undefined;
 };
 
+const coalesceString = (value?: string): string | undefined => {
+  if (value && value !== "") {
+    return value;
+  }
+  return undefined;
+};
+
 /**
  * Parses the global testing config inputs, specified as environment variables.
  * - PLUGINS_TEST_CLI_VERSION replaces the repo-wide trunk.yaml's specified cli-version.
@@ -32,8 +39,8 @@ const parseLinterVersion = (value: string): LinterVersion | undefined => {
  * - PLUGINS_TEST_UPDATE_SNAPSHOTS uses the snapshot from the enabled version of the linter, creating a new snapshot if necessary.
  */
 export const ARGS: TestingArguments = {
-  cliVersion: process.env.PLUGINS_TEST_CLI_VERSION,
-  cliPath: process.env.PLUGINS_TEST_CLI_PATH,
+  cliVersion: coalesceString(process.env.PLUGINS_TEST_CLI_VERSION),
+  cliPath: coalesceString(process.env.PLUGINS_TEST_CLI_PATH),
   linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION ?? ""),
   dumpNewSnapshot: Boolean(process.env.PLUGINS_TEST_UPDATE_SNAPSHOTS),
 };
