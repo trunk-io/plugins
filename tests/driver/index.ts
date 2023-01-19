@@ -21,6 +21,7 @@ import YAML from "yaml";
 const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
+const TEMP_SUBDIR = "tmp";
 const MAX_DAEMON_RETRIES = 10;
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
@@ -38,7 +39,7 @@ const executionEnv = (sandbox: string) => {
       `${TEMP_PREFIX}testing_download_cache`
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
-    TMPDIR: path.resolve(sandbox, "tmp"),
+    TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
   };
 };
 
@@ -181,6 +182,8 @@ export class TrunkDriver {
 
     // Run a cli-dependent command to wait on and verify trunk is installed
     try {
+      // This directory is generated during launcher log creation and is required for binary cache results
+      fs.mkdirSync(path.resolve(this.sandboxPath, TEMP_SUBDIR));
       await this.run("--help");
     } catch (error) {
       // The trunk launcher is not designed to handle concurrent installs.
