@@ -25,40 +25,16 @@ jobs:
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
 
-  plugins_test:
-    name: Plugin Tests
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+  # TODO(Tyler): Forward json outputs from job
+  # Run tests against all linters for known_good_version and latest version
+  linter_tests:
+    uses: ./.github/workflows/linter_tests.yaml
     strategy:
-      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
         linter-version: [KnownGoodVersion, Latest]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Cache tool downloads
-        uses: actions/cache@v3
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Sync lfs
-        run: git lfs pull
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run plugin tests
-        run: |
-          PATH=$(npm bin):$PATH npm test --ci
-        env:
-          PLUGINS_TEST_LINTER_VERSION: ${{ matrix.linter-version }}
+    with:
+      linter-version: ${{ matrix.linter-version }}
+      cache-tools: true
+  # Run repo healthcheck tests
+  repo_tests:
+    uses: ./.github/workflows/repo_tests.yaml
