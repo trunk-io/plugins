@@ -41,9 +41,6 @@ jobs:
           ref: ${{ inputs.plugin-ref }}
           repository: trunk-io/plugins
 
-      - name: Change directory
-        run: cd ${{ inputs.path }}
-
       - name: Cache tool downloads
         if: inputs.cache-tools
         uses: actions/cache@v3
@@ -59,13 +56,16 @@ jobs:
 
       - name: Sync lfs
         run: git lfs pull
+        working-directory: ${{ inputs.path }}
 
       - name: Install dependencies
         run: npm ci
+        working-directory: ${{ inputs.path }}
 
       - name: Run plugin tests
         run: |
           PATH=$(npm bin):$PATH npm test --ci linters
+        working-directory: ${{ inputs.path }}
         env:
           PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
           PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
