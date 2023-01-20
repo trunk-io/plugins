@@ -11,14 +11,19 @@ jobs:
   # Run tests against all linters for snapshots and latest version
   linter_tests:
     name: Plugin Tests
-    uses: ./.github/workflows/linter_tests.yaml
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-    with:
-      linter-version: ${{ matrix.linter-version }}
-      cache-tools: true
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Linter Tests
+        uses: ./.github/actions/linter_tests.yaml
+        with:
+          linter-version: ${{ matrix.linter-version }}
+          cache-tools: true
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
