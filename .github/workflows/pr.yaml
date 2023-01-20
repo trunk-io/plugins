@@ -37,6 +37,9 @@ jobs:
         linter-version: [KnownGoodVersion, Latest]
         os: [ubuntu-latest, macos-latest]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
