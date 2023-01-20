@@ -22,12 +22,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache tool downloads
+        uses: actions/cache@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          # cache-tools: true
-          path: .
 
   # Run repo healthcheck tests
   repo_tests:

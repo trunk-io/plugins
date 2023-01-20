@@ -12,35 +12,15 @@ inputs:
   cli-path:
     description: Trunk cli path to run test against. Overrides `cli-version` if set.
     required: false
-  # cache-tools:
-  #   required: false
-  #   description: Whether or not to cache tool downloads
-  # plugin-ref:
-  #   description: The reference of the plugin repository to checkout
-  #   required: false
-  #   default: ""
   path:
     description: The cwd from which to run plugin commands
-    required: true
+    required: false
+    default: .
 
 runs:
+  # TODO(Tyler): See if this can be converted to a js action
   using: composite
   steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v3
-    #   with:
-    #     path: ${{ inputs.path }}
-    #     ref: ${{ inputs.plugin-ref }}
-    #     repository: trunk-io/plugins
-
-    # - name: Cache tool downloads
-    #   if: inputs.cache-tools
-    #   uses: actions/cache@v3
-    #   with:
-    #     path: /tmp/plugins_testing_download_cache
-    #     # No need to key on trunk version unless we change how we store downloads.
-    #     key: trunk-${{ runner.os }}
-
     - name: Setup node
       uses: actions/setup-node@v3
       with:

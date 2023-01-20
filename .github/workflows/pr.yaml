@@ -40,12 +40,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache tool downloads
+        uses: actions/cache@v3
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          # cache-tools: true
-          path: .
+
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
