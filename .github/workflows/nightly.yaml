@@ -19,12 +19,15 @@ jobs:
         linter-version: [Snapshots, Latest]
         os: [ubuntu-latest, macos-latest]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          cache-tools: true
+          # cache-tools: true
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
-    uses: ./.github/workflows/repo_tests.yaml
+    uses: ./.github/workflows/repo_tests.reusable.yaml

@@ -3,44 +3,44 @@ description: Run tests against plugin linters
 
 inputs:
   linter-version:
+    description:
+      Versions of linters to run tests against. One of KnownGoodVersion | Latest | Snapshots
     required: false
-    type: string
   cli-version:
+    description: Trunk cli version to run test against. Mutually exclusive with `cli-path`
     required: false
-    type: string
   cli-path:
+    description: Trunk cli path to run test against. Overrides `cli-version` if set.
     required: false
-    type: string
-  cache-tools:
-    required: false
-    type: boolean
-    default: true
-  plugin-ref:
-    required: false
-    type: string
-    default: ""
+  # cache-tools:
+  #   required: false
+  #   description: Whether or not to cache tool downloads
+  # plugin-ref:
+  #   description: The reference of the plugin repository to checkout
+  #   required: false
+  #   default: ""
   path:
+    description: The cwd from which to run plugin commands
     required: false
-    type: string
     default: $GITHUB_WORKSPACE
 
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        path: ${{ inputs.path }}
-        ref: ${{ inputs.plugin-ref }}
-        repository: trunk-io/plugins
+    # - name: Checkout
+    #   uses: actions/checkout@v3
+    #   with:
+    #     path: ${{ inputs.path }}
+    #     ref: ${{ inputs.plugin-ref }}
+    #     repository: trunk-io/plugins
 
-    - name: Cache tool downloads
-      if: inputs.cache-tools
-      uses: actions/cache@v3
-      with:
-        path: /tmp/plugins_testing_download_cache
-        # No need to key on trunk version unless we change how we store downloads.
-        key: trunk-${{ runner.os }}
+    # - name: Cache tool downloads
+    #   if: inputs.cache-tools
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/plugins_testing_download_cache
+    #     # No need to key on trunk version unless we change how we store downloads.
+    #     key: trunk-${{ runner.os }}
 
     - name: Setup node
       uses: actions/setup-node@v3
@@ -49,15 +49,18 @@ runs:
 
     - name: Sync lfs
       run: git lfs pull
+      shell: bash
       working-directory: ${{ inputs.path }}
 
     - name: Install dependencies
       run: npm ci
+      shell: bash
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
       run: |
         PATH=$(npm bin):$PATH npm test --ci linters
+      shell: bash
       working-directory: ${{ inputs.path }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}

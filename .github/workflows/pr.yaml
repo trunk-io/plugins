@@ -41,8 +41,8 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          cache-tools: true
+          # cache-tools: true
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
-    uses: ./.github/workflows/repo_tests.yaml
+    uses: ./.github/workflows/repo_tests.reusable.yaml
