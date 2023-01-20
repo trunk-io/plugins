@@ -22,7 +22,7 @@ inputs:
   path:
     description: The cwd from which to run plugin commands
     required: false
-    default: $GITHUB_WORKSPACE
+    default: ${{ GITHUB_WORKSPACE }}
 
 runs:
   using: composite
