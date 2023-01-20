@@ -21,8 +21,7 @@ inputs:
   #   default: ""
   path:
     description: The cwd from which to run plugin commands
-    required: false
-    default: ${{ GITHUB_WORKSPACE }}
+    required: true
 
 runs:
   using: composite
