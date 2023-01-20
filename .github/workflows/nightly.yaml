@@ -20,7 +20,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Linter Tests
-        uses: ./.github/actions/linter_tests.yaml
+        uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
           cache-tools: true
