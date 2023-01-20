@@ -8,6 +8,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # TODO(Tyler): Forward json outputs from job
   # Run tests against all linters for snapshots and latest version
   linter_tests:
     name: Plugin Tests

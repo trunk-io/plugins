@@ -25,7 +25,6 @@ jobs:
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
 
-  # TODO(Tyler): Forward json outputs from job
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Plugin Tests
