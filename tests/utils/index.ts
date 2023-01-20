@@ -31,6 +31,16 @@ const coalesceString = (value?: string): string | undefined => {
   return undefined;
 };
 
+const normalizePath = (value?: string): string | undefined => {
+  if (value && coalesceString(value)) {
+    if (path.isAbsolute(value)) {
+      return value;
+    }
+    path.resolve(REPO_ROOT, value);
+  }
+  return undefined;
+};
+
 /**
  * Parses the global testing config inputs, specified as environment variables.
  * - PLUGINS_TEST_CLI_VERSION replaces the repo-wide trunk.yaml's specified cli-version.
@@ -40,7 +50,7 @@ const coalesceString = (value?: string): string | undefined => {
  */
 export const ARGS: TestingArguments = {
   cliVersion: coalesceString(process.env.PLUGINS_TEST_CLI_VERSION),
-  cliPath: coalesceString(process.env.PLUGINS_TEST_CLI_PATH),
+  cliPath: normalizePath(process.env.PLUGINS_TEST_CLI_PATH),
   linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION ?? ""),
   dumpNewSnapshot: Boolean(process.env.PLUGINS_TEST_UPDATE_SNAPSHOTS),
 };
