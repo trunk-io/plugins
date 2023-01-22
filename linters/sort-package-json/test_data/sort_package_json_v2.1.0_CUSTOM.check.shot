@@ -6,6 +6,7 @@ Object {
   "lintActions": Array [],
   "taskFailures": Array [
     Object {
+      "details": Any<String>,
       "message": "test_data/package.json",
       "name": "sort-package-json",
     },
