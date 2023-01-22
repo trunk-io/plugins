@@ -2,7 +2,7 @@ import Debug from "debug";
 import fs from "fs";
 import path from "path";
 import semver from "semver";
-import { CheckType, LinterVersion, TestingArguments } from "tests/types";
+import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
@@ -215,3 +215,60 @@ export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
 export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
+
+/**
+ * This wrapper on existing matchers is used to improve debuggability when an unexpected failure occurs.
+ * Every `TaskFailure` present in the `LandingState` is examined as follows:
+ *  - If no snapshot exists yet, or a new one is to be dumped, replace `details` with a matcher against any string
+ *  - Otherwise, check the existing snapshot. For each failure present in the actual result, check if a matching name and message
+ *    appear in the expected snapshot.
+ *      - If so, replace `details` with a matcher, so that failure will succeed.
+ *      - Otherwise, leave the `details` as is, so that the failure information shows up in the results.
+ *
+ * Without this, the entire details will be present in the snapshot, or no detail information will show up in CI.
+ *
+ * This does have the side effect that if overwriting an existing snapshot with a new one that has failures,
+ * PLUGINS_TEST_UPDATE_SNAPSHOTS must be true (and PLUGINS_TEST_LINTER_VERSION must be set) to avoid buggy results.
+ *
+ * Passing both the actual and expected to this wrapper is not ideal, but it's worth the tradeoff of CI debuggability.
+ */
+export const landingStateWrapper = (actual: LandingState | undefined, snapshotPath: string) => {
+  if (!fs.existsSync(snapshotPath) || ARGS.dumpNewSnapshot) {
+    // Returning an any matcher for details, allowing for future assertions to succeed
+    return {
+      taskFailures: actual?.taskFailures?.map((failure) => ({
+        name: failure.name,
+        message: failure.message,
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+        details: expect.any(String),
+      })),
+    };
+  }
+
+  // Failures are sorted deterministically, so go in order to preserve de-duplication.
+  const snapshot = fs.readFileSync(snapshotPath);
+  let counterOffset = 0;
+  const snapshotContainsFailure = (failure: TaskFailure) => {
+    const nameIndex = snapshot.indexOf(failure.name, counterOffset);
+    const failureIndex = snapshot.indexOf(failure.message, counterOffset);
+
+    // It is possible that nameIndex and failureIndex could correspond to separate failures, but this case would necessarily
+    // result in an eventual assertion error, allowing the test runner to audit the failures.
+    if (nameIndex != -1 && failureIndex != -1) {
+      // `name` will always show up second in the snapshots.
+      counterOffset = nameIndex + 1;
+      return true;
+    }
+
+    return false;
+  };
+
+  return {
+    taskFailures: actual?.taskFailures?.map((failure) => ({
+      name: failure.name,
+      message: failure.message,
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+      details: snapshotContainsFailure(failure) ? expect.any(String) : failure.details,
+    })),
+  };
+};

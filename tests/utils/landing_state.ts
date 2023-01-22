@@ -1,6 +1,7 @@
 import { sort } from "fast-sort";
 import * as fs from "fs";
 import * as os from "os";
+import path from "path";
 import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
@@ -13,11 +14,14 @@ const extractLintActionFields = ({
   ...rest,
 });
 
-const extractTaskFailureFields = ({
-  detailPath: _detailPath,
-  ...rest
-}: TaskFailure): TaskFailure => ({
+const extractTaskFailureFields = (
+  sandboxPath: string,
+  { detailPath: _detailPath, ...rest }: TaskFailure
+): TaskFailure => ({
   ...rest,
+  details: _detailPath
+    ? fs.readFileSync(path.resolve(sandboxPath, _detailPath), { encoding: "utf-8" })
+    : undefined,
 });
 
 // Replace any occurrences of the nondeterministic sandbox path in the output message
@@ -33,12 +37,10 @@ const normalizeIssues = ({ message: _message, ...rest }: FileIssue): FileIssue =
  * Remove unwanted fields. Prefer object destructuring to be explicit about required fields
  * for forward compatibility.
  */
-const extractLandingStateFields = ({
-  issues = [],
-  unformattedFiles = [],
-  lintActions = [],
-  taskFailures = [],
-}: LandingState) =>
+const extractLandingStateFields = (
+  sandboxPath: string,
+  { issues = [], unformattedFiles = [], lintActions = [], taskFailures = [] }: LandingState
+) =>
   <LandingState>{
     issues: sort(issues.map(normalizeIssues)).asc((issue) => [
       issue.file,
@@ -61,33 +63,31 @@ const extractLandingStateFields = ({
       action.upstream,
       action.paths,
     ]),
-    taskFailures: sort(taskFailures.map(extractTaskFailureFields)).asc((failure) => [
-      failure.name,
-      failure.message,
-    ]),
+    taskFailures: sort(
+      taskFailures.map((failure) => extractTaskFailureFields(sandboxPath, failure))
+    ).asc((failure) => [failure.name, failure.message]),
   };
 
 /**
  * Extract the LandingState from an input `json`, returning a deterministic landing state
  * (e.g. timing-dependent fields are removed, repeated fields are sorted deterministically).
+ * @param sandboxPath The path to the workspace from which trunk was run
  * @param json The nonempty `outputJson` from a `TrunkRunResult`
  */
-export const extractLandingState = (json: unknown): LandingState =>
-  extractLandingStateFields(json as LandingState);
+export const extractLandingState = (sandboxPath: string, json: unknown): LandingState =>
+  extractLandingStateFields(sandboxPath, json as LandingState);
 
 /**
  * Attempt to parse the JSON result of a `trunk check` or `trunk fmt` run into
  * A landing state, removing any non-deterministic fields.
- *
- * TODO(Tyler): Investigate creating a shadow tree rather than sandboxing on a subdirectory.
  */
 export const tryParseLandingState = (
-  repoTestDir: string,
+  sandboxPath: string,
   outputJson: unknown
 ): LandingState | undefined => {
   if (!outputJson) {
     return undefined;
   }
 
-  return extractLandingState(outputJson);
+  return extractLandingState(sandboxPath, outputJson);
 };
