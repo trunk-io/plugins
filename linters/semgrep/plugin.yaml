@@ -28,6 +28,7 @@ lint:
         - name: PATH
           list: ["${env.PATH}"]
       known_good_version: 0.110.0
+      known_bad_versions: [1.5.1] # Does not work on MacOS
       version_command:
         parse_regex: ${semver}
         run: semgrep --version

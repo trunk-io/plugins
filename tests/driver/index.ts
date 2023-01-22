@@ -221,7 +221,7 @@ export class TrunkDriver {
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
         "utf8"
       );
-      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n$`;
+      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
