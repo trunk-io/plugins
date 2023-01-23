@@ -214,6 +214,9 @@ export const getVersionsForTest = (
 export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
+/**
+ * GitHub MacOS runners can run much slower, so allow for a larger timeout.
+ */
 export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
 
 /**
