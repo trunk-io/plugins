@@ -237,7 +237,7 @@ export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
  */
 export const landingStateWrapper = (actual: LandingState | undefined, snapshotPath: string) => {
   if (!fs.existsSync(snapshotPath) || ARGS.dumpNewSnapshot) {
-    // Returning an any matcher for details, allowing for future assertions to succeed
+    // A new snapshot is being dumped
     return {
       taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
         name: failure.name,
@@ -252,8 +252,8 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
   const snapshot = fs.readFileSync(snapshotPath);
   let counterOffset = 0;
   const snapshotContainsFailure = (failure: TaskFailure) => {
-    const nameIndex = snapshot.indexOf(failure.name, counterOffset);
-    const failureIndex = snapshot.indexOf(failure.message, counterOffset);
+    const nameIndex = snapshot.indexOf(`"name": "${failure.name}`, counterOffset);
+    const failureIndex = snapshot.indexOf(`"message": "${failure.message}`, counterOffset);
 
     // It is possible that nameIndex and failureIndex could correspond to separate failures, but this case would necessarily
     // result in an eventual assertion error, allowing the test runner to audit the failures.
