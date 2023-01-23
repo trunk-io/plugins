@@ -239,11 +239,11 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
   if (!fs.existsSync(snapshotPath) || ARGS.dumpNewSnapshot) {
     // Returning an any matcher for details, allowing for future assertions to succeed
     return {
-      taskFailures: actual?.taskFailures?.map((failure) => ({
+      taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
         name: failure.name,
         message: failure.message,
         // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-        details: expect.any(String),
+        details: expect.stringMatching(/.*$/m),
       })),
     };
   }
@@ -267,12 +267,11 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
   };
 
   return {
-    taskFailures:
-      actual?.taskFailures?.map((failure) => ({
-        name: failure.name,
-        message: failure.message,
-        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-        details: snapshotContainsFailure(failure) ? expect.any(String) : failure.details,
-      })) ?? [],
+    taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
+      name: failure.name,
+      message: failure.message,
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+      details: snapshotContainsFailure(failure) ? expect.stringMatching(/.*$/m) : failure.details,
+    })),
   };
 };

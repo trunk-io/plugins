@@ -6,7 +6,7 @@ Object {
   "lintActions": Array [],
   "taskFailures": Array [
     Object {
-      "details": Any<String>,
+      "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/empty.in.go",
       "name": "gofmt",
     },

@@ -6,12 +6,12 @@ Object {
   "lintActions": Array [],
   "taskFailures": Array [
     Object {
-      "details": Any<String>,
+      "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/eof_autofix.ts... (4 files)",
       "name": "eslint",
     },
     Object {
-      "details": Any<String>,
+      "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/eof_autofix.ts... (4 files)",
       "name": "eslint",
     },

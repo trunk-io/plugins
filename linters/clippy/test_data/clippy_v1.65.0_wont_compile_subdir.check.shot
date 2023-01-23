@@ -6,7 +6,7 @@ Object {
   "lintActions": Array [],
   "taskFailures": Array [
     Object {
-      "details": Any<String>,
+      "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/wont_compile_subdir",
       "name": "clippy",
     },

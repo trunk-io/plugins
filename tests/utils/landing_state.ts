@@ -16,11 +16,11 @@ const extractLintActionFields = ({
 
 const extractTaskFailureFields = (
   sandboxPath: string,
-  { detailPath: _detailPath, ...rest }: TaskFailure
+  { detailPath, ...rest }: TaskFailure
 ): TaskFailure => ({
   ...rest,
-  details: _detailPath
-    ? fs.readFileSync(path.resolve(sandboxPath, _detailPath), { encoding: "utf-8" })
+  details: detailPath
+    ? fs.readFileSync(path.resolve(sandboxPath, detailPath), { encoding: "utf-8" })
     : undefined,
 });
 
