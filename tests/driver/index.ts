@@ -380,7 +380,7 @@ export class TrunkDriver {
       trunkRunResult,
       trunkVerb,
       targetPath: targetAbsPath,
-      landingState: tryParseLandingState(this.testDir, trunkRunResult.outputJson),
+      landingState: tryParseLandingState(this.getSandbox(), trunkRunResult.outputJson),
       cliVersion: getTrunkVersion(),
       linterVersion: this.enabledVersion,
     };
