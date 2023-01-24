@@ -69,6 +69,7 @@ export interface TaskFailure {
   name: string;
   message: string;
   detailPath?: string;
+  details?: string;
 }
 
 /**
