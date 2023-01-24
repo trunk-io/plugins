@@ -1,0 +1,6 @@
+[MASTER]
+disable=
+    format, # Handled by Black autoformatter
+enable=I0010
+
+[MESSAGES CONTROL]
