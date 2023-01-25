@@ -11,8 +11,9 @@ export type CheckType = "check" | "fmt";
 /**
  * Version of a linter to enable and test against.
  * 1. KnownGoodVersion: attempt to parse the linter definition for a known_good_version. Fallback to latest.
- * 2. Latest: use network connection to query for the latest linter verison (default)
- * 3. string: a manually specified version. Note that this will apply to all tests.
+ * 2. Latest: use network connection to query for the latest linter version (default).
+ * 3. Snapshots: use all previously written snapshot versions.
+ * 4. string: a manually specified version. Note that this will apply to all tests.
  */
 export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 

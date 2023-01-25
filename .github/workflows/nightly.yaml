@@ -8,18 +8,17 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  plugins_test:
-    name: Nightly Plugin Tests
+  # TODO(Tyler): Forward json outputs from job
+  # Run tests against all linters for snapshots and latest version
+  linter_tests:
+    name: Plugin Tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
         linter-version: [Snapshots, Latest]
-    env:
-      TRIGGER: $GITHUB_EVENT_NAME
-
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -28,7 +27,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version or trunk.yaml unless we change how we store downloads.
+          # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
 
       - name: Delete cache
@@ -44,19 +43,12 @@ jobs:
           fi
         shell: bash
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - name: Linter Tests
+        uses: ./.github/actions/linter_tests
         with:
-          node-version: 18
+          linter-version: ${{ matrix.linter-version }}
 
-      - name: Sync lfs
-        run: git lfs pull
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run plugin tests
-        run: |
-          PATH=$(npm bin):$PATH npm test --ci
-        env:
-          PLUGINS_TEST_LINTER_VERSION: ${{ matrix.linter-version }}
+  # Run repo healthcheck tests
+  repo_tests:
+    name: Repo Tests
+    uses: ./.github/workflows/repo_tests.reusable.yaml
