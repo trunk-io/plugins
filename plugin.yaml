@@ -1,5 +1,5 @@
 version: 0.1
-required_trunk_version: ">=1.3.2-beta.7"
+required_trunk_version: ">1.3.2-beta.7"
 lint:
   files:
     - name: dml
