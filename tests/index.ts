@@ -4,10 +4,27 @@ import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
-import { getSnapshotPathForAssert, getVersionsForTest, TEST_DATA } from "tests/utils";
+import {
+  getSnapshotPathForAssert,
+  getVersionsForTest,
+  landingStateWrapper,
+  TEST_DATA,
+} from "tests/utils";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
+
+// The underlying implementation of jest-specific-snapshot supports forwarding additional arguments from
+// `toMatchSpecificSnapshot` and appending them to `toMatchSnapshot`, but its type declarations do not explicitly
+// support this. Adding this patch/override allows us to call it with custom matchers, as in the case of `landingStateWrapper`.
+declare global {
+  // trunk-ignore(eslint/@typescript-eslint/no-namespace)
+  namespace jest {
+    interface Matchers<R> {
+      toMatchSpecificSnapshot(snapshotFilename: string, customMatcher: unknown): R;
+    }
+  }
+}
 
 const baseDebug = Debug("Tests");
 
@@ -159,7 +176,10 @@ export const customLinterCheckTest = ({
             versionGreaterThanOrEqual
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
-          expect(testRunResult.landingState).toMatchSpecificSnapshot(primarySnapshotPath);
+          expect(testRunResult.landingState).toMatchSpecificSnapshot(
+            primarySnapshotPath,
+            landingStateWrapper(testRunResult.landingState, primarySnapshotPath)
+          );
 
           // Step 4b: Verify that any specified files match their expected snapshots for that linter version.
           pathsToSnapshot.forEach((pathToSnapshot) => {
@@ -334,7 +354,10 @@ export const linterCheckTest = ({
               driver.enabledVersion
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
-            expect(testRunResult.landingState).toMatchSpecificSnapshot(snapshotPath);
+            expect(testRunResult.landingState).toMatchSpecificSnapshot(
+              snapshotPath,
+              landingStateWrapper(testRunResult.landingState, snapshotPath)
+            );
           });
 
           if (postCheck) {
