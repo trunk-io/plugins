@@ -1,0 +1,19 @@
+version: 0.1
+lint:
+  downloads:
+    - name: google-java-format.jar
+      executable: true
+      downloads:
+        - url: https://github.com/google/google-java-format/releases/download/v${version}/google-java-format-${version}-all-deps.jar
+  definitions:
+    - name: google-java-format
+      files: [java]
+      download: google-java-format.jar
+      commands:
+        - output: rewrite
+          run: java -jar ${linter}/google-java-format.jar --replace ${target}
+          success_codes: [0]
+          in_place: true
+          formatter: true
+      runtime: java
+      known_good_version: 1.15.0
