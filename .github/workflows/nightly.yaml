@@ -47,6 +47,50 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          append-args: -- --json --outputFile=${{ matrix.linter-version }}-res.json
+
+      - name: Upload Test Outputs for Upload Job
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-test-results
+          path: ${{ matrix.os }}-res.json
+
+  upload_test_results:
+    name: Upload Test Results
+    needs: linter_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Retrieve Test Outputs ubuntu
+        uses: actions/download-artifact@v3
+        with:
+          name: ubuntu-latest-test-results
+          path: ubuntu-latest-res.json
+
+      - name: Retrieve Test Outputs macOS
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-latest-test-results
+          path: macos-latest-res.json
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Sync lfs
+        run: git lfs pull
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Upload Test Results
+        run: npm run upload
+      # TODO: TYLER UPLOAD
+      # TODO: TYLER ADD  -- --json --outputFile=res.json
 
   # Run repo healthcheck tests
   repo_tests:
