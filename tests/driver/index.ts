@@ -1,11 +1,4 @@
-import {
-  ChildProcess,
-  execFile,
-  execFileSync,
-  ExecOptions,
-  execSync,
-  spawnSync,
-} from "child_process";
+import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
 import Debug, { Debugger } from "debug";
 import * as fs from "fs";
 import * as os from "os";
@@ -22,7 +15,6 @@ const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
 const TEMP_SUBDIR = "tmp";
-const MAX_DAEMON_RETRIES = 10;
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
 let testNum = 1;
@@ -103,8 +95,6 @@ export interface SetupSettings {
   setupGit?: boolean;
   /** Whether or not to create a new .trunk/trunk.yaml */
   setupTrunk?: boolean;
-  /** Whether or not to launch the daemon on setup. */
-  launchDaemon?: boolean;
 }
 
 /**
@@ -148,8 +138,7 @@ export class TrunkDriver {
    * Setup a sandbox test directory by copying in test contents and conditionally:
    * 1. Creating a git repo
    * 2. Dumping a newly generated trunk.yaml
-   * 3. Launching the daemon
-   * 4. Enabling the specified 'linter'
+   * 3. Enabling the specified 'linter'
    */
   async setUp() {
     this.sandboxPath = fs.realpathSync(fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX)));
@@ -192,16 +181,6 @@ export class TrunkDriver {
       console.warn(`Error running --help`, error);
     }
 
-    // Launch daemon if specified
-    if (!this.setupSettings.launchDaemon) {
-      return;
-    }
-
-    if (process.platform !== "darwin") {
-      await this.launchDaemonAsync();
-      this.debug("Launched daemon");
-    }
-
     // Enable tested linter if specified
     if (!this.linter) {
       return;
@@ -239,12 +218,10 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    if (this.daemon) {
-      execFileSync(trunkCommand, ["deinit"], {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.getSandbox()),
-      });
-    }
+    execFileSync(trunkCommand, ["deinit"], {
+      cwd: this.sandboxPath,
+      env: executionEnv(this.getSandbox()),
+    });
 
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
@@ -398,29 +375,6 @@ export class TrunkDriver {
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
     });
-  }
-
-  /**
-   * Launch the daemon (during setup). This is required to verify parallelism
-   * works as intended.
-   */
-  async launchDaemonAsync() {
-    const trunkCommand = ARGS.cliPath ?? "trunk";
-    const daemonArgs = ["daemon", "launch", "--monitor=false"];
-    this.daemon = execFile(trunkCommand, daemonArgs, {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.sandboxPath ?? ""),
-    });
-
-    // Verify the daemon has finished launching
-    for (let i = 0; i < MAX_DAEMON_RETRIES; i++) {
-      const status = spawnSync(trunkCommand, ["daemon", "status"], { cwd: this.sandboxPath });
-      if (!status.error) {
-        return;
-      }
-      await new Promise((r) => setTimeout(r, 1000));
-    }
-    console.log("Failed to confirm daemon status");
   }
 
   /**

@@ -42,7 +42,7 @@ runs:
 
     - name: Run plugin tests
       run: |
-        PATH=$(npm bin):$PATH npm test --ci linters ${{ inputs.path }}
+        PATH=$(npm bin):$PATH npm test --ci linters ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
