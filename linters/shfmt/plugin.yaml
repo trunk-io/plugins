@@ -6,7 +6,7 @@ lint:
       commands:
         - name: format
           output: shfmt
-          run: shfmt -ws ${target}
+          run: shfmt -w -s ${target}
           success_codes: [0, 1]
           cache_results: true
           formatter: true
