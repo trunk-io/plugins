@@ -47,7 +47,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          append-args: -- --json --outputFile=${{ matrix.linter-version }}-res.json
+          append-args: -- --json --outputFile=${{ matrix.os }}-res.json
 
       - name: Upload Test Outputs for Upload Job
         uses: actions/upload-artifact@v3
@@ -89,8 +89,6 @@ jobs:
 
       - name: Upload Test Results
         run: npm run upload
-      # TODO: TYLER UPLOAD
-      # TODO: TYLER ADD  -- --json --outputFile=res.json
 
   # Run repo healthcheck tests
   repo_tests:
