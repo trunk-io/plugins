@@ -6,11 +6,12 @@ lint:
       commands:
         - name: format
           output: shfmt
-          run: shfmt -s -filename ${target} -
+          run: shfmt -w -s ${target}
           success_codes: [0, 1]
-          stdin: true
           cache_results: true
           formatter: true
+          batch: true
+          in_place: true
       runtime: go
       package: mvdan.cc/sh/v${major_version}/cmd/shfmt
       good_without_config: true
