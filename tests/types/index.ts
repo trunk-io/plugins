@@ -1,3 +1,5 @@
+/**** Check runs ****/
+
 /**
  * Which primary trunk command was run.
  */
@@ -7,6 +9,8 @@ export type TrunkVerb = "Check" | "Format";
  * Which snapshot type to generate based on trunk command.
  */
 export type CheckType = "check" | "fmt";
+
+/**** Testing setup ****/
 
 /**
  * Version of a linter to enable and test against.
@@ -32,9 +36,15 @@ export interface TestingArguments {
   dumpNewSnapshot: boolean;
 }
 
+/**** Landing state ****/
+
 // LandingState and its subfields must be strongly typed in order for tests
 // to be most effective in asserting relevant, idempotent information.
 // Unimportant assertion fields omitted here.
+
+/**
+ * A diagnostic issue or unformatted file.
+ */
 export interface FileIssue {
   file: string;
   line: number;
@@ -53,6 +63,9 @@ export interface FileIssue {
   issueUrl: string;
 }
 
+/**
+ * A linting action undertaken by trunk. Records linter and path information.
+ */
 export interface LintAction {
   paths: string[];
   linter: string;
@@ -66,6 +79,10 @@ export interface LintAction {
   actionDurationMs?: number;
 }
 
+/**
+ * A failure occurred during the setup of a linter (e.g. install error) or from an unsuccessful exit code
+ * (e.g. linter internal parsing error)
+ */
 export interface TaskFailure {
   name: string;
   message: string;
@@ -90,4 +107,42 @@ export interface LandingState {
   taskFailures?: TaskFailure[];
   // notices?: any[];
   // bad_config?: boolean;
+}
+
+/**** Result post-processing ****/
+
+/**
+ * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
+ */
+export enum TestOS {
+  LINUX = "ubuntu-latest",
+  MAC_OS = "macos-latest",
+}
+
+/**
+ * The result of a linter's tests.
+ * - passed: all linter tests were successful.
+ * - failed: any of a linter's tests failed.
+ * - skipped: all tests so far were skipped (overriden by a pass or failure).
+ * - mismatch: "Latest" tests ran on different linter versions. Ultimately treated as a failure.
+ */
+export type TestResultStatus = "passed" | "failed" | "skipped" | "mismatch";
+
+/**
+ * A result from an individual test or multiple merged tests on a singular linter.
+ * Includes the version of the linter if present, the full names of the tests that ran, and the status of the tests.
+ */
+export interface TestResult {
+  version?: string;
+  testNames: string[];
+  testResultStatus: TestResultStatus;
+}
+
+/**
+ * A summary of all tests run with an individual OS (or the merged result of all OSs).
+ * Includes a map of linter name to linter test results.
+ */
+export interface TestResultSummary {
+  os: TestOS | "composite";
+  linters: Map<string, TestResult>;
 }

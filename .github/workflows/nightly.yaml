@@ -22,6 +22,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        # TODO: TYLER CHANGE REF?
 
       - name: Cache tool downloads
         uses: actions/cache@v3
@@ -70,13 +71,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ubuntu-latest-test-results
-          path: ubuntu-latest-res.json
 
       - name: Retrieve Test Outputs macOS
         uses: actions/download-artifact@v3
         with:
           name: macos-latest-test-results
-          path: macos-latest-res.json
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -90,7 +89,7 @@ jobs:
         run: npm ci
 
       - name: Upload Test Results
-        run: npm run upload
+        run: npm run parse
 
   # Run repo healthcheck tests
   repo_tests:

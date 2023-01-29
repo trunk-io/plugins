@@ -1,27 +1,19 @@
 import * as fs from "fs";
 import path from "path";
+import { TestOS, TestResult, TestResultStatus, TestResultSummary } from "tests/types";
 import { REPO_ROOT } from "tests/utils";
+import { getTrunkVersion } from "tests/utils/trunk_config";
 
-enum TestOS {
-  LINUX = "ubuntu-latest",
-  MAC_OS = "macos-latest",
-}
+const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 
-type TestResultStatus = "passed" | "failed" | "skipped" | "mismatch";
-
-interface TestResult {
-  version: string;
-  testNames: string[];
-  testResultStatus: TestResultStatus;
-}
-
-interface TestResultSummary {
-  os: TestOS | "composite";
-  linters: Map<string, TestResult>;
-}
-
+/**
+ * Convert an OS into the expected file path.
+ */
 const getResultsFileFromOS = (os: TestOS) => path.resolve(REPO_ROOT, `${os}-res.json`);
 
+/**
+ * Convert the name that jest uses for test status into a `TestResultStatus`.
+ */
 const parseTestStatus = (status: string): TestResultStatus => {
   switch (status) {
     case "passed":
@@ -33,18 +25,29 @@ const parseTestStatus = (status: string): TestResultStatus => {
   }
 };
 
+/**
+ * Merge the status of multiple tests into one.
+ * Skipped tests are overriden by failed or passed.
+ * Passed tests are overriden by failed tests.
+ */
 const mergeTestStatuses = (
   original: TestResultStatus,
   incoming: TestResultStatus
 ): TestResultStatus => {
   if (incoming == "failed") {
-    return "failed";
+    return incoming;
+  } else if (original == "skipped") {
+    return incoming;
   }
 
   // if incoming is "skipped" or "passed", defer to the original
   return original;
 };
 
+/**
+ * Merge the result of multiple tests into one. Concatenates test names, intelligently merges statuses,
+ * and handles version mismatches.
+ */
 const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   const { version, testNames, testResultStatus } = incoming;
   // Merge existing composite record
@@ -56,12 +59,14 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   }
 };
 
+/**
+ * Parse the results of tests run on a singular OS. Merges multiple tests per linter.
+ */
 const parseResultsJson = (os: TestOS): TestResultSummary => {
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-argument)
   const resultsJsonPath = getResultsFileFromOS(os);
-  console.log(resultsJsonPath);
   const jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
 
   const linterResults = new Map<string, TestResult>();
@@ -100,12 +105,17 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-argument)
   // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-call)
 
+  console.log(`Parsed results for ${os}`);
   return {
     os,
     linters: linterResults,
   };
 };
 
+/**
+ * Merge the result summaries of multiple OS tests. Merges serially such that all tests for a linter must have the
+ * same version and all tests must be skipped or pass to be considered passed.
+ */
 const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultSummary => {
   const compositeLinterResults = testResults[0].linters;
   testResults.slice(1).forEach((testResult) => {
@@ -127,15 +137,40 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
   };
 };
 
-const uploadTestResults = (compositeTestResult: TestResultSummary) => {
-  console.log(compositeTestResult);
+interface ValidatedVersion {
+  linter: string;
+  version: string;
+}
 
-  // TODO: TYLER UPLOAD
-  // TODO: TYLER ADD DOCS/COMMENTS TO THIS
+/**
+ * Write composite test results to `RESULTS_FILE` so that they may be uploaded via trunk CLI.
+ */
+const writeTestResults = (testResults: TestResultSummary) => {
+  const cliVersion = getTrunkVersion();
+  const pluginVersion = "3.3.3"; // TODO: TYLER GET THIS PLUGIN VERSION
+  const validatedVersions = Array.from(testResults.linters).reduce(
+    (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
+      if (testResultStatus === "passed" && version) {
+        return accumulator.concat([{ linter, version }]);
+      }
+      return accumulator;
+    },
+    []
+  );
+
+  const outObject = {
+    cliVersion,
+    pluginVersion,
+    validatedVersions,
+  };
+  const outString = JSON.stringify(outObject);
+  fs.writeFileSync(RESULTS_FILE, outString);
+  console.log(`Wrote results out to ${RESULTS_FILE}:`);
+  console.log(outString);
 };
 
-const parseTestResultsAndUpload = () => {
-  // Step 1: Parse each OS's results json file
+const parseTestResultsAndWrite = () => {
+  // Step 1: Parse each OS's results json file. If one of the expected files does not exist, throw and error out.
   const testResults = Object.values(TestOS).map((os) => parseResultsJson(os));
 
   // Step 2: Merge all OS results into one composite results summary. Tests must pass with the same version on both OSs
@@ -143,8 +178,8 @@ const parseTestResultsAndUpload = () => {
   // TODO(Tyler): Choose a minimum compliant version in the case of os-varying download versions.
   const compositeTestResult = mergeTestResultSummaries(testResults);
 
-  // Step 3: Upload results so that recommended linter versions only come from validated versions.
-  uploadTestResults(compositeTestResult);
+  // Step 3: Dump results to json file.
+  writeTestResults(compositeTestResult);
 };
 
-parseTestResultsAndUpload();
+parseTestResultsAndWrite();
