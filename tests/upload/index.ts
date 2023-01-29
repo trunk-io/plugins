@@ -61,6 +61,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-argument)
   const resultsJsonPath = getResultsFileFromOS(os);
+  console.log(resultsJsonPath);
   const jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
 
   const linterResults = new Map<string, TestResult>();

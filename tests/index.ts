@@ -24,16 +24,12 @@ declare global {
       toMatchSpecificSnapshot(snapshotFilename: string, customMatcher: unknown): R;
     }
   }
-  interface Console {
-    registerVersion(linterVersion?: string): void;
-  }
 }
 
-// trunk-ignore(eslint/func-names)
-console.registerVersion = function (linterVersion?: string) {
+const registerVersion = (linterVersion?: string) => {
   // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
   // trunk-ignore(eslint): Manual patch is quired here for most reliable implementation
-  this._buffer?.push({
+  console._buffer?.push({
     message: linterVersion,
     origin: expect.getState().currentTestName,
     type: "linter-version",
@@ -113,7 +109,7 @@ export const setupDriver = (
   });
 
   afterEach(() => {
-    console.registerVersion(driver.enabledVersion);
+    registerVersion(driver.enabledVersion);
   });
   return driver;
 };
