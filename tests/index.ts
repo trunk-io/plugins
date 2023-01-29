@@ -24,7 +24,21 @@ declare global {
       toMatchSpecificSnapshot(snapshotFilename: string, customMatcher: unknown): R;
     }
   }
+  interface Console {
+    registerVersion(linterVersion?: string): void;
+  }
 }
+
+// trunk-ignore(eslint/func-names)
+console.registerVersion = function (linterVersion?: string) {
+  // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
+  // trunk-ignore(eslint): Manual patch is quired here for most reliable implementation
+  this._buffer?.push({
+    message: linterVersion,
+    origin: expect.getState().currentTestName,
+    type: "linter-version",
+  });
+};
 
 const baseDebug = Debug("Tests");
 
@@ -96,6 +110,10 @@ export const setupDriver = (
 
   afterAll(() => {
     driver.tearDown();
+  });
+
+  afterEach(() => {
+    console.registerVersion(driver.enabledVersion);
   });
   return driver;
 };
@@ -240,6 +258,7 @@ export const customLinterFmtTest = ({
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
+  // TODO: TYLER REPLACE NAME
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
     const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt", true);

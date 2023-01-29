@@ -50,6 +50,8 @@ jobs:
           append-args: -- --json --outputFile=${{ matrix.os }}-res.json
 
       - name: Upload Test Outputs for Upload Job
+        # Only upload results from latest
+        if: matrix.linter-version == 'Latest'
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}-test-results

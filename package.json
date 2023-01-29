@@ -6,6 +6,9 @@
     "upload": "ts-node tests/upload/index.ts"
   },
   "devDependencies": {
+    "@jest/console": "^29.4.1",
+    "@jest/reporters": "^29.4.1",
+    "@jest/test-result": "^29.4.1",
     "@trunkio/launcher": "^1.2.3",
     "@types/caller": "^1.0.0",
     "@types/debug": "^4.1.7",
