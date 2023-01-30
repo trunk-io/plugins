@@ -21,7 +21,7 @@ actions:
       description: Run 'trunk fmt' whenever you run 'git commit'
       display_name: Trunk Fmt Pre-Commit Hook
       run: trunk fmt -t "git-commit" --index-file '${env.GIT_INDEX_FILE}' --upstream=HEAD
-      interactive: true
+      interactive: auto
       triggers:
         - git_hooks: [pre-commit]
       notify_on_error: false
