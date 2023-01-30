@@ -147,7 +147,7 @@ interface ValidatedVersion {
  */
 const writeTestResults = (testResults: TestResultSummary) => {
   const cliVersion = getTrunkVersion();
-  const pluginVersion = "3.3.3"; // TODO: TYLER GET THIS PLUGIN VERSION
+  const pluginVersion = "v0.0.10"; // TODO(Tyler): Iron out ref for nightly runs.
   const validatedVersions = Array.from(testResults.linters).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
       if (testResultStatus === "passed" && version) {
