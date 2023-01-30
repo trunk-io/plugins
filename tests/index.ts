@@ -254,8 +254,7 @@ export const customLinterFmtTest = ({
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
-  // TODO: TYLER REPLACE NAME
-  describe(`Testing linter ${linterName}`, () => {
+  describe(`Testing formatter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
     const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt", true);
     linterVersions.forEach((linterVersion) => {

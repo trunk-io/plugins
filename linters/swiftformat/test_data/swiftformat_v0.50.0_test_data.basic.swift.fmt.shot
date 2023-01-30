@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter swiftformat test CUSTOM 1`] = `
+exports[`Testing formatter swiftformat test CUSTOM 1`] = `
 "// Swift \\"Hello, World!\\" Program
 
 print(\\"Hello, World!\\")

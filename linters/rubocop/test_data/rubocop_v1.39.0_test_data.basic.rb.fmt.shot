@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter rubocop test CUSTOM 1`] = `
+exports[`Testing formatter rubocop test CUSTOM 1`] = `
 "class Plumbus
   private
 
