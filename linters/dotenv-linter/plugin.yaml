@@ -9,7 +9,7 @@ lint:
           url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-darwin-x86_64.tar.gz
           version: <3.1.1
         - os:
-            linux: linux
+            linux: alpine
             macos: darwin
           cpu:
             x86_64: x86_64
