@@ -1,0 +1,38 @@
+# Runs tests to verify:
+# 1. All linters are specified in the readme.md
+# 2. All linters have test coverage.
+# 3. Plugin has a healthy composite config
+name: Repo Tests
+on:
+  workflow_call:
+    inputs:
+      cli-version:
+        required: false
+        type: string
+      cli-path:
+        required: false
+        type: string
+jobs:
+  plugins_test:
+    name: Plugin Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run repo tests
+        run: |
+          PATH=$(npm bin):$PATH npm test --ci tests
+        env:
+          PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+          PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}

@@ -21,7 +21,8 @@ import YAML from "yaml";
 const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
 const TEMP_PREFIX = "plugins_";
-const MAX_DAEMON_RETRIES = 5;
+const TEMP_SUBDIR = "tmp";
+const MAX_DAEMON_RETRIES = 10;
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
 let testNum = 1;
@@ -38,7 +39,7 @@ const executionEnv = (sandbox: string) => {
       `${TEMP_PREFIX}testing_download_cache`
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
-    TMPDIR: path.resolve(sandbox, "tmp"),
+    TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
   };
 };
 
@@ -160,6 +161,14 @@ export class TrunkDriver {
     const snapshotFilter = (file: string) => !file.endsWith(".shot");
     fs.cpSync(this.testDir, this.sandboxPath, { recursive: true, filter: snapshotFilter });
 
+    if (this.setupSettings.setupTrunk) {
+      // Initialize trunk via config
+      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
+        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
+      }
+      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
+    }
+
     this.gitDriver = git.simpleGit(this.sandboxPath);
     if (this.setupSettings.setupGit) {
       await this.gitDriver
@@ -171,16 +180,17 @@ export class TrunkDriver {
         .commit("first commit");
     }
 
-    if (this.setupSettings.setupTrunk) {
-      // Initialize trunk via config
-      if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
-        fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
-      }
-      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
-    }
-
     // Run a cli-dependent command to wait on and verify trunk is installed
-    await this.run("--help");
+    try {
+      // This directory is generated during launcher log creation and is required for binary cache results
+      fs.mkdirSync(path.resolve(this.sandboxPath, TEMP_SUBDIR));
+      await this.run("--help");
+    } catch (error) {
+      // The trunk launcher is not designed to handle concurrent installs.
+      // This command may fail if another test installs at the same time.
+      // Don't block if this happens.
+      console.warn(`Error running --help`, error);
+    }
 
     // Launch daemon if specified
     if (!this.setupSettings.launchDaemon) {
@@ -229,10 +239,13 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
-    execFileSync(trunkCommand, ["deinit"], {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.getSandbox()),
-    });
+    if (this.daemon) {
+      execFileSync(trunkCommand, ["deinit"], {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.getSandbox()),
+      });
+    }
+
     if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }

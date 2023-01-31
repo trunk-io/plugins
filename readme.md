@@ -45,7 +45,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | GitHub          | [actionlint]                                                                          |
 | Go              | [gofmt], [golangci-lint], [semgrep], [goimports]                                      |
 | HAML            | [haml-lint]                                                                           |
-| Java            | [semgrep]                                                                             |
+| Java            | [google-java-format], [semgrep]                                                       |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                               |
 | JSON            | [eslint], [prettier], [semgrep]                                                       |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                             |
@@ -92,6 +92,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [gofmt]: https://pkg.go.dev/cmd/gofmt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
+[google-java-format]: https://github.com/google/google-java-format#readme
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
 [isort]: https://github.com/PyCQA/isort#readme
