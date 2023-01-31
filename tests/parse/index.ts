@@ -1,6 +1,12 @@
 import * as fs from "fs";
 import path from "path";
-import { TestOS, TestResult, TestResultStatus, TestResultSummary } from "tests/types";
+import {
+  TestOS,
+  TestResult,
+  TestResultStatus,
+  TestResultSummary,
+  ValidatedVersion,
+} from "tests/types";
 import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
@@ -137,11 +143,6 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
   };
 };
 
-interface ValidatedVersion {
-  linter: string;
-  version: string;
-}
-
 /**
  * Write composite test results to `RESULTS_FILE` so that they may be uploaded via trunk CLI.
  */
@@ -151,7 +152,8 @@ const writeTestResults = (testResults: TestResultSummary) => {
   const validatedVersions = Array.from(testResults.linters).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
       if (testResultStatus === "passed" && version) {
-        return accumulator.concat([{ linter, version }]);
+        const additionalValidatedVersion: ValidatedVersion = { linter, version };
+        return accumulator.concat([additionalValidatedVersion]);
       }
       return accumulator;
     },

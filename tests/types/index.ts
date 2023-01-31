@@ -146,3 +146,11 @@ export interface TestResultSummary {
   os: TestOS | "composite";
   linters: Map<string, TestResult>;
 }
+
+/**
+ * The final format of a validated linter and its version used for uploading.
+ */
+export interface ValidatedVersion {
+  linter: string;
+  version: string;
+}
