@@ -2,9 +2,13 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "trunk": "trunk"
+    "trunk": "trunk",
+    "parse": "ts-node tests/parse/index.ts"
   },
   "devDependencies": {
+    "@jest/console": "^29.4.1",
+    "@jest/reporters": "^29.4.1",
+    "@jest/test-result": "^29.4.1",
     "@trunkio/launcher": "^1.2.3",
     "@types/caller": "^1.0.0",
     "@types/debug": "^4.1.7",
@@ -30,6 +34,7 @@
     "simple-git": "^3.15.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4",
     "yaml": "^2.2.0"
   },

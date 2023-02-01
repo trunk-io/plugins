@@ -26,6 +26,16 @@ declare global {
   }
 }
 
+const registerVersion = (linterVersion?: string) => {
+  // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
+  // trunk-ignore(eslint): Manual patch is quired here for most reliable implementation
+  console._buffer?.push({
+    message: linterVersion,
+    origin: expect.getState().currentTestName,
+    type: "linter-version",
+  });
+};
+
 const baseDebug = Debug("Tests");
 
 const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
@@ -78,17 +88,12 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  */
 export const setupDriver = (
   dirname: string,
-  { setupGit = true, setupTrunk = true, launchDaemon = true }: SetupSettings,
+  { setupGit = true, setupTrunk = true }: SetupSettings,
   linterName?: string,
   version?: string,
   preCheck?: TestCallback
 ): TrunkDriver => {
-  const driver = new TrunkDriver(
-    dirname,
-    { setupGit, setupTrunk, launchDaemon },
-    linterName,
-    version
-  );
+  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk }, linterName, version);
 
   beforeAll(async () => {
     await driver.setUp();
@@ -101,6 +106,10 @@ export const setupDriver = (
 
   afterAll(() => {
     driver.tearDown();
+  });
+
+  afterEach(() => {
+    registerVersion(driver.enabledVersion);
   });
   return driver;
 };
@@ -245,7 +254,7 @@ export const customLinterFmtTest = ({
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
-  describe(`Testing linter ${linterName}`, () => {
+  describe(`Testing formatter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
     const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt", true);
     linterVersions.forEach((linterVersion) => {

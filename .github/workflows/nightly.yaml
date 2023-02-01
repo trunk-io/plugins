@@ -22,6 +22,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        # TODO(Tyler): Iron out ref for tests
 
       - name: Cache tool downloads
         uses: actions/cache@v3
@@ -47,6 +48,48 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          append-args: -- --json --outputFile=${{ matrix.os }}-res.json
+
+      - name: Upload Test Outputs for Upload Job
+        # Only upload results from latest
+        if: matrix.linter-version == 'Latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-test-results
+          path: ${{ matrix.os }}-res.json
+
+  upload_test_results:
+    name: Upload Test Results
+    needs: linter_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Retrieve Test Outputs ubuntu
+        uses: actions/download-artifact@v3
+        with:
+          name: ubuntu-latest-test-results
+
+      - name: Retrieve Test Outputs macOS
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-latest-test-results
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Sync lfs
+        run: git lfs pull
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Upload Test Results
+        run: npm run parse
 
   # Run repo healthcheck tests
   repo_tests:

@@ -16,6 +16,10 @@ inputs:
     description: The cwd from which to run plugin commands
     required: false
     default: .
+  append-args:
+    description: Additional args to append to the test invocation
+    required: false
+    default: ""
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -38,7 +42,7 @@ runs:
 
     - name: Run plugin tests
       run: |
-        PATH=$(npm bin):$PATH npm test --ci linters
+        PATH=$(npm bin):$PATH npm test --ci linters ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
       env:

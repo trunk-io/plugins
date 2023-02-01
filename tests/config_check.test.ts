@@ -22,7 +22,6 @@ describe("Global config health check", () => {
   const driver = setupDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
-    launchDaemon: false,
   });
 
   // Step 2a: Validate config
