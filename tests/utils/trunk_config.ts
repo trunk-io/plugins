@@ -45,4 +45,5 @@ lint:
     - linters: [ALL]
       paths:
         - tmp/**
+        - node_modules/**
 `;
