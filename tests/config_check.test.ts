@@ -112,6 +112,7 @@ describe("Global config health check", () => {
         "isort",
         "ktlint",
         "markdownlint",
+        "nixpkgs-fmt",
         "oxipng",
         "prettier",
         "rustfmt",
