@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter nixpkgs-fmt test test 1`] = `
+"{
+  f =
+    { x
+    , y
+    }: body;
+
+  testAllTrue = expr: { inherit expr; expected = map (x: true) expr; };
+}
+"
+`;
