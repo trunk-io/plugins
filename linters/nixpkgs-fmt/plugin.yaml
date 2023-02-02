@@ -1,0 +1,22 @@
+version: 0.1
+lint:
+  files:
+    - name: nix
+      extensions: [nix]
+  definitions:
+    - name: nixpkgs-fmt
+      package: nixpkgs-fmt
+      runtime: rust
+      files: [nix]
+      commands:
+        - output: rewrite
+          run: nixpkgs-fmt
+          success_codes: [0]
+          stdin: true
+          formatter: true
+      good_without_config: true
+      is_recommended: true
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 1.3.0
