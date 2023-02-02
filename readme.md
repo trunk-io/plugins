@@ -158,7 +158,7 @@ trunk check enable {linter}
 | [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
 | [`go-mod-tidy`](actions/go-mod-tidy/readme.md)                       | automatically tidy go.mod file                             |
 | [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/readme.md)         | automatically tidy and vendor go.mod file                  |
-| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/readme.md)`  | automatically configure git to use .git-blame-ignore-revs  |
+| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/readme.md)   | automatically configure git to use .git-blame-ignore-revs  |
 
 ```bash
 trunk actions enable {action}
