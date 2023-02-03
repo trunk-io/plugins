@@ -57,12 +57,12 @@ actions:
             - linters/**
           run: tools/toggle-local/toggle notify ${workspace}
 
-    - id: plugin-tests
-      display_name: Plugin Tests
-      description: Run tests on all linter plugin definitions
+    - id: repo-tests
+      display_name: Repo Tests
+      description: Run tests on plugin configuration and documentation
       runtime: node
       packages_file: package.json
-      run: npm test
+      run: npm test tests/
       triggers:
         - git_hooks: [pre-push]
 
@@ -76,7 +76,7 @@ actions:
         - files: [linters/**]
 
   enabled:
-    - plugin-tests
+    - repo-tests
     - linter-test-helper
     - trunk-announce
     - toggle-local
