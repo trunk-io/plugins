@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter renovate test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "renovate",
+      "code": "Configuration-Error",
+      "file": "test_data/renovate.json",
+      "level": "LEVEL_HIGH",
+      "linter": "renovate",
+      "message": "Invalid configuration option: packageRules[0].matchUpdateTyped_badInfo",
+      "targetType": "renovate-config",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "validate",
+      "fileGroupName": "renovate-config",
+      "linter": "renovate",
+      "paths": Array [
+        "test_data/renovate.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

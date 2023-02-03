@@ -12,7 +12,7 @@ lint:
       package: renovate
       commands:
         - name: validate
-          run: renovate-config-validator
+          run: renovate-config-validator ${target}
           success_codes: [0, 1]
           output: sarif
           read_output_from: stdout

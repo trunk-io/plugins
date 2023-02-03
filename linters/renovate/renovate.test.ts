@@ -1,3 +1,3 @@
-// import { linterCheckTest } from "tests";
+import { customLinterCheckTest } from "tests";
 
-// linterCheckTest({ linterName: "renovate" });
+customLinterCheckTest({ linterName: "renovate", args: "-a" });

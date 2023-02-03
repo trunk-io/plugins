@@ -56,17 +56,13 @@ make the discovery, management and integration of new tools as straight-forward 
 | PNG             | [oxipng]                                                                              |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                      |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [semgrep], [yapf] |
-| Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                |
-| Rust            | [clippy], [rustfmt]                                                                   |
-| Scala           | [scalafmt]                                                                            |
-| Security        | [nancy], [trivy]                                                                      |
-| SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                 |
-| SVG             | [svgo]                                                                                |
-| Swift           | [stringslint], [swiftlint], [swiftformat]                                             |
-| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>       |
-| TOML            | [taplo]                                                                               |
-| Typescript      | [eslint], [prettier], [rome], [semgrep]                                               |
-| YAML            | [prettier], [semgrep], [yamllint]                                                     |
+| Renovate        | [renovate-validate-config]                                                            |
+
+| Ruby | [brakeman], [rubocop], [rufo], [semgrep], [standardrb] | | Rust | [clippy], [rustfmt] | |
+Scala | [scalafmt] | | Security | [nancy], [trivy] | | SQL | [sqlfluff], [sqlfmt], [sql-formatter] |
+| SVG | [svgo] | | Swift | [stringslint], [swiftlint], [swiftformat] | | Terraform | [terraform]
+(validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup> | | TOML | [taplo] | |
+Typescript | [eslint], [prettier], [rome], [semgrep] | | YAML | [prettier], [semgrep], [yamllint] |
 
 [actionlint]: https://github.com/rhysd/actionlint#readme
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
