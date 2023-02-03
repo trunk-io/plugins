@@ -6,7 +6,7 @@
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchPackagePatterns": ["*"],
-      "matchUpdateTyped": ["minor", "patch"]
+      "matchUpdateTypes": ["minor", "patch"]
     }
   ]
 }
