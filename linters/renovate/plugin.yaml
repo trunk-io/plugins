@@ -1,0 +1,28 @@
+version: 0.1
+lint:
+  files:
+    - name: renovate-config
+      filenames:
+        - renovate.json
+        - renovate.json5
+  definitions:
+    - name: renovate
+      files: [renovate-config]
+      runtime: node
+      package: renovate
+      commands:
+        - name: validate
+          run: renovate-config-validator
+          success_codes: [0, 1]
+          output: sarif
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${plugin}/linters/renovate/parse.py
+      affects_cache:
+        - renovate.json
+        - renovate.json5
+      known_good_version: 34.122.0
+      version_command:
+        parse_regex: ${semver}
+        run: renovate --version
