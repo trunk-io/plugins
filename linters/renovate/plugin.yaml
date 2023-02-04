@@ -18,7 +18,7 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${plugin}/linters/renovate/parse.py
+            run: ${cwd}/parse.py
       affects_cache:
         - renovate.json
         - renovate.json5
