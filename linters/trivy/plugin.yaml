@@ -17,6 +17,7 @@ lint:
   definitions:
     - name: trivy
       download: trivy
+      known_good_version: 0.37.1
       commands:
         - output: sarif
           run: trivy fs ${target} --format sarif --no-progress --cache-dir ${shared_cachedir}
