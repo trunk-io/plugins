@@ -56,6 +56,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | PNG             | [oxipng]                                                                              |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                      |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [semgrep], [yapf] |
+| Renovate        | [renovate]                                                                            |
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                |
 | Rust            | [clippy], [rustfmt]                                                                   |
 | Scala           | [scalafmt]                                                                            |
@@ -108,6 +109,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
+[renovate]: https://github.com/renovatebot/renovate#readme
 [rome]: https://github.com/rome/tools#readme
 [rubocop]: https://github.com/rubocop/rubocop#readme
 [rufo]: https://github.com/ruby-formatter/rufo#readme
