@@ -1,10 +1,10 @@
 plugins {
     // Java deps
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.8.10"
     `java-library`
 
     // Detekt
-    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1")
+    id("io.gitlab.arturbosch.detekt").version("1.22.0")
 }
 
 repositories {
