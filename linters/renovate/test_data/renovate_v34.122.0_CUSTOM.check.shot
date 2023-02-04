@@ -30,6 +30,15 @@ Object {
       "fileGroupName": "renovate-config",
       "linter": "renovate",
       "paths": Array [
+        "test_data/.renovaterc.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "validate",
+      "fileGroupName": "renovate-config",
+      "linter": "renovate",
+      "paths": Array [
         "test_data/renovate.json",
       ],
       "verb": "TRUNK_VERB_CHECK",
