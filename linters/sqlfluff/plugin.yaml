@@ -5,6 +5,7 @@ lint:
       files: [sql, sql-j2, dml, ddl]
       runtime: python
       package: sqlfluff
+      known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff
       commands:
