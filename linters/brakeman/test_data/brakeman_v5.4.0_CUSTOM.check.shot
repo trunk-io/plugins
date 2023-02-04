@@ -5,19 +5,6 @@ Object {
   "issues": Array [
     Object {
       "bucket": "brakeman",
-      "code": "PageCachingCVE",
-      "column": "1",
-      "file": "test_data/Gemfile",
-      "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://groups.google.com/d/msg/rubyonrails-security/CFRVkEytdP8/c5gmICECAgAJ",
-      "level": "LEVEL_MEDIUM",
-      "line": "24",
-      "linter": "brakeman",
-      "message": "Directory traversal vulnerability in actionpack-page_caching 1.2.0 (CVE-2020-8159). Upgrade to actionpack-page_caching 1.2.2",
-      "targetType": "ruby",
-    },
-    Object {
-      "bucket": "brakeman",
       "code": "CSRFTokenForgeryCVE",
       "column": "1",
       "file": "test_data/Gemfile.lock",
