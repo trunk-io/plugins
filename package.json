@@ -44,8 +44,5 @@
   ],
   "engines": {
     "node": ">=16"
-  },
-  "dependencies": {
-    "renovate": "^34.122.0"
   }
 }
