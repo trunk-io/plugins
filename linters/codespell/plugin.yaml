@@ -9,6 +9,7 @@ lint:
         - setup.cfg
       runtime: python
       package: codespell
+      known_good_version: 2.2.2
       commands:
         - output: sarif
           run: codespell ${target}
