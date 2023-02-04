@@ -5,6 +5,9 @@ lint:
       filenames:
         - renovate.json
         - renovate.json5
+        - .renovaterc
+        - .renovaterc.json
+        - .renovaterc.json5
   definitions:
     - name: renovate
       files: [renovate-config]
@@ -22,6 +25,9 @@ lint:
       affects_cache:
         - renovate.json
         - renovate.json5
+        - .renovaterc
+        - .renovaterc.json
+        - .renovaterc.json5
       known_good_version: 34.122.0
       version_command:
         parse_regex: ${semver}
