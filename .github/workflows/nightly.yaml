@@ -23,11 +23,11 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
         # TODO(Tyler): Iron out ref for tests
 
       - name: Cache tool downloads
-        uses: actions/cache@v3
+        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -55,7 +55,7 @@ jobs:
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest
         if: matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: ${{ matrix.os }}-test-results
           path: ${{ matrix.os }}-res.json
@@ -67,20 +67,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
 
       - name: Retrieve Test Outputs ubuntu
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: macos-latest-test-results
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 18
 
