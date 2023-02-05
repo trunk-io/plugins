@@ -14,8 +14,12 @@
   <a href="https://docs.trunk.io">
     <img src="https://img.shields.io/badge/docs.trunk.io-7f7fcc?label=docs&logo=readthedocs&labelColor=555555&logoColor=ffffff"/>
   </a>
-    <a href="https://trunk.io">
+  <a href="https://trunk.io">
     <img src="https://img.shields.io/badge/trunk.io-enabled-brightgreen?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMSIgdmlld0JveD0iMCAwIDEwMSAxMDEiPjxwYXRoIGQ9Ik01MC41IDk1LjVhNDUgNDUgMCAxIDAtNDUtNDVtNDUtMzBhMzAgMzAgMCAwIDAtMzAgMzBtNDUgMGExNSAxNSAwIDAgMC0zMCAwIi8+PC9zdmc+"/>
+  </a>
+  </a>
+    <a href="https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins">
+    <img src="https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins/badge"/>
   </a>
 </p>
 
