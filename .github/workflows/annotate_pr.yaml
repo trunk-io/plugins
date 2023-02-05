@@ -4,10 +4,14 @@ on:
     workflows: [Pull Request]
     types: [completed]
 
+permissions: read-all
+
 jobs:
   trunk_check:
     name: Trunk Check Annotate
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       - name: Checkout
