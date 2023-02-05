@@ -11,7 +11,7 @@ Object {
       "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "level": "LEVEL_MEDIUM",
-      "line": "104",
+      "line": "105",
       "linter": "brakeman",
       "message": "Support for Rails 5.2.8.1 ended on 2022-06-01",
       "targetType": "ruby",
