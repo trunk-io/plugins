@@ -7,6 +7,8 @@ on:
     paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
+permissions: read-all
+
 jobs:
   # TODO(Tyler): Forward json outputs from job
   # Run tests against all linters for snapshots and latest version

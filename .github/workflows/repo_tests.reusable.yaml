@@ -12,6 +12,9 @@ on:
       cli-path:
         required: false
         type: string
+
+permissions: read-all
+
 jobs:
   plugins_test:
     name: Plugin Tests
