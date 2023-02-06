@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: remark-lint
+      files: [markdown]
+      package: remark-cli
+      runtime: node
+      direct_configs:
+        - .remarkrc
+        - .remarkrc.json
+        - .remarkrc.cjs
+        - .remarkrc.mjs
+        - .remarkrc.js
+        - .remarkrc.yaml
+        - .remarkrc.yml
+      commands:
+        - output: rewrite
+          formatter: true
+          run: remark ${target} --frail
+          read_output_from: stdout
+          success_codes: [0, 1]
