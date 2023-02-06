@@ -34,10 +34,11 @@ jobs:
 
     outputs:
       linters: ${{ steps.filter.outputs.linters }}
-      linters-files: ${{ steps.filter.outputs.linters_files }}
       repo-tests: ${{ steps.filter.outputs.repo-tests }}
       # "linters" if ${{ steps.filter.outputs.all-linters }} is 'true'
       all-linters: ${{ steps.post-filter.outputs.all-linters }}
+      # shortened paths to linter subdirs
+      linters-files: ${{ steps.post-filter-paths.outputs.linters_files }}
 
     steps:
       - name: Checkout
@@ -65,7 +66,13 @@ jobs:
       - name: Suggest all linter tests
         id: post-filter
         if: steps.filter.outputs.all-linters
-        run: echo "linters"
+        run: echo "linters" >> $GITHUB_OUTPUT
+
+      - name: Suggest normalized linter paths
+        id: post-filter-paths
+        if: steps.filter.outputs.linters
+        run:
+          echo ${{steps.filter.outputs.linters_files}} | grep -oP "\Klinters/.*?(?=/)" | tr '\n' ' '
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
