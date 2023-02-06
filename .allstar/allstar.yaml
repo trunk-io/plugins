@@ -1,0 +1,4 @@
+ignorePaths:
+  # Checking in gradle-wrapper.jar is standard and the PR that introduced this ignore feature
+  # explicitly called it out. See https://github.com/ossf/allstar/pull/176
+  - linters/detekt/test_data/detekt_gradle/gradle/wrapper/gradle-wrapper.jar
