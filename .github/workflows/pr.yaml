@@ -72,7 +72,9 @@ jobs:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
     needs: detect_changes
-    if: needs.detect_changes.outputs.linters == 'true'
+    if:
+      needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
+      'true'
     timeout-minutes: 60
     strategy:
       fail-fast: false
