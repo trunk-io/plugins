@@ -42,6 +42,7 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests
+    needs: clear_cache
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -69,6 +70,7 @@ jobs:
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests
+    needs: clear_cache
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
