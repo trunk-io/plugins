@@ -73,6 +73,7 @@ jobs:
         run: |
           cp -r tests tests.bak
           cp package.json package.json.bak
+          cp package-lock.json package-lock.json.bak
 
       - name: Get Latest Release
         id: get-release
@@ -91,6 +92,7 @@ jobs:
         run: |
           mv tests.bak tests
           mv package.json.bak package.json
+          mv package-lock.json.bak package-lock.json
 
       - name: Cache tool downloads
         uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
