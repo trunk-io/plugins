@@ -59,9 +59,6 @@ export const ARGS: TestingArguments = {
 if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapshot) {
   Debug("Tests").extend("Global")("%o", ARGS);
 }
-// TODO: TYLER ADD SANDBOX_DEBUG flag (shutdown daemon)
-// TODO: TYLER improve generate.py script.
-// TODO: TYLER IMPROVE TEST DIFFING ON PR-RUNS
 
 /**
  * Calculate the name for a given snapshot file. Use this as a standardized convention.
