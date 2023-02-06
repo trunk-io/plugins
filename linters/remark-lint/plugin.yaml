@@ -4,6 +4,10 @@ lint:
     - name: remark-lint
       files: [markdown]
       package: remark-cli
+      extra_packages:
+        - remark-preset-lint-consistent
+        - remark-preset-lint-recommended
+        - remark-lint-list-item-indent
       runtime: node
       known_good_version: 11.0.0
       direct_configs:
