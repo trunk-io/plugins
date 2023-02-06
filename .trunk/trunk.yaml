@@ -67,7 +67,7 @@ actions:
       description: Run tests on plugin configuration and documentation
       runtime: node
       packages_file: package.json
-      run: npm test tests/
+      run: npm test tests/repo_tests
       triggers:
         - git_hooks: [pre-push]
 

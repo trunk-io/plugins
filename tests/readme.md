@@ -63,12 +63,19 @@ npm test ${path_to_linter_subdir}
 Then, verify that the generated snapshot file includes the results you would expect (e.g. an Object
 with several fileIssues, no taskFailures).
 
+For context, the general test execution is as follows:
+
+1. Create a sandbox testing directory by copying a linter's subdirectory and its `test_data`.
+2. Initialize a base .trunk/trunk.yaml in the sandbox.
+3. Run `trunk check enable <linter>`
+4. Run `trunk check` or `trunk fmt` on files with the `<name>.in.<extension>` syntax.
+
 ### Linter Versioning
 
 The first time a test runs, it will attempt to run against a linter's `known_good_version`. This
-snapshot is required for CI mirrors the behavior in CI and is used to validate that a linter runs as
-expected across multiple versions. Subsequent test runs will only run against its latest version
-unless otherwise specified (See [Environment Overrides](#environment-overrides)).
+snapshot mirrors the behavior in CI and is used to validate that a linter runs as expected across
+multiple versions. Subsequent test runs will only run against its latest version unless otherwise
+specified (See [Environment Overrides](#environment-overrides)).
 
 If this causes the test to fail when run with the latest version, this is most likely because there
 are discrepancies in the linter output across versions. Rather than running `npm test -- -u`,
@@ -129,6 +136,8 @@ include:
 - `PLUGINS_TEST_UPDATE_SNAPSHOTS` if `true`, tells tests to use an exact match of the linter version
   when checking the output. Only set this if a linter has introduced a output variation with a
   version change.
+- `SANDBOX_DEBUG` if `true`, prevents sandbox test directories from being deleted, and logs their
+  path for additional debugging.
 
 ### CI
 

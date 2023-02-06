@@ -1,0 +1,16 @@
+all-linters:
+  - tests/driver/**
+  - tests/reporter/**
+  - tests/types/**
+  - tests/utils/**
+  - tests/index.ts
+  - .trunk/trunk.yaml
+
+linters:
+  - linters/**
+
+repo-tests:
+  - tests/**
+  - linters/**
+  - actions/**
+  - readme.md

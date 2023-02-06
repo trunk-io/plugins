@@ -218,6 +218,17 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
+
+    // Preserve test directory if `SANDBOX_DEBUG` is truthy.
+    if (ARGS.sandboxDebug) {
+      execFileSync(trunkCommand, ["daemon", "shutdown"], {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.getSandbox()),
+      });
+      console.log(`Preserving test dir ${this.getSandbox()} for linter ${this.linter ?? "N/A"}`);
+      return;
+    }
+
     execFileSync(trunkCommand, ["deinit"], {
       cwd: this.sandboxPath,
       env: executionEnv(this.getSandbox()),

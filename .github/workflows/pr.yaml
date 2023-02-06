@@ -27,10 +27,52 @@ jobs:
       - name: Trunk Check
         uses: trunk-io/trunk-action@9cf65e08e822e9842fd9ef7ed2a2bd9092de0986 # v1.0.6
 
+  detect_changes:
+    name: Detect changed files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      linters: ${{ steps.filter.outputs.linters }}
+      linters-files: ${{ steps.filter.outputs.linters_files }}
+      repo-tests: ${{ steps.filter.outputs.repo-tests }}
+      # "linters" if ${{ steps.filter.outputs.all-linters }} is 'true'
+      all-linters: ${{ steps.post-filter.outputs.all-linters }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+
+      - name: Determine upstream
+        run: |
+          head_sha=$(git rev-parse HEAD)
+          git -c protocol.version=2 fetch -q \
+            --no-tags \
+            --no-recurse-submodules \
+            --depth=2 \
+            origin "${head_sha}"
+          upstream=$(git rev-parse HEAD^1)
+          echo "TEST_UPSTREAM=${upstream}" >>"${GITHUB_ENV}"
+
+      - name: Detect changed paths
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
+        id: filter
+        with:
+          base: ${{ env.TEST_UPSTREAM }}
+          filters: .github/filters.yaml
+          list-files: shell
+
+      - name: Suggest all linter tests
+        id: post-filter
+        if: steps.filter.outputs.all-linters
+        run: echo "linters"
+
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
+    needs: detect_changes
+    if: needs.detect_changes.outputs.linters == 'true'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -51,8 +93,13 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
+    needs: detect_changes
+    if: needs.detect_changes.outputs.repo-tests == 'true'
     uses: ./.github/workflows/repo_tests.reusable.yaml

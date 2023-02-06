@@ -47,18 +47,28 @@ const normalizePath = (value?: string): string | undefined => {
  * - PLUGINS_TEST_CLI_PATH specifies an alternative path to a trunk binary.
  * - PLUGINS_TEST_LINTER_VERSION specifies a linter version semantic (see `parseLinterVersion`).
  * - PLUGINS_TEST_UPDATE_SNAPSHOTS uses the snapshot from the enabled version of the linter, creating a new snapshot if necessary.
+ * - SANDBOX_DEBUG prevents test directories from being deleted.
  */
 export const ARGS: TestingArguments = {
   cliVersion: coalesceString(process.env.PLUGINS_TEST_CLI_VERSION),
   cliPath: normalizePath(process.env.PLUGINS_TEST_CLI_PATH),
   linterVersion: parseLinterVersion(process.env.PLUGINS_TEST_LINTER_VERSION ?? ""),
   dumpNewSnapshot: Boolean(process.env.PLUGINS_TEST_UPDATE_SNAPSHOTS),
+  sandboxDebug: Boolean(process.env.SANDBOX_DEBUG),
 };
 // TODO(Tyler): PLUGINS_TEST_LINTER_VERSION is a string version, we should mandate that a test filter is applied
 // to avoid accidental enables.
-if (ARGS.cliVersion || ARGS.cliPath || ARGS.linterVersion || ARGS.dumpNewSnapshot) {
+if (
+  ARGS.cliVersion ||
+  ARGS.cliPath ||
+  ARGS.linterVersion ||
+  ARGS.dumpNewSnapshot ||
+  ARGS.sandboxDebug
+) {
   Debug("Tests").extend("Global")("%o", ARGS);
 }
+
+// TODO: TYLER ADD TO README
 
 /**
  * Calculate the name for a given snapshot file. Use this as a standardized convention.
