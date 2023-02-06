@@ -10,14 +10,21 @@ on:
 permissions: read-all
 
 jobs:
-  clear_cache:
-    name: Clear download cache
+  # Run tests against all linters for snapshots and latest version as they exist on main
+  # This job is used to diagnose plugin config health in advance of a release
+  linter_tests_main:
+    name: Plugin Tests
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 5
+    timeout-minutes: 60
     strategy:
+      fail-fast: false
       matrix:
+        linter-version: [Snapshots, Latest]
         os: [ubuntu-latest, macos-latest]
     steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+
       - name: Cache tool downloads
         uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
         with:
@@ -38,29 +45,6 @@ jobs:
           fi
         shell: bash
 
-  # Run tests against all linters for snapshots and latest version as they exist on main
-  # This job is used to diagnose plugin config health in advance of a release
-  linter_tests_main:
-    name: Plugin Tests
-    needs: clear_cache
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macos-latest]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
-
-      - name: Cache tool downloads
-        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
-
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
@@ -70,7 +54,6 @@ jobs:
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests
-    needs: clear_cache
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -115,6 +98,19 @@ jobs:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
 
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
