@@ -28,15 +28,14 @@ jobs:
         uses: trunk-io/trunk-action@9cf65e08e822e9842fd9ef7ed2a2bd9092de0986 # v1.0.6
 
   # Run tests against all linters for known_good_version and latest version
-  linter_tests:
-    name: Plugin Tests
-    runs-on: ${{ matrix.os }}
+  linter_tests_linux:
+    name: Plugin Tests Linux
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         linter-version: [KnownGoodVersion, Latest]
-        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
@@ -48,7 +47,25 @@ jobs:
           # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
 
-      - name: Linter Tests
+      - name: Run Tests
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: ${{ matrix.linter-version }}
+
+  # Run tests against all linters for known_good_version and latest version
+  linter_tests_macos:
+    name: Plugin Tests macOS
+    runs-on: [self-hosted, macOS]
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        linter-version: [KnownGoodVersion, Latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+
+      - name: Run Tests
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
