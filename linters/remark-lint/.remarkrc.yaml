@@ -2,4 +2,3 @@ plugins:
   remark-preset-lint-consistent: true
   remark-preset-lint-recommended: true
   remark-lint-list-item-indent: true
-  remark-lint-no-tabs: true
