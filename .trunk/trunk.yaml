@@ -1,24 +1,19 @@
 version: 0.1
-
 cli:
   version: 1.4.2-beta.5
-
-# TODO(Tyler): This is set temporarily in order to test uploading validated versions
 api:
   address: api.trunk-staging.io:8443
-
 plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
       ref: 454583aa8bb4d092db343c7c4a71a72a19938768
-
+      local: /home/eli/Github/plugins
 runtimes:
   enabled:
     - go@1.19.5
     - node@18.12.1
     - python@3.10.3
-
 lint:
   enabled:
     - actionlint@1.6.23
@@ -39,11 +34,11 @@ lint:
     - sqlfluff@1.4.5
     - taplo@0.7.0
     - yamllint@1.29.0
-
   ignore:
-    - linters: [ALL]
-      paths: ["**/test_data/**"]
-
+    - linters:
+        - ALL
+      paths:
+        - "**/test_data/**"
 actions:
   definitions:
     - id: toggle-local
@@ -54,14 +49,14 @@ actions:
       run: tools/toggle-local/toggle flip ${workspace} ${@}
       output_type: notification_v1
       triggers:
-        - git_hooks: [pre-push]
+        - git_hooks:
+            - pre-push
           run: tools/toggle-local/toggle flip ${workspace} --remote --pre-push
         - files:
             - plugin.yaml
             - actions/**
             - linters/**
           run: tools/toggle-local/toggle notify ${workspace}
-
     - id: repo-tests
       display_name: Repo Tests
       description: Run tests on plugin configuration and documentation
@@ -69,8 +64,8 @@ actions:
       packages_file: package.json
       run: npm test tests/
       triggers:
-        - git_hooks: [pre-push]
-
+        - git_hooks:
+            - pre-push
     - id: linter-test-helper
       display_name: Test Generator
       description: Generate boilerplate test code when new linters are defined
@@ -78,8 +73,8 @@ actions:
       packages_file: tools/linter-test-helper/requirements.txt
       run: tools/linter-test-helper/generate scan ${workspace}
       triggers:
-        - files: [linters/**]
-
+        - files:
+            - linters/**
   enabled:
     - repo-tests
     - linter-test-helper
