@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter remark-lint test basic 1`] = `
+exports[`Testing linter remark-lint test CUSTOM 1`] = `
 Object {
   "issues": Array [
     Object {
@@ -8,6 +8,7 @@ Object {
       "code": "list-item-indent",
       "column": "4",
       "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "remark-lint",
@@ -32,6 +33,16 @@ Object {
       "paths": Array [
         "test_data/basic.in.md",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
