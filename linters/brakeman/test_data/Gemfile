@@ -31,7 +31,7 @@ gem 'actionpack-page_caching', '1.2.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '~> 9.0.5'
+  gem 'byebug', '~> 11.1.0'
 end
 
 group :development do
