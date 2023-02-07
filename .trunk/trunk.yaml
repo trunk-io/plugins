@@ -16,6 +16,7 @@ runtimes:
     - python@3.10.3
 lint:
   enabled:
+    - remark-lint@11.0.0
     - actionlint@1.6.23
     - black@23.1.0
     - eslint@8.33.0
