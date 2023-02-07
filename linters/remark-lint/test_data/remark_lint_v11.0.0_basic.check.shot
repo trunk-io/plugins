@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter remark-lint test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "remark-lint",
+      "code": "no-tabs",
+      "column": "5",
+      "file": "test_data/basic.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "remark-lint",
+      "message": "Use spaces instead of tabs",
+      "targetType": "markdown",
+    },
+    Object {
+      "bucket": "remark-lint",
+      "code": "no-tabs",
+      "column": "6",
+      "file": "test_data/basic.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "17",
+      "linter": "remark-lint",
+      "message": "Use spaces instead of tabs",
+      "targetType": "markdown",
+    },
+    Object {
+      "bucket": "remark-lint",
+      "code": "no-tabs",
+      "column": "5",
+      "file": "test_data/basic.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "18",
+      "linter": "remark-lint",
+      "message": "Use spaces instead of tabs",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "check",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "format",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
