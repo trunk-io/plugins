@@ -5,50 +5,19 @@ Object {
   "issues": Array [
     Object {
       "bucket": "remark-lint",
-      "code": "no-tabs",
-      "column": "5",
+      "code": "list-item-indent",
+      "column": "4",
       "file": "test_data/basic.in.md",
       "level": "LEVEL_HIGH",
-      "line": "13",
+      "line": "1",
       "linter": "remark-lint",
-      "message": "Use spaces instead of tabs",
-      "targetType": "markdown",
-    },
-    Object {
-      "bucket": "remark-lint",
-      "code": "no-tabs",
-      "column": "6",
-      "file": "test_data/basic.in.md",
-      "level": "LEVEL_HIGH",
-      "line": "17",
-      "linter": "remark-lint",
-      "message": "Use spaces instead of tabs",
-      "targetType": "markdown",
-    },
-    Object {
-      "bucket": "remark-lint",
-      "code": "no-tabs",
-      "column": "5",
-      "file": "test_data/basic.in.md",
-      "level": "LEVEL_HIGH",
-      "line": "18",
-      "linter": "remark-lint",
-      "message": "Use spaces instead of tabs",
+      "message": "Incorrect list-item indent: add 1 space",
       "targetType": "markdown",
     },
   ],
   "lintActions": Array [
     Object {
-      "command": "check",
-      "fileGroupName": "markdown",
-      "linter": "remark-lint",
-      "paths": Array [
-        "test_data/basic.in.md",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    Object {
-      "command": "format",
+      "command": "fmt",
       "fileGroupName": "markdown",
       "linter": "remark-lint",
       "paths": Array [
@@ -56,8 +25,27 @@ Object {
       ],
       "verb": "TRUNK_VERB_FMT",
     },
+    Object {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
   ],
   "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "unformattedFiles": Array [
+    Object {
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "remark-lint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
 }
 `;
