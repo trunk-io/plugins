@@ -71,9 +71,10 @@ jobs:
       - name: Suggest normalized linter paths
         id: post-filter-paths
         if: steps.filter.outputs.linters
-        run:
-          echo ${{steps.filter.outputs.linters_files}} | grep -oP "\Klinters/.*?(?=/)" | tr '\n' ' '
-          >> $GITHUB_OUTPUT
+        run: |
+          echo ${{steps.filter.outputs.linters_files}} |
+          grep -oP "\Klinters/.*?(?=/)" |
+          tr '\n' ' ' >> $GITHUB_OUTPUT
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
