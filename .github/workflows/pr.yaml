@@ -66,16 +66,16 @@ jobs:
       - name: Suggest all linter tests
         id: post-filter
         if: steps.filter.outputs.all-linters
-        run: echo "out=linters" >> $GITHUB_OUTPUT
+        run: echo "out=linters" >> "$GITHUB_OUTPUT"
 
-      - name: Suggest normalized linter paths
+      - name: Suggest normalized individual linter paths
         id: post-filter-paths
         if: steps.filter.outputs.linters
         run: |
           echo ${{steps.filter.outputs.linters_files}} |
           grep -oP "\Klinters/.*?(?=/)" |
           tr '\n' ' ' |
-          echo "out=$(cat)" >> $GITHUB_OUTPUT
+          echo "out=$(cat)" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
@@ -84,7 +84,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'true'
+      'linters'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -102,12 +102,21 @@ jobs:
           key: trunk-${{ runner.os }}
 
       - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
+
+      - name: Latest Tests Latest
+        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
+        if: ${{ (failure() || success()) && needs.detect_changes.outputs.linters == 'true' }}
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          append-args: ${{needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
   repo_tests:

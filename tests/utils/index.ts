@@ -68,8 +68,6 @@ if (
   Debug("Tests").extend("Global")("%o", ARGS);
 }
 
-// TODO: TYLER ADD TO README
-
 /**
  * Calculate the name for a given snapshot file. Use this as a standardized convention.
  * Rationale for each component:
