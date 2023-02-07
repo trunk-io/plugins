@@ -35,7 +35,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        linter-version: [KnownGoodVersion]
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
@@ -51,7 +50,7 @@ jobs:
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
-          linter-version: ${{ matrix.linter-version }}
+          linter-version: KnownGoodVersion
 
   # Run repo healthcheck tests
   repo_tests:
