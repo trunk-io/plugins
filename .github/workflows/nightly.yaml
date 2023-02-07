@@ -53,8 +53,8 @@ jobs:
           append-args: -- --json --outputFile=${{ matrix.os }}-res.json
 
       - name: Upload Test Outputs for Upload Job
-        # Only upload results from latest
-        if: matrix.linter-version == 'Latest'
+        # Only upload results from latest. Always run, except when cancelled.
+        if: ${{ (failure() || success()) && matrix.linter-version == 'Latest' }}
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: ${{ matrix.os }}-test-results
@@ -64,6 +64,8 @@ jobs:
     name: Upload Test Results
     needs: linter_tests
     runs-on: ubuntu-latest
+    # Still run on test failure
+    if: always()
     timeout-minutes: 10
     steps:
       - name: Checkout
@@ -90,8 +92,16 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Upload Test Results
+      - name: Parse Test Results
         run: npm run parse
+
+      - name: Upload Test Results
+        env:
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+        # upload-linter-versions is a hidden command reserved exclusively for uploading
+        # validated results from the plugins repo.
+        run:
+          PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
   # Run repo healthcheck tests
   repo_tests:

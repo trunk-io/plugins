@@ -3,11 +3,15 @@ version: 0.1
 cli:
   version: 1.4.2-beta.5
 
+# TODO(Tyler): This is set temporarily in order to test uploading validated versions
+api:
+  address: api.trunk-staging.io:8443
+
 plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: HEAD # run the plugins repo at it's own latest commit
+      ref: 454583aa8bb4d092db343c7c4a71a72a19938768
 
 runtimes:
   enabled:
