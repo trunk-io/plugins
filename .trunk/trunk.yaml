@@ -1,24 +1,28 @@
 version: 0.1
 
 cli:
-  version: 1.4.1-beta.2
+  version: 1.4.2-beta.5
+
+# TODO(Tyler): This is set temporarily in order to test uploading validated versions
+api:
+  address: api.trunk-staging.io:8443
 
 plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v0.0.8
+      ref: 454583aa8bb4d092db343c7c4a71a72a19938768
 
 runtimes:
   enabled:
-    - go@1.18.3
+    - go@1.19.5
     - node@18.12.1
     - python@3.10.3
 
 lint:
   enabled:
     - actionlint@1.6.23
-    - black@22.12.0
+    - black@23.1.0
     - eslint@8.33.0
     - flake8@6.0.0:
         packages:
@@ -28,7 +32,8 @@ lint:
     - isort@5.12.0
     - markdownlint@0.33.0
     - prettier@2.8.3
-    - semgrep@1.6.0
+    - renovate@34.125.1
+    - semgrep@1.9.0
     - shellcheck@0.9.0
     - shfmt@3.5.0
     - sqlfluff@1.4.5
