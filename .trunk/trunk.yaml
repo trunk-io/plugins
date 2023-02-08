@@ -11,7 +11,7 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: 454583aa8bb4d092db343c7c4a71a72a19938768
+      ref: 454583aa8bb4d092db343c7c4a71a72a19938768 # run the plugins repo at its own latest commit
 
 runtimes:
   enabled:
@@ -67,7 +67,7 @@ actions:
       description: Run tests on plugin configuration and documentation
       runtime: node
       packages_file: package.json
-      run: npm test tests/
+      run: npm test tests/repo_tests
       triggers:
         - git_hooks: [pre-push]
 

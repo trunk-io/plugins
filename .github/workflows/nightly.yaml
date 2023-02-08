@@ -10,9 +10,9 @@ on:
 permissions: read-all
 
 jobs:
-  # TODO(Tyler): Forward json outputs from job
-  # Run tests against all linters for snapshots and latest version
-  linter_tests:
+  # Run tests against all linters for snapshots and latest version as they exist on main
+  # This job is used to diagnose plugin config health in advance of a release
+  linter_tests_main:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
@@ -24,7 +24,75 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
-        # TODO(Tyler): Iron out ref for tests
+
+      - name: Cache tool downloads
+        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
+      - name: Linter Tests
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: ${{ matrix.linter-version }}
+
+  # Run tests against all linters for snapshots and latest version as they exist in latest release
+  # This job is used to update the list of validated versions
+  linter_tests_release:
+    name: Plugin Tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        linter-version: [Snapshots, Latest]
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Retrieve git history
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # This assumes that any changes on main since the last release are backwards compatible
+      # in terms of allowing existing linter tests to run.
+      - name: Preserve test runner latest behavior
+        run: |
+          cp -r tests tests.bak
+          cp package.json package.json.bak
+          cp package-lock.json package-lock.json.bak
+
+      - name: Get Latest Release
+        id: get-release
+        uses: WyriHaximus/github-action-get-previous-tag@385a2a0b6abf6c2efeb95adfac83d96d6f968e0c # v1.3.0
+        with:
+          # only use releases tagged v<semver>
+          prefix: v
+
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        with:
+          ref: ${{ steps.get-release.outputs.tag }}
+          clean: false
+
+      - name: Overwrite test runners with latest behavior
+        run: |
+          mv tests.bak tests
+          mv package.json.bak package.json
+          mv package-lock.json.bak package-lock.json
 
       - name: Cache tool downloads
         uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
@@ -62,7 +130,7 @@ jobs:
 
   upload_test_results:
     name: Upload Test Results
-    needs: linter_tests
+    needs: linter_tests_release
     runs-on: ubuntu-latest
     # Still run on test failure
     if: always()
