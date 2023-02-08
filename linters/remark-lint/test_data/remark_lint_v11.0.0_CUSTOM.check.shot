@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter remark-lint test CUSTOM 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "remark-lint",
+      "code": "list-item-indent",
+      "column": "4",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "remark-lint",
+      "message": "Incorrect list-item indent: add 1 space",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "fmt",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": Array [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [
+    Object {
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "remark-lint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
