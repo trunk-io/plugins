@@ -193,7 +193,7 @@ export class TrunkDriver {
       const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       this.debug("Enabling %s", linterVersionString);
-      await this.run(`check enable ${linterVersionString} --monitor=false`);
+      await this.run(`check enable ${linterVersionString} --monitor=false --bypass-validated`);
 
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
