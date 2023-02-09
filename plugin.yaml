@@ -66,9 +66,6 @@ lint:
 
         # Ruby
         - Gemfile.lock
-      extensions:
-        - lock
-        - requirements.txt
 
     - name: sql-j2
       extensions:
