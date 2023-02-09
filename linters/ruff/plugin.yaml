@@ -1,0 +1,30 @@
+version: 0.1
+lint:
+  definitions:
+    - name: ruff
+      files: [python]
+      commands:
+        - name: lint
+          run: ruff ${target}
+          output: regex
+          parse_regex:
+            "((?P<path>.*):(?P<line>-?\\d+):(?P<col>-?\\d+): (?P<code>\\S+) (?P<message>.+))"
+          batch: true
+          run_linter_from: parent_directory
+          success_codes: [0, 1]
+        - name: format
+          run: ruff - --fix -e
+          output: rewrite
+          stdin: true
+          run_linter_from: parent_directory
+          success_codes: [0]
+      runtime: python
+      package: ruff
+      direct_configs: [pyproject.toml]
+      affects_cache:
+        - setup.cfg
+        - tox.ini
+      known_good_version: 0.0.243
+      version_command:
+        parse_regex: ruff ${semver}
+        run: ruff --version
