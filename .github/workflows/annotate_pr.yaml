@@ -21,3 +21,5 @@ jobs:
         uses: trunk-io/trunk-action@9cf65e08e822e9842fd9ef7ed2a2bd9092de0986 # v1.0.6
         with:
           post-annotations: true
+        # This job may fail when the PR was not run on a fork.
+        continue-on-error: true
