@@ -16,13 +16,21 @@ lint:
 
   definitions:
     - name: trivy
+      files: [lockfile]
       download: trivy
       known_good_version: 0.37.1
+      # Trivy does not support batching
+      batch: false
       commands:
-        - output: sarif
-          run: trivy fs ${target} --format sarif --no-progress --cache-dir ${shared_cachedir}
+        - name: fs
+          output: sarif
+          run: trivy fs ${target} --format json --no-progress --cache-dir ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${plugin}/linters/trivy/trivy_to_sarif.py
+
       environment:
         - name: PATH
           list: ["${linter}"]
