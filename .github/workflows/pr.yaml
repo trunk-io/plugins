@@ -110,7 +110,7 @@ jobs:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
 
-      - name: Latest Tests Latest
+      - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
         if: ${{ (failure() || success()) && needs.detect_changes.outputs.linters == 'true' }}
         uses: ./.github/actions/linter_tests
