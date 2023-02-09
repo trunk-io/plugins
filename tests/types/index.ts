@@ -34,6 +34,8 @@ export interface TestingArguments {
   /** Whether tests should create new snapshot files if snapshots already exist
    * even if a match is found. */
   dumpNewSnapshot: boolean;
+  /** Prevents the deletion of sandbox test dirs. */
+  sandboxDebug: boolean;
 }
 
 /**** Landing state ****/

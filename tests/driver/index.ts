@@ -193,7 +193,7 @@ export class TrunkDriver {
       const linterVersionString = `${this.linter}${versionString}`;
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       this.debug("Enabling %s", linterVersionString);
-      await this.run(`check enable ${linterVersionString} --monitor=false`);
+      await this.run(`check enable ${linterVersionString} --monitor=false --bypass-validated`);
 
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
@@ -218,6 +218,17 @@ export class TrunkDriver {
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
     const trunkCommand = ARGS.cliPath ?? "trunk";
+
+    // Preserve test directory if `SANDBOX_DEBUG` is truthy.
+    if (ARGS.sandboxDebug) {
+      execFileSync(trunkCommand, ["daemon", "shutdown"], {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.getSandbox()),
+      });
+      console.log(`Preserving test dir ${this.getSandbox()} for linter ${this.linter ?? "N/A"}`);
+      return;
+    }
+
     execFileSync(trunkCommand, ["deinit"], {
       cwd: this.sandboxPath,
       env: executionEnv(this.getSandbox()),

@@ -4,8 +4,7 @@ import { linterCheckTest, linterFmtTest, TestCallback } from "tests";
 // trunk check linters/sqlfluff/test/basic_check.in.sql --force --filter=sqlfluff --output=json
 linterCheckTest({ linterName: "sqlfluff", namedTestPrefixes: ["basic_check"] });
 
-// Due to sqlfluff's fix subcommand being disabled by default, we need to manually enable it in our test's
-// trunk.yaml.
+// Due to sqlfluff's fix subcommand being disabled by default, we need to manually enable it in the trunk.yaml.
 const fmtCallbacks: TestCallback = (driver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);

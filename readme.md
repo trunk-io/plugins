@@ -54,7 +54,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | JSON            | [eslint], [prettier], [semgrep]                                                       |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                             |
 | Kubernetes      | [kube-linter]                                                                         |
-| Markdown        | [markdownlint]                                                                        |
+| Markdown        | [markdownlint], [remark-lint]                                                         |
 | Nix             | [nixpkgs-fmt]                                                                         |
 | package.json    | [sort-package-json]                                                                   |
 | PNG             | [oxipng]                                                                              |
@@ -113,6 +113,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
+[remark-lint]: https://github.com/remarkjs/remark-lint#readme
 [renovate]: https://github.com/renovatebot/renovate#readme
 [rome]: https://github.com/rome/tools#readme
 [rubocop]: https://github.com/rubocop/rubocop#readme
