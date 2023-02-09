@@ -11,6 +11,10 @@ import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
+const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
+if (!process.env.PLUGIN_VERSION) {
+  console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
+}
 
 /**
  * Convert an OS into the expected file path.
@@ -148,7 +152,7 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  */
 const writeTestResults = (testResults: TestResultSummary) => {
   const cliVersion = getTrunkVersion();
-  const pluginVersion = "v0.0.10"; // TODO(Tyler): Iron out ref for nightly runs.
+  const pluginVersion = PLUGIN_VERSION;
   const validatedVersions = Array.from(testResults.linters).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
       if (testResultStatus === "passed" && version) {
