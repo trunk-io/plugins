@@ -61,6 +61,9 @@ jobs:
       matrix:
         linter-version: [Snapshots, Latest]
         os: [ubuntu-latest, macos-latest]
+    outputs:
+      plugin-version: ${{ steps.get-release.outputs.tag }}
+
     steps:
       - name: Retrieve git history
         uses: actions/checkout@v3
@@ -162,6 +165,8 @@ jobs:
 
       - name: Parse Test Results
         run: npm run parse
+        env:
+          PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
 
       - name: Upload Test Results
         env:
