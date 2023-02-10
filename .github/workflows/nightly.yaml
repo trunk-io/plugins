@@ -168,12 +168,26 @@ jobs:
         env:
           PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
 
-      - name: Upload Test Results
+      - name: Upload Test Results Staging
         env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
+          TRUNK_API_ADDRESS: api.trunk-staging.io:8443
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
-        run:
+        # daemon must be restarted in order to propagate environment variable
+        run: |
+          PATH=$(npm bin):$PATH trunk daemon shutdown
+          PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+
+      - name: Upload Test Results Prod
+        env:
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_PROD_API_TOKEN }}
+          TRUNK_API_ADDRESS: api.trunk.io:8443
+        # upload-linter-versions is a hidden command reserved exclusively for uploading
+        # validated results from the plugins repo.
+        # daemon must be restarted in order to propagate environment variable
+        run: |
+          PATH=$(npm bin):$PATH trunk daemon shutdown
           PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
   # Run repo healthcheck tests
