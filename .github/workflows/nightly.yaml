@@ -169,6 +169,7 @@ jobs:
           PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
 
       - name: Upload Test Results Staging
+        continue-on-error: true
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk-staging.io:8443
