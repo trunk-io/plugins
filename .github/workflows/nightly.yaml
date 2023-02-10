@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Add npm bin to path
-        run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
+        run: echo "${PWD}/node_modules/.bin" >> $GITHUB_PATH
 
       - name: Echo
         run: |
