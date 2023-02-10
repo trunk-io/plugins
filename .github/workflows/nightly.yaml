@@ -173,6 +173,7 @@ jobs:
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk-staging.io:8443
+        shell: bash
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
         # daemon must be restarted in order to propagate environment variable
@@ -187,6 +188,7 @@ jobs:
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
         # daemon must be restarted in order to propagate environment variable
+        shell: bash
         run: |
           PATH=$(npm bin):$PATH trunk daemon shutdown
           PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
