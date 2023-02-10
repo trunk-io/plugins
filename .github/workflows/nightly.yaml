@@ -33,9 +33,11 @@ jobs:
       - name: Echo
         run: |
           env
-          npm help
-          npm bin
-          ls $(npm bin)
+          node version || true
+          npm help || true
+          npm version || true
+          npm bin || true
+          ls $(npm bin) || true
 
       - name: Cache tool downloads
         uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
