@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import path from "path";
 import {
+  FailedVersion,
   TestOS,
   TestResult,
   TestResultStatus,
@@ -11,6 +12,7 @@ import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
+const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
@@ -148,6 +150,30 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
 };
 
 /**
+ * Write the payload for a slack notification on test failures.
+ */
+const writeFailuresForNotification = (failures: FailedVersion[]) => {
+  const failuresObject = {
+    blocks: failures.map(({ linter, version, status }) => {
+      const linterVersion = version ? `${linter}@${version}` : linter;
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
+            process.env.RUN_ID ?? ""
+          }| Testing latest ${linterVersion} > _STATUS: ${status}_`,
+        },
+      };
+    }),
+  };
+  const failuresString = JSON.stringify(failuresObject);
+  fs.writeFileSync(FAILURES_FILE, failuresString);
+  console.log(`Wrote failures out to ${FAILURES_FILE}:`);
+  console.log(failuresString);
+};
+
+/**
  * Write composite test results to `RESULTS_FILE` so that they may be uploaded via trunk CLI.
  */
 const writeTestResults = (testResults: TestResultSummary) => {
@@ -163,16 +189,30 @@ const writeTestResults = (testResults: TestResultSummary) => {
     },
     []
   );
+  const failures = Array.from(testResults.linters).reduce(
+    (accumulator: FailedVersion[], [linter, { version, testResultStatus: status }]) => {
+      if (status !== "passed" && status !== "skipped") {
+        const additionalFailedVersion: FailedVersion = { linter, version, status };
+        return accumulator.concat([additionalFailedVersion]);
+      }
+      return accumulator;
+    },
+    []
+  );
 
-  const outObject = {
+  const resultsObject = {
     cliVersion,
     pluginVersion,
     validatedVersions,
   };
-  const outString = JSON.stringify(outObject);
-  fs.writeFileSync(RESULTS_FILE, outString);
+  const resultsString = JSON.stringify(resultsObject);
+  fs.writeFileSync(RESULTS_FILE, resultsString);
   console.log(`Wrote results out to ${RESULTS_FILE}:`);
-  console.log(outString);
+  console.log(resultsString);
+
+  if (failures.length >= 1) {
+    writeFailuresForNotification(failures);
+  }
 };
 
 const parseTestResultsAndWrite = () => {

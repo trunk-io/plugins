@@ -170,12 +170,18 @@ jobs:
         run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Parse Test Results
-        run: npm run parse
+        id: parse
+        run: |
+          npm run parse
+          echo "failures=$([[ -f failures.json ]] && echo "true" || echo "false")" >> "$GITHUB_OUTPUT"
+          echo "failures-payload=$(cat failures.json)" >> "$GITHUB_OUTPUT"
         env:
           PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
+          RUN_ID: github.run_id
 
       - name: Upload Test Results Staging
         continue-on-error: true
+        id: upload-staging
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk-staging.io:8443
@@ -187,6 +193,8 @@ jobs:
           trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
       - name: Upload Test Results Prod
+        continue-on-error: true
+        id: upload-prod
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk.io:8443
@@ -196,6 +204,56 @@ jobs:
         run: |
           trunk daemon shutdown
           trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+
+      # Slack notifications
+      - name: Slack Notification For Failures
+        uses: slackapi/slack-github-action@v1
+        if: ${{ always() && steps.parse.outputs.failures == 'true' }}
+        with:
+          channel-id: C04P1V21QF7
+          payload: ${{ steps.parse.outputs.failures-payload }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+      - name: Slack Notification For Staging Upload Failure
+        uses: slackapi/slack-github-action@v1
+        if: steps.upload-staging.outcome == 'failure'
+        with:
+          channel-id: C04P1V21QF7
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+      - name: Slack Notification For Prod Upload Failure
+        uses: slackapi/slack-github-action@v1
+        if: steps.upload-prod.outcome == 'failure'
+        with:
+          channel-id: C04P1V21QF7
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:

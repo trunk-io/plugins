@@ -156,3 +156,12 @@ export interface ValidatedVersion {
   linter: string;
   version: string;
 }
+
+/**
+ * The final format of a failed linter and its version used for Slack notifications.
+ */
+export interface FailedVersion {
+  linter: string;
+  version?: string;
+  status: TestResultStatus;
+}
