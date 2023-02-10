@@ -33,6 +33,7 @@ jobs:
       - name: Echo
         run: |
           env
+          npm help
           npm bin
           ls $(npm bin)
 
