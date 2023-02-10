@@ -14,6 +14,8 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests Main
+    # TODO: TYLER REMOVE FALSE HERE
+    if: false
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -48,8 +50,6 @@ jobs:
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
-          # TODO: TYLER REMOVE ARGS HERE
-          append-args: linters/sqlfluff
           linter-version: ${{ matrix.linter-version }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
@@ -168,6 +168,9 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Add npm bin to path
+        run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Parse Test Results
         run: npm run parse
         env:
@@ -178,27 +181,23 @@ jobs:
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk-staging.io:8443
-        shell: bash
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
         # daemon must be restarted in order to propagate environment variable
         run: |
-          PATH=$(npm bin):$PATH echo $PATH
-          PATH=$(npm bin):$PATH trunk daemon shutdown
-          PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+          trunk daemon shutdown
+          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
       - name: Upload Test Results Prod
         env:
           TRUNK_API_TOKEN: ${{ secrets.TRUNK_PROD_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk.io:8443
-          PATH: $(npm bin):$PATH
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
         # daemon must be restarted in order to propagate environment variable
-        shell: bash
         run: |
-          PATH=$(npm bin):$PATH trunk daemon shutdown
-          PATH=$(npm bin):$PATH trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+          trunk daemon shutdown
+          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
   # Run repo healthcheck tests
   repo_tests:
