@@ -6,18 +6,13 @@ lint:
       commands:
         - name: lint
           run: ruff ${target}
-          output: regex
-          parse_regex:
-            "((?P<path>.*):(?P<line>-?\\d+):(?P<col>-?\\d+): (?P<code>\\S+) (?P<message>.+))"
+          output: sarif
+          parser:
+            runtime: python
+            run: ${cwd}/ruff_to_sarif.py
           batch: true
           run_linter_from: parent_directory
           success_codes: [0, 1]
-        - name: format
-          run: ruff - --fix -e
-          output: rewrite
-          stdin: true
-          run_linter_from: parent_directory
-          success_codes: [0]
       runtime: python
       package: ruff
       direct_configs: [pyproject.toml]
