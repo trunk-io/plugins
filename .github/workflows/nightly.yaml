@@ -33,14 +33,13 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Add npm bin to path
+        run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
+
       - name: Echo
         run: |
           env
-          node version || true
-          npm help || true
-          npm version || true
-          npm bin || true
-          ls $(npm bin) || true
+          trunk --help
 
       - name: Cache tool downloads
         uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
