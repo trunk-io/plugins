@@ -122,6 +122,7 @@ jobs:
         shell: bash
 
       - name: Linter Tests
+        # Use overwritten dependency action, rather than released version
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
