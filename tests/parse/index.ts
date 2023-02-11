@@ -77,7 +77,7 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   const { version, testNames, testResultStatus } = incoming;
   // Merge existing composite record
   original.testNames = original.testNames.concat(testNames);
-  if (version !== original.version) {
+  if (version && original.version && version !== original.version) {
     original.testResultStatus = "mismatch";
     mergeTestVersions(original, incoming);
   } else {
