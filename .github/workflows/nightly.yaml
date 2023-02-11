@@ -14,8 +14,6 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests Main
-    # TODO: TYLER REMOVE FALSE HERE
-    if: false
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -126,8 +124,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          # TODO: TYLER REMOVE SQLFLUFF HERE
-          append-args: linters/sqlfluff -- --json --outputFile=${{ matrix.os }}-res.json
+          append-args: -- --json --outputFile=${{ matrix.os }}-res.json
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
@@ -191,7 +188,7 @@ jobs:
 
       - name: Upload Test Results Prod
         env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_PROD_API_TOKEN }}
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
           TRUNK_API_ADDRESS: api.trunk.io:8443
         # upload-linter-versions is a hidden command reserved exclusively for uploading
         # validated results from the plugins repo.
