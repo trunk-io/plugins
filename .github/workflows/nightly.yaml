@@ -141,6 +141,8 @@ jobs:
     # Still run on test failure
     if: always()
     timeout-minutes: 10
+    env:
+      SLACK_CHANNEL_ID: C04P1V21QF7
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
@@ -210,7 +212,7 @@ jobs:
         uses: slackapi/slack-github-action@v1
         if: ${{ always() && steps.parse.outputs.failures == 'true' }}
         with:
-          channel-id: C04P1V21QF7
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: ${{ steps.parse.outputs.failures-payload }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
@@ -219,7 +221,7 @@ jobs:
         uses: slackapi/slack-github-action@v1
         if: steps.upload-staging.outcome == 'failure'
         with:
-          channel-id: C04P1V21QF7
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
             {
               "blocks": [
@@ -239,7 +241,7 @@ jobs:
         uses: slackapi/slack-github-action@v1
         if: steps.upload-prod.outcome == 'failure'
         with:
-          channel-id: C04P1V21QF7
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
             {
               "blocks": [
