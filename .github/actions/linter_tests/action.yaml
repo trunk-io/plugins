@@ -41,8 +41,7 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      run: |
-        PATH=$(npm bin):$PATH npm test --ci ${{ inputs.append-args }}
+      run: npm test --ci ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
