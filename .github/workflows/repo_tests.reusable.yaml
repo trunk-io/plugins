@@ -34,8 +34,7 @@ jobs:
         run: npm ci
 
       - name: Run repo tests
-        run: |
-          PATH=$(npm bin):$PATH npm test --ci tests/repo_tests
+        run: npm test --ci tests/repo_tests
         env:
           PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
           PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
