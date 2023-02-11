@@ -138,6 +138,7 @@ export interface TestResult {
   version?: string;
   testNames: string[];
   testResultStatus: TestResultStatus;
+  allVersions: Map<TestOS, Set<string>>;
 }
 
 /**
@@ -164,4 +165,5 @@ export interface FailedVersion {
   linter: string;
   version?: string;
   status: TestResultStatus;
+  allVersions: Map<TestOS, Set<string>>;
 }

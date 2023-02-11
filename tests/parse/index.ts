@@ -56,6 +56,16 @@ const mergeTestStatuses = (
   return original;
 };
 
+const mergeTestVersions = (original: TestResult, incoming: TestResult) => {
+  Array.from(incoming.allVersions).reduce((accumulator, [os, versions]) => {
+    const originalOsVersions = original.allVersions.get(os) ?? new Set<string>();
+    versions.forEach((version) => originalOsVersions.add(version));
+    accumulator.set(os, originalOsVersions);
+
+    return accumulator;
+  }, original.allVersions);
+};
+
 /**
  * Merge the result of multiple tests into one. Concatenates test names, intelligently merges statuses,
  * and handles version mismatches.
@@ -66,6 +76,7 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   original.testNames = original.testNames.concat(testNames);
   if (version !== original.version) {
     original.testResultStatus = "mismatch";
+    mergeTestVersions(original, incoming);
   } else {
     original.testResultStatus = mergeTestStatuses(original.testResultStatus, testResultStatus);
   }
@@ -99,10 +110,13 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       const status = parseTestStatus(assertionResult.status);
 
       const originaltestResult = linterResults.get(linterName);
+      const newResultAllVersions = new Map();
+      newResultAllVersions.set(os, [version]);
       const newTestResult = {
         version,
         testNames: [fullTestName],
         testResultStatus: status,
+        allVersions: newResultAllVersions,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -154,15 +168,21 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const failuresObject = {
-    blocks: failures.map(({ linter, version, status }) => {
+    blocks: failures.map(({ linter, version, status, allVersions }) => {
       const linterVersion = version ? `${linter}@${version}` : linter;
+      let details = "";
+      if (status == "mismatch") {
+        details = Array.from(allVersions)
+          .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
+          .join("; ");
+      }
       return {
         type: "section",
         text: {
           type: "mrkdwn",
           text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
             process.env.RUN_ID ?? ""
-          }| Testing latest ${linterVersion} > _STATUS: ${status}_`,
+          }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
         },
       };
     }),
@@ -190,9 +210,12 @@ const writeTestResults = (testResults: TestResultSummary) => {
     []
   );
   const failures = Array.from(testResults.linters).reduce(
-    (accumulator: FailedVersion[], [linter, { version, testResultStatus: status }]) => {
+    (
+      accumulator: FailedVersion[],
+      [linter, { version, testResultStatus: status, allVersions }]
+    ) => {
       if (status !== "passed" && status !== "skipped") {
-        const additionalFailedVersion: FailedVersion = { linter, version, status };
+        const additionalFailedVersion: FailedVersion = { linter, version, status, allVersions };
         return accumulator.concat([additionalFailedVersion]);
       }
       return accumulator;
