@@ -56,6 +56,9 @@ const mergeTestStatuses = (
   return original;
 };
 
+/**
+ * Combine maps of versions run on each OS.
+ */
 const mergeTestVersions = (original: TestResult, incoming: TestResult) => {
   Array.from(incoming.allVersions).reduce((accumulator, [os, versions]) => {
     const originalOsVersions = original.allVersions.get(os) ?? new Set<string>();
@@ -111,7 +114,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
 
       const originaltestResult = linterResults.get(linterName);
       const newResultAllVersions = new Map();
-      newResultAllVersions.set(os, [version]);
+      newResultAllVersions.set(os, new Set([version]));
       const newTestResult = {
         version,
         testNames: [fullTestName],
@@ -189,7 +192,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
   };
   const failuresString = JSON.stringify(failuresObject);
   fs.writeFileSync(FAILURES_FILE, failuresString);
-  console.log(`Wrote failures out to ${FAILURES_FILE}:`);
+  console.log(`Wrote ${failures.length} failures out to ${FAILURES_FILE}:`);
   console.log(failuresString);
 };
 
@@ -230,7 +233,7 @@ const writeTestResults = (testResults: TestResultSummary) => {
   };
   const resultsString = JSON.stringify(resultsObject);
   fs.writeFileSync(RESULTS_FILE, resultsString);
-  console.log(`Wrote results out to ${RESULTS_FILE}:`);
+  console.log(`Wrote ${validatedVersions.length} results out to ${RESULTS_FILE}:`);
   console.log(resultsString);
 
   if (failures.length >= 1) {
