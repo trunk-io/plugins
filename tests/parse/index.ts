@@ -171,6 +171,9 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const failuresObject = {
+    text: `${failures.length} failures encountered running plugins tests for ${
+      process.env.TEST_REF ?? "latest release"
+    }`,
     blocks: failures.map(({ linter, version, status, allVersions }) => {
       const linterVersion = version ? `${linter}@${version}` : linter;
       let details = "";
