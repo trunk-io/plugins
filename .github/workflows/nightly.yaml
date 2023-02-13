@@ -180,7 +180,7 @@ jobs:
         env:
           PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
           # Used to format Slack notification for failures
-          RUN_ID: github.run_id
+          RUN_ID: ${{ github.run_id }}
           TEST_REF: latest release
 
       - name: Upload Test Results Staging
