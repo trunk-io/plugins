@@ -65,7 +65,7 @@ jobs:
 
       - name: Suggest all linter tests
         id: post-filter
-        if: steps.filter.outputs.all-linters
+        if: steps.filter.outputs.all-linters == 'true'
         run: echo "out=linters" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
