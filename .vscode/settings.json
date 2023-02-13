@@ -8,8 +8,5 @@
   "gitlens.advanced.fileHistoryFollowsRenames": true,
   "gitlens.codeLens.enabled": false,
   "terminal.integrated.scrollback": 100000,
-  "workbench.list.horizontalScrolling": true,
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  "workbench.list.horizontalScrolling": true
 }
