@@ -20,7 +20,7 @@ lint:
       affects_cache:
         - setup.cfg
         - tox.ini
-          # In case the user installs https://pypi.org/project/Flake8-pyproject/
+        # In case the user installs https://pypi.org/project/Flake8-pyproject/
         - pyproject.toml
       issue_url_format: https://www.flake8rules.com/rules/{}.html
       known_good_version: 4.0.1
