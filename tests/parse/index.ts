@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import path from "path";
 import {
+  FailedVersion,
   TestOS,
   TestResult,
   TestResultStatus,
@@ -11,6 +12,7 @@ import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
+const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
@@ -55,6 +57,19 @@ const mergeTestStatuses = (
 };
 
 /**
+ * Combine maps of versions run on each OS.
+ */
+const mergeTestVersions = (original: TestResult, incoming: TestResult) => {
+  Array.from(incoming.allVersions).reduce((accumulator, [os, versions]) => {
+    const originalOsVersions = original.allVersions.get(os) ?? new Set<string>();
+    versions.forEach((version) => originalOsVersions.add(version));
+    accumulator.set(os, originalOsVersions);
+
+    return accumulator;
+  }, original.allVersions);
+};
+
+/**
  * Merge the result of multiple tests into one. Concatenates test names, intelligently merges statuses,
  * and handles version mismatches.
  */
@@ -62,8 +77,9 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   const { version, testNames, testResultStatus } = incoming;
   // Merge existing composite record
   original.testNames = original.testNames.concat(testNames);
-  if (version !== original.version) {
+  if (version && original.version && version !== original.version) {
     original.testResultStatus = "mismatch";
+    mergeTestVersions(original, incoming);
   } else {
     original.testResultStatus = mergeTestStatuses(original.testResultStatus, testResultStatus);
   }
@@ -97,10 +113,13 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       const status = parseTestStatus(assertionResult.status);
 
       const originaltestResult = linterResults.get(linterName);
+      const newResultAllVersions = new Map();
+      newResultAllVersions.set(os, new Set([version]));
       const newTestResult = {
         version,
         testNames: [fullTestName],
         testResultStatus: status,
+        allVersions: newResultAllVersions,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -148,6 +167,39 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
 };
 
 /**
+ * Write the payload for a slack notification on test failures.
+ */
+const writeFailuresForNotification = (failures: FailedVersion[]) => {
+  const failuresObject = {
+    text: `${failures.length} failures encountered running plugins tests for ${
+      process.env.TEST_REF ?? "latest release"
+    }`,
+    blocks: failures.map(({ linter, version, status, allVersions }) => {
+      const linterVersion = version ? `${linter}@${version}` : linter;
+      let details = "";
+      if (status == "mismatch") {
+        details = Array.from(allVersions)
+          .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
+          .join("; ");
+      }
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
+            process.env.RUN_ID ?? ""
+          }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        },
+      };
+    }),
+  };
+  const failuresString = JSON.stringify(failuresObject);
+  fs.writeFileSync(FAILURES_FILE, failuresString);
+  console.log(`Wrote ${failures.length} failures out to ${FAILURES_FILE}:`);
+  console.log(failuresString);
+};
+
+/**
  * Write composite test results to `RESULTS_FILE` so that they may be uploaded via trunk CLI.
  */
 const writeTestResults = (testResults: TestResultSummary) => {
@@ -163,16 +215,33 @@ const writeTestResults = (testResults: TestResultSummary) => {
     },
     []
   );
+  const failures = Array.from(testResults.linters).reduce(
+    (
+      accumulator: FailedVersion[],
+      [linter, { version, testResultStatus: status, allVersions }]
+    ) => {
+      if (status !== "passed" && status !== "skipped") {
+        const additionalFailedVersion: FailedVersion = { linter, version, status, allVersions };
+        return accumulator.concat([additionalFailedVersion]);
+      }
+      return accumulator;
+    },
+    []
+  );
 
-  const outObject = {
+  const resultsObject = {
     cliVersion,
     pluginVersion,
     validatedVersions,
   };
-  const outString = JSON.stringify(outObject);
-  fs.writeFileSync(RESULTS_FILE, outString);
-  console.log(`Wrote results out to ${RESULTS_FILE}:`);
-  console.log(outString);
+  const resultsString = JSON.stringify(resultsObject);
+  fs.writeFileSync(RESULTS_FILE, resultsString);
+  console.log(`Wrote ${validatedVersions.length} results out to ${RESULTS_FILE}:`);
+  console.log(resultsString);
+
+  if (failures.length >= 1) {
+    writeFailuresForNotification(failures);
+  }
 };
 
 const parseTestResultsAndWrite = () => {
