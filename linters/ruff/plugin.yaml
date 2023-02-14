@@ -11,7 +11,6 @@ lint:
             runtime: python
             run: ${cwd}/ruff_to_sarif.py
           batch: true
-          run_linter_from: parent_directory
           success_codes: [0, 1]
       runtime: python
       package: ruff
@@ -20,6 +19,7 @@ lint:
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.243
+      is_recommended: false
       good_without_config: true
       version_command:
         parse_regex: ruff ${semver}
