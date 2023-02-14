@@ -5,7 +5,7 @@ lint:
       files: [python]
       commands:
         - name: lint
-          run: ruff ${target}
+          run: ruff check --format json ${target}
           output: sarif
           parser:
             runtime: python
@@ -20,6 +20,7 @@ lint:
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.243
+      good_without_config: true
       version_command:
         parse_regex: ruff ${semver}
         run: ruff --version

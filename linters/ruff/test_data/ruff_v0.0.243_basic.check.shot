@@ -2,15 +2,42 @@
 
 exports[`Testing linter ruff test basic 1`] = `
 Object {
-  "issues": Array [],
-  "lintActions": Array [],
-  "taskFailures": Array [
+  "issues": Array [
     Object {
-      "details": StringMatching /\\.\\*\\$/m,
-      "message": "test_data/basic.in.py",
-      "name": "ruff",
+      "bucket": "ruff",
+      "code": "E501",
+      "column": "89",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "ruff",
+      "message": "Line too long (91 > 88 characters)",
+      "targetType": "python",
+    },
+    Object {
+      "bucket": "ruff",
+      "code": "E402",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "ruff",
+      "message": "Module level import not at top of file",
+      "targetType": "python",
     },
   ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": Array [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
   "unformattedFiles": Array [],
 }
 `;
