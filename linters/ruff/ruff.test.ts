@@ -1,4 +1,3 @@
-import { linterCheckTest, linterFmtTest } from "tests";
+import { linterCheckTest } from "tests";
 
 linterCheckTest({ linterName: "ruff" });
-linterFmtTest({ linterName: "ruff" });

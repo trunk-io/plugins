@@ -3,39 +3,71 @@
 import json
 import sys
 
-sqlfluff_json = json.load(sys.stdin)
 results = []
 
-for result in sqlfluff_json:
-    filepath = result["filepath"]
-    for violation in result["violations"]:
-        line_number = violation["line_no"]
-        column_number = violation["line_pos"]
-        rule_id = violation["code"]
-        message = violation["description"]
 
-        results.append(
+def get_region(entry):
+    location = entry["location"]
+    region = {
+        "startColumn": location["column"],
+        "startLine": location["row"],
+    }
+    if "end_location" in entry:
+        end_location = entry["end_location"]
+        region["endColumn"] = end_location["column"]
+        region["endLine"] = end_location["row"]
+    return region
+
+
+for result in json.load(sys.stdin):
+    filepath = result["filename"]
+    rule_id = result["code"]
+    message = result["message"]
+
+    sarif_result = {
+        "level": "error",
+        "locations": [
             {
-                "level": "error",
-                "locations": [
+                "physicalLocation": {
+                    "artifactLocation": {
+                        "uri": filepath,
+                    },
+                    "region": get_region(result),
+                }
+            }
+        ],
+        "message": {
+            "text": message,
+        },
+        "ruleId": rule_id,
+    }
+
+    if "fix" in result and result["fix"] is not None:
+        fix = result["fix"]
+        sarif_result["fixes"] = [
+            {
+                "description": {
+                    "text": fix["message"],
+                },
+                "fileChanges": [
                     {
-                        "physicalLocation": {
-                            "artifactLocation": {
-                                "uri": path,
-                            },
-                            "region": {
-                                "startColumn": column_number,
-                                "startLine": line_number,
-                            },
-                        }
+                        "artifactLocation": {
+                            "uri": filepath,
+                        },
+                        "replacements": [
+                            {
+                                "deletedRegion": get_region(fix),
+                                "insertedContent": {
+                                    "text": fix["content"],
+                                },
+                            }
+                        ],
                     }
                 ],
-                "message": {
-                    "text": message,
-                },
-                "ruleId": rule_id,
             }
-        )
+        ]
+
+    results.append(sarif_result)
 
 sarif = {
     "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
