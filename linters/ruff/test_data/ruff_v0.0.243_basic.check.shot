@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "ruff",
+      "code": "E402",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "ruff",
+      "message": "Module level import not at top of file",
+      "targetType": "python",
+    },
+    Object {
+      "bucket": "ruff",
+      "code": "F401",
+      "column": "8",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "ruff",
+      "message": "\`sys\` imported but unused",
+      "targetType": "python",
+    },
+    Object {
+      "bucket": "ruff",
+      "code": "E402",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "9",
+      "linter": "ruff",
+      "message": "Module level import not at top of file",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": Array [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
