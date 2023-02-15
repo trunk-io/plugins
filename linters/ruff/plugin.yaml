@@ -3,12 +3,9 @@ lint:
   definitions:
     - name: ruff
       files: [python]
-      environment:
-        - name: RUFF_CACHE_DIR
-          value: ${cachedir}
       commands:
         - name: lint
-          run: ruff check --format json ${target}
+          run: ruff check --cache-dir ${cachedir} --format json ${target}
           output: sarif
           parser:
             runtime: python
