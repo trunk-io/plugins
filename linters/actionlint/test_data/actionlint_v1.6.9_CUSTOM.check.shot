@@ -14,7 +14,7 @@ Object {
       "line": "4",
       "linter": "actionlint",
       "message": "invalid CRON format \\"0 */3 * *\\" in schedule event: Expected exactly 5 fields, found 4: 0 */3 * *",
-      "targetType": "yaml",
+      "targetType": "github-workflow",
     },
     Object {
       "bucket": "actionlint",
@@ -27,7 +27,7 @@ Object {
       "line": "6",
       "linter": "actionlint",
       "message": "scheduled job runs too frequently. it runs once per 60 seconds. the shortest interval is once every 5 minutes",
-      "targetType": "yaml",
+      "targetType": "github-workflow",
     },
     Object {
       "bucket": "actionlint",
@@ -38,13 +38,13 @@ Object {
       "level": "LEVEL_HIGH",
       "linter": "actionlint",
       "message": "\\"jobs\\" section is missing in workflow",
-      "targetType": "yaml",
+      "targetType": "github-workflow",
     },
   ],
   "lintActions": Array [
     Object {
       "command": "lint",
-      "fileGroupName": "yaml",
+      "fileGroupName": "github-workflow",
       "linter": "actionlint",
       "paths": Array [
         ".github/workflows/bad.in.yaml",
@@ -53,7 +53,7 @@ Object {
     },
     Object {
       "command": "lint",
-      "fileGroupName": "yaml",
+      "fileGroupName": "github-workflow",
       "linter": "actionlint",
       "paths": Array [
         ".github/workflows/empty.in.yaml",

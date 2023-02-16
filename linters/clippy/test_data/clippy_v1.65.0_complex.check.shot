@@ -16,7 +16,7 @@ Object {
       "message": "function \`do_bad_math\` is never used",
       "ranges": Array [
         Object {
-          "filePath": ".",
+          "filePath": "src/high.rs",
           "length": "11",
           "offset": "3",
         },
@@ -36,7 +36,7 @@ Object {
       "message": "this arithmetic operation will overflow",
       "ranges": Array [
         Object {
-          "filePath": ".",
+          "filePath": "src/high.rs",
           "length": "11",
           "offset": "31",
         },
