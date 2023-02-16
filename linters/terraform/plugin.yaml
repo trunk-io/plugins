@@ -23,6 +23,7 @@ lint:
         - name: validate
           # Custom parser type defined in the trunk cli to handle terraform's JSON output.
           output: terraform_validate
+          target: ${parent}
           run: terraform validate -json
           run_linter_from: directory
           success_codes: [0, 1]

@@ -16,7 +16,7 @@ Object {
       "message": "the loop variable \`i\` is only used to index \`vec\`",
       "ranges": Array [
         Object {
-          "filePath": ".",
+          "filePath": "src/main.rs",
           "length": "12",
           "offset": "542",
         },
@@ -36,7 +36,7 @@ Object {
       "message": "this seems like a manual implementation of the non-exhaustive pattern",
       "ranges": Array [
         Object {
-          "filePath": ".",
+          "filePath": "src/main.rs",
           "length": "79",
           "offset": "230",
         },

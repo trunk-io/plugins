@@ -47,10 +47,10 @@ fn main() {
 "
 `;
 
-exports[`Testing linter clippy test wont_compile 1`] = `
-"// A version of main.rs that wont compile because its missing ; after mod.
-// Used to verify compile errors are properly reported as linter failures.
-mod high
+exports[`Testing linter clippy test malformed 1`] = `
+"// A version of main.rs that requires a semicolon, and should be autofixed rather than returning a
+// linter failure.
+mod high;
 
 fn main() {
     let x = 1;
