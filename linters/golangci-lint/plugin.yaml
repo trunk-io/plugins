@@ -18,6 +18,7 @@ lint:
         - name: lint
           # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
           output: golangci_lint
+          target: ${parent}
           # Exclude go linters we already include.
           run:
             golangci-lint run --out-format json --timeout 10m --concurrency 1 --exclude gofmt

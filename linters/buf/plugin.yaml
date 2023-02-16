@@ -74,8 +74,8 @@ lint:
       commands:
         - name: lint
           output: buf
-          run:
-            buf breaking --against .git#branch=${upstream-ref} --error-format json --path ${target}
+          target: ${root_or_parent_with(buf.work.yaml)}
+          run: buf breaking --against .git#branch=${upstream-ref} --error-format json
           success_codes: [0, 100]
           run_linter_from: root_file
       run_from_root_file: buf.work.yaml

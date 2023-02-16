@@ -17,7 +17,7 @@ lint:
           url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
   definitions:
     - name: actionlint
-      files: [yaml]
+      files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
       type: actionlint
       download: actionlint

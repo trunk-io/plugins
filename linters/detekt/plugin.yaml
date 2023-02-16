@@ -60,6 +60,7 @@ lint:
         - name: lint
           # Custom parser/trigger type defined in the trunk cli.
           output: detekt_gradle
+          target: .
           run: ${workspace}/gradlew detekt --info --continue
           success_codes: [0, 1]
           disable_upstream: true
