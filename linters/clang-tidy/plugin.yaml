@@ -35,6 +35,7 @@ lint:
           list: ["${linter}/bin"]
       issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/{}.html
       known_good_version: 15.0.6
+      is_recommended: false
       version_command:
         parse_regex: ${semver}
         run: clang-tidy --version

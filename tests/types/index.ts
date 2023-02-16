@@ -138,6 +138,7 @@ export interface TestResult {
   version?: string;
   testNames: string[];
   testResultStatus: TestResultStatus;
+  allVersions: Map<TestOS, Set<string>>;
 }
 
 /**
@@ -155,4 +156,14 @@ export interface TestResultSummary {
 export interface ValidatedVersion {
   linter: string;
   version: string;
+}
+
+/**
+ * The final format of a failed linter and its version used for Slack notifications.
+ */
+export interface FailedVersion {
+  linter: string;
+  version?: string;
+  status: TestResultStatus;
+  allVersions: Map<TestOS, Set<string>>;
 }

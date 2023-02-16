@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter clang-tidy test CUSTOM 1`] = `
+exports[`Testing linter clang-tidy test test_config 1`] = `
 Object {
   "issues": Array [
     Object {

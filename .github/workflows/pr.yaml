@@ -65,7 +65,7 @@ jobs:
 
       - name: Suggest all linter tests
         id: post-filter
-        if: steps.filter.outputs.all-linters
+        if: steps.filter.outputs.all-linters == 'true'
         run: echo "out=linters" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
@@ -112,7 +112,7 @@ jobs:
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-        if: ${{ (failure() || success()) && needs.detect_changes.outputs.linters == 'true' }}
+        if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
