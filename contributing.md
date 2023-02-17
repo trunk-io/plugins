@@ -31,8 +31,6 @@ plugins:
       local: </path/to/repo/root>
 ```
 
-Run `trunk run toggle-local` to quickly toggle this setting in this repo.
-
 Adding a plugin source lets users run `trunk check enable` or `trunk actions enable` with linters
 and actions defined in that plugin. For more information, see our
 [docs](https://docs.trunk.io/docs/plugins).

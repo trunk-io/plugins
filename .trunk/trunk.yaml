@@ -1,13 +1,12 @@
 version: 0.1
 
 cli:
-  version: 1.4.2-beta.8
+  version: 1.4.3-beta.2
 
 plugins:
   sources:
     - id: trunk
-      uri: https://github.com/trunk-io/plugins
-      ref: 454583aa8bb4d092db343c7c4a71a72a19938768 # run the plugins repo at its own latest commit
+      local: .
 
 runtimes:
   enabled:
@@ -80,7 +79,6 @@ actions:
     - repo-tests
     - linter-test-helper
     - trunk-announce
-    - toggle-local
     - trunk-cache-prune
     - trunk-upgrade-available
     - trunk-check-pre-push
