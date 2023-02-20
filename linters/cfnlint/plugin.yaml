@@ -2,7 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: cfnlint
-      files: [yaml]
+      files: [cloudformation]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle cfnlint's JSON output and triggers.

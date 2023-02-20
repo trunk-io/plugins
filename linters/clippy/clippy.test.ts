@@ -17,7 +17,7 @@ const preCheckSrc = (subdir: string) => (driver: TrunkDriver) => {
   driver.moveFile(path.join(TEST_DATA, subdir), "src");
 };
 
-["basic", "complex", "wont_compile"].forEach((target) => {
+["basic", "complex", "malformed"].forEach((target) => {
   customLinterCheckTest({
     linterName: "clippy",
     testName: target,
@@ -27,7 +27,7 @@ const preCheckSrc = (subdir: string) => (driver: TrunkDriver) => {
   });
 });
 
-["complex_subdir", "wont_compile_subdir"].forEach((target) => {
+["complex_subdir", "malformed_subdir"].forEach((target) => {
   const subdir = path.join(TEST_DATA, target);
   customLinterCheckTest({
     linterName: "clippy",

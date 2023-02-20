@@ -4,7 +4,7 @@ import { customLinterCheckTest } from "tests";
 import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
   // Because clang-tidy requires greater build-level awareness for full functionality,
@@ -23,7 +23,9 @@ const preCheck = (driver: TrunkDriver) => {
   // Move files to root
   // trunk-ignore-begin(semgrep): paths used here are safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
-    driver.moveFile(path.join(TEST_DATA, file), file);
+    if (file !== ".clang-tidy" || copyConfig) {
+      driver.moveFile(path.join(TEST_DATA, file), file);
+    }
   });
   // trunk-ignore-end(semgrep)
 
@@ -33,4 +35,16 @@ const preCheck = (driver: TrunkDriver) => {
   driver.writeFile("compile_commands.json", newCompileContents);
 };
 
-customLinterCheckTest({ linterName: "clang-tidy", args: "-a", preCheck });
+// Use both configs for a bit more coverage of different config cases.
+customLinterCheckTest({
+  linterName: "clang-tidy",
+  testName: "default_config",
+  args: "-a",
+  preCheck: preCheck(false),
+});
+customLinterCheckTest({
+  linterName: "clang-tidy",
+  testName: "test_config",
+  args: "-a",
+  preCheck: preCheck(true),
+});

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter clippy test malformed_subdir 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "clippy",
+      "code": "compiler",
+      "column": "1",
+      "file": "test_data/malformed_subdir/src/main.rs",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rust-lang.github.io/rust-clippy/master/#compiler",
+      "level": "LEVEL_HIGH",
+      "line": "10",
+      "linter": "clippy",
+      "message": "expected item, found \`<eof>\`",
+      "ranges": Array [
+        Object {
+          "filePath": "test_data/malformed_subdir/src/main.rs",
+          "length": "1",
+          "offset": "225",
+        },
+      ],
+      "targetType": "rust",
+    },
+    Object {
+      "autofixOptions": Array [
+        Object {
+          "replacements": Array [
+            Object {
+              "filePath": "test_data/malformed_subdir/src/main.rs",
+              "offset": "126",
+              "replacementText": ";",
+            },
+          ],
+        },
+      ],
+      "bucket": "clippy",
+      "code": "compiler",
+      "column": "1",
+      "file": "test_data/malformed_subdir/src/main.rs",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rust-lang.github.io/rust-clippy/master/#compiler",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "clippy",
+      "message": "expected \`;\`, found keyword \`fn\`",
+      "ranges": Array [
+        Object {
+          "filePath": "test_data/malformed_subdir/src/main.rs",
+          "length": "2",
+          "offset": "128",
+        },
+        Object {
+          "filePath": "test_data/malformed_subdir/src/main.rs",
+          "offset": "126",
+        },
+      ],
+      "targetType": "rust",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "rust",
+      "linter": "clippy",
+      "paths": Array [
+        "test_data/malformed_subdir",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;

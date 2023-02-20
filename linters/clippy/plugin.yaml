@@ -13,6 +13,7 @@ lint:
         - name: lint
           # Custom parser type defined in the trunk cli to handle clippy's JSON output.
           output: clippy
+          target: ${parent_with(Cargo.toml)}
           run: cargo clippy --message-format json -- --cap-lints=warn --no-deps
           success_codes: [0, 101, 383]
           run_linter_from: directory
