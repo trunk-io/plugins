@@ -6,15 +6,15 @@ import sys
 results = []
 
 
-def get_region(entry):
+def get_region(entry, column_offset=0):
     location = entry["location"]
     region = {
-        "startColumn": location["column"] + 1,
+        "startColumn": location["column"] + column_offset,
         "startLine": location["row"],
     }
     if "end_location" in entry:
         end_location = entry["end_location"]
-        region["endColumn"] = end_location["column"] + 1
+        region["endColumn"] = end_location["column"] + column_offset
         region["endLine"] = end_location["row"]
     return region
 
@@ -56,7 +56,7 @@ for result in json.load(sys.stdin):
                         },
                         "replacements": [
                             {
-                                "deletedRegion": get_region(fix),
+                                "deletedRegion": get_region(fix, 1),
                                 "insertedContent": {
                                     "text": fix["content"],
                                 },

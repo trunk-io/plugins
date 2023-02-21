@@ -6,7 +6,7 @@ Object {
     Object {
       "bucket": "ruff",
       "code": "E402",
-      "column": "2",
+      "column": "1",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "7",
@@ -29,7 +29,7 @@ Object {
       ],
       "bucket": "ruff",
       "code": "F401",
-      "column": "9",
+      "column": "8",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "7",
@@ -40,7 +40,7 @@ Object {
     Object {
       "bucket": "ruff",
       "code": "E402",
-      "column": "2",
+      "column": "1",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "9",
