@@ -6,7 +6,7 @@ Object {
     Object {
       "bucket": "ruff",
       "code": "E402",
-      "column": "1",
+      "column": "2",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "7",
@@ -15,9 +15,21 @@ Object {
       "targetType": "python",
     },
     Object {
+      "autofixOptions": Array [
+        Object {
+          "message": "Remove unused import: \`sys\`",
+          "replacements": Array [
+            Object {
+              "filePath": "test_data/basic.in.py",
+              "length": "11",
+              "offset": "83",
+            },
+          ],
+        },
+      ],
       "bucket": "ruff",
       "code": "F401",
-      "column": "8",
+      "column": "9",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "7",
@@ -28,7 +40,7 @@ Object {
     Object {
       "bucket": "ruff",
       "code": "E402",
-      "column": "1",
+      "column": "2",
       "file": "test_data/basic.in.py",
       "level": "LEVEL_HIGH",
       "line": "9",

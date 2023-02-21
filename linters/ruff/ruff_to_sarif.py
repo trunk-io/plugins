@@ -9,12 +9,12 @@ results = []
 def get_region(entry):
     location = entry["location"]
     region = {
-        "startColumn": location["column"],
+        "startColumn": location["column"] + 1,
         "startLine": location["row"],
     }
     if "end_location" in entry:
         end_location = entry["end_location"]
-        region["endColumn"] = end_location["column"]
+        region["endColumn"] = end_location["column"] + 1
         region["endLine"] = end_location["row"]
     return region
 
@@ -49,7 +49,7 @@ for result in json.load(sys.stdin):
                 "description": {
                     "text": fix["message"],
                 },
-                "fileChanges": [
+                "artifactChanges": [
                     {
                         "artifactLocation": {
                             "uri": filepath,
