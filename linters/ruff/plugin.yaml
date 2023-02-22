@@ -14,11 +14,33 @@ lint:
           success_codes: [0, 1]
       runtime: python
       package: ruff
-      direct_configs: [pyproject.toml]
+      direct_configs: [pyproject.toml, ruff.toml]
       affects_cache:
         - setup.cfg
         - tox.ini
-      known_good_version: 0.0.243
+      known_good_version: 0.0.250
+      is_recommended: false
+      good_without_config: true
+      version_command:
+        parse_regex: ruff ${semver}
+        run: ruff --version
+
+    - name: ruff-nbqa
+      files: [jupyter]
+      commands:
+        - name: lint
+          run: nbqa ruff --cache-dir=${cachedir} ${target}
+          output: pass_fail
+          batch: true
+          success_codes: [0, 1]
+      runtime: python
+      package: ruff
+      extra_packages: [nbqa==1.6.3]
+      direct_configs: [pyproject.toml, ruff.toml]
+      affects_cache:
+        - setup.cfg
+        - tox.ini
+      known_good_version: 0.0.250
       is_recommended: false
       good_without_config: true
       version_command:
