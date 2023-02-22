@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff-nbqa test basic_nb 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "ruff-nbqa",
+      "code": "F401",
+      "column": "8",
+      "file": "test_data/basic_nb.in.ipynb",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "ruff-nbqa",
+      "message": "\`os\` imported but unused",
+      "targetType": "jupyter",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "jupyter",
+      "linter": "ruff-nbqa",
+      "paths": Array [
+        "test_data/basic_nb.in.ipynb",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
