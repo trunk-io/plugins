@@ -29,11 +29,8 @@ lint:
       files: [jupyter]
       commands:
         - name: lint
-          run: nbqa ruff --cache-dir=${cachedir} --format=json ${target}
-          output: sarif
-          parser:
-            runtime: python
-            run: ${cwd}/ruff_to_sarif.py
+          run: nbqa ruff --cache-dir=${cachedir} ${target}
+          output: pass_fail
           batch: true
           success_codes: [0, 1]
       runtime: python
