@@ -6,8 +6,6 @@ import sys
 results = []
 
 
-# Column offset field required due to indexing bug in Ruff
-# https://github.com/charliermarsh/ruff/issues/3106
 def get_region(entry, column_offset=0):
     location = entry["location"]
     region = {
@@ -58,6 +56,8 @@ for result in json.load(sys.stdin):
                         },
                         "replacements": [
                             {
+                                # Ruff gives 0-indexed columns, SARIF requires 1-indexed
+                                # https://github.com/charliermarsh/ruff/issues/3106
                                 "deletedRegion": get_region(fix, 1),
                                 "insertedContent": {
                                     "text": fix["content"],
