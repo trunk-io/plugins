@@ -1,5 +1,32 @@
 version: 0.1
 lint:
+  comment_formats:
+    - name: dashes-inline
+      leading_delimiter: --
+
+    - name: hash
+      leading_delimiter: "#"
+
+    - name: html-tag
+      leading_delimiter: <!--
+      trailing_delimiter: -->
+
+    - name: hyphen-hash
+      leading_delimiter: -#
+
+    - name: percent-inline
+      leading_delimiter: \%
+
+    - name: slashes-block
+      leading_delimiter: /*
+      trailing_delimiter: "*/"
+
+    - name: slashes-inline
+      leading_delimiter: //
+
+    - name: slashes-xml
+      leading_delimiter: ///
+
   files:
     - name: ALL
       regexes:
