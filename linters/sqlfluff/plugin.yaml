@@ -8,9 +8,10 @@ lint:
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff
+      is_recommended: false
       commands:
         - name: lint
-          run: sqlfluff lint ${target} --format json --dialect ansi --nofail
+          run: sqlfluff lint ${target} --format json --nofail
           output: sarif
           success_codes: [0]
           read_output_from: stdout
@@ -18,7 +19,7 @@ lint:
             runtime: python
             run: ${plugin}/linters/sqlfluff/sqlfluff_to_sarif.py
         - name: fix
-          run: sqlfluff fix ${target} --dialect ansi --disable-progress-bar --force
+          run: sqlfluff fix ${target} --disable-progress-bar --force
           output: rewrite
           formatter: true
           in_place: true
