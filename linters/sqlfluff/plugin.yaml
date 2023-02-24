@@ -8,6 +8,7 @@ lint:
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff
+      is_recommended: false
       commands:
         - name: lint
           run: sqlfluff lint ${target} --format json --nofail
