@@ -21,6 +21,7 @@ describe("All linters that use downloads must define them", () => {
       // trunk-ignore(eslint/jest/valid-title)
       it(linter, () => {
         // trunk-ignore-begin(eslint): Expected any accesses
+        // Ignoring no-unsafe-member-access, no-unsafe-assignment, no-unsafe-call, no-unsafe-return, and conditional jest expect
         const yamlContents = parseYaml(path.resolve(linterDir, linter, "plugin.yaml"));
 
         yamlContents.lint?.definitions?.forEach((definition: any) => {
