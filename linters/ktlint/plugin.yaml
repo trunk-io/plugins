@@ -1,5 +1,12 @@
 version: 0.1
 lint:
+  downloads:
+    - name: ktlint
+      version: 0.43.2
+      executable: true
+      downloads:
+        # Cross-platform download
+        - url: https://github.com/pinterest/ktlint/releases/download/${version}/ktlint
   definitions:
     - name: ktlint
       files: [kotlin]
