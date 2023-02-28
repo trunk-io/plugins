@@ -4,7 +4,7 @@ actions:
     - id: trunk-announce
       display_name: Trunk Announce
       description: Git hook for displaying commits tagged with '/trunk announce'
-      run: trunk show-announcements "${hook}" "${@}"
+      run: trunk show-announcements "${hook}" -- "${@}"
       triggers:
         - git_hooks: [post-checkout, post-merge, pre-rebase]
       notify_on_error: false
