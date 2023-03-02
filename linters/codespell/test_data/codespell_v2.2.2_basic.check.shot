@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter codespell test basic 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "codespell.test.ts",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "codespell.test.ts",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "codespell",
+      "message": "realy ==> really, relay",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "test_data/basic_md.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "codespell",
+      "message": "realy ==> really, relay",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "test_data/basic_py.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "20",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "test_data/basic_py.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "20",
+      "linter": "codespell",
+      "message": "lamda ==> lambda",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "test_data/basic_ts.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "17",
+      "linter": "codespell",
+      "message": "callbakc ==> callback",
+      "targetType": "ALL",
+    },
+    Object {
+      "bucket": "codespell",
+      "code": "misspelled",
+      "file": "test_data/basic_ts.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "18",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        ".trunk/trunk.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "codespell.test.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "codespell_to_sarif.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "result.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "test_data/basic_md.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "test_data/basic_py.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "test_data/basic_ts.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": Array [
+        "test_data/empty.in.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
