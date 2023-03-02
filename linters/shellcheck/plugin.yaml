@@ -27,6 +27,7 @@ lint:
           output: shellcheck
           run: shellcheck ${target} -f json --external-sources
           error_codes: [2]
+          in_place: true
       direct_configs:
         - .shellcheckrc
         - shellcheckrc
