@@ -182,6 +182,13 @@ lint:
         - slashes-inline
         - slashes-block
 
+    - name: go-lockfile
+      filenames:
+        - go.mod
+        - go.sum
+        - Gopkg.lock
+        - Gopkg.toml
+
     - name: graphql
       extensions:
         - graphql
