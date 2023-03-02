@@ -4,15 +4,7 @@ import path from "path";
 import { REPO_ROOT } from "tests/utils";
 
 // TODO(Tyler): Burndown this list (currently all linters defined before the testing framework was implemented).
-const excludedLinters: string[] = [
-  "circleci",
-  "codespell",
-  "cspell",
-  "nancy",
-  "oxipng",
-  "sqlfmt",
-  "trivy",
-];
+const excludedLinters: string[] = ["circleci", "codespell", "cspell", "nancy", "oxipng", "sqlfmt"];
 
 // This test asserts that all linters have at least one test. All new linters are expected to have
 // test coverage. Review tests/readme.md for testing guidelines. Prefer using npm test for indirection
