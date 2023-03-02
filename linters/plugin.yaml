@@ -1,0 +1,463 @@
+version: 0.1
+lint:
+  comment_formats:
+    - name: dashes-inline
+      leading_delimiter: --
+
+    - name: hash
+      leading_delimiter: "#"
+
+    - name: html-tag
+      leading_delimiter: <!--
+      trailing_delimiter: -->
+
+    - name: hyphen-hash
+      leading_delimiter: -#
+
+    - name: percent-inline
+      leading_delimiter: \%
+
+    - name: slashes-block
+      leading_delimiter: /*
+      trailing_delimiter: "*/"
+
+    - name: slashes-inline
+      leading_delimiter: //
+
+    - name: slashes-xml
+      leading_delimiter: ///
+
+  files:
+    - name: ALL
+      regexes:
+        - .+
+
+    - name: bazel-build
+      extensions:
+        - BUILD
+      filenames:
+        - BUILD
+        - BUILD.bazel
+      comments:
+        - hash
+
+    - name: bazel-workspace
+      filenames:
+        - WORKSPACE
+        - WORKSPACE.bazel
+      comments:
+        - hash
+
+    - name: c-header
+      extensions:
+        - h
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: c-source
+      extensions:
+        - c
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: c
+      inherit:
+        - c-source
+        - c-header
+
+    - name: c++-header
+      extensions:
+        - hh
+        - hpp
+        - hxx
+        - H
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: c++-source
+      extensions:
+        - cc
+        - cpp
+        - cxx
+        - C
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: c++
+      inherit:
+        - c++-source
+        - c++-header
+
+    - name: c/c++
+      inherit:
+        - c
+        - c++
+
+    - name: c/c++-source
+      inherit:
+        - c-source
+        - c++-source
+
+    - name: c#
+      extensions:
+        - cs
+      comments:
+        - slashes-inline
+        - slashes-block
+        - slashes-xml
+
+    - name: cloudformation
+      extensions:
+        - yaml
+        - yml
+      required_yaml_keys: [AWSTemplateFormatVersion]
+
+    - name: css
+      extensions:
+        - css
+      comments:
+        - slashes-block
+
+    - name: cue
+      extensions:
+        - cue
+      comments:
+        - slashes-inline
+
+    - name: ddl
+      extensions:
+        - ddl
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: dml
+      extensions:
+        - dml
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: docker
+      regexes:
+        # ?i is case-insensitive
+        # ?: is a non-capturing group, so that the RE2 DFA is more memory efficient
+        - (?i)(?:^|/)Dockerfile\..+$
+      filenames:
+        - Dockerfile
+        - dockerfile
+      extensions:
+        - Dockerfile
+        - dockerfile
+      comments:
+        - hash
+
+    - name: dotenv
+      extensions:
+        - env
+      comments:
+        - hash
+
+    - name: gemspec
+      extensions:
+        - gemspec
+      filenames:
+        - Gemfile
+
+    - name: github-workflow
+      regexes:
+        - .github/workflows/.+\.yaml
+        - .github/workflows/.+\.yml
+      comments:
+        - hash
+
+    - name: go
+      extensions:
+        - go
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: graphql
+      extensions:
+        - graphql
+      comments:
+        - hash
+
+    - name: haml
+      extensions:
+        - haml
+      comments:
+        - hyphen-hash
+
+    - name: html
+      extensions:
+        - html
+      comments:
+        - html-tag
+
+    - name: java
+      extensions:
+        - java
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: javascript
+      extensions:
+        - js
+        - cjs
+        - mjs
+        - jsx
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: json
+      extensions:
+        - json
+        - jsonc
+
+    - name: jupyter
+      extensions:
+        - ipynb
+
+    - name: kotlin
+      extensions:
+        - kt
+        - kts
+        - ktm
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: latex
+      extensions:
+        - tex
+      comments:
+        - percent-inline
+
+    # Lockfile definition is taken from osv-scanner and trivy
+    # https://github.com/google/osv-scanner/blob/main/pkg/lockfile/parse.go
+    # https://github.com/aquasecurity/trivy/blob/main/pkg/fanal/types/const.go
+    - name: lockfile
+      filenames:
+        # Cargo (Rust)
+        - Cargo.lock
+
+        # CocoaPods (Swift/Obj-C)
+        - Podfile.lock
+
+        # Composer (PHP)
+        - composer.lock
+
+        # Conan (C++)
+        - conan.lock
+
+        # Golang
+        - go.mod
+        - go.sum
+
+        # Gradle (Android/Java/Kotlin)
+        - buildscript-gradle.lockfile
+        - gradle.lockfile
+
+        # Maven
+        - pom.xml
+
+        # Mix (Erlang/Elixir)
+        - mix.lock
+
+        # Node
+        - package-lock.json
+        - pnpm-lock.yaml
+        - yarn.lock
+
+        # NuGet (.NET)
+        - packages.lock.json
+        - packages.config
+
+        # Pub (Dart)
+        - pubspec.lock
+
+        # Python
+        - requirements.txt
+        - Pipfile.lock
+        - poetry.lock
+
+        # Ruby
+        - Gemfile.lock
+
+    - name: markdown
+      extensions:
+        - md
+        - mdx
+      comments:
+        - html-tag
+
+    - name: objective-c-source
+      extensions:
+        - m
+
+    - name: php
+      extensions:
+        - php
+        - phar
+        - phtml
+        - pht
+        - phps
+        - php3
+        - php4
+        - php5
+        - phtml
+      comments:
+        - slashes-inline
+        - slashes-block
+        - hash
+
+    - name: png
+      extensions:
+        - png
+
+    - name: prettier_supported_configs
+      filenames:
+        - .prettierrc
+        - .stylelintrc
+
+    - name: proto
+      extensions:
+        - proto
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: python
+      extensions:
+        - py
+        - py2
+        - py3
+      shebangs:
+        - python
+        - python3
+      comments:
+        - hash
+
+    - name: ruby
+      extensions:
+        - rb
+      shebangs:
+        - ruby
+
+    - name: rust
+      extensions:
+        - rs
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: sass
+      extensions:
+        - sass
+        - scss
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: scala
+      extensions:
+        - scala
+        - sc
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: shell
+      extensions:
+        - sh
+        - bash
+      shebangs:
+        - sh
+        - bash
+      comments:
+        - hash
+
+    - name: sql
+      extensions:
+        - sql
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: sql-j2
+      extensions:
+        - sql.j2
+      comments:
+        - dashes-inline
+        - slashes-block
+
+    - name: starlark
+      extensions:
+        - bzl
+      comments:
+        - hash
+
+    - name: storyboard
+      extensions:
+        - storyboard
+
+    - name: strings
+      extensions:
+        - strings
+        - stringsdict
+
+    - name: svg
+      extensions:
+        - svg
+      comments:
+        - html-tag
+
+    - name: swift
+      extensions:
+        - swift
+
+    - name: terraform
+      extensions:
+        - tf
+        - tf.json
+
+    - name: toml
+      extensions:
+        - toml
+      comments:
+        - hash
+
+    - name: typescript
+      extensions:
+        - ts
+        - tsx
+      comments:
+        - slashes-inline
+        - slashes-block
+
+    - name: xib
+      extensions:
+        - xib
+
+    - name: yaml
+      extensions:
+        - yml
+        - yaml
+      comments:
+        - hash
+
+    - name: zsh
+      extensions:
+        - zsh
+      shebangs:
+        - zsh
+      comments:
+        - hash
