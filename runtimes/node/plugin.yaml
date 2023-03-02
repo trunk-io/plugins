@@ -1,0 +1,34 @@
+version: 0.1
+downloads:
+  - name: node
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://nodejs.org/dist/v${version}/node-v${version}-darwin-x64.tar.gz
+        version: <16.0.0
+        strip_components: 1
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://nodejs.org/dist/v${version}/node-v${version}-${os}-${cpu}.tar.gz
+        strip_components: 1
+
+runtimes:
+  definitions:
+    - type: node
+      download: node
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin", "${env.PATH}"]
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/node_modules/.bin"]
+      known_good_version: 18.12.1
+      version_commands:
+        - run: node --version
+          parse_regex: ${semver}

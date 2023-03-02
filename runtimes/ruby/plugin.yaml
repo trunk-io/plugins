@@ -1,0 +1,28 @@
+version: 0.1
+downloads:
+  - name: ruby-build
+    version: 20230124
+    downloads:
+      - url: https://github.com/rbenv/ruby-build/archive/refs/tags/v20230124.tar.gz
+        strip_components: 1
+
+runtimes:
+  definitions:
+    - type: ruby
+      download: ruby-build
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin"]
+        - name: LD_LIBRARY_PATH
+          list: ["${runtime}/lib"]
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+        - name: GEM_HOME
+          value: ${linter}
+      known_good_version: 3.1.0
+      version_commands:
+        - run: ruby --version
+          parse_regex: ruby ([0-9\.]+)(p+.*)
