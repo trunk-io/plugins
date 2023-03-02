@@ -34,3 +34,13 @@ actions:
       triggers:
         - git_hooks: [pre-push]
       notify_on_error: false
+
+    # This action is like `trunk-check-pre-push`, but will always run, even in non-interactive contexts.
+    - id: trunk-check-pre-push-always
+      display_name: Trunk Check Pre-Push Hook (Always)
+      description: Always run 'trunk check' whenever you run 'git push'
+      run: ${cwd}/trunk-check-pre-push.sh -n --commit-ref-from-pre-push '${hook_stdin_path}'
+      interactive: optional
+      triggers:
+        - git_hooks: [pre-push]
+      notify_on_error: false
