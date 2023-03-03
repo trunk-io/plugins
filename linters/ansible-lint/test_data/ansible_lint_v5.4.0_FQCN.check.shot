@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter ansible-lint test CUSTOM 1`] = `
+exports[`Testing linter ansible-lint test FQCN 1`] = `
 Object {
   "issues": Array [
     Object {
