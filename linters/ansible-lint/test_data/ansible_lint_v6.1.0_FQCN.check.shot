@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter ansible-lint test CUSTOM 1`] = `
+exports[`Testing linter ansible-lint test FQCN 1`] = `
 Object {
   "issues": Array [
     Object {
@@ -109,19 +109,6 @@ Object {
     },
     Object {
       "bucket": "ansible-lint",
-      "code": "name",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#name",
-      "level": "LEVEL_HIGH",
-      "line": "2",
-      "linter": "ansible-lint",
-      "message": "Task/Handler: restart jboss",
-      "targetType": "custom",
-    },
-    Object {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -131,44 +118,6 @@ Object {
       "line": "7",
       "linter": "ansible-lint",
       "message": "Task/Handler: restart iptables",
-      "targetType": "custom",
-    },
-    Object {
-      "bucket": "ansible-lint",
-      "code": "name",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#name",
-      "level": "LEVEL_HIGH",
-      "line": "7",
-      "linter": "ansible-lint",
-      "message": "Task/Handler: restart iptables",
-      "targetType": "custom",
-    },
-    Object {
-      "bucket": "ansible-lint",
-      "code": "schema",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#schema",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "ansible-lint",
-      "message": " Returned errors will not include exact line numbers, but they will mention
-the schema name being used as a tag, like \`\`playbook-schema\`\`,
-\`\`tasks-schema\`\`.
-
-This rule is not skippable and stops further processing of the file.
-
-Schema bugs should be reported towards [schemas](https://github.com/ansible/schemas) project instead of ansible-lint.
-
-If incorrect schema was picked, you might want to either:
-
-* move the file to standard location, so its file is detected correctly.
-* use \`\`kinds:\`\` option in linter config to help it pick correct file type.
-",
       "targetType": "custom",
     },
     Object {
@@ -446,19 +395,6 @@ If incorrect schema was picked, you might want to either:
     },
     Object {
       "bucket": "ansible-lint",
-      "code": "name",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#name",
-      "level": "LEVEL_HIGH",
-      "line": "71",
-      "linter": "ansible-lint",
-      "message": "Task/Handler: deploy iptables rules",
-      "targetType": "custom",
-    },
-    Object {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -494,19 +430,6 @@ If incorrect schema was picked, you might want to either:
       "line": "84",
       "linter": "ansible-lint",
       "message": "Task/Handler: Ensure that firewalld is started",
-      "targetType": "custom",
-    },
-    Object {
-      "bucket": "ansible-lint",
-      "code": "name",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#name",
-      "level": "LEVEL_HIGH",
-      "line": "90",
-      "linter": "ansible-lint",
-      "message": "Task/Handler: deploy firewalld rules",
       "targetType": "custom",
     },
     Object {

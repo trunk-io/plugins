@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ansible-lint test non_FQCN 1`] = `
+Object {
+  "issues": Array [
+    Object {
+      "bucket": "ansible-lint",
+      "code": "syntax-check[specific]",
+      "column": "7",
+      "file": "jboss-standalone/demo-aws-launch.yml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#syntax-check[specific]",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "ansible-lint",
+      "message": "couldn't resolve module/action 'ec2'. This often indicates a misspelling, missing collection, or incorrect module path.",
+      "targetType": "custom",
+    },
+  ],
+  "lintActions": Array [
+    Object {
+      "command": "lint",
+      "fileGroupName": "custom",
+      "linter": "ansible-lint",
+      "paths": Array [
+        "jboss-standalone",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    Object {
+      "command": "lint",
+      "fileGroupName": "custom",
+      "linter": "ansible-lint",
+      "paths": Array [
+        "jboss-standalone",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": Array [],
+  "unformattedFiles": Array [],
+}
+`;
