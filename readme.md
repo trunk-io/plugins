@@ -216,11 +216,22 @@ linters, but has their formatting turned off by default. An example of this is
 ```
 
 The `fix` subcommand has `enabled: false`, so when you run `trunk check enable sqlfluff`, only the
-`lint` subcommand is enabled. To override this behavior in your trunk.yaml, specify commands:
+`lint` subcommand is enabled. To override this behavior, specify in your `trunk.yaml`:
 
 ```yaml
 lint:
   enabled:
-    - sqlfluff:
+    - sqlfluff@1.4.5:
         commands: [lint, fix]
+```
+
+or
+
+```yaml
+lint:
+  definitions:
+    - name: sqlfluff
+      commands:
+        - name: fix
+          enabled: true
 ```
