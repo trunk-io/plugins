@@ -224,14 +224,3 @@ lint:
     - sqlfluff@<version>:
         commands: [lint, fix]
 ```
-
-or
-
-```yaml
-lint:
-  definitions:
-    - name: sqlfluff
-      commands:
-        - name: fix
-          enabled: true
-```
