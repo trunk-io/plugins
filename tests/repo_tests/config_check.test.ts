@@ -121,6 +121,7 @@ describe("Global config health check", () => {
         "svgo",
         "taplo",
         "tflint",
+        "yamllint",
       ]
     `);
   });
