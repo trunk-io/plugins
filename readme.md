@@ -221,7 +221,7 @@ The `fix` subcommand has `enabled: false`, so when you run `trunk check enable s
 ```yaml
 lint:
   enabled:
-    - sqlfluff@1.4.5:
+    - sqlfluff@<version>:
         commands: [lint, fix]
 ```
 
