@@ -21,9 +21,7 @@ lint:
     - actionlint@1.6.23
     - black@23.1.0
     - eslint@8.34.0
-    - flake8@6.0.0:
-        packages:
-          - flake8-bugbear@23.2.13
+    - ruff@0.0.254
     - git-diff-check
     - gitleaks@8.15.3
     - isort@5.12.0
