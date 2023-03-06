@@ -1,0 +1,12 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+  "customizations": {
+    "vscode": {
+      "extensions": ["redhat.vscode-yaml"]
+    }
+  },
+  "features": {
+    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
+  },
+  "onCreateCommand": "yarn install && trunk install"
+}
