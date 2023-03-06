@@ -7,7 +7,7 @@
   },
   "features": {
     "git-lfs": "latest",
-    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
+    "ghcr.io/trunk-io/devcontainer-feature/trunk": "latest"
   },
   "onCreateCommand": "npm install && trunk install"
 }
