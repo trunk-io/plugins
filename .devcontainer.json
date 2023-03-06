@@ -8,5 +8,5 @@
   "features": {
     "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
   },
-  "onCreateCommand": "yarn install && trunk install"
+  "onCreateCommand": "npm install && trunk install"
 }
