@@ -102,7 +102,6 @@ describe("Global config health check", () => {
         "clippy",
         "cue-fmt",
         "dotenv-linter",
-        "flake8",
         "git-diff-check",
         "gitleaks",
         "gofmt",
@@ -115,12 +114,14 @@ describe("Global config health check", () => {
         "nixpkgs-fmt",
         "oxipng",
         "prettier",
+        "ruff",
         "rustfmt",
         "shellcheck",
         "shfmt",
         "svgo",
         "taplo",
         "tflint",
+        "yamllint",
       ]
     `);
   });
