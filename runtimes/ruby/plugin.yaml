@@ -22,6 +22,8 @@ runtimes:
           list: ["${linter}/bin"]
         - name: GEM_HOME
           value: ${linter}
+        - name: GEM_PATH
+          value: ${linter}
       known_good_version: 3.1.0
       version_commands:
         - run: ruby --version
