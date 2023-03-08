@@ -1,0 +1,19 @@
+version: 0.1
+actions:
+  definitions:
+    - id: npm-check
+      display_name: NPM Check
+      runtime: node
+      packages_file: package.json
+      triggers:
+        - schedule: 24h
+        - files: ["package.json", "package-lock.json"]
+      run: actions/npm-check/npm_check.ts
+    - id: yarn-check
+      display_name: Yarn Check
+      runtime: node
+      packages_file: package.json
+      triggers:
+        - schedule: 24h
+        - files: ["package.json", "yarn.lock"]
+      run: actions/npm-check/npm_check.ts

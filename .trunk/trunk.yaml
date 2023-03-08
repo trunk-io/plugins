@@ -84,3 +84,5 @@ actions:
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - git-lfs
+    - npm-check
+    - yarn-check
