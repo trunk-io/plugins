@@ -4,10 +4,8 @@ https://github.com/conventional-changelog/commitlint
 
 ## Simple configuration
 
-```bash
-$ echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
-$ trunk actions enable commitlint
-```
+1. `echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js`
+2. `trunk actions enable commitlint`
 
 This will install the basic config and run commitlint on every `commit-msg` hook.
 
