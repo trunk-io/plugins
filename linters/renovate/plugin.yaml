@@ -26,7 +26,6 @@ lint:
         - renovate.json5
         - .renovaterc.json
         - .renovaterc.json5
-      good_without_config: true
       known_good_version: 34.122.0
       version_command:
         parse_regex: ${semver}
