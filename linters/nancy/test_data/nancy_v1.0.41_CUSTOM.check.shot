@@ -208,7 +208,9 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "file": ".",
       "level": "LEVEL_HIGH",
       "linter": "nancy",
-      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: In Gitea before 1.16.9, it was possible for users to add existing issues to projects. Due to improper access controls, an attacker could assign any issue to any project in Gitea (there was no permission check for fetching the issue). As a result, the attacker would get access to private issue titles.",
+      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: In Gitea before 1.16.9, it was possible for users to add existing issues to projects. Due to improper access controls, an attacker could assign any issue to any project in Gitea (there was no permission check for fetching the issue). As a result, the attacker would get access to private issue titles.
+
+Sonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-38183 for details",
       "targetType": "go-lockfile",
     },
     Object {
