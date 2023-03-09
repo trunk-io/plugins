@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter ruff test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "ruff",
       "code": "E402",
       "column": "1",
@@ -14,12 +14,12 @@ Object {
       "message": "Module level import not at top of file",
       "targetType": "python",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
+    {
+      "autofixOptions": [
+        {
           "message": "Remove unused import: \`sys\`",
-          "replacements": Array [
-            Object {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.py",
               "length": "11",
               "offset": "83",
@@ -37,7 +37,7 @@ Object {
       "message": "\`sys\` imported but unused",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "ruff",
       "code": "E402",
       "column": "1",
@@ -49,18 +49,18 @@ Object {
       "targetType": "python",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "ruff",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

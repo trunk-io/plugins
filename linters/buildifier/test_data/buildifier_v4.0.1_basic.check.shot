@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter buildifier test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "buildifier",
       "code": "module-docstring",
       "column": "1",
@@ -16,7 +16,7 @@ Object {
 A module docstring is a string literal (not a comment) which should be the first statement of a file (it may follow comment lines).",
       "targetType": "starlark",
     },
-    Object {
+    {
       "bucket": "buildifier",
       "code": "load",
       "column": "26",
@@ -25,16 +25,16 @@ A module docstring is a string literal (not a comment) which should be the first
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "buildifier",
-      "message": "Loaded symbol \\"a\\" is unused. Please remove it.
+      "message": "Loaded symbol "a" is unused. Please remove it.
 To disable the warning, add '@unused' in a comment.
 If you want to re-export a symbol, use the following pattern:
 
-    load(..., _a = \\"a\\", ...)
+    load(..., _a = "a", ...)
     a = _a
 ",
       "targetType": "starlark",
     },
-    Object {
+    {
       "bucket": "buildifier",
       "code": "out-of-order-load",
       "column": "1",
@@ -46,7 +46,7 @@ If you want to re-export a symbol, use the following pattern:
       "message": "Load statement is out of its lexicographical order.",
       "targetType": "starlark",
     },
-    Object {
+    {
       "bucket": "buildifier",
       "code": "load",
       "column": "26",
@@ -55,39 +55,39 @@ If you want to re-export a symbol, use the following pattern:
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "buildifier",
-      "message": "Loaded symbol \\"b\\" is unused. Please remove it.
+      "message": "Loaded symbol "b" is unused. Please remove it.
 To disable the warning, add '@unused' in a comment.
 If you want to re-export a symbol, use the following pattern:
 
-    load(..., _b = \\"b\\", ...)
+    load(..., _b = "b", ...)
     b = _b
 ",
       "targetType": "starlark",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fix",
       "fileGroupName": "starlark",
       "linter": "buildifier",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.bzl",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "warn",
       "fileGroupName": "starlark",
       "linter": "buildifier",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.bzl",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic.in.bzl",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

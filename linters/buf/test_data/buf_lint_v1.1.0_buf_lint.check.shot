@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter buf-lint test buf_lint 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "buf-lint",
       "code": "FILE_LOWER_SNAKE_CASE",
       "file": "test_data/buf_lint.in.proto",
       "issueUrl": "https://docs.buf.build/lint/rules#file_lower_snake_case",
       "level": "LEVEL_HIGH",
       "linter": "buf-lint",
-      "message": "Filename \\"buf_lint.in.proto\\" should be lower_snake_case.proto, such as \\"buf_lint_in.proto\\".",
+      "message": "Filename "buf_lint.in.proto" should be lower_snake_case.proto, such as "buf_lint_in.proto".",
       "targetType": "proto",
     },
-    Object {
+    {
       "bucket": "buf-lint",
       "code": "PACKAGE_DIRECTORY_MATCH",
       "column": "1",
@@ -22,10 +22,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "buf-lint",
-      "message": "Files with package \\"trunk\\" must be within a directory \\"trunk\\" relative to root but were in directory \\"test_data\\".",
+      "message": "Files with package "trunk" must be within a directory "trunk" relative to root but were in directory "test_data".",
       "targetType": "proto",
     },
-    Object {
+    {
       "bucket": "buf-lint",
       "code": "PACKAGE_VERSION_SUFFIX",
       "column": "1",
@@ -34,10 +34,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "buf-lint",
-      "message": "Package name \\"trunk\\" should be suffixed with a correctly formed version, such as \\"trunk.v1\\".",
+      "message": "Package name "trunk" should be suffixed with a correctly formed version, such as "trunk.v1".",
       "targetType": "proto",
     },
-    Object {
+    {
       "bucket": "buf-lint",
       "code": "ENUM_VALUE_PREFIX",
       "column": "3",
@@ -46,10 +46,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "buf-lint",
-      "message": "Enum value name \\"lower_case_UNSPECIFIED\\" should be prefixed with \\"GOOD_ENUM_\\".",
+      "message": "Enum value name "lower_case_UNSPECIFIED" should be prefixed with "GOOD_ENUM_".",
       "targetType": "proto",
     },
-    Object {
+    {
       "bucket": "buf-lint",
       "code": "ENUM_VALUE_UPPER_SNAKE_CASE",
       "column": "3",
@@ -58,22 +58,22 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "buf-lint",
-      "message": "Enum value name \\"lower_case_UNSPECIFIED\\" should be UPPER_SNAKE_CASE, such as \\"LOWER_CASE_UNSPECIFIED\\".",
+      "message": "Enum value name "lower_case_UNSPECIFIED" should be UPPER_SNAKE_CASE, such as "LOWER_CASE_UNSPECIFIED".",
       "targetType": "proto",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "proto",
       "linter": "buf-lint",
-      "paths": Array [
+      "paths": [
         "test_data/buf_lint.in.proto",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

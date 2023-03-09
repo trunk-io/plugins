@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter detekt-explicit test basic_explicit 1`] = `
-Object {
-  "issues": Array [],
-  "lintActions": Array [
-    Object {
+{
+  "issues": [],
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "kotlin",
       "linter": "detekt-explicit",
-      "paths": Array [
+      "paths": [
         "test_data/basic_explicit.in.kt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

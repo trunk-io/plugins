@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter trivy test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "trivy",
       "code": "CVE-2022-45198",
       "file": "test_data/nested/requirements.txt",
@@ -12,7 +12,7 @@ Object {
       "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
       "targetType": "lockfile",
     },
-    Object {
+    {
       "bucket": "trivy",
       "code": "CVE-2022-45199",
       "file": "test_data/nested/requirements.txt",
@@ -21,7 +21,7 @@ Object {
       "message": "Pillow before 9.3.0 allows denial of service via SAMPLESPERPIXEL.",
       "targetType": "lockfile",
     },
-    Object {
+    {
       "bucket": "trivy",
       "code": "CVE-2022-45198",
       "file": "test_data/requirements.txt",
@@ -30,7 +30,7 @@ Object {
       "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
       "targetType": "lockfile",
     },
-    Object {
+    {
       "bucket": "trivy",
       "code": "CVE-2022-45199",
       "file": "test_data/requirements.txt",
@@ -40,36 +40,36 @@ Object {
       "targetType": "lockfile",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fs",
       "fileGroupName": "lockfile",
       "linter": "trivy",
-      "paths": Array [
+      "paths": [
         "test_data/nested/requirements.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "fs",
       "fileGroupName": "lockfile",
       "linter": "trivy",
-      "paths": Array [
+      "paths": [
         "test_data/no_errors/requirements.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "fs",
       "fileGroupName": "lockfile",
       "linter": "trivy",
-      "paths": Array [
+      "paths": [
         "test_data/requirements.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

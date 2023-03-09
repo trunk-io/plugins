@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter rubocop test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "rubocop",
       "code": "Style/Documentation",
       "column": "1",
@@ -13,15 +13,15 @@ Object {
       "line": "1",
       "linter": "rubocop",
       "message": "Missing top-level documentation comment for \`class Plumbus\`.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "20",
         },
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Style/FrozenStringLiteralComment",
       "column": "1",
@@ -31,15 +31,15 @@ Object {
       "line": "1",
       "linter": "rubocop",
       "message": "Missing frozen string literal comment.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
         },
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/ExtraSpacing",
       "column": "6",
@@ -49,8 +49,8 @@ Object {
       "line": "1",
       "linter": "rubocop",
       "message": "Unnecessary spacing detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "7",
           "offset": "5",
@@ -58,7 +58,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Style/LambdaCall",
       "column": "1",
@@ -72,8 +72,8 @@ Object {
   key_1: 'hello',
   key_2: 'world'
 )\`.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "44",
           "offset": "59",
@@ -81,7 +81,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Naming/VariableNumber",
       "column": "3",
@@ -91,8 +91,8 @@ Object {
       "line": "13",
       "linter": "rubocop",
       "message": "Use normalcase for symbol numbers.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "5",
           "offset": "69",
@@ -100,7 +100,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Naming/VariableNumber",
       "column": "3",
@@ -110,8 +110,8 @@ Object {
       "line": "14",
       "linter": "rubocop",
       "message": "Use normalcase for symbol numbers.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "5",
           "offset": "87",
@@ -119,7 +119,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
@@ -129,8 +129,8 @@ Object {
       "line": "4",
       "linter": "rubocop",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "32",
@@ -138,7 +138,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
@@ -148,8 +148,8 @@ Object {
       "line": "5",
       "linter": "rubocop",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "33",
@@ -157,7 +157,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
@@ -167,8 +167,8 @@ Object {
       "line": "6",
       "linter": "rubocop",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "34",
@@ -176,7 +176,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
@@ -186,8 +186,8 @@ Object {
       "line": "7",
       "linter": "rubocop",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "35",
@@ -195,7 +195,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
@@ -205,8 +205,8 @@ Object {
       "line": "8",
       "linter": "rubocop",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "36",
@@ -214,7 +214,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/IndentationWidth",
       "column": "1",
@@ -224,8 +224,8 @@ Object {
       "line": "9",
       "linter": "rubocop",
       "message": "Use 2 (not 1) spaces for indentation.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "37",
@@ -233,7 +233,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
+    {
       "bucket": "rubocop",
       "code": "Layout/IndentationConsistency",
       "column": "2",
@@ -243,8 +243,8 @@ Object {
       "line": "9",
       "linter": "rubocop",
       "message": "Inconsistent indentation detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "15",
           "offset": "38",
@@ -253,29 +253,29 @@ Object {
       "targetType": "ruby",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fix-layout",
       "fileGroupName": "ruby",
       "linter": "rubocop",
-      "paths": Array [
+      "paths": [
         "test_data/basic.rb",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ruby",
       "linter": "rubocop",
-      "paths": Array [
+      "paths": [
         "test_data/basic.rb",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

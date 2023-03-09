@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter shellcheck test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "185",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "194",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
           ],
         },
@@ -29,8 +29,8 @@ Object {
       "line": "11",
       "linter": "shellcheck",
       "message": "Double quote to prevent globbing and word splitting.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "9",
           "offset": "185",
@@ -38,17 +38,17 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "length": "1",
               "offset": "185",
               "replacementText": "\${",
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "194",
               "replacementText": "}",
@@ -65,8 +65,8 @@ Object {
       "line": "11",
       "linter": "shellcheck",
       "message": "Prefer putting braces around variable references even when not strictly required.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "9",
           "offset": "185",
@@ -74,19 +74,19 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "201",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "208",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
           ],
         },
@@ -100,8 +100,8 @@ Object {
       "line": "12",
       "linter": "shellcheck",
       "message": "Double quote to prevent globbing and word splitting.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "7",
           "offset": "201",
@@ -109,17 +109,17 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "length": "1",
               "offset": "201",
               "replacementText": "\${",
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "208",
               "replacementText": "}",
@@ -136,8 +136,8 @@ Object {
       "line": "12",
       "linter": "shellcheck",
       "message": "Prefer putting braces around variable references even when not strictly required.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "7",
           "offset": "201",
@@ -145,16 +145,16 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "35",
               "replacementText": "[",
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "61",
               "replacementText": "]",
@@ -171,8 +171,8 @@ Object {
       "line": "5",
       "linter": "shellcheck",
       "message": "Prefer [[ ]] over [ ] for tests in Bash/Ksh.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "26",
           "offset": "35",
@@ -180,7 +180,7 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
+    {
       "bucket": "shellcheck",
       "code": "SC2312",
       "column": "9",
@@ -190,8 +190,8 @@ Object {
       "line": "5",
       "linter": "shellcheck",
       "message": "Consider invoking this command separately to avoid masking its return value (or use '|| true' to ignore).",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "5",
           "offset": "40",
@@ -199,7 +199,7 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
+    {
       "bucket": "shellcheck",
       "code": "SC2312",
       "column": "11",
@@ -209,8 +209,8 @@ Object {
       "line": "7",
       "linter": "shellcheck",
       "message": "Consider invoking this command separately to avoid masking its return value (or use '|| true' to ignore).",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "5",
           "offset": "97",
@@ -218,16 +218,16 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "92",
               "replacementText": "[",
             },
-            Object {
+            {
               "filePath": "test_data/basic.in.sh",
               "offset": "117",
               "replacementText": "]",
@@ -244,8 +244,8 @@ Object {
       "line": "7",
       "linter": "shellcheck",
       "message": "Prefer [[ ]] over [ ] for tests in Bash/Ksh.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.in.sh",
           "length": "25",
           "offset": "92",
@@ -254,18 +254,18 @@ Object {
       "targetType": "shell",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "shell",
       "linter": "shellcheck",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.sh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

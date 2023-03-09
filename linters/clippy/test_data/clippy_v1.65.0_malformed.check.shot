@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clippy test malformed 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "clippy",
       "code": "E0583",
       "column": "1",
@@ -14,8 +14,8 @@ Object {
       "line": "3",
       "linter": "clippy",
       "message": "file not found for module \`high\`",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "src/main.rs",
           "length": "9",
           "offset": "118",
@@ -24,18 +24,18 @@ Object {
       "targetType": "rust",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "rust",
       "linter": "clippy",
-      "paths": Array [
+      "paths": [
         ".",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
