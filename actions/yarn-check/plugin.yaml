@@ -8,7 +8,8 @@ actions:
       triggers:
         - schedule: 24h
         - files: ["package.json", "yarn.lock"]
-      run: ${plugin}/actions/yarn-check/yarn_check.ts
+      run: ${plugin}/actions/yarn-check/yarn_check.js
+      output_type: "notification_v1"
       environment:
         - name: NODE_PATH
           value: ${linter}/node_modules

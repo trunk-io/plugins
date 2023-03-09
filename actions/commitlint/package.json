@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@commitlint/cli": "^17.0"
+    "@commitlint/cli": "^17.0",
+    "yaml": "^2.2.1"
   }
 }
