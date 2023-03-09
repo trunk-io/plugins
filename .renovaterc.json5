@@ -10,5 +10,5 @@
       matchPackagePatterns: ["*"],
       matchUpdateTypes: ["minor", "patch"]
     }
-  ],
+  ]
 }
