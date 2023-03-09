@@ -69,4 +69,3 @@ actions:
     - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
-    - git-lfs
