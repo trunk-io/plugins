@@ -8,4 +8,5 @@ actions:
       triggers:
         - schedule: 24h
         - files: ["package.json", "yarn.lock"]
-      run: actions/yarn-check/yarn_check.ts
+      run: ${cwd}/yarn_check.ts
+      run_from: ${actiondir}
