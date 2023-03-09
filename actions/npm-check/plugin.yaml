@@ -8,5 +8,7 @@ actions:
       triggers:
         - schedule: 24h
         - files: ["package.json", "package-lock.json"]
-      run: pwd
-      run_from: ${linter}
+      run: actions/npm-check/npm_check.ts
+      environment:
+        - name: NODE_PATH
+          value: ${linter}/node_modules

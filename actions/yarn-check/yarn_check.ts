@@ -6,8 +6,8 @@ const { execSync } = require("child_process");
 
 const yarnCheck = require("yarn-check");
 
-npmCheck({}).then((current) => {
-  console.log("npm check complete");
+yarnCheck({}).then((current) => {
+  console.log("yarn check complete");
   const uninstalled = current.get("packages").filter((p) => !p.isInstalled);
   console.log("uninstalled packages: " + uninstalled.length);
 });

@@ -8,5 +8,7 @@ actions:
       triggers:
         - schedule: 24h
         - files: ["package.json", "yarn.lock"]
-      run: pwd
-      run_from: ${linter}
+      run: actions/yarn-check/yarn_check.ts
+      environment:
+        - name: NODE_PATH
+          value: ${linter}/node_modules
