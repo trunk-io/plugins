@@ -21,7 +21,7 @@ lint:
           parser:
             runtime: python
             run: ${cwd}/parse.py
-      affects_cache:
+      direct_configs:
         - renovate.json
         - renovate.json5
         - .renovaterc.json
