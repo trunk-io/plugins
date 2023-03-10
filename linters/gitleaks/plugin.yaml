@@ -36,6 +36,7 @@ lint:
       direct_configs:
         - .gitleaks.config
         - .gitleaks.toml
+        - .gitleaksignore
       good_without_config: true
       known_good_version: 8.8.7
       known_bad_versions:
