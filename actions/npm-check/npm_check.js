@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const { execSync } = require("child_process");
 
 const npmCheck = require("npm-check");
 const YAML = require("yaml");
@@ -30,6 +29,7 @@ npmCheck({}).then((current) => {
           "packages"
         )} ${pluralize(uninstalled_count, "needs", "need")} to be installed`,
         commands: [{ run: "npm install", title: "npm install" }],
+        icon: `${process.cwd()}/npm.svg`,
       },
     ],
   });
