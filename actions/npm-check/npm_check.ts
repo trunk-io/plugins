@@ -2,6 +2,7 @@
 
 const npmCheck = require("npm-check");
 const YAML = require("yaml");
+const path = require("path");
 
 const pluralize = (count, singular, plural) => {
   return count == 1 ? singular : plural;
@@ -9,7 +10,6 @@ const pluralize = (count, singular, plural) => {
 
 npmCheck({}).then((current) => {
   const uninstalled = current.get("packages").filter((p) => {
-    // console.log(p.moduleName, p.isInstalled);
     return !p.isInstalled;
   });
   if (uninstalled.length == 0) {
@@ -18,6 +18,7 @@ npmCheck({}).then((current) => {
     return;
   }
   const uninstalled_count = uninstalled.length;
+  const iconPath = path.join(__dirname, "npm.svg");
   const yaml = YAML.stringify({
     notifications: [
       {
@@ -29,7 +30,7 @@ npmCheck({}).then((current) => {
           "packages"
         )} ${pluralize(uninstalled_count, "needs", "need")} to be installed`,
         commands: [{ run: "npm install", title: "npm install" }],
-        icon: `${process.cwd()}/npm.svg`,
+        icon: iconPath,
       },
     ],
   });
