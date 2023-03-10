@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter bandit test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "bandit",
       "code": "B403",
       "file": "test_data/basic.in.py",
@@ -14,7 +14,7 @@ Object {
       "message": "Consider possible security implications associated with dill module.",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "bandit",
       "code": "B301",
       "file": "test_data/basic.in.py",
@@ -26,18 +26,18 @@ Object {
       "targetType": "python",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "bandit",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter gitleaks test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "gitleaks",
       "code": "aws-access-token",
       "column": "22",
@@ -15,7 +15,7 @@ Object {
       "message": "aws-access-token has detected secret for file test_data/basic.py.",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "gitleaks",
       "code": "aws-access-token",
       "column": "23",
@@ -28,28 +28,28 @@ Object {
       "targetType": "ALL",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "gitleaks",
-      "paths": Array [
+      "paths": [
         "test_data/basic.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "gitleaks",
-      "paths": Array [
+      "paths": [
         "test_data/basic.py",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

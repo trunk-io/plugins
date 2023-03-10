@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter cfnlint test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "cfnlint",
       "code": "E3030",
       "column": "7",
@@ -12,10 +12,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "19",
       "linter": "cfnlint",
-      "message": "You must specify a valid value for ValidationMethod (DNSS). Valid values are [\\"DNS\\", \\"EMAIL\\"]",
+      "message": "You must specify a valid value for ValidationMethod (DNSS). Valid values are ["DNS", "EMAIL"]",
       "targetType": "cloudformation",
     },
-    Object {
+    {
       "bucket": "cfnlint",
       "code": "E3002",
       "column": "7",
@@ -28,18 +28,18 @@ Object {
       "targetType": "cloudformation",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "cloudformation",
       "linter": "cfnlint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

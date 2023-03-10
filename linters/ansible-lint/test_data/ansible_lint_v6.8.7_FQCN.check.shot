@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter ansible-lint test FQCN 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -16,7 +16,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
@@ -29,7 +29,7 @@ Object {
       "message": "Role name java-app does not match \`\`^[a-z][a-z0-9_]*$\`\` pattern.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -42,7 +42,7 @@ Object {
       "message": "Use FQCN for builtin module actions (copy).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
@@ -55,7 +55,7 @@ Object {
       "message": "File permissions unset or incorrect.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
@@ -68,7 +68,7 @@ Object {
       "message": "Use FQCN for module actions, such \`community.general.jboss\`.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -81,7 +81,7 @@ Object {
       "message": "Use FQCN for builtin module actions (copy).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
@@ -94,7 +94,7 @@ Object {
       "message": "File permissions unset or incorrect.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
@@ -107,7 +107,7 @@ Object {
       "message": "Use FQCN for module actions, such \`community.general.jboss\`.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
@@ -120,7 +120,7 @@ Object {
       "message": "Role name jboss-standalone does not match \`\`^[a-z][a-z0-9_]*$\`\` pattern.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -133,7 +133,7 @@ Object {
       "message": "Use FQCN for builtin module actions (service).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
@@ -146,7 +146,7 @@ Object {
       "message": "All names should start with an uppercase letter.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -159,7 +159,7 @@ Object {
       "message": "Use FQCN for builtin module actions (service).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
@@ -172,7 +172,7 @@ Object {
       "message": "All names should start with an uppercase letter.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -185,7 +185,7 @@ Object {
       "message": "Use FQCN for builtin module actions (get_url).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
@@ -198,7 +198,7 @@ Object {
       "message": "File permissions unset or incorrect.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -211,7 +211,7 @@ Object {
       "message": "Use FQCN for builtin module actions (unarchive).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -224,7 +224,7 @@ Object {
       "message": "Use FQCN for builtin module actions (yum).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -237,7 +237,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -250,7 +250,7 @@ Object {
       "message": "Use FQCN for builtin module actions (command).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -263,7 +263,7 @@ Object {
       "message": "Use FQCN for builtin module actions (template).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
@@ -276,7 +276,7 @@ Object {
       "message": "File permissions unset or incorrect.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -289,7 +289,7 @@ Object {
       "message": "Use FQCN for builtin module actions (group).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -302,7 +302,7 @@ Object {
       "message": "Use FQCN for builtin module actions (user).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -315,7 +315,7 @@ Object {
       "message": "Use FQCN for builtin module actions (file).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -328,7 +328,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -341,7 +341,7 @@ Object {
       "message": "Use FQCN for builtin module actions (copy).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "command-instead-of-module",
       "column": "1",
@@ -354,7 +354,7 @@ Object {
       "message": "service used in place of service module",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -367,7 +367,7 @@ Object {
       "message": "Use FQCN for builtin module actions (shell).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "ignore-errors",
       "column": "1",
@@ -380,7 +380,7 @@ Object {
       "message": "Use failed_when and specify error conditions instead of using ignore_errors.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "no-changed-when",
       "column": "1",
@@ -393,7 +393,7 @@ Object {
       "message": "Commands should not change things if nothing needs doing.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -406,7 +406,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -419,7 +419,7 @@ Object {
       "message": "Use FQCN for builtin module actions (service).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -432,7 +432,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -445,7 +445,7 @@ Object {
       "message": "Use FQCN for builtin module actions (template).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
@@ -458,7 +458,7 @@ Object {
       "message": "All names should start with an uppercase letter.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
@@ -471,7 +471,7 @@ Object {
       "message": "File permissions unset or incorrect.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -484,7 +484,7 @@ Object {
       "message": "Use FQCN for builtin module actions (yum).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
@@ -497,7 +497,7 @@ Object {
       "message": "Use FQCN for builtin module actions (service).",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
@@ -510,7 +510,7 @@ Object {
       "message": "Use FQCN for module actions, such \`ansible.posix.firewalld\`.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
@@ -523,7 +523,7 @@ Object {
       "message": "All names should start with an uppercase letter.",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -536,7 +536,7 @@ Object {
       "message": "Truthy value should be one of [false, true]",
       "targetType": "custom",
     },
-    Object {
+    {
       "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
@@ -550,28 +550,28 @@ Object {
       "targetType": "custom",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

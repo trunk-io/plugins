@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clang-tidy test default_config 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test.hh",
               "offset": "14",
               "replacementText": "static ",
@@ -27,45 +27,45 @@ Object {
       "targetType": "c++-source",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "a_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "b_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "basic.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "test.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter rufo test empty 1`] = `
-Object {
-  "issues": Array [],
-  "lintActions": Array [
-    Object {
+{
+  "issues": [],
+  "lintActions": [
+    {
       "command": "format",
       "fileGroupName": "ruby",
       "linter": "rufo",
-      "paths": Array [
+      "paths": [
         "test_data/basic.rb",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "format",
       "fileGroupName": "ruby",
       "linter": "rufo",
-      "paths": Array [
+      "paths": [
         "test_data/empty.rb",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
@@ -34,7 +34,7 @@ Object {
       "linter": "rufo",
       "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
     },
-    Object {
+    {
       "column": "1",
       "file": "test_data/empty.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

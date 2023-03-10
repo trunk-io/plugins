@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter rome test basic_check 1`] = `
-Object {
-  "issues": Array [],
-  "lintActions": Array [
-    Object {
+{
+  "issues": [],
+  "lintActions": [
+    {
       "command": "check",
       "fileGroupName": "typescript",
       "linter": "rome",
-      "paths": Array [
+      "paths": [
         "test_data/basic_check.in.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "fmt",
       "fileGroupName": "typescript",
       "linter": "rome",
-      "paths": Array [
+      "paths": [
         "test_data/basic_check.in.ts",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic_check.in.ts",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

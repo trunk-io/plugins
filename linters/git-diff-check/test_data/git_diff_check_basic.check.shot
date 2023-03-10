@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter git-diff-check test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "git-diff-check",
       "code": "error",
       "column": "1",
@@ -14,7 +14,7 @@ Object {
       "message": " leftover conflict marker",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "git-diff-check",
       "code": "error",
       "column": "1",
@@ -25,7 +25,7 @@ Object {
       "message": " leftover conflict marker",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "git-diff-check",
       "code": "error",
       "column": "1",
@@ -37,18 +37,18 @@ Object {
       "targetType": "ALL",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "git-diff-check",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
