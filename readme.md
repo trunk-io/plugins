@@ -67,11 +67,11 @@ make the discovery, management and integration of new tools as straight-forward 
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                        |
 | Rust            | [clippy], [rustfmt]                                                                           |
 | Scala           | [scalafmt]                                                                                    |
-| Security        | [nancy], [trivy]                                                                              |
+| Security        | [nancy], [trivy], [tfsec]                                                                     |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                         |
 | SVG             | [svgo]                                                                                        |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                     |
-| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>               |
+| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec]      |
 | TOML            | [taplo]                                                                                       |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                       |
 | YAML            | [prettier], [semgrep], [yamllint]                                                             |
@@ -140,6 +140,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [taplo]: https://github.com/tamasfe/taplo#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tflint]: https://github.com/terraform-linters/tflint#readme
+[tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
