@@ -453,6 +453,8 @@ export class TrunkDriver {
    */
   async runCheckUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
+    // this has been changed from ".json" to ".out.json" for linters that run on terraform files
+    // terraform extensions are .tf and .tf.json - this change prevents accidentally linting the trunk output
     const resultJsonPath = `${targetAbsPath}.out.json`;
     const args = `--upstream=false ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
