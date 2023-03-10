@@ -18,7 +18,7 @@ lint:
       runtime: go
       commands:
         - output: sarif
-          run: ${plugin}/linters/nancy/run.sh sleuth
+          run: ${plugin}/linters/nancy/run.sh
           success_codes: [0, 1, 2]
           target: .
           read_output_from: stdout
@@ -28,4 +28,6 @@ lint:
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
+        - name: USER
+          value: ${env.USER}
       known_good_version: 1.0.41
