@@ -15,7 +15,7 @@ In order to use different commitlint configuration or specify a specific commitl
 must:
 
 1. Modify your `commitlint.config.js` accordingly
-2. Override the `packages_file` field for the action
+2. Override the `packages_file` field for the action and specify a package.json
 
 For example:
 
