@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter cspell test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "6",
@@ -14,7 +14,7 @@ Object {
       "message": "Unknown word (cachedir) Suggestions: [cachedi, cachexia, cached, accredit, acceder]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -25,7 +25,7 @@ Object {
       "message": "Unknown word (codespell) Suggestions: [codespan, outspell, cspell, respell]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -36,7 +36,7 @@ Object {
       "message": "Unknown word (commitlint) Suggestions: [committing, commitment, committish, commitments, commingling]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -47,7 +47,7 @@ Object {
       "message": "Unknown word (eamodio) Suggestions: [lamoda, Lamoda, cambodia, Cambodia, emotion]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -58,7 +58,7 @@ Object {
       "message": "Unknown word (kwargs) Suggestions: [kwan's, kwa's, Kwan's, Kwa's, awards]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -69,7 +69,7 @@ Object {
       "message": "Unknown word (protobuf) Suggestions: [protobufjs, proteus, protium, Proteus, protocol]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -80,7 +80,7 @@ Object {
       "message": "Unknown word (pyyaml) Suggestions: [eyaml, yaml, pyjamas, pyramid, payable]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -91,7 +91,7 @@ Object {
       "message": "Unknown word (runtimes) Suggestions: [runtime, Runtime, runtiness, runtiest, runtier]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -102,7 +102,7 @@ Object {
       "message": "Unknown word (sarif) Suggestions: [saris, sari, serif, sharif, Sharif]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -113,7 +113,7 @@ Object {
       "message": "Unknown word (SCRIPTDIR) Suggestions: [SCRIPTORIA, SCRIPTING, SCRIPTLET, SCRIPTURE, SCRIPT'S]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -124,7 +124,7 @@ Object {
       "message": "Unknown word (trunkio) Suggestions: [trunking, trunk's, trunked, trunnion, trunks]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "3",
@@ -135,7 +135,7 @@ Object {
       "message": "Unknown word (vuln) Suggestions: [vulg, Vulg, vul, Vul, vulgo]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "17",
@@ -146,7 +146,7 @@ Object {
       "message": "Unknown word (reallly) Suggestions: [really, reality, realogy, realty, Realogy]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "20",
@@ -157,7 +157,7 @@ Object {
       "message": "Unknown word (realy) Suggestions: [really*, realm, reals, realty, real]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "84",
@@ -168,7 +168,7 @@ Object {
       "message": "Unknown word (realy) Suggestions: [really*, realm, reals, realty, real]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "9",
@@ -179,7 +179,7 @@ Object {
       "message": "Unknown word (prit) Suggestions: [prig, prim, priv, prix, print]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "19",
@@ -190,7 +190,7 @@ Object {
       "message": "Unknown word (lamda) Suggestions: [lamia, lambda, lamoda, lama, ladda]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "9",
@@ -201,7 +201,7 @@ Object {
       "message": "Unknown word (callbak) Suggestions: [callback, callbacks, callboy, call_at, calabar]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "17",
@@ -212,7 +212,7 @@ Object {
       "message": "Unknown word (helol) Suggestions: [hello, helo, helot, Helot, hell]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "26",
@@ -223,7 +223,7 @@ Object {
       "message": "Unknown word (anme) Suggestions: [name, anne, ante, anime, acme]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "1",
@@ -234,7 +234,7 @@ Object {
       "message": "Unknown word (cachedir) Suggestions: [cachedi, cachexia, cached, accredit, acceder]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "8",
@@ -245,7 +245,7 @@ Object {
       "message": "Unknown word (pands) Suggestions: [panda, pandas, pan's, panes, pangs]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "7",
@@ -256,7 +256,7 @@ Object {
       "message": "Unknown word (barfoo) Suggestions: [barf's, barfed, barfly, barroom, barfs]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "19",
@@ -267,7 +267,7 @@ Object {
       "message": "Unknown word (callbakc) Suggestions: [callback, callbacks, fallback, callback's, callbackfn]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "7",
@@ -278,7 +278,7 @@ Object {
       "message": "Unknown word (callbakc) Suggestions: [callback, callbacks, fallback, callback's, callbackfn]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "19",
@@ -289,7 +289,7 @@ Object {
       "message": "Unknown word (callbak) Suggestions: [callback, callbacks, callboy, calabar, caliban]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "7",
@@ -300,7 +300,7 @@ Object {
       "message": "Unknown word (callbakk) Suggestions: [callback, callbacks, fallback, callable, clambake]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "16",
@@ -311,7 +311,7 @@ Object {
       "message": "Unknown word (awiat) Suggestions: [await, wait, awaits, agita, waist]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "7",
@@ -322,7 +322,7 @@ Object {
       "message": "Unknown word (asnyc) Suggestions: [async, ansys, assyr, ashy, asdic]",
       "targetType": "ALL",
     },
-    Object {
+    {
       "bucket": "cspell",
       "code": "error",
       "column": "7",
@@ -334,81 +334,81 @@ Object {
       "targetType": "ALL",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         ".trunk/trunk.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "cspell.test.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "plugin.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "result.json",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "test_data/basic_md.in.md",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "test_data/basic_py.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "test_data/basic_ts.in.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "cspell",
-      "paths": Array [
+      "paths": [
         "test_data/empty.in.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

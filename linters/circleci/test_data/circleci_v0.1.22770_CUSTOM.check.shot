@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter circleci test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "circleci",
       "code": "error",
       "file": "test_data/bad_version/.circleci/config.yml",
@@ -12,7 +12,7 @@ Object {
       "message": "Error: Cannot find circleci/node@2.99 in the orb registry. Check that the namespace, orb name and version are correct.",
       "targetType": "circleci-config",
     },
-    Object {
+    {
       "bucket": "circleci",
       "code": "error",
       "file": "test_data/malformed/.circleci/config.yml",
@@ -71,36 +71,36 @@ Object {
       "targetType": "circleci-config",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "validate",
       "fileGroupName": "circleci-config",
       "linter": "circleci",
-      "paths": Array [
+      "paths": [
         "test_data/bad_version/.circleci/config.yml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "validate",
       "fileGroupName": "circleci-config",
       "linter": "circleci",
-      "paths": Array [
+      "paths": [
         "test_data/basic/.circleci/config.yml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "validate",
       "fileGroupName": "circleci-config",
       "linter": "circleci",
-      "paths": Array [
+      "paths": [
         "test_data/malformed/.circleci/config.yml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
