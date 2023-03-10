@@ -7,7 +7,3 @@ actions:
       run: commitlint --edit ${1}
       triggers:
         - git_hooks: [commit-msg]
-      environment:
-        # Required for commitlint to find the managed node_modules rather than workspace root
-        - name: NODE_PATH
-          value: "${action}/node_modules"
