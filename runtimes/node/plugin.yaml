@@ -28,6 +28,8 @@ runtimes:
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]
+        - name: NODE_PATH
+          value: ${linter}/node_modules
       known_good_version: 18.12.1
       version_commands:
         - run: node --version
