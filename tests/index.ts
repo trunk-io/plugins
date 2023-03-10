@@ -205,12 +205,12 @@ export const customLinterCheckTest = ({
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
-        });
 
-        if (postCheck) {
-          postCheck(driver);
-          driver.debug("Finished running custom postCheck hook");
-        }
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
+        });
       });
     });
   });
@@ -291,12 +291,12 @@ export const customLinterFmtTest = ({
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
-        });
 
-        if (postCheck) {
-          postCheck(driver);
-          driver.debug("Finished running custom postCheck hook");
-        }
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
+        });
       });
     });
   });
@@ -367,12 +367,12 @@ export const linterCheckTest = ({
               snapshotPath,
               landingStateWrapper(testRunResult.landingState, snapshotPath)
             );
-          });
 
-          if (postCheck) {
-            postCheck(driver);
-            driver.debug("Finished running custom postCheck hook");
-          }
+            if (postCheck) {
+              postCheck(driver);
+              driver.debug("Finished running custom postCheck hook");
+            }
+          });
         });
       });
     });
@@ -440,11 +440,12 @@ export const linterFmtTest = ({
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath
             );
+
+            if (postCheck) {
+              postCheck(driver);
+              driver.debug("Finished running custom postCheck hook");
+            }
           });
-          if (postCheck) {
-            postCheck(driver);
-            driver.debug("Finished running custom postCheck hook");
-          }
         });
       });
     });

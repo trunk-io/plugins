@@ -299,6 +299,19 @@ export class TrunkDriver {
   }
 
   /**
+   * Copies a file at from the `sourceRelPath` inside the sandbox to the `destRelPath`.
+   * Recursively creates the destination's parent directory if it does not exist.
+   */
+  copyFile(sourceRelPath: string, destRelPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(sandboxPath, sourceRelPath);
+    const destPath = path.resolve(sandboxPath, destRelPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.cpSync(sourcePath, destPath);
+  }
+
+  /**
    * Deletes a file at the `relPath` inside the sandbox root.
    */
   deleteFile(relPath: string) {
