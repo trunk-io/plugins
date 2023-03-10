@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter swiftlint test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "swiftlint",
       "code": "type_name",
       "column": "8",
@@ -14,7 +14,7 @@ Object {
       "message": "Type Name Violation: Type name should start with an uppercase character: 'a'",
       "targetType": "swift",
     },
-    Object {
+    {
       "bucket": "swiftlint",
       "code": "line_length",
       "column": "1",
@@ -25,7 +25,7 @@ Object {
       "message": "Line Length Violation: Line should be 120 characters or less: currently 139 characters",
       "targetType": "swift",
     },
-    Object {
+    {
       "bucket": "swiftlint",
       "code": "vertical_whitespace",
       "column": "1",
@@ -36,7 +36,7 @@ Object {
       "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line. Currently 2.",
       "targetType": "swift",
     },
-    Object {
+    {
       "bucket": "swiftlint",
       "code": "identifier_name",
       "column": "1",
@@ -48,18 +48,18 @@ Object {
       "targetType": "swift",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "swift",
       "linter": "swiftlint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.swift",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

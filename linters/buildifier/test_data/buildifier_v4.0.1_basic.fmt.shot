@@ -5,6 +5,6 @@ exports[`Testing formatter buildifier test basic 1`] = `
 def eponymous_name():
     name = native.package_name()
 
-    return name[name.rfind(\\"/\\") + 1:]
+    return name[name.rfind("/") + 1:]
 "
 `;

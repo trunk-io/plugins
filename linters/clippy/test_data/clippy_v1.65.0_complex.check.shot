@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clippy test complex 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "clippy",
       "code": "dead_code",
       "column": "4",
@@ -14,8 +14,8 @@ Object {
       "line": "1",
       "linter": "clippy",
       "message": "function \`do_bad_math\` is never used",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "src/high.rs",
           "length": "11",
           "offset": "3",
@@ -23,7 +23,7 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
+    {
       "bucket": "clippy",
       "code": "arithmetic_overflow",
       "column": "13",
@@ -34,8 +34,8 @@ Object {
       "line": "2",
       "linter": "clippy",
       "message": "this arithmetic operation will overflow",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "src/high.rs",
           "length": "11",
           "offset": "31",
@@ -44,18 +44,18 @@ Object {
       "targetType": "rust",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "rust",
       "linter": "clippy",
-      "paths": Array [
+      "paths": [
         ".",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
