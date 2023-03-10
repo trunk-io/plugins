@@ -170,28 +170,43 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  * Write the payload for a slack notification on test failures.
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
+  const allBlocks = failures.map(({ linter, version, status, allVersions }) => {
+    const linterVersion = version ? `${linter}@${version}` : linter;
+    let details = "";
+    if (status == "mismatch") {
+      details = Array.from(allVersions)
+        .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
+        .join("; ");
+    }
+    return {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
+          process.env.RUN_ID ?? ""
+        }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+      },
+    };
+  });
+
+  const remainingBlock = {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
+        process.env.RUN_ID ?? ""
+      }| _And ${allBlocks.length - 50} more_`,
+    },
+  };
+
+  // Truncate all blocks because API is limited to 50
+  const blocks = allBlocks.length > 50 ? allBlocks.slice(0, 49).concat(remainingBlock) : allBlocks;
+
   const failuresObject = {
     text: `${failures.length} failures encountered running plugins tests for ${
       process.env.TEST_REF ?? "latest release"
     }`,
-    blocks: failures.map(({ linter, version, status, allVersions }) => {
-      const linterVersion = version ? `${linter}@${version}` : linter;
-      let details = "";
-      if (status == "mismatch") {
-        details = Array.from(allVersions)
-          .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
-          .join("; ");
-      }
-      return {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
-            process.env.RUN_ID ?? ""
-          }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
-        },
-      };
-    }),
+    blocks,
   };
   const failuresString = JSON.stringify(failuresObject);
   fs.writeFileSync(FAILURES_FILE, failuresString);
