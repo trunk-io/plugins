@@ -1,7 +1,7 @@
 version: 0.1
 
 cli:
-  version: 1.5.1
+  version: 1.5.2-beta.7
 
 plugins:
   sources:
@@ -38,7 +38,7 @@ lint:
   ignore:
     - linters: [ALL]
       paths:
-        - "**/test_data"
+        - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
 
 actions:
@@ -69,4 +69,3 @@ actions:
     - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
-    - git-lfs

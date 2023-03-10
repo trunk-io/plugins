@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter oxipng test malformed 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/bad.png",
+      "name": "oxipng",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;
