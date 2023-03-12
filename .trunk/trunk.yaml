@@ -16,6 +16,7 @@ runtimes:
 
 lint:
   enabled:
+    - checkov@2.3.75
     - clippy@1.65.0
     - golangci-lint@1.51.2
     - actionlint@1.6.23

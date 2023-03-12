@@ -1,0 +1,210 @@
+{
+  "issues": [
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created",
+      "code": "CKV_AWS_1",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow credentials exposure",
+      "code": "CKV_AWS_107",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+      "code": "CKV_AWS_109",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow privilege escalation",
+      "code": "CKV_AWS_110",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
+      "code": "CKV_AWS_49",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow data exfiltration",
+      "code": "CKV_AWS_108",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow write access without constraints",
+      "code": "CKV_AWS_111",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "43",
+      "column": "1",
+      "message": "Ensure AWS IAM policy does not allow full IAM privileges",
+      "code": "CKV2_AWS_40",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created",
+      "code": "CKV_AWS_1",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow credentials exposure",
+      "code": "CKV_AWS_107",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+      "code": "CKV_AWS_109",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow privilege escalation",
+      "code": "CKV_AWS_110",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
+      "code": "CKV_AWS_49",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow data exfiltration",
+      "code": "CKV_AWS_108",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    },
+    {
+      "file": "example.tf",
+      "line": "57",
+      "column": "1",
+      "message": "Ensure IAM policies does not allow write access without constraints",
+      "code": "CKV_AWS_111",
+      "level": "LEVEL_HIGH",
+      "bucket": "checkov",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "linter": "checkov",
+      "targetType": "terraform"
+    }
+  ],
+  "bucketViolations": [
+    {
+      "key": "checkov",
+      "newCount": 15
+    }
+  ],
+  "compareToUpstream": true,
+  "lintActions": [
+    {
+      "paths": [
+        "example.tf"
+      ],
+      "linter": "checkov",
+      "fileGroupName": "terraform",
+      "command": "lint",
+      "verb": "TRUNK_VERB_CHECK",
+      "actionDurationMs": "2074"
+    }
+  ],
+  "changeStats": {
+    "modified": "1",
+    "added": "6"
+  },
+  "checkStats": {
+    "fileCount": "1"
+  }
+}

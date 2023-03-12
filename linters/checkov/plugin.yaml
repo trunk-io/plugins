@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: checkov
+      files: [terraform, cloudformation, docker]
+      runtime: python
+      package: checkov
+      commands:
+        - name: lint
+          run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},
+          output: sarif
+          success_codes: [0, 1]
+          read_output_from: tmp_file
+      known_good_version: 2.3.75
+      direct_configs:
+        - .checkov.yml
+        - .checkov.yaml
