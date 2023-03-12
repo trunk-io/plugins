@@ -41,10 +41,10 @@ make the discovery, management and integration of new tools as straight-forward 
 | Bazel, Starlark | [buildifier]                                                                                  |
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                           |
 | CircleCI Config | [circleci]                                                                                    |
-| Cloudformation  | [cfnlint]                                                                                     |
+| Cloudformation  | [cfnlint], [checkov]                                                                          |
 | CSS, SCSS       | [stylelint]                                                                                   |
 | Cue             | [cue-fmt]                                                                                     |
-| Docker          | [hadolint]                                                                                    |
+| Docker          | [hadolint], [checkov]                                                                         |
 | Dotenv          | [dotenv-linter]                                                                               |
 | GitHub          | [actionlint]                                                                                  |
 | Go              | [gofmt], [golangci-lint], [semgrep], [goimports]                                              |
@@ -68,7 +68,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                         |
 | SVG             | [svgo]                                                                                        |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                     |
-| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>               |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>    |
 | TOML            | [taplo]                                                                                       |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                       |
 | YAML            | [prettier], [semgrep], [yamllint]                                                             |
@@ -81,6 +81,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [brakeman]: https://github.com/presidentbeef/brakeman#readme
 [buf]: https://github.com/bufbuild/buf#readme
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
+[checkov]: https://github.com/bridgecrewio/checkov#readme
 [circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
 [cfnlint]: https://github.com/aws-cloudformation/cfn-lint#readme
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
