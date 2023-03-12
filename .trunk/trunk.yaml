@@ -16,6 +16,7 @@ runtimes:
 
 lint:
   enabled:
+    - trivy@0.38.2
     - tfsec@1.28.1
     - clippy@1.65.0
     - golangci-lint@1.51.2

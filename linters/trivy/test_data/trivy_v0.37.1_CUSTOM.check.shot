@@ -5,42 +5,379 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
   "issues": [
     {
       "bucket": "trivy",
-      "code": "CVE-2022-45198",
-      "file": "test_data/nested/requirements.txt",
+      "code": "DS002",
+      "column": "1",
+      "file": "basic.in.Dockerfile",
       "level": "LEVEL_HIGH",
+      "line": "1",
       "linter": "trivy",
-      "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
+      "message": "Artifact: basic.in.Dockerfile
+Type: dockerfile
+Vulnerability DS002
+Severity: HIGH
+Message: Specify at least 1 USER command in Dockerfile with non-root user as argument
+Link: [DS002](https://avd.aquasec.com/misconfig/ds002)",
+      "targetType": "docker",
+    },
+    {
+      "bucket": "trivy",
+      "code": "DS026",
+      "column": "1",
+      "file": "basic.in.Dockerfile",
+      "level": "LEVEL_LOW",
+      "line": "1",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.Dockerfile
+Type: dockerfile
+Vulnerability DS026
+Severity: LOW
+Message: Add HEALTHCHECK instruction in your Dockerfile
+Link: [DS026](https://avd.aquasec.com/misconfig/ds026)",
+      "targetType": "docker",
+    },
+    {
+      "bucket": "trivy",
+      "code": "AVD-AWS-0028",
+      "column": "1",
+      "file": "library/aws.in.tf",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "trivy",
+      "message": "Artifact: aws.in.tf
+Type: terraform
+Vulnerability AVD-AWS-0028
+Severity: HIGH
+Message: Instance does not require IMDS access to require a token
+Link: [AVD-AWS-0028](https://avd.aquasec.com/misconfig/avd-aws-0028)",
+      "targetType": "terraform",
+    },
+    {
+      "bucket": "trivy",
+      "code": "AVD-AWS-0131",
+      "column": "1",
+      "file": "library/aws.in.tf",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "trivy",
+      "message": "Artifact: aws.in.tf
+Type: terraform
+Vulnerability AVD-AWS-0131
+Severity: HIGH
+Message: Root block device is not encrypted.
+Link: [AVD-AWS-0131](https://avd.aquasec.com/misconfig/avd-aws-0131)",
+      "targetType": "terraform",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV003",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV003
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should add 'ALL' to 'securityContext.capabilities.drop'
+Link: [KSV003](https://avd.aquasec.com/misconfig/ksv003)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV011",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV011
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.cpu'
+Link: [KSV011](https://avd.aquasec.com/misconfig/ksv011)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV012",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_MEDIUM",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV012
+Severity: MEDIUM
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsNonRoot' to true
+Link: [KSV012](https://avd.aquasec.com/misconfig/ksv012)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV013",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_MEDIUM",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV013
+Severity: MEDIUM
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should specify an image tag
+Link: [KSV013](https://avd.aquasec.com/misconfig/ksv013)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV014",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV014
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.readOnlyRootFilesystem' to true
+Link: [KSV014](https://avd.aquasec.com/misconfig/ksv014)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV018",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV018
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.memory'
+Link: [KSV018](https://avd.aquasec.com/misconfig/ksv018)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV020",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV020
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsUser' > 10000
+Link: [KSV020](https://avd.aquasec.com/misconfig/ksv020)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV021",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV021
+Severity: LOW
+Message: Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsGroup' > 10000
+Link: [KSV021](https://avd.aquasec.com/misconfig/ksv021)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV030",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV030
+Severity: LOW
+Message: Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'
+Link: [KSV030](https://avd.aquasec.com/misconfig/ksv030)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "KSV106",
+      "column": "1",
+      "file": "library/basic.in.yaml",
+      "level": "LEVEL_LOW",
+      "line": "14",
+      "linter": "trivy",
+      "message": "Artifact: basic.in.yaml
+Type: kubernetes
+Vulnerability KSV106
+Severity: LOW
+Message: container should drop all
+Link: [KSV106](https://avd.aquasec.com/misconfig/ksv106)",
+      "targetType": "yaml",
+    },
+    {
+      "bucket": "trivy",
+      "code": "CVE-2022-45198",
+      "column": "1",
+      "file": "library/requirements.txt",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "trivy",
+      "message": "Package: pillow
+Installed Version: 9.1.1
+Vulnerability CVE-2022-45198
+Severity: HIGH
+Fixed Version: 9.2.0
+Link: [CVE-2022-45198](https://avd.aquasec.com/nvd/cve-2022-45198)",
       "targetType": "lockfile",
     },
     {
       "bucket": "trivy",
       "code": "CVE-2022-45199",
-      "file": "test_data/nested/requirements.txt",
+      "column": "1",
+      "file": "library/requirements.txt",
       "level": "LEVEL_HIGH",
+      "line": "1",
       "linter": "trivy",
-      "message": "Pillow before 9.3.0 allows denial of service via SAMPLESPERPIXEL.",
-      "targetType": "lockfile",
-    },
-    {
-      "bucket": "trivy",
-      "code": "CVE-2022-45198",
-      "file": "test_data/requirements.txt",
-      "level": "LEVEL_HIGH",
-      "linter": "trivy",
-      "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
-      "targetType": "lockfile",
-    },
-    {
-      "bucket": "trivy",
-      "code": "CVE-2022-45199",
-      "file": "test_data/requirements.txt",
-      "level": "LEVEL_HIGH",
-      "linter": "trivy",
-      "message": "Pillow before 9.3.0 allows denial of service via SAMPLESPERPIXEL.",
+      "message": "Package: pillow
+Installed Version: 9.1.1
+Vulnerability CVE-2022-45199
+Severity: HIGH
+Fixed Version: 9.3.0
+Link: [CVE-2022-45199](https://avd.aquasec.com/nvd/cve-2022-45199)",
       "targetType": "lockfile",
     },
   ],
   "lintActions": [
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        ".trunk/trunk.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "terraform",
+      "linter": "trivy",
+      "paths": [
+        "test_data/aws.in.tf",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "docker",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.in.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/nested/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/no_errors/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        ".trunk/trunk.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "terraform",
+      "linter": "trivy",
+      "paths": [
+        "test_data/aws.in.tf",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "docker",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.in.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
     {
       "command": "fs",
       "fileGroupName": "lockfile",
