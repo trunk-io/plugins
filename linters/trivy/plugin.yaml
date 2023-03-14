@@ -22,19 +22,25 @@ lint:
       commands:
         - name: fs
           output: sarif
-          run: trivy fs ${target} --format sarif --no-progress --cache-dir ${shared_cachedir}
+          run: trivy fs ${target} --format json --no-progress --cache-dir ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
           batch: false
+          parser:
+            runtime: python
+            run: ${plugin}/linters/trivy/trivy_fs_to_sarif.py
 
         - name: config
           output: sarif
-          run: trivy config ${target} --format sarif --cache-dir ${shared_cachedir}
+          run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
           batch: false
+          parser:
+            runtime: python
+            run: ${plugin}/linters/trivy/trivy_config_to_sarif.py
 
       environment:
         - name: PATH
