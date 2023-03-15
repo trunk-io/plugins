@@ -50,7 +50,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Docker          | [hadolint]                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                               |
 | GitHub          | [actionlint]                                                                                  |
-| Go              | [gofmt], [golangci-lint], [semgrep], [goimports]                                              |
+| Go              | [gofmt], [gofumpt], [golangci-lint], [semgrep], [goimports]                                   |
 | HAML            | [haml-lint]                                                                                   |
 | Java            | [google-java-format], [semgrep]                                                               |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                                       |
@@ -99,6 +99,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [gitleaks]: https://github.com/zricethezav/gitleaks#readme
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gofmt]: https://pkg.go.dev/cmd/gofmt
+[gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
 [google-java-format]: https://github.com/google/google-java-format#readme
