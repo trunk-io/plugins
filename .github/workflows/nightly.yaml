@@ -101,7 +101,7 @@ jobs:
           mv package-lock.json.bak package-lock.json
           mv .github/actions.bak .github/actions
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
-          grep "// RELEASE" -r --include=*.shot.bak -l | tr -d '.bak' | xargs -I {} mv -n {}{.bak,}
+          grep "// RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv -n {}{.bak,}
 
       - name: Cache tool downloads
         uses: actions/cache@940f3d7cf195ba83374c77632d1e2cbb2f24ae68 # v3.3.0
