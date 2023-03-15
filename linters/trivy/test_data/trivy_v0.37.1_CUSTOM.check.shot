@@ -40,7 +40,7 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "file": "test_data/basic.Dockerfile",
       "level": "LEVEL_HIGH",
       "linter": "trivy",
-      "message": "You shoud add HEALTHCHECK instruction in your docker container images to perform the health check on running containers.",
+      "message": "You should add HEALTHCHECK instruction in your docker container images to perform the health check on running containers.",
       "targetType": "docker",
     },
     {
