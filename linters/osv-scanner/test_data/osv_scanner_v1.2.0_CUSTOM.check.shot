@@ -10,7 +10,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Open redirect in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -19,7 +19,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/crypto/ssh NULL Pointer Dereference vulnerability",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -28,7 +28,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Cross-site scripting in bluemonday",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -37,7 +37,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Cross Site Request Forgery in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -46,7 +46,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/net/http2 Denial of Service vulnerability",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -55,7 +55,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/net/html Infinite Loop vulnerability",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -64,7 +64,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Path Traversal in github.com/unknwon/cae/tz",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -73,7 +73,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Use of a Broken or Risky Cryptographic Algorithm in golang.org/x/crypto/ssh",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -82,7 +82,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Gitea displaying raw OpenID error in UI",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -91,7 +91,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Missing Role Based Access Control for the REST handlers in bleve/http package",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -100,7 +100,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Uncontrolled Resource Consumption in promhttp",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -109,7 +109,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Panic in malformed cerftificate",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -118,7 +118,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Improper Input Validation",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -127,7 +127,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Improper Verification of Cryptographic Signature in golang.org/x/crypto",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -136,7 +136,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Denial of Service in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -145,7 +145,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Arbitrary file deletion in gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -154,7 +154,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Cross-site Scripting in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -163,7 +163,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "x/crypto/ssh vulnerable to panic via SSH server",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -172,7 +172,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Path Traversal in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -181,7 +181,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/net/http/httpguts vulnerable to Uncontrolled Recursion",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -190,7 +190,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Gophish before 0.12.0 vulnerable to Open Redirect",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -199,7 +199,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Out-of-bounds read in Apache Thrift",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -208,7 +208,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Improper Authorization in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -217,7 +217,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Capture-replay in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -226,7 +226,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Shell command injection in gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -235,7 +235,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/sys/unix has Incorrect Privilege Assignment",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -244,7 +244,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Stored Cross-site Scripting in gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -253,7 +253,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Uncontrolled Resource Consumption",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -262,7 +262,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Cross-site Scripting in Gitea",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -271,7 +271,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "golang.org/x/crypto/salsa20/salsa uses insufficiently random values",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -280,7 +280,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Path Traversal in github.com/unknwon/cae/zip",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -289,7 +289,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Uncontrolled Resource Consumption",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -298,7 +298,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Authorization bypass in github.com/dgrijalva/jwt-go",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -307,7 +307,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Gitea vulnerable to Argument Injection",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -316,7 +316,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Policies not properly enforced in bluemonday",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -325,7 +325,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public key, such that the library will panic when trying to verify a signature with it. If verifying signatures using user supplied public keys, this may be used as a denial of service vector.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -334,7 +334,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "If a JWT contains an audience claim with an array of strings, rather than a single string, and MapClaims.VerifyAudience is called with req set to false, then audience verification will be bypassed, allowing an invalid set of audiences to be provided.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -343,7 +343,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Due to improper path santization, archives containing relative file paths can cause files to be written (or overwritten) outside of the target directory.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -352,7 +352,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Due to an improper bounds check, parsing maliciously crafted messages can cause panics. If this package is used to parse untrusted input, this may be used as a vector for a denial of service attack.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -364,7 +364,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
 Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
 affected if they use this package to handle untrusted user input.
 ",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -373,7 +373,7 @@ affected if they use this package to handle untrusted user input.
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are affected if they use this package to handle untrusted user input.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -382,7 +382,7 @@ affected if they use this package to handle untrusted user input.
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Clients can cause a panic in SSH servers. An attacker can craft an authentication request message for the “gssapi-with-mic” method which will cause NewServerConn to panic via a nil pointer dereference if ServerConfig.GSSAPIWithMICConfig is nil.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -391,7 +391,7 @@ affected if they use this package to handle untrusted user input.
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "The ExtractTo function doesn't securely escape file paths in zip archives which include leading or non-leading "..". This allows an attacker to add or replace files system-wide.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -400,7 +400,7 @@ affected if they use this package to handle untrusted user input.
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "An attacker can craft an input to ParseFragment that causes it to enter an infinite loop and never return.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -411,7 +411,7 @@ affected if they use this package to handle untrusted user input.
       "message": "Attackers can cause a crash in SSH servers when the server has been configured by passing a Signer to ServerConfig.AddHostKey such that 1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and 2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its PublicKey method.
 
 Servers that only use Signer implementations provided by the ssh package are unaffected.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -426,7 +426,7 @@ If more than 256 GiB of keystream is generated, or if the counter otherwise grow
 The issue might affect uses of golang.org/x/crypto/nacl with extremely large messages.
 
 Architectures other than amd64 and uses that generate less than 256 GiB of keystream for a single salsa20.XORKeyStream invocation are unaffected.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -437,7 +437,7 @@ Architectures other than amd64 and uses that generate less than 256 GiB of keyst
       "message": "On 32-bit architectures, a malformed input to crypto/x509 or the ASN.1 parsing functions of golang.org/x/crypto/cryptobyte can lead to a panic.
 
 The malformed certificate can be delivered via a crypto/tls connection to a client, or to a server that accepts client certificates. net/http clients can be made to crash by an HTTPS server, while net/http servers that accept client certificates will recover the panic and are unaffected.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -450,7 +450,7 @@ The malformed certificate can be delivered via a crypto/tls connection to a clie
 ReadRequest and ReadResponse can hit an unrecoverable panic when reading a very large header (over 7MB on 64-bit architectures, or over 4MB on 32-bit ones). Transport and Client are vulnerable and the program can be made to crash by a malicious server. Server is not vulnerable by default, but can be if the default max header of 1MB is overridden by setting Server.MaxHeaderBytes to a higher value, in which case the program can be made to crash by a malicious client.
 
 This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in golang.org/x/net/http/httpguts.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -459,7 +459,7 @@ This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in go
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "An attacker can cause unbounded memory growth in servers accepting HTTP/2 requests.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -470,7 +470,7 @@ This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in go
       "message": "The Prometheus client_golang HTTP server is vulnerable to a denial of service attack when handling requests with non-standard HTTP methods.
 
 In order to be affected, an instrumented software must use any of the promhttp.InstrumentHandler* middleware except \`RequestsInFlight\`; not filter any specific methods (e.g GET) before middleware; pass a metric with a "method" label name to a middleware; and not have any firewall/LB/proxy that filters away requests with unknown "method".",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -481,7 +481,7 @@ In order to be affected, an instrumented software must use any of the promhttp.I
       "message": "HTTP handlers provide unauthenticated access to the local filesystem.
 
 The Bleve http package is intended for demonstration purposes and contains no authentication, authorization, or validation of user inputs. Exposing handlers from this package can permit attackers to create files and delete directories.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -490,7 +490,7 @@ The Bleve http package is intended for demonstration purposes and contains no au
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "When called with a non-zero flags parameter, the Faccessat function can incorrectly report that a file is accessible.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -503,7 +503,7 @@ The Bleve http package is intended for demonstration purposes and contains no au
 The default bluemonday sanitization policies are not vulnerable. Only user-defined policies allowing "select", "style", and "option" elements are affected.
 
 Permitting the "style" element in policies is hazardous, because bluemonday does not contain a CSS sanitizer. Newer versions of bluemonday suppress "style" and "script" elements even when allowed by a policy unless the policy explicitly requests unsafe processing.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -512,7 +512,7 @@ Permitting the "style" element in policies is hazardous, because bluemonday does
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "An XSS injection was possible because the sanitization of the Cyrillic character i bypass a protection mechanism against user-inputted HTML elements such as the <script> tag.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -523,7 +523,7 @@ Permitting the "style" element in policies is hazardous, because bluemonday does
       "message": "Unauthenticated clients can cause a panic in SSH servers.
 
 When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which contains an empty plaintext causes a panic.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -532,7 +532,7 @@ When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which conta
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "HTTP/2 server connections can hang forever waiting for a clean shutdown that was preempted by a fatal error. This condition can be exploited by a malicious client to cause a denial of service.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -543,7 +543,7 @@ When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which conta
       "message": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.
 
 HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -552,7 +552,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -561,7 +561,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -570,7 +570,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Pillow vulnerable to Data Amplification attack.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -579,7 +579,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Invalid-free in _dealloc",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -588,7 +588,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Segv on unknown address in jpeg_read_scanlines",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -597,7 +597,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
     {
       "bucket": "osv-scanner",
@@ -606,13 +606,13 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Pillow before 9.3.0 allows denial of service via SAMPLESPERPIXEL.",
-      "targetType": "osvlockfile",
+      "targetType": "osv-lockfiles",
     },
   ],
   "lintActions": [
     {
       "command": "scan",
-      "fileGroupName": "osvlockfile",
+      "fileGroupName": "osv-lockfiles",
       "linter": "osv-scanner",
       "paths": [
         "test_data/composer.lock",
@@ -621,7 +621,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
     },
     {
       "command": "scan",
-      "fileGroupName": "osvlockfile",
+      "fileGroupName": "osv-lockfiles",
       "linter": "osv-scanner",
       "paths": [
         "test_data/go.mod",
@@ -630,7 +630,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
     },
     {
       "command": "scan",
-      "fileGroupName": "osvlockfile",
+      "fileGroupName": "osv-lockfiles",
       "linter": "osv-scanner",
       "paths": [
         "test_data/requirements.txt",
