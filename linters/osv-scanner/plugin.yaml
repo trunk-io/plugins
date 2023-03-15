@@ -1,0 +1,34 @@
+version: 0.1
+lint:
+  downloads:
+    - name: osv-scanner
+      version: 1.2.0
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
+  definitions:
+    - name: osv-scanner
+      files: [osvlockfile]
+      download: osv-scanner
+      known_good_version: 1.2.0
+      commands:
+        - name: scan
+          output: sarif
+          run: osv-scanner --lockfile=${target} --format json
+          success_codes: [0, 1, 128]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${plugin}/linters/osv-scanner/osv_to_sarif.py
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: "version: ${version}\n"
+        run: osv-scanner --version

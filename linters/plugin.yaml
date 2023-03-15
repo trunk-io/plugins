@@ -310,6 +310,55 @@ lint:
       extensions:
         - m
 
+    # This is the same as the lockfile type above, minus go.sum because osv-scanner does not support that
+    # TODO: TYLER once linter ignores are supported, move this into a linter ignore
+    - name: osvlockfile
+      filenames:
+        # Cargo (Rust)
+        - Cargo.lock
+
+        # CocoaPods (Swift/Obj-C)
+        - Podfile.lock
+
+        # Composer (PHP)
+        - composer.lock
+
+        # Conan (C++)
+        - conan.lock
+
+        # Golang
+        - go.mod
+
+        # Gradle (Android/Java/Kotlin)
+        - buildscript-gradle.lockfile
+        - gradle.lockfile
+
+        # Maven
+        - pom.xml
+
+        # Mix (Erlang/Elixir)
+        - mix.lock
+
+        # Node
+        - package-lock.json
+        - pnpm-lock.yaml
+        - yarn.lock
+
+        # NuGet (.NET)
+        - packages.lock.json
+        - packages.config
+
+        # Pub (Dart)
+        - pubspec.lock
+
+        # Python
+        - requirements.txt
+        - Pipfile.lock
+        - poetry.lock
+
+        # Ruby
+        - Gemfile.lock
+
     - name: php
       extensions:
         - php
