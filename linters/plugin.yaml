@@ -311,8 +311,8 @@ lint:
         - m
 
     # This is the same as the lockfile type above, minus go.sum because osv-scanner does not support that
-    # TODO: TYLER once linter ignores are supported, move this into a linter ignore
-    - name: osvlockfile
+    # TODO(Tyler): once linter ignores are supported, move this into a linter ignore
+    - name: osv-lockfiles
       filenames:
         # Cargo (Rust)
         - Cargo.lock

@@ -14,7 +14,7 @@ lint:
           url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
   definitions:
     - name: osv-scanner
-      files: [osvlockfile]
+      files: [osv-lockfiles]
       download: osv-scanner
       known_good_version: 1.2.0
       commands:
@@ -30,5 +30,5 @@ lint:
         - name: PATH
           list: ["${linter}"]
       version_command:
-        parse_regex: "version: ${version}\n"
+        parse_regex: "version: ${version}"
         run: osv-scanner --version
