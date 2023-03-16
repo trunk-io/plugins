@@ -78,6 +78,8 @@ jobs:
           cp package.json package.json.bak
           cp package-lock.json package-lock.json.bak
           cp -r .github/actions .github/actions.bak
+          # Include any newly generated snapshots that have been marked release-ready
+          grep "// RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
 
       - name: Get Latest Release
         id: get-release
@@ -98,6 +100,8 @@ jobs:
           mv package.json.bak package.json
           mv package-lock.json.bak package-lock.json
           mv .github/actions.bak .github/actions
+          # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
+          grep "// RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv -n {}{.bak,}
 
       - name: Cache tool downloads
         uses: actions/cache@940f3d7cf195ba83374c77632d1e2cbb2f24ae68 # v3.3.0
