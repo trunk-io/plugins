@@ -3,8 +3,9 @@ on:
   schedule:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
-  pull_request:
-    paths: [.github/workflows/nightly.yaml]
+  # Only enable on pull requests for testing
+  # pull_request:
+  #   paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -80,6 +81,7 @@ jobs:
           cp -r .github/actions .github/actions.bak
           # Include any newly generated snapshots that have been marked release-ready
           grep "// RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
+        continue-on-error: true
 
       - name: Get Latest Release
         id: get-release
@@ -101,7 +103,8 @@ jobs:
           mv package-lock.json.bak package-lock.json
           mv .github/actions.bak .github/actions
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
-          grep "// RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv -n {}{.bak,}
+          grep "// RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
+        continue-on-error: true
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1

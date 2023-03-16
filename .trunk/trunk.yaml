@@ -2,7 +2,7 @@ version: 0.1
 
 cli:
   # version used for local trunk runs and testing
-  version: 1.6.2-beta.1
+  version: 1.6.2-beta.3
 
 plugins:
   sources:
@@ -13,27 +13,22 @@ runtimes:
   enabled:
     - go@1.19.5
     - node@18.12.1
-    - python@3.10.3
+    - python@3.10.8
 
 lint:
   enabled:
-    - tfsec@1.28.1
-    - clippy@1.65.0
-    - golangci-lint@1.51.2
     - actionlint@1.6.23
     - black@23.1.0
-    - eslint@8.35.0
-    - ruff@0.0.254
+    - eslint@8.36.0
     - git-diff-check
-    - gitleaks@8.16.0
+    - gitleaks@8.16.1
     - isort@5.12.0
     - markdownlint@0.33.0
     - prettier@2.8.4
-    - renovate@34.159.0
-    - semgrep@1.14.0
+    - renovate@35.8.3
+    - ruff@0.0.256
     - shellcheck@0.9.0
     - shfmt@3.5.0
-    - sqlfluff@1.4.5
     - taplo@0.7.0
     - yamllint@1.29.0
 
@@ -63,7 +58,14 @@ actions:
       triggers:
         - files: [linters/**]
 
+    - id: remove-release-snapshots
+      display_name: Remove Release Snapshots
+      description: Remove release tag from snapshots that were added to the release
+      run: grep "// RELEASE" -r --include=*.shot -l | xargs -I {} sed -i -e '/^\/\/ RELEASE/d' {}
+      shell: bash
+
   enabled:
+    - remove-release-snapshots
     - repo-tests
     - linter-test-helper
     - trunk-announce

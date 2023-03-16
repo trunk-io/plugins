@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter gofumpt test empty 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/empty.in.go",
+      "name": "gofumpt",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

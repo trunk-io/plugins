@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter golines test basic 1`] = `
+"package main
+
+// 🧗.
+func somethingTooLong(
+	ctx context.Context,
+	longArgument string,
+	anotherOne func(time.Duration) bool,
+) (int, error) {
+	// foo
+}
+"
+`;
