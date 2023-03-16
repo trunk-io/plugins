@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter golines test empty 1`] = `
-Object {
-  "issues": Array [],
-  "lintActions": Array [
-    Object {
+{
+  "issues": [],
+  "lintActions": [
+    {
       "command": "format",
       "fileGroupName": "go",
       "linter": "golines",
-      "paths": Array [
+      "paths": [
         "test_data/empty.in.go",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
