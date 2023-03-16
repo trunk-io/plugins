@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: gofumpt
       runtime: go
+      files: [go]
       package: mvdan.cc/gofumpt
       commands:
         - name: format

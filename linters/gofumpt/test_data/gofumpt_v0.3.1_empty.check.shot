@@ -1,46 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter gofmt test empty 1`] = `
-{
-  "issues": [],
-  "lintActions": [],
-  "taskFailures": [
-    {
-      "details": StringMatching /\\.\\*\\$/m,
-      "message": "test_data/empty.in.go",
-      "name": "gofmt",
-    },
-  ],
-  "unformattedFiles": [],
-}
-`;
-
 exports[`Testing linter gofumpt test empty 1`] = `
 {
   "issues": [],
   "lintActions": [],
   "taskFailures": [
     {
-      "details": "title: gofumpt exited with exit_code=2
-report:
-  - gofumpt exited with exit_code=2
-  - linter:
-      command: |
-        /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/gofumpt/0.3.1-5ae863586320e1b1e8a100342fade674/bin/gofumpt test_data/empty.in.go
-      stdin_path: |
-        /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_OE4Q37/tmp/trunk-501/LvwkDX/test_data/empty.in.go
-      run_from: /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_OE4Q37/tmp/trunk-501/LvwkDX
-      timeout: 10m
-      rerun: (cd /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_OE4Q37/tmp/trunk-501/LvwkDX; cat /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_OE4Q37/tmp/trunk-501/LvwkDX/test_data/empty.in.go | env -i PATH=/private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/gofumpt/0.3.1-5ae863586320e1b1e8a100342fade674/bin:/private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/gofumpt/0.3.1-5ae863586320e1b1e8a100342fade674/bin:/private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/go/1.19.5-c57bd286c4071b2bec6906207451cb1c/bin GOROOT=/private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/go/1.19.5-c57bd286c4071b2bec6906207451cb1c GO111MODULE=on HOME=/Users/tomlazar CGO_ENABLED=0 GOPATH=/private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/gofumpt/0.3.1-5ae863586320e1b1e8a100342fade674 /private/var/folders/yd/__hbfxnd6273_jstzz6cs0v00000gn/T/plugins_testing_download_cache/gofumpt/0.3.1-5ae863586320e1b1e8a100342fade674/bin/gofumpt test_data/empty.in.go)
-      exit_status: exited
-      exit_code: 2
-      stdout: (none)
-      stderr: |
-        EOF
-
-    parser: |
-      (none)
-",
+      "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/empty.in.go",
       "name": "gofumpt",
     },
