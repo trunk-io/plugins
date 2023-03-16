@@ -1,0 +1,54 @@
+version: 0.1
+downloads:
+  # NOTE(sam): We use Azul's Zulu builds of OpenJDK because it was the first thing we found when
+  # implementing the Java runtime. The Temurin releases are hosted on GitHub, which would allow us
+  # to use "latest version query" logic on them, but their release naming isn't trivially compatible
+  # with our current schema (e.g. JDK 11.0.17+8 has URL /jdk-11.0.17+8/[...]_11.0.17_8.tar.gz).
+
+  - name: jdk-17
+    downloads:
+      - os:
+          linux: linux
+          macos: macosx
+        cpu:
+          x86_64: x64
+          arm_64: aarch64
+        url: https://cdn.azul.com/zulu/bin/zulu17.30.15-ca-jdk17.0.1-${os}_${cpu}.tar.gz
+        strip_components: 1
+
+  - name: jdk-11
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: x64
+        url: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-${os}_${cpu}.tar.gz
+        strip_components: 1
+      - os:
+          macos: macosx
+        cpu:
+          x86_64: x64
+          arm_64: aarch64
+        url: https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-jdk11.0.13-${os}_${cpu}.tar.gz
+        strip_components: 1
+
+runtimes:
+  definitions:
+    - type: java
+      download: jdk-11
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin"]
+        - name: JAVA_HOME
+          value: ${runtime}
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 11.0.13
+      version_commands:
+        - run: java --version
+          parse_regex: ${semver}
+        - run: java -version
+          parse_regex: java version "(.*)"
