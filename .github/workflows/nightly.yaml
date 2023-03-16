@@ -80,6 +80,7 @@ jobs:
           cp -r .github/actions .github/actions.bak
           # Include any newly generated snapshots that have been marked release-ready
           grep "// RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
+        continue-on-error: true
 
       - name: Get Latest Release
         id: get-release
@@ -102,6 +103,7 @@ jobs:
           mv .github/actions.bak .github/actions
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
           grep "// RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv -n {}{.bak,}
+        continue-on-error: true
 
       - name: Cache tool downloads
         uses: actions/cache@940f3d7cf195ba83374c77632d1e2cbb2f24ae68 # v3.3.0
