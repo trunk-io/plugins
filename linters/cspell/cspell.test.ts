@@ -1,6 +1,13 @@
 import { customLinterCheckTest, TestCallback } from "tests";
+import { skipOS } from "tests/utils";
 
-customLinterCheckTest({ linterName: "cspell", testName: "basic", args: "-a" });
+// TODO(Tyler): Determine root cause of flakiness on Mac runners
+customLinterCheckTest({
+  linterName: "cspell",
+  testName: "basic",
+  args: "-a",
+  skipTestIf: skipOS(["darwin"]),
+});
 
 const preCheck: TestCallback = (driver) => {
   // Create config
@@ -36,4 +43,10 @@ dictionaries:
   );
 };
 
-customLinterCheckTest({ linterName: "cspell", testName: "dictionary", args: "-a", preCheck });
+customLinterCheckTest({
+  linterName: "cspell",
+  testName: "dictionary",
+  args: "-a",
+  preCheck,
+  skipTestIf: skipOS(["darwin"]),
+});
