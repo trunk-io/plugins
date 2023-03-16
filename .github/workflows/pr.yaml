@@ -66,16 +66,19 @@ jobs:
       - name: Suggest all linter tests
         id: post-filter
         if: steps.filter.outputs.all-linters == 'true'
-        run: echo "out=linters" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "Run all linter tests"
+          echo "out=linters" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
         if: steps.filter.outputs.linters
         run: |
-          echo ${{steps.filter.outputs.linters_files}} |
+          linter_files=$(echo ${{steps.filter.outputs.linters_files}} |
           grep -oP "\Klinters/.*?(?=/)" |
-          tr '\n' ' ' |
-          echo "out=$(cat)" >> "$GITHUB_OUTPUT"
+          uniq | tr '\n' ' ')
+          echo "Running tests on individual linters: ${linter_files}"
+          echo "out=${linter_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
