@@ -58,7 +58,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                     |
 | Kubernetes      | [kube-linter]                                                                                 |
 | Markdown        | [markdownlint], [remark-lint]                                                                 |
-| Nix             | [nixpkgs-fmt]                                                                                 |
+| Nix             | [golangci-lint]                                                                               |
 | package.json    | [sort-package-json]                                                                           |
 | PNG             | [oxipng]                                                                                      |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                              |
@@ -113,7 +113,6 @@ make the discovery, management and integration of new tools as straight-forward 
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
-[nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [osv-scanner]: https://github.com/google/osv-scanner
 [pragma-once]: linters/pragma-once/readme.md
