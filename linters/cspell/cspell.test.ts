@@ -1,7 +1,7 @@
 import { customLinterCheckTest, TestCallback } from "tests";
 import { skipOS } from "tests/utils";
 
-// TODO(Tyler): Determine root cause of flakiness on Mac runners
+// TODO(Tyler): Determine root cause of flakiness on Mac runners for basic tests
 customLinterCheckTest({
   linterName: "cspell",
   testName: "basic",
