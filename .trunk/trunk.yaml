@@ -58,7 +58,14 @@ actions:
       triggers:
         - files: [linters/**]
 
+    - id: remove-release-snapshots
+      display_name: Remove Release Snapshots
+      description: Remove release tag from snapshots that were added to the release
+      run: grep "// RELEASE" -r --include=*.shot -l | xargs -I {} sed -i -e '/^\/\/ RELEASE/d' {}
+      shell: bash
+
   enabled:
+    - remove-release-snapshots
     - repo-tests
     - linter-test-helper
     - trunk-announce
