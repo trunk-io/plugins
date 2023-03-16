@@ -22,6 +22,7 @@ lint:
           success_codes: [0, 1, 2]
           target: .
           read_output_from: stdout
+          is_security: true
           parser:
             runtime: python
             run: ${plugin}/linters/nancy/parse.py

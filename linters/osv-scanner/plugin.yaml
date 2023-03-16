@@ -23,6 +23,7 @@ lint:
           run: osv-scanner --lockfile=${target} --format json
           success_codes: [0, 1, 128]
           read_output_from: stdout
+          is_security: true
           parser:
             runtime: python
             run: ${plugin}/linters/osv-scanner/osv_to_sarif.py
