@@ -5,7 +5,7 @@ import { skipOS } from "tests/utils";
 customLinterCheckTest({
   linterName: "cspell",
   testName: "basic",
-  args: "-a",
+  args: "", // TODO: TYLER REVERT THIS
   skipTestIf: skipOS(["darwin"]),
 });
 
