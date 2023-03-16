@@ -138,10 +138,10 @@ jobs:
           linters="${{ needs.linter_tests.result }}"
           repos="${{ needs.repo_tests.result }}"
           if [[ $linters != "success" && $linters != "skipped" ]]; then
-            echo "Detect failure in linter tests"
+            echo "Detected failure in linter tests"
             exit 1
           elif [[ $repos != "success" && $repos != "skipped" ]]; then
-            echo "Detect failure in repo tests"
+            echo "Detected failure in repo tests"
             exit 1
           else
             echo "All tests skipped or passed"
