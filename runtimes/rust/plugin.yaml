@@ -1,0 +1,31 @@
+version: 0.1
+downloads:
+  - name: rust
+    # https://rust-lang.github.io/rustup/installation/other.html
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://static.rust-lang.org/dist/rust-${version}-x86_64-apple-darwin.tar.gz
+        version: <1.49.0
+        strip_components: 2
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://static.rust-lang.org/dist/rust-${version}-${cpu}-${os}.tar.gz
+        strip_components: 2
+runtimes:
+  definitions:
+    - type: rust
+      download: rust
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin"]
+      known_good_version: 1.67.0
+      version_commands:
+        - run: rustc --version
+          parse_regex: ${semver}
