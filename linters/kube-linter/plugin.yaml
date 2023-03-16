@@ -4,10 +4,16 @@ lint:
     - name: kube-linter
       version: 0.5.0
       downloads:
-        - os: linux
-          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-linux
-        - os: macos
-          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-darwin
+        - os:
+            linux: linux
+            macos: darwin
+          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-${os}
+          version: <0.6.1
+        - os:
+            linux: linux
+            macos: darwin
+          url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-${os}
+
   definitions:
     - name: kube-linter
       download: kube-linter
