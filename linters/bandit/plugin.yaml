@@ -14,6 +14,7 @@ lint:
           success_codes: [0]
           batch: true
           cache_results: true
+          is_security: true
       issue_url_format: https://pypi.org/project/bandit/
       known_good_version: 1.7.3
       version_command:

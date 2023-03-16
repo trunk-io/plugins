@@ -22,6 +22,7 @@ lint:
           output: sarif
           target: ${parent}
           run: tfsec ${target} --format=sarif
+          is_security: true
           success_codes: [0, 1]
           read_output_from: stdout
       environment:
