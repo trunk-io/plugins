@@ -141,7 +141,9 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "file": ".",
       "level": "LEVEL_HIGH",
       "linter": "nancy",
-      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.11.2 is affected by Trusting HTTP Permission Methods on the Server Side when referencing the vulnerable admin or user API. which could let a remote malisious user execute arbitrary code.",
+      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.11.2 is affected by Trusting HTTP Permission Methods on the Server Side when referencing the vulnerable admin or user API. which could let a remote malisious user execute arbitrary code.
+
+Sonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-45327 for details",
       "targetType": "go-lockfile",
     },
     {
