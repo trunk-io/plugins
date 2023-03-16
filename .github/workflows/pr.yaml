@@ -124,3 +124,23 @@ jobs:
     needs: detect_changes
     if: needs.detect_changes.outputs.repo-tests == 'true'
     uses: ./.github/workflows/repo_tests.reusable.yaml
+
+  report_test_success:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Aggregate Test Results
+    needs: [linter_tests, repo_tests]
+    steps:
+      - run: |
+          linters="${{ needs.linter_tests.result }}"
+          repos="${{ needs.repo_tests.result }}"
+          if [[ $linters != "success" && $linters != "skipped" ]]; then
+            echo "Detect failure in linter tests"
+            exit 1
+          elif [[ $repos != "success" && $repos != "skipped" ]]; then
+            echo "Detect failure in repo tests"
+            exit 1
+          else
+            echo "All tests skipped or passed"
+            exit 0
+          fi
