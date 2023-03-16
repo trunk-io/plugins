@@ -1,6 +1,7 @@
 version: 0.1
 
 cli:
+  # version used for local trunk runs and testing
   version: 1.6.2-beta.1
 
 plugins:

@@ -4,7 +4,7 @@ import { customLinterCheckTest } from "tests";
 import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const INSTALL_TIMEOUT = 30000;
+const INSTALL_TIMEOUT = 60000;
 
 const moveConfig = (driver: TrunkDriver) => {
   [".eslintrc.yaml", "package.json"].forEach((file) => {

@@ -67,7 +67,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                        |
 | Rust            | [clippy], [rustfmt]                                                                           |
 | Scala           | [scalafmt]                                                                                    |
-| Security        | [nancy], [trivy], [tfsec]                                                                     |
+| Security        | [nancy], [trivy], [tfsec], [osv-scanner]                                                      |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                         |
 | SVG             | [svgo]                                                                                        |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                     |
@@ -114,6 +114,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
+[osv-scanner]: https://github.com/google/osv-scanner
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
