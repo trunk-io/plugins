@@ -3,6 +3,7 @@ on:
   schedule:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
+  # POKE CI
   pull_request:
     paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
