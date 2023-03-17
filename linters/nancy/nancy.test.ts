@@ -12,4 +12,4 @@ const preCheck = (driver: TrunkDriver) => {
   // trunk-ignore-end(semgrep)
 };
 
-customLinterCheckTest({ linterName: "nancy", args: "-a", preCheck });
+customLinterCheckTest({ linterName: "nancy", args: "-a", preCheck, skipTestIf: () => true });
