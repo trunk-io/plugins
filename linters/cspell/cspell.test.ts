@@ -48,7 +48,7 @@ customLinterCheckTest({
   linterName: "cspell",
   testName: "basic",
   args: "-a",
-  // preCheck: preCheck(false),
+  preCheck: preCheck(false),
   skipTestIf: skipOS(["darwin"]),
 });
 
