@@ -26,6 +26,19 @@ actions:
         - git_hooks: [pre-commit]
       notify_on_error: false
 
+      # We do not auto-suggest turning on check pre-commit for several reasons:
+      # - Linters can often be much slower than formatters, and we don't want to unnecessarily block iteration.
+      # - The trunk-fmt-pre-commit action is usually sufficient for enforcing style.
+      # - If you prefer to use linter autofixes, you can override the run command to use `-y` instead of `-n`.
+    - id: trunk-check-pre-commit
+      description: Run 'trunk check' whenever you run 'git commit'
+      display_name: Trunk Check Pre-Commit Hook
+      run: trunk check -n -t "git-commit" --index-file '${env.GIT_INDEX_FILE}' --upstream=HEAD
+      interactive: optional
+      triggers:
+        - git_hooks: [pre-commit]
+      notify_on_error: false
+
     - id: trunk-check-pre-push
       display_name: Trunk Check Pre-Push Hook
       description: Run 'trunk check' whenever you run 'git push'
