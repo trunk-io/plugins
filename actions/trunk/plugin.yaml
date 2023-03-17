@@ -29,6 +29,7 @@ actions:
       # We do not auto-suggest turning on check pre-commit for several reasons:
       # - Linters can often be much slower than formatters, and we don't want to unnecessarily block iteration.
       # - The trunk-fmt-pre-commit action is usually sufficient for enforcing style.
+      # - It's often desired to temporarily commit code that has linter issues.
       # - If you prefer to use linter autofixes, you can override the run command to use `-y` instead of `-n`.
     - id: trunk-check-pre-commit
       description: Run 'trunk check' whenever you run 'git commit'
