@@ -4,8 +4,8 @@ import { skipOS } from "tests/utils";
 
 const preCheck = (addDictionary: boolean) => (driver: TrunkDriver) => {
   const defaultTestingConfig = `$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
-version: "0.2"
-suggestionsTimeout: 5000`;
+version: "0.2"`;
+  //
 
   const dictionaryConfig = `
 dictionaryDefinitions:
