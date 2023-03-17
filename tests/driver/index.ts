@@ -95,6 +95,8 @@ export interface SetupSettings {
   setupGit?: boolean;
   /** Whether or not to create a new .trunk/trunk.yaml */
   setupTrunk?: boolean;
+  /** Version of trunk to initialize (overrides environment vars) */
+  trunkVersion?: string;
 }
 
 /**
@@ -155,7 +157,10 @@ export class TrunkDriver {
       if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
         fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
       }
-      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
+      fs.writeFileSync(
+        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+        newTrunkYamlContents(this.setupSettings.trunkVersion)
+      );
     }
 
     this.gitDriver = git.simpleGit(this.sandboxPath);

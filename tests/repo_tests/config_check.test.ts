@@ -22,6 +22,8 @@ describe("Global config health check", () => {
   const driver = setupDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
+    // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
+    trunkVersion: "1.6.2-beta.2",
   });
 
   // Step 2a: Validate config
@@ -33,9 +35,16 @@ describe("Global config health check", () => {
     });
 
     // Test that config healthily resolves
-    const testRunResult = await driver.run("config print");
-    expect(testRunResult.stdout).toContain("version: 0.1");
-    expect(testRunResult.stdout).toContain("local:");
+    try {
+      const testRunResult = await driver.run("config print");
+      expect(testRunResult.stdout).toContain("version: 0.1");
+      expect(testRunResult.stdout).toContain("local:");
+    } catch (error) {
+      console.log(
+        "`trunk config print` failed. You likely have bad configuration or need to update trunkVersion in this test."
+      );
+      throw error;
+    }
   });
 
   // Step 2b: Validate only verified linters are auto-enabled
