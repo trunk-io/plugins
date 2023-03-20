@@ -7,13 +7,13 @@ const preCheck = (driver: TrunkDriver) => {
   driver.writeFile(
     "cspell.yaml",
     `version: "0.2"
-  suggestionsTimeout: 5000
-  dictionaryDefinitions:
-    - name: plugin-words
-      path: cspell-words.txt
-      addWords: true
-  dictionaries:
-    - plugin-words`
+suggestionsTimeout: 5000
+dictionaryDefinitions:
+  - name: plugin-words
+    path: cspell-words.txt
+    addWords: true
+dictionaries:
+  - plugin-words`
   );
 
   // Create dictionary
