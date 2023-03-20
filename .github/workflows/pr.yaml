@@ -88,7 +88,7 @@ jobs:
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters'
-    timeout-minutes: 120
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -118,40 +118,8 @@ jobs:
         if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
         uses: ./.github/actions/linter_tests
         with:
-          linter-version: Snapshots
-          append-args: linters ${{needs.detect_changes.outputs.linters-files }}
-
-      # - name: Linter Tests Latest 2
-      #   # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-      #   if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: Latest
-      #     append-args: linters ${{needs.detect_changes.outputs.linters-files }}
-
-      # - name: Linter Tests Latest 3
-      #   # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-      #   if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: Latest
-      #     append-args: linters ${{needs.detect_changes.outputs.linters-files }}
-
-      # - name: Linter Tests Latest 4
-      #   # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-      #   if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: Latest
-      #     append-args: linters ${{needs.detect_changes.outputs.linters-files }}
-
-      # - name: Linter Tests Latest 5
-      #   # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-      #   if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: Latest
-      #     append-args: linters ${{needs.detect_changes.outputs.linters-files }}
+          linter-version: Latest
+          append-args: ${{needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
   repo_tests:
