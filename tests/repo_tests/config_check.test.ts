@@ -29,7 +29,7 @@ describe("Global config health check", () => {
   });
 
   // Step 2a: Validate config
-  it("trunk config print from repo root", async () => {
+  it("trunk config print with required_trunk_version", async () => {
     // Remove user.yaml if it exists, since some definitions may not exist in composite config.
     // Specifying force avoid errors being thrown if it doesn't exist.
     fs.rmSync(path.resolve(driver.getSandbox(), ".trunk/user.yaml"), {
