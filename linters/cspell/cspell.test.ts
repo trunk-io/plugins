@@ -1,20 +1,13 @@
-import { customLinterCheckTest, TestCallback } from "tests";
+import { customLinterCheckTest } from "tests";
+import { TrunkDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
-// TODO(Tyler): Determine root cause of flakiness on Mac runners
-customLinterCheckTest({
-  linterName: "cspell",
-  testName: "basic",
-  args: "-a",
-  skipTestIf: skipOS(["darwin"]),
-});
-
-const preCheck: TestCallback = (driver) => {
+const preCheck = (driver: TrunkDriver) => {
   // Create config
   driver.writeFile(
-    "cspell.config.yaml",
-    `$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
-version: "0.2"
+    "cspell.yaml",
+    `version: "0.2"
+suggestionsTimeout: 5000
 dictionaryDefinitions:
   - name: plugin-words
     path: cspell-words.txt
@@ -27,21 +20,29 @@ dictionaries:
   driver.writeFile(
     "cspell-words.txt",
     `cachedir
-  codespell
-  commitlint
-  eamodio
-  elif
-  kwargs
-  proto
-  protobuf
-  pyyaml
-  runtimes
-  sarif
-  SCRIPTDIR
-  trunkio
-  vuln`
+codespell
+commitlint
+eamodio
+elif
+kwargs
+proto
+protobuf
+pyyaml
+runtimes
+sarif
+SCRIPTDIR
+trunkio
+vuln`
   );
 };
+
+// TODO(Tyler): Determine root cause of flakiness on Mac runners
+customLinterCheckTest({
+  linterName: "cspell",
+  testName: "basic",
+  args: "-a",
+  skipTestIf: skipOS(["darwin"]),
+});
 
 customLinterCheckTest({
   linterName: "cspell",
