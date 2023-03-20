@@ -3,17 +3,18 @@ import { TrunkDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
 const preCheck = (driver: TrunkDriver) => {
-  const dictionaryConfig = `version: "0.2"
-suggestionsTimeout: 5000
-dictionaryDefinitions:
-  - name: plugin-words
-    path: cspell-words.txt
-    addWords: true
-dictionaries:
-  - plugin-words`;
-
   // Create config
-  driver.writeFile("cspell.yaml", dictionaryConfig);
+  driver.writeFile(
+    "cspell.yaml",
+    `version: "0.2"
+  suggestionsTimeout: 5000
+  dictionaryDefinitions:
+    - name: plugin-words
+      path: cspell-words.txt
+      addWords: true
+  dictionaries:
+    - plugin-words`
+  );
 
   // Create dictionary
   driver.writeFile(
