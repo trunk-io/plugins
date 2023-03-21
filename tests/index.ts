@@ -88,12 +88,17 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  */
 export const setupDriver = (
   dirname: string,
-  { setupGit = true, setupTrunk = true }: SetupSettings,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   linterName?: string,
   version?: string,
   preCheck?: TestCallback
 ): TrunkDriver => {
-  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk }, linterName, version);
+  const driver = new TrunkDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    linterName,
+    version
+  );
 
   beforeAll(async () => {
     await driver.setUp();
