@@ -1,2 +1,4 @@
 version: 0.1
+# IfChange
 required_trunk_version: ">1.6.2-beta.1"
+# ThenChange tests/repo_tests/config_check.test.ts
