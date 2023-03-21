@@ -5,6 +5,11 @@ lint:
       version: 2.8.0
       executable: true
       downloads:
+        # First version with arm64 support for Mac.
+        - os: macos
+          cpu: arm_64
+          version: ">=2.10.0"
+          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-arm64
         - os: linux
           cpu: x86_64
           url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-x86_64
