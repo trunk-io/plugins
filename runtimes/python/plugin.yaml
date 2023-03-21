@@ -14,6 +14,12 @@ downloads:
         version: <=3.10.8
         url: https://github.com/indygreg/python-build-standalone/releases/download/20221106/cpython-${version}+20221106-x86_64-${os}-install_only.tar.gz
         strip_components: 1
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        version: <=3.11.8
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-${version}+20230116-x86_64-${os}-install_only.tar.gz
+        strip_components: 1
 
 runtimes:
   definitions:
