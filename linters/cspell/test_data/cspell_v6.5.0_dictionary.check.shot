@@ -215,7 +215,7 @@ exports[`Testing linter cspell test dictionary 1`] = `
       "fileGroupName": "ALL",
       "linter": "cspell",
       "paths": [
-        "cspell.config.yaml",
+        "cspell.test.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -224,7 +224,7 @@ exports[`Testing linter cspell test dictionary 1`] = `
       "fileGroupName": "ALL",
       "linter": "cspell",
       "paths": [
-        "cspell.test.ts",
+        "cspell.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

@@ -50,7 +50,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Docker          | [hadolint]                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                               |
 | GitHub          | [actionlint]                                                                                  |
-| Go              | [gofmt], [golangci-lint], [semgrep], [goimports]                                              |
+| Go              | [gofmt], [gofumpt], [goimports], [golangci-lint], [golines], [semgrep]                        |
 | HAML            | [haml-lint]                                                                                   |
 | Java            | [google-java-format], [semgrep]                                                               |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                                       |
@@ -67,11 +67,11 @@ make the discovery, management and integration of new tools as straight-forward 
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                        |
 | Rust            | [clippy], [rustfmt]                                                                           |
 | Scala           | [scalafmt]                                                                                    |
-| Security        | [nancy], [trivy]                                                                              |
+| Security        | [nancy], [trivy], [tfsec], [osv-scanner]                                                      |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                         |
 | SVG             | [svgo]                                                                                        |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                     |
-| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>               |
+| Terraform       | [terraform] (validate and fmt), [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec]      |
 | TOML            | [taplo]                                                                                       |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                       |
 | YAML            | [prettier], [semgrep], [yamllint]                                                             |
@@ -84,8 +84,8 @@ make the discovery, management and integration of new tools as straight-forward 
 [brakeman]: https://github.com/presidentbeef/brakeman#readme
 [buf]: https://github.com/bufbuild/buf#readme
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
-[circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
 [cfnlint]: https://github.com/aws-cloudformation/cfn-lint#readme
+[circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [clang-tidy]: https://clang.llvm.org/extra/clang-tidy/
 [clippy]: https://github.com/rust-lang/rust-clippy#readme
@@ -96,16 +96,18 @@ make the discovery, management and integration of new tools as straight-forward 
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
-[gitleaks]: https://github.com/zricethezav/gitleaks#readme
 [git-diff-check]: https://git-scm.com/docs/git-diff
+[gitleaks]: https://github.com/zricethezav/gitleaks#readme
 [gofmt]: https://pkg.go.dev/cmd/gofmt
+[gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
+[golines]: https://pkg.go.dev/github.com/segmentio/golines
 [google-java-format]: https://github.com/google/google-java-format#readme
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
-[isort]: https://github.com/PyCQA/isort#readme
 [include-what-you-use]: https://github.com/include-what-you-use/include-what-you-use#readme
+[isort]: https://github.com/PyCQA/isort#readme
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
@@ -113,6 +115,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
+[osv-scanner]: https://github.com/google/osv-scanner
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
@@ -120,8 +123,8 @@ make the discovery, management and integration of new tools as straight-forward 
 [renovate]: https://github.com/renovatebot/renovate#readme
 [rome]: https://github.com/rome/tools#readme
 [rubocop]: https://github.com/rubocop/rubocop#readme
-[rufo]: https://github.com/ruby-formatter/rufo#readme
 [ruff]: https://github.com/charliermarsh/ruff
+[rufo]: https://github.com/ruby-formatter/rufo#readme
 [rustfmt]: https://github.com/rust-lang/rustfmt#readme
 [scalafmt]: https://github.com/scalameta/scalafmt#readme
 [semgrep]: https://github.com/returntocorp/semgrep#readme
@@ -135,11 +138,12 @@ make the discovery, management and integration of new tools as straight-forward 
 [stringslint]: https://github.com/dral3x/StringsLint#readme
 [stylelint]: https://github.com/stylelint/stylelint#readme
 [svgo]: https://github.com/svg/svgo#readme
-[swiftlint]: https://github.com/realm/SwiftLint#readme
 [swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
+[swiftlint]: https://github.com/realm/SwiftLint#readme
 [taplo]: https://github.com/tamasfe/taplo#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tflint]: https://github.com/terraform-linters/tflint#readme
+[tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme

@@ -1,0 +1,42 @@
+version: 0.1
+downloads:
+  - name: go
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://golang.org/dl/go${version}.darwin-amd64.tar.gz
+        version: <1.16.0
+        strip_components: 1
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://golang.org/dl/go${version}.${os}-${cpu}.tar.gz
+        strip_components: 1
+
+runtimes:
+  definitions:
+    - type: go
+      download: go
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin"]
+        - name: GOROOT
+          value: ${runtime}
+        - name: GO111MODULE
+          value: on
+        - name: CGO_ENABLED
+          value: 0
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+        - name: GOPATH
+          value: ${linter}
+      known_good_version: 1.19.5
+      version_commands:
+        - run: go version
+          parse_regex: go version go(.*) (.*)

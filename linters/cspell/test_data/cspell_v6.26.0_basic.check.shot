@@ -17,7 +17,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "23",
@@ -28,7 +28,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "24",
@@ -39,7 +39,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "25",
@@ -50,7 +50,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "27",
@@ -61,7 +61,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "29",
@@ -72,7 +72,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "30",
@@ -83,7 +83,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "31",
@@ -94,7 +94,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "32",
@@ -105,7 +105,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "33",
@@ -116,7 +116,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "34",
@@ -127,7 +127,7 @@ exports[`Testing linter cspell test basic 1`] = `
     {
       "bucket": "cspell",
       "code": "error",
-      "column": "3",
+      "column": "1",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",
       "line": "35",
@@ -350,6 +350,15 @@ exports[`Testing linter cspell test basic 1`] = `
       "linter": "cspell",
       "paths": [
         "cspell.test.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "cspell",
+      "paths": [
+        "cspell.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
