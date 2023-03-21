@@ -17,7 +17,7 @@ downloads:
       - os:
           linux: unknown-linux-gnu
           macos: apple-darwin
-        version: <=3.11.8
+        version: <=3.11.1
         url: https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-${version}+20230116-x86_64-${os}-install_only.tar.gz
         strip_components: 1
 
