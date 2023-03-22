@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// RELEASE
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter sqlfluff test basic_check 1`] = `
 {
