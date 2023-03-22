@@ -9,19 +9,14 @@ const preCheck = (driver: TrunkDriver) => {
 {
   "private": true,
   "devDependencies": {
-    "stylelint": "^14.6.1",
-    "stylelint-config-standard": "^25.0.0"
+    "stylelint": "^15.3.0",
+    "stylelint-config-standard": "^31.0.0",
+    "stylelint-config-standard-scss": "^7.0.0"
   }
-}
-    `;
-    const stylelintContents = `
-{
-  "extends": "stylelint-config-standard"
 }
     `;
 
     driver.writeFile("package.json", packageJsonContents);
-    driver.writeFile(".trunk/configs/.stylelintrc", stylelintContents);
     execSync("npm install", { cwd: driver.getSandbox() });
   }
 };
