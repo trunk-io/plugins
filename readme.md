@@ -57,6 +57,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | JSON            | [eslint], [prettier], [semgrep]                                                               |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                     |
 | Kubernetes      | [kube-linter]                                                                                 |
+| Lua             | [stylua]                                                                                      |
 | Markdown        | [markdownlint], [remark-lint]                                                                 |
 | Nix             | [nixpkgs-fmt]                                                                                 |
 | package.json    | [sort-package-json]                                                                           |
@@ -137,6 +138,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [standardrb]: https://github.com/testdouble/standard#readme
 [stringslint]: https://github.com/dral3x/StringsLint#readme
 [stylelint]: https://github.com/stylelint/stylelint#readme
+[stylua]: https://github.com/JohnnyMorganz/StyLua/tree/main
 [svgo]: https://github.com/svg/svgo#readme
 [swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
 [swiftlint]: https://github.com/realm/SwiftLint#readme

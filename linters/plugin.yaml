@@ -4,6 +4,10 @@ lint:
     - name: dashes-inline
       leading_delimiter: --
 
+    - name: dashes-block
+      leading_delimiter: --[[
+      trailing_delimiter: --]]
+
     - name: hash
       leading_delimiter: "#"
 
@@ -298,6 +302,15 @@ lint:
 
         # Ruby
         - Gemfile.lock
+
+    - name: lua
+      extensions:
+        - lua
+      shebangs:
+        - lua
+      comments:
+        - dashes-inline
+        - dashes-block
 
     - name: markdown
       extensions:
