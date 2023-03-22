@@ -88,7 +88,9 @@ actions:
     - id: remove-release-snapshots
       display_name: Remove Release Snapshots
       description: Remove release tag from snapshots that were added to the release
-      run: grep "// RELEASE" -r --include=*.shot -l | xargs -I {} sed -i -e '/^\/\/ RELEASE/d' {}
+      run:
+        grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} sed -i -e
+        '/^\/\/ trunk-upgrade-validation:RELEASE/d' {}
       shell: bash
 
   enabled:

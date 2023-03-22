@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// RELEASE
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing formatter sqlfluff test basic_fmt 1`] = `
 "SELECT
