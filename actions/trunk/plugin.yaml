@@ -9,14 +9,6 @@ actions:
         - git_hooks: [post-checkout, post-merge, pre-rebase]
       notify_on_error: false
 
-    - id: trunk-cache-prune
-      display_name: Trunk Cache Prune
-      description: Periodically prune cached trunk files that are no longer needed
-      triggers:
-        - schedule: 24h
-      run: trunk cache prune
-      notify_on_error: false
-
     - id: trunk-fmt-pre-commit
       description: Run 'trunk fmt' whenever you run 'git commit'
       display_name: Trunk Fmt Pre-Commit Hook
