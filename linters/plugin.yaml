@@ -530,3 +530,33 @@ lint:
         - zsh
       comments:
         - hash
+
+  ignore:
+    - linters: [ALL]
+      paths:
+        # the trunk launcher
+        - "**/trunk"
+
+    - linters: [ALL]
+      security: false
+      paths:
+        # lockfiles
+        - "**/.terraform.lock.hcl"
+        - "**/*gradle.lockfile"
+        - "**/Berksfile.lock"
+        - "**/Cargo.lock"
+        - "**/Gemfile.lock"
+        - "**/go.sum"
+        - "**/package-lock.json"
+        - "**/pnpm-lock.yaml"
+        - "**/requirements.lock"
+        - "**/vendor/**"
+        - "**/yarn.lock"
+
+    # TODO(Tyler): Once we bump required_trunk_version to merge plugin lint ignores, we can rmeove the osv-lockfiles type.
+    - linters: [osv-scanner]
+      paths: ["**/go.sum"]
+
+    - linters: [eslint]
+      paths:
+        - "**/svgo.config.*js"

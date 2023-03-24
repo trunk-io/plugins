@@ -115,7 +115,9 @@ jobs:
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-        if: (failure() || success()) && needs.detect_changes.outputs.linters == 'true'
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
+          needs.detect_changes.outputs.linters-files != ''
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
