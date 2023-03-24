@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter osv-scanner test CUSTOM 1`] = `
 {
@@ -115,6 +116,16 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
     },
     {
       "bucket": "osv-scanner",
+      "code": "GHSA-55m9-hm92-xm8j",
+      "file": "test_data/go.mod",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "linter": "osv-scanner",
+      "message": "Gophish vulnerable to Cross-site Scripting via crafted landing page",
+      "targetType": "osv-lockfiles",
+    },
+    {
+      "bucket": "osv-scanner",
       "code": "GHSA-69cg-p879-7622",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -151,6 +162,16 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Use of a Broken or Risky Cryptographic Algorithm in golang.org/x/crypto/ssh",
+      "targetType": "osv-lockfiles",
+    },
+    {
+      "bucket": "osv-scanner",
+      "code": "GHSA-8gg8-wr4j-v2wr",
+      "file": "test_data/go.mod",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "linter": "osv-scanner",
+      "message": "Gophish vulnerable to Denial of Service via crafted payload involving autofocus",
       "targetType": "osv-lockfiles",
     },
     {
