@@ -94,7 +94,6 @@ actions:
       shell: bash
 
   enabled:
-    - hello-world-python
     - remove-release-snapshots
     - repo-tests
     - linter-test-helper
