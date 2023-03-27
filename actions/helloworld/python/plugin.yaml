@@ -5,6 +5,7 @@ actions:
       display_name: Hello World
       description: prints 'Hello World' to the terminal during pre-commit trigger
       runtime: python
+      packages_file: requirements.txt
       run: ${cwd}/hello # {cwd} resolves to current directory containing this plugin.yaml file
       triggers:
         - git_hooks: [pre-commit]
