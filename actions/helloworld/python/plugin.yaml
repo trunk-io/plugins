@@ -3,7 +3,7 @@ actions:
   definitions:
     - id: hello-world
       display_name: Hello World
-      description: Say hello to the world pre-commit using python
+      description: prints 'Hello World' to the terminal during pre-commit trigger
       runtime: python
       run: ${cwd}/hello
       triggers:
