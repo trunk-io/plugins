@@ -1,10 +1,10 @@
 version: 0.1
 actions:
   definitions:
-    - id: hello-world
+    - id: hello-world-python
       display_name: Hello World
       description: prints 'Hello World' to the terminal during pre-commit trigger
       runtime: python
-      run: ${cwd}/hello
+      run: ${cwd}/hello # {cwd} resolves to current directory containing this plugin.yaml file
       triggers:
         - git_hooks: [pre-commit]
