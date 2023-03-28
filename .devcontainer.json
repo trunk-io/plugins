@@ -1,0 +1,14 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+  "customizations": {
+    "vscode": {
+      "extensions": ["redhat.vscode-yaml"],
+      "files.autoSave": "off" // we want to require explicit save - otherwise we overload the trunk extension
+    }
+  },
+  "features": {
+    "git-lfs": "latest",
+    "ghcr.io/trunk-io/devcontainer-feature/trunk": "latest"
+  },
+  "onCreateCommand": "npm ci && trunk install"
+}
