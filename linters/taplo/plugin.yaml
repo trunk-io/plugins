@@ -94,3 +94,29 @@ lint:
         parse_regex: Taplo TOML Utility ${semver}
         run: taplo --version
       cache_results: true
+
+    - name: taplo-fmt
+      files: [toml]
+      type: rewrite
+      download: taplo
+      command: [taplo, format, "${target}"]
+      success_codes: [0]
+      cache_results: true
+      formatter: true
+      good_without_config: true
+      direct_configs:
+        - .taplo.toml
+        - taplo.toml
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: release-cli-0.6.0
+      version_command:
+        parse_regex: Taplo TOML Utility ${semver}
+        run: taplo --version
+      in_place: true
+      is_recommended: false
+      deprecated:
+        "'taplo-fmt' is now handled by 'taplo'. Please delete 'taplo-fmt' from your config"
+      # Note that we cant use batching as version 0.5.0 does not support multiple files on the
+      # command line (even though it claims it does).
