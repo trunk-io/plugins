@@ -234,3 +234,10 @@ lint:
     - sqlfluff@<version>:
         commands: [lint, fix]
 ```
+
+### Development
+
+For ease of development, we provide support for
+[Github Codespaces](https://github.com/features/codespaces).
+
+Just check out the repo in a codespace and you'll have everything ready to go!
