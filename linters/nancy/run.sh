@@ -2,4 +2,4 @@
 
 set -eux
 
-go list -json -deps ./... | nancy sleuth --output=json
+go list -json -deps ./... | nancy sleuth --output=json --skip-update-check

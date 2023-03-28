@@ -32,7 +32,9 @@ lint:
       commands:
         - name: validate
           output: pass_fail
-          run: 'circleci --skip-update-check config validate "${target}"'
+          # pass_fail linters expect exit codes 0 and 1. Because circleci has exit codes 0 and 255, we must wrap it in a script.
+          run: ${plugin}/linters/circleci/run.sh ${target}
+          read_output_from: stderr
           success_codes: [0, 1]
       environment:
         - name: PATH

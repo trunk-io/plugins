@@ -1,0 +1,33 @@
+version: 0.1
+lint:
+  downloads:
+    - name: tfsec
+      version: 1.28.1
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/aquasecurity/tfsec/releases/download/v${version}/tfsec-${os}-${cpu}
+  definitions:
+    - name: tfsec
+      files: [terraform]
+      download: tfsec
+      known_good_version: 1.28.1
+      commands:
+        - name: lint
+          output: sarif
+          target: ${parent}
+          run: tfsec ${target} --format=sarif
+          is_security: true
+          success_codes: [0, 1]
+          read_output_from: stdout
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: v${semver}
+        run: tfsec --version

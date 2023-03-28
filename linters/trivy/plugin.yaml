@@ -16,7 +16,7 @@ lint:
 
   definitions:
     - name: trivy
-      files: [lockfile]
+      files: [lockfile, docker, yaml, terraform]
       download: trivy
       known_good_version: 0.37.1
       commands:
@@ -27,9 +27,22 @@ lint:
           read_output_from: stdout
           # Trivy does not support batching
           batch: false
+          is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/trivy/trivy_to_sarif.py
+            run: ${plugin}/linters/trivy/trivy_fs_to_sarif.py
+
+        - name: config
+          output: sarif
+          run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
+          success_codes: [0]
+          read_output_from: stdout
+          # Trivy does not support batching
+          batch: false
+          is_security: true
+          parser:
+            runtime: python
+            run: ${plugin}/linters/trivy/trivy_config_to_sarif.py
 
       environment:
         - name: PATH
