@@ -131,7 +131,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          append-args: -- --json --outputFile=${{ matrix.os }}-res.json
+          append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
