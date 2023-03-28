@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter checkov test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "checkov",
       "code": "CKV2_AWS_40",
       "column": "1",
@@ -14,7 +14,7 @@ Object {
       "message": "Ensure AWS IAM policy does not allow full IAM privileges",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_1",
       "column": "1",
@@ -22,10 +22,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "43",
       "linter": "checkov",
-      "message": "Ensure IAM policies that allow full \\"*-*\\" administrative privileges are not created",
+      "message": "Ensure IAM policies that allow full "*-*" administrative privileges are not created",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_107",
       "column": "1",
@@ -36,7 +36,7 @@ Object {
       "message": "Ensure IAM policies does not allow credentials exposure",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_108",
       "column": "1",
@@ -47,7 +47,7 @@ Object {
       "message": "Ensure IAM policies does not allow data exfiltration",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_109",
       "column": "1",
@@ -58,7 +58,7 @@ Object {
       "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_110",
       "column": "1",
@@ -69,7 +69,7 @@ Object {
       "message": "Ensure IAM policies does not allow privilege escalation",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_111",
       "column": "1",
@@ -80,7 +80,7 @@ Object {
       "message": "Ensure IAM policies does not allow write access without constraints",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_49",
       "column": "1",
@@ -88,10 +88,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "43",
       "linter": "checkov",
-      "message": "Ensure no IAM policies documents allow \\"*\\" as a statement's actions",
+      "message": "Ensure no IAM policies documents allow "*" as a statement's actions",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_1",
       "column": "1",
@@ -99,10 +99,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "57",
       "linter": "checkov",
-      "message": "Ensure IAM policies that allow full \\"*-*\\" administrative privileges are not created",
+      "message": "Ensure IAM policies that allow full "*-*" administrative privileges are not created",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_107",
       "column": "1",
@@ -113,7 +113,7 @@ Object {
       "message": "Ensure IAM policies does not allow credentials exposure",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_108",
       "column": "1",
@@ -124,7 +124,7 @@ Object {
       "message": "Ensure IAM policies does not allow data exfiltration",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_109",
       "column": "1",
@@ -135,7 +135,7 @@ Object {
       "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_110",
       "column": "1",
@@ -146,7 +146,7 @@ Object {
       "message": "Ensure IAM policies does not allow privilege escalation",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_111",
       "column": "1",
@@ -157,7 +157,7 @@ Object {
       "message": "Ensure IAM policies does not allow write access without constraints",
       "targetType": "terraform",
     },
-    Object {
+    {
       "bucket": "checkov",
       "code": "CKV_AWS_49",
       "column": "1",
@@ -165,22 +165,22 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "57",
       "linter": "checkov",
-      "message": "Ensure no IAM policies documents allow \\"*\\" as a statement's actions",
+      "message": "Ensure no IAM policies documents allow "*" as a statement's actions",
       "targetType": "terraform",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "terraform",
       "linter": "checkov",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.tf",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
