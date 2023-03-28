@@ -36,46 +36,46 @@ make the discovery, management and integration of new tools as straight-forward 
 
 ### Enabling a supported linter
 
-| Technology      | Linters                                                                                       |
-| --------------- | --------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                           |
-| Ansible         | [ansible-lint]                                                                                |
-| Bash            | [shellcheck], [shfmt]                                                                         |
-| Bazel, Starlark | [buildifier]                                                                                  |
-| C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                           |
-| CircleCI Config | [circleci]                                                                                    |
-| Cloudformation  | [cfnlint], [checkov]                                                                          |
-| CSS, SCSS       | [stylelint]                                                                                   |
-| Cue             | [cue-fmt]                                                                                     |
-| Docker          | [hadolint], [checkov]                                                                         |
-| Dotenv          | [dotenv-linter]                                                                               |
-| GitHub          | [actionlint]                                                                                  |
-| Go              | [gofmt], [gofumpt], [goimports], [golangci-lint], [golines], [semgrep]                        |
-| HAML            | [haml-lint]                                                                                   |
-| Java            | [google-java-format], [semgrep]                                                               |
-| Javascript      | [eslint], [prettier], [rome], [semgrep]                                                       |
-| JSON            | [eslint], [prettier], [semgrep]                                                               |
-| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                     |
-| Kubernetes      | [kube-linter]                                                                                 |
-| Lua             | [stylua]                                                                                      |
-| Markdown        | [markdownlint], [remark-lint]                                                                 |
-| Nix             | [nixpkgs-fmt]                                                                                 |
-| package.json    | [sort-package-json]                                                                           |
-| PNG             | [oxipng]                                                                                      |
-| Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                              |
-| Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [semgrep], [yapf], [ruff] |
-| Renovate        | [renovate]                                                                                    |
-| Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                        |
-| Rust            | [clippy], [rustfmt]                                                                           |
-| Scala           | [scalafmt]                                                                                    |
-| Security        | [nancy], [trivy], [tfsec], [osv-scanner]                                                      |
-| SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                         |
-| SVG             | [svgo]                                                                                        |
-| Swift           | [stringslint], [swiftlint], [swiftformat]                                                     |
-| Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec]      |
-| TOML            | [taplo]                                                                                       |
-| Typescript      | [eslint], [prettier], [rome], [semgrep]                                                       |
-| YAML            | [prettier], [semgrep], [yamllint]                                                             |
+| Technology      | Linters                                                                                             |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                 |
+| Ansible         | [ansible-lint]                                                                                      |
+| Bash            | [shellcheck], [shfmt]                                                                               |
+| Bazel, Starlark | [buildifier]                                                                                        |
+| C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                 |
+| CircleCI Config | [circleci]                                                                                          |
+| Cloudformation  | [cfnlint], [checkov]                                                                                |
+| CSS, SCSS       | [stylelint]                                                                                         |
+| Cue             | [cue-fmt]                                                                                           |
+| Docker          | [hadolint], [checkov]                                                                               |
+| Dotenv          | [dotenv-linter]                                                                                     |
+| GitHub          | [actionlint]                                                                                        |
+| Go              | [gofmt], [gofumpt], [goimports], [golangci-lint], [golines], [semgrep]                              |
+| HAML            | [haml-lint]                                                                                         |
+| Java            | [google-java-format], [semgrep]                                                                     |
+| Javascript      | [eslint], [prettier], [rome], [semgrep]                                                             |
+| JSON            | [eslint], [prettier], [semgrep]                                                                     |
+| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                           |
+| Kubernetes      | [kube-linter]                                                                                       |
+| Lua             | [stylua]                                                                                            |
+| Markdown        | [markdownlint], [remark-lint]                                                                       |
+| Nix             | [nixpkgs-fmt]                                                                                       |
+| package.json    | [sort-package-json]                                                                                 |
+| PNG             | [oxipng]                                                                                            |
+| Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                    |
+| Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [semgrep], [yapf], [ruff]       |
+| Renovate        | [renovate]                                                                                          |
+| Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                              |
+| Rust            | [clippy], [rustfmt]                                                                                 |
+| Scala           | [scalafmt]                                                                                          |
+| Security        | [nancy], [trivy], [tfsec], [osv-scanner]                                                            |
+| SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                               |
+| SVG             | [svgo]                                                                                              |
+| Swift           | [stringslint], [swiftlint], [swiftformat]                                                           |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec] |
+| TOML            | [taplo]                                                                                             |
+| Typescript      | [eslint], [prettier], [rome], [semgrep]                                                             |
+| YAML            | [prettier], [semgrep], [yamllint]                                                                   |
 
 [actionlint]: https://github.com/rhysd/actionlint#readme
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
@@ -85,75 +85,73 @@ make the discovery, management and integration of new tools as straight-forward 
 [brakeman]: https://github.com/presidentbeef/brakeman#readme
 [buf]: https://github.com/bufbuild/buf#readme
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
-<<<<<<< HEAD
-[checkov]: https://github.com/bridgecrewio/checkov#readme
-[circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
-=======
->>>>>>> main
-[cfnlint]: https://github.com/aws-cloudformation/cfn-lint#readme
-[circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
-[clang-format]: https://clang.llvm.org/docs/ClangFormat.html
-[clang-tidy]: https://clang.llvm.org/extra/clang-tidy/
-[clippy]: https://github.com/rust-lang/rust-clippy#readme
-[codespell]: https://github.com/codespell-project/codespell#readme
-[cspell]: https://github.com/streetsidesoftware/cspell#readme
-[cue-fmt]: https://cuelang.org/
-[detekt]: https://github.com/detekt/detekt#readme
-[dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
-[eslint]: https://github.com/eslint/eslint#readme
-[flake8]: https://github.com/PyCQA/flake8#readme
-[git-diff-check]: https://git-scm.com/docs/git-diff
-[gitleaks]: https://github.com/zricethezav/gitleaks#readme
-[gofmt]: https://pkg.go.dev/cmd/gofmt
-[gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
-[goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
-[golangci-lint]: https://github.com/golangci/golangci-lint#readme
-[golines]: https://pkg.go.dev/github.com/segmentio/golines
-[google-java-format]: https://github.com/google/google-java-format#readme
-[hadolint]: https://github.com/hadolint/hadolint#readme
-[haml-lint]: https://github.com/sds/haml-lint#readme
-[include-what-you-use]: https://github.com/include-what-you-use/include-what-you-use#readme
-[isort]: https://github.com/PyCQA/isort#readme
-[ktlint]: https://github.com/pinterest/ktlint#readme
-[kube-linter]: https://github.com/stackrox/kube-linter#readme
-[markdownlint]: https://github.com/DavidAnson/markdownlint#readme
-[mypy]: https://github.com/python/mypy#readme
-[nancy]: https://github.com/sonatype-nexus-community/nancy#readme
-[nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
-[oxipng]: https://github.com/shssoichiro/oxipng#readme
-[osv-scanner]: https://github.com/google/osv-scanner
-[pragma-once]: linters/pragma-once/readme.md
-[prettier]: https://github.com/prettier/prettier#readme
-[pylint]: https://github.com/PyCQA/pylint#readme
-[remark-lint]: https://github.com/remarkjs/remark-lint#readme
-[renovate]: https://github.com/renovatebot/renovate#readme
-[rome]: https://github.com/rome/tools#readme
-[rubocop]: https://github.com/rubocop/rubocop#readme
-[ruff]: https://github.com/charliermarsh/ruff
-[rufo]: https://github.com/ruby-formatter/rufo#readme
-[rustfmt]: https://github.com/rust-lang/rustfmt#readme
-[scalafmt]: https://github.com/scalameta/scalafmt#readme
-[semgrep]: https://github.com/returntocorp/semgrep#readme
-[shellcheck]: https://github.com/koalaman/shellcheck#readme
-[shfmt]: https://github.com/mvdan/sh#readme
-[sort-package-json]: https://github.com/keithamus/sort-package-json#readme
-[sql-formatter]: https://github.com/sql-formatter-org/sql-formatter#readme
-[sqlfluff]: https://github.com/sqlfluff/sqlfluff#readme
-[sqlfmt]: https://github.com/tconbeer/sqlfmt#readme
-[standardrb]: https://github.com/testdouble/standard#readme
-[stringslint]: https://github.com/dral3x/StringsLint#readme
-[stylelint]: https://github.com/stylelint/stylelint#readme
-[stylua]: https://github.com/JohnnyMorganz/StyLua/tree/main
-[svgo]: https://github.com/svg/svgo#readme
-[swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
-[swiftlint]: https://github.com/realm/SwiftLint#readme
-[taplo]: https://github.com/tamasfe/taplo#readme
-[terraform]: https://developer.hashicorp.com/terraform/cli/code
-[tflint]: https://github.com/terraform-linters/tflint#readme
-[tfsec]: https://github.com/aquasecurity/tfsec
-[trivy]: https://github.com/aquasecurity/trivy#readme
-[yamllint]: https://github.com/adrienverge/yamllint#readme
-[yapf]: https://github.com/google/yapf#readme
+
+<<<<<<< HEAD [checkov]: https://github.com/bridgecrewio/checkov#readme [circleci]:
+https://github.com/CircleCI-Public/circleci-cli#readme =======
+
+> > > > > > > main [cfnlint]: https://github.com/aws-cloudformation/cfn-lint#readme [circleci]:
+> > > > > > > https://github.com/CircleCI-Public/circleci-cli#readme [clang-format]:
+> > > > > > > https://clang.llvm.org/docs/ClangFormat.html [clang-tidy]:
+> > > > > > > https://clang.llvm.org/extra/clang-tidy/ [clippy]:
+> > > > > > > https://github.com/rust-lang/rust-clippy#readme [codespell]:
+> > > > > > > https://github.com/codespell-project/codespell#readme [cspell]:
+> > > > > > > https://github.com/streetsidesoftware/cspell#readme [cue-fmt]:
+> > > > > > > https://cuelang.org/ > > > > > > > [detekt]:
+> > > > > > > https://github.com/detekt/detekt#readme > > > > > > > [dotenv-linter]:
+> > > > > > > https://github.com/dotenv-linter/dotenv-linter#readme [eslint]:
+> > > > > > > https://github.com/eslint/eslint#readme [flake8]:
+> > > > > > > https://github.com/PyCQA/flake8#readme [git-diff-check]:
+> > > > > > > https://git-scm.com/docs/git-diff [gitleaks]:
+> > > > > > > https://github.com/zricethezav/gitleaks#readme [gofmt]:
+> > > > > > > https://pkg.go.dev/cmd/gofmt > > > > > > > [gofumpt]:
+> > > > > > > https://pkg.go.dev/mvdan.cc/gofumpt [goimports]:
+> > > > > > > https://pkg.go.dev/golang.org/x/tools/cmd/goimports [golangci-lint]:
+> > > > > > > https://github.com/golangci/golangci-lint#readme [golines]:
+> > > > > > > https://pkg.go.dev/github.com/segmentio/golines [google-java-format]:
+> > > > > > > https://github.com/google/google-java-format#readme [hadolint]:
+> > > > > > > https://github.com/hadolint/hadolint#readme [haml-lint]:
+> > > > > > > https://github.com/sds/haml-lint#readme [include-what-you-use]:
+> > > > > > > https://github.com/include-what-you-use/include-what-you-use#readme [isort]:
+> > > > > > > https://github.com/PyCQA/isort#readme [ktlint]:
+> > > > > > > https://github.com/pinterest/ktlint#readme [kube-linter]:
+> > > > > > > https://github.com/stackrox/kube-linter#readme [markdownlint]:
+> > > > > > > https://github.com/DavidAnson/markdownlint#readme [mypy]:
+> > > > > > > https://github.com/python/mypy#readme [nancy]:
+> > > > > > > https://github.com/sonatype-nexus-community/nancy#readme [nixpkgs-fmt]:
+> > > > > > > https://github.com/nix-community/nixpkgs-fmt [oxipng]:
+> > > > > > > https://github.com/shssoichiro/oxipng#readme [osv-scanner]:
+> > > > > > > https://github.com/google/osv-scanner [pragma-once]: linters/pragma-once/readme.md
+> > > > > > > [prettier]: https://github.com/prettier/prettier#readme [pylint]:
+> > > > > > > https://github.com/PyCQA/pylint#readme [remark-lint]:
+> > > > > > > https://github.com/remarkjs/remark-lint#readme [renovate]:
+> > > > > > > https://github.com/renovatebot/renovate#readme [rome]:
+> > > > > > > https://github.com/rome/tools#readme [rubocop]:
+> > > > > > > https://github.com/rubocop/rubocop#readme [ruff]:
+> > > > > > > https://github.com/charliermarsh/ruff [rufo]:
+> > > > > > > https://github.com/ruby-formatter/rufo#readme [rustfmt]:
+> > > > > > > https://github.com/rust-lang/rustfmt#readme [scalafmt]:
+> > > > > > > https://github.com/scalameta/scalafmt#readme [semgrep]:
+> > > > > > > https://github.com/returntocorp/semgrep#readme [shellcheck]:
+> > > > > > > https://github.com/koalaman/shellcheck#readme [shfmt]:
+> > > > > > > https://github.com/mvdan/sh#readme [sort-package-json]:
+> > > > > > > https://github.com/keithamus/sort-package-json#readme [sql-formatter]:
+> > > > > > > https://github.com/sql-formatter-org/sql-formatter#readme [sqlfluff]:
+> > > > > > > https://github.com/sqlfluff/sqlfluff#readme [sqlfmt]:
+> > > > > > > https://github.com/tconbeer/sqlfmt#readme [standardrb]:
+> > > > > > > https://github.com/testdouble/standard#readme [stringslint]:
+> > > > > > > https://github.com/dral3x/StringsLint#readme [stylelint]:
+> > > > > > > https://github.com/stylelint/stylelint#readme [stylua]:
+> > > > > > > https://github.com/JohnnyMorganz/StyLua/tree/main [svgo]:
+> > > > > > > https://github.com/svg/svgo#readme [swiftformat]:
+> > > > > > > https://github.com/nicklockwood/SwiftFormat#readme [swiftlint]:
+> > > > > > > https://github.com/realm/SwiftLint#readme [taplo]:
+> > > > > > > https://github.com/tamasfe/taplo#readme [terraform]:
+> > > > > > > https://developer.hashicorp.com/terraform/cli/code [tflint]:
+> > > > > > > https://github.com/terraform-linters/tflint#readme [tfsec]:
+> > > > > > > https://github.com/aquasecurity/tfsec [trivy]:
+> > > > > > > https://github.com/aquasecurity/trivy#readme [yamllint]:
+> > > > > > > https://github.com/adrienverge/yamllint#readme [yapf]:
+> > > > > > > https://github.com/google/yapf#readme
 
 <sup><ol>
 
