@@ -19,7 +19,6 @@ lint:
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.250
-      is_recommended: false
       good_without_config: true
       version_command:
         parse_regex: ruff ${semver}

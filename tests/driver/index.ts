@@ -95,6 +95,8 @@ export interface SetupSettings {
   setupGit?: boolean;
   /** Whether or not to create a new .trunk/trunk.yaml */
   setupTrunk?: boolean;
+  /** Version of trunk to initialize (overrides environment vars) */
+  trunkVersion?: string;
 }
 
 /**
@@ -155,7 +157,10 @@ export class TrunkDriver {
       if (!fs.existsSync(path.resolve(path.resolve(this.sandboxPath, ".trunk")))) {
         fs.mkdirSync(path.resolve(this.sandboxPath, ".trunk"), {});
       }
-      fs.writeFileSync(path.resolve(this.sandboxPath, ".trunk/trunk.yaml"), newTrunkYamlContents());
+      fs.writeFileSync(
+        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
+        newTrunkYamlContents(this.setupSettings.trunkVersion)
+      );
     }
 
     this.gitDriver = git.simpleGit(this.sandboxPath);
@@ -296,6 +301,19 @@ export class TrunkDriver {
     const destDir = path.parse(destPath).dir;
     fs.mkdirSync(destDir, { recursive: true });
     fs.renameSync(sourcePath, destPath);
+  }
+
+  /**
+   * Copies a file at from the `sourceRelPath` inside the sandbox to the `destRelPath`.
+   * Recursively creates the destination's parent directory if it does not exist.
+   */
+  copyFile(sourceRelPath: string, destRelPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(sandboxPath, sourceRelPath);
+    const destPath = path.resolve(sandboxPath, destRelPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.cpSync(sourcePath, destPath);
   }
 
   /**
@@ -453,7 +471,9 @@ export class TrunkDriver {
    */
   async runCheckUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
-    const resultJsonPath = `${targetAbsPath}.json`;
+    // this has been changed from ".json" to ".out.json" for linters that run on terraform files
+    // terraform extensions are .tf and .tf.json - this change prevents accidentally linting the trunk output
+    const resultJsonPath = `${targetAbsPath}.out.json`;
     const args = `--upstream=false ${targetAbsPath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });

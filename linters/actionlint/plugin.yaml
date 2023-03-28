@@ -19,11 +19,13 @@ lint:
     - name: actionlint
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
-      type: actionlint
       download: actionlint
-      command: [actionlint, -format, "{{json .}}", "${target}"]
+      commands:
+        - name: lint
+          output: actionlint
+          run: actionlint -format "{{json .}}" ${target}
+          success_codes: [0, 1]
       good_without_config: true
-      success_codes: [0, 1]
       environment:
         - name: PATH
           list: ["${linter}"]

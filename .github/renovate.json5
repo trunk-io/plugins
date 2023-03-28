@@ -2,12 +2,14 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["config:base"],
   prConcurrentLimit: 3,
+  ignorePaths: ["**/test_data/**"],
   packageRules: [
     {
       groupName: "all non-major dependencies",
       groupSlug: "all-minor-patch",
       matchPackagePatterns: ["*"],
-      matchUpdateTypes: ["minor", "patch"]
+      matchUpdateTypes: ["minor", "patch"],
+      labels: ["renovate"]
     }
   ]
 }

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter actionlint test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "actionlint",
       "code": "events",
       "column": "13",
@@ -13,10 +13,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "actionlint",
-      "message": "invalid CRON format \\"0 */3 * *\\" in schedule event: Expected exactly 5 fields, found 4: 0 */3 * *",
+      "message": "invalid CRON format "0 */3 * *" in schedule event: Expected exactly 5 fields, found 4: 0 */3 * *",
       "targetType": "github-workflow",
     },
-    Object {
+    {
       "bucket": "actionlint",
       "code": "events",
       "column": "13",
@@ -29,7 +29,7 @@ Object {
       "message": "scheduled job runs too frequently. it runs once per 60 seconds. the shortest interval is once every 5 minutes",
       "targetType": "github-workflow",
     },
-    Object {
+    {
       "bucket": "actionlint",
       "code": "syntax-check",
       "column": "1",
@@ -43,27 +43,27 @@ Object {
       "targetType": "github-workflow",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "github-workflow",
       "linter": "actionlint",
-      "paths": Array [
+      "paths": [
         ".github/workflows/bad.in.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "github-workflow",
       "linter": "actionlint",
-      "paths": Array [
+      "paths": [
         ".github/workflows/empty.in.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

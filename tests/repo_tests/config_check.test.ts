@@ -22,10 +22,14 @@ describe("Global config health check", () => {
   const driver = setupDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
+    // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
+    // IfChange
+    trunkVersion: "1.6.2-beta.2",
+    // ThenChange plugin.yaml
   });
 
   // Step 2a: Validate config
-  it("trunk config print from repo root", async () => {
+  it("trunk config print with required_trunk_version", async () => {
     // Remove user.yaml if it exists, since some definitions may not exist in composite config.
     // Specifying force avoid errors being thrown if it doesn't exist.
     fs.rmSync(path.resolve(driver.getSandbox(), ".trunk/user.yaml"), {
@@ -33,9 +37,16 @@ describe("Global config health check", () => {
     });
 
     // Test that config healthily resolves
-    const testRunResult = await driver.run("config print");
-    expect(testRunResult.stdout).toContain("version: 0.1");
-    expect(testRunResult.stdout).toContain("local:");
+    try {
+      const testRunResult = await driver.run("config print");
+      expect(testRunResult.stdout).toContain("version: 0.1");
+      expect(testRunResult.stdout).toContain("local:");
+    } catch (error) {
+      console.log(
+        "`trunk config print` failed. You likely have bad configuration or need to update trunkVersion in this test."
+      );
+      throw error;
+    }
   });
 
   // Step 2b: Validate only verified linters are auto-enabled
@@ -102,7 +113,6 @@ describe("Global config health check", () => {
         "clippy",
         "cue-fmt",
         "dotenv-linter",
-        "flake8",
         "git-diff-check",
         "gitleaks",
         "gofmt",
@@ -115,12 +125,14 @@ describe("Global config health check", () => {
         "nixpkgs-fmt",
         "oxipng",
         "prettier",
+        "ruff",
         "rustfmt",
         "shellcheck",
         "shfmt",
         "svgo",
         "taplo",
         "tflint",
+        "yamllint",
       ]
     `);
   });

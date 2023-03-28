@@ -8,6 +8,7 @@ all-linters:
   - tests/utils/**
   - tests/index.ts
   - .trunk/trunk.yaml
+  - package.json
 
 # Run tests against specific linters if existing linters have been modified or updated.
 # These test will be run with KnownGoodVersion and Latest to verify linter integrity at the latest and fallback version.
@@ -25,5 +26,6 @@ repo-tests:
   - actions/**
   - readme.md
   - .trunk/trunk.yaml
+  - package.json
 # Nightly jobs will run on all linters with Snapshots and Latest.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=[Snapshots,Latest] npm test linters`

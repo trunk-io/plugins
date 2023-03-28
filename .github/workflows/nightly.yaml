@@ -3,8 +3,9 @@ on:
   schedule:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
-  pull_request:
-    paths: [.github/workflows/nightly.yaml]
+  # Only enable on pull requests for testing
+  # pull_request:
+  #   paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -23,10 +24,10 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
 
       - name: Cache tool downloads
-        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -66,7 +67,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@v3
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
         with:
           fetch-depth: 0
 
@@ -78,6 +79,9 @@ jobs:
           cp package.json package.json.bak
           cp package-lock.json package-lock.json.bak
           cp -r .github/actions .github/actions.bak
+          # Include any newly generated snapshots that have been marked release-ready
+          grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
+        continue-on-error: true
 
       - name: Get Latest Release
         id: get-release
@@ -87,7 +91,7 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
@@ -98,9 +102,12 @@ jobs:
           mv package.json.bak package.json
           mv package-lock.json.bak package-lock.json
           mv .github/actions.bak .github/actions
+          # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
+          grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
+        continue-on-error: true
 
       - name: Cache tool downloads
-        uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -145,7 +152,7 @@ jobs:
       SLACK_CHANNEL_ID: plugins-notifications
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
 
       - name: Retrieve Test Outputs ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
@@ -211,7 +218,7 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@v1
+        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -220,7 +227,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@v1
+        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
         if: steps.upload-staging.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -241,7 +248,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@v1
+        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
         if: steps.upload-prod.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}

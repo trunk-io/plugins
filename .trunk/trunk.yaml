@@ -1,7 +1,8 @@
 version: 0.1
 
 cli:
-  version: 1.5.1
+  # version used for local trunk runs and testing
+  version: 1.6.2-beta.3
 
 plugins:
   sources:
@@ -12,53 +13,60 @@ runtimes:
   enabled:
     - go@1.19.5
     - node@18.12.1
-    - python@3.10.3
+    - python@3.10.8
 
 lint:
+  downloads:
+    - name: trunk-toolbox
+      # Our own internal alpha linter
+      downloads:
+        - os:
+            linux: unknown-linux-gnu
+            macos: apple-darwin
+          cpu:
+            x86_64: x86_64
+            arm_64: aarch64
+          url: https://github.com/trunk-io/toolbox/releases/download/${version}/trunk-toolbox-${version}-${cpu}-${os}.tar.gz
+  definitions:
+    - name: trunk-toolbox
+      download: trunk-toolbox
+      files: [ALL]
+      commands:
+        - output: sarif
+          run: trunk-toolbox --upstream ${upstream-ref}
+          success_codes: [0]
+          read_output_from: stdout
+          disable_upstream: true
+          target: .
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+
   enabled:
-    - clippy@1.65.0
-    - golangci-lint@1.51.2
     - actionlint@1.6.23
     - black@23.1.0
-    - eslint@8.34.0
-    - flake8@6.0.0:
-        packages:
-          - flake8-bugbear@23.2.13
+    - eslint@8.36.0
     - git-diff-check
-    - gitleaks@8.15.3
+    - gitleaks@8.16.1
     - isort@5.12.0
     - markdownlint@0.33.0
     - prettier@2.8.4
-    - renovate@34.152.1
-    - semgrep@1.12.1
+    - renovate@35.8.3
+    - ruff@0.0.256
     - shellcheck@0.9.0
     - shfmt@3.5.0
-    - sqlfluff@1.4.5
     - taplo@0.7.0
+    - trunk-toolbox@0.0.0-sam.18
     - yamllint@1.29.0
 
   ignore:
     - linters: [ALL]
-      paths: ["**/test_data/**"]
+      paths:
+        - "**/test_data" # required for golangci-lint, which runs on directories
+        - "**/test_data/**"
 
 actions:
   definitions:
-    - id: toggle-local
-      display_name: Toggle Local
-      description: Toggle plugins repo between local and remote ref automatically
-      runtime: python
-      packages_file: tools/toggle-local/requirements.txt
-      run: tools/toggle-local/toggle flip ${workspace} ${@}
-      output_type: notification_v1
-      triggers:
-        - git_hooks: [pre-push]
-          run: tools/toggle-local/toggle flip ${workspace} --remote --pre-push
-        - files:
-            - plugin.yaml
-            - actions/**
-            - linters/**
-          run: tools/toggle-local/toggle notify ${workspace}
-
     - id: repo-tests
       display_name: Repo Tests
       description: Run tests on plugin configuration and documentation
@@ -77,7 +85,16 @@ actions:
       triggers:
         - files: [linters/**]
 
+    - id: remove-release-snapshots
+      display_name: Remove Release Snapshots
+      description: Remove release tag from snapshots that were added to the release
+      run:
+        grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} sed -i -e
+        '/^\/\/ trunk-upgrade-validation:RELEASE/d' {}
+      shell: bash
+
   enabled:
+    - remove-release-snapshots
     - repo-tests
     - linter-test-helper
     - trunk-announce
@@ -85,4 +102,3 @@ actions:
     - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
-    - git-lfs

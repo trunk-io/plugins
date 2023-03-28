@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter shellcheck test unicode 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/unicode.in.sh",
               "offset": "66",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
-            Object {
+            {
               "filePath": "test_data/unicode.in.sh",
               "offset": "75",
-              "replacementText": "\\"",
+              "replacementText": """,
             },
           ],
         },
@@ -29,8 +29,8 @@ Object {
       "line": "6",
       "linter": "shellcheck",
       "message": "Double quote to prevent globbing and word splitting.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/unicode.in.sh",
           "length": "9",
           "offset": "66",
@@ -38,17 +38,17 @@ Object {
       ],
       "targetType": "shell",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/unicode.in.sh",
               "length": "1",
               "offset": "66",
               "replacementText": "\${",
             },
-            Object {
+            {
               "filePath": "test_data/unicode.in.sh",
               "offset": "75",
               "replacementText": "}",
@@ -65,8 +65,8 @@ Object {
       "line": "6",
       "linter": "shellcheck",
       "message": "Prefer putting braces around variable references even when not strictly required.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/unicode.in.sh",
           "length": "9",
           "offset": "66",
@@ -75,18 +75,18 @@ Object {
       "targetType": "shell",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "shell",
       "linter": "shellcheck",
-      "paths": Array [
+      "paths": [
         "test_data/unicode.in.sh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

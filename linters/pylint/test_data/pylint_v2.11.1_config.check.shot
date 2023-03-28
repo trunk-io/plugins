@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter pylint test config 1`] = `
-Object {
-  "issues": Array [
-    Object {
+{
+  "issues": [
+    {
       "bucket": "pylint",
       "code": "C0114",
       "file": "test_data/basic.in.py",
@@ -14,7 +14,7 @@ Object {
       "message": "Missing module docstring",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
@@ -22,10 +22,10 @@ Object {
       "level": "LEVEL_LOW",
       "line": "3",
       "linter": "pylint",
-      "message": "Constant name \\"shift\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "shift" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "E0602",
       "column": "9",
@@ -37,7 +37,7 @@ Object {
       "message": "Undefined variable 'raw_input'",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "E0602",
       "column": "7",
@@ -49,7 +49,7 @@ Object {
       "message": "Undefined variable 'raw_input'",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
@@ -57,10 +57,10 @@ Object {
       "level": "LEVEL_LOW",
       "line": "6",
       "linter": "pylint",
-      "message": "Constant name \\"letters\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "letters" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
@@ -68,10 +68,10 @@ Object {
       "level": "LEVEL_LOW",
       "line": "7",
       "linter": "pylint",
-      "message": "Constant name \\"encoded\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "encoded" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0114",
       "file": "test_data/severity.py",
@@ -82,7 +82,7 @@ Object {
       "message": "Missing module docstring",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "I0010",
       "file": "test_data/severity.py",
@@ -93,7 +93,7 @@ Object {
       "message": "Unable to consider inline option 'disable'",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0104",
       "file": "test_data/severity.py",
@@ -101,10 +101,10 @@ Object {
       "level": "LEVEL_LOW",
       "line": "7",
       "linter": "pylint",
-      "message": "Disallowed name \\"foo\\"",
+      "message": "Disallowed name "foo"",
       "targetType": "python",
     },
-    Object {
+    {
       "bucket": "pylint",
       "code": "C0116",
       "file": "test_data/severity.py",
@@ -116,36 +116,36 @@ Object {
       "targetType": "python",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "pylint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "pylint",
-      "paths": Array [
+      "paths": [
         "test_data/empty.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "pylint",
-      "paths": Array [
+      "paths": [
         "test_data/severity.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;
