@@ -1,5 +1,15 @@
 version: 0.1
 lint:
+  # When enabling stylelint, you should also add the stylelint plugin configs,
+  # like so:
+  #
+  #   lint:
+  #   enabled:
+  #     - stylelint@15.3.0:
+  #         packages:
+  #           - stylelint-config-standard@31.0.0
+  #           - stylelint-config-standard-scss@7.0.1
+  #
   definitions:
     - name: stylelint
       files: [css, sass]
