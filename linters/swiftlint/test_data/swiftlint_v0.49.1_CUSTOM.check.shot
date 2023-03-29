@@ -4,7 +4,6 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "swiftlint",
       "code": "type_name",
       "column": "8",
       "file": "test_data/basic.swift",
@@ -15,7 +14,6 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "targetType": "swift",
     },
     {
-      "bucket": "swiftlint",
       "code": "line_length",
       "column": "1",
       "file": "test_data/basic.swift",
@@ -26,7 +24,6 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "targetType": "swift",
     },
     {
-      "bucket": "swiftlint",
       "code": "vertical_whitespace",
       "column": "1",
       "file": "test_data/basic.swift",
@@ -37,7 +34,6 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "targetType": "swift",
     },
     {
-      "bucket": "swiftlint",
       "code": "identifier_name",
       "column": "1",
       "file": "test_data/basic.swift",

@@ -4,7 +4,6 @@ exports[`Testing linter rubocop test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "rubocop",
       "code": "Style/Documentation",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -22,7 +21,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Style/FrozenStringLiteralComment",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -40,7 +38,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/ExtraSpacing",
       "column": "6",
       "file": "test_data/basic.rb",
@@ -59,7 +56,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Style/LambdaCall",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -82,7 +78,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Naming/VariableNumber",
       "column": "3",
       "file": "test_data/basic.rb",
@@ -101,7 +96,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Naming/VariableNumber",
       "column": "3",
       "file": "test_data/basic.rb",
@@ -120,7 +114,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -139,7 +132,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -158,7 +150,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -177,7 +168,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -196,7 +186,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -215,7 +204,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/IndentationWidth",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -234,7 +222,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "rubocop",
       "code": "Layout/IndentationConsistency",
       "column": "2",
       "file": "test_data/basic.rb",

@@ -4,7 +4,6 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "hadolint",
       "code": "DL3059",
       "column": "1",
       "file": "test_data/basic.Dockerfile",

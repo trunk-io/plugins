@@ -4,7 +4,6 @@ exports[`Testing linter buildifier test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "buildifier",
       "code": "module-docstring",
       "column": "1",
       "file": "test_data/basic.in.bzl",
@@ -17,7 +16,6 @@ A module docstring is a string literal (not a comment) which should be the first
       "targetType": "starlark",
     },
     {
-      "bucket": "buildifier",
       "code": "load",
       "column": "26",
       "file": "test_data/basic.in.bzl",
@@ -35,7 +33,6 @@ If you want to re-export a symbol, use the following pattern:
       "targetType": "starlark",
     },
     {
-      "bucket": "buildifier",
       "code": "out-of-order-load",
       "column": "1",
       "file": "test_data/basic.in.bzl",
@@ -47,7 +44,6 @@ If you want to re-export a symbol, use the following pattern:
       "targetType": "starlark",
     },
     {
-      "bucket": "buildifier",
       "code": "load",
       "column": "26",
       "file": "test_data/basic.in.bzl",

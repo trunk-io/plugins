@@ -4,7 +4,6 @@ exports[`Testing linter ruff-nbqa test basic_nb 1`] = `
 {
   "issues": [
     {
-      "bucket": "ruff-nbqa",
       "code": "error",
       "file": "test_data/basic_nb.in.ipynb",
       "level": "LEVEL_HIGH",

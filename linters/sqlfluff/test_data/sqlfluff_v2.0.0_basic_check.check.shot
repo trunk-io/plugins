@@ -5,7 +5,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
 {
   "issues": [
     {
-      "bucket": "sqlfluff",
       "code": "AM04",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -16,7 +15,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP01",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -27,7 +25,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "LT09",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -38,7 +35,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "AL03",
       "column": "12",
       "file": "test_data/basic_check.in.sql",
@@ -49,7 +45,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP01",
       "column": "20",
       "file": "test_data/basic_check.in.sql",
@@ -60,7 +55,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "LT01",
       "column": "22",
       "file": "test_data/basic_check.in.sql",
@@ -71,7 +65,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP02",
       "column": "24",
       "file": "test_data/basic_check.in.sql",
@@ -82,7 +75,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "LT01",
       "column": "27",
       "file": "test_data/basic_check.in.sql",
@@ -93,7 +85,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP01",
       "column": "29",
       "file": "test_data/basic_check.in.sql",
@@ -104,7 +95,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP02",
       "column": "34",
       "file": "test_data/basic_check.in.sql",
@@ -115,7 +105,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "CP02",
       "column": "43",
       "file": "test_data/basic_check.in.sql",
@@ -126,7 +115,6 @@ exports[`Testing linter sqlfluff test basic_check 1`] = `
       "targetType": "sql",
     },
     {
-      "bucket": "sqlfluff",
       "code": "LT01",
       "column": "7",
       "file": "test_data/basic_check.in.sql",

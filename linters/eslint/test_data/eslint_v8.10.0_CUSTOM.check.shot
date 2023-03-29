@@ -4,7 +4,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -16,7 +15,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -28,7 +26,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "import/no-unresolved",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -40,7 +37,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-missing-import",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -52,7 +48,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -64,7 +59,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -76,7 +70,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "import/no-unresolved",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -88,7 +81,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-missing-import",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -100,7 +92,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -112,7 +103,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -124,7 +114,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "import/no-unresolved",
       "column": "22",
       "file": "test_data/format_imports.ts",
@@ -136,7 +125,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-missing-import",
       "column": "22",
       "file": "test_data/format_imports.ts",
@@ -148,7 +136,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -160,7 +147,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -172,7 +158,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "36",
       "file": "test_data/null_rule_id.ts",
@@ -184,7 +169,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "53",
       "file": "test_data/null_rule_id.ts",
@@ -196,7 +180,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "60",
       "file": "test_data/null_rule_id.ts",
@@ -208,7 +191,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -220,7 +202,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "54",
       "file": "test_data/null_rule_id.ts",
@@ -232,7 +213,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -244,7 +224,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "42",
       "file": "test_data/null_rule_id.ts",
@@ -256,7 +235,6 @@ exports[`Testing linter eslint test CUSTOM 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "eslint",
       "code": "@typescript-eslint/no-explicit-any",
       "column": "49",
       "file": "test_data/null_rule_id.ts",

@@ -4,7 +4,6 @@ exports[`Testing linter buf-breaking test buf_breaking 1`] = `
 Object {
   "issues": Array [
     Object {
-      "bucket": "buf-breaking",
       "code": "FIELD_SAME_TYPE",
       "column": "7",
       "file": "test_data/buf_breaking.in.proto",
@@ -16,7 +15,6 @@ Object {
       "targetType": "proto",
     },
     Object {
-      "bucket": "buf-breaking",
       "code": "FIELD_SAME_TYPE",
       "column": "7",
       "file": "test_data/buf_breaking.in.proto",

@@ -4,7 +4,6 @@ exports[`Testing linter clippy test malformed 1`] = `
 {
   "issues": [
     {
-      "bucket": "clippy",
       "code": "E0583",
       "column": "1",
       "file": "src/main.rs",

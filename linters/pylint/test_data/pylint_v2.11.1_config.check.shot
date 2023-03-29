@@ -4,7 +4,6 @@ exports[`Testing linter pylint test config 1`] = `
 {
   "issues": [
     {
-      "bucket": "pylint",
       "code": "C0114",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0114",
@@ -15,7 +14,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
@@ -26,7 +24,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "E0602",
       "column": "9",
       "file": "test_data/basic.in.py",
@@ -38,7 +35,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "E0602",
       "column": "7",
       "file": "test_data/basic.in.py",
@@ -50,7 +46,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
@@ -61,7 +56,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
@@ -72,7 +66,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0114",
       "file": "test_data/severity.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0114",
@@ -83,7 +76,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "I0010",
       "file": "test_data/severity.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:I0010",
@@ -94,7 +86,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0104",
       "file": "test_data/severity.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0104",
@@ -105,7 +96,6 @@ exports[`Testing linter pylint test config 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "pylint",
       "code": "C0116",
       "file": "test_data/severity.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0116",

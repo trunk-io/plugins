@@ -4,7 +4,6 @@ exports[`Testing linter golangci-lint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "golangci-lint",
       "code": "deadcode",
       "column": "6",
       "file": "test_data/unused_func.go",
@@ -16,7 +15,6 @@ exports[`Testing linter golangci-lint test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "bucket": "golangci-lint",
       "code": "typecheck",
       "column": "23",
       "file": "test_data/wrapper/printer.go",

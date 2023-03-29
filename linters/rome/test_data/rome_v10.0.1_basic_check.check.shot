@@ -4,7 +4,6 @@ exports[`Testing linter rome test basic_check 1`] = `
 {
   "issues": [
     {
-      "bucket": "rome",
       "code": "lint/style/noNegationElse",
       "column": "5",
       "file": "test_data/basic_check.in.ts",
@@ -15,7 +14,6 @@ exports[`Testing linter rome test basic_check 1`] = `
       "targetType": "typescript",
     },
     {
-      "bucket": "rome",
       "code": "lint/correctness/useSingleCaseStatement",
       "column": "7",
       "file": "test_data/basic_check.in.ts",

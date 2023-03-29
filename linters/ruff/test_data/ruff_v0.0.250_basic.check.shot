@@ -4,7 +4,6 @@ exports[`Testing linter ruff test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "ruff",
       "code": "E402",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -27,7 +26,6 @@ exports[`Testing linter ruff test basic 1`] = `
           ],
         },
       ],
-      "bucket": "ruff",
       "code": "F401",
       "column": "8",
       "file": "test_data/basic.in.py",
@@ -38,7 +36,6 @@ exports[`Testing linter ruff test basic 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "ruff",
       "code": "E402",
       "column": "1",
       "file": "test_data/basic.in.py",

@@ -4,7 +4,6 @@ exports[`Testing linter taplo test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "taplo",
       "code": "error",
       "column": "1",
       "file": "test_data/bad.toml",
@@ -15,7 +14,6 @@ exports[`Testing linter taplo test CUSTOM 1`] = `
       "targetType": "toml",
     },
     {
-      "bucket": "taplo",
       "code": "error",
       "column": "8",
       "file": "test_data/bad.toml",

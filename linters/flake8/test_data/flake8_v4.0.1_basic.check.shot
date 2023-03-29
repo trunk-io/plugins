@@ -4,7 +4,6 @@ exports[`Testing linter flake8 test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "flake8",
       "code": "E402",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -16,7 +15,6 @@ exports[`Testing linter flake8 test basic 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "flake8",
       "code": "F401",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -28,7 +26,6 @@ exports[`Testing linter flake8 test basic 1`] = `
       "targetType": "python",
     },
     {
-      "bucket": "trunk",
       "code": "ignore-does-nothing",
       "column": "3",
       "file": "test_data/basic.in.py",

@@ -4,7 +4,6 @@ exports[`Testing linter remark-lint test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "remark-lint",
       "code": "list-item-indent",
       "column": "4",
       "file": "test_data/basic.in.md",

@@ -4,7 +4,6 @@ exports[`Testing linter golangci-lint test unbuildable 1`] = `
 {
   "issues": [
     {
-      "bucket": "golangci-lint",
       "code": "error",
       "file": ".",
       "level": "LEVEL_HIGH",

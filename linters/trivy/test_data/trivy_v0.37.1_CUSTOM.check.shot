@@ -4,7 +4,6 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "trivy",
       "code": "AVD-AWS-0028",
       "file": "test_data/aws.tf",
       "isSecurity": true,
@@ -12,13 +11,12 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
       "linter": "trivy",
       "message": "
 IMDS v2 (Instance Metadata Service) introduced session authentication tokens which improve security when talking to IMDS.
-By default <code>aws_instance</code> resource sets IMDS session auth tokens to be optional. 
+By default <code>aws_instance</code> resource sets IMDS session auth tokens to be optional.
 To fully protect IMDS you need to enable session tokens by using <code>metadata_options</code> block and its <code>http_tokens</code> variable set to <code>required</code>.
 ",
       "targetType": "terraform",
     },
     {
-      "bucket": "trivy",
       "code": "AVD-AWS-0131",
       "file": "test_data/aws.tf",
       "isSecurity": true,
@@ -28,7 +26,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "terraform",
     },
     {
-      "bucket": "trivy",
       "code": "DS002",
       "file": "test_data/basic.Dockerfile",
       "isSecurity": true,
@@ -38,7 +35,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "docker",
     },
     {
-      "bucket": "trivy",
       "code": "DS026",
       "file": "test_data/basic.Dockerfile",
       "isSecurity": true,
@@ -48,7 +44,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "docker",
     },
     {
-      "bucket": "trivy",
       "code": "KSV003",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -58,7 +53,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV011",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -68,7 +62,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV012",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -78,7 +71,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV013",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -88,7 +80,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV014",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -98,7 +89,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV018",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -108,7 +98,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV020",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -118,7 +107,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV021",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -128,7 +116,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV030",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -138,7 +125,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "KSV106",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -148,7 +134,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "bucket": "trivy",
       "code": "CVE-2022-45198",
       "file": "test_data/nested/requirements.txt",
       "isSecurity": true,
@@ -158,7 +143,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "bucket": "trivy",
       "code": "CVE-2022-45199",
       "file": "test_data/nested/requirements.txt",
       "isSecurity": true,
@@ -168,7 +152,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "bucket": "trivy",
       "code": "CVE-2022-45198",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -178,7 +161,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "bucket": "trivy",
       "code": "CVE-2022-45199",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
