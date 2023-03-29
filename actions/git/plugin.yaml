@@ -7,3 +7,4 @@ actions:
       run: git lfs "${hook}" ${@}
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
+      notify_on_error: false
