@@ -144,7 +144,7 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "ansible-lint",
-      "message": " Returned errors will not include exact line numbers, but they will mention
+      "message": "Returned errors will not include exact line numbers, but they will mention
 the schema name being used as a tag, like \`\`playbook-schema\`\`,
 \`\`tasks-schema\`\`.
 
@@ -155,8 +155,7 @@ Schema bugs should be reported towards [schemas](https://github.com/ansible/sche
 If incorrect schema was picked, you might want to either:
 
 * move the file to standard location, so its file is detected correctly.
-* use \`\`kinds:\`\` option in linter config to help it pick correct file type.
-",
+* use \`\`kinds:\`\` option in linter config to help it pick correct file type.",
       "targetType": "custom",
     },
     {

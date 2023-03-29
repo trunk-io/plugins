@@ -10,7 +10,7 @@ exports[`Testing linter git-diff-check test basic 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
     {
@@ -20,7 +20,7 @@ exports[`Testing linter git-diff-check test basic 1`] = `
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
     {
@@ -30,7 +30,7 @@ exports[`Testing linter git-diff-check test basic 1`] = `
       "level": "LEVEL_HIGH",
       "line": "5",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
   ],

@@ -28,8 +28,7 @@ To disable the warning, add '@unused' in a comment.
 If you want to re-export a symbol, use the following pattern:
 
     load(..., _a = "a", ...)
-    a = _a
-",
+    a = _a",
       "targetType": "starlark",
     },
     {
@@ -56,8 +55,7 @@ To disable the warning, add '@unused' in a comment.
 If you want to re-export a symbol, use the following pattern:
 
     load(..., _b = "b", ...)
-    b = _b
-",
+    b = _b",
       "targetType": "starlark",
     },
   ],

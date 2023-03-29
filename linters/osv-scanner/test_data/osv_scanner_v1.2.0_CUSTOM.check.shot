@@ -444,8 +444,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "linter": "osv-scanner",
       "message": "Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed
 Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are
-affected if they use this package to handle untrusted user input.
-",
+affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
