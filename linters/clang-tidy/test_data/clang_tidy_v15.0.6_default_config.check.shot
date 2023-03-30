@@ -15,7 +15,6 @@ exports[`Testing linter clang-tidy test default_config 1`] = `
           ],
         },
       ],
-      "bucket": "clang-tidy",
       "code": "readability-convert-member-functions-to-static",
       "column": "11",
       "file": "test.cc",

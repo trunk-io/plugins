@@ -4,7 +4,6 @@ exports[`Testing linter terraform test variables 1`] = `
 {
   "issues": [
     {
-      "bucket": "terraform",
       "code": "Invalid quoted type constraints",
       "file": "test_data/variables.in.tf",
       "level": "LEVEL_HIGH",

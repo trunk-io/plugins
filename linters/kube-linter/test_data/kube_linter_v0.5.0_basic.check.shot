@@ -4,7 +4,6 @@ exports[`Testing linter kube-linter test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "kube-linter",
       "code": "latest-tag",
       "column": "1",
       "file": "test_data/basic.in.yaml",
@@ -16,7 +15,6 @@ object: <no namespace>/security-context-demo /v1, Kind=Pod",
       "targetType": "yaml",
     },
     {
-      "bucket": "kube-linter",
       "code": "no-read-only-root-fs",
       "column": "1",
       "file": "test_data/basic.in.yaml",
@@ -28,7 +26,6 @@ object: <no namespace>/security-context-demo /v1, Kind=Pod",
       "targetType": "yaml",
     },
     {
-      "bucket": "kube-linter",
       "code": "unset-cpu-requirements",
       "column": "1",
       "file": "test_data/basic.in.yaml",
@@ -40,7 +37,6 @@ object: <no namespace>/security-context-demo /v1, Kind=Pod",
       "targetType": "yaml",
     },
     {
-      "bucket": "kube-linter",
       "code": "unset-memory-requirements",
       "column": "1",
       "file": "test_data/basic.in.yaml",

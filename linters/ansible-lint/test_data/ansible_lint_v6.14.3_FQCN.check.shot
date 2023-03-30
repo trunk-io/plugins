@@ -5,7 +5,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
 {
   "issues": [
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/demo-aws-launch.yml",
@@ -18,7 +17,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/demo-aws-launch.yml",
@@ -31,7 +29,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[play]",
       "column": "1",
       "file": "jboss-standalone/deploy-application.yml",
@@ -44,7 +41,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/java-app",
@@ -57,7 +53,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -70,7 +65,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -83,7 +77,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -96,7 +89,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -109,7 +101,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -122,7 +113,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -135,7 +125,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone",
@@ -148,7 +137,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -161,7 +149,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -174,7 +161,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -187,7 +173,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -200,7 +185,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -213,7 +197,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -226,7 +209,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -239,7 +221,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -252,7 +233,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -265,7 +245,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -278,7 +257,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -291,7 +269,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -304,7 +281,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -317,7 +293,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -330,7 +305,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -343,7 +317,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -356,7 +329,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -369,7 +341,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[octal-values]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -382,7 +353,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "command-instead-of-module",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -395,7 +365,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -408,7 +377,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "ignore-errors",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -421,7 +389,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "no-changed-when",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -434,7 +401,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -447,7 +413,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -460,7 +425,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -473,7 +437,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -486,7 +449,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -499,7 +461,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -512,7 +473,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -525,7 +485,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action-core]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -538,7 +497,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn[action]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -551,7 +509,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[casing]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -564,7 +521,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -577,7 +533,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml[truthy]",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -590,7 +545,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name[play]",
       "column": "1",
       "file": "jboss-standalone/site.yml",

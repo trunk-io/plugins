@@ -4,7 +4,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
 {
   "issues": [
     {
-      "bucket": "clippy",
       "code": "dead_code",
       "column": "4",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -24,7 +23,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
       "targetType": "rust",
     },
     {
-      "bucket": "clippy",
       "code": "arithmetic_overflow",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -44,7 +42,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
       "targetType": "rust",
     },
     {
-      "bucket": "clippy",
       "code": "no_effect",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -75,7 +72,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "unused_must_use",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -107,7 +103,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "double_comparisons",
       "column": "8",
       "file": "test_data/complex_subdir/src/main.rs",

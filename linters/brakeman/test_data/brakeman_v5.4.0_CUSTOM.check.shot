@@ -4,7 +4,6 @@ exports[`Testing linter brakeman test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "brakeman",
       "code": "EOLRails",
       "column": "1",
       "file": "test_data/Gemfile.lock",
@@ -17,7 +16,6 @@ exports[`Testing linter brakeman test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "bucket": "brakeman",
       "code": "Evaluation",
       "column": "1",
       "file": "test_data/app/helpers/users_helper.rb",

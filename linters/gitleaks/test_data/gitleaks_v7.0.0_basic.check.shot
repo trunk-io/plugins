@@ -4,7 +4,6 @@ exports[`Testing linter gitleaks test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "gitleaks",
       "column": "1",
       "file": "test_data/basic.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
@@ -15,7 +14,6 @@ exports[`Testing linter gitleaks test basic 1`] = `
       "targetType": "ALL",
     },
     {
-      "bucket": "gitleaks",
       "column": "1",
       "file": "test_data/basic.py",
       "issueClass": "ISSUE_CLASS_EXISTING",

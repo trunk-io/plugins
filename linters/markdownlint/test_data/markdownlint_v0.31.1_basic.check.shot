@@ -4,7 +4,6 @@ exports[`Testing linter markdownlint test basic 1`] = `
 {
   "issues": [
     {
-      "bucket": "markdownlint",
       "code": "MD025",
       "file": "test_data/basic.in.md",
       "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025",

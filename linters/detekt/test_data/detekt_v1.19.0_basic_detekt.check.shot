@@ -4,7 +4,6 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
 {
   "issues": [
     {
-      "bucket": "detekt",
       "code": "detekt.style.MagicNumber",
       "column": "15",
       "file": "test_data/basic_detekt.in.kt",
@@ -15,7 +14,6 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "targetType": "kotlin",
     },
     {
-      "bucket": "detekt",
       "code": "detekt.style.MagicNumber",
       "column": "3",
       "file": "test_data/basic_detekt.in.kt",
@@ -26,7 +24,6 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "targetType": "kotlin",
     },
     {
-      "bucket": "detekt",
       "code": "detekt.style.FunctionOnlyReturningConstant",
       "column": "5",
       "file": "test_data/basic_detekt.in.kt",
@@ -37,7 +34,6 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "targetType": "kotlin",
     },
     {
-      "bucket": "detekt",
       "code": "detekt.potential-bugs.EqualsWithHashCodeExist",
       "column": "12",
       "file": "test_data/basic_detekt.in.kt",

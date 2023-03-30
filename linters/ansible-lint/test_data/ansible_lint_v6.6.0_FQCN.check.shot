@@ -4,7 +4,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
 {
   "issues": [
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/demo-aws-launch.yml",
@@ -17,7 +16,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/java-app",
@@ -30,7 +28,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -43,7 +40,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -56,7 +52,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -69,7 +64,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -82,7 +76,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone",
@@ -95,7 +88,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -108,7 +100,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -121,7 +112,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -134,7 +124,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -147,7 +136,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "schema",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -156,7 +144,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "ansible-lint",
-      "message": " Returned errors will not include exact line numbers, but they will mention
+      "message": "Returned errors will not include exact line numbers, but they will mention
 the schema name being used as a tag, like \`\`playbook-schema\`\`,
 \`\`tasks-schema\`\`.
 
@@ -167,12 +155,10 @@ Schema bugs should be reported towards [schemas](https://github.com/ansible/sche
 If incorrect schema was picked, you might want to either:
 
 * move the file to standard location, so its file is detected correctly.
-* use \`\`kinds:\`\` option in linter config to help it pick correct file type.
-",
+* use \`\`kinds:\`\` option in linter config to help it pick correct file type.",
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -185,7 +171,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -198,7 +183,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -211,7 +195,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -224,7 +207,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -237,7 +219,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -250,7 +231,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -263,7 +243,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -276,7 +255,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -289,7 +267,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -302,7 +279,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -315,7 +291,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -328,7 +303,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -341,7 +315,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "command-instead-of-module",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -354,7 +327,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -367,7 +339,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "ignore-errors",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -380,7 +351,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "no-changed-when",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -393,7 +363,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -406,7 +375,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -419,7 +387,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -432,7 +399,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -445,7 +411,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -458,7 +423,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -471,7 +435,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -484,7 +447,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -497,7 +459,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -510,7 +471,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -523,7 +483,6 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
     {
-      "bucket": "ansible-lint",
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",

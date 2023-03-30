@@ -4,7 +4,6 @@ exports[`Testing linter clippy test malformed_subdir 1`] = `
 {
   "issues": [
     {
-      "bucket": "clippy",
       "code": "compiler",
       "column": "1",
       "file": "test_data/malformed_subdir/src/main.rs",
@@ -35,7 +34,6 @@ exports[`Testing linter clippy test malformed_subdir 1`] = `
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "compiler",
       "column": "1",
       "file": "test_data/malformed_subdir/src/main.rs",

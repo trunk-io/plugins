@@ -4,7 +4,6 @@ exports[`Testing linter detekt-gradle test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "bucket": "detekt-gradle",
       "code": "detekt.potential-bugs.EqualsWithHashCodeExist",
       "column": "12",
       "file": "lib/src/main/kotlin/detekt_gradle/Library.kt",
