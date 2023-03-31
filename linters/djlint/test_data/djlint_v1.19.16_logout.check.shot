@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter djlint test logout 1`] = `
+{
+  "issues": [
+    {
+      "code": "H017",
+      "column": "4",
+      "file": "test_data/logout.in.html",
+      "issueUrl": "https://www.djlint.com/docs/linter/#rules",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "djlint",
+      "message": "Tag should be self closing. :: <link>",
+      "targetType": "html",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "html",
+      "linter": "djlint",
+      "paths": [
+        "test_data/logout.in.html",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "html",
+      "linter": "djlint",
+      "paths": [
+        "test_data/logout.in.html",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/logout.in.html",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "djlint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
