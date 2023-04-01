@@ -52,6 +52,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | GitHub          | [actionlint]                                                                                        |
 | Go              | [gofmt], [gofumpt], [goimports], [golangci-lint], [golines], [semgrep]                              |
 | HAML            | [haml-lint]                                                                                         |
+| HTML Templates  | [djlint]                                                                                            |
 | Java            | [google-java-format], [semgrep]                                                                     |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                                             |
 | JSON            | [eslint], [prettier], [semgrep]                                                                     |
@@ -95,6 +96,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [cspell]: https://github.com/streetsidesoftware/cspell#readme
 [cue-fmt]: https://cuelang.org/
 [detekt]: https://github.com/detekt/detekt#readme
+[djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
