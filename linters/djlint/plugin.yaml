@@ -31,6 +31,7 @@ lint:
         - tox.ini
       issue_url_format: https://www.djlint.com/docs/linter/#rules
       known_good_version: 1.19.16
+      is_recommended: false
       version_command:
         parse_regex: djlint, version ${semver}
         run: djlint --version

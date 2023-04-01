@@ -112,7 +112,6 @@ describe("Global config health check", () => {
         "cfnlint",
         "clippy",
         "cue-fmt",
-        "djlint",
         "dotenv-linter",
         "git-diff-check",
         "gitleaks",
