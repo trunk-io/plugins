@@ -136,4 +136,64 @@ describe("Global config health check", () => {
       ]
     `);
   });
+
+  // Step 2c: Validate that no plugin linters or actions are explicitly enabled
+  it("validate explicitly enabled actions and linters", async () => {
+    // Remove user.yaml if it exists, since it could affect the enabled set.
+    // Specifying force avoid errors being thrown if it doesn't exist.
+    fs.rmSync(path.resolve(driver.getSandbox(), ".trunk/user.yaml"), {
+      force: true,
+    });
+
+    const compositeConfig = await driver.getFullTrunkConfig();
+    const lintDefinitions = compositeConfig.lint.definitions;
+    const actionDefinitions = compositeConfig.actions.definitions;
+
+    const explicitlyEnabledLinters = lintDefinitions.reduce(
+      (enabledLinters: string[], definition: any) => {
+        if (definition.enabled) {
+          return enabledLinters.concat(definition.name);
+        }
+
+        if (definition.commands) {
+          const commandEnabled = definition.commands.reduce((enabled: boolean, command: any) => {
+            if (command.enabled) {
+              return true;
+            }
+            return enabled;
+          }, false);
+          if (commandEnabled) {
+            return enabledLinters.concat(definition.name);
+          }
+        }
+
+        return enabledLinters;
+      },
+      []
+    );
+
+    // No linters should be enabled by default
+    expect(explicitlyEnabledLinters).toMatchInlineSnapshot(`[]`);
+
+    const explicitlyEnabledActions = actionDefinitions.reduce(
+      (enabledActions: string[], definition: any) => {
+        if (definition.enabled) {
+          return enabledActions.concat(definition.id);
+        }
+
+        return enabledActions;
+      },
+      []
+    );
+
+    // Built-in actions only
+    expect(explicitlyEnabledActions).toMatchInlineSnapshot(`
+      [
+        "trunk-cache-prune",
+        "trunk-share-with-everyone",
+        "trunk-single-player-auto-upgrade",
+        "trunk-single-player-auto-on-upgrade",
+      ]
+    `);
+  });
 });
