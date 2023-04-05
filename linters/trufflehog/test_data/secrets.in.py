@@ -1,5 +1,5 @@
-aws_access_key_id = "${aws_key}"
-aws_secret_access_key = "${aws_secret}"
+aws_access_key_id = "AKIAXYZDQCEN4EXAMPLE"
+aws_secret_access_key = "Tg0pz8Jii8hkLx4+PnUisM8GmKs3a2DK+EXAMPLE"
 
 github_secret = "369963c1434c377428ca8531fbc46c0c43d037a0"
 
