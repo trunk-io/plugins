@@ -69,7 +69,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                              |
 | Rust            | [clippy], [rustfmt]                                                                                 |
 | Scala           | [scalafmt]                                                                                          |
-| Security        | [nancy], [trivy], [tfsec], [osv-scanner]                                                            |
+| Security        | [nancy], [trivy], [tfsec], [osv-scanner], [trufflehog]                                              |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                               |
 | SVG             | [svgo]                                                                                              |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                           |
@@ -150,6 +150,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
+[trufflehog]: https://github.com/trufflesecurity/trufflehog/
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
 
