@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter buf-format test buf_lint 1`] = `
+"syntax = "proto3";
+
+package trunk;
+
+enum GoodEnum {
+  lower_case_UNSPECIFIED = 0;
+  GOOD_ENUM_VALUE_1 = 1;
+}
+"
+`;
