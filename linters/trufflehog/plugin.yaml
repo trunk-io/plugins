@@ -22,6 +22,7 @@ lint:
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
+          batch: true
           parser:
             runtime: python
             run: ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
