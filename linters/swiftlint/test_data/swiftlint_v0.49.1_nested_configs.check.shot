@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter swiftlint test CUSTOM 1`] = `
+exports[`Testing linter swiftlint test nested_configs 1`] = `
 {
   "issues": [
     {
       "code": "type_name",
       "column": "8",
-      "file": "test_data/basic.swift",
+      "file": "basic.swift",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "swiftlint",
@@ -14,13 +14,13 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "targetType": "swift",
     },
     {
-      "code": "line_length",
+      "code": "vertical_whitespace",
       "column": "1",
-      "file": "test_data/basic.swift",
+      "file": "basic.swift",
       "level": "LEVEL_MEDIUM",
-      "line": "3",
+      "line": "5",
       "linter": "swiftlint",
-      "message": "Line Length Violation: Line should be 120 characters or less: currently 139 characters",
+      "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line. Currently 2.",
       "targetType": "swift",
     },
     {
@@ -34,13 +34,13 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "targetType": "swift",
     },
     {
-      "code": "identifier_name",
-      "column": "1",
-      "file": "test_data/basic.swift",
+      "code": "type_name",
+      "column": "8",
+      "file": "test_data/subdir/basic.swift",
       "level": "LEVEL_HIGH",
-      "line": "6",
+      "line": "1",
       "linter": "swiftlint",
-      "message": "Identifier Name Violation: Function name should start with a lowercase character: 'Bar()'",
+      "message": "Type Name Violation: Type name should start with an uppercase character: 'a'",
       "targetType": "swift",
     },
   ],
@@ -50,7 +50,25 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "fileGroupName": "swift",
       "linter": "swiftlint",
       "paths": [
+        "basic.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "swiftlint",
+      "paths": [
         "test_data/basic.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "swiftlint",
+      "paths": [
+        "test_data/subdir/basic.swift",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
