@@ -8,57 +8,15 @@ plugins:
   sources:
     - id: trunk
       local: .
-
-runtimes:
-  enabled:
-    - go@1.19.5
-    - node@18.12.1
-    - python@3.10.8
+    - id: configs
+      ref: c99292a0411271304682c29e5aacd5c05068f221
+      uri: https://github.com/trunk-io/configs
 
 lint:
-  downloads:
-    - name: trunk-toolbox
-      # Our own internal alpha linter
-      downloads:
-        - os:
-            linux: unknown-linux-gnu
-            macos: apple-darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: aarch64
-          url: https://github.com/trunk-io/toolbox/releases/download/${version}/trunk-toolbox-${version}-${cpu}-${os}.tar.gz
-  definitions:
-    - name: trunk-toolbox
-      download: trunk-toolbox
-      files: [ALL]
-      commands:
-        - output: sarif
-          run: trunk-toolbox --upstream ${upstream-ref}
-          success_codes: [0]
-          read_output_from: stdout
-          disable_upstream: true
-          target: .
-      environment:
-        - name: PATH
-          list: ["${linter}"]
-
-  enabled:
-    - actionlint@1.6.23
-    - black@23.1.0
-    - eslint@8.36.0
-    - git-diff-check
-    - gitleaks@8.16.1
-    - isort@5.12.0
-    - markdownlint@0.33.0
-    - prettier@2.8.4
-    - renovate@35.8.3
-    - ruff@0.0.256
-    - shellcheck@0.9.0
-    - shfmt@3.5.0
-    - taplo@0.7.0
-    - trunk-toolbox@0.0.0-sam.18
-    - yamllint@1.29.0
-
+  # enabled list inherited from plugin 'configs'
+  disabled:
+    # pylint diagnostics are a bit too strict for our parsers
+    - pylint
   ignore:
     - linters: [ALL]
       paths:
@@ -97,8 +55,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - linter-test-helper
-    - trunk-announce
-    - trunk-cache-prune
-    - trunk-upgrade-available
-    - trunk-check-pre-push
-    - trunk-fmt-pre-commit
