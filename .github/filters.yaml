@@ -27,5 +27,7 @@ repo-tests:
   - readme.md
   - .trunk/trunk.yaml
   - package.json
+  - package-lock.json
+  - .github/**
 # Nightly jobs will run on all linters with Snapshots and Latest.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=[Snapshots,Latest] npm test linters`
