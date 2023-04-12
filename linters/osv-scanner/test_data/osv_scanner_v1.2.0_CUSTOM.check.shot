@@ -67,6 +67,15 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "code": "GHSA-pxvg-2qj5-37jq",
+      "file": "test_data/Gemfile.lock",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "linter": "osv-scanner",
+      "message": "Nokogiri updates packaged libxml2 to v2.10.4 to resolve multiple CVEs",
+      "targetType": "osv-lockfiles",
+    },
+    {
       "code": "GHSA-36h2-95gj-w488",
       "file": "test_data/go.mod",
       "isSecurity": true,
