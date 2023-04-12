@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter swiftlint test CUSTOM 1`] = `
+exports[`Testing linter swiftlint test basic 1`] = `
 {
   "issues": [
     {
@@ -10,7 +10,7 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "swiftlint",
-      "message": "Type Name Violation: Type name 'a' should start with an uppercase character",
+      "message": "Type Name Violation: Type name should start with an uppercase character: 'a'",
       "targetType": "swift",
     },
     {
@@ -20,7 +20,7 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "3",
       "linter": "swiftlint",
-      "message": "Line Length Violation: Line should be 120 characters or less; currently it has 139 characters",
+      "message": "Line Length Violation: Line should be 120 characters or less: currently 139 characters",
       "targetType": "swift",
     },
     {
@@ -30,7 +30,7 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "5",
       "linter": "swiftlint",
-      "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line; currently 2",
+      "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line. Currently 2.",
       "targetType": "swift",
     },
     {
@@ -40,7 +40,7 @@ exports[`Testing linter swiftlint test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "line": "6",
       "linter": "swiftlint",
-      "message": "Identifier Name Violation: Function name 'Bar()' should start with a lowercase character",
+      "message": "Identifier Name Violation: Function name should start with a lowercase character: 'Bar()'",
       "targetType": "swift",
     },
   ],
