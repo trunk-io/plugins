@@ -22,6 +22,7 @@ lint:
         - go.sum
       issue_url_format: https://github.com/praetorian-inc/gokart/issues
       known_good_version: 0.5.1
+      is_recommended: false
       version_command:
         parse_regex: ${semver}
         run: gokart version
