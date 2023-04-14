@@ -31,7 +31,11 @@ const normalizeMessage = (message?: string) =>
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .trim();
 
-const normalizeIssues = ({ message: _message, ...rest }: FileIssue): FileIssue => ({
+const normalizeIssues = ({
+  message: _message,
+  targetPath: _targetPath,
+  ...rest
+}: FileIssue): FileIssue => ({
   ...rest,
   message: normalizeMessage(_message),
 });

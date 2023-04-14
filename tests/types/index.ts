@@ -60,6 +60,7 @@ export interface FileIssue {
   // below_threshold: boolean;
   linter: string;
   targetType: string;
+  targetPath?: string;
   // autofixOptions: any[];
   // ranges: any[];
   issueUrl: string;
