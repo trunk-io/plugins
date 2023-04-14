@@ -13,10 +13,11 @@ lint:
         - name: lint
           output: sarif
           target: ${parent}
-          run: gokart scan -s ${target}
+          run: gokart scan -i analyzers.yml -s ${target}
           success_codes: [0]
           read_output_from: stdout
-      good_without_config: true
+      direct_configs:
+        - analyzers.yml
       affects_cache:
         - go.mod
         - go.sum
