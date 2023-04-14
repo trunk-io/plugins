@@ -50,7 +50,7 @@ make the discovery, management and integration of new tools as straight-forward 
 | Docker          | [hadolint], [checkov]                                                                               |
 | Dotenv          | [dotenv-linter]                                                                                     |
 | GitHub          | [actionlint]                                                                                        |
-| Go              | [gofmt], [gofumpt], [goimports], [golangci-lint], [golines], [semgrep]                              |
+| Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                    |
 | HAML            | [haml-lint]                                                                                         |
 | HTML Templates  | [djlint]                                                                                            |
 | Java            | [google-java-format], [semgrep]                                                                     |
@@ -105,6 +105,7 @@ make the discovery, management and integration of new tools as straight-forward 
 [gofmt]: https://pkg.go.dev/cmd/gofmt
 [gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
+[gokart]: https://github.com/praetorian-inc/gokart
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
 [golines]: https://pkg.go.dev/github.com/segmentio/golines
 [google-java-format]: https://github.com/google/google-java-format#readme

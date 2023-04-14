@@ -1,0 +1,28 @@
+version: 0.1
+lint:
+  definitions:
+    - name: gokart
+      files: [go]
+      runtime: go
+      package: github.com/praetorian-inc/gokart
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      run_from_root_file: go.mod
+      commands:
+        - name: lint
+          output: sarif
+          target: ${parent}
+          run: gokart scan -s ${target}
+          success_codes: [0]
+          read_output_from: stdout
+      good_without_config: true
+      affects_cache:
+        - go.mod
+        - go.sum
+      issue_url_format: https://github.com/praetorian-inc/gokart/issues
+      known_good_version: 0.5.1
+      version_command:
+        parse_regex: ${semver}
+        run: gokart version
+      run_timeout: 10m
