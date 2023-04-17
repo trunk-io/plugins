@@ -2,7 +2,7 @@ version: 0.1
 
 cli:
   # version used for local trunk runs and testing
-  version: 1.7.1-beta.9
+  version: 1.7.1-beta.19
 
 plugins:
   sources:

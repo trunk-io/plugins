@@ -1,0 +1,9 @@
+version: 0.1
+tools:
+  definitions:
+    - name: asciinema
+      runtime: python
+      package: asciinema
+      tool_kit:
+        - name: asciinema
+          target: asciinema

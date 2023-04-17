@@ -1,0 +1,18 @@
+version: 0.1
+tools:
+  downloads:
+    - name: istioctl
+      downloads:
+        - os:
+            linux: linux
+            macos: osx
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/istio/istio/releases/download/${version}/istioctl-${version}-${os}-${cpu}.tar.gz
+  definitions:
+    - name: istioctl
+      download: istioctl
+      tool_kit:
+        - name: istioctl
+          target: istioctl

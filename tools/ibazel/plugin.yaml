@@ -1,0 +1,19 @@
+version: 0.1
+tools:
+  downloads:
+    - name: ibazel
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/bazelbuild/bazel-watcher/releases/download/v${version}/ibazel_${os}_${cpu}
+  definitions:
+    - name: ibazel
+      download: ibazel
+      tool_kit:
+        - name: ibazel
+          target: ibazel
