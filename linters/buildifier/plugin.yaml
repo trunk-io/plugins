@@ -23,7 +23,7 @@ lint:
       download: buildifier
       commands:
         - name: fix
-          run: buildifier --lint=fix "${target}"
+          run: buildifier --lint=fix --warnings=all "${target}"
           output: rewrite
           cache_results: true
           formatter: true
@@ -31,7 +31,7 @@ lint:
           batch: true
           success_codes: [0]
         - name: warn
-          run: buildifier --lint=warn --format=json --mode=check "${target}"
+          run: buildifier --lint=warn --warnings=all --format=json --mode=check "${target}"
           # Custom parser type defined in the trunk cli to handle buildifier's JSON output.
           output: buildifier
           cache_results: true
