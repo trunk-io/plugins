@@ -5,6 +5,10 @@ import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
+  if (!copyConfig) {
+    // TODO(Tyler): We need to have the option to copy the direct config into the root rather than symlink
+    driver.moveFile(".trunk/configs/.clang-tidy", ".clang-tidy");
+  }
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
   // Because clang-tidy requires greater build-level awareness for full functionality,

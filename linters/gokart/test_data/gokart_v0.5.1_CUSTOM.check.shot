@@ -87,7 +87,7 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "fileGroupName": "go",
       "linter": "gokart",
       "paths": [
-        "test_data/path_traversal",
+        "test_data/path_traversal/path_traversal.in.go",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -96,7 +96,7 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "fileGroupName": "go",
       "linter": "gokart",
       "paths": [
-        "test_data/sql_injection",
+        "test_data/sql_injection/sql_injection.in.go",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
