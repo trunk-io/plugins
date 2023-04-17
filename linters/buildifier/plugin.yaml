@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: buildifier
-      version: 5.1.0
+      version: 6.1.0
       executable: true
       downloads:
         # macos arm64 was introduced after this version.
@@ -45,7 +45,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 4.0.1
+      known_good_version: 6.1.0
       version_command:
         parse_regex: ${semver}
         run: buildifier --version
