@@ -40,6 +40,7 @@ lint:
       good_without_config: true
       direct_configs:
         - .buildifier.json
+        # Not a native buildifier construct, but useful for 'addTables', see test file
         - .buildifier-tables.json
       environment:
         - name: PATH
