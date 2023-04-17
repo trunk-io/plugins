@@ -17,6 +17,10 @@ lint:
             arm_64: arm64
           url: https://github.com/bazelbuild/buildtools/releases/download/${version}/buildifier-${os}-${cpu}
           version: ">=4.0.0"
+        - os: windows
+          cpu: x86_64
+          url: https://github.com/bazelbuild/buildtools/releases/download/${version}/buildifier-windows-amd64.exe
+          version: ">=4.0.0"
   definitions:
     - name: buildifier
       files: [starlark, bazel-build, bazel-workspace]

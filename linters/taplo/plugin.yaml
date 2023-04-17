@@ -19,6 +19,11 @@ lint:
           cpu: arm_64
           version: ">=0.8.0"
           url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-darwin-aarch64.gz
+        # https://github.com/tamasfe/taplo/issues/397
+        # - os: windows
+        #   cpu: x86_64
+        #   version: ">=0.8.0"
+        #   url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-windows-x86_64.zip
 
         # Versions >=0.6.7
         - os: linux

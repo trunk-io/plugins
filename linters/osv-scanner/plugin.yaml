@@ -12,6 +12,11 @@ lint:
             x86_64: amd64
             arm_64: arm64
           url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
+        - os: windows
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
   definitions:
     - name: osv-scanner
       files: [osv-lockfiles]

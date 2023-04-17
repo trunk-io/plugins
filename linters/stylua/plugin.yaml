@@ -7,6 +7,7 @@ lint:
         - os:
             linux: linux
             macos: macos
+            windows: windows
           cpu:
             x86_64: x86_64
             arm_64: aarch64

@@ -9,7 +9,7 @@ lint:
           output: sarif
           parser:
             runtime: python
-            run: ${cwd}/ruff_to_sarif.py
+            run: python ${cwd}/ruff_to_sarif.py
           batch: true
           success_codes: [0, 1]
       runtime: python

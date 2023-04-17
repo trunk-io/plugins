@@ -15,6 +15,9 @@ lint:
             x86_64: x86_64
             arm_64: arm64
           url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
+        - os: windows
+          cpu: x86_64
+          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-win-x64.tar.gz
   definitions:
     - name: dotenv-linter
       files: [dotenv]

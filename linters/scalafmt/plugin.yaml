@@ -15,6 +15,7 @@ lint:
         - os: macos
           cpu: arm_64
           url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+        # No windows release
   definitions:
     - name: scalafmt
       files: [scala]
