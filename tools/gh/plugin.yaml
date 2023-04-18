@@ -10,10 +10,10 @@ tools:
             x86_64: amd64
             arm_64: arm64
           url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
-          strip_components: 2
+          strip_components: 1
   definitions:
     - name: gh
       download: gh
       shims:
         - name: gh
-          target: gh
+          target: ${tool}/bin/gh
