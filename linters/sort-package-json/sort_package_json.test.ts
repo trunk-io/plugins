@@ -5,6 +5,7 @@ import { TEST_DATA } from "tests/utils";
 
 customLinterFmtTest({
   linterName: "sort-package-json",
+  testName: "basic",
   args: "--all",
   pathsToSnapshot: [path.join(TEST_DATA, "package.json")],
 });
