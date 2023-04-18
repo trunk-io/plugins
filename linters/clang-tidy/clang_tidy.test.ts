@@ -5,16 +5,13 @@ import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
-  if (!copyConfig) {
-    // TODO(Tyler): We need to have the option to copy the direct config into the root rather than symlink
-    driver.moveFile(".trunk/configs/.clang-tidy", ".clang-tidy");
-  }
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
   // Because clang-tidy requires greater build-level awareness for full functionality,
   // This test provides some simple overrides to exercise the basic functionality.
   const newContents = currentContents.concat(`  definitions:
     - name: clang-tidy
+      files: [c++-header, c++-source]
       commands:
         - name: lint
           disable_upstream: true
@@ -43,12 +40,12 @@ const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
 customLinterCheckTest({
   linterName: "clang-tidy",
   testName: "default_config",
-  args: "-a",
+  args: "-a --cache=false",
   preCheck: preCheck(false),
 });
 customLinterCheckTest({
   linterName: "clang-tidy",
   testName: "test_config",
-  args: "-a",
+  args: "-a --cache=false",
   preCheck: preCheck(true),
 });

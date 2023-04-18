@@ -1,3 +1,3 @@
 class Foo {
-  void Bar();
+  inline void Bar() { (void)nullptr; }
 };

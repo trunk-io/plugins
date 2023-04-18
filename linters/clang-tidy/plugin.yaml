@@ -27,7 +27,6 @@ lint:
           run_linter_from: compile_command
           read_output_from: tmp_file
       download: clang-tidy
-      # TODO(Tyler): We need to have the option to copy the direct config into the root rather than symlink
       direct_configs: [.clang-tidy]
       include_scanner_type: compile_command
       query_compile_commands: true
