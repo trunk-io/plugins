@@ -13,6 +13,6 @@ tools:
   definitions:
     - name: istioctl
       download: istioctl
-      tool_kit:
+      shims:
         - name: istioctl
           target: istioctl

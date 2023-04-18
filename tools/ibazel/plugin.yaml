@@ -14,6 +14,6 @@ tools:
   definitions:
     - name: ibazel
       download: ibazel
-      tool_kit:
+      shims:
         - name: ibazel
           target: ibazel

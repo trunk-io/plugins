@@ -4,6 +4,6 @@ tools:
     - name: asciinema
       runtime: python
       package: asciinema
-      tool_kit:
+      shims:
         - name: asciinema
           target: asciinema

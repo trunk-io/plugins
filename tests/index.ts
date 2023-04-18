@@ -456,31 +456,3 @@ export const linterFmtTest = ({
     });
   });
 };
-
-interface TestOutput {
-  command: string;
-  expectedOutput: string;
-}
-
-export const trunkToolTest = ({
-  toolName,
-  toolVersion,
-  testOutputs,
-}: {
-  toolName: string;
-  toolVersion: string;
-  testOutputs: TestOutput[];
-}) => {
-  describe(`Testing tool ${toolName}`, () => {
-    testOutputs.forEach(({ command, expectedOutput }) => {
-      it(`should run ${command}`, async () => {
-        const driver = setupDriver(__dirname, {}, toolName, toolVersion);
-        const testRunResult = await driver.runTool(command, toolName);
-        expect(testRunResult).toMatchObject({
-          success: true,
-        });
-        expect(testRunResult.stdout).toEqual(expectedOutput);
-      });
-    });
-  });
-};

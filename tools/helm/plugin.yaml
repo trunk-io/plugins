@@ -14,6 +14,6 @@ tools:
   definitions:
     - name: helm
       download: helm
-      tool_kit:
+      shims:
         - name: helm
           target: helm

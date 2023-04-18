@@ -14,6 +14,6 @@ tools:
   definitions:
     - name: target-determinator
       download: target-determinator
-      tool_kit:
+      shims:
         - name: target-determinator
           target: target-determinator

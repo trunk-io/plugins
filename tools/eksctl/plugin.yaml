@@ -13,6 +13,6 @@ tools:
   definitions:
     - name: eksctl
       download: eksctl
-      tool_kit:
+      shims:
         - name: eksctl
           target: eksctl
