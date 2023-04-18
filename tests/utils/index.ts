@@ -100,22 +100,11 @@ export const getSnapshotName = (
 /**
  * Calculate the regex for a given snapshot file to determine available versions. Use this as a standardized convention.
  * @param linterName the name of the linter being tested. Does not include subcommand
- * @param prefix the prefix of the named file tested against
+ * @param prefix the prefix of the named file tested against. For custom fmt tests, includes the test name and file path
  * @param checkType "check" or "fmt"
- * @param custom whether or not this is invoked from a customLinterCheckTest/customFmtCheckTest
  */
-export const getSnapshotRegex = (
-  linterName: string,
-  prefix: string,
-  checkType: CheckType,
-  custom: boolean
-) => {
-  if (checkType == "fmt" && custom) {
-    // For custom fmt tests, there is no central prefixed snapshot, only specific files.
-    return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?(?<file>.+).${checkType}.shot`;
-  }
-  return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
-};
+export const getSnapshotRegex = (linterName: string, prefix: string, checkType: CheckType) =>
+  `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
 
 /**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
@@ -125,7 +114,6 @@ export const getSnapshotRegex = (
  * @param prefix prefix of the file being checked
  * @param checkType "check" or "fmt"
  * @param linterVersion version of the linter that was enabled (may be undefined)
- * @param custom denotes whether this is a custom test, for use with custom fmt test naming
  * @param versionGreaterThanOrEqual optional comparator for sorting non-semver linter snapshots
  * @returns absolute path to the relevant snapshot file
  */
@@ -135,7 +123,6 @@ export const getSnapshotPathForAssert = (
   prefix: string,
   checkType: CheckType,
   linterVersion?: string,
-  custom = false,
   versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean
 ): string => {
   const specificVersionSnapshotName = path.resolve(
@@ -155,7 +142,7 @@ export const getSnapshotPathForAssert = (
   }
 
   // Otherwise, find the most recent matching snapshot.
-  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType, custom);
+  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType);
   const availableSnapshots = fs
     .readdirSync(snapshotDirPath)
     .filter((name) => name.match(snapshotFileRegex))
@@ -194,8 +181,7 @@ export const getVersionsForTest = (
   dirname: string,
   linterName: string,
   prefix: string,
-  checkType: CheckType,
-  custom = false
+  checkType: CheckType
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
   let matchExists = false;
@@ -203,7 +189,7 @@ export const getVersionsForTest = (
   const versionsList = fs
     .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
-      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType, custom));
+      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType));
       if (fileMatch) {
         matchExists = true;
         return fileMatch.groups?.version;
