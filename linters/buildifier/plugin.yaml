@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: buildifier
-      version: 5.1.0
+      version: 6.1.0
       executable: true
       downloads:
         # macos arm64 was introduced after this version.
@@ -38,10 +38,14 @@ lint:
           batch: true
           success_codes: [0]
       good_without_config: true
+      direct_configs:
+        - .buildifier.json
+        # Not a native buildifier construct, but useful for 'addTables', see test file
+        - .buildifier-tables.json
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 4.0.1
+      known_good_version: 6.1.0
       version_command:
         parse_regex: ${semver}
         run: buildifier --version

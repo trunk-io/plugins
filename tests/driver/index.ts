@@ -5,7 +5,7 @@ import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS, REPO_ROOT } from "tests/utils";
+import { ARGS, REPO_ROOT, TEST_DATA } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkConfig, getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
@@ -44,6 +44,29 @@ const getDebugger = (linter?: string) => {
   const newNum = (numLinterTests ?? 0) + 1;
   linterTests.set(linter, newNum);
   return baseDebug.extend(linter).extend(`${newNum}`);
+};
+
+/**
+ * Create test repo. Don't copy snapshot files or direct_configs
+ */
+const testCreationFilter = (topLevelDir: string) => (file: string) => {
+  // Don't copy snapshot files
+  if (file.endsWith(".shot")) {
+    return false;
+  }
+
+  const { base, dir } = path.parse(file);
+  // If top-level, only copy plugin.yaml, test file, test_data, and parsers
+  if (base !== TEST_DATA && dir === topLevelDir) {
+    return (
+      base === "plugin.yaml" ||
+      base.endsWith(".test.ts") ||
+      base.endsWith(".py") ||
+      base.endsWith(".sh")
+    );
+  }
+
+  return true;
 };
 
 /**
@@ -148,9 +171,10 @@ export class TrunkDriver {
     if (!this.sandboxPath) {
       return;
     }
-    // Create repo. Don't copy snapshot files
-    const snapshotFilter = (file: string) => !file.endsWith(".shot");
-    fs.cpSync(this.testDir, this.sandboxPath, { recursive: true, filter: snapshotFilter });
+    fs.cpSync(this.testDir, this.sandboxPath, {
+      recursive: true,
+      filter: testCreationFilter(this.testDir),
+    });
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config

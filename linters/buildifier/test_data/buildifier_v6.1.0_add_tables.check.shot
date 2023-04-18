@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter djlint test logout 1`] = `
+exports[`Testing linter buildifier test add_tables 1`] = `
 {
   "issues": [],
   "lintActions": [
     {
-      "command": "fmt",
-      "fileGroupName": "html",
-      "linter": "djlint",
+      "command": "fix",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
       "paths": [
-        "test_data/logout.in.html",
+        "test_data/add_tables.in.BUILD",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
     {
-      "command": "lint",
-      "fileGroupName": "html",
-      "linter": "djlint",
+      "command": "warn",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
       "paths": [
-        "test_data/logout.in.html",
+        "test_data/add_tables.in.BUILD",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -27,11 +27,11 @@ exports[`Testing linter djlint test logout 1`] = `
   "unformattedFiles": [
     {
       "column": "1",
-      "file": "test_data/logout.in.html",
+      "file": "test_data/add_tables.in.BUILD",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
       "level": "LEVEL_HIGH",
       "line": "1",
-      "linter": "djlint",
+      "linter": "buildifier",
       "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
     },
   ],

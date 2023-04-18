@@ -11,6 +11,7 @@ const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
   // This test provides some simple overrides to exercise the basic functionality.
   const newContents = currentContents.concat(`  definitions:
     - name: clang-tidy
+      files: [c++-header, c++-source]
       commands:
         - name: lint
           disable_upstream: true
@@ -39,12 +40,12 @@ const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
 customLinterCheckTest({
   linterName: "clang-tidy",
   testName: "default_config",
-  args: "-a",
+  args: "-a --cache=false",
   preCheck: preCheck(false),
 });
 customLinterCheckTest({
   linterName: "clang-tidy",
   testName: "test_config",
-  args: "-a",
+  args: "-a --cache=false",
   preCheck: preCheck(true),
 });

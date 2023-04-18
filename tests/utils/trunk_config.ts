@@ -46,4 +46,5 @@ lint:
       paths:
         - tmp/**
         - node_modules/**
+        - .trunk/configs/**
 `;
