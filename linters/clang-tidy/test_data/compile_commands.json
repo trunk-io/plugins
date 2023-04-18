@@ -15,11 +15,6 @@
     "directory": "${EXECUTION_ROOT}"
   },
   {
-    "command": "clang -c test.cc",
-    "file": "test.cc",
-    "directory": "${EXECUTION_ROOT}"
-  },
-  {
     "command": "clang -c invalid_case_style.cc",
     "file": "invalid_case_style.cc",
     "directory": "${EXECUTION_ROOT}"
