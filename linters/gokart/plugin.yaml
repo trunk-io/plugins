@@ -22,6 +22,7 @@ lint:
           # This is an abuse of in_place which implies that.
           in_place: true
           run_linter_from: root_file
+          is_security: true
       direct_configs:
         - analyzers.yml
       affects_cache:
