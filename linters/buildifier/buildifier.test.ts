@@ -36,7 +36,7 @@ const writeConfigs = (driver: TrunkDriver) => {
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 linterCheckTest({ linterName: "buildifier", namedTestPrefixes: ["basic", "add_tables"] });
-linterFmtTest({ linterName: "buildifier", namedTestPrefixes: ["basic"] });
+linterFmtTest({ linterName: "buildifier", namedTestPrefixes: ["basic", "add_tables"] });
 customLinterFmtTest({
   linterName: "buildifier",
   args: "-a",
