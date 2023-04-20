@@ -37,7 +37,7 @@ lint:
           cache_results: true
           batch: true
           success_codes: [0]
-      suggest_type: if_files
+      suggest_if: files_present
       direct_configs:
         - .buildifier.json
         # Not a native buildifier construct, but useful for 'addTables', see test file

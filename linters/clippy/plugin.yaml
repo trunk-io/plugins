@@ -31,7 +31,7 @@ lint:
           value: ${cachedir}/cargo_home
         - name: CARGO_TARGET_DIR
           value: ${cachedir}/cargo_target_dir
-      suggest_type: if_files
+      suggest_if: files_present
       known_good_version: 1.65.0
       version_command:
         parse_regex: ${semver}

@@ -23,7 +23,7 @@ lint:
           formatter: true
           in_place: true
       direct_configs: [.djlintrc]
-      suggest_type: if_present
+      suggest_if: config_present
       affects_cache:
         - .flake8
         - pyproject.toml

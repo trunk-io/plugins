@@ -27,7 +27,7 @@ lint:
           run_linter_from: compile_command
           read_output_from: tmp_file
       download: clang-tidy
-      suggest_type: if_present
+      suggest_if: config_present
       direct_configs: [.clang-tidy]
       include_scanner_type: compile_command
       query_compile_commands: true

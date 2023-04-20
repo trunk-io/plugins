@@ -8,7 +8,7 @@ lint:
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff
-      suggest_type: if_present
+      suggest_if: config_present
       commands:
         - name: lint
           run: sqlfluff lint ${target} --format json --nofail

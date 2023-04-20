@@ -4,7 +4,7 @@ lint:
     - name: rubocop
       files: [ruby, gemspec]
       direct_configs: [.rubocop.yml]
-      suggest_type: if_present
+      suggest_if: config_present
       runtime: ruby
       package: rubocop
       commands:
@@ -42,5 +42,5 @@ lint:
         run: rubocop --version
       in_place: true
       batch: true
-      suggest_type: never
+      suggest_if: never
       deprecated: rubocop-fmt is now handled by rubocop. Please delete rubocop-fmt from your config

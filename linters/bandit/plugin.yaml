@@ -5,7 +5,7 @@ lint:
       files: [python]
       runtime: python
       package: bandit
-      suggest_type: if_present
+      suggest_if: config_present
       direct_configs: [.bandit]
       commands:
         - name: lint

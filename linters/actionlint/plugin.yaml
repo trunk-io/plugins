@@ -25,7 +25,7 @@ lint:
           output: actionlint
           run: actionlint -format "{{json .}}" ${target}
           success_codes: [0, 1]
-      suggest_type: if_files
+      suggest_if: files_present
       environment:
         - name: PATH
           list: ["${linter}"]

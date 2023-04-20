@@ -31,7 +31,7 @@ lint:
       affects_cache:
         - package.json
       known_good_version: 6.5.0
-      suggest_type: never
+      suggest_if: never
       version_command:
         parse_regex: ${semver}
         run: cspell --version

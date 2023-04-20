@@ -13,7 +13,7 @@ lint:
       runtime: node
       package: sql-formatter
       known_good_version: 7.0.1
-      suggest_type: never
+      suggest_if: never
       version_command:
         parse_regex: ${semver}
         run: sql-formatter --version

@@ -22,7 +22,7 @@ lint:
       affects_cache:
         - setup.cfg
         - pyproject.toml
-      suggest_type: if_present
+      suggest_if: config_present
       known_good_version: 0.32.0
       version_command:
         parse_regex: yapf ${semver}

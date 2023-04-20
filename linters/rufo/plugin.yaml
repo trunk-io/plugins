@@ -13,7 +13,7 @@ lint:
           cache_results: true
           formatter: true
       direct_configs: [.rufo]
-      suggest_type: if_present
+      suggest_if: config_present
       runtime: ruby
       package: rufo
       known_good_version: 0.13.0

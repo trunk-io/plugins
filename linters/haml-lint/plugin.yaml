@@ -14,7 +14,7 @@ lint:
       direct_configs: [.haml-lint.yml]
       runtime: ruby
       package: haml_lint
-      suggest_type: if_files
+      suggest_if: files_present
       known_good_version: 0.40.0
       version_command:
         parse_regex: ${semver}

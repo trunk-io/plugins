@@ -14,7 +14,7 @@ lint:
           cache_results: true
           formatter: true
       known_good_version: 0.3.1
-      suggest_type: never
+      suggest_if: never
       version_command:
         parse_regex: ${semver}
         run: gofumpt --version

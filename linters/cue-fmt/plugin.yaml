@@ -12,7 +12,7 @@ lint:
           formatter: true
       runtime: go
       package: cuelang.org/go/cmd/cue
-      suggest_type: if_files
+      suggest_if: files_present
       known_good_version: 0.4.3
       version_command:
         parse_regex: cue version ${semver} .*

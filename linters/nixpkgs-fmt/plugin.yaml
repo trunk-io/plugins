@@ -11,7 +11,7 @@ lint:
           success_codes: [0]
           stdin: true
           formatter: true
-      suggest_type: if_files
+      suggest_if: files_present
       environment:
         - name: PATH
           list: ["${linter}/bin"]

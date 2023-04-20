@@ -121,9 +121,9 @@ describe("Global config health check", () => {
 
     /**
      * At present, in order to be auto-enabled without prior existence of a config, a linter must have:
-     * suggest_type: if_files
+     * suggest_if: files_present
      *
-     * With suggest_type: legacy, in order to be auto-enabled without prior existence of a config, a linter must have:
+     * With suggest_if: legacy, in order to be auto-enabled without prior existence of a config, a linter must have:
      * 1. is_recommended: true (default true)
      * 2. good_without_config: true OR have a recommended direct_config to dump
      */

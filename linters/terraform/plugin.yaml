@@ -36,7 +36,7 @@ lint:
           success_codes: [0]
           # cache_results: true
           # TODO - need cache_results to be by verb
-      suggest_type: never
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -70,7 +70,7 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: terraform --version
-      suggest_type: never
+      suggest_if: never
       deprecated:
         terraform-fmt is now handled by terraform. Please delete terraform-fmt from your config
 
@@ -94,7 +94,7 @@ lint:
           value: ${env.GITHUB_APP_PEM_FILE}
           optional: true
       known_good_version: 1.1.0
-      suggest_type: never
+      suggest_if: never
       version_command:
         parse_regex: ${semver}
         run: terraform --version

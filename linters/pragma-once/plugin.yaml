@@ -10,4 +10,4 @@ lint:
           formatter: true
           batch: false
           success_codes: [0]
-      suggest_type: never
+      suggest_if: never

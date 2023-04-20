@@ -27,7 +27,7 @@ lint:
           in_place: true
       runtime: node
       package: rome
-      suggest_type: if_present
+      suggest_if: config_present
       direct_configs:
         - .rome.json
       affects_cache:

@@ -20,7 +20,7 @@ lint:
     - name: buf-format
       files: [proto]
       download: buf
-      suggest_type: never
+      suggest_if: never
       commands:
         - name: format
           output: rewrite
@@ -52,7 +52,7 @@ lint:
           run_linter_from: root_file
       run_from_root_file: buf.yaml
       direct_configs: [buf.yaml]
-      suggest_type: if_present
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -73,7 +73,7 @@ lint:
     - name: buf-breaking
       files: [proto]
       download: buf
-      suggest_type: never
+      suggest_if: never
       commands:
         - name: lint
           output: buf

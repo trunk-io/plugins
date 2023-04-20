@@ -14,7 +14,7 @@ lint:
           in_place: true
       runtime: go
       package: mvdan.cc/sh/v${major_version}/cmd/shfmt
-      suggest_type: if_files
+      suggest_if: files_present
       affects_cache: [.editorconfig]
       known_good_version: 3.5.0
       version_command:

@@ -20,7 +20,7 @@ lint:
       affects_cache:
         - pyproject.toml
         - setup.cfg
-      suggest_type: if_present
+      suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
       known_good_version: 0.931
       version_command:

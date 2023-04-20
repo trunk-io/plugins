@@ -31,7 +31,7 @@ lint:
         - .renovaterc
         - .renovaterc.json
         - .renovaterc.json5
-      suggest_type: if_present
+      suggest_if: config_present
       known_good_version: 34.122.0
       version_command:
         parse_regex: ${semver}

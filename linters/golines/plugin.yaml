@@ -13,5 +13,5 @@ lint:
           stdin: true
           cache_results: true
           formatter: true
-      suggest_type: never
+      suggest_if: never
       known_good_version: 0.11.0

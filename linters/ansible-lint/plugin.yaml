@@ -23,7 +23,7 @@ lint:
       runtime: python
       package: ansible-lint
       extra_packages: [ansible]
-      suggest_type: never
+      suggest_if: never
       direct_configs: [.ansible-lint]
       environment:
         - name: PATH

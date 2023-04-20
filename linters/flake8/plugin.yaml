@@ -17,7 +17,7 @@ lint:
       runtime: python
       package: flake8
       direct_configs: [.flake8]
-      suggest_type: if_present
+      suggest_if: config_present
       affects_cache:
         - setup.cfg
         - tox.ini

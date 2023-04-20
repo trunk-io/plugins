@@ -19,7 +19,7 @@ lint:
         - .eslintrc.json
         - .eslintrc.yaml
         - .eslintrc.yml
-      suggest_type: if_present
+      suggest_if: config_present
       affects_cache:
         - .eslintignore
         - package.json
