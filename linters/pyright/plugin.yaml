@@ -1,0 +1,28 @@
+version: 0.1
+lint:
+  definitions:
+    - name: pyright
+      files: [python]
+      commands:
+        - name: lint
+          output: sarif
+          run: pyright --outputjson ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+          cache_results: true
+          parser:
+            runtime: python
+            run: ${plugin}/linters/pyright/pyright_to_sarif.py
+      runtime: python
+      package: pyright
+      direct_configs:
+        - pyrightconfig.json
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
+      issue_url_format: http://pyright-messages.wikidot.com/messages:{}
+      known_good_version: 1.1.304
+      version_command:
+        parse_regex: pyright ${semver}
+        run: pyright --version

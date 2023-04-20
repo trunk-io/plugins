@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pyright test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "57",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pyright",
+      "message": ""Enum" is unknown import symbol",
+      "targetType": "python",
+    },
+    {
+      "column": "13",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:",
+      "level": "LEVEL_LOW",
+      "line": "15",
+      "linter": "pyright",
+      "message": "Type of "a.x" is "int | str"",
+      "targetType": "python",
+    },
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "3",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "18",
+      "linter": "pyright",
+      "message": "Cannot assign member "x" for type "A"
+  Expression of type "float" cannot be assigned to member "x" of class "A"
+    Type "float" cannot be assigned to type "int | str"
+      "float" is incompatible with "int"
+      "float" is incompatible with "str"",
+      "targetType": "python",
+    },
+    {
+      "code": "reportUndefinedVariable",
+      "column": "8",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportUndefinedVariable",
+      "level": "LEVEL_HIGH",
+      "line": "24",
+      "linter": "pyright",
+      "message": ""ClassVar" is not defined",
+      "targetType": "python",
+    },
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "9",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "31",
+      "linter": "pyright",
+      "message": "Cannot access member "z" for type "Type[A]"
+  Member "z" is unknown",
+      "targetType": "python",
+    },
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "29",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "39",
+      "linter": "pyright",
+      "message": "Function with declared type of "bool" must return value on all code paths
+  Type "None" cannot be assigned to type "bool"",
+      "targetType": "python",
+    },
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "12",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "pyright",
+      "message": "Expression of type "int" cannot be assigned to return type "str"
+  "int" is incompatible with "str"",
+      "targetType": "python",
+    },
+    {
+      "column": "25",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:",
+      "level": "LEVEL_LOW",
+      "line": "51",
+      "linter": "pyright",
+      "message": "Type of "val" is "int"",
+      "targetType": "python",
+    },
+    {
+      "column": "39",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:",
+      "level": "LEVEL_LOW",
+      "line": "54",
+      "linter": "pyright",
+      "message": "Type of "val" is "int"",
+      "targetType": "python",
+    },
+    {
+      "code": "reportGeneralTypeIssues",
+      "column": "7",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "http://pyright-messages.wikidot.com/messages:reportGeneralTypeIssues",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "pyright",
+      "message": "Class declaration "A" is obscured by a declaration of the same name",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "pyright",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
