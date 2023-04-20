@@ -23,7 +23,7 @@ lint:
           cache_results: true
       direct_configs: [.detekt.yaml]
       runtime: java
-      is_recommended: false
+      suggest_type: never
       environment:
         - name: PATH
           list: ["${env.PATH}"]
@@ -45,7 +45,7 @@ lint:
           read_output_from: tmp_file
       direct_configs: [.detekt.yaml]
       runtime: java
-      is_recommended: false
+      suggest_type: never
       environment:
         - name: PATH
           list: ["${env.PATH}"]
@@ -64,7 +64,7 @@ lint:
           run: ${workspace}/gradlew detekt --info --continue
           success_codes: [0, 1]
           disable_upstream: true
-      is_recommended: false
+      suggest_type: never
       environment:
         - name: GRADLE_OPTS
           value: ${env.GRADLE_OPTS}

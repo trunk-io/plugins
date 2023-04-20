@@ -24,6 +24,7 @@ lint:
       affects_cache:
         - .semgrepignore
         - .semgrep
+      suggest_type: if_present
       environment:
         - name: PATH
           list: ["${env.PATH}"]

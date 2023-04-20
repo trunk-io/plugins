@@ -11,6 +11,7 @@ lint:
           success_codes: [0, 1]
           batch: true
       direct_configs: [.standard.yml]
+      suggest_type: if_present
       runtime: ruby
       package: standard
       issue_url_format: https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/{}

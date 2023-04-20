@@ -27,7 +27,7 @@ lint:
           read_output_from: stdout
           run_linter_from: root_file
           run_from_root_target: .tflint.hcl
-      good_without_config: true
+      suggest_type: if_files
       download: tflint
       direct_configs: [.tflint.hcl]
       environment:

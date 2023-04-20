@@ -28,6 +28,7 @@ lint:
         - .swiftlint.yml
         - .swiftlint.yaml
         - .swiftlint
+      suggest_type: if_present
       environment:
         - name: PATH
           list: ["${linter}"]

@@ -13,6 +13,7 @@ lint:
           read_output_from: stdout
       runtime: python
       package: yamllint
+      suggest_type: if_files
       direct_configs:
         - .yamllint
         - .yamllint.yaml

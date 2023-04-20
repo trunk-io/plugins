@@ -13,6 +13,7 @@ lint:
           formatter: true
       runtime: go
       package: golang.org/x/tools/cmd/goimports
+      suggest_type: never
       environment:
         - name: PATH
           list: ["${linter}/bin"]

@@ -13,7 +13,7 @@ lint:
           cache_results: true
       runtime: python
       package: cfn-lint
-      good_without_config: true
+      suggest_type: if_files
       issue_url_format: https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md
       known_good_version: 0.58.2
       version_command:

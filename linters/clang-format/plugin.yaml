@@ -27,6 +27,7 @@ lint:
           cache_results: true
           formatter: true
       download: clang-format
+      suggest_type: if_present
       direct_configs: [.clang-format]
       environment:
         - name: PATH

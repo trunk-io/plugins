@@ -4,6 +4,7 @@ lint:
     - name: codespell
       files: [ALL]
       direct_configs: [.codespellrc]
+      suggest_type: if_present
       affects_cache:
         - pyproject.toml
         - setup.cfg

@@ -14,6 +14,7 @@ lint:
           formatter: true
       runtime: python
       package: autopep8
+      suggest_type: if_present
       direct_configs: [.pep8]
       affects_cache:
         - .flake8

@@ -82,7 +82,7 @@ lint:
           in_place: true
           # Note that we can't use batching as version 0.5.0 does not support multiple files on the
           # command line (even though it claims it does).
-      good_without_config: true
+      suggest_type: if_files
       direct_configs:
         - .taplo.toml
         - taplo.toml
@@ -103,7 +103,6 @@ lint:
       success_codes: [0]
       cache_results: true
       formatter: true
-      good_without_config: true
       direct_configs:
         - .taplo.toml
         - taplo.toml
@@ -115,7 +114,7 @@ lint:
         parse_regex: Taplo TOML Utility ${semver}
         run: taplo --version
       in_place: true
-      is_recommended: false
+      suggest_type: never
       deprecated:
         "'taplo-fmt' is now handled by 'taplo'. Please delete 'taplo-fmt' from your config"
       # Note that we cant use batching as version 0.5.0 does not support multiple files on the

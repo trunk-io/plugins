@@ -16,5 +16,5 @@ lint:
           formatter: true
       runtime: node
       package: sort-package-json
-      # good_without_config: true # decide whether this is something we want on by default
+      suggest_type: never # decide whether this is something we want on by default
       known_good_version: 2.1.0

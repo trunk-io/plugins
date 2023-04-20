@@ -27,7 +27,7 @@ lint:
           in_place: true
           cache_results: true
           formatter: true
-      good_without_config: true
+      suggest_type: if_files
       environment:
         - name: PATH
           list: ["${linter}"]

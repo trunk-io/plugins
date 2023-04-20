@@ -14,6 +14,7 @@ lint:
           cache_results: true
       runtime: python
       package: pylint
+      suggest_type: if_present
       direct_configs:
         - pylintrc
         - .pylintrc

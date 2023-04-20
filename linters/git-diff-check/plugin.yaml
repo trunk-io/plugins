@@ -14,5 +14,5 @@ lint:
       environment:
         - name: PATH
           list: ["${env.PATH}"]
-      good_without_config: true
+      suggest_type: if_files
       known_good_version: ""

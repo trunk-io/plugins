@@ -16,4 +16,5 @@ lint:
           in_place: true
           formatter: true
       runtime: java
+      suggest_type: never
       known_good_version: 1.15.0

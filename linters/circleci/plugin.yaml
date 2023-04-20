@@ -29,6 +29,7 @@ lint:
       files: [circleci-config]
       download: circleci
       known_good_version: 0.1.22770
+      suggest_type: never
       commands:
         - name: validate
           output: pass_fail

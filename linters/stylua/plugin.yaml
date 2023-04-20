@@ -23,7 +23,7 @@ lint:
           stdin: true
           success_codes: [0, 1]
       run_linter_from: workspace
-      is_recommended: false
+      suggest_type: if_present
       direct_configs:
         - stylua.toml
         - .stylua.toml

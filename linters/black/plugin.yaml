@@ -15,7 +15,7 @@ lint:
           formatter: true
       runtime: python
       package: black[python2,jupyter]
-      good_without_config: true
+      suggest_type: if_files
       affects_cache: [pyproject.toml]
       known_good_version: 22.3.0
       version_command:
@@ -37,6 +37,7 @@ lint:
           formatter: true
       runtime: python
       package: black[python2]
+      suggest_type: never
       affects_cache: [pyproject.toml]
       formatter: true
       known_good_version: 22.3.0

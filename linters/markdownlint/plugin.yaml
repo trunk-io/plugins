@@ -13,7 +13,7 @@ lint:
           success_codes: [0, 1]
           batch: true
           cache_results: true
-      good_without_config: true
+      suggest_type: if_files
       direct_configs:
         - .markdownlint.json
         - .markdownlint.yaml

@@ -28,6 +28,7 @@ lint:
         - .swift-version
       direct_configs:
         - .swiftformat
+      suggest_type: if_present
       known_good_version: 0.50.0
       version_command:
         parse_regex: ${semver}

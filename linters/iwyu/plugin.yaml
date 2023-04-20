@@ -28,6 +28,7 @@ lint:
       hold_the_line: false
       include_scanner_type: compile_command
       query_compile_commands: true
+      suggest_type: never
       environment:
         - name: PATH
           list: ["${linter}/bin"]
