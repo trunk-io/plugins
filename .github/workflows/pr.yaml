@@ -109,6 +109,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             sourcery
             # ${{ needs.detect_changes.outputs.all-linters }} ${{
@@ -122,6 +123,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: sourcery # ${{needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
