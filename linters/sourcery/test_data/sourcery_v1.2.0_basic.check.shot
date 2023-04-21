@@ -45,7 +45,7 @@ exports[`Testing linter sourcery test basic 1`] = `
       "paths": [
         "test_data/basic.in.py",
       ],
-      "verb": "TRUNK_VERB_FMT",
+      "verb": "TRUNK_VERB_CHECK",
     },
     {
       "command": "lint",

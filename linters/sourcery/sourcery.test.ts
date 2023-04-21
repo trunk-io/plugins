@@ -1,8 +1,23 @@
-import { customLinterCheckTest, linterCheckTest } from "tests";
+import path from "path";
+import { linterCheckTest } from "tests";
+import { TrunkDriver } from "tests/driver";
+import { TEST_DATA } from "tests/utils";
 
-linterCheckTest({ linterName: "sourcery" });
+// // You must login in order to use sourcery
+const preCheck = (driver: TrunkDriver) => {
+  driver.moveFile(path.join(TEST_DATA, "_plugin.yaml"), path.join(TEST_DATA, "plugin.yaml"));
 
-// sourcer "info" and "fatal" severities only show up when certain rules are enabled in .sourceryrc.
-// To test that these levels are appropriately parsed, use the following test setup.
+  const trunkYamlPath = ".trunk/trunk.yaml";
+  const currentContents = driver.readFile(trunkYamlPath);
+  const lintRegex = /\nlint:/;
+  const newContents = currentContents.replace(
+    lintRegex,
+    `
+  - id: plugin-overrides
+    local: .
+lint:`
+  );
+  driver.writeFile(trunkYamlPath, newContents);
+};
 
-customLinterCheckTest({ linterName: "sourcery", testName: "config" });
+linterCheckTest({ linterName: "sourcery", preCheck });
