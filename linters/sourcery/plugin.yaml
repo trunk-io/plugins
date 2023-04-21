@@ -17,6 +17,8 @@ lint:
           run: sourcery review  --no-summary --csv --fix ${target}
           success_codes: [0]
           batch: true
+          in_place: true
+          formatter: true
       runtime: python
       package: sourcery
       direct_configs:
@@ -25,7 +27,7 @@ lint:
       affects_cache:
         - pyproject.toml
         - setup.cfg
-      issue_url_format: http://sourcery-messages.wikidot.com/messages:{}
+      issue_url_format: https://docs.sourcery.ai/Reference/Python/Default-Rules/{}
       known_good_version: 1.2.0
       version_command:
         parse_regex: sourcery ${semver}
