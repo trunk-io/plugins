@@ -20,6 +20,9 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: linters
+  sourcery-token:
+    description: Token to login for sourcery test
+    required: true
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -48,4 +51,4 @@ runs:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
-        SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+        SOURCERY_TOKEN: ${{ inputs.sourcery_token }}
