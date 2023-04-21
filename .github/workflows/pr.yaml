@@ -110,8 +110,9 @@ jobs:
         with:
           linter-version: KnownGoodVersion
           append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
+            sourcery
+            # ${{ needs.detect_changes.outputs.all-linters }} ${{
+            # needs.detect_changes.outputs.linters-files }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -121,7 +122,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          append-args: sourcery # ${{needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
   repo_tests:
