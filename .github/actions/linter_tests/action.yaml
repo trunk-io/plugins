@@ -51,4 +51,4 @@ runs:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
-        SOURCERY_TOKEN: ${{ inputs.sourcery_token }}
+        SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
