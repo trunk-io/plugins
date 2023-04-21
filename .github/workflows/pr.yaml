@@ -111,9 +111,8 @@ jobs:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
-            sourcery
-            # ${{ needs.detect_changes.outputs.all-linters }} ${{
-            # needs.detect_changes.outputs.linters-files }}
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -124,7 +123,7 @@ jobs:
         with:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args: sourcery # ${{needs.detect_changes.outputs.linters-files }}
+          append-args: ${{needs.detect_changes.outputs.linters-files }}
 
   # Run repo healthcheck tests
   repo_tests:
