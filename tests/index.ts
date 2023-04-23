@@ -259,7 +259,7 @@ export const customLinterFmtTest = ({
 }) => {
   describe(`Testing formatter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
-    const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt");
+    const linterVersions = getVersionsForTest(dirname, linterName, `${testName}.*`, "fmt");
     linterVersions.forEach((linterVersion) => {
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
