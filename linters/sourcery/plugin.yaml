@@ -17,8 +17,8 @@ lint:
           run: sourcery review  --no-summary --csv --fix ${target}
           success_codes: [0]
           batch: true
+          # NOTE(Tyler): Autofixes will show up as complete "formatting-like" diagnostics. However, strictly speaking, this isn't a formatter, so we don't want to set formatter: true
           in_place: true
-          formatter: true
       runtime: python
       package: sourcery
       direct_configs:
