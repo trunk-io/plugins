@@ -8,6 +8,7 @@ import { REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
 /**
  * This test runs 'trunk config print' from the root of the repository to verify a healthy config.
@@ -22,7 +23,7 @@ describe("Global config health check", () => {
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.7.0",
+    trunkVersion: "1.8.2-beta.6",
     // ThenChange plugin.yaml
   });
 
