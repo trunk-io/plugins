@@ -50,6 +50,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -132,6 +133,7 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
