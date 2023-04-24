@@ -1,5 +1,5 @@
 import path from "path";
-import { customLinterFmtTest, linterCheckTest, linterFmtTest } from "tests";
+import { customLinterCheckTest, customLinterFmtTest } from "tests";
 import { TrunkDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
@@ -35,12 +35,22 @@ const writeConfigs = (driver: TrunkDriver) => {
 };
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
-linterCheckTest({ linterName: "buildifier", namedTestPrefixes: ["basic", "add_tables"] });
-linterFmtTest({ linterName: "buildifier", namedTestPrefixes: ["basic", "add_tables"] });
+customLinterCheckTest({
+  linterName: "buildifier",
+  args: "-a",
+  testName: "basic_check",
+});
+
 customLinterFmtTest({
   linterName: "buildifier",
   args: "-a",
-  testName: "withConfig",
-  pathsToSnapshot: [path.join(TEST_DATA, "add_tables.in.BUILD")],
+  testName: "no_config",
+  pathsToSnapshot: [path.join(TEST_DATA, "basic.bzl"), path.join(TEST_DATA, "add_tables.BUILD")],
+});
+customLinterFmtTest({
+  linterName: "buildifier",
+  args: "-a",
+  testName: "with_config",
+  pathsToSnapshot: [path.join(TEST_DATA, "add_tables.BUILD")],
   preCheck: writeConfigs,
 });

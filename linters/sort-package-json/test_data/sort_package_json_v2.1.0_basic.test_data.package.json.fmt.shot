@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing formatter sort-package-json test CUSTOM 1`] = `
+exports[`Testing formatter sort-package-json test basic 1`] = `
 "{
   "private": true,
   "scripts": {
