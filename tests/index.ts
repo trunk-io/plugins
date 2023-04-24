@@ -2,6 +2,7 @@ import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
+
 import { TrunkToolDriver } from "./driver/tool_driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
