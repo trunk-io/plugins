@@ -2,6 +2,7 @@ import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
+import { TrunkToolDriver } from "./driver/tool_driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
@@ -117,6 +118,68 @@ export const setupDriver = (
     registerVersion(driver.enabledVersion);
   });
   return driver;
+};
+
+export const setupToolDriver = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  toolName?: string,
+  version?: string
+): TrunkToolDriver => {
+  const driver = new TrunkToolDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    toolName,
+    version
+  );
+
+  beforeAll(async () => {
+    await driver.setUp();
+  });
+
+  afterAll(() => {
+    driver.tearDown();
+  });
+
+  afterEach(() => {
+    registerVersion(driver.enabledVersion);
+  });
+  return driver;
+};
+
+// Tool tests:
+// should take in: tool name
+// dir name
+// input/output
+
+interface ToolTestConfig {
+  command: string[];
+  expectedOutput: string;
+  expectedExitCode: number;
+}
+
+export const toolTest = ({
+  toolName,
+  toolVersion,
+  testConfigs,
+  dirName = path.dirname(caller()),
+}: {
+  toolName: string;
+  toolVersion: string;
+  dirName?: string;
+  testConfigs: ToolTestConfig[];
+}) => {
+  describe(toolName, () => {
+    const driver = setupToolDriver(dirName, {}, toolName, toolVersion);
+    testConfigs.forEach(({ command, expectedOutput, expectedExitCode }) => {
+      it(`should run "${command.join(" ")}" and exit with code ${expectedExitCode}`, async () => {
+        const { stdout, stderr, exitCode } = await driver.runTool(command);
+        expect(stdout).toEqual(expectedOutput);
+        expect(stderr).toEqual("");
+        expect(exitCode).toEqual(expectedExitCode);
+      });
+    });
+  });
 };
 
 // TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
