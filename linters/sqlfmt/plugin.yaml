@@ -9,7 +9,8 @@ lint:
       # trunk-ignore(yamllint/quoted-strings): see https://github.com/adrienverge/yamllint/issues/516
       extra_packages: ["shandy-sqlfmt[jinjafmt]"]
       commands:
-        - output: rewrite
+        - name: format
+          output: rewrite
           run: sqlfmt ${target}
           success_codes: [0]
           read_output_from: stderr
