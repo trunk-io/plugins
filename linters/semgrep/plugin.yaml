@@ -15,9 +15,7 @@ lint:
           success_codes: [0]
           batch: true
           cache_results: true
-          # TODO(Chris): We need a new configuration option which means copy files into a sandbox.
-          # This is an abuse of in_place which implies that.
-          in_place: true
+          sandbox_type: copy_targets
       direct_configs:
         - .semgrep.yaml
         - .semgrep.yml

@@ -10,7 +10,8 @@ lint:
       extra_packages: ["shandy-sqlfmt[jinjafmt]"]
       suggest_if: never
       commands:
-        - output: rewrite
+        - name: format
+          output: rewrite
           run: sqlfmt ${target}
           success_codes: [0]
           read_output_from: stderr
