@@ -6,8 +6,10 @@ before being run. To run with trunk locally, create a Sourcery account and run
 
 ## CI
 
-Because of this required authentication step, we recommend either disabling Sourcery in trunk check
-runs in CI:
+Because of this required authentication step, we recommend 1 of 3 options for a smooth experience in
+CI:
+
+1. Disable Sourcery in trunk check runs in CI:
 
 ```yaml
 - name: Trunk Check
@@ -16,5 +18,11 @@ runs in CI:
     args: --exclude=sourcery
 ```
 
-or setting up an established environment override, as we've done here with
-[\_plugin.yaml](./test_data/_plugin.yaml).
+<!-- trunk-ignore-begin(markdownlint/MD029) -->
+
+2. Run `trunk exec sourcery login` during as a setup before the `trunk check` step
+
+3. Set up an established environment override, as we've done here with
+   [\_plugin.yaml](./test_data/_plugin.yaml).
+
+<!-- trunk-ignore-end(markdownlint/MD029) -->
