@@ -402,7 +402,7 @@ export class TrunkToolDriver {
 
   async runTool(command: string[]): Promise<TrunkRunResult> {
     try {
-      const { stdout, stderr } = await this.run(`.trunk/shims/${this.tool || ""}`, command);
+      const { stdout, stderr } = await this.run(`.trunk/shims/${command[0]}`, command.slice(1));
       return {
         exitCode: 0,
         stdout,
