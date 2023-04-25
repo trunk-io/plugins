@@ -57,7 +57,7 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
   return true;
 };
 
-export class GenericTrunkDriver {
+export class GenericTrunkLintDriver {
   /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */

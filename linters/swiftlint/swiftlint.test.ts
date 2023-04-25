@@ -1,5 +1,5 @@
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
 customLinterCheckTest({
@@ -9,7 +9,7 @@ customLinterCheckTest({
   skipTestIf: skipOS(["linux"]),
 });
 
-const configSetup = (driver: TrunkDriver) => {
+const configSetup = (driver: TrunkLintDriver) => {
   // top-level config 1. This is used as the base for all nested configs.
   driver.writeFile(
     ".trunk/configs/.swiftlint.yml",

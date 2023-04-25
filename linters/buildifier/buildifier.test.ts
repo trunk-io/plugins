@@ -1,9 +1,9 @@
 import path from "path";
 import { customLinterCheckTest, customLinterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const writeConfigs = (driver: TrunkDriver) => {
+const writeConfigs = (driver: TrunkLintDriver) => {
   const buildifierContents = `
 {
   "documentation for humans": {

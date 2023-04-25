@@ -7,7 +7,7 @@ import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
-import { GenericTrunkDriver } from "./driver";
+import { GenericTrunkLintDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 let testNum = 1;
@@ -65,7 +65,7 @@ export interface TestResult {
   linterVersion?: string;
 }
 
-export class TrunkLintDriver extends GenericTrunkDriver {
+export class TrunkLintDriver extends GenericTrunkLintDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   linter?: string;
   /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */

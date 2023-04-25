@@ -1,10 +1,10 @@
 // import * as path from "path";
 import { linterCheckTest, linterFmtTest } from "tests";
-// import { TrunkDriver } from "tests/driver";
+// import { TrunkLintDriver } from "tests/driver";
 // import { TEST_DATA } from "tests/utils";
 
 // buf-breaking detects breaking changes to proto files by using git-awareness
-// const preCheck = async (driver: TrunkDriver) => {
+// const preCheck = async (driver: TrunkLintDriver) => {
 //   if (driver.gitDriver) {
 //     const inputName = "buf_breaking.in.proto";
 //     const inputPath = path.join(TEST_DATA, inputName);

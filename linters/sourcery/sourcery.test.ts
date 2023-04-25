@@ -1,10 +1,10 @@
 import path from "path";
 import { linterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 // // You must login in order to use sourcery
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, "_plugin.yaml"), path.join(TEST_DATA, "plugin.yaml"));
 
   const trunkYamlPath = ".trunk/trunk.yaml";

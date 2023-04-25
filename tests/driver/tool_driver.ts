@@ -4,7 +4,7 @@ import path from "path";
 import { SetupSettings } from "tests/driver";
 import { ARGS } from "tests/utils";
 
-import { GenericTrunkDriver } from "./driver";
+import { GenericTrunkLintDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 
@@ -33,7 +33,7 @@ export interface TrunkToolRunResult {
   error?: Error;
 }
 
-export class ToolDriver extends GenericTrunkDriver {
+export class TrunkToolDriver extends GenericTrunkLintDriver {
   /** The name of the linter. If defined, enable the linter during setup. */
   tool?: string;
   /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */

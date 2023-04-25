@@ -1,7 +1,7 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, ToolDriver, TrunkLintDriver } from "tests/driver";
+import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
@@ -120,13 +120,18 @@ export const setupDriver = (
   return driver;
 };
 
-export const setupToolDriver = (
+export const setupTrunkToolDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   toolName?: string,
   version?: string
-): ToolDriver => {
-  const driver = new ToolDriver(dirname, { setupGit, setupTrunk, trunkVersion }, toolName, version);
+): TrunkToolDriver => {
+  const driver = new TrunkToolDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    toolName,
+    version
+  );
 
   beforeAll(async () => {
     await driver.setUp();
@@ -166,7 +171,7 @@ export const toolTest = ({
   testConfigs: ToolTestConfig[];
 }) => {
   describe(toolName, () => {
-    const driver = setupToolDriver(dirName, {}, toolName, toolVersion);
+    const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
       it(`should run "${command.join(" ")}" and exit with code ${expectedExitCode}`, async () => {
         const { stdout, stderr, exitCode } = await driver.runTool(command);

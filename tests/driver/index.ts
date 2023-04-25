@@ -1,5 +1,5 @@
 /**
- * Configuration for when a TrunkDriver instance runs `setUp`.
+ * Configuration for when a TrunkLintDriver instance runs `setUp`.
  */
 export interface SetupSettings {
   /** Whether or not to run `git init` and attach a gitDriver. */
