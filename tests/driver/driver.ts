@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
+import { SetupSettings } from "tests/driver";
 import { ARGS, REPO_ROOT, TEST_DATA } from "tests/utils";
 import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
@@ -55,18 +56,6 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
 
   return true;
 };
-
-/**
- * Configuration for when a TrunkDriver instance runs `setUp`.
- */
-export interface SetupSettings {
-  /** Whether or not to run `git init` and attach a gitDriver. */
-  setupGit?: boolean;
-  /** Whether or not to create a new .trunk/trunk.yaml */
-  setupTrunk?: boolean;
-  /** Version of trunk to initialize (overrides environment vars) */
-  trunkVersion?: string;
-}
 
 export class GenericTrunkDriver {
   /** Refers to the absolute path to linter's subdir. */

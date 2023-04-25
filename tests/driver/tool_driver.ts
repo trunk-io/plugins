@@ -1,6 +1,7 @@
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
+import { SetupSettings } from "tests/driver";
 import { ARGS } from "tests/utils";
 
 import { GenericTrunkDriver } from "./driver";
@@ -24,24 +25,12 @@ const getDebugger = (tool?: string) => {
 /**
  * The result of running a 'trunk check' or 'trunk fmt' command.
  */
-export interface TrunkRunResult {
+export interface TrunkToolRunResult {
   exitCode: number;
   stdout: string;
   stderr: string;
   /** Error thrown if the trunk invocation returned a nonzero exit code */
   error?: Error;
-}
-
-/**
- * Configuration for when a TrunkDriver instance runs `setUp`.
- */
-export interface SetupSettings {
-  /** Whether or not to run `git init` and attach a gitDriver. */
-  setupGit?: boolean;
-  /** Whether or not to create a new .trunk/trunk.yaml */
-  setupTrunk?: boolean;
-  /** Version of trunk to initialize (overrides environment vars) */
-  trunkVersion?: string;
 }
 
 export class ToolDriver extends GenericTrunkDriver {
@@ -129,7 +118,7 @@ export class ToolDriver extends GenericTrunkDriver {
 
   /**** Execution methods ****/
 
-  async runTool(command: string[]): Promise<TrunkRunResult> {
+  async runTool(command: string[]): Promise<TrunkToolRunResult> {
     try {
       const { stdout, stderr } = await this.run(`.trunk/shims/${command[0]}`, command.slice(1));
       return {

@@ -1,9 +1,8 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, TrunkLintDriver } from "tests/driver";
+import { SetupSettings, TestTarget, ToolDriver, TrunkLintDriver } from "tests/driver";
 
-import { ToolDriver } from "./driver/tool_driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
