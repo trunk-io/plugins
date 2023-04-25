@@ -38,7 +38,7 @@ describe("Global config health check", () => {
 
     // Test that config healthily resolves
     try {
-      const testRunResult = await driver.run("config print");
+      const testRunResult = await driver.runTrunkCmd("config print");
       expect(testRunResult.stdout).toContain("version: 0.1");
       expect(testRunResult.stdout).toContain("local:");
     } catch (error) {
