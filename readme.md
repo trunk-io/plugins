@@ -5,7 +5,7 @@
 [![docs](https://img.shields.io/badge/-docs-darkgreen?logo=readthedocs&logoColor=ffffff)][docs]
 [![slack](https://img.shields.io/badge/-slack-611f69?logo=slack)][slack]
 [![vscode](https://img.shields.io/visual-studio-marketplace/i/trunk.io?color=0078d7&label=vscode&logo=visualstudiocode)][vscode]
-[![openssf](https://api.securityscorecards.dev/projects/github.com/trunk-io/trunk-action/badge)](https://api.securityscorecards.dev/projects/github.com/trunk-io/trunk-action)
+[![openssf](https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins/badge)](https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins)
 
 ### Welcome
 
@@ -171,7 +171,7 @@ details.
 ### Supported Trunk Actions
 
 You can think of Trunk Actions as IFTTT for your repository. An action is a command that is run in
-reaction to a specified trigger. Triggers can be git-hooks, file modifications, time-based, of
+reaction to a specified trigger. Triggers can be git-hooks, file modifications, time-based, or
 manually run. See [docs](https://docs.trunk.io/docs/actions) for more details.
 
 Enable trunk actions via:
