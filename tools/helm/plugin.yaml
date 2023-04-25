@@ -2,7 +2,6 @@ version: 0.1
 tools:
   downloads:
     - name: helm
-      executable: true
       downloads:
         - os:
             linux: linux
@@ -11,6 +10,7 @@ tools:
             x86_64: amd64
             arm_64: arm64
           url: https://get.helm.sh/helm-v${version}-${os}-${cpu}.tar.gz
+          strip_components: 1
   definitions:
     - name: helm
       download: helm

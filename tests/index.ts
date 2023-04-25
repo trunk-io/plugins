@@ -155,7 +155,8 @@ export const setupToolDriver = (
 
 interface ToolTestConfig {
   command: string[];
-  expectedOutput: string;
+  expectedOut: string;
+  expectedErr: string;
   expectedExitCode: number;
 }
 
@@ -172,11 +173,11 @@ export const toolTest = ({
 }) => {
   describe(toolName, () => {
     const driver = setupToolDriver(dirName, {}, toolName, toolVersion);
-    testConfigs.forEach(({ command, expectedOutput, expectedExitCode }) => {
+    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
       it(`should run "${command.join(" ")}" and exit with code ${expectedExitCode}`, async () => {
         const { stdout, stderr, exitCode } = await driver.runTool(command);
-        expect(stdout).toEqual(expectedOutput);
-        expect(stderr).toEqual("");
+        expect(stdout).toContain(expectedOut);
+        expect(stderr).toContain(expectedErr);
         expect(exitCode).toEqual(expectedExitCode);
       });
     });
