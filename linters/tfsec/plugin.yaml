@@ -23,6 +23,7 @@ lint:
       files: [terraform]
       download: tfsec
       known_good_version: 1.28.1
+      suggest_if: never
       commands:
         - name: lint
           output: sarif

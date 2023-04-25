@@ -25,6 +25,7 @@ lint:
     - name: buf-format
       files: [proto]
       download: buf
+      suggest_if: never
       commands:
         - name: format
           output: rewrite
@@ -56,6 +57,7 @@ lint:
           run_linter_from: root_file
       run_from_root_file: buf.yaml
       direct_configs: [buf.yaml]
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -76,6 +78,7 @@ lint:
     - name: buf-breaking
       files: [proto]
       download: buf
+      suggest_if: never
       commands:
         - name: lint
           output: buf
@@ -97,7 +100,6 @@ lint:
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
-      is_recommended: false
       issue_url_format: https://docs.buf.build/breaking/rules#{}
       known_good_version: 1.1.0
       version_command:

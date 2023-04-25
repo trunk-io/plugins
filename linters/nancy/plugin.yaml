@@ -31,6 +31,7 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/nancy/parse.py
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]

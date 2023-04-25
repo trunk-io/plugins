@@ -37,6 +37,7 @@ lint:
           list: ["${linter}"]
       issue_url_format: https://github.com/koalaman/shellcheck/wiki/{}
       known_good_version: 0.8.0
+      suggest_if: files_present
       # uncached because shellcheck can follow includes, e.g. source other.sh
       cache_results: false
       version_command:
