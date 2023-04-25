@@ -145,6 +145,8 @@ export class TrunkDriver {
   daemon?: ChildProcess;
   /** A debugger for use with all this driver's operations. */
   debug: Debugger;
+  /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
+  debugNamespace: string;
 
   constructor(testDir: string, setupSettings: SetupSettings, linter?: string, version?: string) {
     this.linter = linter;
@@ -152,6 +154,7 @@ export class TrunkDriver {
     this.testDir = testDir;
     this.setupSettings = setupSettings;
     this.debug = getDebugger(linter);
+    this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
 
   /**** Test setup/teardown methods ****/

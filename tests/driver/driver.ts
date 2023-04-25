@@ -81,11 +81,14 @@ export class GenericTrunkDriver {
   daemon?: ChildProcess;
   /** A debugger for use with all this driver's operations. */
   debug: Debugger;
+  /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
+  debugNamespace: string;
 
   constructor(testDir: string, setupSettings: SetupSettings, debug: Debugger) {
     this.testDir = testDir;
     this.setupSettings = setupSettings;
     this.debug = debug;
+    this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
 
   /**
@@ -270,12 +273,22 @@ export class GenericTrunkDriver {
     return YAML.parse(printConfig.toString());
   };
 
+  async runTrunkCmd(
+    argStr: string,
+    execOptions?: ExecOptions
+  ): Promise<{ stdout: string; stderr: string }> {
+    return await this.runTrunk(argStr.split(" "), execOptions);
+  }
+
   /**
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-  async runTrunk(args: string[], execOptions?: ExecOptions) {
+  async runTrunk(
+    args: string[],
+    execOptions?: ExecOptions
+  ): Promise<{ stdout: string; stderr: string }> {
     const trunkPath = ARGS.cliPath ?? "trunk";
     return await execFilePromise(trunkPath, args, {
       cwd: this.sandboxPath,

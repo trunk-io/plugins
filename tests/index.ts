@@ -1,9 +1,9 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
+import { SetupSettings, TestTarget, TrunkLintDriver } from "tests/driver";
 
-import { TrunkToolDriver } from "./driver/tool_driver";
+import { ToolDriver } from "./driver/tool_driver";
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
@@ -49,7 +49,7 @@ const conditionalTest = (
   timeout?: number | undefined
 ) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
 
-export type TestCallback = (driver: TrunkDriver) => unknown;
+export type TestCallback = (driver: TrunkLintDriver) => unknown;
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
@@ -82,7 +82,7 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
 };
 
 /**
- * Setup the TrunkDriver to run tests in a `dirname`.
+ * Setup the TrunkLintDriver to run tests in a `dirname`.
  * @param dirname absolute path to the test subdirectory in a linter folder.
  * @param setupSettings configuration for the driver's repo setup. setupGit and setupTrunk default to true.
  * @param linterName if specified, enables this linter during setup.
@@ -94,8 +94,8 @@ export const setupDriver = (
   linterName?: string,
   version?: string,
   preCheck?: TestCallback
-): TrunkDriver => {
-  const driver = new TrunkDriver(
+): TrunkLintDriver => {
+  const driver = new TrunkLintDriver(
     dirname,
     { setupGit, setupTrunk, trunkVersion },
     linterName,
@@ -126,13 +126,8 @@ export const setupToolDriver = (
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   toolName?: string,
   version?: string
-): TrunkToolDriver => {
-  const driver = new TrunkToolDriver(
-    dirname,
-    { setupGit, setupTrunk, trunkVersion },
-    toolName,
-    version
-  );
+): ToolDriver => {
+  const driver = new ToolDriver(dirname, { setupGit, setupTrunk, trunkVersion }, toolName, version);
 
   beforeAll(async () => {
     await driver.setUp();
