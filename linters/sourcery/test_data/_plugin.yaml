@@ -1,0 +1,16 @@
+version: 0.1
+# These prepare steps are necessary in order for CI to login using a sourcery secret
+lint:
+  definitions:
+    - name: sourcery
+      commands:
+        - name: lint
+          prepare_run: bash -c "sourcery login --token=${SOURCERY_TOKEN}"
+        - name: fix
+          prepare_run: bash -c "sourcery login --token=${SOURCERY_TOKEN}"
+      environment:
+        # TODO(Tyler): Once prepare_run supports proper environment template resolution, remove PATH and bash
+        - name: PATH
+          list: ["${env.PATH}"]
+        - name: SOURCERY_TOKEN
+          value: ${env.SOURCERY_TOKEN}
