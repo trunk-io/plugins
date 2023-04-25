@@ -1,24 +1,22 @@
 import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
-import Debug, { Debugger } from "debug";
+import { Debugger } from "debug";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
-import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS, REPO_ROOT, TEST_DATA } from "tests/utils";
 import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
-import { GenericTrunkDriver } from "./driver";
 
-const baseDebug = Debug("Driver");
 const execFilePromise = util.promisify(execFile);
+
 const TEMP_PREFIX = "plugins_";
+
 const TEMP_SUBDIR = "tmp";
+
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
-let testNum = 1;
-const toolTests = new Map<string, number>();
 
 const executionEnv = (sandbox: string) => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
@@ -33,17 +31,6 @@ const executionEnv = (sandbox: string) => {
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
   };
-};
-
-const getDebugger = (tool?: string) => {
-  if (!tool) {
-    // If a linter is not provided, provide a counter for easy distinction
-    return baseDebug.extend(`test${testNum++}`);
-  }
-  const numToolTests = toolTests.get(tool);
-  const newNum = (numToolTests ?? 0) + 1;
-  toolTests.set(tool, newNum);
-  return baseDebug.extend(tool).extend(`${newNum}`);
 };
 
 /**
@@ -70,45 +57,6 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
 };
 
 /**
- * A specified test target to run on, identified by a prefix.
- * `inputPath` and `outputPath` should be relative paths relative to the
- * specific linter subdirectory.
- */
-export interface TestTarget {
-  /** Prefix of input and output file names */
-  prefix: string;
-  /** Relative path to input file from specific linter subdirectory */
-  inputPath: string;
-}
-
-/**
- * The result of running a 'trunk check' or 'trunk fmt' command.
- */
-export interface TrunkRunResult {
-  exitCode: number;
-  stdout: string;
-  stderr: string;
-  /** Error thrown if the trunk invocation returned a nonzero exit code */
-  error?: Error;
-}
-
-/**
- * The result of all invocations run during an individual test. This includes
- * additional information parsed from the resulting json if successful.
- */
-export interface TestResult {
-  success: boolean;
-  trunkRunResult: TrunkRunResult;
-  trunkVerb: TrunkVerb;
-  /** Absolute path to the target of the `trunk check`/`trunk fmt` run, if one was specified. */
-  targetPath?: string;
-  /** Attempt at parsing the outputJson and extracting only relevant information. */
-  landingState?: LandingState;
-  cliVersion: string;
-  linterVersion?: string;
-}
-
-/**
  * Configuration for when a TrunkDriver instance runs `setUp`.
  */
 export interface SetupSettings {
@@ -120,96 +68,7 @@ export interface SetupSettings {
   trunkVersion?: string;
 }
 
-export class ToolDriver extends GenericTrunkDriver {
-  /** The name of the linter. If defined, enable the linter during setup. */
-  tool?: string;
-  /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */
-  toEnableVersion?: string;
-  /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
-  enabledVersion?: string;
-
-  constructor(testDir: string, setupSettings: SetupSettings, tool?: string, version?: string) {
-    super(testDir, setupSettings, getDebugger(tool));
-    this.tool = tool;
-    this.toEnableVersion = version;
-  }
-
-  /**
-   * Setup a sandbox test directory by copying in test contents and conditionally:
-   * 1. Creating a git repo
-   * 2. Dumping a newly generated trunk.yaml
-   * 3. Enabling the specified 'linter'
-   */
-  async setUp() {
-    await super.setUp();
-    try {
-      // Cast version to string in case of decimal representation (e.g. 0.40)
-      const version = `${this.extractToolVersion()}`;
-      const versionString = version.length > 0 ? `@${version}` : "";
-      const toolVersionString = `${this.tool}${versionString}`;
-      // Prefer calling `tools enable` over editing trunk.yaml directly because it also handles version, etc.
-      this.debug("Enabling %s", toolVersionString);
-      await this.runTrunk(["tools", "enable", toolVersionString]);
-
-      // Retrieve the enabled version
-      const newTrunkContents = fs.readFileSync(
-        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        "utf8"
-      );
-      const enabledVersionRegex = `(?<tool>${this.tool})@(?<version>.+)\n`;
-      const foundIn = newTrunkContents.match(enabledVersionRegex);
-      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
-        this.enabledVersion = foundIn.groups.version;
-        this.debug("Enabled %s", this.enabledVersion);
-      }
-
-      // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "sync"]);
-      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "shims", this.tool))) {
-        throw new Error(`Failed to install ${this.tool}`);
-      }
-    } catch (error) {
-      console.warn(`Failed to enable ${this.tool}`, error);
-    }
-  }
-
-  /**
-   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
-   */
-  extractToolVersion = (): string => {
-    const toEnableVersion = this.toEnableVersion ?? ARGS.linterVersion;
-
-    if (!toEnableVersion || toEnableVersion === "Latest") {
-      return "";
-    } else if (toEnableVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-      return (
-        (this.getFullTrunkConfig().tool.definitions.find(
-          ({ name }: { name: string }) => name === this.tool
-        )?.known_good_version as string) ?? ""
-      );
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else if (toEnableVersion !== "Snapshots") {
-      // toEnableVersion is a version string
-      return toEnableVersion;
-    } else {
-      return "";
-    }
-  };
-}
-
-/**
- * The primary means for setting up and running trunk commands in a test.
- * Offers helper methods for configuring a sandbox testing environment. Each test's TrunkDriver should be independent.
- */
-export class TrunkToolDriver {
-  /** The name of the linter. If defined, enable the linter during setup. */
-  tool?: string;
-  /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */
-  toEnableVersion?: string;
-  /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
-  enabledVersion?: string;
+export class GenericTrunkDriver {
   /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */
@@ -222,19 +81,12 @@ export class TrunkToolDriver {
   daemon?: ChildProcess;
   /** A debugger for use with all this driver's operations. */
   debug: Debugger;
-  /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
-  debugNamespace: string;
 
-  constructor(testDir: string, setupSettings: SetupSettings, tool?: string, version?: string) {
-    this.tool = tool;
-    this.toEnableVersion = version;
+  constructor(testDir: string, setupSettings: SetupSettings, debug: Debugger) {
     this.testDir = testDir;
     this.setupSettings = setupSettings;
-    this.debug = getDebugger(tool);
-    this.debugNamespace = this.debug.namespace.replace("Driver:", "");
+    this.debug = debug;
   }
-
-  /**** Test setup/teardown methods ****/
 
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
@@ -286,41 +138,6 @@ export class TrunkToolDriver {
       // Don't block if this happens.
       console.warn(`Error running --help`, error);
     }
-
-    // Enable tested linter if specified
-    if (!this.tool) {
-      return;
-    }
-
-    try {
-      // Cast version to string in case of decimal representation (e.g. 0.40)
-      const version = `${this.extractToolVersion()}`;
-      const versionString = version.length > 0 ? `@${version}` : "";
-      const toolVersionString = `${this.tool}${versionString}`;
-      // Prefer calling `tools enable` over editing trunk.yaml directly because it also handles version, etc.
-      this.debug("Enabling %s", toolVersionString);
-      await this.runTrunk(["tools", "enable", toolVersionString]);
-
-      // Retrieve the enabled version
-      const newTrunkContents = fs.readFileSync(
-        path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        "utf8"
-      );
-      const enabledVersionRegex = `(?<tool>${this.tool})@(?<version>.+)\n`;
-      const foundIn = newTrunkContents.match(enabledVersionRegex);
-      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
-        this.enabledVersion = foundIn.groups.version;
-        this.debug("Enabled %s", this.enabledVersion);
-      }
-
-      // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "sync"]);
-      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "shims", this.tool))) {
-        throw new Error(`Failed to install ${this.tool}`);
-      }
-    } catch (error) {
-      console.warn(`Failed to enable ${this.tool}`, error);
-    }
   }
 
   /**
@@ -337,7 +154,7 @@ export class TrunkToolDriver {
         cwd: this.sandboxPath,
         env: executionEnv(this.getSandbox()),
       });
-      console.log(`Preserving test dir ${this.getSandbox()} for linter ${this.tool ?? "N/A"}`);
+      console.log(`Preserving test dir ${this.getSandbox()}`);
       return;
     }
 
@@ -452,53 +269,6 @@ export class TrunkToolDriver {
     });
     return YAML.parse(printConfig.toString());
   };
-
-  /**
-   * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired linter version to enable.
-   */
-  extractToolVersion = (): string => {
-    const toEnableVersion = this.toEnableVersion ?? ARGS.linterVersion;
-
-    if (!toEnableVersion || toEnableVersion === "Latest") {
-      return "";
-    } else if (toEnableVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-      return (
-        (this.getFullTrunkConfig().tool.definitions.find(
-          ({ name }: { name: string }) => name === this.tool
-        )?.known_good_version as string) ?? ""
-      );
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-    } else if (toEnableVersion !== "Snapshots") {
-      // toEnableVersion is a version string
-      return toEnableVersion;
-    } else {
-      return "";
-    }
-  };
-
-  /**** Execution methods ****/
-
-  async runTool(command: string[]): Promise<TrunkRunResult> {
-    try {
-      const { stdout, stderr } = await this.run(`.trunk/shims/${command[0]}`, command.slice(1));
-      return {
-        exitCode: 0,
-        stdout,
-        stderr,
-      };
-    } catch (e: any) {
-      console.log(e);
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
-      return {
-        exitCode: e.code as number,
-        stdout: e.stdout as string,
-        stderr: e.stderr as string,
-      };
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
-    }
-  }
 
   /**
    * Run a specified trunk command with `args` and additional options.
