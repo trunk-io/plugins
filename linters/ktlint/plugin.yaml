@@ -29,8 +29,7 @@ lint:
         - name: LANG
           # C.UTF-8 is preferred for machine output, but mac barfs on that
           value: en_US.UTF-8
-      good_without_config: true
-      is_recommended: true
+      suggest_if: files_present
       known_good_version: 0.43.2
       version_command:
         parse_regex: ${semver}

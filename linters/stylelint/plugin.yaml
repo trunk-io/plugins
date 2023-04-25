@@ -24,6 +24,7 @@ lint:
         - .stylelintrc.yaml
         - .stylelintrc.js
         - .stylelintrc.cjs
+      suggest_if: config_present
       affects_cache:
         - package.json
         - .stylelintignore
@@ -38,7 +39,7 @@ lint:
       deprecated:
         "'stylelint-fmt' is now handled by 'stylelint'. Please delete 'stylelint-fmt' from your
         config"
-      is_recommended: false
+      suggest_if: never
       command: [stylelint, --fix, "${target}"]
       runtime: node
       package: stylelint

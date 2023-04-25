@@ -37,7 +37,7 @@ lint:
         - .gitleaks.config
         - .gitleaks.toml
         - .gitleaksignore
-      good_without_config: true
+      suggest_if: files_present
       known_good_version: 8.8.7
       known_bad_versions:
         - 8.10.0
