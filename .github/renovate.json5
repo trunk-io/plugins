@@ -10,7 +10,7 @@
       groupSlug: "all-minor-patch",
       matchPackagePatterns: ["*"],
       matchUpdateTypes: ["minor", "patch"],
-      labels: ["renovate"],
+      labels: ["renovate"]
     }
-  ],
+  ]
 }
