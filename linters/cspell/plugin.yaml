@@ -6,13 +6,17 @@ lint:
       runtime: node
       package: cspell
       commands:
-        - output: regex
+        - name: lint
+          output: regex
           parse_regex: ((?P<path>.*):(?P<line>\d+):(?P<col>\d+) - (?P<message>.*))
           run: cspell --no-progress --no-summary --show-suggestions --no-cache ${target}
           batch: true
           read_output_from: stdout
           success_codes: [0, 1]
           cache_results: false
+          # TODO(Tyler): In order to respect a symlinked config into the root, we create the entire sandbox manually,
+          # otherwise the config is ignored. We should add an option for the config to be copied directly into the sandbox.
+          sandbox_type: copy_targets
       direct_configs:
         - .cspell.json
         - cspell.json

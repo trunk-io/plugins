@@ -328,15 +328,6 @@ exports[`Testing linter cspell test basic 1`] = `
       "fileGroupName": "ALL",
       "linter": "cspell",
       "paths": [
-        "cspell.yaml",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "ALL",
-      "linter": "cspell",
-      "paths": [
         "plugin.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",

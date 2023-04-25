@@ -3,7 +3,6 @@ lint:
   definitions:
     - name: golangci-lint
       files: [go]
-      type: golangci_lint
       environment:
         - name: GOLANGCI_LINT_CACHE
           value: ${cachedir}

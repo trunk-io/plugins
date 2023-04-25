@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter buildifier test basic 1`] = `
+exports[`Testing linter buildifier test basic_check 1`] = `
 {
   "issues": [
     {
       "code": "module-docstring",
       "column": "1",
-      "file": "test_data/basic.in.bzl",
+      "file": "test_data/basic.bzl",
       "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#module-docstring",
       "level": "LEVEL_HIGH",
       "line": "1",
@@ -18,7 +18,7 @@ A module docstring is a string literal (not a comment) which should be the first
     {
       "code": "load",
       "column": "26",
-      "file": "test_data/basic.in.bzl",
+      "file": "test_data/basic.bzl",
       "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#load",
       "level": "LEVEL_HIGH",
       "line": "1",
@@ -34,7 +34,7 @@ If you want to re-export a symbol, use the following pattern:
     {
       "code": "out-of-order-load",
       "column": "1",
-      "file": "test_data/basic.in.bzl",
+      "file": "test_data/basic.bzl",
       "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#out-of-order-load",
       "level": "LEVEL_HIGH",
       "line": "2",
@@ -45,7 +45,7 @@ If you want to re-export a symbol, use the following pattern:
     {
       "code": "load",
       "column": "26",
-      "file": "test_data/basic.in.bzl",
+      "file": "test_data/basic.bzl",
       "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#load",
       "level": "LEVEL_HIGH",
       "line": "2",
@@ -62,19 +62,37 @@ If you want to re-export a symbol, use the following pattern:
   "lintActions": [
     {
       "command": "fix",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/add_tables.BUILD",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "fix",
       "fileGroupName": "starlark",
       "linter": "buildifier",
       "paths": [
-        "test_data/basic.in.bzl",
+        "test_data/basic.bzl",
       ],
       "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "warn",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/add_tables.BUILD",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
     },
     {
       "command": "warn",
       "fileGroupName": "starlark",
       "linter": "buildifier",
       "paths": [
-        "test_data/basic.in.bzl",
+        "test_data/basic.bzl",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -83,7 +101,16 @@ If you want to re-export a symbol, use the following pattern:
   "unformattedFiles": [
     {
       "column": "1",
-      "file": "test_data/basic.in.bzl",
+      "file": "test_data/add_tables.BUILD",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "buildifier",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+    {
+      "column": "1",
+      "file": "test_data/basic.bzl",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
       "level": "LEVEL_HIGH",
       "line": "1",
