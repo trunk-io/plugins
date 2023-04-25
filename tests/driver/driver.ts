@@ -57,7 +57,7 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
   return true;
 };
 
-export class GenericTrunkLintDriver {
+export class GenericTrunkDriver {
   /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */
@@ -266,7 +266,7 @@ export class GenericTrunkLintDriver {
     argStr: string,
     execOptions?: ExecOptions
   ): Promise<{ stdout: string; stderr: string }> {
-    return await this.runTrunk(argStr.split(" "), execOptions);
+    return await this.runTrunk(argStr.split(" ").filter(Boolean), execOptions);
   }
 
   /**
@@ -279,7 +279,7 @@ export class GenericTrunkLintDriver {
     execOptions?: ExecOptions
   ): Promise<{ stdout: string; stderr: string }> {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args, {
+    return await execFilePromise(trunkPath, args.filter(Boolean), {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
