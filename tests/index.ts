@@ -189,7 +189,7 @@ export const toolTest = ({
   preCheck?: ToolTestCallback;
 }) => {
   describe(toolName, () => {
-    const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion);
+    const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
         const { stdout, stderr, exitCode } = await driver.runTool(command);
