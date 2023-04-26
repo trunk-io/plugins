@@ -96,10 +96,10 @@ jobs:
         id: post-filter-tools-paths
         if: steps.filter.outputs.tools
         run: |
-          tool_files=$(echo ${{steps.filter.outputs.tool_files}} |
+          tool_files=$(echo ${{steps.filter.outputs.tools_files}} |
           grep -oP "\Ktools/.*?(?=/)" |
           uniq | tr '\n' ' ')
-          echo "Running tests on individual tools: ${tool_files}"
+          echo "Running tests on individual tools: ${tools_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version

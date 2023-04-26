@@ -36,6 +36,7 @@ repo-tests:
   - tests/**
   - linters/**
   - actions/**
+  - tools/**
   - readme.md
   - .trunk/trunk.yaml
   - package.json
