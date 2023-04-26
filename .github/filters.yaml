@@ -2,7 +2,7 @@
 # These tests will be run with KnownGoodVersion.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test linters`
 all-linters:
-  - tests/driver/**
+  - tests/driver/!(tool_driver.ts)
   - tests/reporter/**
   - tests/types/**
   - tests/utils/**
@@ -11,7 +11,7 @@ all-linters:
   - package.json
 
 all-tools:
-  - tests/driver/**
+  - tests/driver/!(lint_driver.ts)
   - tests/reporter/**
   - tests/types/**
   - tests/utils/**
