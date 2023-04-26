@@ -1,14 +1,12 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "minikube", // toolName
-  toolVersion: "1.24.0", // version
+  toolName: "minikube",
+  toolVersion: "1.24.0",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["minikube", "version"],
-      expectedExitCode: 0,
       expectedOut: "minikube version: v1.24.0",
-      expectedErr: "",
-    },
+    }),
   ],
 });

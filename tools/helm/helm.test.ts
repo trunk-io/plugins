@@ -1,14 +1,12 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "helm", // toolName
-  toolVersion: "3.9.4", // version
+  toolName: "helm",
+  toolVersion: "3.9.4",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["helm", "version"],
-      expectedExitCode: 0,
-      expectedOut: `version.BuildInfo{Version:"v3.9.4"`,
-      expectedErr: "",
-    },
+      expectedOut: 'version.BuildInfo{Version:"v3.9.4"',
+    }),
   ],
 });

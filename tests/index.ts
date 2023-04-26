@@ -147,17 +147,24 @@ export const setupTrunkToolDriver = (
   return driver;
 };
 
-// Tool tests:
-// should take in: tool name
-// dir name
-// input/output
-
 interface ToolTestConfig {
   command: string[];
-  expectedOut: string;
-  expectedErr: string;
-  expectedExitCode: number;
+  expectedOut?: string;
+  expectedErr?: string;
+  expectedExitCode?: number;
 }
+
+export const makeToolTestConfig = ({
+  command,
+  expectedOut = "",
+  expectedErr = "",
+  expectedExitCode = 0,
+}: ToolTestConfig) => ({
+  command,
+  expectedOut,
+  expectedErr,
+  expectedExitCode,
+});
 
 export const toolTest = ({
   toolName,

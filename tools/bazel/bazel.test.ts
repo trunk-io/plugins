@@ -1,14 +1,9 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "bazel", // toolName
-  toolVersion: "6.0.0", // version
+  toolName: "bazel",
+  toolVersion: "6.0.0",
   testConfigs: [
-    {
-      command: ["bazel", "--version"],
-      expectedExitCode: 0,
-      expectedOut: "bazel 6.0.0",
-      expectedErr: "",
-    },
+    makeToolTestConfig({ command: ["bazel", "--version"], expectedOut: "bazel 6.0.0" }),
   ],
 });

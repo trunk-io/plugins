@@ -1,15 +1,14 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "target-determinator", // toolName
-  toolVersion: "0.3.0", // version
+  toolName: "target-determinator",
+  toolVersion: "0.3.0",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["target-determinator"],
-      expectedExitCode: 1,
       expectedErr:
         "Failed to parse flags: expected one positional argument, <before-revision>, but got 0",
-      expectedOut: "",
-    },
+      expectedExitCode: 1,
+    }),
   ],
 });

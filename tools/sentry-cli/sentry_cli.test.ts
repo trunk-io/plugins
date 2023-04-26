@@ -1,14 +1,12 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "sentry-cli", // toolName
-  toolVersion: "1.66.0", // version
+  toolName: "sentry-cli",
+  toolVersion: "1.66.0",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["sentry-cli", "-V"],
-      expectedExitCode: 0,
       expectedOut: "sentry-cli 1.66.0",
-      expectedErr: "",
-    },
+    }),
   ],
 });

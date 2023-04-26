@@ -266,7 +266,10 @@ export class GenericTrunkDriver {
     argStr: string,
     execOptions?: ExecOptions
   ): Promise<{ stdout: string; stderr: string }> {
-    return await this.runTrunk(argStr.split(" ").filter(Boolean), execOptions);
+    return await this.runTrunk(
+      argStr.split(" ").filter((arg) => arg.length > 0),
+      execOptions
+    );
   }
 
   /**
@@ -279,11 +282,15 @@ export class GenericTrunkDriver {
     execOptions?: ExecOptions
   ): Promise<{ stdout: string; stderr: string }> {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(trunkPath, args.filter(Boolean), {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.sandboxPath ?? ""),
-      ...execOptions,
-    });
+    return await execFilePromise(
+      trunkPath,
+      args.filter((arg) => arg.length > 0),
+      {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.sandboxPath ?? ""),
+        ...execOptions,
+      }
+    );
   }
 
   async run(bin: string, args: string[], execOptions?: ExecOptions) {

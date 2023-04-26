@@ -1,14 +1,12 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
-  toolName: "istioctl", // toolName
-  toolVersion: "1.14.6", // version
+  toolName: "istioctl",
+  toolVersion: "1.14.6",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["istioctl", "version"],
-      expectedExitCode: 0,
       expectedOut: "1.14.6",
-      expectedErr: "",
-    },
+    }),
   ],
 });
