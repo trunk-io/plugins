@@ -15,7 +15,7 @@ inputs:
   append-args:
     description: Additional args to append to the test invocation
     required: false
-    default: linters
+    default: tools
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
