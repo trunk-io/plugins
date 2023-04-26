@@ -1,15 +1,12 @@
-import { toolTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
-// TODO(lauri): Needs to have python runtime enabled for this to work
 toolTest({
-  toolName: "asciinema", // toolName
-  toolVersion: "2.1.0", // version
+  toolName: "asciinema",
+  toolVersion: "2.1.0",
   testConfigs: [
-    {
+    makeToolTestConfig({
       command: ["asciinema", "--version"],
-      expectedExitCode: 2,
-      expectedOut: "",
-      expectedErr: "",
-    },
+      expectedOut: "asciinema 2.1.0",
+    }),
   ],
 });
