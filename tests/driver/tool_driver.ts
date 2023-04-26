@@ -34,11 +34,11 @@ export interface TrunkToolRunResult {
 }
 
 export class TrunkToolDriver extends GenericTrunkDriver {
-  /** The name of the linter. If defined, enable the linter during setup. */
+  /** The name of the tool. If defined, enable the tool during setup. */
   tool?: string;
-  /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `LinterVersion` */
+  /** Dictated version to enable based on logic of parsing environment variables. May be a version string or `ToolVersion` */
   toEnableVersion?: string;
-  /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
+  /** The version that was enabled during setup. Might still be undefined even if a tool was enabled. */
   enabledVersion?: string;
 
   constructor(testDir: string, setupSettings: SetupSettings, tool?: string, version?: string) {
