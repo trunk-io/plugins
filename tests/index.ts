@@ -180,7 +180,9 @@ export const toolTest = ({
   describe(toolName, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
-      it(`should run "${command.join(" ")}" and exit with code ${expectedExitCode}`, async () => {
+      it(`should run "${command.join(" ")}" and exit with code ${
+        expectedExitCode || 0
+      }`, async () => {
         const { stdout, stderr, exitCode } = await driver.runTool(command);
         expect(stdout).toContain(expectedOut);
         expect(stderr).toContain(expectedErr);
