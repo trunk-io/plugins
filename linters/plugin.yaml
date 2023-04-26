@@ -319,6 +319,10 @@ lint:
       comments:
         - html-tag
 
+    - name: nix
+      extensions:
+        - nix
+
     - name: objective-c-source
       extensions:
         - m

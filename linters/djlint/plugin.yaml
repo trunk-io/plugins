@@ -23,7 +23,7 @@ lint:
           formatter: true
           in_place: true
       direct_configs: [.djlintrc]
-
+      suggest_if: config_present
       affects_cache:
         - .flake8
         - pyproject.toml
@@ -31,7 +31,6 @@ lint:
         - tox.ini
       issue_url_format: https://www.djlint.com/docs/linter/#rules
       known_good_version: 1.19.16
-      is_recommended: false
       version_command:
         parse_regex: djlint, version ${semver}
         run: djlint --version
