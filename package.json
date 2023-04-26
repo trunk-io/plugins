@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
+    "parse": "ts-node tests/parse/index.ts",
     "test": "jest",
-    "trunk": "trunk",
-    "parse": "ts-node tests/parse/index.ts"
+    "trunk": "trunk"
   },
   "devDependencies": {
     "@jest/console": "^29.4.1",

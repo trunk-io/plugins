@@ -8,9 +8,10 @@ plugins:
   sources:
     - id: trunk
       local: .
+
     - id: configs
-      ref: v0.0.1
       uri: https://github.com/trunk-io/configs
+      ref: v0.0.1
 
 lint:
   # enabled list inherited from plugin 'configs'
@@ -52,6 +53,6 @@ actions:
       shell: bash
 
   enabled:
+    - linter-test-helper
     - remove-release-snapshots
     - repo-tests
-    - linter-test-helper

@@ -7,9 +7,10 @@ const abbreviationMapping = new Map<string, string>([["iwyu", "include-what-you-
 
 const readmeContents = fs.readFileSync(path.resolve(REPO_ROOT, "readme.md"), { encoding: "utf-8" });
 const readmeTableContents = readmeContents.substring(
-  readmeContents.indexOf("### Enabling a supported linter"),
-  readmeContents.indexOf("### Enabling a supported action")
+  readmeContents.indexOf("### Supported Linters"),
+  readmeContents.indexOf("### Supported Trunk Actions")
 );
+const reducedReadmeContents = readmeTableContents ? readmeTableContents : readmeContents;
 
 // This test asserts that all linters are included in the root readme.md. This does not cover subcommands, and it assumes one
 // directory per linter. Name mapping can be achieved through `abbreviationMapping`.
@@ -27,7 +28,7 @@ describe("All linters must be included in readme.md", () => {
       // trunk-ignore(eslint/jest/valid-title)
       it(linter, () => {
         const fullName = abbreviationMapping.get(linter) ?? linter;
-        expect(readmeTableContents).toContain(fullName);
+        expect(reducedReadmeContents).toContain(fullName);
       });
     });
 });
