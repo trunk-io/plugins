@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "istioctl",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "1.14.6",
     }),
   ],
+  skipTestIf: skipOS(["darwin"]),
 });

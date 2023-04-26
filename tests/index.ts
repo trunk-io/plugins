@@ -49,6 +49,7 @@ const conditionalTest = (
 ) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
 
 export type TestCallback = (driver: TrunkLintDriver) => unknown;
+export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
@@ -124,7 +125,8 @@ export const setupTrunkToolDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   toolName?: string,
-  version?: string
+  version?: string,
+  preCheck?: ToolTestCallback
 ): TrunkToolDriver => {
   const driver = new TrunkToolDriver(
     dirname,
@@ -134,6 +136,11 @@ export const setupTrunkToolDriver = (
   );
 
   beforeAll(async () => {
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
     await driver.setUp();
   });
 
@@ -171,18 +178,20 @@ export const toolTest = ({
   toolVersion,
   testConfigs,
   dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
 }: {
   toolName: string;
   toolVersion: string;
   dirName?: string;
   testConfigs: ToolTestConfig[];
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: ToolTestCallback;
 }) => {
   describe(toolName, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
-      it(`should run "${command.join(" ")}" and exit with code ${
-        expectedExitCode || 0
-      }`, async () => {
+      conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
         const { stdout, stderr, exitCode } = await driver.runTool(command);
         expect(stdout).toContain(expectedOut);
         expect(stderr).toContain(expectedErr);
