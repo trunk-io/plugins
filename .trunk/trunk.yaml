@@ -21,7 +21,7 @@ lint:
   ignore:
     - linters: [ALL]
       paths:
-        - "**/test_data"
+        - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
 
 actions:
