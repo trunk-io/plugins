@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter nancy test CUSTOM 1`] = `
 {
@@ -86,6 +87,17 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: Cross Site Scripting (XSS) vulnerability in Gophish through 0.10.1 via a crafted landing page or email template.
 
 Sonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2020-24709 for details",
+      "targetType": "go-lockfile",
+    },
+    {
+      "code": "CVE-2020-24710",
+      "file": ".",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "linter": "nancy",
+      "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: github.com/gophish/gophish - Server-side Request Forgery (SSRF) [CVE-2020-24710]
+
+The web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.",
       "targetType": "go-lockfile",
     },
     {
@@ -183,6 +195,17 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "code": "CVE-2022-0905",
+      "file": ".",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "linter": "nancy",
+      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: code.gitea.io/gitea - Improper Authorization [CVE-2022-0905]
+
+The software does not perform or incorrectly performs an authorization check when an actor attempts to access a resource or perform an action.",
+      "targetType": "go-lockfile",
+    },
+    {
       "code": "CVE-2022-1058",
       "file": ".",
       "isSecurity": true,
@@ -224,46 +247,6 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.17.3 does not sanitize and escape refs in the git backend. Arguments to git commands are mishandled.
 
 Sonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-42968 for details",
-      "targetType": "go-lockfile",
-    },
-    {
-      "code": "sonatype-2018-0569",
-      "file": ".",
-      "isSecurity": true,
-      "level": "LEVEL_HIGH",
-      "linter": "nancy",
-      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: 1 non-CVE vulnerability found. To see more details, please create a free account at https://ossindex.sonatype.org/ and request for this information using your registered account",
-      "targetType": "go-lockfile",
-    },
-    {
-      "code": "sonatype-2018-0708",
-      "file": ".",
-      "isSecurity": true,
-      "level": "LEVEL_HIGH",
-      "linter": "nancy",
-      "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: github.com/gophish/gophish - Server-side Request Forgery (SSRF) [CVE-2020-24710]
-
-The web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.",
-      "targetType": "go-lockfile",
-    },
-    {
-      "code": "sonatype-2021-1692",
-      "file": ".",
-      "isSecurity": true,
-      "level": "LEVEL_HIGH",
-      "linter": "nancy",
-      "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: 1 non-CVE vulnerability found. To see more details, please create a free account at https://ossindex.sonatype.org/ and request for this information using your registered account",
-      "targetType": "go-lockfile",
-    },
-    {
-      "code": "sonatype-2022-1473",
-      "file": ".",
-      "isSecurity": true,
-      "level": "LEVEL_HIGH",
-      "linter": "nancy",
-      "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: code.gitea.io/gitea - Improper Authorization [CVE-2022-0905]
-
-The software does not perform or incorrectly performs an authorization check when an actor attempts to access a resource or perform an action.",
       "targetType": "go-lockfile",
     },
   ],
