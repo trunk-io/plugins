@@ -113,7 +113,7 @@ describe("Global config health check", () => {
     ]);
     defaultFilesContents.forEach((contents, file) => driver.writeFile(file, contents));
 
-    await driver.run("upgrade check --no-progress -y");
+    await driver.runTrunkCmd("upgrade check --no-progress -y");
 
     const newYaml = await driver.getTrunkConfig();
     const autoEnabledLinters = newYaml.lint.enabled
