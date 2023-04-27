@@ -1,0 +1,9 @@
+version: 0.1
+tools:
+  definitions:
+    - name: asciinema
+      runtime: python
+      package: asciinema
+      shims:
+        - name: asciinema
+          target: asciinema

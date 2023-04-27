@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const preCheck = (copyConfig: boolean) => (driver: TrunkDriver) => {
+const preCheck = (copyConfig: boolean) => (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
   // Because clang-tidy requires greater build-level awareness for full functionality,

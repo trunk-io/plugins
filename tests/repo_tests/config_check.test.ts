@@ -23,7 +23,7 @@ describe("Global config health check", () => {
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.8.2-beta.6",
+    trunkVersion: "1.8.2-beta.8",
     // ThenChange plugin.yaml
   });
 
@@ -37,7 +37,7 @@ describe("Global config health check", () => {
 
     // Test that config healthily resolves
     try {
-      const testRunResult = await driver.run("config print");
+      const testRunResult = await driver.runTrunkCmd("config print");
       expect(testRunResult.stdout).toContain("version: 0.1");
       expect(testRunResult.stdout).toContain("local:");
     } catch (error) {
@@ -113,7 +113,7 @@ describe("Global config health check", () => {
     ]);
     defaultFilesContents.forEach((contents, file) => driver.writeFile(file, contents));
 
-    await driver.run("upgrade check --no-progress -y");
+    await driver.runTrunkCmd("upgrade check --no-progress -y");
 
     const newYaml = await driver.getTrunkConfig();
     const autoEnabledLinters = newYaml.lint.enabled

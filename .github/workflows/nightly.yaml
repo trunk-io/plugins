@@ -135,6 +135,11 @@ jobs:
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        uses: ./.github/actions/tool_tests
+
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'

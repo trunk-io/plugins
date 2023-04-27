@@ -2,7 +2,7 @@ version: 0.1
 
 cli:
   # version used for local trunk runs and testing
-  version: 1.8.2-beta.6
+  version: 1.8.2-beta.8
 
 plugins:
   sources:
@@ -39,8 +39,8 @@ actions:
       display_name: Test Generator
       description: Generate boilerplate test code when new linters are defined
       runtime: python
-      packages_file: tools/linter-test-helper/requirements.txt
-      run: tools/linter-test-helper/generate scan ${workspace}
+      packages_file: repo-tools/linter-test-helper/requirements.txt
+      run: repo-tools/linter-test-helper/generate scan ${workspace}
       triggers:
         - files: [linters/**]
 
