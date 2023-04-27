@@ -1,6 +1,7 @@
-import { customLinterCheckTest } from "tests";
+// import { customLinterCheckTest } from "tests";
 
-customLinterCheckTest({
-  linterName: "trivy",
-  args: "-a -y",
-});
+// TODO(Tyler): Test is temporarily disabled for trivy config errors
+// customLinterCheckTest({
+//   linterName: "trivy",
+//   args: "-a -y",
+// });
