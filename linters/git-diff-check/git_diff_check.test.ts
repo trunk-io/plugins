@@ -1,10 +1,10 @@
 import * as path from "path";
 import { linterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 // Simulate the creation of a merge conflict
-const preCheck = async (driver: TrunkDriver) => {
+const preCheck = async (driver: TrunkLintDriver) => {
   if (driver.gitDriver) {
     const inputName = "basic.in.txt";
     const inputPath = path.join(TEST_DATA, inputName);

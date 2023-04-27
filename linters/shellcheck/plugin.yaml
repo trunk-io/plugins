@@ -27,10 +27,7 @@ lint:
           output: shellcheck
           run: shellcheck ${target} -f json --external-sources
           error_codes: [2]
-          # Shellcheck doesn't properly follow `source` when our symlink forrest symlinks a folder
-          # containing the source file. This option forces trunk to create real parent folders and
-          # copy rather than symlink the target file.
-          in_place: true
+          sandbox_type: copy_targets
       direct_configs:
         - .shellcheckrc
         - shellcheckrc
@@ -39,6 +36,7 @@ lint:
           list: ["${linter}"]
       issue_url_format: https://github.com/koalaman/shellcheck/wiki/{}
       known_good_version: 0.8.0
+      suggest_if: files_present
       # uncached because shellcheck can follow includes, e.g. source other.sh
       cache_results: false
       version_command:

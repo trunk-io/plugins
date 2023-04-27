@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { customLinterCheckTest, customLinterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 // Test data taken from https://github.com/shssoichiro/oxipng/tree/master
@@ -12,11 +12,11 @@ customLinterCheckTest({
 });
 
 // Snapshots cannot handle png files well, so just test for successful run and inequality
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.copyFile(path.join(TEST_DATA, "good.png"), path.join(TEST_DATA, "good.png.bak"));
 };
 
-const postCheck = (driver: TrunkDriver) => {
+const postCheck = (driver: TrunkLintDriver) => {
   const originalSize = fs.statSync(
     // trunk-ignore(semgrep): paths used here are safe
     path.resolve(driver.getSandbox(), TEST_DATA, "good.png.bak")

@@ -1,0 +1,45 @@
+name: Tool Tests
+description: Run tests against plugin tools
+
+inputs:
+  cli-version:
+    description: Trunk cli version to run test against. Mutually exclusive with `cli-path`
+    required: false
+  cli-path:
+    description: Trunk cli path to run test against. Overrides `cli-version` if set.
+    required: false
+  path:
+    description: The cwd from which to run plugin commands
+    required: false
+    default: .
+  append-args:
+    description: Additional args to append to the test invocation
+    required: false
+    default: tools
+
+runs:
+  # TODO(Tyler): See if this can be converted to a js action
+  using: composite
+  steps:
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Sync lfs
+      run: git lfs pull
+      shell: bash
+      working-directory: ${{ inputs.path }}
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+      working-directory: ${{ inputs.path }}
+
+    - name: Run plugin tests
+      run: npm test --ci ${{ inputs.append-args }}
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      env:
+        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+        PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}

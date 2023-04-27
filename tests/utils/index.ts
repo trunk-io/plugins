@@ -195,8 +195,8 @@ export const getVersionsForTest = (
         return fileMatch.groups?.version;
       }
     })
-    .filter(Boolean)
-    .sort();
+    .filter(Boolean);
+  const uniqueVersionsList = Array.from(new Set(versionsList)).sort();
 
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
   if (!matchExists && !ARGS.linterVersion) {
@@ -207,8 +207,8 @@ export const getVersionsForTest = (
   }
 
   // Versionless linters must return a non-empty array, so check the list's length here.
-  if (ARGS.linterVersion === "Snapshots" && versionsList.length > 0) {
-    return versionsList;
+  if (ARGS.linterVersion === "Snapshots" && uniqueVersionsList.length > 0) {
+    return uniqueVersionsList;
   }
 
   // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string

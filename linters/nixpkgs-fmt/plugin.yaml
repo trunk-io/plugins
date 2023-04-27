@@ -1,8 +1,5 @@
 version: 0.1
 lint:
-  files:
-    - name: nix
-      extensions: [nix]
   definitions:
     - name: nixpkgs-fmt
       package: nixpkgs-fmt
@@ -14,8 +11,7 @@ lint:
           success_codes: [0]
           stdin: true
           formatter: true
-      good_without_config: true
-      is_recommended: true
+      suggest_if: files_present
       environment:
         - name: PATH
           list: ["${linter}/bin"]

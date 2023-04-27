@@ -130,3 +130,10 @@ Please follow the guidelines below when contributing:
 - If you run into any problems while defining new linters or actions, feel free to reach out on our
   [Slack](https://slack.trunk.io/). We are continuously working to improve the process of
   integrating with trunk, and all feedback is appreciated!
+
+## Development
+
+For ease of development, we provide support for
+[Github Codespaces](https://github.com/features/codespaces).
+
+Just check out the repo in a codespace and you'll have everything ready to go!

@@ -10,7 +10,7 @@ lint:
           output: sarif
           read_output_from: tmp_file
           success_codes: [0, 101]
-          in_place: true
+          sandbox_type: copy_targets
           cache_results: true
           allow_empty_files: false
         - name: lint
@@ -19,7 +19,7 @@ lint:
           output: sarif
           read_output_from: tmp_file
           success_codes: [0, 101]
-          in_place: true
+          sandbox_type: copy_targets
           cache_results: true
           allow_empty_files: false
         - name: lint
@@ -28,7 +28,7 @@ lint:
           output: sarif
           read_output_from: tmp_file
           success_codes: [0]
-          in_place: true
+          sandbox_type: copy_targets
           cache_results: true
           allow_empty_files: false
       runtime: go
@@ -37,7 +37,7 @@ lint:
         - .gitleaks.config
         - .gitleaks.toml
         - .gitleaksignore
-      good_without_config: true
+      suggest_if: files_present
       known_good_version: 8.8.7
       known_bad_versions:
         - 8.10.0

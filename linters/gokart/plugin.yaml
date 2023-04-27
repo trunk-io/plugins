@@ -12,15 +12,12 @@ lint:
       commands:
         - name: lint
           output: sarif
-          # gokart says it should run on the parent dir, but it doesn't follow symlinks correctly in our shadow,
-          # so in order to run with a sandboxed environment, run on the files directly.
-          # TODO(Tyler): We should add an option to make an expanded shadow tree to support this
+          target: ${parent}
           run: gokart scan -i analyzers.yml -s ${target}
           success_codes: [0]
           read_output_from: stdout
-          # TODO(Chris): We need a new configuration option which means copy files into a sandbox.
-          # This is an abuse of in_place which implies that.
-          in_place: true
+          # gokart runs on directory targets but requires these directories to not be symlinks
+          sandbox_type: expanded
           run_linter_from: root_file
           is_security: true
       direct_configs:
@@ -30,7 +27,7 @@ lint:
         - go.sum
       issue_url_format: https://github.com/praetorian-inc/gokart/issues
       known_good_version: 0.5.1
-      is_recommended: false
+      suggest_if: config_present
       version_command:
         parse_regex: ${semver}
         run: gokart version

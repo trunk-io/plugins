@@ -24,7 +24,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
@@ -50,6 +50,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -67,7 +68,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           fetch-depth: 0
 
@@ -91,7 +92,7 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
@@ -132,6 +133,12 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        uses: ./.github/actions/tool_tests
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
@@ -152,7 +159,7 @@ jobs:
       SLACK_CHANNEL_ID: plugins-notifications
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Retrieve Test Outputs ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
