@@ -145,6 +145,7 @@ trunk check enable {linter}
 [swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
 [swiftlint]: https://github.com/realm/SwiftLint#readme
 [taplo]: https://github.com/tamasfe/taplo#readme
+[terrascan]: https://github.com/tenable/terrascan#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
