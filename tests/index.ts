@@ -147,10 +147,6 @@ export const setupTrunkToolDriver = (
   afterAll(() => {
     driver.tearDown();
   });
-
-  afterEach(() => {
-    registerVersion(driver.enabledVersion);
-  });
   return driver;
 };
 
