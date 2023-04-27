@@ -21,6 +21,10 @@ lint:
           output: sarif
           run: terrascan scan --iac-file ${target} --output sarif
           success_codes: [0, 3, 4, 5]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: ${plugin}/linters/terrascan/sarif_to_sarif.py
       version_command:
         parse_regex: "version: v${semver}"
         run: terrascan version

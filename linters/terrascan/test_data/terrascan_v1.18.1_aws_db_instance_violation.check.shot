@@ -6,7 +6,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "10",
       "linter": "terrascan",
@@ -16,7 +16,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "115",
       "linter": "terrascan",
@@ -26,7 +26,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "134",
       "linter": "terrascan",
@@ -36,7 +36,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0052",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "25",
       "linter": "terrascan",
@@ -46,7 +46,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0053",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "25",
       "linter": "terrascan",
@@ -56,7 +56,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "25",
       "linter": "terrascan",
@@ -66,7 +66,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0053",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "39",
       "linter": "terrascan",
@@ -76,7 +76,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0054",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "39",
       "linter": "terrascan",
@@ -86,7 +86,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0056",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "39",
       "linter": "terrascan",
@@ -96,7 +96,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "39",
       "linter": "terrascan",
@@ -106,7 +106,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0160",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "5",
       "linter": "terrascan",
@@ -116,7 +116,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0052",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "55",
       "linter": "terrascan",
@@ -126,7 +126,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0053",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "55",
       "linter": "terrascan",
@@ -136,7 +136,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "55",
       "linter": "terrascan",
@@ -146,7 +146,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0052",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "69",
       "linter": "terrascan",
@@ -156,7 +156,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0053",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "69",
       "linter": "terrascan",
@@ -166,7 +166,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "69",
       "linter": "terrascan",
@@ -176,7 +176,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0052",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "82",
       "linter": "terrascan",
@@ -186,7 +186,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0053",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "82",
       "linter": "terrascan",
@@ -196,7 +196,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0058",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_HIGH",
       "line": "82",
       "linter": "terrascan",
@@ -206,7 +206,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "82",
       "linter": "terrascan",
@@ -216,7 +216,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
     {
       "code": "AC_AWS_0454",
       "column": "1",
-      "file": "file:/tmp/plugins_GZZTGJ/test_data/aws_db_instance_violation.in.tf",
+      "file": "test_data/aws_db_instance_violation.in.tf",
       "level": "LEVEL_MEDIUM",
       "line": "95",
       "linter": "terrascan",
