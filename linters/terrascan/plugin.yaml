@@ -19,6 +19,7 @@ lint:
       commands:
         - name: lint
           output: sarif
+          is_security: true
           run: terrascan scan --iac-file ${target} --output sarif
           success_codes: [0, 3, 4, 5]
           read_output_from: stdout
