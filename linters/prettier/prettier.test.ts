@@ -1,8 +1,8 @@
 import { linterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 
 // Grab the root .prettierrc.yaml
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(
     ".trunk/configs/.prettierrc.yaml",
     `printWidth: 100

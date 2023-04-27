@@ -11,10 +11,12 @@ jobs:
   trunk_check:
     name: Trunk Check Runner
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Setup node
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
@@ -39,10 +41,13 @@ jobs:
       all-linters: ${{ steps.post-filter.outputs.out }}
       # shortened paths to linter subdirs
       linters-files: ${{ steps.post-filter-paths.outputs.out }}
+      tools: ${{ steps.filter.outputs.tools }}
+      all-tools: ${{ steps.post-filter-tools.outputs.out }}
+      tools-files: ${{ steps.post-filter-tools-paths.outputs.out }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Determine upstream
         run: |
@@ -70,6 +75,13 @@ jobs:
           echo "Run all linter tests"
           echo "out=linters" >> "$GITHUB_OUTPUT"
 
+      - name: Suggest all tool tests
+        id: post-filter-tools
+        if: steps.filter.outputs.all-tools == 'true'
+        run: |
+          echo "Run all tool tests"
+          echo "out=tools" >> "$GITHUB_OUTPUT"
+
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
         if: steps.filter.outputs.linters
@@ -79,6 +91,16 @@ jobs:
           uniq | tr '\n' ' ')
           echo "Running tests on individual linters: ${linter_files}"
           echo "out=${linter_files}" >> "$GITHUB_OUTPUT"
+
+      - name: Suggest normalized individual tool paths
+        id: post-filter-tools-paths
+        if: steps.filter.outputs.tools
+        run: |
+          tool_files=$(echo ${{steps.filter.outputs.tools_files}} |
+          grep -oP "\Ktools/.*?(?=/)" |
+          uniq | tr '\n' ' ')
+          echo "Running tests on individual tools: ${tools_files}"
+          echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
@@ -95,7 +117,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
@@ -109,6 +131,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
@@ -121,7 +144,21 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{needs.detect_changes.outputs.linters-files }}
+
+      - name: Tool Tests
+        uses: ./.github/actions/tool_tests
+        with:
+          append-args:
+            ${{ needs.detect_changes.outputs.all-tools }} ${{
+            needs.detect_changes.outputs.tools-files }}
+
+      - name: Tool Tests Latest
+        if: (failure() || success()) && needs.detect_changes.outputs.tools == 'true'
+        uses: ./.github/actions/tool_tests
+        with:
+          append-args: ${{ needs.detect_changes.outputs.tools-files }}
 
   # Run repo healthcheck tests
   repo_tests:

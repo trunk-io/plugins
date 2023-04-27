@@ -31,6 +31,29 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
         {
           "replacements": [
             {
+              "filePath": "invalid_case_style.hh",
+              "length": "16",
+              "offset": "20",
+              "replacementText": "InvalidCaseStyle",
+            },
+          ],
+        },
+      ],
+      "code": "readability-identifier-naming",
+      "column": "7",
+      "file": "invalid_case_style.hh",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "3",
+      "linter": "clang-tidy",
+      "message": "invalid case style for class 'invalidCaseStyle'",
+      "targetType": "c++-header",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test.hh",
               "offset": "14",
               "replacementText": "static ",
@@ -39,14 +62,14 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
         },
       ],
       "code": "readability-convert-member-functions-to-static",
-      "column": "11",
-      "file": "test.cc",
+      "column": "15",
+      "file": "test.hh",
       "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
       "level": "LEVEL_MEDIUM",
-      "line": "3",
+      "line": "2",
       "linter": "clang-tidy",
       "message": "method 'Bar' can be made static",
-      "targetType": "c++-source",
+      "targetType": "c++-header",
     },
   ],
   "lintActions": [
@@ -79,10 +102,19 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
     },
     {
       "command": "lint",
-      "fileGroupName": "c++-source",
+      "fileGroupName": "c++-header",
       "linter": "clang-tidy",
       "paths": [
-        "test.cc",
+        "invalid_case_style.hh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-header",
+      "linter": "clang-tidy",
+      "paths": [
+        "test.hh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

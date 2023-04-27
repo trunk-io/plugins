@@ -2,19 +2,7 @@
 
 exports[`Testing linter djlint test logout 1`] = `
 {
-  "issues": [
-    {
-      "code": "H017",
-      "column": "4",
-      "file": "test_data/logout.in.html",
-      "issueUrl": "https://www.djlint.com/docs/linter/#rules",
-      "level": "LEVEL_HIGH",
-      "line": "4",
-      "linter": "djlint",
-      "message": "Tag should be self closing. :: <link>",
-      "targetType": "html",
-    },
-  ],
+  "issues": [],
   "lintActions": [
     {
       "command": "fmt",

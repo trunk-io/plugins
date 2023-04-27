@@ -15,19 +15,18 @@ lint:
           success_codes: [0]
           batch: true
           cache_results: true
-          # TODO(Chris): We need a new configuration option which means copy files into a sandbox.
-          # This is an abuse of in_place which implies that.
-          in_place: true
+          sandbox_type: copy_targets
       direct_configs:
         - .semgrep.yaml
         - .semgrep.yml
       affects_cache:
         - .semgrepignore
         - .semgrep
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${env.PATH}"]
-      known_good_version: 0.110.0
+      known_good_version: 1.7.0
       known_bad_versions: [1.5.1] # Does not work on MacOS
       version_command:
         parse_regex: ${semver}

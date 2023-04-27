@@ -1,9 +1,9 @@
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 
 customLinterCheckTest({ linterName: "codespell", testName: "basic", args: "-a" });
 
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(".codespellrc", "[codespell]\nignore-words-list = callbak,realy");
 };
 

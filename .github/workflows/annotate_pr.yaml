@@ -15,11 +15,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@4f077db8a20117a021b787adbf62729ae143c19e # v1.0.8
         with:
           post-annotations: true
-        # This job may fail when the PR was not run on a fork.
+        # This job may fail when the PR was not run on a fork, and that's okay
         continue-on-error: true
