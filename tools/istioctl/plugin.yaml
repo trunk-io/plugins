@@ -3,13 +3,14 @@ tools:
   downloads:
     - name: istioctl
       downloads:
-        - os:
-            linux: linux
-            macos: osx
+        - os: macos
+          cpu: arm_64
+          url: https://github.com/istio/istio/releases/download/${version}/istioctl-${version}-osx-arm64.tar.gz
+        - os: linux
           cpu:
             x86_64: amd64
             arm_64: arm64
-          url: https://github.com/istio/istio/releases/download/${version}/istioctl-${version}-${os}-${cpu}.tar.gz
+          url: https://github.com/istio/istio/releases/download/${version}/istioctl-${version}-linux-${cpu}.tar.gz
   definitions:
     - name: istioctl
       download: istioctl

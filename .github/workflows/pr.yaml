@@ -99,7 +99,7 @@ jobs:
           tool_files=$(echo ${{steps.filter.outputs.tools_files}} |
           grep -oP "\Ktools/.*?(?=/)" |
           uniq | tr '\n' ' ')
-          echo "Running tests on individual tools: ${tools_files}"
+          echo "Running tests on individual tools: ${tool_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
@@ -109,7 +109,8 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'linters'
+      'linters' || needs.detect_changes.outputs.tools == 'true' ||
+      needs.detect_changes.outputs.all-tools == 'tools'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -129,6 +130,9 @@ jobs:
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
+        if:
+          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
+          == 'linters'
         with:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
@@ -148,14 +152,21 @@ jobs:
           append-args: ${{needs.detect_changes.outputs.linters-files }}
 
       - name: Tool Tests
+        # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
         uses: ./.github/actions/tool_tests
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
+          needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
 
       - name: Tool Tests Latest
-        if: (failure() || success()) && needs.detect_changes.outputs.tools == 'true'
+        # Run tests using Latest with any modified tools (see filters.yaml). Don't run when cancelled.
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' &&
+          needs.detect_changes.outputs.tools-files != ''
         uses: ./.github/actions/tool_tests
         with:
           append-args: ${{ needs.detect_changes.outputs.tools-files }}
