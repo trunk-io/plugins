@@ -204,7 +204,7 @@ jobs:
       - name: Slack Notification For Staging Upload Failure
         uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          channel-id: plugins-notifications
           payload: |
             {
               "text": "Upload Failure",
