@@ -7,7 +7,7 @@ actions:
       packages_file: package.json
       triggers:
         - schedule: 24h
-        - files: ["package.json", "package-lock.json"]
+        - files: [package.json, package-lock.json]
       run: actions/npm-check/npm_check.ts
       output_type: notification_v1
       environment:
