@@ -5,6 +5,7 @@ const yarnCheck = require("yarn-check");
 const YAML = require("yaml");
 const path = require("path");
 
+// TODO(lauri): Find more stable icon path
 const ICON_PATH = "https://avatars.githubusercontent.com/u/22247014";
 
 const pluralize = (count, singular, plural) => {

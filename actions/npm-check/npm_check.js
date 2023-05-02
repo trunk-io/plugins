@@ -3,8 +3,8 @@
 // trunk-ignore-all(eslint)
 const npmCheck = require("npm-check");
 const YAML = require("yaml");
-const path = require("path");
 
+// TODO(lauri): Find more stable icon path
 const ICON_PATH = "https://avatars.githubusercontent.com/u/6078720";
 
 const pluralize = (count, singular, plural) => {
