@@ -51,6 +51,6 @@ customLinterCheckTest({
 customLinterCheckTest({
   linterName: "buf-breaking",
   testName: "dupFile",
-  args: "-a",
+  args: "-a --debug",
   preCheck: preCheck(true),
 });
