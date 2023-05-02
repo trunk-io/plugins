@@ -197,3 +197,26 @@ jobs:
             echo "All tests skipped or passed"
             exit 0
           fi
+
+  dummy_slack_notif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification For Staging Upload Failure
+        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Upload Failure",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Testing latest tidy@1.2.0 > STATUS: failed"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
