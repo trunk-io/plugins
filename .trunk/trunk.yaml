@@ -25,6 +25,8 @@ lint:
         - "**/test_data/**"
 
 actions:
+  disabled:
+    - yarn-check
   definitions:
     - id: repo-tests
       display_name: Repo Tests
@@ -57,4 +59,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - npm-check
-    - yarn-check
