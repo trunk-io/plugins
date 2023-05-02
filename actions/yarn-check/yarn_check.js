@@ -5,7 +5,6 @@ const yarnCheck = require("yarn-check");
 const YAML = require("yaml");
 const path = require("path");
 
-// TODO(lauri): Find more stable icon path
 const ICON_PATH = "https://avatars.githubusercontent.com/u/22247014";
 
 const pluralize = (count, singular, plural) => {
@@ -30,7 +29,7 @@ yarnCheck({})
             uninstalled_count,
             "package",
             "packages"
-          )} ${pluralize(uninstalled_count, "needs", "need")} to be installed`,
+          )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "yarn install", title: "yarn install" }],
           icon: ICON_PATH,
         },

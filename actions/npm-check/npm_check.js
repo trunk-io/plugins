@@ -31,7 +31,7 @@ npmCheck({})
             uninstalled_count,
             "package",
             "packages"
-          )} ${pluralize(uninstalled_count, "needs", "need")} to be installed`,
+          )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "npm install", title: "npm install" }],
           icon: ICON_PATH,
         },
