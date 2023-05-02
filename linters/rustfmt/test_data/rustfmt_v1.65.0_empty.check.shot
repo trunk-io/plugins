@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter rustfmt test empty 1`] = `
-Object {
-  "issues": Array [],
-  "lintActions": Array [
-    Object {
+{
+  "issues": [],
+  "lintActions": [
+    {
       "command": "format",
       "fileGroupName": "rust",
       "linter": "rustfmt",
-      "paths": Array [
+      "paths": [
         "test_data/empty.in.rs",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/empty.in.rs",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

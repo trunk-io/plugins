@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter remark-lint test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "remark-lint",
+{
+  "issues": [
+    {
       "code": "list-item-indent",
       "column": "4",
       "file": "test_data/basic.in.md",
@@ -15,29 +14,29 @@ Object {
       "targetType": "markdown",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fmt",
       "fileGroupName": "markdown",
       "linter": "remark-lint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.md",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "markdown",
       "linter": "remark-lint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.md",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic.in.md",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

@@ -1,12 +1,12 @@
 import path from "path";
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 // ansible-lint's trunk invokations are trigger-based, so we need to add this to the trunk.yaml.
 const preCheck =
   (fqcn = true) =>
-  (driver: TrunkDriver) => {
+  (driver: TrunkLintDriver) => {
     const trunkYamlPath = ".trunk/trunk.yaml";
     const currentContents = driver.readFile(trunkYamlPath);
     const newContents = currentContents.concat(`  triggers:

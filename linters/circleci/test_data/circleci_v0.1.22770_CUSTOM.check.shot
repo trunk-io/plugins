@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter circleci test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "file": "test_data/bad_version/.circleci/config.yml",
+      "level": "LEVEL_HIGH",
+      "linter": "circleci",
+      "message": "Error: Cannot find circleci/node@2.99 in the orb registry. Check that the namespace, orb name and version are correct.",
+      "targetType": "circleci-config",
+    },
+    {
+      "code": "error",
+      "file": "test_data/malformed/.circleci/config.yml",
+      "level": "LEVEL_HIGH",
+      "linter": "circleci",
+      "message": "Error: ERROR IN CONFIG FILE:
+[#/jobs/install-node-example] 0 subschemas matched instead of one
+1. [#/jobs/install-node-example] only 1 subschema matches out of 2
+|   1. [#/jobs/install-node-example] 6 schema violations found
+|   |   1. [#/jobs/install-node-example/docker/1] 2 schema violations found
+|   |   |   1. [#/jobs/install-node-example/docker/1] extraneous key [foo] is not permitted
+|   |   |   |   Permitted keys:
+|   |   |   |     - image
+|   |   |   |     - name
+|   |   |   |     - entrypoint
+|   |   |   |     - command
+|   |   |   |     - user
+|   |   |   |     - environment
+|   |   |   |     - aws_auth
+|   |   |   |     - auth
+|   |   |   |   Passed keys:
+|   |   |   |     - foo
+|   |   |   2. [#/jobs/install-node-example/docker/1] required key [image] not found
+|   |   2. [#/jobs/install-node-example/steps/3] 0 subschemas matched instead of one
+|   |   |   1. [#/jobs/install-node-example/steps/3] expected type: String, found: Mapping
+|   |   |   |   Shorthand commands, like \`checkout\`
+|   |   |   |   SCHEMA:
+|   |   |   |     type: string
+|   |   |   |   INPUT:
+|   |   |   |     rerun:
+|   |   |   |     - true
+|   |   |   2. [#/jobs/install-node-example/steps/3] extraneous key [rerun] is not permitted
+|   |   |   |   \`when\`/\`unless\` step
+|   |   |   |   Permitted keys:
+|   |   |   |     - when
+|   |   |   |     - unless
+|   |   |   |   Passed keys:
+|   |   |   |     - rerun
+|   |   |   3. [#/jobs/install-node-example/steps/3/rerun] no subschema matched out of the total 2 subschemas
+|   |   |   |   1. [#/jobs/install-node-example/steps/3/rerun] expected type: Mapping, found: Sequence
+|   |   |   |   |   SCHEMA:
+|   |   |   |   |     type:
+|   |   |   |   |     - object
+|   |   |   |   |     - string
+|   |   |   |   |   INPUT:
+|   |   |   |   |     - true
+|   |   |   |   2. [#/jobs/install-node-example/steps/3/rerun] expected type: String, found: Sequence
+|   |   |   |   |   SCHEMA:
+|   |   |   |   |     type:
+|   |   |   |   |     - object
+|   |   |   |   |     - string
+|   |   |   |   |   INPUT:
+|   |   |   |   |     - true
+2. [#/jobs/install-node-example] expected type: String, found: Mapping
+|   Job may be a string reference to another job",
+      "targetType": "circleci-config",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/bad_version/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/basic/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/malformed/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

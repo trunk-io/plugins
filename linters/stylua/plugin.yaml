@@ -1,0 +1,35 @@
+version: 0.1
+lint:
+  downloads:
+    - name: stylua
+      version: 0.17.0
+      downloads:
+        - os:
+            linux: linux
+            macos: macos
+          cpu:
+            x86_64: x86_64
+            arm_64: aarch64
+          url: https://github.com/JohnnyMorganz/StyLua/releases/download/v${version}/stylua-${os}-${cpu}.zip
+  definitions:
+    - name: stylua
+      files: [lua]
+      download: stylua
+      commands:
+        - name: format
+          output: rewrite
+          run: stylua --verify --search-parent-directories --stdin-filepath ${target} -
+          formatter: true
+          stdin: true
+          success_codes: [0, 1]
+      run_linter_from: workspace
+      suggest_if: config_present
+      direct_configs:
+        - stylua.toml
+        - .stylua.toml
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: ${semver}
+        run: stylua --version

@@ -1,0 +1,36 @@
+version: 0.1
+lint:
+  definitions:
+    - name: djlint
+      files: [html]
+      runtime: python
+      package: djlint
+      commands:
+        - name: lint
+          output: regex
+          run: djlint ${target} --quiet
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          parse_regex:
+            ((?P<path>.*):(?P<line>-?\d+):(?P<col>-?\d+) - (?P<code>\w\d+) - (?P<message>.*))
+        - name: fmt
+          output: rewrite
+          run: djlint ${target} --quiet --reformat
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          formatter: true
+          in_place: true
+      direct_configs: [.djlintrc]
+      suggest_if: config_present
+      affects_cache:
+        - .flake8
+        - pyproject.toml
+        - setup.cfg
+        - tox.ini
+      issue_url_format: https://www.djlint.com/docs/linter/#rules
+      known_good_version: 1.19.16
+      version_command:
+        parse_regex: djlint, version ${semver}
+        run: djlint --version

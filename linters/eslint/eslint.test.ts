@@ -1,19 +1,19 @@
 import { execSync } from "child_process";
 import path from "path";
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const INSTALL_TIMEOUT = 30000;
+const INSTALL_TIMEOUT = 60000;
 
-const moveConfig = (driver: TrunkDriver) => {
+const moveConfig = (driver: TrunkLintDriver) => {
   [".eslintrc.yaml", "package.json"].forEach((file) => {
     // trunk-ignore(semgrep): paths used here are safe
     driver.moveFile(path.join(TEST_DATA, file), file);
   });
 };
 
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   moveConfig(driver);
   // TODO(Tyler): Cache node_modules between runs
   execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });

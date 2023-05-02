@@ -1,0 +1,11 @@
+{
+  "documentation for humans": {
+    "What": "This file explains to buildifier how to sort format custom attributes.",
+    "See": "https://github.com/bazelbuild/buildtools/blob/master/tables/tables.go"
+  },
+  "IsLabelArg": {},
+  "LabelDenylist": {},
+  "IsSortableListArg": {},
+  "SortableAllowlist": {},
+  "NamePriority": {}
+}

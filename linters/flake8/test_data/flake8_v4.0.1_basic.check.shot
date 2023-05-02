@@ -1,34 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter flake8 test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "flake8",
+{
+  "issues": [
+    {
       "code": "E402",
       "column": "1",
       "file": "test_data/basic.in.py",
-      "issueUrl": "https://www.flake8rules.com/rules/E402.html",
+      "issueUrl": "https://flake8.pycqa.org/en/latest/user/error-codes.html",
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "flake8",
       "message": "module level import not at top of file",
       "targetType": "python",
     },
-    Object {
-      "bucket": "flake8",
+    {
       "code": "F401",
       "column": "1",
       "file": "test_data/basic.in.py",
-      "issueUrl": "https://www.flake8rules.com/rules/F401.html",
+      "issueUrl": "https://flake8.pycqa.org/en/latest/user/error-codes.html",
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "flake8",
       "message": "'sys' imported but unused",
       "targetType": "python",
     },
-    Object {
-      "bucket": "trunk",
+    {
       "code": "ignore-does-nothing",
       "column": "3",
       "file": "test_data/basic.in.py",
@@ -39,18 +36,18 @@ Object {
       "targetType": "ALL",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "flake8",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -1,0 +1,41 @@
+version: 0.1
+downloads:
+  - name: python
+    downloads:
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        version: <=3.10.3
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20220318/cpython-${version}+20220318-x86_64-${os}-install_only.tar.gz
+        strip_components: 1
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        version: <=3.10.8
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20221106/cpython-${version}+20221106-x86_64-${os}-install_only.tar.gz
+        strip_components: 1
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        version: <=3.11.1
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-${version}+20230116-x86_64-${os}-install_only.tar.gz
+        strip_components: 1
+
+runtimes:
+  definitions:
+    - type: python
+      download: python
+      runtime_environment:
+        - name: HOME
+          value: ${home}
+        - name: PATH
+          list: ["${runtime}/bin"]
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+        - name: VIRTUAL_ENV
+          value: ${linter}
+      known_good_version: 3.10.8
+      version_commands:
+        - run: python --version
+          parse_regex: Python ${semver}

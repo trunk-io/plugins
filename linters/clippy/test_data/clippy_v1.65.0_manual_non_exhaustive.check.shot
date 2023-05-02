@@ -4,7 +4,6 @@ exports[`Testing linter clippy test manual_non_exhaustive 1`] = `
 Object {
   "issues": Array [
     Object {
-      "bucket": "clippy",
       "code": "manual_non_exhaustive",
       "column": "1",
       "file": "src/main.rs",

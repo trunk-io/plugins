@@ -20,6 +20,10 @@ def get_region(entry, column_offset=0):
 
 
 for result in json.load(sys.stdin):
+    # As of ruff v0.0.260, some autofixable diagnostics may appear redundantly
+    if "location" not in result:
+        continue
+
     filepath = result["filename"]
     rule_id = result["code"]
     message = result["message"]
@@ -43,11 +47,21 @@ for result in json.load(sys.stdin):
     }
 
     if "fix" in result and result["fix"] is not None:
-        fix = result["fix"]
+        fixes = result["fix"]
+
+        # TODO(Tyler): If output format changes any more substantially, consider version-specific parsers
+        # As of ruff v0.0.260, autofixes are nested inside fix.edits
+        if "edits" in fixes:
+            message = fixes["message"]
+            fixes = fixes["edits"]
+        else:
+            message = fixes["message"]
+            fixes = [fixes]
+
         sarif_result["fixes"] = [
             {
                 "description": {
-                    "text": fix["message"],
+                    "text": message,
                 },
                 "artifactChanges": [
                     {
@@ -67,6 +81,7 @@ for result in json.load(sys.stdin):
                     }
                 ],
             }
+            for fix in fixes
         ]
 
     results.append(sarif_result)

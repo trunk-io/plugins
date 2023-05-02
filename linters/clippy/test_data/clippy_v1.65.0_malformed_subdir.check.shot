@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clippy test malformed_subdir 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "clippy",
+{
+  "issues": [
+    {
       "code": "compiler",
       "column": "1",
       "file": "test_data/malformed_subdir/src/main.rs",
@@ -14,8 +13,8 @@ Object {
       "line": "10",
       "linter": "clippy",
       "message": "expected item, found \`<eof>\`",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/malformed_subdir/src/main.rs",
           "length": "1",
           "offset": "225",
@@ -23,11 +22,11 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/malformed_subdir/src/main.rs",
               "offset": "126",
               "replacementText": ";",
@@ -35,7 +34,6 @@ Object {
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "compiler",
       "column": "1",
       "file": "test_data/malformed_subdir/src/main.rs",
@@ -45,13 +43,13 @@ Object {
       "line": "5",
       "linter": "clippy",
       "message": "expected \`;\`, found keyword \`fn\`",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/malformed_subdir/src/main.rs",
           "length": "2",
           "offset": "128",
         },
-        Object {
+        {
           "filePath": "test_data/malformed_subdir/src/main.rs",
           "offset": "126",
         },
@@ -59,18 +57,18 @@ Object {
       "targetType": "rust",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "rust",
       "linter": "clippy",
-      "paths": Array [
+      "paths": [
         "test_data/malformed_subdir",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

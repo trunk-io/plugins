@@ -10,7 +10,8 @@ lint:
           # sarif support was added in version 6.1.0
           output: sarif
           run: ansible-lint -f sarif
-          success_codes: [0, 2]
+          # ansible-lint >=6.15.0 return exit code 5 when no files matched
+          success_codes: [0, 2, 5]
           run_linter_from: directory
         - name: lint
           version: ">=5.1.3"
@@ -23,15 +24,14 @@ lint:
       runtime: python
       package: ansible-lint
       extra_packages: [ansible]
-      good_without_config: true
+      suggest_if: never
       direct_configs: [.ansible-lint]
       environment:
         - name: PATH
           list: ["${env.PATH}"] # Needs to use system git
-      is_recommended: false
       issue_url_format: https://ansible-lint.readthedocs.io/en/latest/default_rules.html#{}
       known_good_version: 5.4.0
-      known_bad_versions: [6.0.1, 6.0.2, 6.12.0, 6.12.1, 6.12.2]
+      known_bad_versions: [6.0.1, 6.0.2, 6.12.0, 6.12.1, 6.12.2, 6.14.5]
       version_command:
         parse_regex: ${semver}
         run: ansible-lint --version

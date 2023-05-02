@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter djlint test logout 1`] = `
+"{% extends "base.html" %}
+{% load i18n %}
+{% block contentLoggedIn %}You are currently logged in.{% endblock %}
+{% block content %}
+    <!--{% trans "Logged out" %}-->
+    <p>You are currently logged out.</p>
+    <link></link>
+    <a href="{% url auth_login %}">{% trans "Log in" %}</a>
+{% endblock %}
+"
+`;

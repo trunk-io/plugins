@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter pylint test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "pylint",
+{
+  "issues": [
+    {
       "code": "C0114",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0114",
@@ -14,19 +13,17 @@ Object {
       "message": "Missing module docstring",
       "targetType": "python",
     },
-    Object {
-      "bucket": "pylint",
+    {
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "3",
       "linter": "pylint",
-      "message": "Constant name \\"shift\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "shift" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
-    Object {
-      "bucket": "pylint",
+    {
       "code": "E0602",
       "column": "9",
       "file": "test_data/basic.in.py",
@@ -37,8 +34,7 @@ Object {
       "message": "Undefined variable 'raw_input'",
       "targetType": "python",
     },
-    Object {
-      "bucket": "pylint",
+    {
       "code": "E0602",
       "column": "7",
       "file": "test_data/basic.in.py",
@@ -49,41 +45,39 @@ Object {
       "message": "Undefined variable 'raw_input'",
       "targetType": "python",
     },
-    Object {
-      "bucket": "pylint",
+    {
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "6",
       "linter": "pylint",
-      "message": "Constant name \\"letters\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "letters" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
-    Object {
-      "bucket": "pylint",
+    {
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "7",
       "linter": "pylint",
-      "message": "Constant name \\"encoded\\" doesn't conform to UPPER_CASE naming style",
+      "message": "Constant name "encoded" doesn't conform to UPPER_CASE naming style",
       "targetType": "python",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "pylint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

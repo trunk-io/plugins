@@ -1,0 +1,16 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:base", "schedule:weekly"],
+  updateNotScheduled: false,
+  prConcurrentLimit: 3,
+  ignorePaths: ["**/test_data/**"],
+  packageRules: [
+    {
+      groupName: "all non-major dependencies",
+      groupSlug: "all-minor-patch",
+      matchPackagePatterns: ["*"],
+      matchUpdateTypes: ["minor", "patch"],
+      labels: ["renovate"]
+    }
+  ]
+}

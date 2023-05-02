@@ -33,9 +33,9 @@ export const getTrunkVersion = (): string => {
 /**
  * Generate contents for a newly generated, empty trunk.yaml.
  */
-export const newTrunkYamlContents = (): string => `version: 0.1
+export const newTrunkYamlContents = (trunkVersion?: string): string => `version: 0.1
 cli:
-  version: ${getTrunkVersion()}
+  version: ${trunkVersion ?? getTrunkVersion()}
 plugins:
   sources:
   - id: trunk
@@ -46,4 +46,5 @@ lint:
       paths:
         - tmp/**
         - node_modules/**
+        - .trunk/configs/**
 `;

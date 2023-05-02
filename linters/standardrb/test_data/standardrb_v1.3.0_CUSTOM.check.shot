@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter standardrb test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "standardrb",
+{
+  "issues": [
+    {
       "code": "Layout/ExtraSpacing",
       "column": "6",
       "file": "test_data/basic.rb",
@@ -13,8 +12,8 @@ Object {
       "line": "1",
       "linter": "standardrb",
       "message": "Unnecessary spacing detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "7",
           "offset": "5",
@@ -22,8 +21,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Style/LambdaCall",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -32,8 +30,8 @@ Object {
       "line": "12",
       "linter": "standardrb",
       "message": "Prefer the use of \`lambda.call(...)\` over \`lambda.(...)\`.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "44",
           "offset": "59",
@@ -41,8 +39,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Style/StringLiterals",
       "column": "10",
       "file": "test_data/basic.rb",
@@ -51,8 +48,8 @@ Object {
       "line": "13",
       "linter": "standardrb",
       "message": "Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "7",
           "offset": "76",
@@ -60,8 +57,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Style/StringLiterals",
       "column": "10",
       "file": "test_data/basic.rb",
@@ -70,8 +66,8 @@ Object {
       "line": "14",
       "linter": "standardrb",
       "message": "Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "7",
           "offset": "94",
@@ -79,8 +75,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -89,8 +84,8 @@ Object {
       "line": "4",
       "linter": "standardrb",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "32",
@@ -98,8 +93,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -108,8 +102,8 @@ Object {
       "line": "5",
       "linter": "standardrb",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "33",
@@ -117,8 +111,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -127,8 +120,8 @@ Object {
       "line": "6",
       "linter": "standardrb",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "34",
@@ -136,8 +129,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -146,8 +138,8 @@ Object {
       "line": "7",
       "linter": "standardrb",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "35",
@@ -155,8 +147,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -165,8 +156,8 @@ Object {
       "line": "8",
       "linter": "standardrb",
       "message": "Extra blank line detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "36",
@@ -174,8 +165,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/IndentationWidth",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -184,8 +174,8 @@ Object {
       "line": "9",
       "linter": "standardrb",
       "message": "Use 2 (not 1) spaces for indentation.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "1",
           "offset": "37",
@@ -193,8 +183,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Layout/IndentationConsistency",
       "column": "2",
       "file": "test_data/basic.rb",
@@ -203,8 +192,8 @@ Object {
       "line": "9",
       "linter": "standardrb",
       "message": "Inconsistent indentation detected.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "15",
           "offset": "38",
@@ -212,8 +201,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Style/EmptyMethod",
       "column": "2",
       "file": "test_data/basic.rb",
@@ -222,8 +210,8 @@ Object {
       "line": "9",
       "linter": "standardrb",
       "message": "Put the \`end\` of empty method definitions on the next line.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "15",
           "offset": "38",
@@ -231,8 +219,7 @@ Object {
       ],
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "standardrb",
+    {
       "code": "Style/SingleLineMethods",
       "column": "2",
       "file": "test_data/basic.rb",
@@ -241,8 +228,8 @@ Object {
       "line": "9",
       "linter": "standardrb",
       "message": "Avoid single-line method definitions.",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/basic.rb",
           "length": "15",
           "offset": "38",
@@ -251,18 +238,18 @@ Object {
       "targetType": "ruby",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ruby",
       "linter": "standardrb",
-      "paths": Array [
+      "paths": [
         "test_data/basic.rb",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

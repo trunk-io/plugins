@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter mypy test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "mypy",
+{
+  "issues": [
+    {
       "code": "import",
       "column": "1",
       "file": "test_data/basic.py",
@@ -12,11 +11,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "mypy",
-      "message": "Library stubs not installed for \\"google.protobuf\\" (or incompatible with Python 3.10)",
+      "message": "Library stubs not installed for "google.protobuf" (or incompatible with Python 3.10)",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "import",
       "column": "1",
       "file": "test_data/basic.py",
@@ -24,11 +22,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "mypy",
-      "message": "Library stubs not installed for \\"google.protobuf.descriptor_pb2\\" (or incompatible with Python 3.10)",
+      "message": "Library stubs not installed for "google.protobuf.descriptor_pb2" (or incompatible with Python 3.10)",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "note",
       "column": "1",
       "file": "test_data/basic.py",
@@ -36,11 +33,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "mypy",
-      "message": "Hint: \\"python3 -m pip install types-protobuf\\". (or run \\"mypy --install-types\\" to install all missing stub packages). See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports",
+      "message": "Hint: "python3 -m pip install types-protobuf". (or run "mypy --install-types" to install all missing stub packages). See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "arg-type",
       "column": "10",
       "file": "test_data/basic.py",
@@ -48,11 +44,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "13",
       "linter": "mypy",
-      "message": "Argument 1 to \\"greeting\\" has incompatible type \\"int\\"; expected \\"str\\"",
+      "message": "Argument 1 to "greeting" has incompatible type "int"; expected "str"",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "arg-type",
       "column": "10",
       "file": "test_data/basic.py",
@@ -60,11 +55,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "14",
       "linter": "mypy",
-      "message": "Argument 1 to \\"greeting\\" has incompatible type \\"bytes\\"; expected \\"str\\"",
+      "message": "Argument 1 to "greeting" has incompatible type "bytes"; expected "str"",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "func-returns-value",
       "column": "5",
       "file": "test_data/basic.py",
@@ -72,11 +66,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "15",
       "linter": "mypy",
-      "message": "\\"printer\\" does not return a value",
+      "message": ""printer" does not return a value",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "assignment",
       "column": "10",
       "file": "test_data/basic.py",
@@ -84,11 +77,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "16",
       "linter": "mypy",
-      "message": "Incompatible types in assignment (expression has type \\"int\\", variable has type \\"str\\")",
+      "message": "Incompatible types in assignment (expression has type "int", variable has type "str")",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "attr-defined",
       "column": "1",
       "file": "test_data/basic.py",
@@ -96,11 +88,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "mypy",
-      "message": "Module \\"test_data\\" has no attribute \\"mypy_import2\\"",
+      "message": "Module "test_data" has no attribute "mypy_import2"",
       "targetType": "python",
     },
-    Object {
-      "bucket": "mypy",
+    {
       "code": "return",
       "column": "1",
       "file": "test_data/source.py",
@@ -112,36 +103,36 @@ Object {
       "targetType": "python",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "mypy",
-      "paths": Array [
+      "paths": [
         "test_data/__init__.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "mypy",
-      "paths": Array [
+      "paths": [
         "test_data/basic.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "python",
       "linter": "mypy",
-      "paths": Array [
+      "paths": [
         "test_data/source.py",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

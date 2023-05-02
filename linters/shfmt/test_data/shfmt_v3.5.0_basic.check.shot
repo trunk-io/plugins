@@ -1,32 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter shfmt test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "shfmt",
+{
+  "issues": [
+    {
       "code": "parse",
       "column": "1",
       "file": "test_data/basic.in.sh",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "shfmt",
-      "message": "if statement must end with \\"fi\\"",
+      "message": "if statement must end with "fi"",
       "targetType": "shell",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "format",
       "fileGroupName": "shell",
       "linter": "shfmt",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.sh",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

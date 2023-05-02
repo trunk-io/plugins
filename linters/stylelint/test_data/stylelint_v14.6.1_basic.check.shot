@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter stylelint test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "stylelint",
+{
+  "issues": [
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -14,19 +13,17 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "selector-list-comma-newline-after",
       "column": "4",
       "file": "test_data/basic.in.css",
       "level": "LEVEL_HIGH",
       "line": "10",
       "linter": "stylelint",
-      "message": "Expected newline after \\",\\"",
+      "message": "Expected newline after ","",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -36,8 +33,7 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -47,8 +43,7 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -58,8 +53,7 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -69,8 +63,7 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -80,52 +73,50 @@ Object {
       "message": "Expected empty line before rule",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "selector-list-comma-newline-after",
       "column": "3",
       "file": "test_data/basic.in.css",
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "stylelint",
-      "message": "Expected newline after \\",\\"",
+      "message": "Expected newline after ","",
       "targetType": "css",
     },
-    Object {
-      "bucket": "stylelint",
+    {
       "code": "selector-list-comma-newline-after",
       "column": "7",
       "file": "test_data/basic.in.css",
       "level": "LEVEL_HIGH",
       "line": "7",
       "linter": "stylelint",
-      "message": "Expected newline after \\",\\"",
+      "message": "Expected newline after ","",
       "targetType": "css",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fix",
       "fileGroupName": "css",
       "linter": "stylelint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.css",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "css",
       "linter": "stylelint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.css",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/basic.in.css",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

@@ -4,6 +4,7 @@ lint:
     - name: rubocop
       files: [ruby, gemspec]
       direct_configs: [.rubocop.yml]
+      suggest_if: config_present
       runtime: ruby
       package: rubocop
       commands:
@@ -25,3 +26,21 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: rubocop --version
+
+    - name: rubocop-fmt
+      files: [ruby, gemspec]
+      type: rewrite
+      command: [rubocop, --fix-layout, "${target}"]
+      direct_configs: [.rubocop.yml]
+      runtime: ruby
+      package: rubocop
+      success_codes: [0, 1]
+      formatter: true
+      known_good_version: 1.39.0
+      version_command:
+        parse_regex: ${semver}
+        run: rubocop --version
+      in_place: true
+      batch: true
+      suggest_if: never
+      deprecated: rubocop-fmt is now handled by rubocop. Please delete rubocop-fmt from your config

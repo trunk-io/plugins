@@ -13,17 +13,23 @@ lint:
           url: https://github.com/sonatype-nexus-community/nancy/releases/download/v${version}/nancy-v${version}-${os}-${cpu}.tar.gz
   definitions:
     - name: nancy
+      files: [go-lockfile]
       download: nancy
       runtime: go
       commands:
         - output: sarif
-          run: ${plugin}/linters/nancy/run.sh sleuth
-          success_codes: [0, 1]
+          run: ${plugin}/linters/nancy/run.sh
+          success_codes: [0, 1, 2]
+          target: .
           read_output_from: stdout
+          is_security: true
           parser:
             runtime: python
             run: ${plugin}/linters/nancy/parse.py
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
+        - name: USER
+          value: ${env.USER}
       known_good_version: 1.0.41

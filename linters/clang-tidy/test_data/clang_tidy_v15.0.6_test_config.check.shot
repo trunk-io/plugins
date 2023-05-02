@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clang-tidy test test_config 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "basic.cc",
               "length": "6",
               "offset": "29",
@@ -16,7 +16,6 @@ Object {
           ],
         },
       ],
-      "bucket": "clang-tidy",
       "code": "readability-identifier-naming",
       "column": "30",
       "file": "basic.cc",
@@ -27,11 +26,34 @@ Object {
       "message": "invalid case style for constexpr variable 'unused'",
       "targetType": "c++-source",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "invalid_case_style.hh",
+              "length": "16",
+              "offset": "20",
+              "replacementText": "InvalidCaseStyle",
+            },
+          ],
+        },
+      ],
+      "code": "readability-identifier-naming",
+      "column": "7",
+      "file": "invalid_case_style.hh",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "3",
+      "linter": "clang-tidy",
+      "message": "invalid case style for class 'invalidCaseStyle'",
+      "targetType": "c++-header",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test.hh",
               "offset": "14",
               "replacementText": "static ",
@@ -39,57 +61,65 @@ Object {
           ],
         },
       ],
-      "bucket": "clang-tidy",
       "code": "readability-convert-member-functions-to-static",
-      "column": "11",
-      "file": "test.cc",
+      "column": "15",
+      "file": "test.hh",
       "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
       "level": "LEVEL_MEDIUM",
-      "line": "3",
+      "line": "2",
       "linter": "clang-tidy",
       "message": "method 'Bar' can be made static",
-      "targetType": "c++-source",
+      "targetType": "c++-header",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "a_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "b_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "basic.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
-      "fileGroupName": "c++-source",
+      "fileGroupName": "c++-header",
       "linter": "clang-tidy",
-      "paths": Array [
-        "test.cc",
+      "paths": [
+        "invalid_case_style.hh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-header",
+      "linter": "clang-tidy",
+      "paths": [
+        "test.hh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

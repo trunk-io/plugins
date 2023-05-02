@@ -26,9 +26,16 @@ const extractTaskFailureFields = (
 
 // Replace any occurrences of the nondeterministic sandbox path in the output message
 const normalizeMessage = (message?: string) =>
-  message?.replace(fs.realpathSync(os.tmpdir()), "/tmp").replace(/\/plugins_.{6}/gm, "/plugins_");
+  message
+    ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
+    .replace(/\/plugins_.{6}/gm, "/plugins_")
+    .trim();
 
-const normalizeIssues = ({ message: _message, ...rest }: FileIssue): FileIssue => ({
+const normalizeIssues = ({
+  message: _message,
+  targetPath: _targetPath,
+  ...rest
+}: FileIssue): FileIssue => ({
   ...rest,
   message: normalizeMessage(_message),
 });

@@ -1,7 +1,8 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, TrunkDriver } from "tests/driver";
+import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
@@ -47,7 +48,8 @@ const conditionalTest = (
   timeout?: number | undefined
 ) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
 
-export type TestCallback = (driver: TrunkDriver) => unknown;
+export type TestCallback = (driver: TrunkLintDriver) => unknown;
+export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
 
 /**
  * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
@@ -80,7 +82,7 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
 };
 
 /**
- * Setup the TrunkDriver to run tests in a `dirname`.
+ * Setup the TrunkLintDriver to run tests in a `dirname`.
  * @param dirname absolute path to the test subdirectory in a linter folder.
  * @param setupSettings configuration for the driver's repo setup. setupGit and setupTrunk default to true.
  * @param linterName if specified, enables this linter during setup.
@@ -88,12 +90,17 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  */
 export const setupDriver = (
   dirname: string,
-  { setupGit = true, setupTrunk = true }: SetupSettings,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   linterName?: string,
   version?: string,
   preCheck?: TestCallback
-): TrunkDriver => {
-  const driver = new TrunkDriver(dirname, { setupGit, setupTrunk }, linterName, version);
+): TrunkLintDriver => {
+  const driver = new TrunkLintDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    linterName,
+    version
+  );
 
   beforeAll(async () => {
     await driver.setUp();
@@ -112,6 +119,82 @@ export const setupDriver = (
     registerVersion(driver.enabledVersion);
   });
   return driver;
+};
+
+export const setupTrunkToolDriver = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  toolName?: string,
+  version?: string,
+  preCheck?: ToolTestCallback
+): TrunkToolDriver => {
+  const driver = new TrunkToolDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    toolName,
+    version
+  );
+
+  beforeAll(async () => {
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
+    await driver.setUp();
+  });
+
+  afterAll(() => {
+    driver.tearDown();
+  });
+  return driver;
+};
+
+interface ToolTestConfig {
+  command: string[];
+  expectedOut?: string;
+  expectedErr?: string;
+  expectedExitCode?: number;
+}
+
+export const makeToolTestConfig = ({
+  command,
+  expectedOut = "",
+  expectedErr = "",
+  expectedExitCode = 0,
+}: ToolTestConfig) => ({
+  command,
+  expectedOut,
+  expectedErr,
+  expectedExitCode,
+});
+
+export const toolTest = ({
+  toolName,
+  toolVersion,
+  testConfigs,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  toolName: string;
+  toolVersion: string;
+  dirName?: string;
+  testConfigs: ToolTestConfig[];
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: ToolTestCallback;
+}) => {
+  describe(toolName, () => {
+    const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
+    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
+      conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
+        const { stdout, stderr, exitCode } = await driver.runTool(command);
+        expect(stdout).toContain(expectedOut);
+        expect(stderr).toContain(expectedErr);
+        expect(exitCode).toEqual(expectedExitCode);
+      });
+    });
+  });
 };
 
 // TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
@@ -156,7 +239,7 @@ export const customLinterCheckTest = ({
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
-    const linterVersions = getVersionsForTest(dirname, linterName, testName, "check", true);
+    const linterVersions = getVersionsForTest(dirname, linterName, testName, "check");
     linterVersions.forEach((linterVersion) => {
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
@@ -181,7 +264,6 @@ export const customLinterCheckTest = ({
             testName,
             "check",
             driver.enabledVersion,
-            true,
             versionGreaterThanOrEqual
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
@@ -199,18 +281,17 @@ export const customLinterCheckTest = ({
               normalizedName,
               "check",
               driver.enabledVersion,
-              true,
               versionGreaterThanOrEqual
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
-        });
 
-        if (postCheck) {
-          postCheck(driver);
-          driver.debug("Finished running custom postCheck hook");
-        }
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
+        });
       });
     });
   });
@@ -256,7 +337,7 @@ export const customLinterFmtTest = ({
 }) => {
   describe(`Testing formatter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
-    const linterVersions = getVersionsForTest(dirname, linterName, testName, "fmt", true);
+    const linterVersions = getVersionsForTest(dirname, linterName, `${testName}.*`, "fmt");
     linterVersions.forEach((linterVersion) => {
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
@@ -278,25 +359,24 @@ export const customLinterFmtTest = ({
           // Step 4: Verify that any specified files match their expected snapshots for that linter version.
           const snapshotDir = path.resolve(dirname, TEST_DATA);
           pathsToSnapshot.forEach((pathToSnapshot) => {
-            const normalizedName = pathToSnapshot.replace("/", ".");
+            const normalizedName = `${testName}.${pathToSnapshot.replace("/", ".")}`;
             const snapshotPath = getSnapshotPathForAssert(
               snapshotDir,
               linterName,
               normalizedName,
               "fmt",
               driver.enabledVersion,
-              true,
               versionGreaterThanOrEqual
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
-        });
 
-        if (postCheck) {
-          postCheck(driver);
-          driver.debug("Finished running custom postCheck hook");
-        }
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
+        });
       });
     });
   });
@@ -367,12 +447,12 @@ export const linterCheckTest = ({
               snapshotPath,
               landingStateWrapper(testRunResult.landingState, snapshotPath)
             );
-          });
 
-          if (postCheck) {
-            postCheck(driver);
-            driver.debug("Finished running custom postCheck hook");
-          }
+            if (postCheck) {
+              postCheck(driver);
+              driver.debug("Finished running custom postCheck hook");
+            }
+          });
         });
       });
     });
@@ -440,11 +520,12 @@ export const linterFmtTest = ({
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath
             );
+
+            if (postCheck) {
+              postCheck(driver);
+              driver.debug("Finished running custom postCheck hook");
+            }
           });
-          if (postCheck) {
-            postCheck(driver);
-            driver.debug("Finished running custom postCheck hook");
-          }
         });
       });
     });

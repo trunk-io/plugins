@@ -1,62 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter terraform test variables 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "terraform",
+{
+  "issues": [
+    {
       "code": "Invalid quoted type constraints",
       "file": "test_data/variables.in.tf",
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "terraform",
-      "message": "Terraform 0.11 and earlier required type constraints to be given in quotes, but that form is now deprecated and will be removed in a future version of Terraform. Remove the quotes around \\"map\\" and write map(string) instead to explicitly indicate that the map elements are strings.",
-      "targetType": "terraform",
-    },
-    Object {
-      "bucket": "terraform",
-      "code": "Missing value",
-      "file": "test_data/variables.in.tf.json",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "terraform",
-      "message": "The JSON data ends prematurely.",
-      "targetType": "terraform",
-    },
-    Object {
-      "bucket": "terraform",
-      "code": "Root value must be object",
-      "file": "test_data/variables.in.tf.json",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "terraform",
-      "message": "The root value in a JSON-based configuration must be either a JSON object or a JSON array of objects.",
+      "message": "Terraform 0.11 and earlier required type constraints to be given in quotes, but that form is now deprecated and will be removed in a future version of Terraform. Remove the quotes around "map" and write map(string) instead to explicitly indicate that the map elements are strings.",
       "targetType": "terraform",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "fmt",
       "fileGroupName": "terraform",
       "linter": "terraform",
-      "paths": Array [
+      "paths": [
         "test_data/variables.in.tf",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "validate",
       "fileGroupName": "terraform",
       "linter": "terraform",
-      "paths": Array [
+      "paths": [
         "test_data",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [
-    Object {
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
       "column": "1",
       "file": "test_data/variables.in.tf",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

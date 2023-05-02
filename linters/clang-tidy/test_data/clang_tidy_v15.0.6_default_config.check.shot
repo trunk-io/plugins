@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clang-tidy test default_config 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test.hh",
               "offset": "14",
               "replacementText": "static ",
@@ -15,57 +15,65 @@ Object {
           ],
         },
       ],
-      "bucket": "clang-tidy",
       "code": "readability-convert-member-functions-to-static",
-      "column": "11",
-      "file": "test.cc",
+      "column": "15",
+      "file": "test.hh",
       "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
       "level": "LEVEL_MEDIUM",
-      "line": "3",
+      "line": "2",
       "linter": "clang-tidy",
       "message": "method 'Bar' can be made static",
-      "targetType": "c++-source",
+      "targetType": "c++-header",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "a_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "b_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
-      "paths": Array [
+      "paths": [
         "basic.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
-      "fileGroupName": "c++-source",
+      "fileGroupName": "c++-header",
       "linter": "clang-tidy",
-      "paths": Array [
-        "test.cc",
+      "paths": [
+        "invalid_case_style.hh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-header",
+      "linter": "clang-tidy",
+      "paths": [
+        "test.hh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

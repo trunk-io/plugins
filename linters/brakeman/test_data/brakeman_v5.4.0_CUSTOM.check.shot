@@ -1,57 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter brakeman test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "brakeman",
-      "code": "EOLRails",
+{
+  "issues": [
+    {
+      "code": "BRAKE0120",
       "column": "1",
       "file": "test_data/Gemfile.lock",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
-      "level": "LEVEL_MEDIUM",
+      "level": "LEVEL_HIGH",
       "line": "105",
       "linter": "brakeman",
-      "message": "Support for Rails 5.2.8.1 ended on 2022-06-01",
+      "message": "Support for Rails 5.2.8.1 ended on 2022-06-01.",
       "targetType": "ruby",
     },
-    Object {
-      "bucket": "brakeman",
-      "code": "Evaluation",
+    {
+      "code": "BRAKE0013",
       "column": "1",
       "file": "test_data/app/helpers/users_helper.rb",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://brakemanscanner.org/docs/warning_types/dangerous_eval/",
-      "level": "LEVEL_MEDIUM",
+      "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "brakeman",
-      "message": "User input in eval",
+      "message": "User input in eval.",
       "targetType": "ruby",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ruby",
       "linter": "brakeman",
-      "paths": Array [
+      "paths": [
         "test_data",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "ruby",
       "linter": "brakeman",
-      "paths": Array [
+      "paths": [
         "test_data",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

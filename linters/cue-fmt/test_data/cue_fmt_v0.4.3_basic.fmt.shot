@@ -6,6 +6,6 @@ exports[`Testing formatter cue-fmt test basic 1`] = `
 	b?: int // a useful comment
 }
 foo: #Bar
-foo: {a: \\"a\\"}
+foo: {a: "a"}
 "
 `;

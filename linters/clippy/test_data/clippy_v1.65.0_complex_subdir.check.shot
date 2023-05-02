@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter clippy test complex_subdir 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "clippy",
+{
+  "issues": [
+    {
       "code": "dead_code",
       "column": "4",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -14,8 +13,8 @@ Object {
       "line": "1",
       "linter": "clippy",
       "message": "function \`do_bad_math\` is never used",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/complex_subdir/src/high.rs",
           "length": "11",
           "offset": "3",
@@ -23,8 +22,7 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
-      "bucket": "clippy",
+    {
       "code": "arithmetic_overflow",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -34,8 +32,8 @@ Object {
       "line": "2",
       "linter": "clippy",
       "message": "this arithmetic operation will overflow",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/complex_subdir/src/high.rs",
           "length": "11",
           "offset": "23",
@@ -43,8 +41,7 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
-      "bucket": "clippy",
+    {
       "code": "no_effect",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -54,8 +51,8 @@ Object {
       "line": "2",
       "linter": "clippy",
       "message": "statement with no effect",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/complex_subdir/src/high.rs",
           "length": "12",
           "offset": "23",
@@ -63,11 +60,11 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/complex_subdir/src/high.rs",
               "offset": "23",
               "replacementText": "let _ = ",
@@ -75,7 +72,6 @@ Object {
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "unused_must_use",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -85,8 +81,8 @@ Object {
       "line": "2",
       "linter": "clippy",
       "message": "unused bitwise operation that must be used",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/complex_subdir/src/high.rs",
           "length": "11",
           "offset": "23",
@@ -94,11 +90,11 @@ Object {
       ],
       "targetType": "rust",
     },
-    Object {
-      "autofixOptions": Array [
-        Object {
-          "replacements": Array [
-            Object {
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
               "filePath": "test_data/complex_subdir/src/main.rs",
               "length": "15",
               "offset": "60",
@@ -107,7 +103,6 @@ Object {
           ],
         },
       ],
-      "bucket": "clippy",
       "code": "double_comparisons",
       "column": "8",
       "file": "test_data/complex_subdir/src/main.rs",
@@ -117,8 +112,8 @@ Object {
       "line": "6",
       "linter": "clippy",
       "message": "this binary expression can be simplified",
-      "ranges": Array [
-        Object {
+      "ranges": [
+        {
           "filePath": "test_data/complex_subdir/src/main.rs",
           "length": "15",
           "offset": "60",
@@ -127,18 +122,18 @@ Object {
       "targetType": "rust",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "rust",
       "linter": "clippy",
-      "paths": Array [
+      "paths": [
         "test_data/complex_subdir",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

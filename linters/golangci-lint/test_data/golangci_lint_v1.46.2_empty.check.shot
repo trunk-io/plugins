@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter golangci-lint test empty 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "golangci-lint",
+{
+  "issues": [
+    {
       "code": "typecheck",
       "column": "1",
       "file": "empty.go",
@@ -15,8 +14,7 @@ Object {
       "message": "expected 'package', found 'EOF'",
       "targetType": "go",
     },
-    Object {
-      "bucket": "golangci-lint",
+    {
       "code": "deadcode",
       "column": "6",
       "file": "test_data/unused_func.go",
@@ -27,8 +25,7 @@ Object {
       "message": "\`helper\` is unused",
       "targetType": "go",
     },
-    Object {
-      "bucket": "golangci-lint",
+    {
       "code": "typecheck",
       "column": "23",
       "file": "test_data/wrapper/printer.go",
@@ -40,36 +37,36 @@ Object {
       "targetType": "go",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "go",
       "linter": "golangci-lint",
-      "paths": Array [
+      "paths": [
         ".",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "go",
       "linter": "golangci-lint",
-      "paths": Array [
+      "paths": [
         "test_data",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "go",
       "linter": "golangci-lint",
-      "paths": Array [
+      "paths": [
         "test_data/wrapper",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter eslint test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "eslint",
+{
+  "issues": [
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -15,8 +14,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -27,8 +25,7 @@ Object {
       "message": "'zaphod' is defined but never used.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "import/no-unresolved",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -39,8 +36,7 @@ Object {
       "message": "Unable to resolve path to module 'beetlebrox'.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-missing-import",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -48,11 +44,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "eslint",
-      "message": "\\"beetlebrox\\" is not found.",
+      "message": ""beetlebrox" is not found.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -63,8 +58,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -75,8 +69,7 @@ Object {
       "message": "'arthur' is defined but never used.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "import/no-unresolved",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -87,8 +80,7 @@ Object {
       "message": "Unable to resolve path to module 'dent'.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-missing-import",
       "column": "24",
       "file": "test_data/format_imports.ts",
@@ -96,11 +88,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "eslint",
-      "message": "\\"dent\\" is not found.",
+      "message": ""dent" is not found.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -111,8 +102,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-unused-vars",
       "column": "10",
       "file": "test_data/format_imports.ts",
@@ -123,8 +113,7 @@ Object {
       "message": "'ford' is defined but never used.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "import/no-unresolved",
       "column": "22",
       "file": "test_data/format_imports.ts",
@@ -135,8 +124,7 @@ Object {
       "message": "Unable to resolve path to module 'prefect'.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-missing-import",
       "column": "22",
       "file": "test_data/format_imports.ts",
@@ -144,11 +132,10 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "eslint",
-      "message": "\\"prefect\\" is not found.",
+      "message": ""prefect" is not found.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "1",
       "file": "test_data/format_imports.ts",
@@ -159,8 +146,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -171,8 +157,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "36",
       "file": "test_data/null_rule_id.ts",
@@ -183,8 +168,7 @@ Object {
       "message": "Unexpected any. Specify a different type.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "53",
       "file": "test_data/null_rule_id.ts",
@@ -195,8 +179,7 @@ Object {
       "message": "Unexpected any. Specify a different type.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "60",
       "file": "test_data/null_rule_id.ts",
@@ -207,8 +190,7 @@ Object {
       "message": "Unexpected any. Specify a different type.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -219,8 +201,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "54",
       "file": "test_data/null_rule_id.ts",
@@ -231,8 +212,7 @@ Object {
       "message": "Unexpected any. Specify a different type.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "node/no-unsupported-features/es-syntax",
       "column": "3",
       "file": "test_data/null_rule_id.ts",
@@ -243,8 +223,7 @@ Object {
       "message": "Import and export declarations are not supported yet.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "42",
       "file": "test_data/null_rule_id.ts",
@@ -255,8 +234,7 @@ Object {
       "message": "Unexpected any. Specify a different type.",
       "targetType": "typescript",
     },
-    Object {
-      "bucket": "eslint",
+    {
       "code": "@typescript-eslint/no-explicit-any",
       "column": "49",
       "file": "test_data/null_rule_id.ts",
@@ -268,36 +246,36 @@ Object {
       "targetType": "typescript",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "typescript",
       "linter": "eslint",
-      "paths": Array [
+      "paths": [
         "test_data/eof_autofix.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "typescript",
       "linter": "eslint",
-      "paths": Array [
+      "paths": [
         "test_data/format_imports.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "typescript",
       "linter": "eslint",
-      "paths": Array [
+      "paths": [
         "test_data/non_ascii.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -20,6 +20,7 @@ lint:
       files: [scala]
       download: scalafmt
       direct_configs: [.scalafmt.conf]
+      suggest_if: config_present
       commands:
         - name: format
           output: rewrite

@@ -23,7 +23,7 @@ lint:
           formatter: true
       runtime: node
       package: prettier
-      good_without_config: true
+      suggest_if: files_present
       direct_configs:
         - .prettierrc
         - .prettierrc.json

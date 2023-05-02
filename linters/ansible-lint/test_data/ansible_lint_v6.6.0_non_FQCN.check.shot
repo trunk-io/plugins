@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter ansible-lint test non_FQCN 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "ansible-lint",
+{
+  "issues": [
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/demo-aws-launch.yml",
@@ -16,8 +15,7 @@ Object {
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/java-app",
@@ -29,8 +27,7 @@ Object {
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -42,8 +39,7 @@ Object {
       "message": "Task/Handler: Copy application WAR file to host",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -55,8 +51,7 @@ Object {
       "message": "Task/Handler: Copy application WAR file to host",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -68,8 +63,7 @@ Object {
       "message": "Task/Handler: Copy application WAR file to host",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/java-app/tasks/main.yml",
@@ -81,8 +75,7 @@ Object {
       "message": "Task/Handler: Copy application WAR file to host",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "role-name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone",
@@ -94,8 +87,7 @@ Object {
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -107,8 +99,7 @@ Object {
       "message": "Task/Handler: restart jboss",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -120,8 +111,7 @@ Object {
       "message": "Task/Handler: restart jboss",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -133,8 +123,7 @@ Object {
       "message": "Task/Handler: restart iptables",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
@@ -146,8 +135,7 @@ Object {
       "message": "Task/Handler: restart iptables",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "schema",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -156,7 +144,7 @@ Object {
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "ansible-lint",
-      "message": " Returned errors will not include exact line numbers, but they will mention
+      "message": "Returned errors will not include exact line numbers, but they will mention
 the schema name being used as a tag, like \`\`playbook-schema\`\`,
 \`\`tasks-schema\`\`.
 
@@ -167,12 +155,10 @@ Schema bugs should be reported towards [schemas](https://github.com/ansible/sche
 If incorrect schema was picked, you might want to either:
 
 * move the file to standard location, so its file is detected correctly.
-* use \`\`kinds:\`\` option in linter config to help it pick correct file type.
-",
+* use \`\`kinds:\`\` option in linter config to help it pick correct file type.",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -184,8 +170,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Download JBoss from jboss.org",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -197,8 +182,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Download JBoss from jboss.org",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -210,8 +194,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Extract archive",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -223,8 +206,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Install Java 1.7 and some basic dependencies",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -236,8 +218,7 @@ If incorrect schema was picked, you might want to either:
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -249,8 +230,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Rename install directory",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -262,8 +242,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Copying standalone.xml configuration file",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -275,8 +254,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Copying standalone.xml configuration file",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -285,11 +263,10 @@ If incorrect schema was picked, you might want to either:
       "level": "LEVEL_HIGH",
       "line": "37",
       "linter": "ansible-lint",
-      "message": "Task/Handler: Add group \\"jboss\\"",
+      "message": "Task/Handler: Add group "jboss"",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -298,11 +275,10 @@ If incorrect schema was picked, you might want to either:
       "level": "LEVEL_HIGH",
       "line": "41",
       "linter": "ansible-lint",
-      "message": "Task/Handler: Add user \\"jboss\\"",
+      "message": "Task/Handler: Add user "jboss"",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -314,8 +290,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Change ownership of JBoss installation",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -327,8 +302,7 @@ If incorrect schema was picked, you might want to either:
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -340,8 +314,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Copy the init script",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "command-instead-of-module",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -353,8 +326,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Workaround for systemd bug",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -366,8 +338,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Workaround for systemd bug",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "ignore-errors",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -379,8 +350,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Workaround for systemd bug",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "no-changed-when",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -392,8 +362,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Workaround for systemd bug",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -405,8 +374,7 @@ If incorrect schema was picked, you might want to either:
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -418,8 +386,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Enable JBoss to be started at boot",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -431,8 +398,7 @@ If incorrect schema was picked, you might want to either:
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -444,8 +410,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: deploy iptables rules",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -457,8 +422,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: deploy iptables rules",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "risky-file-permissions",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -470,8 +434,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: deploy iptables rules",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -483,8 +446,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Ensure that firewalld is installed",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "fqcn-builtins",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -496,8 +458,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: Ensure that firewalld is started",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "name",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -509,8 +470,7 @@ If incorrect schema was picked, you might want to either:
       "message": "Task/Handler: deploy firewalld rules",
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -522,8 +482,7 @@ If incorrect schema was picked, you might want to either:
       "message": undefined,
       "targetType": "custom",
     },
-    Object {
-      "bucket": "ansible-lint",
+    {
       "code": "yaml",
       "column": "1",
       "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
@@ -536,28 +495,28 @@ If incorrect schema was picked, you might want to either:
       "targetType": "custom",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

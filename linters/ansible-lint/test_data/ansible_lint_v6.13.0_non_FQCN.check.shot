@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter ansible-lint test non_FQCN 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "ansible-lint",
+{
+  "issues": [
+    {
       "code": "syntax-check[specific]",
       "column": "7",
       "file": "jboss-standalone/demo-aws-launch.yml",
@@ -17,28 +16,28 @@ Object {
       "targetType": "custom",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "custom",
       "linter": "ansible-lint",
-      "paths": Array [
+      "paths": [
         "jboss-standalone",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

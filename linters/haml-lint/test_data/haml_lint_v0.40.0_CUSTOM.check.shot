@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter haml-lint test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "haml-lint",
+{
+  "issues": [
+    {
       "code": "IdNames",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
@@ -13,8 +12,7 @@ Object {
       "message": "\`id\` attribute must be in lisp-case",
       "targetType": "haml",
     },
-    Object {
-      "bucket": "haml-lint",
+    {
       "code": "EmptyScript",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
@@ -23,8 +21,7 @@ Object {
       "message": "Empty script should be removed",
       "targetType": "haml",
     },
-    Object {
-      "bucket": "haml-lint",
+    {
       "code": "SpaceBeforeScript",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
@@ -34,27 +31,27 @@ Object {
       "targetType": "haml",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "haml",
       "linter": "haml-lint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.haml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "haml",
       "linter": "haml-lint",
-      "paths": Array [
+      "paths": [
         "test_data/empty.haml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

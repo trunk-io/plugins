@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter gofumpt test gofumpt 1`] = `
+"package main
+
+func foo() string {
+	foo := "bar"
+	return foo
+}
+"
+`;

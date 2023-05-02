@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter sqlfluff test basic_check 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "sqlfluff",
+{
+  "issues": [
+    {
       "code": "L010",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -14,8 +13,7 @@ Object {
       "message": "Keywords must be consistently upper case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L036",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -25,8 +23,7 @@ Object {
       "message": "Select targets should be on a new line unless there is only one select target.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L044",
       "column": "1",
       "file": "test_data/basic_check.in.sql",
@@ -36,8 +33,7 @@ Object {
       "message": "Query produces an unknown number of result columns.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L013",
       "column": "12",
       "file": "test_data/basic_check.in.sql",
@@ -47,8 +43,7 @@ Object {
       "message": "Column expression without alias. Use explicit \`AS\` clause.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L010",
       "column": "20",
       "file": "test_data/basic_check.in.sql",
@@ -58,8 +53,7 @@ Object {
       "message": "Keywords must be consistently upper case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L039",
       "column": "22",
       "file": "test_data/basic_check.in.sql",
@@ -69,8 +63,7 @@ Object {
       "message": "Unnecessary whitespace found.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L014",
       "column": "24",
       "file": "test_data/basic_check.in.sql",
@@ -80,8 +73,7 @@ Object {
       "message": "Unquoted identifiers must be consistently lower case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L039",
       "column": "27",
       "file": "test_data/basic_check.in.sql",
@@ -91,8 +83,7 @@ Object {
       "message": "Unnecessary whitespace found.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L010",
       "column": "29",
       "file": "test_data/basic_check.in.sql",
@@ -102,8 +93,7 @@ Object {
       "message": "Keywords must be consistently upper case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L014",
       "column": "34",
       "file": "test_data/basic_check.in.sql",
@@ -113,8 +103,7 @@ Object {
       "message": "Unquoted identifiers must be consistently lower case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L014",
       "column": "43",
       "file": "test_data/basic_check.in.sql",
@@ -124,8 +113,7 @@ Object {
       "message": "Unquoted identifiers must be consistently lower case.",
       "targetType": "sql",
     },
-    Object {
-      "bucket": "sqlfluff",
+    {
       "code": "L039",
       "column": "7",
       "file": "test_data/basic_check.in.sql",
@@ -136,18 +124,18 @@ Object {
       "targetType": "sql",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "sql",
       "linter": "sqlfluff",
-      "paths": Array [
+      "paths": [
         "test_data/basic_check.in.sql",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

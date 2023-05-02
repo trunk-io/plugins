@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter markdownlint test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "markdownlint",
+{
+  "issues": [
+    {
       "code": "MD025",
       "file": "test_data/basic.in.md",
       "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025",
@@ -15,18 +14,18 @@ Object {
       "targetType": "markdown",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "markdown",
       "linter": "markdownlint",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.md",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

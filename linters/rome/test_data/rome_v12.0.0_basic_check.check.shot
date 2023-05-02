@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter rome test basic_check 1`] = `
+{
+  "issues": [
+    {
+      "code": "lint/style/useEnumInitializers",
+      "column": "12",
+      "file": "test_data/basic_check.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "rome",
+      "message": "The enum member should be initialized.",
+      "targetType": "typescript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "check",
+      "fileGroupName": "typescript",
+      "linter": "rome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fmt",
+      "fileGroupName": "typescript",
+      "linter": "rome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic_check.in.ts",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "rome",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

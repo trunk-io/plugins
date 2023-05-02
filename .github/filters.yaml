@@ -1,13 +1,22 @@
 # Run tests against all linters if the testing framework or trunk version changes.
 # These tests will be run with KnownGoodVersion.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test linters`
-all-linters:
-  - tests/driver/**
+
+framework: &framework
   - tests/reporter/**
   - tests/types/**
   - tests/utils/**
   - tests/index.ts
   - .trunk/trunk.yaml
+  - package.json
+
+all-linters:
+  - *framework
+  - tests/driver/!(tool_driver.ts)
+
+all-tools:
+  - *framework
+  - tests/driver/!(lint_driver.ts)
 
 # Run tests against specific linters if existing linters have been modified or updated.
 # These test will be run with KnownGoodVersion and Latest to verify linter integrity at the latest and fallback version.
@@ -16,6 +25,9 @@ all-linters:
 linters:
   - linters/**
 
+tools:
+  - tools/**
+
 # Run tests against the health and configuration of the repo if any plugin definition
 # or testing framework change is made.
 # e.g. `npm test tests/repo_tests`
@@ -23,7 +35,11 @@ repo-tests:
   - tests/**
   - linters/**
   - actions/**
+  - tools/**
   - readme.md
   - .trunk/trunk.yaml
+  - package.json
+  - package-lock.json
+  - .github/**
 # Nightly jobs will run on all linters with Snapshots and Latest.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=[Snapshots,Latest] npm test linters`

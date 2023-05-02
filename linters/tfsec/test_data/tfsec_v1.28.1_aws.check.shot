@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter tfsec test aws 1`] = `
+{
+  "issues": [
+    {
+      "code": "aws-ec2-enable-at-rest-encryption",
+      "column": "1",
+      "file": "aws.in.tf",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "tfsec",
+      "message": "Root block device is not encrypted.",
+      "targetType": "terraform",
+    },
+    {
+      "code": "aws-ec2-enforce-http-token-imds",
+      "column": "1",
+      "file": "aws.in.tf",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "tfsec",
+      "message": "Instance does not require IMDS access to require a token",
+      "targetType": "terraform",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "terraform",
+      "linter": "tfsec",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

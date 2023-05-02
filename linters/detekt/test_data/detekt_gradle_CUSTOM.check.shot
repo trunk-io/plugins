@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter detekt-gradle test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "detekt-gradle",
+{
+  "issues": [
+    {
       "code": "detekt.potential-bugs.EqualsWithHashCodeExist",
       "column": "12",
       "file": "lib/src/main/kotlin/detekt_gradle/Library.kt",
@@ -15,18 +14,18 @@ Object {
       "targetType": "kotlin",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "kotlin",
       "linter": "detekt-gradle",
-      "paths": Array [
+      "paths": [
         ".",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

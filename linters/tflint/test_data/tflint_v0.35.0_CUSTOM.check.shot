@@ -4,7 +4,6 @@ exports[`Testing linter tflint test CUSTOM 1`] = `
 Object {
   "issues": Array [
     Object {
-      "bucket": "tflint",
       "code": "aws_instance_invalid_type",
       "column": "19",
       "file": "aws.tf",
@@ -16,7 +15,6 @@ Object {
       "targetType": "terraform",
     },
     Object {
-      "bucket": "tflint",
       "code": "aws_instance_previous_type",
       "column": "19",
       "file": "aws.tf",

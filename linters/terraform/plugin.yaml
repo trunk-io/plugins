@@ -36,7 +36,7 @@ lint:
           success_codes: [0]
           # cache_results: true
           # TODO - need cache_results to be by verb
-      good_without_config: true
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -50,7 +50,54 @@ lint:
           value: ${env.GITHUB_APP_PEM_FILE}
           optional: true
       known_good_version: 1.1.0
-      is_recommended: false
       version_command:
         parse_regex: ${semver}
         run: terraform --version
+
+    - name: terraform-fmt
+      files: [terraform]
+      type: rewrite
+      command: [terraform, fmt, -no-color, "-"]
+      download: terraform
+      stdin: true
+      success_codes: [0]
+      formatter: true
+      cache_results: true
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      known_good_version: 1.1.0
+      version_command:
+        parse_regex: ${semver}
+        run: terraform --version
+      suggest_if: never
+      deprecated:
+        terraform-fmt is now handled by terraform. Please delete terraform-fmt from your config
+
+    - name: terraform-validate
+      files: [terraform]
+      type: terraform_validate
+      command: [terraform, validate, -json]
+      run_linter_from: directory
+      download: terraform
+      success_codes: [0, 1]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+        - name: GITHUB_APP_ID
+          value: ${env.GITHUB_APP_ID}
+          optional: true
+        - name: GITHUB_APP_INSTALLATION_ID
+          value: ${env.GITHUB_APP_INSTALLATION_ID}
+          optional: true
+        - name: GITHUB_APP_PEM_FILE
+          value: ${env.GITHUB_APP_PEM_FILE}
+          optional: true
+      known_good_version: 1.1.0
+      suggest_if: never
+      version_command:
+        parse_regex: ${semver}
+        run: terraform --version
+      deprecated:
+        terraform-validate is now handled by terraform. Please delete terraform-validate from your
+        config

@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: golines
+      files: [go]
+      runtime: go
+      package: github.com/segmentio/golines
+      commands:
+        - name: format
+          output: rewrite
+          run: golines ${target}
+          success_codes: [0]
+          stdin: true
+          cache_results: true
+          formatter: true
+      suggest_if: never
+      known_good_version: 0.11.0

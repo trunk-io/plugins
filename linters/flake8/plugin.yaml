@@ -17,13 +17,13 @@ lint:
       runtime: python
       package: flake8
       direct_configs: [.flake8]
-      is_recommended: false
+      suggest_if: config_present
       affects_cache:
         - setup.cfg
         - tox.ini
         # In case the user installs https://pypi.org/project/Flake8-pyproject/
         - pyproject.toml
-      issue_url_format: https://www.flake8rules.com/rules/{}.html
+      issue_url_format: https://flake8.pycqa.org/en/latest/user/error-codes.html
       known_good_version: 4.0.1
       version_command:
         parse_regex: ${semver}

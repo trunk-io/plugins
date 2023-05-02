@@ -1,16 +1,17 @@
 import path from "path";
 import { customLinterCheckTest, customLinterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 customLinterFmtTest({
   linterName: "sort-package-json",
+  testName: "basic",
   args: "--all",
   pathsToSnapshot: [path.join(TEST_DATA, "package.json")],
 });
 
 // Use file with malformed json
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, "bad_package.json"), path.join(TEST_DATA, "package.json"));
 };
 

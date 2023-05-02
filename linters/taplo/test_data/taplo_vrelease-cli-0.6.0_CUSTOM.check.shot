@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter taplo test CUSTOM 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "taplo",
+{
+  "issues": [
+    {
       "code": "error",
       "column": "1",
       "file": "test_data/bad.toml",
@@ -14,8 +13,7 @@ Object {
       "message": "conflicting keys",
       "targetType": "toml",
     },
-    Object {
-      "bucket": "taplo",
+    {
       "code": "error",
       "column": "8",
       "file": "test_data/bad.toml",
@@ -26,45 +24,45 @@ Object {
       "targetType": "toml",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "format",
       "fileGroupName": "toml",
       "linter": "taplo",
-      "paths": Array [
+      "paths": [
         "test_data/basic.toml",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "format",
       "fileGroupName": "toml",
       "linter": "taplo",
-      "paths": Array [
+      "paths": [
         "test_data/empty.toml",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "toml",
       "linter": "taplo",
-      "paths": Array [
+      "paths": [
         "test_data/basic.toml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    Object {
+    {
       "command": "lint",
       "fileGroupName": "toml",
       "linter": "taplo",
-      "paths": Array [
+      "paths": [
         "test_data/empty.toml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

@@ -1,0 +1,10 @@
+# runAsNonRoot and runAsUser not set (pod or container)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+    - name: main
+      image: alpine
+      command: ["/bin/sleep", "999999"]

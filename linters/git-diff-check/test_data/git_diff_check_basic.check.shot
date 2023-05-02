@@ -1,54 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing linter git-diff-check test basic 1`] = `
-Object {
-  "issues": Array [
-    Object {
-      "bucket": "git-diff-check",
+{
+  "issues": [
+    {
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
-    Object {
-      "bucket": "git-diff-check",
+    {
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
-    Object {
-      "bucket": "git-diff-check",
+    {
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",
       "level": "LEVEL_HIGH",
       "line": "5",
       "linter": "git-diff-check",
-      "message": " leftover conflict marker",
+      "message": "leftover conflict marker",
       "targetType": "ALL",
     },
   ],
-  "lintActions": Array [
-    Object {
+  "lintActions": [
+    {
       "command": "lint",
       "fileGroupName": "ALL",
       "linter": "git-diff-check",
-      "paths": Array [
+      "paths": [
         "test_data/basic.in.txt",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
-  "taskFailures": Array [],
-  "unformattedFiles": Array [],
+  "taskFailures": [],
+  "unformattedFiles": [],
 }
 `;

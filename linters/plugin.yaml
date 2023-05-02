@@ -4,6 +4,10 @@ lint:
     - name: dashes-inline
       leading_delimiter: --
 
+    - name: dashes-block
+      leading_delimiter: --[[
+      trailing_delimiter: --]]
+
     - name: hash
       leading_delimiter: "#"
 
@@ -182,6 +186,13 @@ lint:
         - slashes-inline
         - slashes-block
 
+    - name: go-lockfile
+      filenames:
+        - go.mod
+        - go.sum
+        - Gopkg.lock
+        - Gopkg.toml
+
     - name: graphql
       extensions:
         - graphql
@@ -292,6 +303,15 @@ lint:
         # Ruby
         - Gemfile.lock
 
+    - name: lua
+      extensions:
+        - lua
+      shebangs:
+        - lua
+      comments:
+        - dashes-inline
+        - dashes-block
+
     - name: markdown
       extensions:
         - md
@@ -299,9 +319,62 @@ lint:
       comments:
         - html-tag
 
+    - name: nix
+      extensions:
+        - nix
+
     - name: objective-c-source
       extensions:
         - m
+
+    # This is the same as the lockfile type above, minus go.sum because osv-scanner does not support that
+    # TODO(Tyler): once linter ignores are supported, move this into a linter ignore
+    - name: osv-lockfiles
+      filenames:
+        # Cargo (Rust)
+        - Cargo.lock
+
+        # CocoaPods (Swift/Obj-C)
+        - Podfile.lock
+
+        # Composer (PHP)
+        - composer.lock
+
+        # Conan (C++)
+        - conan.lock
+
+        # Golang
+        - go.mod
+
+        # Gradle (Android/Java/Kotlin)
+        - buildscript-gradle.lockfile
+        - gradle.lockfile
+
+        # Maven
+        - pom.xml
+
+        # Mix (Erlang/Elixir)
+        - mix.lock
+
+        # Node
+        - package-lock.json
+        - pnpm-lock.yaml
+        - yarn.lock
+
+        # NuGet (.NET)
+        - packages.lock.json
+        - packages.config
+
+        # Pub (Dart)
+        - pubspec.lock
+
+        # Python
+        - requirements.txt
+        - Pipfile.lock
+        - poetry.lock
+
+        # Ruby
+        - Gemfile.lock
 
     - name: php
       extensions:
@@ -461,3 +534,33 @@ lint:
         - zsh
       comments:
         - hash
+
+  ignore:
+    - linters: [ALL]
+      paths:
+        # the trunk launcher
+        - "**/trunk"
+
+    - linters: [ALL]
+      security: false
+      paths:
+        # lockfiles
+        - "**/.terraform.lock.hcl"
+        - "**/*gradle.lockfile"
+        - "**/Berksfile.lock"
+        - "**/Cargo.lock"
+        - "**/Gemfile.lock"
+        - "**/go.sum"
+        - "**/package-lock.json"
+        - "**/pnpm-lock.yaml"
+        - "**/requirements.lock"
+        - "**/vendor/**"
+        - "**/yarn.lock"
+
+    # TODO(Tyler): Once we bump required_trunk_version to merge plugin lint ignores, we can rmeove the osv-lockfiles type.
+    - linters: [osv-scanner]
+      paths: ["**/go.sum"]
+
+    - linters: [eslint]
+      paths:
+        - "**/svgo.config.*js"
