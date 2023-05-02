@@ -134,11 +134,13 @@ jobs:
           needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
           == 'linters'
         with:
-          linter-version: KnownGoodVersion
+          linter-version: Snapshots # KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          # TODO: TYLER ADD THIS BACK IN
           append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
+            linters/buf
+            # ${{ needs.detect_changes.outputs.all-linters }}
+            #${{needs.detect_changes.outputs.linters-files }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.

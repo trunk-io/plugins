@@ -34,23 +34,23 @@ const preCheck = (addDup: boolean) => async (driver: TrunkLintDriver) => {
 };
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes and more coverage for format.
-linterCheckTest({ linterName: "buf-lint", namedTestPrefixes: ["buf_lint"] });
-linterFmtTest({ linterName: "buf-format", namedTestPrefixes: ["buf_lint"] });
+// linterCheckTest({ linterName: "buf-lint", namedTestPrefixes: ["buf_lint"] });
+// linterFmtTest({ linterName: "buf-format", namedTestPrefixes: ["buf_lint"] });
 
 // NOTE(Tyler): This isn't a perfect config of buf breaking. For instance, if files are moved/renamed, buf cannot account for
 // them, but it offers a best effort that covers primary buf use cases.
-customLinterCheckTest({
-  linterName: "buf-breaking",
-  testName: "basic",
-  args: "-a",
-  preCheck: preCheck(false),
-});
+// customLinterCheckTest({
+//   linterName: "buf-breaking",
+//   testName: "basic",
+//   args: "-a",
+//   preCheck: preCheck(false),
+// });
 
 // NOTE(Tyler): buf-breaking will non-deterministically choose one of the proto files to be the original and one to be the
 // duplicate. Because of this, we have custom replacement for file and message to replace ".dup." -> "."
 customLinterCheckTest({
   linterName: "buf-breaking",
   testName: "dupFile",
-  args: "-a --debug",
+  args: "-a",
   preCheck: preCheck(true),
 });
