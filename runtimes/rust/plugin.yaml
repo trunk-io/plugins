@@ -22,7 +22,7 @@ runtimes:
       download: rust
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin"]
         - name: http_proxy

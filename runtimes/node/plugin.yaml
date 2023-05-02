@@ -22,7 +22,7 @@ runtimes:
       download: node
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin", "${env.PATH}"]
         - name: http_proxy

@@ -7,4 +7,4 @@ environments:
   - name: SYSTEM
     environment:
       - name: PATH
-        list: ["${path}"]
+        list: ["${env.PATH:-}"]

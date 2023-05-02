@@ -12,7 +12,7 @@ runtimes:
       download: ruby-build
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin"]
         - name: LD_LIBRARY_PATH
