@@ -9,7 +9,7 @@ const preCheck = (addDup: boolean) => async (driver: TrunkLintDriver) => {
     const inputName = "buf_breaking.in.proto";
     const inputPath = path.join(TEST_DATA, inputName);
 
-    const dupInputName = "buf_breaking_dup.in.proto";
+    const dupInputName = "buf_breaking.dup.in.proto";
     const dupInputPath = path.join(TEST_DATA, dupInputName);
 
     const newContents = `
@@ -45,6 +45,9 @@ customLinterCheckTest({
   args: "-a",
   preCheck: preCheck(false),
 });
+
+// NOTE(Tyler): buf-breaking will non-deterministically choose one of the proto files to be the original and one to be the
+// duplicate. Because of this, we have custom replacement for file and message to replace ".dup." -> "."
 customLinterCheckTest({
   linterName: "buf-breaking",
   testName: "dupFile",

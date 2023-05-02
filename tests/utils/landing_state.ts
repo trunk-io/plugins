@@ -29,15 +29,20 @@ const normalizeMessage = (message?: string) =>
   message
     ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
+    .replace(".dup.", ".")
     .trim();
+
+const normalizeFile = (file: string) => file.replace(".dup.", ".").trim();
 
 const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
+  file: _file,
   ...rest
 }: FileIssue): FileIssue => ({
   ...rest,
   message: normalizeMessage(_message),
+  file: normalizeFile(_file),
 });
 
 /**

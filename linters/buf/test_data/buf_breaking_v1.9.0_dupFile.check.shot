@@ -6,7 +6,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
     {
       "code": "COMPILE",
       "column": "13",
-      "file": "test_data/buf_breaking_dup.in.proto",
+      "file": "test_data/buf_breaking.in.proto",
       "issueUrl": "https://docs.buf.build/breaking/rules#compile",
       "level": "LEVEL_HIGH",
       "line": "7",
@@ -17,7 +17,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
     {
       "code": "COMPILE",
       "column": "13",
-      "file": "test_data/buf_breaking_dup.in.proto",
+      "file": "test_data/buf_breaking.in.proto",
       "issueUrl": "https://docs.buf.build/breaking/rules#compile",
       "level": "LEVEL_HIGH",
       "line": "8",
@@ -28,7 +28,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
     {
       "code": "COMPILE",
       "column": "13",
-      "file": "test_data/buf_breaking_dup.in.proto",
+      "file": "test_data/buf_breaking.in.proto",
       "issueUrl": "https://docs.buf.build/breaking/rules#compile",
       "level": "LEVEL_HIGH",
       "line": "9",
