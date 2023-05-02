@@ -36,6 +36,11 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       issue_url_format: https://docs.buf.build/lint/rules#{}
+      direct_configs: [buf.yaml]
+      affects_cache:
+        - buf.lock
+        - buf.gen.yaml
+        - buf.work.yaml
       known_good_version: 1.2.0 # format subcommand was added in 1.2.0
       version_command:
         parse_regex: ${semver}
@@ -60,7 +65,6 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       affects_cache:
-        - buf.yaml
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
@@ -78,9 +82,14 @@ lint:
         - name: lint
           output: buf
           target: ${root_or_parent_with(buf.work.yaml)}
-          run: buf breaking --against .git#branch=${upstream-ref} --error-format json
-          success_codes: [0, 100]
+          run:
+            buf breaking --against .git#branch=${upstream-ref} --error-format json
+            --disable-symlinks
+          success_codes: [0, 1, 100]
           run_linter_from: root_file
+          # buf is configured to not follow symlinks, and relies on git state, so don't cache results
+          sandbox_type: copy_targets
+          cache_results: false
       run_from_root_file: buf.work.yaml
       direct_configs: [buf.yaml, buf.work.yaml]
       environment:
@@ -91,12 +100,11 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       affects_cache:
-        - buf.yaml
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
       issue_url_format: https://docs.buf.build/breaking/rules#{}
-      known_good_version: 1.1.0
+      known_good_version: 1.5.0
       version_command:
         parse_regex: ${semver}
         run: buf --version

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter buf-breaking test dupFile 1`] = `
+{
+  "issues": [
+    {
+      "code": "COMPILE",
+      "column": "13",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#compile",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "buf-breaking",
+      "message": "symbol "trunk.HelloWorld" already defined at test_data/buf_breaking.in.proto:7:13",
+      "targetType": "proto",
+    },
+    {
+      "code": "COMPILE",
+      "column": "13",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#compile",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "buf-breaking",
+      "message": "symbol "trunk.HelloWorld.hello" already defined at test_data/buf_breaking.in.proto:8:13",
+      "targetType": "proto",
+    },
+    {
+      "code": "COMPILE",
+      "column": "13",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#compile",
+      "level": "LEVEL_HIGH",
+      "line": "9",
+      "linter": "buf-breaking",
+      "message": "symbol "trunk.HelloWorld.world" already defined at test_data/buf_breaking.in.proto:9:13",
+      "targetType": "proto",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "proto",
+      "linter": "buf-breaking",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
