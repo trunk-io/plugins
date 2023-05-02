@@ -17,6 +17,10 @@ runtimes:
           list: ["${runtime}/bin"]
         - name: LD_LIBRARY_PATH
           list: ["${runtime}/lib"]
+        - name: http_proxy
+          value: ${env.http_proxy:-}
+        - name: https_proxy
+          value: ${env.https_proxy:-}
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]

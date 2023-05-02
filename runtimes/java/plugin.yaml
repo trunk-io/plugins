@@ -43,6 +43,10 @@ runtimes:
           list: ["${runtime}/bin"]
         - name: JAVA_HOME
           value: ${runtime}
+        - name: http_proxy
+          value: ${env.http_proxy:-}
+        - name: https_proxy
+          value: ${env.https_proxy:-}
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]

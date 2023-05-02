@@ -25,6 +25,10 @@ runtimes:
           value: ${home}
         - name: PATH
           list: ["${runtime}/bin", "${env.PATH}"]
+        - name: http_proxy
+          value: ${env.http_proxy:-}
+        - name: https_proxy
+          value: ${env.https_proxy:-}
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]

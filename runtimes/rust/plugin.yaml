@@ -25,6 +25,10 @@ runtimes:
           value: ${home}
         - name: PATH
           list: ["${runtime}/bin"]
+        - name: http_proxy
+          value: ${env.http_proxy:-}
+        - name: https_proxy
+          value: ${env.https_proxy:-}
       known_good_version: 1.67.0
       version_commands:
         - run: rustc --version

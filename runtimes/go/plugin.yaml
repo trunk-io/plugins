@@ -31,6 +31,10 @@ runtimes:
           value: on
         - name: CGO_ENABLED
           value: 0
+        - name: http_proxy
+          value: ${env.http_proxy:-}
+        - name: https_proxy
+          value: ${env.https_proxy:-}
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]
