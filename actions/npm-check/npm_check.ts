@@ -18,7 +18,7 @@ npmCheck({}).then((current) => {
     return;
   }
   const uninstalled_count = uninstalled.length;
-  const iconPath = path.join(__dirname, "npm.svg");
+  const iconPath = "https://avatars.githubusercontent.com/u/6078720";
   const yaml = YAML.stringify({
     notifications: [
       {
