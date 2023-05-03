@@ -5,7 +5,7 @@ const yarnCheck = require("yarn-check");
 const YAML = require("yaml");
 const path = require("path");
 
-const ICON_PATH = "https://avatars.githubusercontent.com/u/22247014";
+const iconPath = path.join(__dirname, "npm.png");
 
 const pluralize = (count, singular, plural) => {
   return count == 1 ? singular : plural;
@@ -31,7 +31,7 @@ yarnCheck({})
             "packages"
           )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "yarn install", title: "yarn install" }],
-          icon: ICON_PATH,
+          icon: iconPath,
         },
       ],
     });
@@ -45,7 +45,7 @@ yarnCheck({})
           id: "yarn-check",
           title: "Check yarn packages",
           message: `Error: ${err.message}`,
-          icon: ICON_PATH,
+          icon: iconPath,
         },
       ],
     });

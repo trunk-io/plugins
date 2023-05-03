@@ -3,9 +3,12 @@
 // trunk-ignore-all(eslint)
 const npmCheck = require("npm-check");
 const YAML = require("yaml");
+const path = require("path");
 
 // TODO(lauri): Find more stable icon path
 const ICON_PATH = "https://avatars.githubusercontent.com/u/6078720";
+
+const iconPath = path.join(__dirname, "npm.png");
 
 const pluralize = (count, singular, plural) => {
   return count == 1 ? singular : plural;
@@ -33,7 +36,7 @@ npmCheck({})
             "packages"
           )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "npm install", title: "npm install" }],
-          icon: ICON_PATH,
+          icon: iconPath,
         },
       ],
     });
@@ -46,7 +49,7 @@ npmCheck({})
           id: "npm-check",
           title: "Check npm packages",
           message: `Error: ${err.message}`,
-          icon: ICON_PATH,
+          icon: iconPath,
         },
       ],
     });
