@@ -13,3 +13,5 @@ import { linterCheckTest, linterFmtTest } from "tests";
 //
 // If you are unable to write a test for this linter, please document why in your PR, and add
 // it to the list in tests/repo_tests/test_coverage_test.ts
+
+linterFmtTest({ linterName: "terragrunt" });

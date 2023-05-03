@@ -20,25 +20,33 @@ tools:
       shims:
         - name: terragrunt
           target: terragrunt
-#lint:
-#  downloads:
-#    - name: terragrunt
-#      downloads:
-#        - os:
-#           linux: linux
-#            macos: darwin
-#          cpu:
-#            x86_64: amd64
-#            arm_64: arm64
-#          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_${os}_${cpu}
-#        - os: windows
-#          cpu: x86_64
-#          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
-#      # RUNTIME_OR_DOWNLOAD_INFO_HERE
-#  definitions:
-#      known_good_version: # VERSION_HERE
-#      commands:
-#        - name: LINT_OR_FORMAT_HERE
-#          output: OUTPUT_TYPE_HERE
-#          run: COMMAND_HERE
-#          success_codes: [0]
+lint:
+  downloads:
+    - name: terragrunt
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_${os}_${cpu}
+        - os: windows
+          cpu: x86_64
+          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
+  definitions:
+    - name: terragrunt
+      download: terragrunt
+      known_good_version: 0.45.8
+      files: [hcl]
+      commands:
+        - name: format
+          output: rewrite
+          run: terragrunt hclfmt ${target}
+          success_codes: [0]
+          in_place: true
+          formatter: true
+          batch: true
+      version_command:
+        parse_regex: terragrunt v${semver}
+        run: terragrunt -version

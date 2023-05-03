@@ -1,7 +1,7 @@
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::0123456789:role/terragrunt"
