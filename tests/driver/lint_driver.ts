@@ -182,6 +182,11 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     const fullArgs = `check -n --output-file=${resultJsonPath} --no-progress --ignore-git-state ${linterFilter} ${args}`;
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
+      // Used for debugging only
+      if (args.includes("--debug")) {
+        console.log(stdout);
+        console.log(stderr);
+      }
       return this.parseRunResult(
         {
           exitCode: 0,
@@ -255,6 +260,11 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
+      // Used for debugging only
+      if (args.includes("--debug")) {
+        console.log(stdout);
+        console.log(stderr);
+      }
       return this.parseRunResult(
         {
           exitCode: 0,
