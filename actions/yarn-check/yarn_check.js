@@ -8,7 +8,7 @@ const path = require("path");
 const iconPath = path.join(__dirname, "npm.png");
 
 const pluralize = (count, singular, plural) => {
-  return count == 1 ? singular : plural;
+  return count === 1 ? singular : plural;
 };
 
 yarnCheck({})
@@ -24,7 +24,7 @@ yarnCheck({})
       notifications: [
         {
           id: "yarn-check",
-          title: "Check yarn packages",
+          title: "Yarn Check",
           message: `${uninstalled_count} yarn ${pluralize(
             uninstalled_count,
             "package",
@@ -43,7 +43,7 @@ yarnCheck({})
       notifications: [
         {
           id: "yarn-check",
-          title: "Check yarn packages",
+          title: "Yarn Check",
           message: `Error: ${err.message}`,
           icon: iconPath,
         },

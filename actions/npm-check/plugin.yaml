@@ -8,7 +8,7 @@ actions:
       triggers:
         - schedule: 24h
         - files: [package.json, package-lock.json]
-      run: actions/npm-check/npm_check.js
+      run: ${cwd}/npm_check.js
       output_type: notification_v1
       environment:
         - name: NODE_PATH

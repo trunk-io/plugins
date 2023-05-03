@@ -5,13 +5,10 @@ const npmCheck = require("npm-check");
 const YAML = require("yaml");
 const path = require("path");
 
-// TODO(lauri): Find more stable icon path
-const ICON_PATH = "https://avatars.githubusercontent.com/u/6078720";
-
 const iconPath = path.join(__dirname, "npm.png");
 
 const pluralize = (count, singular, plural) => {
-  return count == 1 ? singular : plural;
+  return count === 1 ? singular : plural;
 };
 
 npmCheck({})
@@ -29,7 +26,7 @@ npmCheck({})
       notifications: [
         {
           id: "npm-check",
-          title: "Check npm packages",
+          title: "NPM Check",
           message: `${uninstalled_count} npm ${pluralize(
             uninstalled_count,
             "package",
@@ -47,7 +44,7 @@ npmCheck({})
       notifications: [
         {
           id: "npm-check",
-          title: "Check npm packages",
+          title: "NPM Check",
           message: `Error: ${err.message}`,
           icon: iconPath,
         },
