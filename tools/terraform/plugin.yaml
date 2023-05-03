@@ -1,0 +1,22 @@
+version: 0.1
+tools:
+  downloads:
+    - name: terraform
+      downloads:
+        - os: windows
+          cpu: x86_64
+          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_windows_amd64.zip
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${os}_${cpu}.zip
+  definitions:
+    - name: terraform
+      download: terraform
+      known_good_version: 1.4.6
+      shims:
+        - name: terraform
+          target: terraform
