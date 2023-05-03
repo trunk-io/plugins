@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing formatter terragrunt test terragrunt 1`] = `
+exports[`Testing formatter terragrunt test unformatted 1`] = `
 "generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"

@@ -39,6 +39,9 @@ lint:
       download: terragrunt
       known_good_version: 0.45.8
       files: [hcl]
+      environment:
+        - name: PATH
+          list: ["${linter}"]
       commands:
         - name: format
           output: rewrite
