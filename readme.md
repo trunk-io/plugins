@@ -189,6 +189,8 @@ trunk actions enable {action}
 | [`go-mod-tidy`](actions/go-mod-tidy/readme.md)                       | automatically tidy go.mod file                             |
 | [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/readme.md)         | automatically tidy and vendor go.mod file                  |
 | [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/readme.md)   | automatically configure git to use .git-blame-ignore-revs  |
+| [`npm-check`](actions/npm-check/readme.md)                           | check whether NPM installation is up to date               |
+| [`yarn-check`](actions/yarn-check/readme.md)                         | check whether Yarn installation is up to date              |
 
 ### Mission
 

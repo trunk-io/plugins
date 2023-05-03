@@ -53,6 +53,7 @@ actions:
       shell: bash
 
   enabled:
+    - npm-check
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
