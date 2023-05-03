@@ -15,6 +15,7 @@ tools:
           url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
   definitions:
     - name: terragrunt
+      known_good_version: 0.45.8
       download: terragrunt
       shims:
         - name: terragrunt

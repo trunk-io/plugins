@@ -57,3 +57,6 @@ actions:
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
+tools:
+  enabled:
+    - terragrunt@0.45.8
