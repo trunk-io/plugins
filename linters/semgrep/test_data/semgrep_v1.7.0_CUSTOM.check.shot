@@ -1,20 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter semgrep test CUSTOM 1`] = `
 {
   "issues": [
-    {
-      "code": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
-      "column": "12",
-      "file": "test_data/basic.go",
-      "issueClass": "ISSUE_CLASS_EXISTING",
-      "level": "LEVEL_HIGH",
-      "line": "8",
-      "linter": "semgrep",
-      "message": "Detected use of an insecure cryptographic hashing method. This method is known to be broken and easily compromised. Use SHA256 or SHA3 instead.",
-      "targetType": "ALL",
-    },
     {
       "code": "go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5",
       "column": "12",
