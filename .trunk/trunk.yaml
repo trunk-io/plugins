@@ -15,8 +15,6 @@ plugins:
 
 lint:
   # enabled list inherited from plugin 'configs'
-  enabled:
-    - terragrunt@0.45.8
   disabled:
     # pylint diagnostics are a bit too strict for our parsers
     - pylint
@@ -59,7 +57,3 @@ actions:
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
-tools:
-  enabled:
-    - terraform@1.4.6
-    - terragrunt@0.45.8
