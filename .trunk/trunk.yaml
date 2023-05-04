@@ -61,4 +61,5 @@ actions:
     - repo-tests
 tools:
   enabled:
+    - terraform@1.4.6
     - terragrunt@0.45.8
