@@ -21,6 +21,7 @@ lint:
           in_place: true
       runtime: python
       package: sourcery
+      suggest_if: never
       direct_configs:
         - .sourcery.yaml
         - sourcery.yaml
