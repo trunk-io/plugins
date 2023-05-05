@@ -502,6 +502,14 @@ lint:
         - tf
         - tf.json
 
+    - name: hcl
+      extensions:
+        - hcl
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
+
     - name: toml
       extensions:
         - toml

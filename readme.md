@@ -71,6 +71,7 @@ trunk check enable {linter}
 | SVG             | [svgo]                                                                                                              |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec], [terrascan]    |
+| Terragrunt      | [terragrunt]                                                                                                        |
 | TOML            | [taplo]                                                                                                             |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                                             |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                   |
@@ -148,6 +149,7 @@ trunk check enable {linter}
 [taplo]: https://github.com/tamasfe/taplo#readme
 [terrascan]: https://github.com/tenable/terrascan#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
+[terragrunt]: https://terragrunt.gruntwork.io/docs/getting-started/quick-start/
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
