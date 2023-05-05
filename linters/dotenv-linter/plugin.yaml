@@ -17,7 +17,7 @@ lint:
           url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
         - os: windows
           cpu: x86_64
-          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-win-x64.tar.gz
+          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-win-x64.zip
   definitions:
     - name: dotenv-linter
       files: [dotenv]

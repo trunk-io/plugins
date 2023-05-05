@@ -20,7 +20,7 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${cwd}/parse.py
+            run: python ${cwd}/parse.py
       direct_configs:
         - renovate.json
         - renovate.json5

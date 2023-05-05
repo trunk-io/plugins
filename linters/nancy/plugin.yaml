@@ -23,14 +23,14 @@ lint:
       runtime: go
       commands:
         - output: sarif
-          run: ${plugin}/linters/nancy/run.sh
+          run: sh ${plugin}/linters/nancy/run.sh
           success_codes: [0, 1, 2]
           target: .
           read_output_from: stdout
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/nancy/parse.py
+            run: python ${plugin}/linters/nancy/parse.py
       version_command:
         parse_regex: nancy version ${semver}
         run: nancy --version

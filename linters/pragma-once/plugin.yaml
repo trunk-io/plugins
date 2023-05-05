@@ -6,7 +6,7 @@ lint:
       files: [c-header, c++-header]
       commands:
         - output: rewrite
-          run: ${plugin}/linters/pragma-once/fix.sh ${target}
+          run: sh ${plugin}/linters/pragma-once/fix.sh ${target}
           formatter: true
           batch: false
           success_codes: [0]

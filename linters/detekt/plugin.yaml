@@ -14,8 +14,9 @@ lint:
       commands:
         - name: lint
           output: sarif
+          # TODO(Tyler): This needs to be platform-dependent
           run:
-            detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
+            detekt-cli.bat --build-upon-default-config --config .detekt.yaml --input ${target,} --report
             sarif:${tmpfile}
           success_codes: [0, 2]
           read_output_from: tmp_file
@@ -38,8 +39,9 @@ lint:
       commands:
         - name: lint
           output: sarif
+          # TODO(Tyler): This needs to be platform-dependent
           run:
-            detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
+            detekt-cli.bat --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
             --auto-correct
           success_codes: [0, 2]
           read_output_from: tmp_file
