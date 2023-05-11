@@ -32,7 +32,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: "0.20"
+      known_good_version: 0.19
       version_command:
         parse_regex: include-what-you-use ([^ ]+).*
         run: include-what-you-use --version

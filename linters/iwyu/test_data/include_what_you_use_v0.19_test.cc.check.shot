@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter include-what-you-use test CUSTOM 1`] = `
+"#include "a.hh"
+#include "c.hh"
+
+inline void F() {
+  A();
+  C();
+}
+"
+`;
