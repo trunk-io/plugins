@@ -1,0 +1,19 @@
+name: Nightly
+on:
+  schedule:
+    - cron: 0 8 * * 1-5
+  workflow_dispatch: {}
+permissions: read-all
+jobs:
+  trunk_upgrade:
+    name: Upgrade Trunk
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # For trunk to create PRs
+      pull-requests: write # For trunk to create PRs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # >>> Install your own deps here (npm install, etc) <<<
+      - name: Trunk Upgrade
+        uses: trunk-io/trunk-action/upgrade@v1
