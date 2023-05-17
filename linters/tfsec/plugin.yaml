@@ -23,6 +23,7 @@ lint:
           output: sarif
           target: ${parent}
           run: tfsec ${target} --format=sarif
+          run_linter_from: directory
           is_security: true
           success_codes: [0, 1]
           read_output_from: stdout
