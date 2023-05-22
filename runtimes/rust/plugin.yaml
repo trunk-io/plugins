@@ -22,9 +22,15 @@ runtimes:
       download: rust
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin"]
+        - name: http_proxy
+          value: ${env.http_proxy}
+          optional: true
+        - name: https_proxy
+          value: ${env.https_proxy}
+          optional: true
       known_good_version: 1.67.0
       version_commands:
         - run: rustc --version
