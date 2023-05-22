@@ -6,7 +6,7 @@ lint:
       commands:
         - name: lint
           # As of ruff v0.0.266, column edits are 1-indexed
-          version: ">=0.0.256"
+          version: ">=0.0.266"
           run: ruff check --cache-dir ${cachedir} --format json ${target}
           output: sarif
           parser:
