@@ -5,11 +5,22 @@ lint:
       files: [python]
       commands:
         - name: lint
+          # As of ruff v0.0.266, column edits are 1-indexed
+          version: ">=0.0.256"
           run: ruff check --cache-dir ${cachedir} --format json ${target}
           output: sarif
           parser:
             runtime: python
-            run: ${cwd}/ruff_to_sarif.py
+            run: ${cwd}/ruff_to_sarif.py 0
+          batch: true
+          success_codes: [0, 1]
+        - name: lint
+          version: ">=0.0.250"
+          run: ruff check --cache-dir ${cachedir} --format json ${target}
+          output: sarif
+          parser:
+            runtime: python
+            run: ${cwd}/ruff_to_sarif.py 1
           batch: true
           success_codes: [0, 1]
       runtime: python
