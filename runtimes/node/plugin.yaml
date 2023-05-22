@@ -34,11 +34,17 @@ runtimes:
         - name: NODE_EXTRA_CA_CERTS
           value: ${env.NODE_EXTRA_CA_CERTS}
           optional: true
+        - name: NODE_OPTIONS
+          value: ${env.NODE_OPTIONS}
+          optional: true
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]
         - name: NODE_PATH
           value: ${linter}/node_modules
+        - name: NODE_OPTIONS
+          value: ${env.NODE_OPTIONS}
+          optional: true
       known_good_version: 18.12.1
       version_commands:
         - run: node --version
