@@ -22,9 +22,18 @@ runtimes:
       download: node
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin", "${env.PATH}"]
+        - name: http_proxy
+          value: ${env.http_proxy}
+          optional: true
+        - name: https_proxy
+          value: ${env.https_proxy}
+          optional: true
+        - name: NODE_EXTRA_CA_CERTS
+          value: ${env.NODE_EXTRA_CA_CERTS}
+          optional: true
         - name: NODE_OPTIONS
           value: ${env.NODE_OPTIONS}
           optional: true
