@@ -312,6 +312,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
   }
 
+  // Autofix replacement text is written in base64, so decode it.
   processJson(jsonContents: string): unknown {
     interface Replacement {
       replacementText?: string;
