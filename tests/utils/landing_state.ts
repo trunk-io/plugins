@@ -2,7 +2,14 @@ import { sort } from "fast-sort";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
-import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
+import {
+  Autofix,
+  FileIssue,
+  LandingState,
+  LintAction,
+  Replacement,
+  TaskFailure,
+} from "tests/types";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
 // we should preserve the original structure and use jest matchers on the non-deterministic fields.
@@ -24,6 +31,19 @@ const extractTaskFailureFields = (
     : undefined,
 });
 
+const normalizeReplacement = ({
+  replacementText: _replacementText,
+  ...rest
+}: Replacement): Replacement => ({
+  ...rest,
+  replacementText: Buffer.from(_replacementText ?? "", "base64").toString(),
+});
+
+const normalizeAutofix = ({ replacements: _replacements, ...rest }: Autofix): Autofix => ({
+  ...rest,
+  replacements: _replacements?.map(normalizeReplacement),
+});
+
 // Replace any occurrences of the nondeterministic sandbox path in the output message
 const normalizeMessage = (message?: string) =>
   message
@@ -38,11 +58,13 @@ const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
   file: _file,
+  autofixOptions: _autofixOptions,
   ...rest
 }: FileIssue): FileIssue => ({
   ...rest,
   message: normalizeMessage(_message),
   file: normalizeFile(_file),
+  autofixOptions: _autofixOptions?.map(normalizeAutofix),
 });
 
 /**

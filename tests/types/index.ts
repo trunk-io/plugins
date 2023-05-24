@@ -38,6 +38,18 @@ export interface TestingArguments {
   sandboxDebug: boolean;
 }
 
+export interface Replacement {
+  // filePath?: string;
+  // length?: number;
+  // offset?: number;
+  replacementText?: string;
+}
+
+export interface Autofix {
+  // message?: string;
+  replacements?: Replacement[];
+}
+
 /**** Landing state ****/
 
 // LandingState and its subfields must be strongly typed in order for tests
@@ -61,7 +73,7 @@ export interface FileIssue {
   linter: string;
   targetType: string;
   targetPath?: string;
-  // autofixOptions: any[];
+  autofixOptions: Autofix[];
   // ranges: any[];
   issueUrl: string;
 }
