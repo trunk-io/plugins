@@ -319,7 +319,10 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       for (const autofixOption of issue.autofixOptions) {
         for (const replacement of autofixOption.replacements) {
           // base64-decode the replacement text
-          replacement.replacementText = Buffer.from(replacement.replacementText, "base64").toString();
+          replacement.replacementText = Buffer.from(
+            replacement.replacementText,
+            "base64"
+          ).toString();
         }
       }
     }
