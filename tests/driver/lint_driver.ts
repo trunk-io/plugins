@@ -313,14 +313,14 @@ export class TrunkLintDriver extends GenericTrunkDriver {
   }
 
   processJson(jsonContents: string): unknown {
-    const json: any = JSON.parse(jsonContents);
+    const json: unknown = JSON.parse(jsonContents);
 
-    for (const issue of json.issues) {
-      for (const autofixOption of issue.autofixOptions) {
-        for (const replacement of autofixOption.replacements) {
+    for (const issue of (json.issues || []) as unknown[]) {
+      for (const autofixOption of (issue.autofixOptions || []) as unknown[]) {
+        for (const replacement of (autofixOption.replacements || []) as unknown[]) {
           // base64-decode the replacement text
           replacement.replacementText = Buffer.from(
-            replacement.replacementText,
+            (replacement.replacementText || "") as string,
             "base64"
           ).toString();
         }
