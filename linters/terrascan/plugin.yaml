@@ -16,15 +16,27 @@ lint:
     - name: terrascan
       download: terrascan
       known_good_version: 1.18.1
-      files: [terraform]
       suggest_if: config_present
       commands:
         - name: lint
           output: sarif
           is_security: true
-          run: terrascan scan --iac-file ${target} --output sarif
-          success_codes: [0, 3, 4, 5]
+          run: terrascan scan -i terraform --iac-file ${target} --output sarif
           read_output_from: stdout
+          # terrascan supports - arm, cft, docker, helm, k8s, kustomize, terraform. However, we only support terraform and docker
+          # as filetypes as it's not straightforward to map the other filetypes to a specific language.
+          files: [terraform]
+          success_codes: [0, 3, 4, 5]
+          parser: # necessary to convert file paths from a strange custom format to a standard format
+            runtime: python
+            run: ${plugin}/linters/terrascan/sarif_to_sarif.py
+        - name: lint-docker
+          output: sarif
+          is_security: true
+          run: terrascan scan -i docker --iac-file ${target} --output sarif
+          read_output_from: stdout
+          files: [docker]
+          success_codes: [0, 3, 4, 5]
           parser:
             runtime: python
             run: ${plugin}/linters/terrascan/sarif_to_sarif.py
