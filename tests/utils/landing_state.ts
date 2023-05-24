@@ -39,9 +39,9 @@ const normalizeReplacement = ({
   replacementText: Buffer.from(_replacementText ?? "", "base64").toString(),
 });
 
-const normalizeAutofix = ({ replacements: _replacements, ...rest }: Autofix): Autofix => ({
+const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix): Autofix => ({
   ...rest,
-  replacements: _replacements?.map(normalizeReplacement),
+  replacements: _replacements.map(normalizeReplacement),
 });
 
 // Replace any occurrences of the nondeterministic sandbox path in the output message
@@ -58,13 +58,13 @@ const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
   file: _file,
-  autofixOptions: _autofixOptions,
+  autofixOptions: _autofixOptions = [],
   ...rest
 }: FileIssue): FileIssue => ({
   ...rest,
   message: normalizeMessage(_message),
   file: normalizeFile(_file),
-  autofixOptions: _autofixOptions?.map(normalizeAutofix),
+  autofixOptions: _autofixOptions.map(normalizeAutofix),
 });
 
 /**
