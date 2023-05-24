@@ -192,7 +192,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
           exitCode: 0,
           stdout,
           stderr,
-          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+          outputJson: this.processJson(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         },
         "Check",
         targetAbsPath
@@ -211,7 +211,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
-        outputJson: JSON.parse(jsonContents),
+        outputJson: this.processJson(jsonContents),
         error: error as Error,
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
@@ -270,7 +270,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
           exitCode: 0,
           stdout,
           stderr,
-          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+          outputJson: this.processJson(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         },
         "Format",
         targetAbsPath
@@ -289,7 +289,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         exitCode: error.code as number,
         stdout: error.stdout as string,
         stderr: error.stderr as string,
-        outputJson: JSON.parse(jsonContents),
+        outputJson: this.processJson(jsonContents),
         error: error as Error,
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
@@ -310,5 +310,20 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     const args = `--upstream=false ${targetAbsPath}`;
     this.debug("Running `trunk fmt` on %s", targetRelativePath);
     return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
+  }
+
+  processJson(jsonContents: string): unknown {
+    const json: any = JSON.parse(jsonContents);
+
+    for (const issue of json.issues) {
+      for (const autofixOption of issue.autofixOptions) {
+        for (const replacement of autofixOption.replacements) {
+          // base64-decode the replacement text
+          replacement.replacementText = Buffer.from(replacement.replacementText, "base64").toString();
+        }
+      }
+    }
+
+    return json;
   }
 }
