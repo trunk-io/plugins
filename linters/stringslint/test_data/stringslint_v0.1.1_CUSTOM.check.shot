@@ -4,6 +4,7 @@ exports[`Testing linter stringslint test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "missing_comment",
       "column": "1",
       "file": "test_data/Localizable.strings",
@@ -14,6 +15,7 @@ exports[`Testing linter stringslint test CUSTOM 1`] = `
       "targetType": "strings",
     },
     {
+      "autofixOptions": [],
       "code": "unused",
       "column": "1",
       "file": "test_data/Localizable.strings",
@@ -24,6 +26,7 @@ exports[`Testing linter stringslint test CUSTOM 1`] = `
       "targetType": "strings",
     },
     {
+      "autofixOptions": [],
       "code": "missing",
       "column": "1",
       "file": "test_data/basic.swift",

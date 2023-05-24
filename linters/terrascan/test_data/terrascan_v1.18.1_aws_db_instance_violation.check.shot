@@ -240,7 +240,7 @@ exports[`Testing linter terrascan test aws_db_instance_violation 1`] = `
       "level": "LEVEL_HIGH",
       "line": "82",
       "linter": "terrascan",
-      "message": "Ensure that your RDS database instances encrypt the underlying storage. Encrypted RDS instances use the industry standard AES-256 encryption algorithm to encrypt data on the server that hosts RDS DB instances. After data is encrypted, RDS handles authentication of access and descryption of data transparently with minimal impact on performance.",
+      "message": "Ensure that your RDS database instances encrypt the underlying storage. Encrypted RDS instances use the industry standard AES-256 encryption algorithm to encrypt data on the server that hosts RDS DB instances. After data is encrypted, RDS handles authentication of access and description of data transparently with minimal impact on performance.",
       "targetType": "terraform",
     },
     {
