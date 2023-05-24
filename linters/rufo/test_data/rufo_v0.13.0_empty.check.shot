@@ -26,6 +26,7 @@ exports[`Testing linter rufo test empty 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
@@ -35,6 +36,7 @@ exports[`Testing linter rufo test empty 1`] = `
       "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
     },
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/empty.rb",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

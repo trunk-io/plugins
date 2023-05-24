@@ -4,6 +4,7 @@ exports[`Testing linter rome test basic_check 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "lint/style/useEnumInitializers",
       "column": "12",
       "file": "test_data/basic_check.in.ts",
@@ -11,6 +12,17 @@ exports[`Testing linter rome test basic_check 1`] = `
       "line": "4",
       "linter": "rome",
       "message": "The enum member should be initialized.",
+      "targetType": "typescript",
+    },
+    {
+      "autofixOptions": [],
+      "code": "lint/complexity/noExtraSemicolon",
+      "column": "17",
+      "file": "test_data/basic_check.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "rome",
+      "message": "Unnecessary semicolon.",
       "targetType": "typescript",
     },
   ],
@@ -37,6 +49,7 @@ exports[`Testing linter rome test basic_check 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic_check.in.ts",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

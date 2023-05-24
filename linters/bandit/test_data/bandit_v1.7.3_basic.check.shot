@@ -4,6 +4,7 @@ exports[`Testing linter bandit test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "B403",
       "file": "test_data/basic.in.py",
       "isSecurity": true,
@@ -15,6 +16,7 @@ exports[`Testing linter bandit test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "B301",
       "file": "test_data/basic.in.py",
       "isSecurity": true,

@@ -4,6 +4,7 @@ exports[`Testing linter stylelint test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -14,6 +15,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "selector-list-comma-newline-after",
       "column": "4",
       "file": "test_data/basic.in.css",
@@ -24,6 +26,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -34,6 +37,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -44,6 +48,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -54,6 +59,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -64,6 +70,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "rule-empty-line-before",
       "column": "1",
       "file": "test_data/basic.in.css",
@@ -74,6 +81,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "selector-list-comma-newline-after",
       "column": "3",
       "file": "test_data/basic.in.css",
@@ -84,6 +92,7 @@ exports[`Testing linter stylelint test basic 1`] = `
       "targetType": "css",
     },
     {
+      "autofixOptions": [],
       "code": "selector-list-comma-newline-after",
       "column": "7",
       "file": "test_data/basic.in.css",
@@ -117,6 +126,7 @@ exports[`Testing linter stylelint test basic 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic.in.css",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

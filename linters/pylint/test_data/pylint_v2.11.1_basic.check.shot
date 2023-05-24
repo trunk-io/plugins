@@ -4,6 +4,7 @@ exports[`Testing linter pylint test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "C0114",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0114",
@@ -14,6 +15,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
@@ -24,6 +26,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "E0602",
       "column": "9",
       "file": "test_data/basic.in.py",
@@ -35,6 +38,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "E0602",
       "column": "7",
       "file": "test_data/basic.in.py",
@@ -46,6 +50,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
@@ -56,6 +61,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "C0103",
       "file": "test_data/basic.in.py",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",

@@ -4,6 +4,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "GHSA-3h57-hmj3-gj3p",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -13,6 +14,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-579w-22j4-4749",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -22,6 +24,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-8xww-x3g3-6jcv",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -31,6 +34,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-c6qg-cjj8-47qp",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -40,6 +44,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-j6gc-792m-qgm2",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -49,6 +54,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-p84v-45xj-wwqj",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -58,6 +64,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-pj73-v5mw-pm9j",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -67,6 +74,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-pxvg-2qj5-37jq",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
@@ -76,6 +84,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-36h2-95gj-w488",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -85,6 +94,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-3vm4-22fp-5rfm",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -94,6 +104,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-3x58-xr87-2fcj",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -103,6 +114,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-4wp3-8q92-mh8w",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -112,6 +124,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-55m9-hm92-xm8j",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -121,6 +134,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-69cg-p879-7622",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -130,6 +144,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-83g2-8m93-v3w7",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -139,6 +154,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-88jf-7rch-32qc",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -148,6 +164,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-8c26-wmh5-6g9v",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -157,6 +174,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-8gg8-wr4j-v2wr",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -166,6 +184,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-8h8p-x289-vvqr",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -175,6 +194,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-9w9f-6mg8-jp7w",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -184,6 +204,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-cg3q-j54f-5p7p",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -193,6 +214,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-cjjc-xp8v-855w",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -202,6 +224,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-f6mq-5m25-4r72",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -211,6 +234,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-ffhg-7mh4-33c4",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -220,6 +244,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-g2qx-6ghw-67hm",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -229,6 +254,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-g7p7-x6w7-w6qg",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -238,6 +264,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-g95p-88p4-76cm",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -247,6 +274,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-gwc9-m7rh-j2ww",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -256,6 +284,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-h3q4-vmw4-cpr5",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -265,6 +294,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-h86h-8ppg-mxmh",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -274,6 +304,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-hvw3-p9px-gpc9",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -283,6 +314,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-jq7p-26h5-w78r",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -292,6 +324,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-jr9c-h74f-2v28",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -301,6 +334,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-jrpg-35hw-m4p9",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -310,6 +344,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-p5f9-c9j9-g8qx",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -319,6 +354,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-p782-xgp4-8hr8",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -328,6 +364,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-ph3w-2843-72mx",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -337,6 +374,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-qgc7-mgm3-q253",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -346,6 +384,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-r3gq-wxqf-q4gh",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -355,6 +394,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-r5c5-pr8j-pfp7",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -364,6 +404,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-vpx7-vm66-qx8r",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -373,6 +414,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-vvpx-j8f3-3w6h",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -382,6 +424,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-w73w-5m7g-f7qc",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -391,6 +434,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-w8xw-7crf-h23x",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -400,6 +444,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-x95h-979x-cf3j",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -409,6 +454,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2020-0012",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -418,6 +464,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2020-0017",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -427,6 +474,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2020-0041",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -436,6 +484,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0101",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -445,6 +494,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0111",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -456,6 +506,7 @@ affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0112",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -465,6 +516,7 @@ affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0227",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -474,6 +526,7 @@ affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0228",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -483,6 +536,7 @@ affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0238",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -492,6 +546,7 @@ affected if they use this package to handle untrusted user input.",
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2021-0356",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -503,6 +558,7 @@ Servers that only use Signer implementations provided by the ssh package are una
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0209",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -518,6 +574,7 @@ Architectures other than amd64 and uses that generate less than 256 GiB of keyst
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0229",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -529,6 +586,7 @@ The malformed certificate can be delivered via a crypto/tls connection to a clie
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0236",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -542,6 +600,7 @@ This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in go
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0288",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -551,6 +610,7 @@ This also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in go
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0322",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -562,6 +622,7 @@ In order to be affected, an instrumented software must use any of the promhttp.I
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0470",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -573,6 +634,7 @@ The Bleve http package is intended for demonstration purposes and contains no au
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0493",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -582,6 +644,7 @@ The Bleve http package is intended for demonstration purposes and contains no au
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0588",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -595,6 +658,7 @@ Permitting the "style" element in policies is hazardous, because bluemonday does
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0762",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -604,6 +668,7 @@ Permitting the "style" element in policies is hazardous, because bluemonday does
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0968",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -615,6 +680,7 @@ When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which conta
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-0969",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -624,6 +690,7 @@ When using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which conta
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2022-1144",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -635,6 +702,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2023-1571",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -644,6 +712,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GO-2023-1572",
       "file": "test_data/go.mod",
       "isSecurity": true,
@@ -653,6 +722,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "GHSA-m2vv-5vj5-2hm7",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -662,6 +732,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "OSV-2022-1074",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -671,6 +742,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "OSV-2022-715",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -680,6 +752,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "PYSEC-2022-42979",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -689,6 +762,7 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "targetType": "osv-lockfiles",
     },
     {
+      "autofixOptions": [],
       "code": "PYSEC-2022-42980",
       "file": "test_data/requirements.txt",
       "isSecurity": true,

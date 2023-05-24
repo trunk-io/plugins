@@ -4,6 +4,7 @@ exports[`Testing linter flake8 test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "E402",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -15,6 +16,7 @@ exports[`Testing linter flake8 test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "F401",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -26,6 +28,7 @@ exports[`Testing linter flake8 test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "ignore-does-nothing",
       "column": "3",
       "file": "test_data/basic.in.py",

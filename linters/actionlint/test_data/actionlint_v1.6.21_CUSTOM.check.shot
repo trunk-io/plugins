@@ -4,6 +4,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "events",
       "column": "13",
       "file": ".github/workflows/bad.in.yaml",
@@ -16,6 +17,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "targetType": "github-workflow",
     },
     {
+      "autofixOptions": [],
       "code": "events",
       "column": "13",
       "file": ".github/workflows/bad.in.yaml",
@@ -28,6 +30,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "targetType": "github-workflow",
     },
     {
+      "autofixOptions": [],
       "code": "syntax-check",
       "column": "1",
       "file": ".github/workflows/empty.in.yaml",

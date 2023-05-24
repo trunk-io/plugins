@@ -4,6 +4,7 @@ exports[`Testing linter pyright test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "57",
       "file": "test_data/basic.in.py",
@@ -15,6 +16,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "column": "13",
       "file": "test_data/basic.in.py",
       "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
@@ -25,6 +27,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "3",
       "file": "test_data/basic.in.py",
@@ -40,6 +43,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportUndefinedVariable",
       "column": "8",
       "file": "test_data/basic.in.py",
@@ -51,6 +55,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "9",
       "file": "test_data/basic.in.py",
@@ -63,6 +68,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "29",
       "file": "test_data/basic.in.py",
@@ -75,6 +81,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "12",
       "file": "test_data/basic.in.py",
@@ -87,6 +94,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "column": "25",
       "file": "test_data/basic.in.py",
       "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
@@ -97,6 +105,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "column": "39",
       "file": "test_data/basic.in.py",
       "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
@@ -107,6 +116,7 @@ exports[`Testing linter pyright test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "reportGeneralTypeIssues",
       "column": "7",
       "file": "test_data/basic.in.py",

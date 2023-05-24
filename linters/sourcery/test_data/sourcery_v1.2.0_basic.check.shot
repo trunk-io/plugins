@@ -2,72 +2,19 @@
 
 exports[`Testing linter sourcery test basic 1`] = `
 {
-  "issues": [
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
     {
-      "code": "raise-specific-error",
-      "column": "1",
-      "file": "test_data/basic.in.py",
-      "issueUrl": "https://docs.sourcery.ai/Reference/Python/Default-Rules/raise-specific-error",
-      "level": "LEVEL_HIGH",
-      "line": "10",
-      "linter": "sourcery",
-      "message": "Raise a specific error instead of the general Exception",
-      "targetType": "python",
-    },
-    {
-      "code": "replace-interpolation-with-fstring",
-      "column": "1",
-      "file": "test_data/basic.in.py",
-      "issueUrl": "https://docs.sourcery.ai/Reference/Python/Default-Rules/replace-interpolation-with-fstring",
-      "level": "LEVEL_HIGH",
-      "line": "4",
-      "linter": "sourcery",
-      "message": "Replace interpolated string formatting with f-string",
-      "targetType": "python",
-    },
-    {
-      "code": "raise-from-previous-error",
-      "column": "1",
-      "file": "test_data/basic.in.py",
-      "issueUrl": "https://docs.sourcery.ai/Reference/Python/Default-Rules/raise-from-previous-error",
-      "level": "LEVEL_HIGH",
-      "line": "7",
-      "linter": "sourcery",
-      "message": "Explicitly raise from a previous error",
-      "targetType": "python",
+      "details": "trunk_cli_version: 1.10.0
+title: "Error while executing: Installing v1.3.0"
+report:
+  - Health check failed for 'sourcery'. Health check failed. Token 'env.SOURCERY_TOKEN' could not be resolved for input
+",
+      "message": "Installing v1.3.0",
+      "name": "sourcery",
     },
   ],
-  "lintActions": [
-    {
-      "command": "fix",
-      "fileGroupName": "python",
-      "linter": "sourcery",
-      "paths": [
-        "test_data/basic.in.py",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "python",
-      "linter": "sourcery",
-      "paths": [
-        "test_data/basic.in.py",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-  ],
-  "taskFailures": [],
-  "unformattedFiles": [
-    {
-      "column": "1",
-      "file": "test_data/basic.in.py",
-      "issueClass": "ISSUE_CLASS_UNFORMATTED",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "sourcery",
-      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
-    },
-  ],
+  "unformattedFiles": [],
 }
 `;

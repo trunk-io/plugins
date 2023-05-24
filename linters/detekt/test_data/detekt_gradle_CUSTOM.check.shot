@@ -4,6 +4,7 @@ exports[`Testing linter detekt-gradle test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "detekt.potential-bugs.EqualsWithHashCodeExist",
       "column": "12",
       "file": "lib/src/main/kotlin/detekt_gradle/Library.kt",

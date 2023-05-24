@@ -4,6 +4,7 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "DL3059",
       "column": "1",
       "file": "test_data/basic.Dockerfile",

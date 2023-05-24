@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter nancy test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "CVE-2018-1000803",
       "file": ".",
       "isSecurity": true,
@@ -14,6 +14,7 @@ exports[`Testing linter nancy test CUSTOM 1`] = `
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2018-15192",
       "file": ".",
       "isSecurity": true,
@@ -23,6 +24,7 @@ exports[`Testing linter nancy test CUSTOM 1`] = `
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2018-18926",
       "file": ".",
       "isSecurity": true,
@@ -34,6 +36,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2019-1010261",
       "file": ".",
       "isSecurity": true,
@@ -43,6 +46,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2019-11228",
       "file": ".",
       "isSecurity": true,
@@ -52,6 +56,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2019-11229",
       "file": ".",
       "isSecurity": true,
@@ -61,6 +66,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-13246",
       "file": ".",
       "isSecurity": true,
@@ -70,6 +76,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-24707",
       "file": ".",
       "isSecurity": true,
@@ -79,6 +86,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-24709",
       "file": ".",
       "isSecurity": true,
@@ -90,6 +98,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-24710",
       "file": ".",
       "isSecurity": true,
@@ -101,6 +110,7 @@ The web server receives a URL or similar request from an upstream component and 
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-24711",
       "file": ".",
       "isSecurity": true,
@@ -110,6 +120,7 @@ The web server receives a URL or similar request from an upstream component and 
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-24713",
       "file": ".",
       "isSecurity": true,
@@ -119,6 +130,7 @@ The web server receives a URL or similar request from an upstream component and 
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2020-28991",
       "file": ".",
       "isSecurity": true,
@@ -128,6 +140,7 @@ The web server receives a URL or similar request from an upstream component and 
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45325",
       "file": ".",
       "isSecurity": true,
@@ -139,6 +152,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45326",
       "file": ".",
       "isSecurity": true,
@@ -148,6 +162,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45327",
       "file": ".",
       "isSecurity": true,
@@ -159,6 +174,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45328",
       "file": ".",
       "isSecurity": true,
@@ -168,6 +184,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45329",
       "file": ".",
       "isSecurity": true,
@@ -177,6 +194,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45330",
       "file": ".",
       "isSecurity": true,
@@ -186,6 +204,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2021-45331",
       "file": ".",
       "isSecurity": true,
@@ -195,6 +214,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2022-0905",
       "file": ".",
       "isSecurity": true,
@@ -206,6 +226,7 @@ The software does not perform or incorrectly performs an authorization check whe
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2022-1058",
       "file": ".",
       "isSecurity": true,
@@ -217,6 +238,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2022-1928",
       "file": ".",
       "isSecurity": true,
@@ -228,6 +250,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2022-38183",
       "file": ".",
       "isSecurity": true,
@@ -239,6 +262,7 @@ Sonatype's research suggests that this CVE's details differ from those defined a
       "targetType": "go-lockfile",
     },
     {
+      "autofixOptions": [],
       "code": "CVE-2022-42968",
       "file": ".",
       "isSecurity": true,

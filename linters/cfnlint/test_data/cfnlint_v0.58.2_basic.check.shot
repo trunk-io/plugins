@@ -4,6 +4,7 @@ exports[`Testing linter cfnlint test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "E3030",
       "column": "7",
       "file": "test_data/basic.in.yaml",
@@ -15,6 +16,7 @@ exports[`Testing linter cfnlint test basic 1`] = `
       "targetType": "cloudformation",
     },
     {
+      "autofixOptions": [],
       "code": "E3002",
       "column": "7",
       "file": "test_data/basic.in.yaml",

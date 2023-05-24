@@ -4,6 +4,7 @@ exports[`Testing linter cspell test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "6",
       "file": "cspell.test.ts",
@@ -14,6 +15,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -24,6 +26,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -34,6 +37,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -44,6 +48,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -54,6 +59,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -64,6 +70,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -74,6 +81,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -84,6 +92,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -94,6 +103,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -104,6 +114,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -114,6 +125,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "cspell.test.ts",
@@ -124,6 +136,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "17",
       "file": "test_data/basic_md.in.md",
@@ -134,6 +147,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "20",
       "file": "test_data/basic_md.in.md",
@@ -144,6 +158,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "84",
       "file": "test_data/basic_md.in.md",
@@ -154,6 +169,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "9",
       "file": "test_data/basic_py.in.py",
@@ -164,6 +180,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "19",
       "file": "test_data/basic_py.in.py",
@@ -174,6 +191,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "9",
       "file": "test_data/basic_py.in.py",
@@ -184,6 +202,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "17",
       "file": "test_data/basic_py.in.py",
@@ -194,6 +213,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "26",
       "file": "test_data/basic_py.in.py",
@@ -204,6 +224,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "test_data/basic_py.in.py",
@@ -214,6 +235,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "8",
       "file": "test_data/basic_py.in.py",
@@ -224,6 +246,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "7",
       "file": "test_data/basic_ts.in.ts",
@@ -234,6 +257,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "19",
       "file": "test_data/basic_ts.in.ts",
@@ -244,6 +268,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "7",
       "file": "test_data/basic_ts.in.ts",
@@ -254,6 +279,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "19",
       "file": "test_data/basic_ts.in.ts",
@@ -264,6 +290,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "7",
       "file": "test_data/basic_ts.in.ts",
@@ -274,6 +301,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "16",
       "file": "test_data/basic_ts.in.ts",
@@ -284,6 +312,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "7",
       "file": "test_data/basic_ts.in.ts",
@@ -294,6 +323,7 @@ exports[`Testing linter cspell test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "error",
       "column": "7",
       "file": "test_data/basic_ts.in.ts",

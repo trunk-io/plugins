@@ -4,6 +4,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "COMPILE",
       "column": "13",
       "file": "test_data/buf_breaking.in.proto",
@@ -15,6 +16,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
       "targetType": "proto",
     },
     {
+      "autofixOptions": [],
       "code": "COMPILE",
       "column": "13",
       "file": "test_data/buf_breaking.in.proto",
@@ -26,6 +28,7 @@ exports[`Testing linter buf-breaking test dupFile 1`] = `
       "targetType": "proto",
     },
     {
+      "autofixOptions": [],
       "code": "COMPILE",
       "column": "13",
       "file": "test_data/buf_breaking.in.proto",

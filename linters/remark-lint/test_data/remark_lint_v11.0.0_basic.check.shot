@@ -4,6 +4,7 @@ exports[`Testing linter remark-lint test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "list-item-indent",
       "column": "4",
       "file": "test_data/basic.in.md",
@@ -37,6 +38,7 @@ exports[`Testing linter remark-lint test basic 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic.in.md",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

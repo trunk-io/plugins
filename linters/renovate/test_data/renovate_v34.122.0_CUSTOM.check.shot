@@ -4,6 +4,7 @@ exports[`Testing linter renovate test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "Configuration-Error",
       "file": "test_data/renovate.json",
       "level": "LEVEL_HIGH",
@@ -12,6 +13,7 @@ exports[`Testing linter renovate test CUSTOM 1`] = `
       "targetType": "renovate-config",
     },
     {
+      "autofixOptions": [],
       "code": "JSON",
       "column": "1",
       "file": "test_data/renovate.json5",
