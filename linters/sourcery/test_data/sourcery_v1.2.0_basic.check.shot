@@ -4,6 +4,7 @@ exports[`Testing linter sourcery test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "raise-specific-error",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -15,6 +16,7 @@ exports[`Testing linter sourcery test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "replace-interpolation-with-fstring",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -26,6 +28,7 @@ exports[`Testing linter sourcery test basic 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "raise-from-previous-error",
       "column": "1",
       "file": "test_data/basic.in.py",
@@ -60,6 +63,7 @@ exports[`Testing linter sourcery test basic 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic.in.py",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
