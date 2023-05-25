@@ -6,7 +6,11 @@ exports[`Testing linter sourcery test basic 1`] = `
   "lintActions": [],
   "taskFailures": [
     {
-      "details": StringMatching /\\.\\*\\$/m,
+      "details": "trunk_cli_version: 1.10.0
+title: "Error while executing: Installing v1.3.0"
+report:
+  - Health check failed for 'sourcery'. Health check failed. Token 'env.SOURCERY_TOKEN' could not be resolved for input
+",
       "message": "Installing v1.3.0",
       "name": "sourcery",
     },

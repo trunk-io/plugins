@@ -6,7 +6,284 @@ exports[`Testing linter ruff test basic 1`] = `
   "lintActions": [],
   "taskFailures": [
     {
-      "details": StringMatching /\\.\\*\\$/m,
+      "details": "trunk_cli_version: 1.10.0
+title: "Error while executing: test_data/basic.in.py"
+report:
+  - "PositionToOffset: position 10:2 is beyond end of line (size 1)"
+  - linter:
+      command: |
+        /tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa/bin/ruff check --cache-dir /home/lauri/.cache/trunk/repos/a6051b72dd9caf5468a085b3c0795502/results/ruff-current --format json test_data/basic.in.py
+      stdin_path: (none)
+      run_from: /tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c
+      timeout: 10m
+      rerun: (cd /tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c; env -i PATH=/tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa/bin:/tmp/plugins_testing_download_cache/python/3.10.8-919fe5ca3054fbe801b0881e623c0b37/bin VIRTUAL_ENV=/tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa HOME=/home/lauri /tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa/bin/ruff check --cache-dir /home/lauri/.cache/trunk/repos/a6051b72dd9caf5468a085b3c0795502/results/ruff-current --format json test_data/basic.in.py)
+      affects_cache:
+        []
+      direct_configs:
+        - ruff.toml
+      exit_status: exited
+      exit_code: 1
+      stdout: |
+        [
+          {
+            "code": "E402",
+            "message": "Module level import not at top of file",
+            "fix": null,
+            "location": {
+              "row": 7,
+              "column": 1
+            },
+            "end_location": {
+              "row": 7,
+              "column": 11
+            },
+            "filename": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py",
+            "noqa_row": 7
+          },
+          {
+            "code": "F401",
+            "message": "\`sys\` imported but unused",
+            "fix": {
+              "applicability": "Unspecified",
+              "message": "Remove unused import: \`sys\`",
+              "edits": [
+                {
+                  "content": "",
+                  "location": {
+                    "row": 7,
+                    "column": 1
+                  },
+                  "end_location": {
+                    "row": 8,
+                    "column": 1
+                  }
+                }
+              ]
+            },
+            "location": {
+              "row": 7,
+              "column": 8
+            },
+            "end_location": {
+              "row": 7,
+              "column": 11
+            },
+            "filename": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py",
+            "noqa_row": 7
+          },
+          {
+            "code": "E402",
+            "message": "Module level import not at top of file",
+            "fix": null,
+            "location": {
+              "row": 9,
+              "column": 1
+            },
+            "end_location": {
+              "row": 9,
+              "column": 12
+            },
+            "filename": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py",
+            "noqa_row": 9
+          },
+          {
+            "code": "F401",
+            "message": "\`json\` imported but unused",
+            "fix": {
+              "applicability": "Unspecified",
+              "message": "Remove unused import: \`json\`",
+              "edits": [
+                {
+                  "content": "",
+                  "location": {
+                    "row": 9,
+                    "column": 1
+                  },
+                  "end_location": {
+                    "row": 10,
+                    "column": 1
+                  }
+                }
+              ]
+            },
+            "location": {
+              "row": 9,
+              "column": 8
+            },
+            "end_location": {
+              "row": 9,
+              "column": 12
+            },
+            "filename": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py",
+            "noqa_row": 9
+          }
+        ]
+      stderr: (none)
+    parser:
+      command: |
+        /home/lauri/work/plugins/linters/ruff/ruff_to_sarif.py
+      stdin_path: (none)
+      run_from: /tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c
+      timeout: 10m
+      rerun: (cd /tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c; env -i PATH=/tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa/bin:/tmp/plugins_testing_download_cache/python/3.10.8-919fe5ca3054fbe801b0881e623c0b37/bin:/home/lauri/work/plugins/node_modules/.bin:/home/lauri/work/node_modules/.bin:/home/lauri/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/lauri/work/plugins/.trunk/shims:/home/lauri/.vscode-server/bin/b3e4e68a0bc097f0ae7907b217c1119af9e03435/bin/remote-cli:/home/lauri/.local/bin:/home/lauri/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin VIRTUAL_ENV=/tmp/plugins_testing_download_cache/ruff/0.0.270-8b81492f8813742195b347acf15fcdaa HOME=/home/lauri /home/lauri/work/plugins/linters/ruff/ruff_to_sarif.py)
+      exit_status: exited
+      exit_code: 0
+      stdout: |
+        {
+          "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+          "version": "2.1.0",
+          "runs": [
+            {
+              "results": [
+                {
+                  "level": "error",
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                        },
+                        "region": {
+                          "startColumn": 1,
+                          "startLine": 7,
+                          "endColumn": 11,
+                          "endLine": 7
+                        }
+                      }
+                    }
+                  ],
+                  "message": {
+                    "text": "Module level import not at top of file"
+                  },
+                  "ruleId": "E402"
+                },
+                {
+                  "level": "error",
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                        },
+                        "region": {
+                          "startColumn": 8,
+                          "startLine": 7,
+                          "endColumn": 11,
+                          "endLine": 7
+                        }
+                      }
+                    }
+                  ],
+                  "message": {
+                    "text": "\`sys\` imported but unused"
+                  },
+                  "ruleId": "F401",
+                  "fixes": [
+                    {
+                      "description": {
+                        "text": "Remove unused import: \`sys\`"
+                      },
+                      "artifactChanges": [
+                        {
+                          "artifactLocation": {
+                            "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                          },
+                          "replacements": [
+                            {
+                              "deletedRegion": {
+                                "startColumn": 2,
+                                "startLine": 7,
+                                "endColumn": 2,
+                                "endLine": 8
+                              },
+                              "insertedContent": {
+                                "text": ""
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "level": "error",
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                        },
+                        "region": {
+                          "startColumn": 1,
+                          "startLine": 9,
+                          "endColumn": 12,
+                          "endLine": 9
+                        }
+                      }
+                    }
+                  ],
+                  "message": {
+                    "text": "Module level import not at top of file"
+                  },
+                  "ruleId": "E402"
+                },
+                {
+                  "level": "error",
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                        },
+                        "region": {
+                          "startColumn": 8,
+                          "startLine": 9,
+                          "endColumn": 12,
+                          "endLine": 9
+                        }
+                      }
+                    }
+                  ],
+                  "message": {
+                    "text": "\`json\` imported but unused"
+                  },
+                  "ruleId": "F401",
+                  "fixes": [
+                    {
+                      "description": {
+                        "text": "Remove unused import: \`json\`"
+                      },
+                      "artifactChanges": [
+                        {
+                          "artifactLocation": {
+                            "uri": "/tmp/plugins_4aVlJ8/tmp/trunk-1001/nVJL7c/test_data/basic.in.py"
+                          },
+                          "replacements": [
+                            {
+                              "deletedRegion": {
+                                "startColumn": 2,
+                                "startLine": 9,
+                                "endColumn": 2,
+                                "endLine": 10
+                              },
+                              "insertedContent": {
+                                "text": ""
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
+      stderr: (none)
+",
       "message": "test_data/basic.in.py",
       "name": "ruff",
     },
