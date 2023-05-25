@@ -26,6 +26,7 @@ exports[`Testing linter rome test basic_check 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
+      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic_check.in.ts",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

@@ -4,6 +4,7 @@ exports[`Testing linter gitleaks test basic 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "aws-access-token",
       "column": "22",
       "file": "test_data/basic.py",
@@ -14,6 +15,7 @@ exports[`Testing linter gitleaks test basic 1`] = `
       "targetType": "ALL",
     },
     {
+      "autofixOptions": [],
       "code": "aws-access-token",
       "column": "23",
       "file": "test_data/basic.py",

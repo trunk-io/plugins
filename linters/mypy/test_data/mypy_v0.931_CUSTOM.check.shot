@@ -4,6 +4,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
 {
   "issues": [
     {
+      "autofixOptions": [],
       "code": "import",
       "column": "1",
       "file": "test_data/basic.py",
@@ -15,6 +16,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "import",
       "column": "1",
       "file": "test_data/basic.py",
@@ -26,6 +28,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "note",
       "column": "1",
       "file": "test_data/basic.py",
@@ -37,6 +40,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "arg-type",
       "column": "10",
       "file": "test_data/basic.py",
@@ -48,6 +52,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "arg-type",
       "column": "10",
       "file": "test_data/basic.py",
@@ -59,6 +64,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "func-returns-value",
       "column": "5",
       "file": "test_data/basic.py",
@@ -70,6 +76,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "assignment",
       "column": "10",
       "file": "test_data/basic.py",
@@ -81,6 +88,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "attr-defined",
       "column": "1",
       "file": "test_data/basic.py",
@@ -92,6 +100,7 @@ exports[`Testing linter mypy test CUSTOM 1`] = `
       "targetType": "python",
     },
     {
+      "autofixOptions": [],
       "code": "return",
       "column": "1",
       "file": "test_data/source.py",

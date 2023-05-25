@@ -5,17 +5,6 @@ exports[`Testing linter checkov test basic 1`] = `
   "issues": [
     {
       "autofixOptions": [],
-      "code": "CKV_AWS_356",
-      "column": "1",
-      "file": "test_data/basic.in.tf",
-      "level": "LEVEL_HIGH",
-      "line": "3",
-      "linter": "checkov",
-      "message": "Ensure IAM policies limit resource access",
-      "targetType": "terraform",
-    },
-    {
-      "autofixOptions": [],
       "code": "CKV2_AWS_40",
       "column": "1",
       "file": "test_data/basic.in.tf",
@@ -93,17 +82,6 @@ exports[`Testing linter checkov test basic 1`] = `
     },
     {
       "autofixOptions": [],
-      "code": "CKV_AWS_356",
-      "column": "1",
-      "file": "test_data/basic.in.tf",
-      "level": "LEVEL_HIGH",
-      "line": "43",
-      "linter": "checkov",
-      "message": "Ensure IAM policies limit resource access",
-      "targetType": "terraform",
-    },
-    {
-      "autofixOptions": [],
       "code": "CKV_AWS_49",
       "column": "1",
       "file": "test_data/basic.in.tf",
@@ -177,17 +155,6 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow write access without constraints",
-      "targetType": "terraform",
-    },
-    {
-      "autofixOptions": [],
-      "code": "CKV_AWS_356",
-      "column": "1",
-      "file": "test_data/basic.in.tf",
-      "level": "LEVEL_HIGH",
-      "line": "57",
-      "linter": "checkov",
-      "message": "Ensure IAM policies limit resource access",
       "targetType": "terraform",
     },
     {
