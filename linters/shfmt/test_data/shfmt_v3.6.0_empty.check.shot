@@ -17,7 +17,6 @@ exports[`Testing linter shfmt test empty 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
-      "autofixOptions": [],
       "column": "1",
       "file": "test_data/empty.in.sh",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

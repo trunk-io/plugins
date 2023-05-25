@@ -4,7 +4,6 @@ exports[`Testing linter buildifier test basic_check 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "module-docstring",
       "column": "1",
       "file": "test_data/basic.bzl",
@@ -17,7 +16,6 @@ A module docstring is a string literal (not a comment) which should be the first
       "targetType": "starlark",
     },
     {
-      "autofixOptions": [],
       "code": "load",
       "column": "26",
       "file": "test_data/basic.bzl",
@@ -34,7 +32,6 @@ If you want to re-export a symbol, use the following pattern:
       "targetType": "starlark",
     },
     {
-      "autofixOptions": [],
       "code": "out-of-order-load",
       "column": "1",
       "file": "test_data/basic.bzl",
@@ -46,7 +43,6 @@ If you want to re-export a symbol, use the following pattern:
       "targetType": "starlark",
     },
     {
-      "autofixOptions": [],
       "code": "load",
       "column": "26",
       "file": "test_data/basic.bzl",
@@ -104,7 +100,6 @@ If you want to re-export a symbol, use the following pattern:
   "taskFailures": [],
   "unformattedFiles": [
     {
-      "autofixOptions": [],
       "column": "1",
       "file": "test_data/add_tables.BUILD",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",
@@ -114,7 +109,6 @@ If you want to re-export a symbol, use the following pattern:
       "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
     },
     {
-      "autofixOptions": [],
       "column": "1",
       "file": "test_data/basic.bzl",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

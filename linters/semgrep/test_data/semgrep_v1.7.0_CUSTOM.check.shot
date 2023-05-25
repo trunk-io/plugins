@@ -4,7 +4,6 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5",
       "column": "12",
       "file": "test_data/basic.go",
@@ -16,7 +15,6 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
       "targetType": "ALL",
     },
     {
-      "autofixOptions": [],
       "code": "python.django.security.injection.code.globals-misuse-code-execution.globals-misuse-code-execution",
       "column": "5",
       "file": "test_data/request.py",
@@ -28,7 +26,6 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
       "targetType": "ALL",
     },
     {
-      "autofixOptions": [],
       "code": "python.lang.security.dangerous-globals-use.dangerous-globals-use",
       "column": "16",
       "file": "test_data/request.py",

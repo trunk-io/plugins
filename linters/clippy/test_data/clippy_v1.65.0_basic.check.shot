@@ -4,7 +4,6 @@ exports[`Testing linter clippy test basic 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "needless_range_loop",
       "column": "14",
       "file": "src/main.rs",
@@ -24,7 +23,6 @@ exports[`Testing linter clippy test basic 1`] = `
       "targetType": "rust",
     },
     {
-      "autofixOptions": [],
       "code": "manual_non_exhaustive",
       "column": "1",
       "file": "src/main.rs",

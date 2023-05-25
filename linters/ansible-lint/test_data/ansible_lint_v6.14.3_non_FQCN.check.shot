@@ -4,7 +4,6 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "syntax-check[specific]",
       "column": "7",
       "file": "jboss-standalone/demo-aws-launch.yml",

@@ -4,7 +4,6 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "error",
       "file": "test_data/bad_version/.circleci/config.yml",
       "level": "LEVEL_HIGH",
@@ -13,7 +12,6 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
       "targetType": "circleci-config",
     },
     {
-      "autofixOptions": [],
       "code": "error",
       "file": "test_data/malformed/.circleci/config.yml",
       "level": "LEVEL_HIGH",

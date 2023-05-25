@@ -17,7 +17,6 @@ exports[`Testing linter sql-formatter test empty 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
-      "autofixOptions": [],
       "column": "1",
       "file": "test_data/empty.in.sql",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

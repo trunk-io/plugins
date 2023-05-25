@@ -4,7 +4,6 @@ exports[`Testing linter buf-lint test buf_lint 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "FILE_LOWER_SNAKE_CASE",
       "column": "1",
       "file": "test_data/buf_lint.in.proto",
@@ -16,7 +15,6 @@ exports[`Testing linter buf-lint test buf_lint 1`] = `
       "targetType": "proto",
     },
     {
-      "autofixOptions": [],
       "code": "PACKAGE_DIRECTORY_MATCH",
       "column": "1",
       "file": "test_data/buf_lint.in.proto",
@@ -28,7 +26,6 @@ exports[`Testing linter buf-lint test buf_lint 1`] = `
       "targetType": "proto",
     },
     {
-      "autofixOptions": [],
       "code": "PACKAGE_VERSION_SUFFIX",
       "column": "1",
       "file": "test_data/buf_lint.in.proto",
@@ -40,7 +37,6 @@ exports[`Testing linter buf-lint test buf_lint 1`] = `
       "targetType": "proto",
     },
     {
-      "autofixOptions": [],
       "code": "ENUM_VALUE_PREFIX",
       "column": "3",
       "file": "test_data/buf_lint.in.proto",
@@ -52,7 +48,6 @@ exports[`Testing linter buf-lint test buf_lint 1`] = `
       "targetType": "proto",
     },
     {
-      "autofixOptions": [],
       "code": "ENUM_VALUE_UPPER_SNAKE_CASE",
       "column": "3",
       "file": "test_data/buf_lint.in.proto",

@@ -4,7 +4,6 @@ exports[`Testing linter haml-lint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "IdNames",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
@@ -14,7 +13,6 @@ exports[`Testing linter haml-lint test CUSTOM 1`] = `
       "targetType": "haml",
     },
     {
-      "autofixOptions": [],
       "code": "EmptyScript",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",
@@ -24,7 +22,6 @@ exports[`Testing linter haml-lint test CUSTOM 1`] = `
       "targetType": "haml",
     },
     {
-      "autofixOptions": [],
       "code": "SpaceBeforeScript",
       "file": "test_data/basic.haml",
       "level": "LEVEL_MEDIUM",

@@ -4,7 +4,6 @@ exports[`Testing linter golangci-lint test empty 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "typecheck",
       "column": "1",
       "file": "empty.go",
@@ -16,7 +15,6 @@ exports[`Testing linter golangci-lint test empty 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "deadcode",
       "column": "6",
       "file": "test_data/unused_func.go",
@@ -28,7 +26,6 @@ exports[`Testing linter golangci-lint test empty 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "typecheck",
       "column": "23",
       "file": "test_data/wrapper/printer.go",

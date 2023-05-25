@@ -4,7 +4,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "CWE-22:-Path-Traversal",
       "column": "1",
       "file": "test_data/path_traversal/path_traversal.in.go",
@@ -17,7 +16,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-22:-Path-Traversal",
       "column": "1",
       "file": "test_data/path_traversal/path_traversal.in.go",
@@ -30,7 +28,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-22:-Path-Traversal",
       "column": "1",
       "file": "test_data/path_traversal/path_traversal.in.go",
@@ -43,7 +40,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-22:-Path-Traversal",
       "column": "1",
       "file": "test_data/path_traversal/path_traversal.in.go",
@@ -56,7 +52,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-22:-Path-Traversal",
       "column": "1",
       "file": "test_data/path_traversal/path_traversal.in.go",
@@ -69,7 +64,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-89:-SQL-Injection",
       "column": "1",
       "file": "test_data/sql_injection/sql_injection.in.go",
@@ -82,7 +76,6 @@ exports[`Testing linter gokart test CUSTOM 1`] = `
       "targetType": "go",
     },
     {
-      "autofixOptions": [],
       "code": "CWE-89:-SQL-Injection",
       "column": "1",
       "file": "test_data/sql_injection/sql_injection.in.go",

@@ -60,12 +60,17 @@ const normalizeIssues = ({
   file: _file,
   autofixOptions: _autofixOptions = [],
   ...rest
-}: FileIssue): FileIssue => ({
-  ...rest,
-  message: normalizeMessage(_message),
-  file: normalizeFile(_file),
-  autofixOptions: _autofixOptions.map(normalizeAutofix),
-});
+}: FileIssue): FileIssue => {
+  const ret: FileIssue = {
+    ...rest,
+    message: normalizeMessage(_message),
+    file: normalizeFile(_file),
+  };
+  if (_autofixOptions.length > 0) {
+    ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
+  }
+  return ret;
+};
 
 /**
  * Remove unwanted fields. Prefer object destructuring to be explicit about required fields

@@ -17,7 +17,6 @@ exports[`Testing linter scalafmt test empty 1`] = `
   "taskFailures": [],
   "unformattedFiles": [
     {
-      "autofixOptions": [],
       "column": "1",
       "file": "test_data/empty.in.scala",
       "issueClass": "ISSUE_CLASS_UNFORMATTED",

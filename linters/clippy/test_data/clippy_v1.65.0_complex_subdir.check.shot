@@ -4,7 +4,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "dead_code",
       "column": "4",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -24,7 +23,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
       "targetType": "rust",
     },
     {
-      "autofixOptions": [],
       "code": "arithmetic_overflow",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",
@@ -44,7 +42,6 @@ exports[`Testing linter clippy test complex_subdir 1`] = `
       "targetType": "rust",
     },
     {
-      "autofixOptions": [],
       "code": "no_effect",
       "column": "5",
       "file": "test_data/complex_subdir/src/high.rs",

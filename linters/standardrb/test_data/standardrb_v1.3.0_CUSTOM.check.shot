@@ -4,7 +4,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "Layout/ExtraSpacing",
       "column": "6",
       "file": "test_data/basic.rb",
@@ -23,7 +22,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Style/LambdaCall",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -42,7 +40,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Style/StringLiterals",
       "column": "10",
       "file": "test_data/basic.rb",
@@ -61,7 +58,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Style/StringLiterals",
       "column": "10",
       "file": "test_data/basic.rb",
@@ -80,7 +76,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -99,7 +94,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -118,7 +112,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -137,7 +130,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -156,7 +148,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/EmptyLines",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -175,7 +166,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/IndentationWidth",
       "column": "1",
       "file": "test_data/basic.rb",
@@ -194,7 +184,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Layout/IndentationConsistency",
       "column": "2",
       "file": "test_data/basic.rb",
@@ -213,7 +202,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Style/EmptyMethod",
       "column": "2",
       "file": "test_data/basic.rb",
@@ -232,7 +220,6 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "targetType": "ruby",
     },
     {
-      "autofixOptions": [],
       "code": "Style/SingleLineMethods",
       "column": "2",
       "file": "test_data/basic.rb",

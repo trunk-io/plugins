@@ -73,7 +73,7 @@ export interface FileIssue {
   linter: string;
   targetType: string;
   targetPath?: string;
-  autofixOptions: Autofix[];
+  autofixOptions?: Autofix[];
   // ranges: any[];
   issueUrl: string;
 }

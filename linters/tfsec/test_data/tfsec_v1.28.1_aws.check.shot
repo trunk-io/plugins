@@ -4,7 +4,6 @@ exports[`Testing linter tfsec test aws 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "aws-ec2-enable-at-rest-encryption",
       "column": "1",
       "file": "test_data/aws.in.tf",
@@ -16,7 +15,6 @@ exports[`Testing linter tfsec test aws 1`] = `
       "targetType": "terraform",
     },
     {
-      "autofixOptions": [],
       "code": "aws-ec2-enforce-http-token-imds",
       "column": "1",
       "file": "test_data/aws.in.tf",

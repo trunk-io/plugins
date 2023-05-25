@@ -4,7 +4,6 @@ exports[`Testing linter codespell test dictionary 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "misspelled",
       "file": "test_data/basic_py.in.py",
       "level": "LEVEL_HIGH",
@@ -14,7 +13,6 @@ exports[`Testing linter codespell test dictionary 1`] = `
       "targetType": "ALL",
     },
     {
-      "autofixOptions": [],
       "code": "misspelled",
       "file": "test_data/basic_ts.in.ts",
       "level": "LEVEL_HIGH",

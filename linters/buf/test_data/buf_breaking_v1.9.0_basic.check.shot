@@ -4,7 +4,6 @@ exports[`Testing linter buf-breaking test basic 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "FIELD_NO_DELETE",
       "column": "5",
       "file": "test_data/buf_breaking.in.proto",
@@ -16,7 +15,6 @@ exports[`Testing linter buf-breaking test basic 1`] = `
       "targetType": "proto",
     },
     {
-      "autofixOptions": [],
       "code": "FIELD_SAME_TYPE",
       "column": "7",
       "file": "test_data/buf_breaking.in.proto",

@@ -4,7 +4,6 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "AVD-AWS-0028",
       "file": "test_data/aws.tf",
       "isSecurity": true,
@@ -16,7 +15,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "terraform",
     },
     {
-      "autofixOptions": [],
       "code": "AVD-AWS-0131",
       "file": "test_data/aws.tf",
       "isSecurity": true,
@@ -26,7 +24,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "terraform",
     },
     {
-      "autofixOptions": [],
       "code": "DS002",
       "file": "test_data/basic.Dockerfile",
       "isSecurity": true,
@@ -36,7 +33,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "docker",
     },
     {
-      "autofixOptions": [],
       "code": "DS026",
       "file": "test_data/basic.Dockerfile",
       "isSecurity": true,
@@ -46,7 +42,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "docker",
     },
     {
-      "autofixOptions": [],
       "code": "KSV003",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -56,7 +51,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV011",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -66,7 +60,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV012",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -76,7 +69,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV013",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -86,7 +78,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV014",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -96,7 +87,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV018",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -106,7 +96,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV020",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -116,7 +105,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV021",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -126,7 +114,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV030",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -136,7 +123,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "KSV106",
       "file": "test_data/basic.yaml",
       "isSecurity": true,
@@ -146,7 +132,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "yaml",
     },
     {
-      "autofixOptions": [],
       "code": "CVE-2022-45198",
       "file": "test_data/nested/requirements.txt",
       "isSecurity": true,
@@ -156,7 +141,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "autofixOptions": [],
       "code": "CVE-2022-45199",
       "file": "test_data/nested/requirements.txt",
       "isSecurity": true,
@@ -166,7 +150,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "autofixOptions": [],
       "code": "CVE-2022-45198",
       "file": "test_data/requirements.txt",
       "isSecurity": true,
@@ -176,7 +159,6 @@ To fully protect IMDS you need to enable session tokens by using <code>metadata_
       "targetType": "lockfile",
     },
     {
-      "autofixOptions": [],
       "code": "CVE-2022-45199",
       "file": "test_data/requirements.txt",
       "isSecurity": true,

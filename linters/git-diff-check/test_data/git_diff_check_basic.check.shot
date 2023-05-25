@@ -4,7 +4,6 @@ exports[`Testing linter git-diff-check test basic 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",
@@ -15,7 +14,6 @@ exports[`Testing linter git-diff-check test basic 1`] = `
       "targetType": "ALL",
     },
     {
-      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",
@@ -26,7 +24,6 @@ exports[`Testing linter git-diff-check test basic 1`] = `
       "targetType": "ALL",
     },
     {
-      "autofixOptions": [],
       "code": "error",
       "column": "1",
       "file": "test_data/basic.in.txt",

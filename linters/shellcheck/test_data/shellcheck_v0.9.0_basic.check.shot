@@ -176,7 +176,6 @@ exports[`Testing linter shellcheck test basic 1`] = `
       "targetType": "shell",
     },
     {
-      "autofixOptions": [],
       "code": "SC2312",
       "column": "9",
       "file": "test_data/basic.in.sh",
@@ -195,7 +194,6 @@ exports[`Testing linter shellcheck test basic 1`] = `
       "targetType": "shell",
     },
     {
-      "autofixOptions": [],
       "code": "SC2312",
       "column": "11",
       "file": "test_data/basic.in.sh",
