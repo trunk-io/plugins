@@ -15,7 +15,6 @@ lint:
           batch: true
           success_codes: [0, 1]
         - name: lint
-          version: ">=0.0.250"
           run: ruff check --cache-dir ${cachedir} --format json ${target}
           output: sarif
           parser:
