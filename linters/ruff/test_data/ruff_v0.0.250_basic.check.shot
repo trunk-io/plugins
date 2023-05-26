@@ -22,7 +22,6 @@ exports[`Testing linter ruff test basic 1`] = `
               "filePath": "test_data/basic.in.py",
               "length": "11",
               "offset": "83",
-              "replacementText": "",
             },
           ],
         },
