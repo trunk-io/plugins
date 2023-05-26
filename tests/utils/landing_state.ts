@@ -34,10 +34,16 @@ const extractTaskFailureFields = (
 const normalizeReplacement = ({
   replacementText: _replacementText,
   ...rest
-}: Replacement): Replacement => ({
-  ...rest,
-  replacementText: Buffer.from(_replacementText ?? "", "base64").toString(),
-});
+}: Replacement): Replacement => {
+  const ret: Replacement = {
+    ...rest,
+  };
+  // TODO(lauri): Add this unconditionally once ruff is fixed.
+  if (_replacementText) {
+    ret.replacementText = Buffer.from(_replacementText, "base64").toString();
+  }
+  return ret;
+};
 
 const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix): Autofix => ({
   ...rest,
