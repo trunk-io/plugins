@@ -422,6 +422,8 @@ lint:
     - name: python-interface
       extensions:
         - pyi
+      comments:
+        - hash
 
     - name: ruby
       extensions:
