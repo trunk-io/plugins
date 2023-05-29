@@ -1,14 +1,14 @@
 import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest, linterCheckTest, TestCallback } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
 
 // detekt tests can sometimes take a while.
 jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
 
 // Running check on the input manually requires the existence of a top level .detekt.yaml
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(".detekt.yaml", "");
 };
 

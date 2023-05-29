@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter terrascan test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "AC_DOCKER_0001",
+      "column": "1",
+      "file": "test_data/basic.in.dockerfile",
+      "isSecurity": true,
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "terrascan",
+      "message": "Ensure platform flag with FROM command is not used for Docker file",
+      "targetType": "docker",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint-docker",
+      "fileGroupName": "docker",
+      "linter": "terrascan",
+      "paths": [
+        "test_data/basic.in.dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

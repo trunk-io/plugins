@@ -23,11 +23,13 @@ lint:
       files: [terraform]
       download: tfsec
       known_good_version: 1.28.1
+      suggest_if: never
       commands:
         - name: lint
           output: sarif
           target: ${parent}
           run: tfsec ${target} --format=sarif
+          run_linter_from: directory
           is_security: true
           success_codes: [0, 1]
           read_output_from: stdout

@@ -29,3 +29,4 @@ lint:
         - name: PATH
           list: ["${linter}"]
       known_good_version: 0.5.0
+      suggest_if: never

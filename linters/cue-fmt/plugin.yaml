@@ -12,8 +12,9 @@ lint:
           formatter: true
       runtime: go
       package: cuelang.org/go/cmd/cue
-      good_without_config: true
-      known_good_version: 0.4.3
+      suggest_if: files_present
+      # cue-fmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
+      known_good_version: 0.5.0
       version_command:
         parse_regex: cue version ${semver} .*
         run: cue version

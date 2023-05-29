@@ -2,7 +2,14 @@ import { sort } from "fast-sort";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
-import { FileIssue, LandingState, LintAction, TaskFailure } from "tests/types";
+import {
+  Autofix,
+  FileIssue,
+  LandingState,
+  LintAction,
+  Replacement,
+  TaskFailure,
+} from "tests/types";
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
 // we should preserve the original structure and use jest matchers on the non-deterministic fields.
@@ -24,21 +31,52 @@ const extractTaskFailureFields = (
     : undefined,
 });
 
+const normalizeReplacement = ({
+  replacementText: _replacementText,
+  ...rest
+}: Replacement): Replacement => {
+  const ret: Replacement = {
+    ...rest,
+  };
+  // TODO(lauri): Add this unconditionally once ruff is fixed.
+  if (_replacementText) {
+    ret.replacementText = Buffer.from(_replacementText, "base64").toString();
+  }
+  return ret;
+};
+
+const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix): Autofix => ({
+  ...rest,
+  replacements: _replacements.map(normalizeReplacement),
+});
+
 // Replace any occurrences of the nondeterministic sandbox path in the output message
 const normalizeMessage = (message?: string) =>
   message
     ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
+    .replace(".dup.", ".")
     .trim();
+
+const normalizeFile = (file: string) => file.replace(".dup.", ".").trim();
 
 const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
+  file: _file,
+  autofixOptions: _autofixOptions = [],
   ...rest
-}: FileIssue): FileIssue => ({
-  ...rest,
-  message: normalizeMessage(_message),
-});
+}: FileIssue): FileIssue => {
+  const ret: FileIssue = {
+    ...rest,
+    message: normalizeMessage(_message),
+    file: normalizeFile(_file),
+  };
+  if (_autofixOptions.length > 0) {
+    ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
+  }
+  return ret;
+};
 
 /**
  * Remove unwanted fields. Prefer object destructuring to be explicit about required fields

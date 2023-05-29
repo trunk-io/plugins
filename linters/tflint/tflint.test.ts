@@ -1,14 +1,15 @@
 import path from "path";
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-// const preCheck = (driver: TrunkDriver) => {
+// NOTE: because of copying to root of repo, paths will not be in test_data/ in the test repo.
+// const preCheck = (driver: TrunkLintDriver) => {
 //   driver.moveFile(path.join(TEST_DATA, ".tflint.hcl"), path.join(".tflint.hcl"));
 //   driver.moveFile(path.join(TEST_DATA, "aws.tf"), path.join("aws.tf"));
 // };
 
-const preCheckBadConfig = (driver: TrunkDriver) => {
+const preCheckBadConfig = (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, "bad.tflint.hcl"), path.join(".tflint.hcl"));
   driver.moveFile(path.join(TEST_DATA, "aws.tf"), path.join("aws.tf"));
 };

@@ -28,11 +28,12 @@ lint:
           cache_results: true
           formatter: true
       download: clang-format
+      suggest_if: config_present
       direct_configs: [.clang-format]
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: 14.0.0
+      known_good_version: 16.0.3
       version_command:
         parse_regex: ${semver}
         run: clang-format --version

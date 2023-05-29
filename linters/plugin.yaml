@@ -319,6 +319,10 @@ lint:
       comments:
         - html-tag
 
+    - name: nix
+      extensions:
+        - nix
+
     - name: objective-c-source
       extensions:
         - m
@@ -497,6 +501,14 @@ lint:
       extensions:
         - tf
         - tf.json
+
+    - name: hcl
+      extensions:
+        - hcl
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
 
     - name: toml
       extensions:

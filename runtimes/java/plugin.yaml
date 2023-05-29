@@ -41,11 +41,17 @@ runtimes:
       download: jdk-11
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin"]
         - name: JAVA_HOME
           value: ${runtime}
+        - name: http_proxy
+          value: ${env.http_proxy}
+          optional: true
+        - name: https_proxy
+          value: ${env.https_proxy}
+          optional: true
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]

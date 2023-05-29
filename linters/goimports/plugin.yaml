@@ -13,7 +13,9 @@ lint:
           formatter: true
       runtime: go
       package: golang.org/x/tools/cmd/goimports
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: 0.1.10
+      # goimports releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
+      known_good_version: 0.9.1

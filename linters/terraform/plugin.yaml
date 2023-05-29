@@ -37,7 +37,7 @@ lint:
           success_codes: [0]
           # cache_results: true
           # TODO - need cache_results to be by verb
-      good_without_config: true
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -51,7 +51,6 @@ lint:
           value: ${env.GITHUB_APP_PEM_FILE}
           optional: true
       known_good_version: 1.1.0
-      is_recommended: false
       version_command:
         parse_regex: ${semver}
         run: terraform --version
@@ -60,7 +59,6 @@ lint:
       files: [terraform]
       type: rewrite
       command: [terraform, fmt, -no-color, "-"]
-      good_without_config: true
       download: terraform
       stdin: true
       success_codes: [0]
@@ -73,7 +71,7 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: terraform --version
-      is_recommended: false
+      suggest_if: never
       deprecated:
         terraform-fmt is now handled by terraform. Please delete terraform-fmt from your config
 
@@ -81,7 +79,6 @@ lint:
       files: [terraform]
       type: terraform_validate
       command: [terraform, validate, -json]
-      good_without_config: true
       run_linter_from: directory
       download: terraform
       success_codes: [0, 1]
@@ -98,7 +95,7 @@ lint:
           value: ${env.GITHUB_APP_PEM_FILE}
           optional: true
       known_good_version: 1.1.0
-      is_recommended: false
+      suggest_if: never
       version_command:
         parse_regex: ${semver}
         run: terraform --version

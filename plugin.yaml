@@ -1,10 +1,10 @@
 version: 0.1
 # IfChange
-required_trunk_version: ">=1.8.2-beta.6"
+required_trunk_version: ">=1.10.0"
 # ThenChange tests/repo_tests/config_check.test.ts
 
 environments:
   - name: SYSTEM
     environment:
       - name: PATH
-        list: ["${path}"]
+        list: ["${env.PATH:-}"]

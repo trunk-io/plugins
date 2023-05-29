@@ -1,8 +1,8 @@
 import { linterCheckTest, linterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 
 // Due to terraform's validate subcommand being disabled by default, we need to manually enable it in our test's trunk.yaml.
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
   const sqlfluffRegex = /- terraform@(.+)\n/;

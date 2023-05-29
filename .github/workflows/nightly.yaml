@@ -24,7 +24,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           fetch-depth: 0
 
@@ -92,7 +92,7 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
@@ -135,6 +135,11 @@ jobs:
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        uses: ./.github/actions/tool_tests
+
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'
@@ -154,7 +159,7 @@ jobs:
       SLACK_CHANNEL_ID: plugins-notifications
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Retrieve Test Outputs ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
@@ -220,7 +225,7 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -229,7 +234,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: steps.upload-staging.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -250,7 +255,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: steps.upload-prod.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}

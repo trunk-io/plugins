@@ -30,7 +30,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       include_lfs: true
-      good_without_config: true
+      suggest_if: files_present
       known_good_version: 7.0.0
       version_command:
         parse_regex: ${semver}

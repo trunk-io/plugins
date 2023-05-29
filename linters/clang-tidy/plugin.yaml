@@ -28,6 +28,7 @@ lint:
           run_linter_from: compile_command
           read_output_from: tmp_file
       download: clang-tidy
+      suggest_if: config_present
       direct_configs: [.clang-tidy]
       include_scanner_type: compile_command
       query_compile_commands: true
@@ -35,8 +36,7 @@ lint:
         - name: PATH
           list: ["${linter}/bin"]
       issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/{}.html
-      known_good_version: 15.0.6
-      is_recommended: false
+      known_good_version: 16.0.3
       version_command:
         parse_regex: ${semver}
         run: clang-tidy --version

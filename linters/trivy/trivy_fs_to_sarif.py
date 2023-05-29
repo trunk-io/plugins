@@ -32,7 +32,7 @@ def main(argv):
     results = []
 
     for result in trivy_json.get("Results", []):
-        for vuln in result["Vulnerabilities"]:
+        for vuln in result.get("Vulnerabilities", []):
             vuln_id = vuln["VulnerabilityID"]
             description = vuln["Description"]
 
