@@ -41,18 +41,6 @@ runtimes:
         - name: https_proxy
           value: ${env.https_proxy}
           optional: true
-        # Needed for windows
-        - name: SYSTEMROOT
-          value: ${env.SYSTEMROOT}
-          optional: true
-        # Needed for windows
-        - name: WINDIR
-          value: ${env.WINDIR}
-          optional: true
-        # Needed for windows
-        - name: MSYSTEM
-          value: ${env.MSYSTEM}
-          list: ["${runtime}/bin"]
       linter_environment:
         - name: PATH
           list:
