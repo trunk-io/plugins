@@ -83,7 +83,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
       }
 
       // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "sync"]);
+      await this.runTrunk(["tools", "install"]);
       if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "shims", this.tool))) {
         throw new Error(`Failed to install ${this.tool}`);
       }

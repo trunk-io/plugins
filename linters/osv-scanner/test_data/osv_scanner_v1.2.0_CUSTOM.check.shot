@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter osv-scanner test CUSTOM 1`] = `
 {
@@ -686,15 +687,6 @@ HTTP/2 server connections contain a cache of HTTP header keys sent by the client
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
       "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
-      "targetType": "osv-lockfiles",
-    },
-    {
-      "code": "PYSEC-2022-42980",
-      "file": "test_data/requirements.txt",
-      "isSecurity": true,
-      "level": "LEVEL_HIGH",
-      "linter": "osv-scanner",
-      "message": "Pillow before 9.3.0 allows denial of service via SAMPLESPERPIXEL.",
       "targetType": "osv-lockfiles",
     },
   ],
