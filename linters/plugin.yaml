@@ -419,6 +419,12 @@ lint:
       comments:
         - hash
 
+    - name: python-interface
+      extensions:
+        - pyi
+      comments:
+        - hash
+
     - name: ruby
       extensions:
         - rb
