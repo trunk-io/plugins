@@ -16,6 +16,7 @@ const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "missing_repo";
 const PARSE_STRICTNESS = process.env.PARSE_STRICTNESS;
 // If "none", don't generate failures for version mismatches.
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
@@ -196,7 +197,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${TEST_REF} Test Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
       },
     };
   });
@@ -205,7 +206,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `${TEST_REF} Test Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| _And ${
+      text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| _And ${
         allBlocks.length - 50
       } more_`,
     },
