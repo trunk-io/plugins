@@ -3,10 +3,40 @@
 import json
 import sys
 
+# Used to map OSV/GHSA severities to the corresponding SARIF severity
+# OSV/GHSA: https://docs.github.com/en/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-cvss-levels
+# SARIF: https://docs.oasis-open.org/sarif/sarif/v2.0/csprd02/sarif-v2.0-csprd02.html#_Toc10127839
+SARIF_SEVERITY_BY_OSV_SEVERITY = {
+    "CRITICAL": "error",
+    "HIGH": "error",
+    "MODERATE": "warning",
+    "MEDIUM": "warning",
+    "LOW": "note",
+}
 
-def to_result_sarif(path: str, vuln_id: str, description: str):
+DEFAULT_SARIF_SEVERITY = "error"
+
+
+def get_sarif_severity(vuln) -> str:
+    """Get the SARIF severity appropriate for a given OSV vulnerability entry."""
+    if "database_specific" not in vuln:
+        return DEFAULT_SARIF_SEVERITY
+
+    vuln_metadata = vuln["database_specific"]
+
+    if "severity" not in vuln_metadata:
+        return DEFAULT_SARIF_SEVERITY
+
+    severity = vuln_metadata["severity"].upper()
+
+    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)
+
+
+def to_result_sarif(
+    path: str, lineno: int, vuln_id: str, description: str, severity: str
+):
     return {
-        "level": "error",
+        "level": severity,
         "locations": [
             {
                 "physicalLocation": {
@@ -15,7 +45,7 @@ def to_result_sarif(path: str, vuln_id: str, description: str):
                     },
                     "region": {
                         "startColumn": 0,
-                        "startLine": 0,
+                        "startLine": lineno,
                     },
                 }
             }
@@ -37,14 +67,34 @@ def main(argv):
         if "source" not in result:
             continue
         path = result["source"]["path"]
-        for package in result["packages"]:
-            for vuln in package["vulnerabilities"]:
+
+        # path is an absolute path, so this should always be safe
+        lockfile_lines = enumerate(open(path, "r").readlines())
+
+        for pkg_vulns in result["packages"]:
+            pkg = pkg_vulns["package"]
+            for vuln in pkg_vulns["vulnerabilities"]:
                 vuln_id = vuln["id"]
                 description = vuln["summary"]
                 if len(description) == 0:
                     description = vuln["details"]
+                description = (
+                    f'Vulnerability in {pkg["name"]} {pkg["version"]}: {description}'
+                )
 
-                results.append(to_result_sarif(path, vuln_id, description))
+                lines = [
+                    zero_indexed + 1
+                    for zero_indexed, line in lockfile_lines
+                    if pkg["name"] in line and pkg["version"] in line
+                ]
+                lines += [0]
+                lineno = lines[0]
+
+                results.append(
+                    to_result_sarif(
+                        path, lineno, vuln_id, description, get_sarif_severity(vuln)
+                    )
+                )
 
     sarif = {
         "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
