@@ -14,8 +14,10 @@ import { getTrunkVersion } from "tests/utils/trunk_config";
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 
-// If "none", don't generate failures for version mismatches.
+const RUN_ID = process.env.RUN_ID ?? "";
+const TEST_REF = process.env.TEST_REF ?? "latest release";
 const PARSE_STRICTNESS = process.env.PARSE_STRICTNESS;
+// If "none", don't generate failures for version mismatches.
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
@@ -194,9 +196,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
-          process.env.RUN_ID ?? ""
-        }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        text: `${TEST_REF} Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
       },
     };
   });
@@ -205,9 +205,9 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
-        process.env.RUN_ID ?? ""
-      }| _And ${allBlocks.length - 50} more_`,
+      text: `${TEST_REF} Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| _And ${
+        allBlocks.length - 50
+      } more_`,
     },
   };
 
@@ -215,9 +215,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const blocks = allBlocks.length > 50 ? allBlocks.slice(0, 49).concat(remainingBlock) : allBlocks;
 
   const failuresObject = {
-    text: `${failures.length} failures encountered running plugins tests for ${
-      process.env.TEST_REF ?? "latest release"
-    }`,
+    text: `${failures.length} failures encountered running plugins tests for ${TEST_REF}`,
     blocks,
   };
   const failuresString = JSON.stringify(failuresObject);
