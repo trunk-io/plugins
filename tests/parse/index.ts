@@ -13,6 +13,9 @@ import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
+
+// If "none", don't generate failures for version mismatches.
+const PARSE_STRICTNESS = process.env.PARSE_STRICTNESS;
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
@@ -77,7 +80,7 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   const { version, testNames, testResultStatus } = incoming;
   // Merge existing composite record
   original.testNames = original.testNames.concat(testNames);
-  if (version && original.version && version !== original.version) {
+  if (version && original.version && version !== original.version && PARSE_STRICTNESS !== "none") {
     original.testResultStatus = "mismatch";
     mergeTestVersions(original, incoming);
   } else {
@@ -93,9 +96,18 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-argument)
   const resultsJsonPath = getResultsFileFromOS(os);
-  const jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
-
   const linterResults = new Map<string, TestResult>();
+
+  let jsonResult;
+  try {
+    jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
+  } catch (error) {
+    console.warn(`Failed to parse ${resultsJsonPath}. Skipping`);
+    return {
+      os,
+      linters: linterResults,
+    };
+  }
 
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
@@ -262,6 +274,15 @@ const writeTestResults = (testResults: TestResultSummary) => {
 const parseTestResultsAndWrite = () => {
   // Step 1: Parse each OS's results json file. If one of the expected files does not exist, throw and error out.
   const testResults = Object.values(TestOS).map((os) => parseResultsJson(os));
+  const totalParsedTests = testResults.reduce(
+    (total, testResultsSummary) => total + testResultsSummary.linters.size,
+    0
+  );
+  if (totalParsedTests === 0) {
+    throw new Error(
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}"
+    );
+  }
 
   // Step 2: Merge all OS results into one composite results summary. Tests must pass with the same version on both OSs
   // in order to be recommended.
