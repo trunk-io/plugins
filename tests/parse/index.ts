@@ -196,7 +196,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${TEST_REF} Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        text: `${TEST_REF} Test Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
       },
     };
   });
@@ -205,7 +205,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `${TEST_REF} Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| _And ${
+      text: `${TEST_REF} Test Failure: <https://github.com/trunk-io/plugins/actions/runs/${RUN_ID}| _And ${
         allBlocks.length - 50
       } more_`,
     },
