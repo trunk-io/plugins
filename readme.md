@@ -155,6 +155,7 @@ trunk check enable {linter}
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
 [trufflehog]: https://github.com/trufflesecurity/trufflehog/
+[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
 
