@@ -2,7 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: mypy
-      files: [python]
+      files: [python, python-interface]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle mypy's output.

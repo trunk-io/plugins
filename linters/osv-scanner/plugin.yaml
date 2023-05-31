@@ -27,6 +27,7 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/osv-scanner/osv_to_sarif.py
+      issue_url_format: https://osv.dev/{}
       suggest_if: never
       environment:
         - name: PATH
