@@ -8,9 +8,9 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: txtpbfmt
+          run: txtpbfmt ${target}
           success_codes: [0]
-          stdin: true
+          in_place: true
           batch: true
           formatter: true
       suggest_if: files_present
