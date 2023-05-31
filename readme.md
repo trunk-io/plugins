@@ -72,6 +72,7 @@ trunk check enable {linter}
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec], [terrascan]    |
 | Terragrunt      | [terragrunt]                                                                                                        |
+| Textproto       | [txtpbfmt]                                                                                                          |
 | TOML            | [taplo]                                                                                                             |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                                             |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                   |
