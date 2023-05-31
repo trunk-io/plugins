@@ -530,6 +530,13 @@ lint:
         - slashes-inline
         - slashes-block
 
+    - name: textproto
+      extensions:
+        - textproto
+        - textpb
+      comments:
+        - hash
+
     - name: xib
       extensions:
         - xib

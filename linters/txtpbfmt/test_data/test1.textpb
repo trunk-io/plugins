@@ -1,0 +1,57 @@
+children: [
+
+
+  # Line 1
+
+
+
+  # Line 2
+
+
+
+  # Line 3
+
+
+
+  {
+    name: "node_1"
+  },
+  {
+
+
+    name: "node_2"
+    children: [  {            name:             "node_2.1" },         {name:"node_2.2"},{name:"node_2.3"        }]
+
+
+  },
+  {
+    name: "node_3"
+children    : [
+
+      {
+        name: "node_3.1"
+      }, # after-node comment.
+
+
+
+  # Line 1
+
+
+
+  # Line 2
+
+
+
+      {
+        name: "node_3.2",
+      },
+
+
+
+
+      {
+        name: "node_3.3"
+      }
+    ]
+  }
+]
