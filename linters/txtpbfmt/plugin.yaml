@@ -1,0 +1,17 @@
+version: 0.1
+lint:
+  definitions:
+    - name: txtpbfmt
+      files: [textproto]
+      runtime: go
+      package: github.com/protocolbuffers/txtpbfmt/cmd/txtpbfmt
+      commands:
+        - name: format
+          output: rewrite
+          run: txtpbfmt ${target}
+          success_codes: [0]
+          in_place: true
+          batch: true
+          formatter: true
+      suggest_if: files_present
+      known_good_version: 0.0.0-20230412060525-fa9f017c0ded
