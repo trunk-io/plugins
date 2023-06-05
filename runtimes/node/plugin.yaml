@@ -15,6 +15,10 @@ downloads:
           arm_64: arm64
         url: https://nodejs.org/dist/v${version}/node-v${version}-${os}-${cpu}.tar.gz
         strip_components: 1
+      - os: windows
+        cpu: x86_64
+        url: https://nodejs.org/dist/v${version}/node-v${version}-win-x64.zip
+        strip_components: 1
 
 runtimes:
   definitions:
@@ -24,7 +28,10 @@ runtimes:
         - name: HOME
           value: ${env.HOME:-}
         - name: PATH
-          list: ["${runtime}/bin", "${env.PATH}"]
+          list:
+            - "${runtime}/bin"
+            - "${runtime}" # Windows places binaries here instead of bin/
+            - "${env.PATH}"
         - name: http_proxy
           value: ${env.http_proxy}
           optional: true

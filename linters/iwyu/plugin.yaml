@@ -11,6 +11,7 @@ lint:
             x86_64: x86_64
             arm_64: arm64
           url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
+        # TODO(chris): Windows download
   definitions:
     - name: include-what-you-use
       files: [c/c++-source]
