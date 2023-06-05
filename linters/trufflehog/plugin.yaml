@@ -18,7 +18,7 @@ lint:
       commands:
         - name: lint
           output: sarif
-          run: trufflehog filesystem --json --fail --no-verification ${target}
+          run: trufflehog filesystem --json --fail --no-verification --no-update ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
