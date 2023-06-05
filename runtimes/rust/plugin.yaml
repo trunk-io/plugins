@@ -11,6 +11,7 @@ downloads:
       - os:
           linux: unknown-linux-gnu
           macos: apple-darwin
+          windows: pc-windows-msvc
         cpu:
           x86_64: x86_64
           arm_64: aarch64

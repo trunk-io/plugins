@@ -13,6 +13,11 @@ lint:
           cpu:
             x86_64: 64bit
             arm_64: ARM64
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}.3/trivy_${version}_windows-${cpu}.zip
+          os: windows
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM64
 
   definitions:
     - name: trivy

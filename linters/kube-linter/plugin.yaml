@@ -3,6 +3,7 @@ lint:
   downloads:
     - name: kube-linter
       version: 0.5.0
+      executable: true
       downloads:
         - os:
             linux: linux
@@ -13,7 +14,8 @@ lint:
             linux: linux
             macos: darwin
           url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-${os}
-
+        - os: windows
+          url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter.exe
   definitions:
     - name: kube-linter
       download: kube-linter
