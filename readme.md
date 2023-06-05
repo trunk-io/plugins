@@ -72,6 +72,7 @@ trunk check enable {linter}
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec], [terrascan]    |
 | Terragrunt      | [terragrunt]                                                                                                        |
+| Textproto       | [txtpbfmt]                                                                                                          |
 | TOML            | [taplo]                                                                                                             |
 | Typescript      | [eslint], [prettier], [rome], [semgrep]                                                                             |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                   |
@@ -154,6 +155,7 @@ trunk check enable {linter}
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
 [trufflehog]: https://github.com/trufflesecurity/trufflehog/
+[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
 

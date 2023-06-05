@@ -23,7 +23,7 @@ describe("Global config health check", () => {
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.10.0",
+    trunkVersion: "1.10.1-beta.5",
     // ThenChange plugin.yaml
   });
 
@@ -144,7 +144,6 @@ describe("Global config health check", () => {
         "cue-fmt",
         "dotenv-linter",
         "git-diff-check",
-        "gitleaks",
         "gofmt",
         "golangci-lint",
         "hadolint",
@@ -162,6 +161,7 @@ describe("Global config health check", () => {
         "svgo",
         "taplo",
         "tflint",
+        "trufflehog",
         "yamllint",
       ]
     `);

@@ -13,6 +13,12 @@ import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
+
+const RUN_ID = process.env.RUN_ID ?? "";
+const TEST_REF = process.env.TEST_REF ?? "latest release";
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "missing_repo";
+const PARSE_STRICTNESS = process.env.PARSE_STRICTNESS;
+// If "none", don't generate failures for version mismatches.
 const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
@@ -77,7 +83,7 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   const { version, testNames, testResultStatus } = incoming;
   // Merge existing composite record
   original.testNames = original.testNames.concat(testNames);
-  if (version && original.version && version !== original.version) {
+  if (version && original.version && version !== original.version && PARSE_STRICTNESS !== "none") {
     original.testResultStatus = "mismatch";
     mergeTestVersions(original, incoming);
   } else {
@@ -93,9 +99,18 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-argument)
   const resultsJsonPath = getResultsFileFromOS(os);
-  const jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
-
   const linterResults = new Map<string, TestResult>();
+
+  let jsonResult;
+  try {
+    jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
+  } catch (error) {
+    console.warn(`Failed to parse ${resultsJsonPath}. Skipping`);
+    return {
+      os,
+      linters: linterResults,
+    };
+  }
 
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
@@ -182,9 +197,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
-          process.env.RUN_ID ?? ""
-        }| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
       },
     };
   });
@@ -193,9 +206,9 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `Failure: <https://github.com/trunk-io/plugins/actions/runs/${
-        process.env.RUN_ID ?? ""
-      }| _And ${allBlocks.length - 50} more_`,
+      text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| _And ${
+        allBlocks.length - 50
+      } more_`,
     },
   };
 
@@ -203,9 +216,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const blocks = allBlocks.length > 50 ? allBlocks.slice(0, 49).concat(remainingBlock) : allBlocks;
 
   const failuresObject = {
-    text: `${failures.length} failures encountered running plugins tests for ${
-      process.env.TEST_REF ?? "latest release"
-    }`,
+    text: `${failures.length} failures encountered running plugins tests for ${TEST_REF}`,
     blocks,
   };
   const failuresString = JSON.stringify(failuresObject);
@@ -262,6 +273,15 @@ const writeTestResults = (testResults: TestResultSummary) => {
 const parseTestResultsAndWrite = () => {
   // Step 1: Parse each OS's results json file. If one of the expected files does not exist, throw and error out.
   const testResults = Object.values(TestOS).map((os) => parseResultsJson(os));
+  const totalParsedTests = testResults.reduce(
+    (total, testResultsSummary) => total + testResultsSummary.linters.size,
+    0
+  );
+  if (totalParsedTests === 0) {
+    throw new Error(
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}"
+    );
+  }
 
   // Step 2: Merge all OS results into one composite results summary. Tests must pass with the same version on both OSs
   // in order to be recommended.
