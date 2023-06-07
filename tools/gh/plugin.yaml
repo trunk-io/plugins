@@ -4,8 +4,14 @@ tools:
     - name: gh
       downloads:
         - os:
+            macos: macOs
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.zip
+          strip_components: 1
+        - os:
             linux: linux
-            macos: macOS
           cpu:
             x86_64: amd64
             arm_64: arm64
