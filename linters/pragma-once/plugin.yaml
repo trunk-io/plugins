@@ -6,7 +6,8 @@ lint:
       files: [c-header, c++-header]
       commands:
         - output: rewrite
-          run: sh ${plugin}/linters/pragma-once/fix.sh ${target}
+          # TODO(Tyler): Need a platform-specific sh/bash stem prefix.
+          run: ${plugin}/linters/pragma-once/fix.sh ${target}
           formatter: true
           batch: false
           success_codes: [0]
