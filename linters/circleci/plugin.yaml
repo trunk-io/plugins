@@ -5,7 +5,6 @@ lint:
       comments: [hash]
       filenames:
         - .circleci/config.yml
-        - .circleci\config.yml
   downloads:
     - name: circleci
       downloads:

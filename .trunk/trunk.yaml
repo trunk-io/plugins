@@ -45,7 +45,7 @@ actions:
       description: Generate boilerplate test code when new linters are defined
       runtime: python
       packages_file: repo-tools/linter-test-helper/requirements.txt
-      run: repo-tools/linter-test-helper/generate scan ${workspace}
+      run: python repo-tools/linter-test-helper/generate scan ${workspace}
       triggers:
         - files: [linters/**]
 
