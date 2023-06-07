@@ -15,7 +15,9 @@ lint:
         - os: macos
           cpu: arm_64
           url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
-
+        - os: windows
+          cpu: x86_64
+          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Warwin-x86_64.exe
   definitions:
     - name: hadolint
       files: [docker]

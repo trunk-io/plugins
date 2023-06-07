@@ -12,11 +12,12 @@ lint:
           cpu: x86_64
           url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
           strip_components: 1
-          # Use rosetta
+        # Use rosetta
         - os: macos
           cpu: arm_64
           url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
           strip_components: 1
+        # No windows release
   definitions:
     - name: shellcheck
       files: [shell]

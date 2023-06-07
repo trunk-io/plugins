@@ -16,6 +16,11 @@ lint:
             x86_64: x86_64
             arm_64: arm64
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+        - os: windows
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
   definitions:
     - name: buf-format
       files: [proto]

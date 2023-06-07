@@ -11,6 +11,11 @@ lint:
             x86_64: amd64
             arm_64: arm64
           url: https://github.com/sonatype-nexus-community/nancy/releases/download/v${version}/nancy-v${version}-${os}-${cpu}.tar.gz
+        - os: windows
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/sonatype-nexus-community/nancy/releases/download/v${version}/nancy-v${version}-windows-${cpu}.zip
   definitions:
     - name: nancy
       files: [go-lockfile]
