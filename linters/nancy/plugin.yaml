@@ -31,6 +31,9 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/nancy/parse.py
+      version_command:
+        parse_regex: nancy version ${semver}
+        run: nancy --version
       suggest_if: never
       environment:
         - name: PATH

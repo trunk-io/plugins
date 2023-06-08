@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter osv-scanner test CUSTOM 1`] = `
 {
@@ -471,7 +472,7 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "issueUrl": "https://osv.dev/GO-2020-0041",
       "level": "LEVEL_HIGH",
       "linter": "osv-scanner",
-      "message": "Vulnerability in github.com/unknwon/cae 1.0.0: Due to improper path santization, archives containing relative file paths can cause files to be written (or overwritten) outside of the target directory.",
+      "message": "Vulnerability in github.com/unknwon/cae 1.0.0: Due to improper path sanitization, archives containing relative file paths can cause files to be written (or overwritten) outside of the target directory.",
       "targetType": "osv-lockfiles",
     },
     {
