@@ -1,4 +1,4 @@
-name: trunk-io/trunk setup for trunk check/upgrade
+name: trunk-io/plugins setup for trunk check/upgrade
 description: Set up
 
 runs:
