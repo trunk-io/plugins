@@ -49,6 +49,9 @@ lint:
           parser:
             runtime: python
             run: ${plugin}/linters/trivy/trivy_config_to_sarif.py
+      version_command:
+        parse_regex: Version ${semver}
+        run: trivy --version
 
       environment:
         - name: PATH
