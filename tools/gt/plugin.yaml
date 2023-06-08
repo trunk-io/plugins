@@ -1,0 +1,17 @@
+version: 0.1
+tools:
+  downloads:
+    - name: gt
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: macos
+          url: https://github.com/withgraphite/graphite-cli/releases/download/${version}/gt-${os}
+  definitions:
+    - name: gt
+      known_good_version: v0.20.19
+      download: gt
+      shims:
+        - name: gt
+          target: gt
