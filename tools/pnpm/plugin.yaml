@@ -1,0 +1,20 @@
+version: 0.1
+tools:
+  downloads:
+    - name: pnpm
+      executable: true
+      downloads:
+        - os:
+            linux: linuxstatic
+            macos: macos
+          cpu:
+            x86_64: x64
+            arm_64: arm64
+          url: https://github.com/pnpm/pnpm/releases/download/${version}/pnpm-${os}-${cpu}
+  definitions:
+    - name: pnpm
+      known_good_version: v8.6.1
+      download: pnpm
+      shims:
+        - name: pnpm
+          target: pnpm
