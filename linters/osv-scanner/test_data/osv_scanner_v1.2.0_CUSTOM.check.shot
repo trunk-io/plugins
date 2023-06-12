@@ -75,6 +75,16 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "targetType": "osv-lockfiles",
     },
     {
+      "code": "GHSA-xp5h-f8jf-rc8q",
+      "file": "test_data/Gemfile.lock",
+      "isSecurity": true,
+      "issueUrl": "https://osv.dev/GHSA-xp5h-f8jf-rc8q",
+      "level": "LEVEL_MEDIUM",
+      "linter": "osv-scanner",
+      "message": "Vulnerability in actionview 5.2.8.1: rails-ujs vulnerable to DOM Based Cross-site Scripting contenteditable HTML Elements",
+      "targetType": "osv-lockfiles",
+    },
+    {
       "code": "GHSA-8xww-x3g3-6jcv",
       "file": "test_data/Gemfile.lock",
       "isSecurity": true,
