@@ -8,6 +8,8 @@ const pluralize = (count, singular, plural) => {
   return count === 1 ? singular : plural;
 };
 
+chalk.level = 1;
+
 npmCheck({})
   .then((current) => {
     const uninstalled = current.get("packages").filter((p) => {
