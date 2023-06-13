@@ -12,17 +12,29 @@ import {
   TEST_DATA,
 } from "tests/utils";
 
+import { FileIssue } from "./types";
+
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
 
 // The underlying implementation of jest-specific-snapshot supports forwarding additional arguments from
 // `toMatchSpecificSnapshot` and appending them to `toMatchSnapshot`, but its type declarations do not explicitly
 // support this. Adding this patch/override allows us to call it with custom matchers, as in the case of `landingStateWrapper`.
+type OwnMatcher<Params extends unknown[]> = (
+  this: jest.MatcherContext,
+  actual: unknown,
+  ...params: Params
+) => jest.CustomMatcherResult;
+
 declare global {
-  // trunk-ignore(eslint/@typescript-eslint/no-namespace)
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toMatchSpecificSnapshot(snapshotFilename: string, customMatcher: unknown): R;
+      toHaveIssueOverlap(expected: FileIssue[], minimumOverlap: number): R;
+    }
+    interface ExpectExtendMap {
+      toHaveIssueOverlap: OwnMatcher<[expected: FileIssue[], minimumOverlap: number]>;
     }
   }
 }
@@ -371,6 +383,100 @@ export const customLinterFmtTest = ({
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
+
+          if (postCheck) {
+            postCheck(driver);
+            driver.debug("Finished running custom postCheck hook");
+          }
+        });
+      });
+    });
+  });
+};
+
+/**
+ * ONLY for use with linters that are non-idempotent and tend to vary in their output frequently (e.g. osv-scanner).
+ * Test that running a linter filtered by `linterName` with any custom `args` produces the desired output
+ * json. The landing state is stripped of its fileIssues, which are compared against an input matcher.
+ *
+ * Prefer using `linterCheckTest` unless additional specification is needed.
+ * @param dirname absolute path to the linter subdirectory.
+ * @param testName name to uniquely identify a test run/snapshot (default CUSTOM).
+ * @param linterName linter to enable and filter on.
+ * @param args args to append to the `trunk check` call (e.g. file paths, flags, etc.)
+ * @param fileIssueAssertionCallback callback that asserts the correctness of the landing state's file issues.
+ * @param versionGreaterThanOrEqual custom gte comparator for use with non-semver linters.
+ *                                  Custom versions must not include underscores.
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
+ * @param preCheck callback to run during setup
+ * @param postCheck callback to run for additional assertions from the base snapshot
+ */
+export const fuzzyLinterCheckTest = ({
+  linterName,
+  testName = CUSTOM_SNAPSHOT_PREFIX,
+  dirname = path.dirname(caller()),
+  args = "",
+  fileIssueAssertionCallback,
+  versionGreaterThanOrEqual,
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+  postCheck,
+}: {
+  linterName: string;
+  testName?: string;
+  dirname?: string;
+  args?: string;
+  fileIssueAssertionCallback: (fileIssues: FileIssue[], version?: string) => void;
+  pathsToSnapshot?: string[];
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean;
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: TestCallback;
+  postCheck?: TestCallback;
+}) => {
+  describe(`Testing linter ${linterName}`, () => {
+    // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
+    const linterVersions = getVersionsForTest(dirname, linterName, testName, "check");
+    linterVersions.forEach((linterVersion) => {
+      // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
+      describe("test", () => {
+        // Step 2: Define test setup and teardown
+        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+
+        // Step 3: Run the test
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
+          const debug = baseDebug.extend(driver.debugNamespace);
+
+          const testRunResult = await driver.runCheck({ args, linter: linterName });
+          expect(testRunResult).toMatchObject({
+            success: true,
+          });
+
+          // Step 4a: Verify that the output matches expected snapshots for that linter version.
+          // See `getSnapshotPathForAssert` and `linterCheckTest` for explanation of snapshot logic.
+          // Strip fileIssues from snapshot as they are non-idempotent and flaky.
+          const strippedLandingState = { ...testRunResult.landingState, issues: [] };
+          const snapshotDir = path.resolve(dirname, TEST_DATA);
+          const primarySnapshotPath = getSnapshotPathForAssert(
+            snapshotDir,
+            linterName,
+            testName,
+            "check",
+            driver.enabledVersion,
+            versionGreaterThanOrEqual
+          );
+          debug("Using snapshot %s", path.basename(primarySnapshotPath));
+          expect(strippedLandingState).toMatchSpecificSnapshot(
+            primarySnapshotPath,
+            landingStateWrapper(strippedLandingState, primarySnapshotPath)
+          );
+
+          // Step 4b: Verify that the fileIssues pass the assertion callback.
+          debug("Checking against assertion callback");
+          fileIssueAssertionCallback(
+            testRunResult.landingState?.issues ?? [],
+            driver.enabledVersion
+          );
 
           if (postCheck) {
             postCheck(driver);
