@@ -2,10 +2,7 @@
 
 // trunk-ignore-all(eslint)
 const npmCheck = require("npm-check");
-const YAML = require("yaml");
-const path = require("path");
-
-const iconPath = path.join(__dirname, "npm.png");
+const chalk = require("chalk");
 
 const pluralize = (count, singular, plural) => {
   return count === 1 ? singular : plural;
@@ -29,11 +26,11 @@ npmCheck({})
       "needs",
       "need"
     )} to be installed to run tests. Run 'npm install' to fix this.\n`;
-    console.log(message);
+    console.log(chalk.red(message));
     process.exit(1);
   })
   .catch((err) => {
     const message = `Error in your package.json: ${err.message}`;
-    console.log(message);
+    console.log(chalk.red(message));
     process.exit(1);
   });
