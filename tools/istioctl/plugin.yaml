@@ -14,6 +14,7 @@ tools:
   definitions:
     - name: istioctl
       download: istioctl
+      known_good_version: 1.14.6
       shims:
         - name: istioctl
           target: istioctl

@@ -14,6 +14,7 @@ tools:
   definitions:
     - name: helm
       download: helm
+      known_good_version: 3.9.4
       shims:
         - name: helm
           target: helm

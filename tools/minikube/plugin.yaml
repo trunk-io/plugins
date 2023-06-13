@@ -14,6 +14,7 @@ tools:
   definitions:
     - name: minikube
       download: minikube
+      known_good_version: 1.24.0
       shims:
         - name: minikube
           target: minikube

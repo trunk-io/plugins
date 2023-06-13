@@ -7,10 +7,10 @@ tools:
         - os:
             linux: linux
             macos: macos
-          url: https://github.com/withgraphite/graphite-cli/releases/download/${version}/gt-${os}
+          url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
   definitions:
     - name: gt
-      known_good_version: v0.20.19
+      known_good_version: 0.20.19
       download: gt
       shims:
         - name: gt
