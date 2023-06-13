@@ -1,7 +1,16 @@
-import { customLinterCheckTest } from "tests";
+import * as fs from "fs";
+import path from "path";
+import { fuzzyLinterCheckTest } from "tests";
+import { FileIssue } from "tests/types";
+import { createFuzzyMatcher } from "tests/utils/landing_state";
 
-// TODO(Tyler): This test is known to be flaky. We need to add another test type for it.
-customLinterCheckTest({
+// trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+const expectedFileIssues = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString()
+);
+
+fuzzyLinterCheckTest({
   linterName: "osv-scanner",
   args: "-a -y",
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 30),
 });

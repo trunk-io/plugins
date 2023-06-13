@@ -1,0 +1,146 @@
+[
+  {
+    "code": "AVD-AWS-0028",
+    "file": "test_data/aws.tf",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "IMDS v2 (Instance Metadata Service) introduced session authentication tokens which improve security when talking to IMDS.\nBy default <code>aws_instance</code> resource sets IMDS session auth tokens to be optional. \nTo fully protect IMDS you need to enable session tokens by using <code>metadata_options</code> block and its <code>http_tokens</code> variable set to <code>required</code>.",
+    "targetType": "terraform"
+  },
+  {
+    "code": "AVD-AWS-0131",
+    "file": "test_data/aws.tf",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Block devices should be encrypted to ensure sensitive data is held securely at rest.",
+    "targetType": "terraform"
+  },
+  {
+    "code": "DS002",
+    "file": "test_data/basic.Dockerfile",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.",
+    "targetType": "docker"
+  },
+  {
+    "code": "DS026",
+    "file": "test_data/basic.Dockerfile",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "You should add HEALTHCHECK instruction in your docker container images to perform the health check on running containers.",
+    "targetType": "docker"
+  },
+  {
+    "code": "KSV003",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "The container should drop all default capabilities and add only those that are needed for its execution.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV011",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Enforcing CPU limits prevents DoS via resource exhaustion.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV012",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "'runAsNonRoot' forces the running image to run as a non-root user to ensure least privileges.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV013",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "It is best to avoid using the ':latest' image tag when deploying containers in production. Doing so makes it hard to track which version of the image is running, and hard to roll back the version.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV014",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV018",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Enforcing memory limits prevents DoS via resource exhaustion.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV020",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV021",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV030",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "The RuntimeDefault/Localhost seccomp profile must be required, or allow specific additional profiles.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "KSV106",
+    "file": "test_data/basic.yaml",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+    "targetType": "yaml"
+  },
+  {
+    "code": "CVE-2022-45198",
+    "file": "test_data/nested/requirements.txt",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
+    "targetType": "lockfile"
+  },
+  {
+    "code": "CVE-2022-45198",
+    "file": "test_data/requirements.txt",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "message": "Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
+    "targetType": "lockfile"
+  }
+]
