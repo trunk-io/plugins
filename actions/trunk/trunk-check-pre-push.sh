@@ -24,7 +24,9 @@ fi
 
 if [[ -t 0 ]]; then
   # STDIN is TTY; can use interactive prompts.
+  echo "Running trunk in interactive mode."
   exec "${trunk}" check -t git-push "$@"
 else
+  echo "Running trunk in non-interactive mode; if this fails, please try your git or trunk command manually from a terminal."
   exec "${trunk}" check "$@"
 fi
