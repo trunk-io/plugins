@@ -136,3 +136,13 @@ export const tryParseLandingState = (
 
   return extractLandingState(sandboxPath, outputJson);
 };
+
+/**
+ * Create an assertion callback to pass into the fuzzyLinterCheckTest, given an expectedFileIssueProvider and a minimum overlap.
+ */
+export const createFuzzyMatcher =
+  (expectedFileIssueProvider: (version?: string) => FileIssue[], minimumOverlap: number) =>
+  (actualIssues: FileIssue[], version?: string): void => {
+    const expectedFileIssues = expectedFileIssueProvider(version);
+    expect(actualIssues).toHaveIssueOverlap(expectedFileIssues, minimumOverlap);
+  };
