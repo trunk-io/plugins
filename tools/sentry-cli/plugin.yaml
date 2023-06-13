@@ -14,6 +14,7 @@ tools:
   definitions:
     - name: sentry-cli
       download: sentry-cli
+      known_good_version: 1.66.0
       shims:
         - name: sentry-cli
           target: sentry-cli

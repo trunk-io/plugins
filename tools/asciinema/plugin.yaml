@@ -4,6 +4,7 @@ tools:
     - name: asciinema
       runtime: python
       package: asciinema
+      known_good_version: 2.1.0
       shims:
         - name: asciinema
           target: asciinema
