@@ -14,6 +14,7 @@ tools:
   definitions:
     - name: ibazel
       download: ibazel
+      known_good_version: 0.22.0
       shims:
         - name: ibazel
           target: ibazel
