@@ -59,6 +59,7 @@ actions:
 
   enabled:
     # - npm-check
+    - npm-check-pre-push
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
