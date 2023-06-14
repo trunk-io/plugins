@@ -66,7 +66,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                              |
 | Rust            | [clippy], [rustfmt]                                                                                                 |
 | Scala           | [scalafmt]                                                                                                          |
-| Security        | [checkov], [nancy], [osv-scanner], [trivy], [tfsec], [trufflehog], [terrascan]                                      |
+| Security        | [checkov], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                                      |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                               |
 | SVG             | [svgo]                                                                                                              |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
