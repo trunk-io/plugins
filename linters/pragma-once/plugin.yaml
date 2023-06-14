@@ -5,8 +5,15 @@ lint:
     - name: pragma-once
       files: [c-header, c++-header]
       commands:
-        - output: rewrite
-          # TODO(Tyler): Need a platform-specific sh/bash stem prefix.
+        - name: format
+          platforms: [windows]
+          output: rewrite
+          run: sh ${plugin}/linters/pragma-once/fix.sh ${target}
+          formatter: true
+          batch: false
+          success_codes: [0]
+        - name: format
+          output: rewrite
           run: ${plugin}/linters/pragma-once/fix.sh ${target}
           formatter: true
           batch: false

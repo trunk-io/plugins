@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: ansible-lint
+      supported_platforms: [linux, macos]
       # No files as this linter must be triggered manually.
       files: []
       commands:

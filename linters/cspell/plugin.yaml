@@ -14,8 +14,7 @@ lint:
           read_output_from: stdout
           success_codes: [0, 1]
           cache_results: false
-          # TODO(Tyler): In order to respect a symlinked config into the root, we create the entire sandbox manually,
-          # otherwise the config is ignored. We should add an option for the config to be copied directly into the sandbox.
+          # NOTE(Tyler): cspell doesn't read symlinked config files, so we must create a copied sandbox.
           sandbox_type: copy_targets
       direct_configs:
         - .cspell.json

@@ -11,8 +11,14 @@ lint:
       download: google-java-format.jar
       commands:
         - name: format
+          platforms: [windows]
           output: rewrite
-          # TODO(Tyler): This needs to be platform-dependent
+          run: java -jar ${linter}/google-java-format.jar.exe --replace ${target}
+          success_codes: [0]
+          in_place: true
+          formatter: true
+        - name: format
+          output: rewrite
           run: java -jar ${linter}/google-java-format.jar --replace ${target}
           success_codes: [0]
           in_place: true
