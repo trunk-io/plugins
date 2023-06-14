@@ -11,6 +11,7 @@ lint:
           output: sarif
           success_codes: [0, 1]
           read_output_from: tmp_file
+          is_security: true
       known_good_version: 2.3.75
       suggest_if: config_present
       direct_configs:
