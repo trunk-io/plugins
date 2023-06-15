@@ -5,7 +5,7 @@ lint:
       files: [go]
       runtime: go
       package: github.com/praetorian-inc/gokart
-      suggest_if: config_present
+      suggest_if: files_present
       environment:
         - name: PATH
           list: ["${linter}"]

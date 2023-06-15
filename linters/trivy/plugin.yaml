@@ -23,7 +23,7 @@ lint:
     - name: trivy
       files: [lockfile, docker, yaml, terraform]
       download: trivy
-      suggest_if: never
+      suggest_if: files_present
       known_good_version: 0.37.1
       commands:
         - name: fs
