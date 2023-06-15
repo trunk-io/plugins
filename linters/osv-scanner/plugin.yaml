@@ -33,7 +33,7 @@ lint:
             runtime: python
             run: ${plugin}/linters/osv-scanner/osv_to_sarif.py
       issue_url_format: https://osv.dev/{}
-      suggest_if: never
+      suggest_if: files_present
       environment:
         - name: PATH
           list: ["${linter}"]
