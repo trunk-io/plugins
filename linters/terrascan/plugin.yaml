@@ -16,7 +16,7 @@ lint:
     - name: terrascan
       download: terrascan
       known_good_version: 1.18.1
-      suggest_if: config_present
+      suggest_if: files_present
       commands:
         - name: lint
           output: sarif
