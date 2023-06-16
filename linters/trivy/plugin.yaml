@@ -13,7 +13,7 @@ lint:
           cpu:
             x86_64: 64bit
             arm_64: ARM64
-        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}.3/trivy_${version}_windows-${cpu}.zip
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_windows-${cpu}.zip
           os: windows
           cpu:
             x86_64: 64bit
@@ -36,7 +36,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/trivy/trivy_fs_to_sarif.py
+            run: python ${plugin}/linters/trivy/trivy_fs_to_sarif.py
 
         - name: config
           output: sarif
@@ -48,7 +48,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/trivy/trivy_config_to_sarif.py
+            run: python ${plugin}/linters/trivy/trivy_config_to_sarif.py
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version

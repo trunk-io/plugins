@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.10.1-beta.21
+  version: 1.10.1-beta.35
 
 api:
   address: api.trunk-staging.io:8443
@@ -14,7 +14,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v0.0.1
+      ref: v0.0.2
 
 lint:
   # enabled list inherited from plugin 'configs'
@@ -45,7 +45,7 @@ actions:
       description: Generate boilerplate test code when new linters are defined
       runtime: python
       packages_file: repo-tools/linter-test-helper/requirements.txt
-      run: repo-tools/linter-test-helper/generate scan ${workspace}
+      run: python repo-tools/linter-test-helper/generate scan ${workspace}
       triggers:
         - files: [linters/**]
 

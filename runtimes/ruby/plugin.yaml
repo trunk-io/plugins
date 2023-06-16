@@ -9,6 +9,7 @@ downloads:
 runtimes:
   definitions:
     - type: ruby
+      supported_platforms: [linux, macos]
       download: ruby-build
       runtime_environment:
         - name: HOME

@@ -37,7 +37,7 @@ lint:
           read_output_from: stderr
           parser:
             runtime: python
-            run: ${cwd}/parse.py
+            run: python ${cwd}/parse.py
       symlinks:
         # symlink the tool node_modules into the sandbox. this enables
         # the hermetic tool to run correctly with plugins

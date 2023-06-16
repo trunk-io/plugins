@@ -7,7 +7,7 @@ actions:
       packages_file: package.json
       triggers:
         - git_hooks: [pre-push]
-      run: ${cwd}/npm_check.js
+      run: node ${cwd}/npm_check.js
       environment:
         - name: NODE_PATH
           value: ${linter}/node_modules

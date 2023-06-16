@@ -8,7 +8,7 @@ actions:
       triggers:
         - schedule: 24h
         - files: [package.json, yarn.lock]
-      run: ${cwd}/yarn-check/yarn_check.js
+      run: node ${cwd}/yarn-check/yarn_check.js
       output_type: notification_v1
       environment:
         - name: NODE_PATH

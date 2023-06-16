@@ -31,7 +31,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/osv-scanner/osv_to_sarif.py
+            run: python ${plugin}/linters/osv-scanner/osv_to_sarif.py
       issue_url_format: https://osv.dev/{}
       suggest_if: files_present
       environment:
