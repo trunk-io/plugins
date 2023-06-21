@@ -197,7 +197,14 @@ lint:
 
     - name: graphql
       extensions:
+        - gql
         - graphql
+      comments:
+        - hash
+
+    - name: graphql-schema
+      extensions:
+        - graphqls
       comments:
         - hash
 
