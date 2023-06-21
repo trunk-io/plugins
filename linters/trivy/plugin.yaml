@@ -39,7 +39,7 @@ lint:
             run: python ${plugin}/linters/trivy/trivy_fs_to_sarif.py
         - name: config
           output: sarif
-          run: trivy config ${target} --format json --insecure --cache-dir ${shared_cachedir}
+          run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
