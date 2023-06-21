@@ -37,7 +37,6 @@ lint:
           parser:
             runtime: python
             run: python ${plugin}/linters/trivy/trivy_fs_to_sarif.py
-
         - name: config
           output: sarif
           run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
@@ -52,7 +51,8 @@ lint:
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version
-
       environment:
         - name: PATH
-          list: ["${linter}"]
+          list: ["${linter}", "${env.PATH}"] # system path for docker
+        - name: USER
+          value: ${env.USER}
