@@ -4,6 +4,10 @@ description: Set up
 runs:
   using: composite
   steps:
+    - name: Print env
+      run: env
+      shell: bash
+
     - name: Setup node
       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
       with:
@@ -13,6 +17,4 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: Print env
-      run: env
-      shell: bash
+
