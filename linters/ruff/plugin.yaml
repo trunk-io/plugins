@@ -11,7 +11,7 @@ lint:
           output: sarif
           parser:
             runtime: python
-            run: ${cwd}/ruff_to_sarif.py 0
+            run: python ${cwd}/ruff_to_sarif.py 0
           batch: true
           success_codes: [0, 1]
         - name: lint

@@ -29,7 +29,7 @@ lint:
           success_codes: [0, 3, 4, 5]
           parser: # necessary to convert file paths from a strange custom format to a standard format
             runtime: python
-            run: ${plugin}/linters/terrascan/sarif_to_sarif.py
+            run: python ${plugin}/linters/terrascan/sarif_to_sarif.py
         - name: lint-docker
           output: sarif
           is_security: true
@@ -39,7 +39,7 @@ lint:
           success_codes: [0, 3, 4, 5]
           parser:
             runtime: python
-            run: ${plugin}/linters/terrascan/sarif_to_sarif.py
+            run: python ${plugin}/linters/terrascan/sarif_to_sarif.py
       version_command:
         parse_regex: "version: v${semver}"
         run: terrascan version
