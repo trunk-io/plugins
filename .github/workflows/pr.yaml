@@ -128,7 +128,9 @@ jobs:
         with:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          # TODO(Tyler): We need downloads to work with known_bad_versions
+          append-args:
+            ${{needs.detect_changes.outputs.linters-files }} -- --testPathIgnorePatterns=trufflehog
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
@@ -148,9 +150,7 @@ jobs:
           needs.detect_changes.outputs.tools-files != ''
         uses: ./.github/actions/tool_tests
         with:
-          # TODO(Tyler): We need downloads to work with known_bad_versions
-          append-args:
-            ${{ needs.detect_changes.outputs.tools-files }} -- --testPathIgnorePatterns=trufflehog
+          append-args: ${{ needs.detect_changes.outputs.tools-files }}
 
   # Run repo healthcheck tests
   repo_tests:
