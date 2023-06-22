@@ -30,7 +30,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: python ${plugin}/linters/nancy/parse.py
+            run: python3 ${plugin}/linters/nancy/parse.py
       version_command:
         parse_regex: nancy version ${semver}
         run: nancy --version

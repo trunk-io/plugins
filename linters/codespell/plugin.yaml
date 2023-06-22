@@ -19,6 +19,6 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: python ${plugin}/linters/codespell/codespell_to_sarif.py
+            run: python3 ${plugin}/linters/codespell/codespell_to_sarif.py
           batch: true
           cache_results: true

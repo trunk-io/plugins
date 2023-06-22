@@ -36,7 +36,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: python ${plugin}/linters/trivy/trivy_fs_to_sarif.py
+            run: python3 ${plugin}/linters/trivy/trivy_fs_to_sarif.py
         - name: config
           output: sarif
           run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
@@ -47,7 +47,7 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: python ${plugin}/linters/trivy/trivy_config_to_sarif.py
+            run: python3 ${plugin}/linters/trivy/trivy_config_to_sarif.py
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version
