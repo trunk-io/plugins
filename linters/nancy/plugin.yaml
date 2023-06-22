@@ -34,7 +34,7 @@ lint:
       version_command:
         parse_regex: nancy version ${semver}
         run: nancy --version
-      suggest_if: files_present
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
