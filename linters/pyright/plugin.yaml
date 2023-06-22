@@ -14,7 +14,7 @@ lint:
           cache_results: true
           parser:
             runtime: python
-            run: python ${plugin}/linters/pyright/pyright_to_sarif.py
+            run: python3 ${plugin}/linters/pyright/pyright_to_sarif.py
       runtime: python
       package: pyright
       direct_configs:

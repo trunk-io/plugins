@@ -15,6 +15,7 @@ lint:
       files: [ALL]
       download: trufflehog
       known_good_version: 3.31.3
+      known_bad_versions: [3.41.0]
       commands:
         - name: lint
           output: sarif
@@ -26,7 +27,7 @@ lint:
           cache_results: true
           parser:
             runtime: python
-            run: python ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+            run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
       suggest_if: files_present
       environment:
         - name: PATH
