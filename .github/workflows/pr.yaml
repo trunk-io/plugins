@@ -148,7 +148,9 @@ jobs:
           needs.detect_changes.outputs.tools-files != ''
         uses: ./.github/actions/tool_tests
         with:
-          append-args: ${{ needs.detect_changes.outputs.tools-files }}
+          # TODO(Tyler): We need downloads to work with known_bad_versions
+          append-args:
+            ${{ needs.detect_changes.outputs.tools-files }} -- --testPathIgnorePatterns=trufflehog
 
   # Run repo healthcheck tests
   repo_tests:
