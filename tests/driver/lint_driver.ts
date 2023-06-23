@@ -1,3 +1,4 @@
+import { execFile } from "child_process";
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
@@ -7,8 +8,7 @@ import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
-import { GenericTrunkDriver, executionEnv } from "./driver";
-import { execFile } from "child_process";
+import { executionEnv, GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 let testNum = 1;
@@ -118,7 +118,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         env: executionEnv(this.getSandbox()),
       });
 
-      await new Promise(f => setTimeout(f, 2000));
+      await new Promise((f) => setTimeout(f, 2000));
 
       // Cast version to string in case of decimal representation (e.g. 0.40)
       const version = `${this.extractLinterVersion()}`;

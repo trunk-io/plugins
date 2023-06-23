@@ -9,6 +9,16 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // scalafmt succeeds on empty files
-linterCheckTest({ linterName: "scalafmt", namedTestPrefixes: ["empty"], preCheck, skipTestIf: skipOS(["win32"]) });
+linterCheckTest({
+  linterName: "scalafmt",
+  namedTestPrefixes: ["empty"],
+  preCheck,
+  skipTestIf: skipOS(["win32"]),
+});
 
-linterFmtTest({ linterName: "scalafmt", namedTestPrefixes: ["basic"], preCheck, skipTestIf: skipOS(["win32"]) });
+linterFmtTest({
+  linterName: "scalafmt",
+  namedTestPrefixes: ["basic"],
+  preCheck,
+  skipTestIf: skipOS(["win32"]),
+});

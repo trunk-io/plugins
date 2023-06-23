@@ -41,8 +41,7 @@ lint:
       affects_cache: [pyproject.toml]
       formatter: true
       known_good_version: 22.3.0
-      deprecated:
-        "'black-py' is now handled by 'black'. Please delete 'black-py' from your config"
+      deprecated: "'black-py' is now handled by 'black'. Please delete 'black-py' from your config"
       version_command:
         parse_regex: black, version (.*)
         run: black --version

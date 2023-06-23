@@ -11,14 +11,14 @@ import {
   TaskFailure,
 } from "tests/types";
 
-const normalizePlatformPath = (path: string | undefined) => {
-  if (!path) {
+const normalizePlatformPath = (originalPath: string | undefined) => {
+  if (!originalPath) {
     return undefined;
   }
   if (process.platform == "win32") {
-    return path.replaceAll("\\", "/");
+    return originalPath.replaceAll("\\", "/");
   }
-  return path;
+  return originalPath;
 };
 
 // TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
@@ -29,7 +29,8 @@ const extractLintActionFields = ({
   paths: _paths,
   ...rest
 }: LintAction): LintAction => ({
-  paths: _paths.map(path => normalizePlatformPath(path)!),
+  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
+  paths: _paths.map((originalPath) => normalizePlatformPath(originalPath)!),
   ...rest,
 });
 
@@ -38,6 +39,7 @@ const extractTaskFailureFields = (
   { detailPath, message, ...rest }: TaskFailure
 ): TaskFailure => ({
   ...rest,
+  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   message: normalizePlatformPath(message)!,
   details: detailPath
     ? fs.readFileSync(path.resolve(sandboxPath, detailPath), { encoding: "utf-8" })
@@ -74,9 +76,13 @@ const normalizeMessage = (message?: string) =>
     .replace(".dup.", ".")
     .trim();
 
+// trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
 const normalizeFile = (file: string) => normalizePlatformPath(file.replace(".dup.", "."))!;
 
-const normalizeRange = ({filePath: _filePath = undefined, ...rest}) => ({filePath: normalizePlatformPath(_filePath), ...rest});
+const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
+  filePath: normalizePlatformPath(_filePath),
+  ...rest,
+});
 
 const normalizeIssues = ({
   message: _message,
@@ -92,7 +98,8 @@ const normalizeIssues = ({
     file: normalizeFile(_file),
   };
   if (_ranges) {
-    ret["ranges"] =  _ranges.map(range => normalizeRange(range));
+    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-argument)
+    ret["ranges"] = _ranges.map((range) => normalizeRange(range));
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);

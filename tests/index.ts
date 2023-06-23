@@ -371,7 +371,9 @@ export const customLinterFmtTest = ({
           // Step 4: Verify that any specified files match their expected snapshots for that linter version.
           const snapshotDir = path.resolve(dirname, TEST_DATA);
           pathsToSnapshot.forEach((pathToSnapshot) => {
-            const normalizedName = `${testName}.${pathToSnapshot.replaceAll("/", ".").replaceAll("\\", ".")}`;
+            const normalizedName = `${testName}.${pathToSnapshot
+              .replaceAll("/", ".")
+              .replaceAll("\\", ".")}`;
             const snapshotPath = getSnapshotPathForAssert(
               snapshotDir,
               linterName,
