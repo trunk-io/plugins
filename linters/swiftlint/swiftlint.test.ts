@@ -44,6 +44,6 @@ customLinterCheckTest({
   linterName: "swiftlint",
   testName: "nested_configs",
   args: "-a",
-  skipTestIf: skipOS(["linux"]),
+  skipTestIf: skipOS(["linux", "win32"]),
   preCheck: configSetup,
 });

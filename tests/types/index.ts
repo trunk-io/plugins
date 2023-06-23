@@ -39,9 +39,9 @@ export interface TestingArguments {
 }
 
 export interface Replacement {
-  // filePath?: string;
-  // length?: number;
-  // offset?: number;
+  filePath?: string;
+  length?: number;
+  offset?: number;
   replacementText?: string;
 }
 
@@ -74,7 +74,7 @@ export interface FileIssue {
   targetType: string;
   targetPath?: string;
   autofixOptions?: Autofix[];
-  // ranges: any[];
+  ranges?: any[];
   issueUrl: string;
 }
 

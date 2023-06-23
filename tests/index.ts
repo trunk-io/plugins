@@ -286,7 +286,7 @@ export const customLinterCheckTest = ({
 
           // Step 4b: Verify that any specified files match their expected snapshots for that linter version.
           pathsToSnapshot.forEach((pathToSnapshot) => {
-            const normalizedName = pathToSnapshot.replace("/", ".");
+            const normalizedName = pathToSnapshot.replaceAll("/", ".").replaceAll("\\", ".");
             const snapshotPath = getSnapshotPathForAssert(
               snapshotDir,
               linterName,
@@ -295,7 +295,7 @@ export const customLinterCheckTest = ({
               driver.enabledVersion,
               versionGreaterThanOrEqual,
             );
-            debug("Using snapshot %s", path.basename(snapshotPath));
+            debug("Using snapshot %s", snapshotPath);
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
 
@@ -371,7 +371,7 @@ export const customLinterFmtTest = ({
           // Step 4: Verify that any specified files match their expected snapshots for that linter version.
           const snapshotDir = path.resolve(dirname, TEST_DATA);
           pathsToSnapshot.forEach((pathToSnapshot) => {
-            const normalizedName = `${testName}.${pathToSnapshot.replace("/", ".")}`;
+            const normalizedName = `${testName}.${pathToSnapshot.replaceAll("/", ".").replaceAll("\\", ".")}`;
             const snapshotPath = getSnapshotPathForAssert(
               snapshotDir,
               linterName,
@@ -380,7 +380,7 @@ export const customLinterFmtTest = ({
               driver.enabledVersion,
               versionGreaterThanOrEqual,
             );
-            debug("Using snapshot %s", path.basename(snapshotPath));
+            debug("Using snapshot %s", snapshotPath);
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
 
@@ -494,6 +494,8 @@ export const fuzzyLinterCheckTest = ({
  * @param dirname absolute path to the linter subdirectory.
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input `test_data/basic.in.py`, prefix is `basic`
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -501,12 +503,14 @@ export const linterCheckTest = ({
   linterName,
   dirname = path.dirname(caller()),
   namedTestPrefixes = [],
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {
   linterName: string;
   dirname?: string;
   namedTestPrefixes?: string[];
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -524,7 +528,7 @@ export const linterCheckTest = ({
           const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
-          it(prefix, async () => {
+          conditionalTest(skipTestIf(linterVersion), prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runCheckUnit(inputPath, linterName);
             expect(testRunResult).toMatchObject({
@@ -571,6 +575,8 @@ export const linterCheckTest = ({
  * @param dirname absolute path to the linter subdir.
  * @param linterName linter to enable and filter on.
  * @param namedTestPrefixes for input pair `test_data/basic.in.py`, prefix is `basic`
+ * @param skipTestIf callback to check if test should be skipped or run.
+ *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  */
@@ -578,12 +584,14 @@ export const linterFmtTest = ({
   linterName,
   dirname = path.dirname(caller()),
   namedTestPrefixes = [],
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
 }: {
   linterName: string;
   dirname?: string;
   namedTestPrefixes?: string[];
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
 }) => {
@@ -601,7 +609,7 @@ export const linterFmtTest = ({
           const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
-          it(prefix, async () => {
+          conditionalTest(skipTestIf(linterVersion), prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
 
