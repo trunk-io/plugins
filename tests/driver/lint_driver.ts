@@ -113,10 +113,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
     try {
       const trunkCommand = ARGS.cliPath ?? "trunk";
-      this.daemon = execFile(trunkCommand, ["daemon", "launch", "--monitor=false"], {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.getSandbox()),
-      });
+      this.daemon = await this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
 
       await new Promise((f) => setTimeout(f, 2000));
 

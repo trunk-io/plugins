@@ -42,12 +42,24 @@ jobs:
           fi
         shell: bash
 
+      - name: PWD
+        run: pwd
+        shell: bash
+
+      - name: LS
+        run: ls -l
+        shell: bash
+
+      - name: LS WHICH
+        run: which ls
+        shell: bash
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          cli-path: ${{ github.workspace }}/trunk.ps1
+          cli-path: ${{ github.workspace }}\trunk.ps1
 
   # TODO: TYLER REVERT THE ORIGINAL PR.YAML LOGIC
   # detect_changes:
