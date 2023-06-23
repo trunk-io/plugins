@@ -142,7 +142,6 @@ export class GenericTrunkDriver {
 
     // Preserve test directory if `SANDBOX_DEBUG` is truthy.
     try {
-      console.log(`Preserving test dir ${this.getSandbox()}`);
       execFileSync(trunkCommand, ["daemon", "shutdown"], {
         cwd: this.sandboxPath,
         env: executionEnv(this.getSandbox()),
@@ -164,6 +163,8 @@ export class GenericTrunkDriver {
 
     if (this.sandboxPath && !ARGS.sandboxDebug) {
       fs.rmSync(this.sandboxPath, { recursive: true });
+    } else {
+      console.log(`Preserving test dir ${this.getSandbox()}`);
     }
   }
 
