@@ -43,6 +43,18 @@ jobs:
           fi
         shell: bash
 
+      - name: PWD
+        run: pwd
+        shell: bash
+
+      - name: LS
+        run: ls -l
+        shell: bash
+
+      - name: LS WHICH
+        run: which ls
+        shell: bash
+
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
