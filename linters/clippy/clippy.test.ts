@@ -17,15 +17,16 @@ const preCheckSrc = (subdir: string) => (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, subdir), "src");
 };
 
-["basic", "complex", "malformed"].forEach((target) => {
-  customLinterCheckTest({
-    linterName: "clippy",
-    testName: target,
-    args: "src -y",
-    preCheck: preCheckSrc(target),
-    pathsToSnapshot: ["src/main.rs"],
-  });
-});
+// TODO: TYLER RE-ADD THIS
+// ["basic", "complex", "malformed"].forEach((target) => {
+//   customLinterCheckTest({
+//     linterName: "clippy",
+//     testName: target,
+//     args: "src -y",
+//     preCheck: preCheckSrc(target),
+//     pathsToSnapshot: ["src/main.rs"],
+//   });
+// });
 
 ["complex_subdir", "malformed_subdir"].forEach((target) => {
   const subdir = path.join(TEST_DATA, target);

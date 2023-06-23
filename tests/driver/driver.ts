@@ -141,16 +141,25 @@ export class GenericTrunkDriver {
 
     // Preserve test directory if `SANDBOX_DEBUG` is truthy.
     try {
-      this.runTrunkSync(["daemon", "shutdown"]);
+      console.log(`Preserving test dir ${this.getSandbox()}`);
+      execFileSync(trunkCommand, ["daemon", "shutdown"], {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.getSandbox()),
+      });
       // return;
     } catch (err: any) {
       // console.log(`failed to shutdown, with error ${err}`);
-      try {
-        this.daemon?.kill(9);
-      } catch (err2: any) {
-        console.log(`failed to kill daemon: ${err2 as string}`);
-      }
     }
+    try {
+      this.daemon?.kill();
+    } catch (err: any) {
+      // console.log(`failed to kill daemon: ${err}`);
+    }
+
+    // execFileSync(trunkCommand, ["deinit"], {
+    //   cwd: this.sandboxPath,
+    //   env: executionEnv(this.getSandbox()),
+    // });
 
     if (this.sandboxPath && !ARGS.sandboxDebug) {
       fs.rmSync(this.sandboxPath, { recursive: true });
