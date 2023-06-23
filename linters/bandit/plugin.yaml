@@ -11,8 +11,9 @@ lint:
         - name: lint
           # Custom parser type defined in the trunk cli to handle bandit's JSON output.
           output: bandit
-          run: bandit --exit-zero --format json ${target}
+          run: bandit --exit-zero --format json --output ${tmpfile} ${target}
           success_codes: [0]
+          read_output_from: tmp_file
           batch: true
           cache_results: true
           is_security: true
