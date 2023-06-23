@@ -11,6 +11,7 @@ lint:
       commands:
         - name: format
           output: rewrite
+          run_linter_from: directory
           run: sort-package-json ${target}
           success_codes: [0]
           in_place: true
