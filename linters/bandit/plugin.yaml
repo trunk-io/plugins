@@ -18,7 +18,7 @@ lint:
           cache_results: true
           is_security: true
       issue_url_format: https://pypi.org/project/bandit/
-      known_good_version: 1.7.3
+      known_good_version: 1.7.5
       version_command:
         parse_regex: ${semver}
         run: bandit --version
