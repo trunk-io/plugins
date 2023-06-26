@@ -84,7 +84,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
 
       // Sync the tool to ensure it's available
       await this.runTrunk(["tools", "install"]);
-      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "shims", this.tool))) {
+      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "tools", this.tool))) {
         throw new Error(`Failed to install ${this.tool}`);
       }
     } catch (error) {
@@ -121,7 +121,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
 
   async runTool(command: string[]): Promise<TrunkToolRunResult> {
     try {
-      const { stdout, stderr } = await this.run(`.trunk/shims/${command[0]}`, command.slice(1));
+      const { stdout, stderr } = await this.run(`.trunk/tools/${command[0]}`, command.slice(1));
       return {
         exitCode: 0,
         stdout,
