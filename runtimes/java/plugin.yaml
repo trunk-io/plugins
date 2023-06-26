@@ -55,7 +55,7 @@ runtimes:
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: 11.0.13
+      known_good_version: 17.0.1
       version_commands:
         - run: java --version
           parse_regex: ${semver}
