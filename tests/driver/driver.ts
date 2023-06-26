@@ -96,9 +96,6 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
-    this.copyFileFromRoot("trunk");
-    this.copyFileFromRoot("trunk.ps1");
-    this.copyFileFromRoot("test.sh");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
@@ -147,20 +144,30 @@ export class GenericTrunkDriver {
       // return;
     } catch (err: any) {
       // console.log(`failed to shutdown, with error ${err}`);
+      try {
+        this.daemon?.kill();
+      } catch (err: any) {
+        console.log(`failed to kill daemon: ${err}`);
+      }
     }
-    try {
-      this.daemon?.kill();
-    } catch (err: any) {
-      // console.log(`failed to kill daemon: ${err}`);
-    }
-
-    // this.runTrunkSync["deinit"]);
 
     if (this.sandboxPath && !ARGS.sandboxDebug) {
       fs.rmSync(this.sandboxPath, { recursive: true });
-    } else {
-      console.log(`Preserving test dir ${this.getSandbox()}`);
     }
+
+    // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
+    // // Preserve test directory if `SANDBOX_DEBUG` is truthy.
+    // if (ARGS.sandboxDebug) {
+    //   this.runTrunkSync(["daemon", "shutdown"]);
+    //   console.log(`Preserving test dir ${this.getSandbox()}`);
+    //   return;
+    // }
+
+    // this.runTrunkSync(["deinit"]);
+
+    // if (this.sandboxPath) {
+    //   fs.rmSync(this.sandboxPath, { recursive: true });
+    // }
   }
 
   /**** Repository file manipulation ****/
@@ -266,6 +273,36 @@ export class GenericTrunkDriver {
     return YAML.parse(printConfig.toString());
   };
 
+  /**
+   * Reformat trunk execution args into the expected platform-specific invocation
+   */
+  buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
+    const trunkPath = ARGS.cliPath ?? "trunk";
+    if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
+      return ["powershell",
+      ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
+      {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.sandboxPath ?? ""),
+        ...execOptions,
+        windowsHide: true,
+      }];
+    }
+    return [trunkPath,
+      args.filter((arg) => arg.length > 0),
+      {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.sandboxPath ?? ""),
+        ...execOptions,
+        windowsHide: true,
+      }];
+  }
+
+  /**
+   * Run a specified trunk command with `args` and additional options.
+   * @param args string of arguments to run, excluding `trunk`
+   * @param execOptions
+   */
   async runTrunkCmd(
     argStr: string,
     execOptions?: ExecOptions,
@@ -285,29 +322,7 @@ export class GenericTrunkDriver {
     args: string[],
     execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
-    const trunkPath = ARGS.cliPath ?? "trunk";
-    if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-      return await execFilePromise(
-        "powershell",
-        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
-    }
-    return await execFilePromise(
-      trunkPath,
-      args.filter((arg) => arg.length > 0),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
-        ...execOptions,
-        windowsHide: true,
-      }
-    );
+    return await execFilePromise(...this.buildExecArgs(args, execOptions));
   }
 
 
@@ -320,29 +335,7 @@ export class GenericTrunkDriver {
       args: string[],
       execOptions?: ExecOptions
     ) {
-      const trunkPath = ARGS.cliPath ?? "trunk";
-      if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-        return execFileSync(
-          "powershell",
-          ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-          {
-            cwd: this.sandboxPath,
-            env: executionEnv(this.sandboxPath ?? ""),
-            ...execOptions,
-            windowsHide: true,
-          }
-        );
-      }
-      return execFileSync(
-        trunkPath,
-        args.filter((arg) => arg.length > 0),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
+      return execFileSync(...this.buildExecArgs(args, execOptions));
     }
 
     /**
@@ -354,31 +347,15 @@ export class GenericTrunkDriver {
       args: string[],
       execOptions?: ExecOptions
     ) {
-      const trunkPath = ARGS.cliPath ?? "trunk";
-      if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-        return execFile(
-          "powershell",
-          ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-          {
-            cwd: this.sandboxPath,
-            env: executionEnv(this.sandboxPath ?? ""),
-            ...execOptions,
-            windowsHide: true,
-          }
-        );
-      }
-      return execFile(
-        trunkPath,
-        args.filter((arg) => arg.length > 0),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
+      return execFile(...this.buildExecArgs(args, execOptions));
     }
 
+  /**
+   * Run a command inside the sandbox test repo.
+   * @param bin command to run
+   * @param args arguments to run
+   * @param execOptions
+   */
   async run(bin: string, args: string[], execOptions?: ExecOptions) {
     return await execFilePromise(bin, args, {
       cwd: this.sandboxPath,

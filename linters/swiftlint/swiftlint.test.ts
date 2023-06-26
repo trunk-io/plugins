@@ -6,7 +6,7 @@ customLinterCheckTest({
   linterName: "swiftlint",
   testName: "basic",
   args: "-a",
-  skipTestIf: skipOS(["linux"]),
+  skipTestIf: skipOS(["linux", "win32"]),
 });
 
 const configSetup = (driver: TrunkLintDriver) => {

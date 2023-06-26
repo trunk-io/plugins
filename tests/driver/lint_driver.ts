@@ -112,9 +112,8 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     }
 
     try {
-      const trunkCommand = ARGS.cliPath ?? "trunk";
+      // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
       this.daemon = await this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
-
       await new Promise((f) => setTimeout(f, 2000));
 
       // Cast version to string in case of decimal representation (e.g. 0.40)

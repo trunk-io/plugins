@@ -5,6 +5,9 @@
     "test": "jest",
     "trunk": "trunk"
   },
+  "dependencies": {
+    "leaked-handles": "^5.2.0"
+  },
   "devDependencies": {
     "@jest/console": "^29.4.1",
     "@jest/reporters": "^29.4.1",
