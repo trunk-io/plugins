@@ -11,6 +11,11 @@ lint:
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
         - os:
             linux: Linux
+          cpu:
+            x86_64: x86_64
+            arm_64: aarch64
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+        - os:
             macos: Darwin
           cpu:
             x86_64: x86_64
