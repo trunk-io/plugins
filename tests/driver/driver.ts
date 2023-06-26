@@ -96,9 +96,6 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
-    this.copyFileFromRoot("trunk");
-    this.copyFileFromRoot("trunk.ps1");
-    this.copyFileFromRoot("test.sh");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
@@ -149,14 +146,12 @@ export class GenericTrunkDriver {
       // return;
     } catch (err: any) {
       // console.log(`failed to shutdown, with error ${err}`);
+      try {
+        this.daemon?.kill();
+      } catch (err: any) {
+        console.log(`failed to kill daemon: ${err}`);
+      }
     }
-    try {
-      this.daemon?.kill();
-    } catch (err: any) {
-      // console.log(`failed to kill daemon: ${err}`);
-    }
-
-    // this.runTrunkSync["deinit"]);
 
     if (this.sandboxPath && !ARGS.sandboxDebug) {
       fs.rmSync(this.sandboxPath, { recursive: true });
@@ -286,27 +281,23 @@ export class GenericTrunkDriver {
   buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
     const trunkPath = ARGS.cliPath ?? "trunk";
     if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-      return [
-        "powershell",
-        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        },
-      ];
+      return ["powershell",
+      ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
+      {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.sandboxPath ?? ""),
+        ...execOptions,
+        windowsHide: true,
+      }];
     }
-    return [
-      trunkPath,
+    return [trunkPath,
       args.filter((arg) => arg.length > 0),
       {
         cwd: this.sandboxPath,
         env: executionEnv(this.sandboxPath ?? ""),
         ...execOptions,
         windowsHide: true,
-      },
-    ];
+      }];
   }
 
   /**
@@ -333,7 +324,6 @@ export class GenericTrunkDriver {
     args: string[],
     execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
-<<<<<<< HEAD
     return await execFilePromise(...this.buildExecArgs(args, execOptions));
   }
 
@@ -362,6 +352,9 @@ export class GenericTrunkDriver {
         windowsHide: true,
       }
     );
+=======
+    return await execFilePromise(...this.buildExecArgs(args, execOptions));
+>>>>>>> 67f2f7e (working with notes. need to figure out handles)
   }
 
 
@@ -371,49 +364,15 @@ export class GenericTrunkDriver {
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-<<<<<<< HEAD
   runTrunkSync(args: string[], execOptions?: ExecOptions) {
     return execFileSync(...this.buildExecArgs(args, execOptions));
   }
 
   /**
-=======
-    async runTrunkSync(
-      args: string[],
-      execOptions?: ExecOptions
-    ) {
-      const trunkPath = ARGS.cliPath ?? "trunk";
-      if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-        return execFileSync(
-          "powershell",
-          ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-          {
-            cwd: this.sandboxPath,
-            env: executionEnv(this.sandboxPath ?? ""),
-            ...execOptions,
-            windowsHide: true,
-          }
-        );
-      }
-      return execFileSync(
-        trunkPath,
-        args.filter((arg) => arg.length > 0),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
-    }
-
-    /**
->>>>>>> 304a179 (upgrade)
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-<<<<<<< HEAD
   runTrunkAsync(args: string[], execOptions?: ExecOptions) {
     return execFile(...this.buildExecArgs(args, execOptions));
   }
@@ -424,37 +383,6 @@ export class GenericTrunkDriver {
    * @param args arguments to run
    * @param execOptions
    */
-=======
-    async runTrunkAsync(
-      args: string[],
-      execOptions?: ExecOptions
-    ) {
-      const trunkPath = ARGS.cliPath ?? "trunk";
-      if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-        return execFile(
-          "powershell",
-          ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-          {
-            cwd: this.sandboxPath,
-            env: executionEnv(this.sandboxPath ?? ""),
-            ...execOptions,
-            windowsHide: true,
-          }
-        );
-      }
-      return execFile(
-        trunkPath,
-        args.filter((arg) => arg.length > 0),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
-    }
-
->>>>>>> 304a179 (upgrade)
   async run(bin: string, args: string[], execOptions?: ExecOptions) {
     return await execFilePromise(bin, args, {
       cwd: this.sandboxPath,

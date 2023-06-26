@@ -113,7 +113,11 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
     try {
       // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
+<<<<<<< HEAD
       this.daemon = this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
+=======
+      this.daemon = await this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
+>>>>>>> 67f2f7e (working with notes. need to figure out handles)
       await new Promise((f) => setTimeout(f, 2000));
 
       // Cast version to string in case of decimal representation (e.g. 0.40)
