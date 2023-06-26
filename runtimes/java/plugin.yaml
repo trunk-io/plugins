@@ -38,7 +38,7 @@ downloads:
 runtimes:
   definitions:
     - type: java
-      download: jdk-11
+      download: jdk-17
       runtime_environment:
         - name: HOME
           value: ${env.HOME:-}
