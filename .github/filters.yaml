@@ -12,10 +12,12 @@ framework: &framework
 
 all-linters:
   - *framework
+  - runtimes/**
   - tests/driver/!(tool_driver.ts)
 
 all-tools:
   - *framework
+  - runtimes/**
   - tests/driver/!(lint_driver.ts)
 
 # Run tests against specific linters if existing linters have been modified or updated.
