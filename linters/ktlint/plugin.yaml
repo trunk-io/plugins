@@ -25,7 +25,7 @@ lint:
         - .editorconfig
       environment:
         - name: PATH
-          list: ["${linter}", "${env.PATH}"]
+          list: ["${linter}"]
         - name: LANG
           # C.UTF-8 is preferred for machine output, but mac barfs on that
           value: en_US.UTF-8
