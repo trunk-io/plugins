@@ -236,7 +236,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     // this has been changed from ".json" to ".out.json" for linters that run on terraform files
     // terraform extensions are .tf and .tf.json - this change prevents accidentally linting the trunk output
     const resultJsonPath = `${targetAbsPath}.out.json`;
-    const args = `--upstream=false ${targetAbsPath}`;
+    const args = `--upstream=false ${targetRelativePath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }
@@ -266,7 +266,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
       // Used for debugging only
-      if (args.includes("--debug") || true) { // TODO: TYLER REMOVE TRUE
+      if (args.includes("--debug")) {
         console.log(stdout);
         console.log(stderr);
       }
@@ -312,7 +312,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
   async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
-    const args = `--upstream=false ${targetAbsPath}`;
+    const args = `--upstream=false ${targetRelativePath}`;
     this.debug("Running `trunk fmt` on %s", targetRelativePath);
     return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
   }
