@@ -1,4 +1,3 @@
-import { execFile } from "child_process";
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
@@ -8,7 +7,7 @@ import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
-import { executionEnv, GenericTrunkDriver } from "./driver";
+import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 let testNum = 1;
@@ -113,7 +112,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
     try {
       // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
-      this.daemon = await this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
+      this.daemon = this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
       await new Promise((f) => setTimeout(f, 2000));
 
       // Cast version to string in case of decimal representation (e.g. 0.40)
@@ -219,10 +218,10 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log(`${error.code} Failure running 'trunk check'`, error);
+        console.log(`${error.code as number} Failure running 'trunk check'`, error);
       }
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
     }
   }
@@ -297,10 +296,10 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log(`${error.code} Failure running 'trunk fmt'`, error);
+        console.log(`${error.code as number} Failure running 'trunk fmt'`, error);
       }
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }

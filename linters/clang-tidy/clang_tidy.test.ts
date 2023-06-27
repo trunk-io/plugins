@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA, skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 const preCheck = (copyConfig: boolean) => (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";

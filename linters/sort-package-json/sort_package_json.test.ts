@@ -1,7 +1,7 @@
 import path from "path";
 import { customLinterCheckTest, customLinterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA, skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 customLinterFmtTest({
   linterName: "sort-package-json",
@@ -17,4 +17,9 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // Run with check to assert error behavior when malformed json
-customLinterCheckTest({ linterName: "sort-package-json", args: "--all", preCheck, skipTestIf: skipOS(["win32"]) });
+customLinterCheckTest({
+  linterName: "sort-package-json",
+  args: "--all",
+  preCheck,
+  skipTestIf: skipOS(["win32"]),
+});
