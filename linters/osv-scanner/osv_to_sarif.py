@@ -79,7 +79,7 @@ def main(argv):
                 if len(description) == 0:
                     description = vuln["details"]
                 description = (
-                    f'Vulnerability in {pkg["name"]} {pkg["version"]}: {description}'
+                    f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {description}'
                 )
 
                 lines = [
