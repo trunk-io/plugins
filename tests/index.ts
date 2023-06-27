@@ -285,7 +285,6 @@ export const customLinterCheckTest = ({
             versionGreaterThanOrEqual,
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
-          console.log(primarySnapshotPath); // TODO: REMOVE
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(testRunResult.landingState, primarySnapshotPath),

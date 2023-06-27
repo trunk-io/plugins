@@ -228,7 +228,7 @@ export const skipOS = (excludedOS: string[]) => (_version?: string) =>
 /**
  * GitHub MacOS runners can run much slower, so allow for a larger timeout.
  */
-export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
+export const osTimeoutMultiplier = process.platform === "darwin" || process.platform === "win32" ? 3 : 1;
 
 /**
  * This wrapper on existing matchers is used to improve debuggability when an unexpected failure occurs.
