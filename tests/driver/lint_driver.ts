@@ -7,8 +7,7 @@ import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
-import { GenericTrunkDriver, executionEnv } from "./driver";
-import { execFile } from "child_process";
+import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 let testNum = 1;
