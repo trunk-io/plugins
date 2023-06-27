@@ -66,6 +66,3 @@ actions:
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
-tools:
-  enabled:
-    - graphql-schema-linter@3.0.1
