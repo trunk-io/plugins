@@ -279,23 +279,27 @@ export class GenericTrunkDriver {
   buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
     const trunkPath = ARGS.cliPath ?? "trunk";
     if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-      return ["powershell",
-      ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
-        ...execOptions,
-        windowsHide: true,
-      }];
+      return [
+        "powershell",
+        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
+        {
+          cwd: this.sandboxPath,
+          env: executionEnv(this.sandboxPath ?? ""),
+          ...execOptions,
+          windowsHide: true,
+        },
+      ];
     }
-    return [trunkPath,
+    return [
+      trunkPath,
       args.filter((arg) => arg.length > 0),
       {
         cwd: this.sandboxPath,
         env: executionEnv(this.sandboxPath ?? ""),
         ...execOptions,
         windowsHide: true,
-      }];
+      },
+    ];
   }
 
   /**
@@ -325,30 +329,23 @@ export class GenericTrunkDriver {
     return await execFilePromise(...this.buildExecArgs(args, execOptions));
   }
 
-
-    /**
+  /**
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-    async runTrunkSync(
-      args: string[],
-      execOptions?: ExecOptions
-    ) {
-      return execFileSync(...this.buildExecArgs(args, execOptions));
-    }
+  async runTrunkSync(args: string[], execOptions?: ExecOptions) {
+    return execFileSync(...this.buildExecArgs(args, execOptions));
+  }
 
-    /**
+  /**
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-    async runTrunkAsync(
-      args: string[],
-      execOptions?: ExecOptions
-    ) {
-      return execFile(...this.buildExecArgs(args, execOptions));
-    }
+  async runTrunkAsync(args: string[], execOptions?: ExecOptions) {
+    return execFile(...this.buildExecArgs(args, execOptions));
+  }
 
   /**
    * Run a command inside the sandbox test repo.

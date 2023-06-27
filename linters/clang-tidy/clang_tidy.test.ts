@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { TEST_DATA, skipOS } from "tests/utils";
 
 const preCheck = (copyConfig: boolean) => (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
@@ -42,10 +42,12 @@ customLinterCheckTest({
   testName: "default_config",
   args: "-a --cache=false",
   preCheck: preCheck(false),
+  skipTestIf: skipOS(["win32"]),
 });
 customLinterCheckTest({
   linterName: "clang-tidy",
   testName: "test_config",
   args: "-a --cache=false",
   preCheck: preCheck(true),
+  skipTestIf: skipOS(["win32"]),
 });
