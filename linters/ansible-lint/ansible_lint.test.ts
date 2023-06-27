@@ -34,23 +34,15 @@ const preCheck =
     }
   };
 
-<<<<<<< HEAD
 customLinterCheckTest({
   linterName: "ansible-lint",
   testName: "FQCN",
   preCheck: preCheck(),
   skipTestIf: skipOS(["win32"]),
 });
-=======
-customLinterCheckTest({ linterName: "ansible-lint", testName: "FQCN", preCheck: preCheck(), skipTestIf: skipOS(["win32"]) });
->>>>>>> 0a485d1 (windows burndown 2 in progress up to R)
 customLinterCheckTest({
   linterName: "ansible-lint",
   testName: "non_FQCN",
   preCheck: preCheck(false),
-<<<<<<< HEAD
   skipTestIf: skipOS(["win32"]),
-=======
-  skipTestIf: skipOS(["win32"])
->>>>>>> 0a485d1 (windows burndown 2 in progress up to R)
 });

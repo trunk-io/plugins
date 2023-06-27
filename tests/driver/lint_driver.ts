@@ -113,11 +113,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
     try {
       // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
-<<<<<<< HEAD
       this.daemon = this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
-=======
-      this.daemon = await this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
->>>>>>> 67f2f7e (working with notes. need to figure out handles)
       await new Promise((f) => setTimeout(f, 2000));
 
       // Cast version to string in case of decimal representation (e.g. 0.40)
@@ -253,7 +249,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
    * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
    * @param resultJsonPath where to write the JSON result to
    */
-  async runFmt({
+    async runFmt({
     args = "",
     linter,
     targetAbsPath,
@@ -270,7 +266,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
       // Used for debugging only
-      if (args.includes("--debug")) {
+      if (args.includes("--debug") || true) { // TODO: TYLER REMOVE TRUE
         console.log(stdout);
         console.log(stderr);
       }

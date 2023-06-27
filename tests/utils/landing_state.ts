@@ -98,12 +98,8 @@ const normalizeIssues = ({
     file: normalizeFile(_file),
   };
   if (_ranges) {
-<<<<<<< HEAD
     // trunk-ignore(eslint/@typescript-eslint/no-unsafe-argument)
     ret["ranges"] = _ranges.map((range) => normalizeRange(range));
-=======
-    ret["ranges"] =  _ranges.map(range => normalizeRange(range));
->>>>>>> 0a485d1 (windows burndown 2 in progress up to R)
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
