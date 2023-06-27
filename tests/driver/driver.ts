@@ -145,7 +145,7 @@ export class GenericTrunkDriver {
     } catch (err: any) {
       // console.log(`failed to shutdown, with error ${err}`);
       try {
-        this.daemon?.kill();
+        this.daemon?.kill(9);
       } catch (err: any) {
         console.log(`failed to kill daemon: ${err}`);
       }

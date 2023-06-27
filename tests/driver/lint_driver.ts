@@ -221,7 +221,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk check'", error);
+        console.log(`${error.code} Failure running 'trunk check'`, error);
       }
       return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
     }
@@ -249,7 +249,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
    * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
    * @param resultJsonPath where to write the JSON result to
    */
-  async runFmt({
+    async runFmt({
     args = "",
     linter,
     targetAbsPath,
@@ -266,7 +266,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
       // Used for debugging only
-      if (args.includes("--debug")) {
+      if (args.includes("--debug") || true) { // TODO: TYLER REMOVE TRUE
         console.log(stdout);
         console.log(stderr);
       }
@@ -299,7 +299,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk fmt'", error);
+        console.log(`${error.code} Failure running 'trunk fmt'`, error);
       }
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
