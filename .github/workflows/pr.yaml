@@ -49,7 +49,7 @@ jobs:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
-          append-args: linters  # TODO: TYLER REMOVE
+
 
 
   # TODO: TYLER REVERT THE ORIGINAL PR.YAML LOGIC

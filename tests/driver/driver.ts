@@ -281,23 +281,27 @@ export class GenericTrunkDriver {
   buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
     const trunkPath = ARGS.cliPath ?? "trunk";
     if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-      return ["powershell",
-      ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
-        ...execOptions,
-        windowsHide: true,
-      }];
+      return [
+        "powershell",
+        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
+        {
+          cwd: this.sandboxPath,
+          env: executionEnv(this.sandboxPath ?? ""),
+          ...execOptions,
+          windowsHide: true,
+        },
+      ];
     }
-    return [trunkPath,
+    return [
+      trunkPath,
       args.filter((arg) => arg.length > 0),
       {
         cwd: this.sandboxPath,
         env: executionEnv(this.sandboxPath ?? ""),
         ...execOptions,
         windowsHide: true,
-      }];
+      },
+    ];
   }
 
   /**
@@ -328,38 +332,6 @@ export class GenericTrunkDriver {
   }
 
   /**
-=======
-    const trunkPath = ARGS.cliPath ?? "trunk";
-    if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
-      return await execFilePromise(
-        "powershell",
-        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
-          ...execOptions,
-          windowsHide: true,
-        }
-      );
-    }
-    return await execFilePromise(
-      trunkPath,
-      args.filter((arg) => arg.length > 0),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
-        ...execOptions,
-        windowsHide: true,
-      }
-    );
-=======
-    return await execFilePromise(...this.buildExecArgs(args, execOptions));
->>>>>>> 67f2f7e (working with notes. need to figure out handles)
-  }
-
-
-    /**
->>>>>>> 304a179 (upgrade)
    * Run a specified trunk command with `args` and additional options.
    * @param args arguments to run, excluding `trunk`
    * @param execOptions

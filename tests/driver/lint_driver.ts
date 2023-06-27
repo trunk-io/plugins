@@ -249,7 +249,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
    * @param targetAbsPath optional absolute path to a target to run check against (recorded for debugging)
    * @param resultJsonPath where to write the JSON result to
    */
-    async runFmt({
+  async runFmt({
     args = "",
     linter,
     targetAbsPath,
