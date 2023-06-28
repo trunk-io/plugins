@@ -77,10 +77,10 @@ def main(argv):
                 vuln_id = vuln["id"]
                 # <=1.34.0: summaries could have empty text
                 # >=1.35.0: summaries with empty text were removed
-                if "summary" not in vuln or len(vuln["summary"]) == 0:
-                    message = vuln["details"]
-                else:
+                if "summary" in vuln and len(vuln["summary"]) > 0:
                     message = vuln["summary"]
+                else:
+                    message = vuln["details"]
                 description = (
                     f'Vulnerability in {pkg["name"]} {pkg["version"]}: {message}'
                 )
