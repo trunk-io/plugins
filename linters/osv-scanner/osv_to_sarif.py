@@ -75,11 +75,14 @@ def main(argv):
             pkg = pkg_vulns["package"]
             for vuln in pkg_vulns["vulnerabilities"]:
                 vuln_id = vuln["id"]
-                description = vuln["summary"]
-                if len(description) == 0:
-                    description = vuln["details"]
+                # <=1.34.0: summaries could have empty text
+                # >=1.35.0: summaries with empty text were removed
+                if "summary" in vuln and len(vuln["summary"]) > 0:
+                    message = vuln["summary"]
+                else:
+                    message = vuln["details"]
                 description = (
-                    f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {description}'
+                    f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {message}'
                 )
 
                 lines = [
