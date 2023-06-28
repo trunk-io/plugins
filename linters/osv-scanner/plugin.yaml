@@ -19,7 +19,7 @@ lint:
           url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
   definitions:
     - name: osv-scanner
-      files: [osv-lockfiles]
+      files: [lockfile]
       download: osv-scanner
       known_good_version: 1.2.0
       commands:
