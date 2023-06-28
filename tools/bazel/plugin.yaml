@@ -1,16 +1,16 @@
 version: 0.1
+downloads:
+  - name: bazel
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-${os}-${cpu}
 tools:
-  downloads:
-    - name: bazel
-      executable: true
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-${os}-${cpu}
   definitions:
     - name: bazel
       download: bazel
