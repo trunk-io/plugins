@@ -7,7 +7,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in rack 2.2.6.2: Rack has possible DoS Vulnerability in Multipart MIME parsing",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-579w-22j4-4749",
@@ -17,7 +17,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in activerecord 5.2.8.1: Denial of Service Vulnerability in ActiveRecord’s PostgreSQL adapter",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-c6qg-cjj8-47qp",
@@ -27,7 +27,7 @@
     "level": "LEVEL_LOW",
     "linter": "osv-scanner",
     "message": "Vulnerability in rack 2.2.6.2: Possible Denial of Service Vulnerability in Rack’s header parsing",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-j6gc-792m-qgm2",
@@ -37,7 +37,7 @@
     "level": "LEVEL_LOW",
     "linter": "osv-scanner",
     "message": "Vulnerability in activesupport 5.2.8.1: ReDoS based DoS vulnerability in Active Support’s underscore",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-p84v-45xj-wwqj",
@@ -47,7 +47,7 @@
     "level": "LEVEL_LOW",
     "linter": "osv-scanner",
     "message": "Vulnerability in actionpack 5.2.8.1: ReDoS based DoS vulnerability in Action Dispatch",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-pj73-v5mw-pm9j",
@@ -57,7 +57,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in activesupport 5.2.8.1: Possible XSS Security Vulnerability in SafeBuffer#bytesplice",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-pxvg-2qj5-37jq",
@@ -67,7 +67,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in nokogiri 1.14.1: Nokogiri updates packaged libxml2 to v2.10.4 to resolve multiple CVEs",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-xp5h-f8jf-rc8q",
@@ -77,7 +77,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in actionview 5.2.8.1: rails-ujs vulnerable to DOM Based Cross-site Scripting contenteditable HTML Elements",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-8xww-x3g3-6jcv",
@@ -88,7 +88,7 @@
     "line": "5",
     "linter": "osv-scanner",
     "message": "Vulnerability in actionpack 5.2.8.1: ReDoS based DoS vulnerability in Action Dispatch",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-36h2-95gj-w488",
@@ -98,7 +98,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Open redirect in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-3vm4-22fp-5rfm",
@@ -108,7 +108,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: golang.org/x/crypto/ssh NULL Pointer Dereference vulnerability",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-3x58-xr87-2fcj",
@@ -118,7 +118,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/microcosm-cc/bluemonday 0.0.0-20161012083705-f77f16ffc87a: Cross-site scripting in bluemonday",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-4wp3-8q92-mh8w",
@@ -128,7 +128,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Cross Site Request Forgery in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-55m9-hm92-xm8j",
@@ -138,7 +138,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/gophish/gophish 0.1.2: Gophish vulnerable to Cross-site Scripting via crafted landing page",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-69cg-p879-7622",
@@ -148,7 +148,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: golang.org/x/net/http2 Denial of Service vulnerability",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-83g2-8m93-v3w7",
@@ -158,7 +158,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: golang.org/x/net/html Infinite Loop vulnerability",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-88jf-7rch-32qc",
@@ -168,7 +168,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/unknwon/cae 1.0.0: Path Traversal in github.com/unknwon/cae/tz",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-8c26-wmh5-6g9v",
@@ -178,7 +178,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Use of a Broken or Risky Cryptographic Algorithm in golang.org/x/crypto/ssh",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-8gg8-wr4j-v2wr",
@@ -188,7 +188,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/gophish/gophish 0.1.2: Gophish vulnerable to Denial of Service via crafted payload involving autofocus",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-8h8p-x289-vvqr",
@@ -198,7 +198,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Gitea displaying raw OpenID error in UI",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-9w9f-6mg8-jp7w",
@@ -208,7 +208,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/blevesearch/bleve 0.0.0-20190214220507-05d86ea8f6e3: Missing Role Based Access Control for the REST handlers in bleve/http package",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-cg3q-j54f-5p7p",
@@ -218,7 +218,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/prometheus/client_golang 1.1.0: Uncontrolled Resource Consumption in promhttp",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-cjjc-xp8v-855w",
@@ -228,7 +228,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Panic in malformed cerftificate",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-f6mq-5m25-4r72",
@@ -238,7 +238,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in go.mongodb.org/mongo-driver 1.1.1: Improper Input Validation",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-ffhg-7mh4-33c4",
@@ -248,7 +248,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Improper Verification of Cryptographic Signature in golang.org/x/crypto",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-g2qx-6ghw-67hm",
@@ -258,7 +258,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Denial of Service in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-g7p7-x6w7-w6qg",
@@ -268,7 +268,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Arbitrary file deletion in gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-gwc9-m7rh-j2ww",
@@ -278,7 +278,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: x/crypto/ssh vulnerable to panic via SSH server",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-h3q4-vmw4-cpr5",
@@ -288,7 +288,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Path Traversal in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-h86h-8ppg-mxmh",
@@ -298,7 +298,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: golang.org/x/net/http/httpguts vulnerable to Uncontrolled Recursion",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-hvw3-p9px-gpc9",
@@ -308,7 +308,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/gophish/gophish 0.1.2: Gophish before 0.12.0 vulnerable to Open Redirect",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-jq7p-26h5-w78r",
@@ -318,7 +318,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/apache/thrift 0.12.0: Out-of-bounds read in Apache Thrift",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-jr9c-h74f-2v28",
@@ -328,7 +328,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Improper Authorization in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-jrpg-35hw-m4p9",
@@ -338,7 +338,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Capture-replay in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-p5f9-c9j9-g8qx",
@@ -348,7 +348,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Shell command injection in gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-p782-xgp4-8hr8",
@@ -358,7 +358,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/sys 0.0.0-20200331124033-c3d80250170d: golang.org/x/sys/unix has Incorrect Privilege Assignment",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-ph3w-2843-72mx",
@@ -368,7 +368,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Stored Cross-site Scripting in gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-qgc7-mgm3-q253",
@@ -378,7 +378,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/image 0.0.0-20190802002840-cff245a6509b: Uncontrolled Resource Consumption",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-r3gq-wxqf-q4gh",
@@ -388,7 +388,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Cross-site Scripting in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-r5c5-pr8j-pfp7",
@@ -398,7 +398,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: golang.org/x/crypto/salsa20/salsa uses insufficiently random values",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-vpx7-vm66-qx8r",
@@ -408,7 +408,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/unknwon/cae 1.0.0: Path Traversal in github.com/unknwon/cae/zip",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-vvpx-j8f3-3w6h",
@@ -418,7 +418,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: Uncontrolled Resource Consumption",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-w73w-5m7g-f7qc",
@@ -428,7 +428,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/dgrijalva/jwt-go 3.2.0+incompatible: Authorization bypass in github.com/dgrijalva/jwt-go",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-w8xw-7crf-h23x",
@@ -438,7 +438,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/go-gitea/gitea 1.2.3: Gitea vulnerable to Argument Injection",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-x95h-979x-cf3j",
@@ -448,7 +448,7 @@
     "level": "LEVEL_MEDIUM",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/microcosm-cc/bluemonday 0.0.0-20161012083705-f77f16ffc87a: Policies not properly enforced in bluemonday",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2020-0012",
@@ -458,7 +458,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: An attacker can craft an ssh-ed25519 or sk-ssh-ed25519@openssh.com public key, such that the library will panic when trying to verify a signature with it. If verifying signatures using user supplied public keys, this may be used as a denial of service vector.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2020-0017",
@@ -468,7 +468,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/dgrijalva/jwt-go 3.2.0+incompatible: If a JWT contains an audience claim with an array of strings, rather than a single string, and MapClaims.VerifyAudience is called with req set to false, then audience verification will be bypassed, allowing an invalid set of audiences to be provided.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2020-0041",
@@ -478,7 +478,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/unknwon/cae 1.0.0: Due to improper path sanitization, archives containing relative file paths can cause files to be written (or overwritten) outside of the target directory.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0101",
@@ -488,7 +488,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/apache/thrift 0.12.0: Due to an improper bounds check, parsing maliciously crafted messages can cause panics. If this package is used to parse untrusted input, this may be used as a vector for a denial of service attack.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0111",
@@ -498,7 +498,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in go.mongodb.org/mongo-driver 1.1.1: Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed\nGo structure could allow an attacker to inject additional fields into a MongoDB document. Users are\naffected if they use this package to handle untrusted user input.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0112",
@@ -508,7 +508,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in go.mongodb.org/mongo-driver 1.1.1: Due to improper input sanitization when marshalling Go objects into BSON, a maliciously constructed Go structure could allow an attacker to inject additional fields into a MongoDB document. Users are affected if they use this package to handle untrusted user input.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0227",
@@ -518,7 +518,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Clients can cause a panic in SSH servers. An attacker can craft an authentication request message for the “gssapi-with-mic” method which will cause NewServerConn to panic via a nil pointer dereference if ServerConfig.GSSAPIWithMICConfig is nil.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0228",
@@ -528,7 +528,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/unknwon/cae 1.0.0: The ExtractTo function doesn't securely escape file paths in zip archives which include leading or non-leading \"..\". This allows an attacker to add or replace files system-wide.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0238",
@@ -538,7 +538,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: An attacker can craft an input to ParseFragment that causes it to enter an infinite loop and never return.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2021-0356",
@@ -548,7 +548,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Attackers can cause a crash in SSH servers when the server has been configured by passing a Signer to ServerConfig.AddHostKey such that 1) the Signer passed to AddHostKey does not implement AlgorithmSigner, and 2) the Signer passed to AddHostKey returns a key of type “ssh-rsa” from its PublicKey method.\n\nServers that only use Signer implementations provided by the ssh package are unaffected.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0209",
@@ -558,7 +558,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: XORKeyStream generates incorrect and insecure output for very large inputs.\n\nIf more than 256 GiB of keystream is generated, or if the counter otherwise grows greater than 32 bits, the amd64 implementation will first generate incorrect output, and then cycle back to previously generated keystream. Repeated keystream bytes can lead to loss of confidentiality in encryption applications, or to predictability in CSPRNG applications.\n\nThe issue might affect uses of golang.org/x/crypto/nacl with extremely large messages.\n\nArchitectures other than amd64 and uses that generate less than 256 GiB of keystream for a single salsa20.XORKeyStream invocation are unaffected.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0229",
@@ -568,7 +568,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: On 32-bit architectures, a malformed input to crypto/x509 or the ASN.1 parsing functions of golang.org/x/crypto/cryptobyte can lead to a panic.\n\nThe malformed certificate can be delivered via a crypto/tls connection to a client, or to a server that accepts client certificates. net/http clients can be made to crash by an HTTPS server, while net/http servers that accept client certificates will recover the panic and are unaffected.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0236",
@@ -578,7 +578,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: A malicious HTTP server or client can cause the net/http client or server to panic.\n\nReadRequest and ReadResponse can hit an unrecoverable panic when reading a very large header (over 7MB on 64-bit architectures, or over 4MB on 32-bit ones). Transport and Client are vulnerable and the program can be made to crash by a malicious server. Server is not vulnerable by default, but can be if the default max header of 1MB is overridden by setting Server.MaxHeaderBytes to a higher value, in which case the program can be made to crash by a malicious client.\n\nThis also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in golang.org/x/net/http/httpguts.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0288",
@@ -588,7 +588,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: An attacker can cause unbounded memory growth in servers accepting HTTP/2 requests.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0322",
@@ -598,7 +598,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/prometheus/client_golang 1.1.0: The Prometheus client_golang HTTP server is vulnerable to a denial of service attack when handling requests with non-standard HTTP methods.\n\nIn order to be affected, an instrumented software must use any of the promhttp.InstrumentHandler* middleware except `RequestsInFlight`; not filter any specific methods (e.g GET) before middleware; pass a metric with a \"method\" label name to a middleware; and not have any firewall/LB/proxy that filters away requests with unknown \"method\".",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0470",
@@ -608,7 +608,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/blevesearch/bleve 0.0.0-20190214220507-05d86ea8f6e3: HTTP handlers provide unauthenticated access to the local filesystem.\n\nThe Bleve http package is intended for demonstration purposes and contains no authentication, authorization, or validation of user inputs. Exposing handlers from this package can permit attackers to create files and delete directories.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0493",
@@ -618,7 +618,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/sys 0.0.0-20200331124033-c3d80250170d: When called with a non-zero flags parameter, the Faccessat function can incorrectly report that a file is accessible.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0588",
@@ -628,7 +628,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/microcosm-cc/bluemonday 0.0.0-20161012083705-f77f16ffc87a: The bluemonday HTML sanitizer can leak the contents of a \"style\" element into HTML output, potentially causing XSS vulnerabilities.\n\nThe default bluemonday sanitization policies are not vulnerable. Only user-defined policies allowing \"select\", \"style\", and \"option\" elements are affected.\n\nPermitting the \"style\" element in policies is hazardous, because bluemonday does not contain a CSS sanitizer. Newer versions of bluemonday suppress \"style\" and \"script\" elements even when allowed by a policy unless the policy explicitly requests unsafe processing.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0762",
@@ -638,7 +638,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in github.com/microcosm-cc/bluemonday 0.0.0-20161012083705-f77f16ffc87a: An XSS injection was possible because the sanitization of the Cyrillic character i bypass a protection mechanism against user-inputted HTML elements such as the <script> tag.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0968",
@@ -648,7 +648,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/crypto 0.0.0-20190308221718-c2843e01d9a2: Unauthenticated clients can cause a panic in SSH servers.\n\nWhen using AES-GCM or ChaCha20Poly1305, consuming a malformed packet which contains an empty plaintext causes a panic.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-0969",
@@ -658,7 +658,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: HTTP/2 server connections can hang forever waiting for a clean shutdown that was preempted by a fatal error. This condition can be exploited by a malicious client to cause a denial of service.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2022-1144",
@@ -668,7 +668,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.\n\nHTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2023-1571",
@@ -678,7 +678,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/net 0.0.0-20200324143707-d3edc9973b7e: A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GO-2023-1572",
@@ -688,7 +688,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in golang.org/x/image 0.0.0-20190802002840-cff245a6509b: An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-g95p-88p4-76cm",
@@ -699,7 +699,7 @@
     "line": "7",
     "linter": "osv-scanner",
     "message": "Vulnerability in code.gitea.io/gitea 1.9.0-dev: Cross-site Scripting in Gitea",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "OSV-2022-1074",
@@ -709,7 +709,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in pillow 9.1.1: Invalid-free in _dealloc",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "OSV-2022-715",
@@ -719,7 +719,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in pillow 9.1.1: Segv on unknown address in jpeg_read_scanlines",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "PYSEC-2022-42979",
@@ -729,7 +729,7 @@
     "level": "LEVEL_HIGH",
     "linter": "osv-scanner",
     "message": "Vulnerability in pillow 9.1.1: Pillow before 9.2.0 performs Improper Handling of Highly Compressed GIF Data (Data Amplification).",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   },
   {
     "code": "GHSA-m2vv-5vj5-2hm7",
@@ -740,6 +740,6 @@
     "line": "1",
     "linter": "osv-scanner",
     "message": "Vulnerability in pillow 9.1.1: Pillow vulnerable to Data Amplification attack.",
-    "targetType": "osv-lockfiles"
+    "targetType": "lockfile"
   }
 ]
