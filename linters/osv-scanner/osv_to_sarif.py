@@ -82,7 +82,7 @@ def main(argv):
                 else:
                     message = vuln["details"]
                 description = (
-                    f'Vulnerability in {pkg["name"]} {pkg["version"]}: {message}'
+                    f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {message}'
                 )
 
                 lines = [
