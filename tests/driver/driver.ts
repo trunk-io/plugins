@@ -116,6 +116,7 @@ export class GenericTrunkDriver {
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
         .addConfig("commit.gpgsign", "false")
+        .addConfig("core.autocrlf", "false")
         .commit("first commit");
     }
 
