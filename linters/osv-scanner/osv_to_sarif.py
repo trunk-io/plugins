@@ -78,9 +78,12 @@ def main(argv):
                 # <=1.34.0: summaries could have empty text
                 # >=1.35.0: summaries with empty text were removed
                 if "summary" not in vuln or len(vuln["summary"]) == 0:
-                    description = vuln["details"]
+                    message = vuln["details"]
                 else:
-                    description = f'Vulnerability in {pkg["name"]} {pkg["version"]}: {vuln["summary"]}'
+                    message = vuln["summary"]
+                description = (
+                    f'Vulnerability in {pkg["name"]} {pkg["version"]}: {message}'
+                )
 
                 lines = [
                     zero_indexed + 1
