@@ -5,6 +5,7 @@ lint:
       tools: [prisma]
       files: [prisma]
       known_good_version: 4.16.1
+      suggest_if: never
       commands:
         - name: prisma format
           output: rewrite
