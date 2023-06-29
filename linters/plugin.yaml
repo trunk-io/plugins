@@ -361,6 +361,10 @@ lint:
         - .prettierrc
         - .stylelintrc
 
+    - name: prisma
+      extensions:
+        - prisma
+
     - name: proto
       extensions:
         - proto

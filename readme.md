@@ -60,6 +60,7 @@ trunk check enable {linter}
 | Nix             | [nixpkgs-fmt]                                                                                                       |
 | package.json    | [sort-package-json]                                                                                                 |
 | PNG             | [oxipng]                                                                                                            |
+| Prisma          | [prisma]                                                                                                            |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                    |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright] [semgrep], [yapf], [ruff], [sourcery] |
 | Renovate        | [renovate]                                                                                                          |
@@ -122,6 +123,7 @@ trunk check enable {linter}
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
+[prisma]: https://github.com/prisma/prisma#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme
