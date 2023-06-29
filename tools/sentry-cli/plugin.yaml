@@ -1,16 +1,16 @@
 version: 0.1
+downloads:
+  - name: sentry-cli
+    executable: true
+    downloads:
+      - os:
+          linux: Linux
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://downloads.sentry-cdn.com/sentry-cli/${version}/sentry-cli-${os}-${cpu}
 tools:
-  downloads:
-    - name: sentry-cli
-      executable: true
-      downloads:
-        - os:
-            linux: Linux
-            macos: Darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://downloads.sentry-cdn.com/sentry-cli/${version}/sentry-cli-${os}-${cpu}
   definitions:
     - name: sentry-cli
       download: sentry-cli
