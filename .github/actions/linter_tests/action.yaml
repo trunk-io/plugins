@@ -38,6 +38,10 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
 
+    - name: Install packages
+      run: sudo apt-get -y install libperl-critic-perl perltidy
+      shell: bash
+
     - name: Install dependencies
       run: npm ci
       shell: bash
