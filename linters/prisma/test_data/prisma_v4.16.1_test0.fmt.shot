@@ -3,7 +3,7 @@
 exports[`Testing formatter prisma test test0 1`] = `
 "datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "https://www.example.com"
 }
 
 generator client {

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter prisma test test0 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "prisma format",
+      "fileGroupName": "prisma",
+      "linter": "prisma",
+      "paths": [
+        "test_data/test0.in.prisma",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "prisma validate",
+      "fileGroupName": "prisma",
+      "linter": "prisma",
+      "paths": [
+        "test_data/test0.in.prisma",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/test0.in.prisma",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "prisma",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

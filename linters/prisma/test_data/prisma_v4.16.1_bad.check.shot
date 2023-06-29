@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter prisma test bad 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "file": "test_data/bad.in.prisma",
+      "level": "LEVEL_HIGH",
+      "linter": "prisma",
+      "message": "prisma:warn Prisma failed to detect the libssl/openssl version to use, and may not work as expected. Defaulting to "openssl-1.1.x".
+Please manually install OpenSSL via \`apt-get update -y && apt-get install -y openssl\` and try installing Prisma again. If you're running Prisma on Docker, add this command to your Dockerfile, or switch to an image that already has OpenSSL installed.
+
+Error: Prisma schema validation - (validate wasm)
+Error code: P1012
+[1;91merror[0m: [1mPreview features are only supported in the generator block. Please move this field to the generator block.[0m
+  [1;94m-->[0m  [4mschema.prisma:3[0m
+[1;94m   | [0m
+[1;94m 2 | [0m  provider = "postgresql"
+[1;94m 3 | [0m  [1;91mpreviewFeatures = ["unknownFeatureFlag"][0m
+[1;94m   | [0m
+
+Validation Error Count: 1
+[Context: validate]
+
+Prisma CLI Version : 4.16.1",
+      "targetType": "prisma",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "prisma validate",
+      "fileGroupName": "prisma",
+      "linter": "prisma",
+      "paths": [
+        "test_data/bad.in.prisma",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/bad.in.prisma",
+      "name": "prisma",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

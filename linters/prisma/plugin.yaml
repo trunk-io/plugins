@@ -14,8 +14,9 @@ lint:
           batch: true
           formatter: true
           run: prisma format --schema=${target}
-        - name: lint
+        - name: prisma validate
           run: prisma validate --schema=${target}
           output: pass_fail
           batch: true
           success_codes: [0, 1]
+          read_output_from: stderr

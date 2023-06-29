@@ -1,5 +1,6 @@
 datasource db {
   provider = "postgresql"
+  previewFeatures = ["unknownFeatureFlag"]
   url     = "https://www.example.com"
 }
 
