@@ -24,6 +24,7 @@ downloads:
           x86_64: amd64
           arm_64: arm64
         url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
 tools:
   definitions:
     - name: gh
