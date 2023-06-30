@@ -131,7 +131,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
           append-args:
-            linters/stylua # TODO: TYLER REVERT
+            linters/s # TODO: TYLER REVERT
             # ${{needs.detect_changes.outputs.linters-files }}
 
       - name: Tool Tests
