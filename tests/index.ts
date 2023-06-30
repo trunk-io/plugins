@@ -604,6 +604,11 @@ export const linterFmtTest = ({
           it(prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
+
+            if (linterName === "stylua") {
+              console.log(driver.readFile(".trunk/trunk.yaml")); // TODO: REMOVE
+            }
+
             expect(testRunResult).toMatchObject({
               success: true,
               landingState: {
