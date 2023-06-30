@@ -58,9 +58,13 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      run: npm test --ci ${{ inputs.append-args }}
-      shell: bash
-      working-directory: ${{ inputs.path }}
+      uses: ./.github/actions/breakpoint
+      with:
+        breakpoint-id: trunk-plugins-linter-tests
+        shell: bash
+        path: ${{ inputs.path }}
+        trunk-token: ${{ secrets.TRUNK_REPO_API_TOKEN  }}
+        run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}

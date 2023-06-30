@@ -1,0 +1,50 @@
+name: Breakpoint
+description: Set up a trunk breakpoint
+inputs:
+  breakpoint-id: # id of breakpoint
+    description: Which breakpoint to trigger
+    required: true
+  run: # Command to run
+    description: Which command to run
+    required: true
+  trunk-token:
+    description: API key for trunk. Should be in your secrets
+    required: true
+  debug:
+    description: Add debug level logs
+    default: false
+    required: false
+  shell:
+    description: Which shell to run with
+    default: bash
+    required: false
+  trunk-path:
+    description:
+      Path to Trunk Launcher. If not provided, we'll look for it the repo root, `.trunk/bin` and
+      `tools/`. If it can't be found anywhere and is not provided explicitly, we'll download it on
+      demand.
+    required: false
+  path:
+    description: The cwd from which to run plugin commands
+    required: false
+    default: .
+runs:
+  using: composite
+  steps:
+    - name: Locate Trunk
+      shell: bash
+      run: ${GITHUB_ACTION_PATH}/locate_trunk.sh
+      env:
+        INPUT_TRUNK_PATH: ${{ inputs.trunk-path }}
+
+    - name: Run Breakpoint
+      run: |
+        trunk breakpoint --debug=${{ inputs.debug }} --id="${{ inputs.breakpoint-id }}" -- "${{ inputs.run }}"
+      shell: ${{ inputs.shell }}
+      working-directory: ${{ inputs.path }}
+      env:
+        TRUNK_GITHUB_CONTEXT: ${{ toJSON(github) }}
+        TRUNK_TOKEN: ${{ inputs.trunk-token }}
+        SHELL: ${{ inputs.shell }}
+        GH_TOKEN: ${{ github.token }}
+        TRUNK_LAUNCHER_QUIET: 1
