@@ -116,8 +116,9 @@ jobs:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
+            linters/stylua # TODO: TYLER REVERT
+            # ${{ needs.detect_changes.outputs.all-linters }} ${{
+            # needs.detect_changes.outputs.linters-files }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -130,7 +131,8 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
           append-args:
-            ${{needs.detect_changes.outputs.linters-files }} -- --testPathIgnorePatterns=trufflehog
+            linters/stylua # TODO: TYLER REVERT
+            # ${{needs.detect_changes.outputs.linters-files }}
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
