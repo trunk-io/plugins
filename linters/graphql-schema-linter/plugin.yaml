@@ -1,4 +1,13 @@
 version: 0.1
+tools:
+  definitions:
+    - name: graphql-schema-linter
+      runtime: node
+      package: graphql-schema-linter
+      known_good_version: 3.0.1
+      shims:
+        - name: graphql-schema-linter
+          target: graphql-schema-linter
 lint:
   definitions:
     - name: graphql-schema-linter
