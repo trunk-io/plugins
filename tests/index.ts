@@ -605,8 +605,9 @@ export const linterFmtTest = ({
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
 
+            // TODO(Tyler): Investigating some flakiness with stylua. Leave this in until resolved.
             if (linterName === "stylua") {
-              console.log(driver.readFile(".trunk/trunk.yaml")); // TODO: REMOVE
+              console.log(driver.readFile(".trunk/trunk.yaml"));
             }
 
             expect(testRunResult).toMatchObject({
