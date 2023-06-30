@@ -4,10 +4,11 @@ lint:
     - name: graphql-schema-linter
       tools: [graphql-schema-linter]
       known_good_version: 3.0.1
+      files: [graphql]
       commands:
         - name: lint
           output: sarif
-          run: graphql-schema-linter ${target}
+          run: graphql-schema-linter -f json ${target}
           success_codes: [0, 1]
           read_output_from: stdout
           parser:
