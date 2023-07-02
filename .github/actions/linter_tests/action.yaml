@@ -39,7 +39,17 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Install packages
-      run: sudo apt-get -y install libperl-critic-perl perltidy
+      run: |
+        case "$RUNNER_OS" in
+          Linux)
+            sudo apt-get -y install libperl-critic-perl perltidy
+            ;;
+          macOS)
+            brew install cpm
+            cpm install -g --no-test --color Perl::Critic Perl::Tidy
+            brew unlink perl && brew link perl
+            ;;
+        esac
       shell: bash
 
     - name: Install dependencies
