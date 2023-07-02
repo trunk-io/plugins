@@ -28,6 +28,15 @@ lint:
           read_output_from: stdout
           run_linter_from: root_directory
           run_from_root_target: .tflint.hcl
+          version: ">=0.47.0"
+        - name: lint
+          output: sarif
+          prepare_run: tflint --init
+          run: tflint --format=sarif ${target} --force
+          success_codes: [0, 1]
+          read_output_from: stdout
+          run_linter_from: root_file
+          run_from_root_target: .tflint.hcl
       suggest_if: files_present
       download: tflint
       direct_configs: [.tflint.hcl]
@@ -39,7 +48,7 @@ lint:
         - name: GITHUB_TOKEN
           value: ${env.GITHUB_TOKEN}
           optional: true
-      known_good_version: 0.47.0
+      known_good_version: 0.35.0
       version_command:
         parse_regex: ${semver}
         run: tflint --version
