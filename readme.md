@@ -60,6 +60,7 @@ trunk check enable {linter}
 | Markdown        | [markdownlint], [remark-lint]                                                                                       |
 | Nix             | [nixpkgs-fmt]                                                                                                       |
 | package.json    | [sort-package-json]                                                                                                 |
+| Perl            | [perlcritic], [perltidy]                                                                                            |
 | PNG             | [oxipng]                                                                                                            |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                    |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright] [semgrep], [yapf], [ruff], [sourcery] |
@@ -122,6 +123,8 @@ trunk check enable {linter}
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [osv-scanner]: https://github.com/google/osv-scanner
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
+[perlcritic]: https://metacpan.org/pod/Perl::Critic
+[perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
