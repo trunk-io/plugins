@@ -48,6 +48,7 @@ trunk check enable {linter}
 | Dotenv          | [dotenv-linter]                                                                                                     |
 | GitHub          | [actionlint]                                                                                                        |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                    |
+| GraphQL         | [graphql-schema-linter]                                                                                             |
 | HAML            | [haml-lint]                                                                                                         |
 | HTML Templates  | [djlint]                                                                                                            |
 | Java            | [google-java-format], [semgrep]                                                                                     |
@@ -108,6 +109,7 @@ trunk check enable {linter}
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
 [golines]: https://pkg.go.dev/github.com/segmentio/golines
 [google-java-format]: https://github.com/google/google-java-format#readme
+[graphql-schema-linter]: https://github.com/cjoudrey/graphql-schema-linter#readme
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
 [include-what-you-use]: https://github.com/include-what-you-use/include-what-you-use#readme
