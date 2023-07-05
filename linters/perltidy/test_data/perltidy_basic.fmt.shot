@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter perltidy test basic 1`] = `
+"#!/usr/bin/perl
+
+print "Hello, World!\\n"
+"
+`;

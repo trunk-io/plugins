@@ -48,6 +48,7 @@ trunk check enable {linter}
 | Dotenv          | [dotenv-linter]                                                                                                     |
 | GitHub          | [actionlint]                                                                                                        |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                    |
+| GraphQL         | [graphql-schema-linter]                                                                                             |
 | HAML            | [haml-lint]                                                                                                         |
 | HTML Templates  | [djlint]                                                                                                            |
 | Java            | [google-java-format], [semgrep]                                                                                     |
@@ -59,6 +60,7 @@ trunk check enable {linter}
 | Markdown        | [markdownlint], [remark-lint]                                                                                       |
 | Nix             | [nixpkgs-fmt]                                                                                                       |
 | package.json    | [sort-package-json]                                                                                                 |
+| Perl            | [perlcritic], [perltidy]                                                                                            |
 | PNG             | [oxipng]                                                                                                            |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                    |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright] [semgrep], [yapf], [ruff], [sourcery] |
@@ -108,6 +110,7 @@ trunk check enable {linter}
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
 [golines]: https://pkg.go.dev/github.com/segmentio/golines
 [google-java-format]: https://github.com/google/google-java-format#readme
+[graphql-schema-linter]: https://github.com/cjoudrey/graphql-schema-linter#readme
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
 [include-what-you-use]: https://github.com/include-what-you-use/include-what-you-use#readme
@@ -120,6 +123,8 @@ trunk check enable {linter}
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [osv-scanner]: https://github.com/google/osv-scanner
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
+[perlcritic]: https://metacpan.org/pod/Perl::Critic
+[perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
