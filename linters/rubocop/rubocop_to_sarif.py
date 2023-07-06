@@ -27,10 +27,10 @@ for file in json.load(sys.stdin)["files"]:
                             "uri": file["path"],
                         },
                         "region": {
-                            "startLine": offense["location"]["start_line"] + 1,
-                            "startColumn": offense["location"]["start_column"] + 1,
-                            "endLine": offense["location"]["last_line"] + 1,
-                            "endColumn": offense["location"]["last_column"] + 1,
+                            "startLine": offense["location"]["start_line"],
+                            "startColumn": offense["location"]["start_column"],
+                            "endLine": offense["location"]["last_line"],
+                            "endColumn": offense["location"]["last_column"],
                         },
                     }
                 }
