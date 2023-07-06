@@ -47,4 +47,5 @@ lint:
         - tmp/**
         - node_modules/**
         - .trunk/configs/**
+        - .gitattributes
 `;

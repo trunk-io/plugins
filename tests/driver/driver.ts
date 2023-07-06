@@ -96,6 +96,7 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
+    this.copyFileFromRoot(".gitattributes");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
@@ -116,8 +117,9 @@ export class GenericTrunkDriver {
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
         .addConfig("commit.gpgsign", "false")
-        .addConfig("core.autocrlf", "false")
+        .addConfig("core.autocrlf", "input")
         .commit("first commit");
+      // .addConfig("core.autocrlf", "false")
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
