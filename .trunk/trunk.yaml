@@ -17,19 +17,8 @@ plugins:
       ref: v0.0.2
 
 lint:
-  definitions:
-    - name: standardrb
-      commands:
-        - name: fix
-          output: rewrite
-          formatter: true
-          in_place: true
-          batch: true
-          run: standardrb --fix ${target}
-          success_codes: [0, 1]
   # enabled list inherited from plugin 'configs'
   enabled:
-    - standardrb@1.3.0
     - checkov@2.3.296
     - nancy@1.0.42
     - trivy@0.42.1
