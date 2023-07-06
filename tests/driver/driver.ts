@@ -119,7 +119,6 @@ export class GenericTrunkDriver {
         .addConfig("commit.gpgsign", "false")
         .addConfig("core.autocrlf", "input")
         .commit("first commit");
-      // .addConfig("core.autocrlf", "false")
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
@@ -159,7 +158,7 @@ export class GenericTrunkDriver {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
 
-    // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
+    // // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
     // // Preserve test directory if `SANDBOX_DEBUG` is truthy.
     // if (ARGS.sandboxDebug) {
     //   this.runTrunkSync(["daemon", "shutdown"]);
