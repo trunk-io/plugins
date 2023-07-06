@@ -284,7 +284,13 @@ export const customLinterCheckTest = ({
             driver.enabledVersion,
             versionGreaterThanOrEqual,
           );
-          debug("Using snapshot %s", path.basename(primarySnapshotPath));
+          debug(
+            "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+            snapshotDir,
+            linterName,
+            driver.enabledVersion ?? "no version",
+            primarySnapshotPath
+          );
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(testRunResult.landingState, primarySnapshotPath),
@@ -301,7 +307,13 @@ export const customLinterCheckTest = ({
               driver.enabledVersion,
               versionGreaterThanOrEqual,
             );
-            debug("Using snapshot %s", snapshotPath);
+            debug(
+              "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+              snapshotDir,
+              linterName,
+              driver.enabledVersion ?? "no version",
+              snapshotPath
+            );
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
 
@@ -388,7 +400,13 @@ export const customLinterFmtTest = ({
               driver.enabledVersion,
               versionGreaterThanOrEqual,
             );
-            debug("Using snapshot %s", snapshotPath);
+            debug(
+              "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+              snapshotDir,
+              linterName,
+              driver.enabledVersion ?? "no version",
+              snapshotPath
+            );
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
 
@@ -473,7 +491,13 @@ export const fuzzyLinterCheckTest = ({
             driver.enabledVersion,
             versionGreaterThanOrEqual,
           );
-          debug("Using snapshot %s", path.basename(primarySnapshotPath));
+          debug(
+            "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+            snapshotDir,
+            linterName,
+            driver.enabledVersion ?? "no version",
+            primarySnapshotPath
+          );
           expect(strippedLandingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(strippedLandingState, primarySnapshotPath),
@@ -560,7 +584,13 @@ export const linterCheckTest = ({
               "check",
               driver.enabledVersion,
             );
-            debug("Using snapshot %s", path.basename(snapshotPath));
+            debug(
+              "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+              snapshotDir,
+              linterName,
+              driver.enabledVersion ?? "no version",
+              snapshotPath
+            );
             expect(testRunResult.landingState).toMatchSpecificSnapshot(
               snapshotPath,
               landingStateWrapper(testRunResult.landingState, snapshotPath),
@@ -643,7 +673,13 @@ export const linterFmtTest = ({
               "fmt",
               driver.enabledVersion,
             );
-            debug("Using snapshot %s", path.basename(snapshotPath));
+            debug(
+              "Using snapshot (for dir: %s, linter: %s, version: %s) %s",
+              snapshotDir,
+              linterName,
+              driver.enabledVersion ?? "no version",
+              snapshotPath
+            );
             // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
