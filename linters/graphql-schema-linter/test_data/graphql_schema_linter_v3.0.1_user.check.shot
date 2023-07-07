@@ -6,21 +6,21 @@ exports[`Testing linter graphql-schema-linter test user 1`] = `
     {
       "code": "invalid-graphql-schema",
       "column": "13",
-      "file": "test_data/user.in.graphql",
+      "file": "test_data/user.in.graphqls",
       "level": "LEVEL_HIGH",
       "line": "6",
       "linter": "graphql-schema-linter",
       "message": "Cannot extend type "Query" because it is not defined. Did you mean "User"?",
-      "targetType": "graphql",
+      "targetType": "graphql-schema",
     },
   ],
   "lintActions": [
     {
       "command": "lint",
-      "fileGroupName": "graphql",
+      "fileGroupName": "graphql-schema",
       "linter": "graphql-schema-linter",
       "paths": [
-        "test_data/user.in.graphql",
+        "test_data/user.in.graphqls",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

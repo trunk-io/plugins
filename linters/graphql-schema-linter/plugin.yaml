@@ -13,7 +13,7 @@ lint:
     - name: graphql-schema-linter
       tools: [graphql-schema-linter]
       known_good_version: 3.0.1
-      files: [graphql]
+      files: [graphql-schema]
       commands:
         - name: lint
           output: sarif
