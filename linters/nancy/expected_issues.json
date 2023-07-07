@@ -1,0 +1,236 @@
+[
+  {
+    "code": "CVE-2018-1000803",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea version prior to version 1.5.1 contains a CWE-200 vulnerability that can result in Exposure of users private email addresses. This attack appear to be exploitable via Watch a repository to receive email notifications. Emails received contain the other recipients even if they have the email set as private. This vulnerability appears to have been fixed in 1.5.1.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2018-15192",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: An SSRF vulnerability in webhooks in Gitea through 1.5.0-rc2 and Gogs through 0.11.53 allows remote attackers to access intranet services.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2018-18926",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.5.4 allows remote code execution because it does not properly validate session IDs. This is related to session ID handling in the go-macaron/session code for Macaron.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2018-18926 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2019-1010261",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea 1.7.0 and earlier is affected by: Cross Site Scripting (XSS). The impact is: Attacker is able to have victim execute arbitrary JS in browser. The component is: go-get URL generation - PR to fix: https://github.com/go-gitea/gitea/pull/5905. The attack vector is: victim must open a specifically crafted URL. The fixed version is: 1.7.1 and later.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2019-11228",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: repo/setting.go in Gitea before 1.7.6 and 1.8.x before 1.8-RC3 does not validate the form.MirrorAddress before calling SaveAddress.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2019-11229",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: models/repo_mirror.go in Gitea before 1.7.6 and 1.8.x before 1.8-RC3 mishandles mirror repo URL settings, leading to remote code execution.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-13246",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: An issue was discovered in Gitea through 1.11.5. An attacker can trigger a deadlock by initiating a transfer of a repository's ownership from one organization to another.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-24707",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: Gophish before 0.11.0 allows the creation of CSV sheets that contain malicious content.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-24709",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: Cross Site Scripting (XSS) vulnerability in Gophish through 0.10.1 via a crafted landing page or email template.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2020-24709 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-24710",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: github.com/gophish/gophish - Server-side Request Forgery (SSRF) [CVE-2020-24710]\n\nThe web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-24711",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: The Reset button on the Account Settings page in Gophish before 0.11.0 allows attackers to cause a denial of service via a clickjacking attack",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-24713",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/gophish/gophish@v0.1.2 is vulnerable: Gophish through 0.10.1 does not invalidate the gophish cookie upon logout.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2020-28991",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea 0.9.99 through 1.12.x before 1.12.6 does not prevent a git protocol path that specifies a TCP port number and also contains newlines (with URL encoding) in ParseRemoteAddr in modules/auth/repo_form.go.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45325",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Server Side Request Forgery (SSRF) vulneraility exists in Gitea before 1.7.0 using the OpenID URL.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-45325 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45326",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Cross Site Request Forgery (CSRF) vulnerability exists in Gitea before 1.5.2 via API routes.This can be dangerous especially with state altering POST requests.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45327",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.11.2 is affected by Trusting HTTP Permission Methods on the Server Side when referencing the vulnerable admin or user API. which could let a remote malisious user execute arbitrary code.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-45327 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45328",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.4.3 is affected by URL Redirection to Untrusted Site ('Open Redirect') via internal URLs.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45329",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Cross Site Scripting (XSS) vulnerability exists in Gitea before 1.5.1 via the repository settings inside the external wiki/issue tracker URL field.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45330",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: An issue exsits in Gitea through 1.15.7, which could let a malicious user gain privileges due to client side cookies not being deleted and the session remains valid on the server side for reuse.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2021-45331",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: An Authentication Bypass vulnerability exists in Gitea before 1.5.0, which could let a malicious user gain privileges. If captured, the TOTP code for the 2FA can be submitted correctly more than once.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2022-0905",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: code.gitea.io/gitea - Improper Authorization [CVE-2022-0905]\n\nThe software does not perform or incorrectly performs an authorization check when an actor attempts to access a resource or perform an action.",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2022-1058",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Open Redirect on login in GitHub repository go-gitea/gitea prior to 1.16.5.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-1058 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2022-1928",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Cross-site Scripting (XSS) - Stored in GitHub repository go-gitea/gitea prior to 1.16.9.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-1928 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2022-38183",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: In Gitea before 1.16.9, it was possible for users to add existing issues to projects. Due to improper access controls, an attacker could assign any issue to any project in Gitea (there was no permission check for fetching the issue). As a result, the attacker would get access to private issue titles.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-38183 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2022-42968",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Gitea before 1.17.3 does not sanitize and escape refs in the git backend. Arguments to git commands are mishandled.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-42968 for details",
+    "targetType": "go-lockfile"
+  },
+  {
+    "code": "CVE-2023-3515",
+    "file": ".",
+    "isSecurity": true,
+    "level": "LEVEL_HIGH",
+    "linter": "nancy",
+    "message": "pkg:golang/github.com/go-gitea/gitea@v1.2.3 is vulnerable: Open Redirect in GitHub repository go-gitea/gitea prior to 1.19.4.",
+    "targetType": "go-lockfile"
+  }
+]
