@@ -30,6 +30,7 @@ tools:
     - name: gh
       download: gh
       known_good_version: 2.27.0
-      shims:
-        - name: gh
-          target: ${tool}/bin/gh
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [gh]
