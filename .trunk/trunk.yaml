@@ -6,6 +6,7 @@ cli:
 
 api:
   address: api.trunk-staging.io:8443
+  org: trunk-staging-org
 
 plugins:
   sources:
