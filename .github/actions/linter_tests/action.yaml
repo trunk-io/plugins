@@ -61,7 +61,7 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      uses: trunk-io/breakpoint@813643f41d44cad82c18e0196a4c3a486bf412f7
+      uses: trunk-io/breakpoint@v1
       with:
         breakpoint-id: trunk-plugins-linter-tests
         shell: bash
