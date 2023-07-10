@@ -65,7 +65,7 @@ runs:
       with:
         breakpoint-id: trunk-plugins-linter-tests
         shell: bash
-        path: ${{ inputs.path }}
+        working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         run: npm test --ci ${{ inputs.append-args }}
       env:
