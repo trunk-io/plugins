@@ -63,7 +63,7 @@ runs:
         breakpoint-id: trunk-plugins-linter-tests
         shell: bash
         path: ${{ inputs.path }}
-        trunk-token: ${{ secrets.TRUNK_REPO_API_TOKEN  }}
+        trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
         run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
