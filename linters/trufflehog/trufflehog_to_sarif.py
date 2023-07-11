@@ -4,7 +4,7 @@ import json
 import sys
 
 
-def to_result_sarif(path: str, vuln_id: str, description: str):
+def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str):
     return {
         "level": "error",
         "locations": [
@@ -15,7 +15,7 @@ def to_result_sarif(path: str, vuln_id: str, description: str):
                     },
                     "region": {
                         "startColumn": 0,
-                        "startLine": 0,
+                        "startLine": line_number,
                     },
                 }
             }
@@ -33,6 +33,9 @@ def main(argv):
     for line in sys.stdin.readlines():
         vuln_json = json.loads(line)
         path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
+        line_number = int(
+            vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0")
+        )
         # trufflehog doesn't have vuln IDs
         # this is the name of the detector that found the error (e.g. AWS, Github, PrivateKey)
         vuln_id = vuln_json["DetectorName"]
@@ -42,7 +45,7 @@ def main(argv):
         #
         # This default is here because Github secrets (and possibly others) redact to an empty string.
         description = vuln_json["Redacted"] or "[secret redacted]"
-        results.append(to_result_sarif(path, vuln_id, description))
+        results.append(to_result_sarif(path, line_number, vuln_id, description))
 
     sarif = {
         "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
