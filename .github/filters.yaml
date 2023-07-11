@@ -25,10 +25,10 @@ all-tools:
 # Someone should not be able to add a new linter without verifying that it also works on the latest version.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=[KnownGoodVersion,Latest] npm test linters/sqlfluff`
 linters:
-  - linters/**
+  - added|modified: linters/**
 
 tools:
-  - tools/**
+  - added|modified: tools/**
 
 # Run tests against the health and configuration of the repo if any plugin definition
 # or testing framework change is made.

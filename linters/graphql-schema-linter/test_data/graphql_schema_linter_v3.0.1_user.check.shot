@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter graphql-schema-linter test user 1`] = `
+{
+  "issues": [
+    {
+      "code": "invalid-graphql-schema",
+      "column": "13",
+      "file": "test_data/user.in.graphqls",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "graphql-schema-linter",
+      "message": "Cannot extend type "Query" because it is not defined. Did you mean "User"?",
+      "targetType": "graphql-schema",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "graphql-schema",
+      "linter": "graphql-schema-linter",
+      "paths": [
+        "test_data/user.in.graphqls",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

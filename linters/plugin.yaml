@@ -21,6 +21,10 @@ lint:
     - name: percent-inline
       leading_delimiter: \%
 
+    - name: pod-comment
+      leading_delimiter: =begin comment
+      trailing_delimiter: =end comment
+
     - name: slashes-block
       leading_delimiter: /*
       trailing_delimiter: "*/"
@@ -335,6 +339,18 @@ lint:
     - name: objective-c-source
       extensions:
         - m
+
+    - name: perl
+      extensions:
+        - pl
+        - PL
+        - pm
+        - pod
+        - psgi
+        - t
+      comments:
+        - hash
+        - pod-comment
 
     - name: php
       extensions:

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter perlcritic test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "TestingAndDebugging::RequireUseStrict",
+      "column": "3",
+      "file": "test_data/basic.in.pl",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "perlcritic",
+      "message": "Code before strictures are enabled",
+      "targetType": "perl",
+    },
+    {
+      "code": "TestingAndDebugging::RequireUseWarnings",
+      "column": "3",
+      "file": "test_data/basic.in.pl",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "perlcritic",
+      "message": "Code before warnings are enabled",
+      "targetType": "perl",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "perl",
+      "linter": "perlcritic",
+      "paths": [
+        "test_data/basic.in.pl",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

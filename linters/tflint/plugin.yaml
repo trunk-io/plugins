@@ -23,6 +23,16 @@ lint:
         - name: lint
           output: sarif
           prepare_run: tflint --init
+          run: tflint --format=sarif --chdir=${target} --force
+          success_codes: [0, 1, 2]
+          read_output_from: stdout
+          target: ${parent}
+          run_linter_from: root_directory
+          run_from_root_target: .tflint.hcl
+          version: ">=0.47.0"
+        - name: lint
+          output: sarif
+          prepare_run: tflint --init
           run: tflint --format=sarif ${target} --force
           success_codes: [0, 1]
           read_output_from: stdout

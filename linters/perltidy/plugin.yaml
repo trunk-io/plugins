@@ -1,0 +1,18 @@
+version: 0.1
+lint:
+  definitions:
+    - name: perltidy
+      commands:
+        - output: rewrite
+          success_codes:
+            - 0
+            - 1
+          formatter: true
+          read_output_from: stdout
+          name: format
+          run: perltidy -se ${target}
+      files:
+        - perl
+      direct_configs:
+        - .perltidyrc
+      suggest_if: config_present

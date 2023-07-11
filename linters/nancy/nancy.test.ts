@@ -1,8 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
-import { customLinterCheckTest } from "tests";
+import { fuzzyLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
+import { FileIssue } from "tests/types";
 import { TEST_DATA } from "tests/utils";
+import { createFuzzyMatcher } from "tests/utils/landing_state";
 
 const preCheck = (driver: TrunkLintDriver) => {
   // trunk-ignore-begin(semgrep): driver.getSandbox() is generated during testing and is safe
@@ -12,4 +14,14 @@ const preCheck = (driver: TrunkLintDriver) => {
   // trunk-ignore-end(semgrep)
 };
 
-customLinterCheckTest({ linterName: "nancy", args: "-a", preCheck });
+// trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+const expectedFileIssues = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString()
+);
+
+fuzzyLinterCheckTest({
+  linterName: "nancy",
+  args: "-a -y",
+  preCheck,
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 24),
+});

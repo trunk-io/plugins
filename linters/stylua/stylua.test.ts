@@ -1,3 +1,5 @@
 import { linterFmtTest } from "tests";
 
-linterFmtTest({ linterName: "stylua" });
+linterFmtTest({
+  linterName: "stylua",
+});
