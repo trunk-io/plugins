@@ -88,11 +88,8 @@ jobs:
     needs: detect_changes
     permissions:
       contents: read
-      # issues: write
-      # discussions: write
-      statuses: write
-      checks: write
-      # id-token: write
+      # statuses: write
+      # checks: write
       pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
