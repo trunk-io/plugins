@@ -88,20 +88,12 @@ jobs:
     needs: detect_changes
     permissions:
       contents: read
-      issues: write
-      discussions: write
+      # issues: write
+      # discussions: write
       statuses: write
       checks: write
-
-      # actions: write
-      # deployments: write
-      id-token: write
-      # packages: write
-      # pages: write
-
+      # id-token: write
       pull-requests: write
-      # repository-projects: write
-      # security-events: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
