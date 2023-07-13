@@ -1,7 +1,8 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-permissions: read-all
+# permissions: read-all
+permissions: write-all
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
