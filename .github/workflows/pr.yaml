@@ -86,6 +86,8 @@ jobs:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
     needs: detect_changes
+    permissions:
+      pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
@@ -118,6 +120,7 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -130,6 +133,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
           append-args: ${{needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
