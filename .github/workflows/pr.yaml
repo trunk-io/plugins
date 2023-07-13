@@ -1,7 +1,14 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-permissions: read-all|write-issues
+permissions:
+  actions: read
+  checks: read
+  id-token: read
+  pull-requests: read
+  statuses: read
+  # need to write issues for ci-debugger to post comments
+  issues: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
