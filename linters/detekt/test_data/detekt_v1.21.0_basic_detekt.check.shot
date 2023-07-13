@@ -11,6 +11,13 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "line": "16",
       "linter": "detekt",
       "message": "This expression contains a magic number. Consider defining it to a well named constant.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_detekt.in.kt",
+          "length": "1",
+          "offset": "229",
+        },
+      ],
       "targetType": "kotlin",
     },
     {
@@ -21,6 +28,13 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "line": "23",
       "linter": "detekt",
       "message": "This expression contains a magic number. Consider defining it to a well named constant.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_detekt.in.kt",
+          "length": "2",
+          "offset": "282",
+        },
+      ],
       "targetType": "kotlin",
     },
     {
@@ -31,6 +45,13 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "line": "3",
       "linter": "detekt",
       "message": "The package declaration does not match the actual file location.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_detekt.in.kt",
+          "length": "13",
+          "offset": "46",
+        },
+      ],
       "targetType": "kotlin",
     },
     {
@@ -41,6 +62,13 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "line": "5",
       "linter": "detekt",
       "message": "constantInt is returning a constant. Prefer declaring a constant instead.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_detekt.in.kt",
+          "length": "11",
+          "offset": "65",
+        },
+      ],
       "targetType": "kotlin",
     },
     {
@@ -51,6 +79,13 @@ exports[`Testing linter detekt test basic_detekt 1`] = `
       "line": "9",
       "linter": "detekt",
       "message": "A class should always override hashCode when overriding equals and the other way around.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_detekt.in.kt",
+          "length": "14",
+          "offset": "114",
+        },
+      ],
       "targetType": "kotlin",
     },
   ],

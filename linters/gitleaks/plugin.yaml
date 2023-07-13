@@ -5,29 +5,10 @@ lint:
       files: [ALL]
       commands:
         - name: lint
-          version: ">=8.0.0"
           run: gitleaks detect --no-git --source=${target} --exit-code=101 -f sarif -r "${tmpfile}"
           output: sarif
           read_output_from: tmp_file
           success_codes: [0, 101]
-          sandbox_type: copy_targets
-          cache_results: true
-          allow_empty_files: false
-        - name: lint
-          version: ">=7.1.0"
-          run: gitleaks --no-git --path=${target} --leaks-exit-code=101 -f sarif -o "${tmpfile}"
-          output: sarif
-          read_output_from: tmp_file
-          success_codes: [0, 101]
-          sandbox_type: copy_targets
-          cache_results: true
-          allow_empty_files: false
-        - name: lint
-          version: ">=7.0.0"
-          run: gitleaks --no-git --path=${target} -f sarif -o "${tmpfile}"
-          output: sarif
-          read_output_from: tmp_file
-          success_codes: [0]
           sandbox_type: copy_targets
           cache_results: true
           allow_empty_files: false
