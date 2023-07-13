@@ -37,6 +37,7 @@ def main(argv):
         for vuln in result["Misconfigurations"]:
             vuln_id = vuln["ID"]
             description = vuln["Description"]
+            # lines = trivy_json.get("CauseMetadata", {}).get("Code", {}).get("Lines", []) # TODO: REMOVE
             lines = trivy_json.get("CauseMetadata", {}).get("Code", {}).get("Lines", [])
             if len(lines):
                 line_num = lines[0].get("Number", 0)

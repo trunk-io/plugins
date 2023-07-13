@@ -67,7 +67,7 @@ runs:
         shell: bash
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
-        run: npm test --ci ${{ inputs.append-args }}
+        run: npm test --ci ${{ inputs.append-args }} -- --bar
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
