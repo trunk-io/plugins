@@ -87,7 +87,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs: detect_changes
     permissions:
-      # contents: read
       pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
