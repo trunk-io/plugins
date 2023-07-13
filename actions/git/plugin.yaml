@@ -7,4 +7,12 @@ actions:
       run: git lfs "${hook}" ${@}
       triggers:
         - git_hooks: [post-checkout, post-commit, post-merge, pre-push]
+      environment:
+        - name: SSH_AUTH_SOCK
+          value: ${env.SSH_AUTH_SOCK}
+          optional: true
+        - name: SSH_AGENT_PID
+          value: ${env.SSH_AGENT_PID}
+          optional: true
+
       notify_on_error: false
