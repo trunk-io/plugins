@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Determine upstream
         run: |
@@ -86,6 +86,8 @@ jobs:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
     needs: detect_changes
+    permissions:
+      pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
@@ -97,7 +99,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
@@ -118,6 +120,7 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -130,6 +133,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
           append-args: ${{needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
