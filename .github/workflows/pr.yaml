@@ -89,6 +89,9 @@ jobs:
     permissions:
       contents: read
       issues: write
+      discussions: write
+      statuses: write
+      checks: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
