@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: brakeman
+      runtime: ruby
+      package: brakeman
+      shims: [brakeman]
 lint:
   definitions:
     - name: brakeman

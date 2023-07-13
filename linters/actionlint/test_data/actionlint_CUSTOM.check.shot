@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter actionlint test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "config-error",
+      "column": "5",
+      "file": ".trunk/trunk.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "trunk",
+      "message": "/home/lauri/work/plugins/linters/actionlint/plugin.yaml:24:15: [trunk] Key 'shims' should have maps as sequence elements",
+    },
+  ],
+  "lintActions": [],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

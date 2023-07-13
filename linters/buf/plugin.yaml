@@ -1,35 +1,41 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: buf
+    version: 1.0.0-rc11
+    executable: true
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        version: <0.42.0
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
+      - os:
+          linux: Linux
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os:
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
+tools:
+  definitions:
     - name: buf
-      version: 1.0.0-rc11
-      executable: true
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          version: <0.42.0
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
-        - os:
-            linux: Linux
-          cpu:
-            x86_64: x86_64
-            arm_64: aarch64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
-        - os:
-            macos: Darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
-        - os: windows
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
+      download: buf
+      shims: [buf]
+      known_good_version: 1.0.0-rc11
+lint:
   definitions:
     - name: buf-format
       files: [proto]
-      download: buf
+      tools: [buf]
       suggest_if: never
       commands:
         - name: format
@@ -58,7 +64,7 @@ lint:
 
     - name: buf-lint
       files: [proto]
-      download: buf
+      tools: [buf]
       commands:
         - name: lint
           output: buf
@@ -86,7 +92,7 @@ lint:
 
     - name: buf-breaking
       files: [proto]
-      download: buf
+      tools: [buf]
       suggest_if: never
       commands:
         - name: lint

@@ -44,6 +44,7 @@ runtimes:
           list:
             - "${runtime}/bin"
             - "${runtime}" # Windows places binaries here instead of bin/
+            - "${env.PATH}"
         - name: http_proxy
           value: ${env.http_proxy}
           optional: true
