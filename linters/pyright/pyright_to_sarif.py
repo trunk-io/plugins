@@ -19,7 +19,7 @@ for result in json.load(sys.stdin)["generalDiagnostics"]:
                         + 1,  # pyright is 0-indexed, SARIF is 1-indexed
                         "startColumn": result["range"]["start"]["character"] + 1,
                         "endLine": result["range"]["end"]["line"] + 1,
-                        "endColumn": result["range"]["end"]["line"] + 1,
+                        "endColumn": result["range"]["end"]["character"] + 1,
                     },
                 }
             }
