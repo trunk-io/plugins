@@ -12,6 +12,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "3",
       "linter": "checkov",
       "message": "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "184",
+          "offset": "8",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -23,6 +30,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure AWS IAM policy does not allow full IAM privileges",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -34,6 +48,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies that allow full "*-*" administrative privileges are not created",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -45,6 +66,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow credentials exposure",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -56,6 +84,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow data exfiltration",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -67,6 +102,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -78,6 +120,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow privilege escalation",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -89,6 +138,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow write access without constraints",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -100,6 +156,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -111,6 +174,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "43",
       "linter": "checkov",
       "message": "Ensure no IAM policies documents allow "*" as a statement's actions",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "172",
+          "offset": "700",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -122,6 +192,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies that allow full "*-*" administrative privileges are not created",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -133,6 +210,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow credentials exposure",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -144,6 +228,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow data exfiltration",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -155,6 +246,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -166,6 +264,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow privilege escalation",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -177,6 +282,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure IAM policies does not allow write access without constraints",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -188,6 +300,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -199,6 +318,13 @@ exports[`Testing linter checkov test basic 1`] = `
       "line": "57",
       "linter": "checkov",
       "message": "Ensure no IAM policies documents allow "*" as a statement's actions",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.tf",
+          "length": "156",
+          "offset": "875",
+        },
+      ],
       "targetType": "terraform",
     },
   ],

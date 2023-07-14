@@ -6,21 +6,21 @@ exports[`Testing linter graphql-schema-linter test comment 1`] = `
     {
       "code": "invalid-graphql-schema",
       "column": "11",
-      "file": "test_data/comment.in.graphql",
+      "file": "test_data/comment.in.graphqls",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "graphql-schema-linter",
       "message": "Unknown type "User".",
-      "targetType": "graphql",
+      "targetType": "graphql-schema",
     },
   ],
   "lintActions": [
     {
       "command": "lint",
-      "fileGroupName": "graphql",
+      "fileGroupName": "graphql-schema",
       "linter": "graphql-schema-linter",
       "paths": [
-        "test_data/comment.in.graphql",
+        "test_data/comment.in.graphqls",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

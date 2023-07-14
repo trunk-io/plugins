@@ -11,6 +11,13 @@ exports[`Testing linter ruff test basic 1`] = `
       "line": "7",
       "linter": "ruff",
       "message": "Module level import not at top of file",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "10",
+          "offset": "83",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -33,6 +40,13 @@ exports[`Testing linter ruff test basic 1`] = `
       "line": "7",
       "linter": "ruff",
       "message": "\`sys\` imported but unused",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "90",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -43,6 +57,13 @@ exports[`Testing linter ruff test basic 1`] = `
       "line": "9",
       "linter": "ruff",
       "message": "Module level import not at top of file",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "11",
+          "offset": "120",
+        },
+      ],
       "targetType": "python",
     },
   ],
