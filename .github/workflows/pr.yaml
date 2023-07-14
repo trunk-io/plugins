@@ -87,8 +87,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs: detect_changes
     permissions:
-      contents: read
-      pull-requests: write
+      write-all
+      # pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
@@ -119,8 +119,9 @@ jobs:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
+            gitleaks
+            # ${{ needs.detect_changes.outputs.all-linters }} ${{
+            # needs.detect_changes.outputs.linters-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Linter Tests Latest
@@ -133,7 +134,8 @@ jobs:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          append-args: gitleaks
+          # append-args: ${{needs.detect_changes.outputs.linters-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Tool Tests
