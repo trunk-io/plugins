@@ -73,5 +73,3 @@ runs:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
-        # unset the cli version when running with debugger
-        TRUNK_CLI_VERSION: ""
