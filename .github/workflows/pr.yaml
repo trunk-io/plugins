@@ -1,7 +1,7 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-permissions: read-all
+permissions: write-all
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -86,9 +86,9 @@ jobs:
     name: Plugin Tests
     runs-on: ${{ matrix.os }}
     needs: detect_changes
-    permissions:
-      write-all
-      # pull-requests: write
+    # permissions:
+    #   write-all
+    #   # pull-requests: write
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
