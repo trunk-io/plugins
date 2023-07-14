@@ -12,6 +12,12 @@ exports[`Testing linter tfsec test aws 1`] = `
       "line": "1",
       "linter": "tfsec",
       "message": "Root block device is not encrypted.",
+      "ranges": [
+        {
+          "filePath": "test_data/aws.in.tf",
+          "length": "63",
+        },
+      ],
       "targetType": "terraform",
     },
     {
@@ -23,6 +29,12 @@ exports[`Testing linter tfsec test aws 1`] = `
       "line": "1",
       "linter": "tfsec",
       "message": "Instance does not require IMDS access to require a token",
+      "ranges": [
+        {
+          "filePath": "test_data/aws.in.tf",
+          "length": "63",
+        },
+      ],
       "targetType": "terraform",
     },
   ],

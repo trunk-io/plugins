@@ -12,6 +12,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "1",
       "linter": "pyright",
       "message": ""Enum" is unknown import symbol",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "4",
+          "offset": "56",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -22,6 +29,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "15",
       "linter": "pyright",
       "message": "Type of "a.x" is "int | str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "384",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -37,6 +51,13 @@ exports[`Testing linter pyright test basic 1`] = `
     Type "float" cannot be assigned to type "int | str"
       "float" is incompatible with "int"
       "float" is incompatible with "str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "462",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -48,6 +69,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "24",
       "linter": "pyright",
       "message": ""ClassVar" is not defined",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "8",
+          "offset": "602",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -60,6 +88,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "linter": "pyright",
       "message": "Cannot access member "z" for type "Type[A]"
   Member "z" is unknown",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "742",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -72,6 +107,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "linter": "pyright",
       "message": "Function with declared type of "bool" must return value on all code paths
   Type "None" cannot be assigned to type "bool"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "4",
+          "offset": "864",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -84,6 +126,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "linter": "pyright",
       "message": "Expression of type "int" cannot be assigned to return type "str"
   "int" is incompatible with "str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "105",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -94,6 +143,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "51",
       "linter": "pyright",
       "message": "Type of "val" is "int"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "1128",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -104,6 +160,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "54",
       "linter": "pyright",
       "message": "Type of "val" is "int"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "1244",
+        },
+      ],
       "targetType": "python",
     },
     {
@@ -115,6 +178,13 @@ exports[`Testing linter pyright test basic 1`] = `
       "line": "7",
       "linter": "pyright",
       "message": "Class declaration "A" is obscured by a declaration of the same name",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "183",
+        },
+      ],
       "targetType": "python",
     },
   ],

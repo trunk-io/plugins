@@ -34,7 +34,7 @@ lint:
       tools: [rome]
       suggest_if: config_present
       direct_configs:
-        - .rome.json
+        - rome.json
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
