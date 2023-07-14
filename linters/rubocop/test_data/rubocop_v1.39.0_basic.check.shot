@@ -15,7 +15,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "20",
+          "length": "19",
         },
       ],
       "targetType": "ruby",
@@ -29,12 +29,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "line": "1",
       "linter": "rubocop",
       "message": "Missing frozen string literal comment.",
-      "ranges": [
-        {
-          "filePath": "test_data/basic.rb",
-          "length": "1",
-        },
-      ],
       "targetType": "ruby",
     },
     {
@@ -49,7 +43,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "7",
+          "length": "6",
           "offset": "5",
         },
       ],
@@ -71,7 +65,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "44",
+          "length": "43",
           "offset": "59",
         },
       ],
@@ -89,7 +83,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "5",
+          "length": "4",
           "offset": "69",
         },
       ],
@@ -107,7 +101,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "5",
+          "length": "4",
           "offset": "87",
         },
       ],
@@ -212,13 +206,6 @@ exports[`Testing linter rubocop test basic 1`] = `
       "line": "9",
       "linter": "rubocop",
       "message": "Use 2 (not 1) spaces for indentation.",
-      "ranges": [
-        {
-          "filePath": "test_data/basic.rb",
-          "length": "1",
-          "offset": "37",
-        },
-      ],
       "targetType": "ruby",
     },
     {
@@ -233,7 +220,7 @@ exports[`Testing linter rubocop test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.rb",
-          "length": "15",
+          "length": "14",
           "offset": "38",
         },
       ],

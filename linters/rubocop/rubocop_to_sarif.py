@@ -5,7 +5,7 @@ import sys
 
 
 def map_severity(severity):
-    if severity in ["convetion", "refactor", "info"]:
+    if severity in ["convention", "refactor", "info"]:
         return "note"
     if severity in ["warning"]:
         return "warning"
