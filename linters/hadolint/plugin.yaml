@@ -20,6 +20,12 @@ downloads:
       - os: windows
         cpu: x86_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Windows-x86_64.exe
+tools:
+  definitions:
+    - name: hadolint
+      download: hadolint
+      shims: [hadolint]
+      known_good_version: 2.8.0
 lint:
   definitions:
     - name: hadolint
