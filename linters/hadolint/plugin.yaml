@@ -8,6 +8,9 @@ lint:
         - os: linux
           cpu: x86_64
           url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-x86_64
+        - os: linux
+          cpu: arm_64
+          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-arm64
         - os: macos
           cpu: x86_64
           url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
