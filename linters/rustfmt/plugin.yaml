@@ -1,17 +1,9 @@
 version: 0.1
-tools:
-  definitions:
-    - name: rustfmt
-      runtime: rust
-      package: rustfmt
-      environment:
-        - name: PATH
-          list: ["${tool}/bin"]
-      shims: [rustfmt]
 lint:
   definitions:
     - name: rustfmt
-      tools: [rustfmt]
+      files: [rust]
+      download: rust
       commands:
         - name: format
           output: rewrite
