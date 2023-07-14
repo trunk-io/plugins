@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter golines test empty 1`] = `
+{
+  "issues": [
+    {
+      "code": "config-error",
+      "column": "5",
+      "file": ".trunk/trunk.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "trunk",
+      "message": "/home/lauri/work/plugins/linters/golines/plugin.yaml:12:7: [trunk] 'toosl' is not a recognized key",
+    },
+  ],
+  "lintActions": [],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

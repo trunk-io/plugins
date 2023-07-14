@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: golangci-lint
+      runtime: go
+      package: github.com/golangci/golangci-lint/cmd/golangci-lint
+      shims: [golangci-lint]
 lint:
   definitions:
     - name: golangci-lint
@@ -11,7 +17,7 @@ lint:
         - name: GO111MODULE
           value: auto
       runtime: go
-      package: github.com/golangci/golangci-lint/cmd/golangci-lint
+      tools: [golangci-lint]
       run_from_root_file: go.mod
       commands:
         - name: lint
