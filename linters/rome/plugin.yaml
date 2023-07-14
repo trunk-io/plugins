@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: rome
+      runtime: node
+      package: rome
+      shims: [rome]
 lint:
   definitions:
     - name: rome
@@ -25,8 +31,7 @@ lint:
           cache_results: true
           formatter: true
           in_place: true
-      runtime: node
-      package: rome
+      tools: [rome]
       suggest_if: config_present
       direct_configs:
         - .rome.json

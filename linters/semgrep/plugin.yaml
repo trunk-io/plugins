@@ -1,10 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: semgrep
+      runtime: python
+      package: semgrep
+      shims: [semgrep]
 lint:
   definitions:
     - name: semgrep
       files: [ALL]
-      runtime: python
-      package: semgrep
+      tools: [semgrep]
       commands:
         - name: check
           output: sarif

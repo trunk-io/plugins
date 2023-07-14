@@ -1,15 +1,20 @@
 version: 0.1
-lint:
+tools:
   definitions:
     - name: remark-lint
-      files: [markdown]
+      runtime: node
       package: remark-cli
       extra_packages:
         - remark-preset-lint-consistent
         - remark-preset-lint-recommended
         - remark-lint-list-item-indent
         - vfile-reporter-json
-      runtime: node
+      shims: [remark]
+lint:
+  definitions:
+    - name: remark-lint
+      files: [markdown]
+      tools: [remark-lint]
       known_good_version: 11.0.0
       suggest_if: config_present
       direct_configs:

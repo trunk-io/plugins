@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: pylint
+      runtime: python
+      package: pylint
+      shims: [pylint]
 lint:
   definitions:
     - name: pylint
@@ -12,8 +18,7 @@ lint:
           read_output_from: tmp_file
           batch: true
           cache_results: true
-      runtime: python
-      package: pylint
+      tools: [pylint]
       suggest_if: config_present
       direct_configs:
         - pylintrc

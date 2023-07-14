@@ -1,20 +1,26 @@
 version: 0.1
-lint:
-  downloads:
-    - name: terrascan
-      version: 1.18.1
-      downloads:
-        - os:
-            linux: Linux
-            macos: Darwin
-            windows: Windows
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/tenable/terrascan/releases/download/v${version}/terrascan_${version}_${os}_${cpu}.tar.gz
+downloads:
+  - name: terrascan
+    version: 1.18.1
+    downloads:
+      - os:
+          linux: Linux
+          macos: Darwin
+          windows: Windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/tenable/terrascan/releases/download/v${version}/terrascan_${version}_${os}_${cpu}.tar.gz
+tools:
   definitions:
     - name: terrascan
       download: terrascan
+      shims: [terrascan]
+      known_good_version: 1.18.1
+lint:
+  definitions:
+    - name: terrascan
+      tools: [terrascan]
       known_good_version: 1.18.1
       suggest_if: files_present
       commands:
