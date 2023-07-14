@@ -20,8 +20,8 @@ const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it 
 Please call this method after setup has been called.`;
 
 const executionEnv = (sandbox: string) => {
-  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
-  const { PWD, INIT_CWD, ...strippedEnv } = process.env;
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): TRUNK_CLI_VERSION must be stripped from CI-Debugger
+  const { PWD, INIT_CWD, TRUNK_CLI_VERSION, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
     // This keeps test downloads separate from manual trunk invocations
