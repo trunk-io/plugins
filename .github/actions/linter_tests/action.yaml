@@ -63,8 +63,7 @@ runs:
     - name: Run plugin tests
       run: npm test --ci ${{ inputs.append-args }}
       shell: bash
-      with:
-        working-directory: ${{ inputs.path }}
+      working-directory: ${{ inputs.path }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
