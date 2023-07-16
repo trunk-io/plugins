@@ -23,9 +23,9 @@ inputs:
   sourcery-token:
     description: Token to login for sourcery test
     required: true
-  trunk-token:
-    description: CI debugger api token
-    required: true
+  # trunk-token:
+  #   description: CI debugger api token
+  #   required: true
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -61,15 +61,26 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      uses: trunk-io/breakpoint@v1
+      run: npm test --ci ${{ inputs.append-args }}
+      shell: bash
       with:
-        breakpoint-id: trunk-plugins-linter-tests
-        shell: bash
         working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token  }}
-        run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+
+    # - name: Run plugin tests
+    #   uses: trunk-io/breakpoint@v1
+    #   with:
+    #     breakpoint-id: trunk-plugins-linter-tests
+    #     shell: bash
+    #     working-directory: ${{ inputs.path }}
+    #     trunk-token: ${{ inputs.trunk-token  }}
+    #     run: npm test --ci ${{ inputs.append-args }}
+    #   env:
+    #     PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
+    #     PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+    #     PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
+    #     SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
