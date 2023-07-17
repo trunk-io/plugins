@@ -12,6 +12,13 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
       "line": "8",
       "linter": "semgrep",
       "message": "Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.go",
+          "length": "9",
+          "offset": "89",
+        },
+      ],
       "targetType": "ALL",
     },
     {
@@ -23,6 +30,13 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
       "line": "3",
       "linter": "semgrep",
       "message": "Found request data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "ranges": [
+        {
+          "filePath": "test_data/request.py",
+          "length": "123",
+          "offset": "37",
+        },
+      ],
       "targetType": "ALL",
     },
     {
@@ -34,6 +48,13 @@ exports[`Testing linter semgrep test CUSTOM 1`] = `
       "line": "4",
       "linter": "semgrep",
       "message": "Found non static data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "ranges": [
+        {
+          "filePath": "test_data/request.py",
+          "length": "20",
+          "offset": "89",
+        },
+      ],
       "targetType": "ALL",
     },
   ],

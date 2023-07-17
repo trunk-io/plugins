@@ -12,6 +12,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Minimize the admission of pods which lack an associated NetworkPolicy",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -23,6 +30,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "CPU requests should be set",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -34,6 +48,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "CPU limits should be set",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -45,6 +66,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Memory requests should be set",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -56,6 +84,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Memory limits should be set",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -67,6 +102,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Image Tag should be fixed - not latest or blank",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -78,6 +120,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Containers should not run with allowPrivilegeEscalation",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -89,6 +138,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "The default namespace should not be used",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -100,6 +156,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Use read-only filesystem for containers where possible",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -111,6 +174,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Minimize the admission of root containers",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -122,6 +192,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Minimize the admission of containers with the NET_RAW capability",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -133,6 +210,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Apply security context to your pods and containers",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -144,6 +228,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Apply security context to your containers",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -155,6 +246,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -166,6 +264,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Minimize the admission of containers with capabilities assigned",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -177,6 +282,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Ensure that Service Account Tokens are only mounted where necessary",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -188,6 +300,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Containers should run as a high UID to avoid host conflict",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -199,6 +318,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Image should use digest",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -210,6 +336,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Liveness Probe Should be Configured",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
     {
@@ -221,6 +354,13 @@ exports[`Testing linter checkov test basic_kubernetes 1`] = `
       "line": "2",
       "linter": "checkov",
       "message": "Readiness Probe Should be Configured",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_kubernetes.in.yaml",
+          "length": "105",
+          "offset": "56",
+        },
+      ],
       "targetType": "yaml",
     },
   ],

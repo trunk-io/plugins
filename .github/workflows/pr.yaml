@@ -132,7 +132,7 @@ jobs:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           # TODO(Tyler): We need downloads to work with known_bad_versions
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          append-args: ${{ needs.detect_changes.outputs.linters-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN  }}
 
       - name: Tool Tests

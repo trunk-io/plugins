@@ -12,6 +12,13 @@ exports[`Testing linter gitleaks test basic 1`] = `
       "line": "1",
       "linter": "gitleaks",
       "message": "aws-access-token has detected secret for file test_data/basic.py.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.py",
+          "length": "19",
+          "offset": "21",
+        },
+      ],
       "targetType": "ALL",
     },
     {
@@ -23,6 +30,13 @@ exports[`Testing linter gitleaks test basic 1`] = `
       "line": "4",
       "linter": "gitleaks",
       "message": "aws-access-token has detected secret for file test_data/basic.py.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.py",
+          "length": "19",
+          "offset": "67",
+        },
+      ],
       "targetType": "ALL",
     },
   ],
