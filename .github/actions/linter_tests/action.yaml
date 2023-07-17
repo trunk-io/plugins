@@ -19,7 +19,7 @@ inputs:
   append-args:
     description: Additional args to append to the test invocation
     required: false
-    default: linters/a linters/b
+    default: linters
   sourcery-token:
     description: Token to login for sourcery test
     required: true

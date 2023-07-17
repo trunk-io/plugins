@@ -135,8 +135,6 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
-      } else {
-        this.debug(newTrunkContents);
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`, error);
