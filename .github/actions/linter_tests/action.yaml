@@ -19,7 +19,7 @@ inputs:
   append-args:
     description: Additional args to append to the test invocation
     required: false
-    default: linters
+    default: linters/a linters/b
   sourcery-token:
     description: Token to login for sourcery test
     required: true
@@ -69,6 +69,7 @@ runs:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+        DEBUG: Driver:*,Tests:*
 
     # - name: Run plugin tests
     #   uses: trunk-io/breakpoint@v1
