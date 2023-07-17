@@ -30,7 +30,7 @@ linters:
 tools:
   - added|modified: tools/**
 
-    # Run tests against the health and configuration of the repo if any plugin definition
+# Run tests against the health and configuration of the repo if any plugin definition
 # or testing framework change is made.
 # e.g. `npm test tests/repo_tests`
 repo-tests:
