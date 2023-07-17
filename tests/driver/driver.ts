@@ -256,9 +256,12 @@ export class GenericTrunkDriver {
    * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
    */
   getFullTrunkConfig = (): any => {
+    console.log("Running trunk config print");
+    console.log("Here is cli path: ", ARGS.cliPath);
     const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
       cwd: this.sandboxPath,
     });
+    console.log("Here is print config: ", printConfig.toString());
     return YAML.parse(printConfig.toString());
   };
 
