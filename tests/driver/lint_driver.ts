@@ -110,6 +110,12 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       return;
     }
 
+    const trunkVersion = await this.runTrunk(["--version"]);
+    console.log("Trunk version:", trunkVersion.stdout);
+
+    const config = await this.runTrunk(["config", "print"]);
+    console.log("Trunk config:", config.stdout);
+
     try {
       // Cast version to string in case of decimal representation (e.g. 0.40)
       const version = `${this.extractLinterVersion()}`;

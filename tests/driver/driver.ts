@@ -261,7 +261,6 @@ export class GenericTrunkDriver {
     const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
       cwd: this.sandboxPath,
     });
-    console.log("Here is print config: ", printConfig.toString());
     return YAML.parse(printConfig.toString());
   };
 
