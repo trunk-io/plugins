@@ -3,7 +3,7 @@ import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS } from "tests/utils";
+import { ARGS, LINE_BREAK } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
@@ -130,7 +130,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
         "utf8",
       );
-      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n`;
+      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)${LINE_BREAK}`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
