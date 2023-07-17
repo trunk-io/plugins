@@ -67,3 +67,5 @@ actions:
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
+  disabled:
+    - trunk-announce
