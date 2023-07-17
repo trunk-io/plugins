@@ -6,7 +6,6 @@ import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments }
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
-export const LINE_BREAK = process.platform == "win32" ? "\r\n" : "\n";
 
 // As this file and folder increase in complexity, extract out functionality into other categories.
 // Avoid overpolluting a `utils` folder.

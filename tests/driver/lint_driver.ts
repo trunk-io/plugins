@@ -3,7 +3,7 @@ import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS, LINE_BREAK } from "tests/utils";
+import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
@@ -130,11 +130,13 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
         "utf8",
       );
-      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)${LINE_BREAK}`;
+      const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
+      } else {
+        this.debug(newTrunkContents);
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`, error);
