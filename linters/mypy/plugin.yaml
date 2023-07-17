@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: mypy
+      supported_platforms: [linux, macos]
       files: [python, python-interface]
       commands:
         - name: lint

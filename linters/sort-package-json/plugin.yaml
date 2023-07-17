@@ -6,6 +6,7 @@ lint:
 
   definitions:
     - name: sort-package-json
+      supported_platforms: [linux, macos]
       files: [package-json]
       commands:
         - name: format

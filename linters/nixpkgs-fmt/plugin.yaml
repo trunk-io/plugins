@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: nixpkgs-fmt
+      supported_platforms: [linux, macos]
       package: nixpkgs-fmt
       runtime: rust
       files: [nix]

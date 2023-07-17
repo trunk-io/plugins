@@ -14,6 +14,7 @@ lint:
         # TODO(chris): Windows download
   definitions:
     - name: include-what-you-use
+      supported_platforms: [linux, macos]
       files: [c/c++-source]
       download: include-what-you-use
       commands:

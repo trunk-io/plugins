@@ -25,7 +25,7 @@ for result in json.load(sys.stdin)["generalDiagnostics"]:
             }
         ],
         "message": {
-            "text": result["message"],
+            "text": result["message"].replace("Â", ""),
         },
     }
     if "rule" in result:
