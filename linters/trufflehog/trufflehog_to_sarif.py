@@ -44,7 +44,7 @@ def main(argv):
         # and the detector that found it.
         #
         # This default is here because Github secrets (and possibly others) redact to an empty string.
-        description = vuln_json["Redacted"] or "[secret redacted]"
+        description = vuln_json["Redacted"] or "Secret detected"
         results.append(to_result_sarif(path, line_number, vuln_id, description))
 
     sarif = {
