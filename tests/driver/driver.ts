@@ -260,10 +260,12 @@ export class GenericTrunkDriver {
     console.log("Here is cli path: ", ARGS.cliPath);
     const version = execSync(`${ARGS.cliPath ?? "trunk"} --version`, {
       cwd: this.sandboxPath,
+      env: executionEnv(this.sandboxPath ?? ""),
     });
     console.log("Here is version: ", version.toString());
     const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
       cwd: this.sandboxPath,
+      env: executionEnv(this.sandboxPath ?? ""),
     });
     return YAML.parse(printConfig.toString());
   };
