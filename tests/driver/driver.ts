@@ -261,7 +261,7 @@ export class GenericTrunkDriver {
     const version = execSync(`${ARGS.cliPath ?? "trunk"} --version`, {
       cwd: this.sandboxPath,
     });
-    console.log("Here is version: ", version);
+    console.log("Here is version: ", version.toString());
     const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
       cwd: this.sandboxPath,
     });
