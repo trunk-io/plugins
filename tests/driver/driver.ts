@@ -258,6 +258,10 @@ export class GenericTrunkDriver {
   getFullTrunkConfig = (): any => {
     console.log("Running trunk config print");
     console.log("Here is cli path: ", ARGS.cliPath);
+    const version = execSync(`${ARGS.cliPath ?? "trunk"} --version`, {
+      cwd: this.sandboxPath,
+    });
+    console.log("Here is version: ", version);
     const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
       cwd: this.sandboxPath,
     });
