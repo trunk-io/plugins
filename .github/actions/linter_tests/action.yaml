@@ -60,6 +60,12 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
 
+    - name: trunk version
+      run: trunk version
+
+    - name: trunk config print
+      run: trunk config print
+
     - name: Run plugin tests
       uses: trunk-io/breakpoint@v1
       with:
