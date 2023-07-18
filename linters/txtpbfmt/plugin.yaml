@@ -1,10 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: txtpbfmt
+      runtime: go
+      package: github.com/protocolbuffers/txtpbfmt/cmd/txtpbfmt
+      shims: [txtpbfmt]
 lint:
   definitions:
     - name: txtpbfmt
       files: [textproto]
-      runtime: go
-      package: github.com/protocolbuffers/txtpbfmt/cmd/txtpbfmt
+      tools: [txtpbfmt]
       commands:
         - name: format
           output: rewrite

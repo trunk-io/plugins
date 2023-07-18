@@ -1,17 +1,22 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: swiftformat
+    downloads:
+      # Universal binary, both x86_64 and arm64
+      - os: macos
+        url: https://github.com/nicklockwood/SwiftFormat/releases/download/${version}/swiftformat.zip
+      # There exists a Linux download, but it is not self-contained. It expects some libFoundation.so to exist on the system.
+tools:
+  definitions:
     - name: swiftformat
-      downloads:
-        # Universal binary, both x86_64 and arm64
-        - os: macos
-          url: https://github.com/nicklockwood/SwiftFormat/releases/download/${version}/swiftformat.zip
-        # There exists a Linux download, but it is not self-contained. It expects some libFoundation.so to exist on the system.
-
+      download: swiftformat
+      shims: [swiftformat]
+      known_good_version: 0.50.0
+lint:
   definitions:
     - name: swiftformat
       files: [swift]
-      download: swiftformat
+      tools: [swiftformat]
       commands:
         - name: format
           output: rewrite

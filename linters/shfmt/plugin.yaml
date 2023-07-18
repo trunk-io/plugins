@@ -1,4 +1,12 @@
 version: 0.1
+tools:
+  definitions:
+    - name: shfmt
+      runtime: go
+      package: mvdan.cc/sh/v${major_version}/cmd/shfmt
+      shims: [shfmt]
+      # shfmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
+      known_good_version: 3.6.0
 lint:
   definitions:
     - name: shfmt
@@ -12,8 +20,7 @@ lint:
           formatter: true
           batch: true
           in_place: true
-      runtime: go
-      package: mvdan.cc/sh/v${major_version}/cmd/shfmt
+      tools: [shfmt]
       suggest_if: files_present
       affects_cache: [.editorconfig]
       # shfmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
