@@ -9,6 +9,7 @@ lint:
         - url: https://github.com/pinterest/ktlint/releases/download/${version}/ktlint
   definitions:
     - name: ktlint
+      supported_platforms: [linux, macos]
       files: [kotlin]
       download: ktlint
       runtime: java

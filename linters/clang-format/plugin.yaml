@@ -27,6 +27,7 @@ tools:
 lint:
   definitions:
     - name: clang-format
+      supported_platforms: [linux, macos]
       files: [c/c++, proto]
       commands:
         - name: format

@@ -8,6 +8,7 @@ tools:
 lint:
   definitions:
     - name: checkov
+      supported_platforms: [linux, macos]
       files: [terraform, cloudformation, docker, yaml, json]
       tools: [checkov]
       commands:

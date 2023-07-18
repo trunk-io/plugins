@@ -8,6 +8,7 @@ tools:
 lint:
   definitions:
     - name: mypy
+      supported_platforms: [linux, macos]
       files: [python, python-interface]
       commands:
         - name: lint

@@ -8,6 +8,7 @@ tools:
 lint:
   definitions:
     - name: semgrep
+      supported_platforms: [linux, macos]
       files: [ALL]
       tools: [semgrep]
       commands:

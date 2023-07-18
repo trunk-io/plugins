@@ -2,7 +2,7 @@ version: 0.1
 tools:
   definitions:
     - name: pyright
-      runtime: python
+      runtime: node
       package: pyright
       shims: [pyright]
 lint:
