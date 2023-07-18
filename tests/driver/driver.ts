@@ -96,7 +96,7 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
-    // this.copyFileFromRoot(".gitattributes");
+    this.copyFileFromRoot(".gitattributes");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config

@@ -45,11 +45,7 @@ actions:
     - id: trunk-check-pre-push-always
       display_name: Trunk Check Pre-Push Hook (Always)
       description: Always run 'trunk check' whenever you run 'git push'
-<<<<<<< Updated upstream
       run: bash "${cwd}/trunk-check-pre-push.sh" -n --commit-ref-from-pre-push '${hook_stdin_path}'
-=======
-      run: sh "${cwd}/trunk-check-pre-push.sh" -n --commit-ref-from-pre-push '${hook_stdin_path}'
->>>>>>> Stashed changes
       interactive: optional
       triggers:
         - git_hooks: [pre-push]
