@@ -1,10 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: sqlfmt
+      runtime: python
+      package: shandy-sqlfmt
+      shims: [sqlfmt]
 lint:
   definitions:
     - name: sqlfmt
       files: [sql, sql-j2]
-      runtime: python
-      package: shandy-sqlfmt
+      tools: [sqlfmt]
       known_good_version: 0.16.0
       # trunk-ignore(yamllint/quoted-strings): see https://github.com/adrienverge/yamllint/issues/516
       extra_packages: ["shandy-sqlfmt[jinjafmt]"]
