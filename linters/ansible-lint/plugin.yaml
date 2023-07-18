@@ -5,7 +5,8 @@ tools:
       runtime: python
       package: ansible-lint
       extra_packages: [ansible]
-      shims: [ansible-lint]
+      shims: [ansible-lint, ansible]
+      known_good_version: 6.13.0
 lint:
   definitions:
     - name: ansible-lint
