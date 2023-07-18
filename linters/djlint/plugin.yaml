@@ -1,10 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: djlint
+      runtime: python
+      package: djlint
+      shims: [djlint]
 lint:
   definitions:
     - name: djlint
       files: [html]
-      runtime: python
-      package: djlint
+      tools: [djlint]
       commands:
         - name: lint
           output: regex

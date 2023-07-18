@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: pyright
+      runtime: node
+      package: pyright
+      shims: [pyright]
 lint:
   definitions:
     - name: pyright
@@ -15,8 +21,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/pyright/pyright_to_sarif.py
-      runtime: node
-      package: pyright
+      tools: [pyright]
       direct_configs:
         - pyrightconfig.json
       affects_cache:
