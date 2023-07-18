@@ -1,10 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: bandit
+      runtime: python
+      package: bandit
+      shims: [bandit]
 lint:
   definitions:
     - name: bandit
       files: [python]
-      runtime: python
-      package: bandit
+      tools: [bandit]
       suggest_if: files_present
       direct_configs: [.bandit]
       commands:
