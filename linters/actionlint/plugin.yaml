@@ -28,7 +28,6 @@ lint:
     - name: actionlint
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
-      # download: actionlint
       tools: [actionlint]
       commands:
         - name: lint
