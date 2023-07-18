@@ -20,7 +20,7 @@ const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it 
 Please call this method after setup has been called.`;
 
 export const executionEnv = (sandbox: string) => {
-  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars)
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Strip TRUNK_CLI_VERSION from CI-Debugger
   const { PWD, INIT_CWD, TRUNK_CLI_VERSION, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
@@ -96,7 +96,7 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
-    this.copyFileFromRoot(".gitattributes");
+    // this.copyFileFromRoot(".gitattributes");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
@@ -141,36 +141,17 @@ export class GenericTrunkDriver {
     this.debug("Cleaning up %s", this.sandboxPath);
 
     // Preserve test directory if `SANDBOX_DEBUG` is truthy.
-    try {
-      console.log(`Preserving test dir ${this.getSandbox()}`);
+    if (ARGS.sandboxDebug) {
       this.runTrunkSync(["daemon", "shutdown"]);
-      // return;
-    } catch (err: any) {
-      // console.log(`failed to shutdown, with error ${err}`);
-      try {
-        this.daemon?.kill(9);
-      } catch (err2: any) {
-        console.log(`failed to kill daemon: ${err2 as string}`);
-      }
+      console.log(`Preserving test dir ${this.getSandbox()}`);
+      return;
     }
 
-    if (this.sandboxPath && !ARGS.sandboxDebug) {
+    this.runTrunkSync(["deinit"]);
+
+    if (this.sandboxPath) {
       fs.rmSync(this.sandboxPath, { recursive: true });
     }
-
-    // // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
-    // // Preserve test directory if `SANDBOX_DEBUG` is truthy.
-    // if (ARGS.sandboxDebug) {
-    //   this.runTrunkSync(["daemon", "shutdown"]);
-    //   console.log(`Preserving test dir ${this.getSandbox()}`);
-    //   return;
-    // }
-
-    // this.runTrunkSync(["deinit"]);
-
-    // if (this.sandboxPath) {
-    //   fs.rmSync(this.sandboxPath, { recursive: true });
-    // }
   }
 
   /**** Repository file manipulation ****/

@@ -111,18 +111,6 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     }
 
     try {
-      // TODO: TYLER GET ORIGINAL DAEMON BEHAVIOR WORKING
-      this.daemon = this.runTrunkAsync(["daemon", "launch", "--monitor=false"]);
-
-      for (let i = 0; i < 10; i ++) {
-        try {
-          this.runTrunkSync(["daemon", "status"]);
-          break;
-        } catch (err) {
-          await new Promise((f) => setTimeout(f, 1000 * i * i));
-        }
-      }
-
       // Cast version to string in case of decimal representation (e.g. 0.40)
       const version = `${this.extractLinterVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
@@ -273,7 +261,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     try {
       const { stdout, stderr } = await this.runTrunkCmd(fullArgs);
       // Used for debugging only
-      if (args.includes("--debug") || true) { // TODO: TYLER REMOVE TRUE
+      if (args.includes("--debug")) {
         console.log(stdout);
         console.log(stderr);
       }
