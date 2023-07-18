@@ -15,7 +15,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/pyright/pyright_to_sarif.py
-      runtime: python
+      runtime: node
       package: pyright
       direct_configs:
         - pyrightconfig.json

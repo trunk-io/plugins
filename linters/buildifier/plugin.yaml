@@ -26,6 +26,10 @@ downloads:
         version: ">=4.0.0"
       - os: windows
         cpu: x86_64
+        url: https://github.com/bazelbuild/buildtools/releases/download/v${version}/buildifier-windows-amd64.exe
+        version: ">=6.1.2"
+      - os: windows
+        cpu: x86_64
         url: https://github.com/bazelbuild/buildtools/releases/download/${version}/buildifier-windows-amd64.exe
         version: ">=4.0.0"
 tools:

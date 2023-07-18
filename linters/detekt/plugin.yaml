@@ -13,6 +13,16 @@ lint:
       download: detekt
       commands:
         - name: lint
+          platforms: [windows]
+          output: sarif
+          run:
+            detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
+            sarif:${tmpfile}
+          success_codes: [0, 1, 2]
+          read_output_from: tmp_file
+          batch: true
+          cache_results: true
+        - name: lint
           output: sarif
           run:
             detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
@@ -36,6 +46,14 @@ lint:
       files: [kotlin]
       download: detekt
       commands:
+        - name: lint
+          platforms: [windows]
+          output: sarif
+          run:
+            detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
+            --auto-correct
+          success_codes: [0, 1, 2]
+          read_output_from: tmp_file
         - name: lint
           output: sarif
           run:

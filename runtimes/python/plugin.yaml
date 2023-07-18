@@ -40,6 +40,9 @@ runtimes:
       runtime_environment:
         - name: HOME
           value: ${env.HOME:-}
+        - name: SYSTEMROOT
+          value: ${env.SYSTEMROOT}
+          optional: true
         - name: PATH
           list:
             - "${runtime}/bin"

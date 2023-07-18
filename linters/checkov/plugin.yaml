@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: checkov
+      supported_platforms: [linux, macos]
       files: [terraform, cloudformation, docker, yaml, json]
       runtime: python
       package: checkov

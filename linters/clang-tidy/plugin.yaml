@@ -18,6 +18,7 @@ lint:
         # TODO(chris): Windows download
   definitions:
     - name: clang-tidy
+      supported_platforms: [linux, macos]
       files: [c/c++-source]
       commands:
         - name: lint
