@@ -1,21 +1,17 @@
 version: 0.1
-downloads:
-  - name: ktlint
-    executable: true
-    downloads:
-      # Cross-platform download
-      - url: https://github.com/pinterest/ktlint/releases/download/${version}/ktlint
-tools:
-  definitions:
-    - name: ktlint
-      download: ktlint
-      shims: [ktlint]
-      known_good_version: 0.43.2
 lint:
+  downloads:
+    - name: ktlint
+      version: 0.43.2
+      executable: true
+      downloads:
+        # Cross-platform download
+        - url: https://github.com/pinterest/ktlint/releases/download/${version}/ktlint
   definitions:
     - name: ktlint
+      supported_platforms: [linux, macos]
       files: [kotlin]
-      tools: [ktlint]
+      download: ktlint
       runtime: java
       commands:
         - name: format
