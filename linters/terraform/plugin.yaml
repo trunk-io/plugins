@@ -1,25 +1,31 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: terraform
+    version: 1.1.4
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_darwin_amd64.zip
+        version: <1.0.2
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
     - name: terraform
-      version: 1.1.4
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_darwin_amd64.zip
-          version: <1.0.2
-        - os:
-            linux: linux
-            macos: darwin
-            windows: windows
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${os}_${cpu}.zip
+      download: terraform
+      shims: [terraform]
+      known_good_version: 1.1.4
+lint:
   definitions:
     - name: terraform
       files: [terraform]
-      download: terraform
+      tools: [terraform]
       commands:
         - name: validate
           # Custom parser type defined in the trunk cli to handle terraform's JSON output.

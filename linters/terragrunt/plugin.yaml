@@ -1,18 +1,18 @@
 version: 0.1
+downloads:
+  - name: terragrunt
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_${os}_${cpu}
+      - os: windows
+        cpu: x86_64
+        url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
 tools:
-  downloads:
-    - name: terragrunt
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_${os}_${cpu}
-        - os: windows
-          cpu: x86_64
-          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
   definitions:
     - name: terragrunt
       known_good_version: 0.45.8
@@ -21,22 +21,9 @@ tools:
         - name: terragrunt
           target: terragrunt
 lint:
-  downloads:
-    - name: terragrunt
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_${os}_${cpu}
-        - os: windows
-          cpu: x86_64
-          url: https://github.com/gruntwork-io/terragrunt/releases/download/v${version}/terragrunt_windows_amd64.exe
   definitions:
     - name: terragrunt
-      download: terragrunt
+      tools: [terragrunt]
       known_good_version: 0.45.8
       files: [hcl]
       suggest_if: never
