@@ -1,15 +1,10 @@
 version: 0.1
-tools:
-  definitions:
-    - name: gokart
-      runtime: go
-      package: github.com/praetorian-inc/gokart
-      shims: [gokart]
 lint:
   definitions:
     - name: gokart
       files: [go]
-      tools: [gokart]
+      runtime: go
+      package: github.com/praetorian-inc/gokart
       suggest_if: files_present
       environment:
         - name: PATH

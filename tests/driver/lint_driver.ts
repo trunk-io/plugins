@@ -92,7 +92,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().lint.definitions.find(
-          ({ name }: { name: string }) => name === this.linter
+          ({ name }: { name: string }) => name === this.linter,
         )?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
@@ -118,13 +118,13 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       // Prefer calling `check enable` over editing trunk.yaml directly because it also handles version, etc.
       this.debug("Enabling %s", linterVersionString);
       await this.runTrunkCmd(
-        `check enable ${linterVersionString} --monitor=false --bypass-validated`
+        `check enable ${linterVersionString} --monitor=false --bypass-validated`,
       );
 
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        "utf8"
+        "utf8",
       );
       const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
@@ -145,7 +145,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
   parseRunResult(
     trunkRunResult: TrunkRunResult,
     trunkVerb: TrunkVerb,
-    targetAbsPath?: string
+    targetAbsPath?: string,
   ): TestResult {
     return {
       success: [0, 1].includes(trunkRunResult.exitCode),
@@ -195,7 +195,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         },
         "Check",
-        targetAbsPath
+        targetAbsPath,
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
@@ -273,7 +273,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
           outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
         },
         "Format",
-        targetAbsPath
+        targetAbsPath,
       );
     } catch (error: any) {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)

@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: renovate
-      runtime: node
-      package: renovate
-      shims: [renovate]
 lint:
   files:
     - name: renovate-config

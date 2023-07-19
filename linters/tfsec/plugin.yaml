@@ -1,32 +1,27 @@
 version: 0.1
-downloads:
-  - name: tfsec
-    version: 1.28.1
-    executable: true
-    downloads:
-      - os:
-          linux: linux
-          macos: darwin
-        cpu:
-          x86_64: amd64
-          arm_64: arm64
-        url: https://github.com/aquasecurity/tfsec/releases/download/v${version}/tfsec-${os}-${cpu}
-      - os: windows
-        cpu:
-          x86_64: amd64
-          arm_64: arm64
-        url: https://github.com/aquasecurity/tfsec/releases/download/v${version}/tfsec-windows-${cpu}.exe
-tools:
-  definitions:
-    - name: tfsec
-      download: tfsec
-      shims: [tfsec]
-      known_good_version: 1.28.1
 lint:
+  downloads:
+    - name: tfsec
+      version: 1.28.1
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/aquasecurity/tfsec/releases/download/v${version}/tfsec-${os}-${cpu}
+        - os: windows
+          cpu:
+            x86_64: amd64
+            arm_64: arm64
+          url: https://github.com/aquasecurity/tfsec/releases/download/v${version}/tfsec-windows-${cpu}.exe
+
   definitions:
     - name: tfsec
       files: [terraform]
-      tools: [tfsec]
+      download: tfsec
       known_good_version: 1.28.1
       suggest_if: files_present
       commands:

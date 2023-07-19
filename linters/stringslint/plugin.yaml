@@ -1,19 +1,13 @@
 version: 0.1
-downloads:
-  # This is a Mac-exclusive linter
-  - name: stringslint
-    version: 0.1.1
-    downloads:
-      # macOS only, universal binary supports x86_64 and arm64
-      - os: macos
-        url: https://github.com/dral3x/StringsLint/releases/download/${version}/portable_stringslint.zip
-tools:
-  definitions:
-    - name: stringslint
-      download: stringslint
-      shims: [stringslint]
-      known_good_version: 0.1.1
 lint:
+  downloads:
+    # This is a Mac-exclusive linter
+    - name: stringslint
+      version: 0.1.1
+      downloads:
+        # macOS only, universal binary supports x86_64 and arm64
+        - os: macos
+          url: https://github.com/dral3x/StringsLint/releases/download/${version}/portable_stringslint.zip
   definitions:
     - name: stringslint
       files:
@@ -22,7 +16,7 @@ lint:
         - strings
         - xib
         - storyboard
-      tools: [stringslint]
+      download: stringslint
       commands:
         - name: lint
           output: regex

@@ -88,7 +88,7 @@ export const getSnapshotName = (
   linterName: string,
   prefix: string,
   checkType: CheckType,
-  linterVersion?: string
+  linterVersion?: string,
 ) => {
   const normalizedName = linterName.replace(/-/g, "_");
   if (!linterVersion) {
@@ -123,11 +123,11 @@ export const getSnapshotPathForAssert = (
   prefix: string,
   checkType: CheckType,
   linterVersion?: string,
-  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean,
 ): string => {
   const specificVersionSnapshotName = path.resolve(
     snapshotDirPath,
-    getSnapshotName(linterName, prefix, checkType, linterVersion)
+    getSnapshotName(linterName, prefix, checkType, linterVersion),
   );
 
   // If this is a versionless linter, don't specify a version.
@@ -181,7 +181,7 @@ export const getVersionsForTest = (
   dirname: string,
   linterName: string,
   prefix: string,
-  checkType: CheckType
+  checkType: CheckType,
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
   let matchExists = false;
@@ -201,7 +201,7 @@ export const getVersionsForTest = (
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
   if (!matchExists && !ARGS.linterVersion) {
     console.log(
-      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
+      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`,
     );
     return ["KnownGoodVersion"];
   }

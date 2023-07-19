@@ -73,7 +73,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
       // Retrieve the enabled version
       const newTrunkContents = fs.readFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        "utf8"
+        "utf8",
       );
       const enabledVersionRegex = `(?<tool>${this.tool})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
@@ -105,7 +105,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().tool.definitions.find(
-          ({ name }: { name: string }) => name === this.tool
+          ({ name }: { name: string }) => name === this.tool,
         )?.known_good_version as string) ?? ""
       );
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)

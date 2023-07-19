@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: isort
-      runtime: python
-      package: isort
-      shims: [isort]
 lint:
   definitions:
     - name: isort
@@ -17,7 +11,8 @@ lint:
           batch: true
           in_place: true
           formatter: true
-      tools: [isort]
+      runtime: python
+      package: isort
       direct_configs: [.isort.cfg]
       suggest_if: files_present
       affects_cache:

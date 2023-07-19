@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: black
-      runtime: python
-      package: black[python2,jupyter]
-      shims: [black]
 lint:
   definitions:
     - name: black
@@ -19,7 +13,8 @@ lint:
           allow_empty_files: false
           cache_results: true
           formatter: true
-      tools: [black]
+      runtime: python
+      package: black[python2,jupyter]
       suggest_if: files_present
       affects_cache: [pyproject.toml]
       known_good_version: 22.3.0

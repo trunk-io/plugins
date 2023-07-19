@@ -20,8 +20,7 @@ CI:
 
 <!-- trunk-ignore-begin(markdownlint/MD029) -->
 
-2. Run `.trunk/tools/sourcery login` (you may have to run `trunk tools install` to install the
-   `sourcery` shim) during as a setup before the `trunk check` step
+2. Run `trunk exec sourcery login` during as a setup before the `trunk check` step
 
 3. Set up an established environment override, as we've done here with
    [\_plugin.yaml](./test_data/_plugin.yaml).
