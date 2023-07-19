@@ -51,7 +51,7 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args: linters/yamllint
+          append-args: linters/y
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -133,7 +133,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          append-args: linters/yamllint -- --json --outputFile=${{ matrix.os }}-res.json
+          append-args: linters/y -- --json --outputFile=${{ matrix.os }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
