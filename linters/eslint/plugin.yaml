@@ -1,15 +1,10 @@
 version: 0.1
-tools:
-  definitions:
-    - name: eslint
-      runtime: node
-      package: eslint
-      shims: [eslint]
 lint:
   definitions:
     - name: eslint
       files: [typescript, javascript]
-      tools: [eslint]
+      runtime: node
+      package: eslint
       commands:
         - name: lint
           output: eslint

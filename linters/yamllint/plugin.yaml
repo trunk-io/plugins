@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: yamllint
-      runtime: python
-      package: yamllint
-      shims: [yamllint]
 lint:
   definitions:
     - name: yamllint
@@ -17,7 +11,8 @@ lint:
           success_codes: [0, 1, 2]
           run: yamllint -f parsable ${target}
           read_output_from: stdout
-      tools: [yamllint]
+      runtime: python
+      package: yamllint
       suggest_if: files_present
       direct_configs:
         - .yamllint

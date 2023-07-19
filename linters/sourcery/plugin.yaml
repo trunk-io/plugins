@@ -1,11 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: sourcery
-      runtime: python
-      package: sourcery
-      shims: [sourcery]
-      known_good_version: 1.2.0
 lint:
   definitions:
     - name: sourcery
@@ -26,7 +19,8 @@ lint:
           batch: true
           # NOTE(Tyler): Autofixes will show up as complete "formatting-like" diagnostics. However, strictly speaking, this isn't a formatter, so we don't want to set formatter: true
           in_place: true
-      tools: [sourcery]
+      runtime: python
+      package: sourcery
       suggest_if: never
       direct_configs:
         - .sourcery.yaml

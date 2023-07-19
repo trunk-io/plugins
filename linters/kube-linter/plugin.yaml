@@ -1,30 +1,24 @@
 version: 0.1
-downloads:
-  - name: kube-linter
-    version: 0.5.0
-    executable: true
-    downloads:
-      - os:
-          linux: linux
-          macos: darwin
-        url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-${os}
-        version: <0.6.1
-      - os:
-          linux: linux
-          macos: darwin
-        url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-${os}
-      - os: windows
-        url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter.exe
-tools:
+lint:
+  downloads:
+    - name: kube-linter
+      version: 0.5.0
+      executable: true
+      downloads:
+        - os:
+            linux: linux
+            macos: darwin
+          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-${os}
+          version: <0.6.1
+        - os:
+            linux: linux
+            macos: darwin
+          url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-${os}
+        - os: windows
+          url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter.exe
   definitions:
     - name: kube-linter
       download: kube-linter
-      shims: [kube-linter]
-      known_good_version: 0.5.0
-lint:
-  definitions:
-    - name: kube-linter
-      tools: [kube-linter]
       files:
         - yaml
       commands:

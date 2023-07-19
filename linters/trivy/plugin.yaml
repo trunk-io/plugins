@@ -1,33 +1,28 @@
 version: 0.1
-downloads:
-  - name: trivy
-    downloads:
-      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_Linux-${cpu}.tar.gz
-        os: linux
-        cpu:
-          x86_64: 64bit
-          arm_64: ARM
-      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
-        os: macos
-        cpu:
-          x86_64: 64bit
-          arm_64: ARM64
-      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_windows-${cpu}.zip
-        os: windows
-        cpu:
-          x86_64: 64bit
-          arm_64: ARM64
-tools:
-  definitions:
-    - name: trivy
-      download: trivy
-      shims: [trivy]
-      known_good_version: 0.37.1
 lint:
+  downloads:
+    - name: trivy
+      downloads:
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_Linux-${cpu}.tar.gz
+          os: linux
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
+          os: macos
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM64
+        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_windows-${cpu}.zip
+          os: windows
+          cpu:
+            x86_64: 64bit
+            arm_64: ARM64
+
   definitions:
     - name: trivy
       files: [lockfile, docker, yaml, terraform]
-      tools: [trivy]
+      download: trivy
       suggest_if: files_present
       known_good_version: 0.37.1
       commands:

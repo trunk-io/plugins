@@ -50,7 +50,7 @@ const parseTestStatus = (status: string): TestResultStatus => {
  */
 const mergeTestStatuses = (
   original: TestResultStatus,
-  incoming: TestResultStatus
+  incoming: TestResultStatus,
 ): TestResultStatus => {
   if (incoming == "failed") {
     return incoming;
@@ -239,12 +239,12 @@ const writeTestResults = (testResults: TestResultSummary) => {
       }
       return accumulator;
     },
-    []
+    [],
   );
   const failures = Array.from(testResults.linters).reduce(
     (
       accumulator: FailedVersion[],
-      [linter, { version, testResultStatus: status, allVersions }]
+      [linter, { version, testResultStatus: status, allVersions }],
     ) => {
       if (status !== "passed" && status !== "skipped") {
         const additionalFailedVersion: FailedVersion = { linter, version, status, allVersions };
@@ -252,7 +252,7 @@ const writeTestResults = (testResults: TestResultSummary) => {
       }
       return accumulator;
     },
-    []
+    [],
   );
 
   const resultsObject = {
@@ -275,11 +275,11 @@ const parseTestResultsAndWrite = () => {
   const testResults = Object.values(TestOS).map((os) => parseResultsJson(os));
   const totalParsedTests = testResults.reduce(
     (total, testResultsSummary) => total + testResultsSummary.linters.size,
-    0
+    0,
   );
   if (totalParsedTests === 0) {
     throw new Error(
-      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}"
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}",
     );
   }
 

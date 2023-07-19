@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: mypy
-      runtime: python
-      package: mypy
-      shims: [mypy]
 lint:
   definitions:
     - name: mypy
@@ -19,7 +13,8 @@ lint:
             --show-column-numbers ${target}
           success_codes: [0, 1]
           stdin: false
-      tools: [mypy]
+      runtime: python
+      package: mypy
       direct_configs:
         - mypy.ini
         - .mypy.ini

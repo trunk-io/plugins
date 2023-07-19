@@ -1,12 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: ansible-lint
-      runtime: python
-      package: ansible-lint
-      extra_packages: [ansible]
-      shims: [ansible-lint, ansible]
-      known_good_version: 6.13.0
 lint:
   definitions:
     - name: ansible-lint
@@ -30,7 +22,9 @@ lint:
           run: ansible-lint --parseable-severity
           success_codes: [0, 2]
           run_linter_from: directory
-      tools: [ansible-lint]
+      runtime: python
+      package: ansible-lint
+      extra_packages: [ansible]
       suggest_if: never
       direct_configs: [.ansible-lint]
       environment:
