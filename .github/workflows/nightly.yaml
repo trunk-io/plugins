@@ -98,6 +98,11 @@ jobs:
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
+          sparse_checkout: |
+            plugin.yaml
+            linters
+            actions
+            tools
 
       - name: Overwrite test runners with latest behavior
         run: |
@@ -129,6 +134,10 @@ jobs:
             rm -rf ${tmp_dir}
           fi
         shell: bash
+
+      - name: Read Trunk Yaml
+        shell: bash
+        run: cat .trunk/trunk.yaml
 
       - name: Linter Tests
         # Use overwritten dependency action, rather than released version
