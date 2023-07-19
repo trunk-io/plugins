@@ -67,6 +67,3 @@ actions:
     - linter-test-helper
     - remove-release-snapshots
     - repo-tests
-tools:
-  enabled:
-    - ansible-lint@6.13.0

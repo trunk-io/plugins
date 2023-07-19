@@ -1,15 +1,10 @@
 version: 0.1
-tools:
-  definitions:
-    - name: cspell
-      runtime: node
-      package: cspell
-      shims: [cspell]
 lint:
   definitions:
     - name: cspell
       files: [ALL]
-      tools: [cspell]
+      runtime: node
+      package: cspell
       commands:
         - name: lint
           output: regex

@@ -1,15 +1,10 @@
 version: 0.1
-tools:
-  definitions:
-    - name: sqlfluff
-      runtime: python
-      package: sqlfluff
-      shims: [sqlfluff]
 lint:
   definitions:
     - name: sqlfluff
       files: [sql, sql-j2, dml, ddl]
-      tools: [sqlfluff]
+      runtime: python
+      package: sqlfluff
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff

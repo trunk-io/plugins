@@ -26,17 +26,9 @@ describe("All linters that use downloads must define them", () => {
 
         yamlContents.lint?.definitions?.forEach((definition: any) => {
           if (definition.download) {
-            const downloads: string[] = [];
-            if (yamlContents.lint?.downloads) {
-              yamlContents.lint?.downloads.forEach((download: any) => {
-                downloads.push(download.name);
-              });
-            }
-            if (yamlContents.downloads) {
-              yamlContents.downloads.forEach((download: any) => {
-                downloads.push(download.name);
-              });
-            }
+            const downloads = (yamlContents.lint?.downloads ?? []).map(
+              (download: any) => download?.name
+            );
             expect(downloads).toContain(definition.download);
             // trunk-ignore-end(eslint)
           }

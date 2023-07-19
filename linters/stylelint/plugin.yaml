@@ -1,15 +1,10 @@
 version: 0.1
-tools:
-  definitions:
-    - name: stylelint
-      runtime: node
-      package: stylelint
-      shims: [stylelint]
 lint:
   definitions:
     - name: stylelint
       files: [css, sass]
-      tools: [stylelint]
+      runtime: node
+      package: stylelint
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle stylelint's JSON output.

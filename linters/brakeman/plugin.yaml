@@ -1,10 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: brakeman
-      runtime: ruby
-      package: brakeman
-      shims: [brakeman]
 lint:
   definitions:
     - name: brakeman
@@ -28,7 +22,8 @@ lint:
           run_from_root_target: apps
       direct_configs: [brakeman.ignore]
       suggest_if: files_present
-      tools: [brakeman]
+      runtime: ruby
+      package: brakeman
       known_good_version: 5.4.0
       version_command:
         parse_regex: ${semver}

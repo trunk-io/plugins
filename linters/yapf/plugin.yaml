@@ -1,11 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: yapf
-      runtime: python
-      package: yapf
-      extra_packages: [toml]
-      shims: [yapf]
 lint:
   definitions:
     - name: yapf
@@ -20,7 +13,9 @@ lint:
           allow_empty_files: false
           cache_results: true
           formatter: true
-      tools: [yapf]
+      runtime: python
+      package: yapf
+      extra_packages: [toml]
       direct_configs:
         - .style.yapf
         - .yapfignore

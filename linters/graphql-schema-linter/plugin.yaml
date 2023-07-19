@@ -5,7 +5,9 @@ tools:
       runtime: node
       package: graphql-schema-linter
       known_good_version: 3.0.1
-      shims: [graphql-schema-linter]
+      shims:
+        - name: graphql-schema-linter
+          target: graphql-schema-linter
 lint:
   definitions:
     - name: graphql-schema-linter
