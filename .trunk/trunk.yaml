@@ -5,7 +5,7 @@ cli:
   version: 1.12.3
 
 api:
-  address: api.trunk-staging.io:8443
+  address: api.trunk.io:8443
   org: trunk-staging-org
 
 plugins:
@@ -20,6 +20,9 @@ plugins:
 lint:
   # enabled list inherited from plugin 'configs'
   enabled:
+    - golangci-lint@1.53.3
+    - gofmt@1.20.4
+    - stylua@0.18.1
     - yamllint@1.26.3
     - checkov@2.3.296
     - nancy@1.0.42
