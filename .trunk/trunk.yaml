@@ -15,7 +15,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v0.0.2
+      ref: v0.0.4
 
 lint:
   # enabled list inherited from plugin 'configs'
@@ -23,8 +23,8 @@ lint:
     - yamllint@1.26.3
     - checkov@2.3.296
     - nancy@1.0.42
-    - trivy@0.42.1
-    - osv-scanner@1.3.4
+    - trivy@0.43.1
+    - osv-scanner@1.3.5
   disabled:
     # pylint diagnostics are a bit too strict for our parsers
     - pylint
