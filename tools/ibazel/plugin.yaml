@@ -10,6 +10,12 @@ downloads:
           x86_64: amd64
           arm_64: arm64
         url: https://github.com/bazelbuild/bazel-watcher/releases/download/v${version}/ibazel_${os}_${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/bazelbuild/bazel-watcher/releases/download/v${version}/ibazel_${os}_${cpu}.exe
 tools:
   definitions:
     - name: ibazel

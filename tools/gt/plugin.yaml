@@ -7,6 +7,9 @@ downloads:
           linux: linux
           macos: macos
         url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
+      - os:
+          windows: win
+        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}.exe
 tools:
   definitions:
     - name: gt
