@@ -1,10 +1,10 @@
 version: 0.1
-downloads:
-  - name: google-java-format.jar
-    executable: true
-    downloads:
-      - url: https://github.com/google/google-java-format/releases/download/v${version}/google-java-format-${version}-all-deps.jar
 lint:
+  downloads:
+    - name: google-java-format.jar
+      executable: true
+      downloads:
+        - url: https://github.com/google/google-java-format/releases/download/v${version}/google-java-format-${version}-all-deps.jar
   definitions:
     - name: google-java-format
       files: [java]
