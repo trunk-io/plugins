@@ -106,10 +106,13 @@ jobs:
 
       - name: Overwrite test runners with latest behavior
         run: |
+          rm -rf tests
           mv tests.bak tests
           mv package.json.bak package.json
           mv package-lock.json.bak package-lock.json
+          rm -rf .github/actions
           mv .github/actions.bak .github/actions
+          rm -rf .trunk
           mv .trunk.bak .trunk
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
