@@ -4,8 +4,8 @@ on:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
-  pull_request:
-    paths: [.github/workflows/nightly.yaml]
+  # pull_request:
+  #   paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -51,7 +51,6 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args: linters/y
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -138,22 +137,18 @@ jobs:
           fi
         shell: bash
 
-      - name: Read Trunk Yaml
-        shell: bash
-        run: cat .trunk/trunk.yaml
-
       - name: Linter Tests
         # Use overwritten dependency action, rather than released version
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          append-args: linters/y -- --json --outputFile=${{ matrix.os }}-res.json
+          append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
 
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # akin to the linter_tests job.
-      # - name: Tool Tests
-      #   uses: ./.github/actions/tool_tests
+      - name: Tool Tests
+        uses: ./.github/actions/tool_tests
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
