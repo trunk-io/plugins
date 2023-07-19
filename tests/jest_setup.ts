@@ -19,7 +19,7 @@ expect.extend({
       throw new Error("Actual value must be an array of file issues");
     }
     const overlap = (actual as FileIssue[]).filter((actualIssue) =>
-      expected.some(fileIssueEquals(actualIssue))
+      expected.some(fileIssueEquals(actualIssue)),
     );
     const pass = overlap.length >= minimumOverlap;
     return {

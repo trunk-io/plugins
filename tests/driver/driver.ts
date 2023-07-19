@@ -27,7 +27,7 @@ const executionEnv = (sandbox: string) => {
     // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: path.resolve(
       fs.realpathSync(os.tmpdir()),
-      `${TEMP_PREFIX}testing_download_cache`
+      `${TEMP_PREFIX}testing_download_cache`,
     ),
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
@@ -104,7 +104,7 @@ export class GenericTrunkDriver {
       }
       fs.writeFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        newTrunkYamlContents(this.setupSettings.trunkVersion)
+        newTrunkYamlContents(this.setupSettings.trunkVersion),
       );
     }
 
@@ -264,11 +264,11 @@ export class GenericTrunkDriver {
 
   async runTrunkCmd(
     argStr: string,
-    execOptions?: ExecOptions
+    execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
     return await this.runTrunk(
       argStr.split(" ").filter((arg) => arg.length > 0),
-      execOptions
+      execOptions,
     );
   }
 
@@ -279,7 +279,7 @@ export class GenericTrunkDriver {
    */
   async runTrunk(
     args: string[],
-    execOptions?: ExecOptions
+    execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
     const trunkPath = ARGS.cliPath ?? "trunk";
     return await execFilePromise(
@@ -289,7 +289,7 @@ export class GenericTrunkDriver {
         cwd: this.sandboxPath,
         env: executionEnv(this.sandboxPath ?? ""),
         ...execOptions,
-      }
+      },
     );
   }
 

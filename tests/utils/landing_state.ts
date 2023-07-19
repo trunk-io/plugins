@@ -23,7 +23,7 @@ const extractLintActionFields = ({
 
 const extractTaskFailureFields = (
   sandboxPath: string,
-  { detailPath, ...rest }: TaskFailure
+  { detailPath, ...rest }: TaskFailure,
 ): TaskFailure => ({
   ...rest,
   details: detailPath
@@ -84,7 +84,7 @@ const normalizeIssues = ({
  */
 const extractLandingStateFields = (
   sandboxPath: string,
-  { issues = [], unformattedFiles = [], lintActions = [], taskFailures = [] }: LandingState
+  { issues = [], unformattedFiles = [], lintActions = [], taskFailures = [] }: LandingState,
 ) =>
   <LandingState>{
     issues: sort(issues.map(normalizeIssues)).asc((issue) => [
@@ -109,7 +109,7 @@ const extractLandingStateFields = (
       action.paths,
     ]),
     taskFailures: sort(
-      taskFailures.map((failure) => extractTaskFailureFields(sandboxPath, failure))
+      taskFailures.map((failure) => extractTaskFailureFields(sandboxPath, failure)),
     ).asc((failure) => [failure.name, failure.message]),
   };
 
@@ -128,7 +128,7 @@ export const extractLandingState = (sandboxPath: string, json: unknown): Landing
  */
 export const tryParseLandingState = (
   sandboxPath: string,
-  outputJson: unknown
+  outputJson: unknown,
 ): LandingState | undefined => {
   if (!outputJson) {
     return undefined;

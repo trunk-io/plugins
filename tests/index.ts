@@ -57,7 +57,7 @@ const conditionalTest = (
   skipTest: boolean,
   name: string,
   fn?: jest.ProvidesCallback | undefined,
-  timeout?: number | undefined
+  timeout?: number | undefined,
 ) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
 
 export type TestCallback = (driver: TrunkLintDriver) => unknown;
@@ -105,13 +105,13 @@ export const setupDriver = (
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   linterName?: string,
   version?: string,
-  preCheck?: TestCallback
+  preCheck?: TestCallback,
 ): TrunkLintDriver => {
   const driver = new TrunkLintDriver(
     dirname,
     { setupGit, setupTrunk, trunkVersion },
     linterName,
-    version
+    version,
   );
 
   beforeAll(async () => {
@@ -138,13 +138,13 @@ export const setupTrunkToolDriver = (
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   toolName?: string,
   version?: string,
-  preCheck?: ToolTestCallback
+  preCheck?: ToolTestCallback,
 ): TrunkToolDriver => {
   const driver = new TrunkToolDriver(
     dirname,
     { setupGit, setupTrunk, trunkVersion },
     toolName,
-    version
+    version,
   );
 
   beforeAll(async () => {
@@ -276,12 +276,12 @@ export const customLinterCheckTest = ({
             testName,
             "check",
             driver.enabledVersion,
-            versionGreaterThanOrEqual
+            versionGreaterThanOrEqual,
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
-            landingStateWrapper(testRunResult.landingState, primarySnapshotPath)
+            landingStateWrapper(testRunResult.landingState, primarySnapshotPath),
           );
 
           // Step 4b: Verify that any specified files match their expected snapshots for that linter version.
@@ -293,7 +293,7 @@ export const customLinterCheckTest = ({
               normalizedName,
               "check",
               driver.enabledVersion,
-              versionGreaterThanOrEqual
+              versionGreaterThanOrEqual,
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
@@ -378,7 +378,7 @@ export const customLinterFmtTest = ({
               normalizedName,
               "fmt",
               driver.enabledVersion,
-              versionGreaterThanOrEqual
+              versionGreaterThanOrEqual,
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
@@ -463,19 +463,19 @@ export const fuzzyLinterCheckTest = ({
             testName,
             "check",
             driver.enabledVersion,
-            versionGreaterThanOrEqual
+            versionGreaterThanOrEqual,
           );
           debug("Using snapshot %s", path.basename(primarySnapshotPath));
           expect(strippedLandingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
-            landingStateWrapper(strippedLandingState, primarySnapshotPath)
+            landingStateWrapper(strippedLandingState, primarySnapshotPath),
           );
 
           // Step 4b: Verify that the fileIssues pass the assertion callback.
           debug("Checking against assertion callback");
           fileIssueAssertionCallback(
             testRunResult.landingState?.issues ?? [],
-            driver.enabledVersion
+            driver.enabledVersion,
           );
 
           if (postCheck) {
@@ -546,12 +546,12 @@ export const linterCheckTest = ({
               linterName,
               prefix,
               "check",
-              driver.enabledVersion
+              driver.enabledVersion,
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             expect(testRunResult.landingState).toMatchSpecificSnapshot(
               snapshotPath,
-              landingStateWrapper(testRunResult.landingState, snapshotPath)
+              landingStateWrapper(testRunResult.landingState, snapshotPath),
             );
 
             if (postCheck) {
@@ -625,12 +625,12 @@ export const linterFmtTest = ({
               linterName,
               prefix,
               "fmt",
-              driver.enabledVersion
+              driver.enabledVersion,
             );
             debug("Using snapshot %s", path.basename(snapshotPath));
             // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
-              snapshotPath
+              snapshotPath,
             );
 
             if (postCheck) {

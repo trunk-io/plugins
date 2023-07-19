@@ -8,7 +8,7 @@ const abbreviationMapping = new Map<string, string>([["iwyu", "include-what-you-
 const readmeContents = fs.readFileSync(path.resolve(REPO_ROOT, "readme.md"), { encoding: "utf-8" });
 const readmeTableContents = readmeContents.substring(
   readmeContents.indexOf("### Supported Linters"),
-  readmeContents.indexOf("### Supported Trunk Actions")
+  readmeContents.indexOf("### Supported Trunk Actions"),
 );
 const reducedReadmeContents = readmeTableContents ? readmeTableContents : readmeContents;
 

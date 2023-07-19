@@ -42,7 +42,7 @@ describe("Global config health check", () => {
       expect(testRunResult.stdout).toContain("local:");
     } catch (error) {
       console.log(
-        "`trunk config print` failed. You likely have bad configuration or need to update trunkVersion in this test."
+        "`trunk config print` failed. You likely have bad configuration or need to update trunkVersion in this test.",
       );
       throw error;
     }
@@ -217,7 +217,7 @@ describe("Explicitly enabled healthcheck", () => {
 
         return enabledLinters;
       },
-      []
+      [],
     );
 
     // No linters should be enabled by default
@@ -231,7 +231,7 @@ describe("Explicitly enabled healthcheck", () => {
 
         return enabledActions;
       },
-      []
+      [],
     );
 
     // Built-in actions only
