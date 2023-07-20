@@ -24,8 +24,9 @@ lint:
           success_codes: [0, 1]
       runtime: python
       package: ruff
-      direct_configs: [pyproject.toml, ruff.toml]
+      direct_configs: [ruff.toml]
       affects_cache:
+        - pyproject.toml
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.250
@@ -45,8 +46,9 @@ lint:
       runtime: python
       package: ruff
       extra_packages: [nbqa==1.6.3]
-      direct_configs: [pyproject.toml, ruff.toml]
+      direct_configs: [ruff.toml]
       affects_cache:
+        - pyproject.toml
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.250
