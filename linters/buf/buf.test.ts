@@ -1,7 +1,7 @@
 import * as path from "path";
 import { customLinterCheckTest, linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA, skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 // buf-breaking detects breaking changes to proto files by using git-awareness
 const preCheck = (addDup: boolean) => async (driver: TrunkLintDriver) => {
