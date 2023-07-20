@@ -11,6 +11,7 @@ tools:
 lint:
   definitions:
     - name: graphql-schema-linter
+      supported_platforms: [linux, macos]
       tools: [graphql-schema-linter]
       known_good_version: 3.0.1
       files: [graphql-schema]

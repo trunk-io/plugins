@@ -5,7 +5,7 @@ import { SetupSettings } from "tests/driver";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
-import { getTrunkVersion } from "tests/utils/trunk_config";
+import { getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
 
 import { GenericTrunkDriver } from "./driver";
 
@@ -110,6 +110,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       return;
     }
 
+    let newTrunkContents = "<undefined contents>";
     try {
       // Cast version to string in case of decimal representation (e.g. 0.40)
       const version = `${this.extractLinterVersion()}`;
@@ -122,7 +123,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       );
 
       // Retrieve the enabled version
-      const newTrunkContents = fs.readFileSync(
+      newTrunkContents = fs.readFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
         "utf8",
       );
@@ -133,7 +134,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         this.debug("Enabled %s", this.enabledVersion);
       }
     } catch (error) {
-      console.warn(`Failed to enable ${this.linter}`, error);
+      console.warn(`Failed to enable ${this.linter}`, error, newTrunkContents);
     }
   }
 

@@ -267,7 +267,7 @@ export class GenericTrunkDriver {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
     });
-    return YAML.parse(printConfig.toString());
+    return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
   };
 
   /**

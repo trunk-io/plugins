@@ -9,6 +9,7 @@ lint:
           strip_components: 1
   definitions:
     - name: detekt
+      supported_platforms: [linux, macos]
       files: [kotlin]
       download: detekt
       commands:
@@ -18,7 +19,7 @@ lint:
           run:
             detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
             sarif:${tmpfile}
-          success_codes: [0, 1, 2]
+          success_codes: [0, 2]
           read_output_from: tmp_file
           batch: true
           cache_results: true
@@ -43,6 +44,7 @@ lint:
         run: detekt-cli --version
 
     - name: detekt-explicit
+      supported_platforms: [linux, macos]
       files: [kotlin]
       download: detekt
       commands:
@@ -52,7 +54,7 @@ lint:
           run:
             detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
             --auto-correct
-          success_codes: [0, 1, 2]
+          success_codes: [0, 2]
           read_output_from: tmp_file
         - name: lint
           output: sarif
@@ -73,6 +75,7 @@ lint:
         run: detekt-cli --version
 
     - name: detekt-gradle
+      supported_platforms: [linux, macos]
       files: [kotlin]
       commands:
         - name: lint

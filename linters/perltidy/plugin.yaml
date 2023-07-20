@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: perltidy
+      supported_platforms: [linux, macos]
       commands:
         - output: rewrite
           success_codes:
