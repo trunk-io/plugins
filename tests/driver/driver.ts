@@ -125,11 +125,11 @@ export class GenericTrunkDriver {
     try {
       // This directory is generated during launcher log creation and is required for binary cache results
       await this.runTrunk(["--help"]);
-    } catch (error) {
+    } catch (err: any) {
       // The trunk launcher is not designed to handle concurrent installs.
       // This command may fail if another test installs at the same time.
       // Don't block if this happens.
-      console.warn(`Error running --help`, error);
+      console.warn(`Error running --help with stdout: %s\nand stderr: %s`, err.stdout, err.stderr);
     }
   }
 
@@ -147,10 +147,23 @@ export class GenericTrunkDriver {
       return;
     }
 
-    this.runTrunkSync(["deinit"]);
+    if (process.platform == "win32") {
+      try {
+        // On Windows, deinit will often fail with permission error for cleaning up the cache dir
+        this.runTrunkSync(["deinit"]);
+      } catch (_err: any) {
+        // this.debug("deinit failed with error stdout: %s\nand stderr: %s", _err.stdout, _err.stderr);
+      }
+    } else {
+      this.runTrunkSync(["deinit"]);
+    }
 
-    if (this.sandboxPath) {
-      fs.rmSync(this.sandboxPath, { recursive: true });
+    try {
+      if (this.sandboxPath) {
+        fs.rmSync(this.sandboxPath, { recursive: true });
+      }
+    } catch (_err) {
+      // TODO(Tyler): Windows will often fail this step due to permissions error
     }
   }
 
