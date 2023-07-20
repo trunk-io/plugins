@@ -29,7 +29,7 @@ const preCheck =
       const configFile = "jboss-standalone/demo-aws-launch.yml";
       driver.writeFile(
         configFile,
-        driver.readFile(configFile).replace("amazon.aws.ec2_instance", "ec2")
+        driver.readFile(configFile).replace("amazon.aws.ec2_instance", "ec2"),
       );
     }
   };

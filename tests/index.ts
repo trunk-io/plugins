@@ -283,7 +283,7 @@ export const customLinterCheckTest = ({
             snapshotDir,
             linterName,
             driver.enabledVersion ?? "no version",
-            primarySnapshotPath
+            primarySnapshotPath,
           );
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
@@ -306,7 +306,7 @@ export const customLinterCheckTest = ({
               snapshotDir,
               linterName,
               driver.enabledVersion ?? "no version",
-              snapshotPath
+              snapshotPath,
             );
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
@@ -399,7 +399,7 @@ export const customLinterFmtTest = ({
               snapshotDir,
               linterName,
               driver.enabledVersion ?? "no version",
-              snapshotPath
+              snapshotPath,
             );
             expect(driver.readFile(pathToSnapshot)).toMatchSpecificSnapshot(snapshotPath);
           });
@@ -490,7 +490,7 @@ export const fuzzyLinterCheckTest = ({
             snapshotDir,
             linterName,
             driver.enabledVersion ?? "no version",
-            primarySnapshotPath
+            primarySnapshotPath,
           );
           expect(strippedLandingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
@@ -583,7 +583,7 @@ export const linterCheckTest = ({
               snapshotDir,
               linterName,
               driver.enabledVersion ?? "no version",
-              snapshotPath
+              snapshotPath,
             );
             expect(testRunResult.landingState).toMatchSpecificSnapshot(
               snapshotPath,
@@ -672,7 +672,7 @@ export const linterFmtTest = ({
               snapshotDir,
               linterName,
               driver.enabledVersion ?? "no version",
-              snapshotPath
+              snapshotPath,
             );
             // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(

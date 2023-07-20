@@ -36,7 +36,7 @@ const extractLintActionFields = ({
 
 const extractTaskFailureFields = (
   sandboxPath: string,
-  { detailPath, message, ...rest }: TaskFailure
+  { detailPath, message, ...rest }: TaskFailure,
 ): TaskFailure => ({
   ...rest,
   // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)

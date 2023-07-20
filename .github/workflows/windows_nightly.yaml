@@ -16,7 +16,7 @@ jobs:
   linter_tests_main:
     name: Plugin Tests Main
     runs-on: windows-latest
-    timeout-minutes: 120
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -51,9 +51,13 @@ jobs:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
+          # manually specify more parallelism to avoid bottlenecks
+          append-args: linters -- --maxWorkers=5
+          # CI Debugger is not yet supported on Windows
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
-      # akin to the linter_tests job.
-      - name: Tool Tests
-        if: failure() || success()
-        uses: ./.github/actions/tool_tests
+      # # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # # akin to the linter_tests job.
+      # - name: Tool Tests
+      #   if: failure() || success()
+      #   uses: ./.github/actions/tool_tests

@@ -5,7 +5,7 @@ import { SetupSettings } from "tests/driver";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
-import { getTrunkVersion, newTrunkYamlContents } from "tests/utils/trunk_config";
+import { getTrunkVersion } from "tests/utils/trunk_config";
 
 import { GenericTrunkDriver } from "./driver";
 

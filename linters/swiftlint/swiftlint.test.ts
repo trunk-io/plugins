@@ -15,21 +15,21 @@ const configSetup = (driver: TrunkLintDriver) => {
     ".trunk/configs/.swiftlint.yml",
     `disabled_rules:
   - line_length
-  - identifier_name`
+  - identifier_name`,
   );
 
   // nested config 2. Files in its directory should apply configs 1 and 2
   driver.writeFile(
     "test_data/.swiftlint.yml",
     `disabled_rules:
-  - type_name`
+  - type_name`,
   );
 
   // nested config 3. Files in its directory should apply configs 1 and 3
   driver.writeFile(
     "test_data/subdir/.swiftlint.yml",
     `disabled_rules:
-  - vertical_whitespace`
+  - vertical_whitespace`,
   );
 
   // Include 3 copies of basic.swift:

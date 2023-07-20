@@ -61,7 +61,6 @@ if ($version -eq $null) {
 $localApplicationData = [Environment]::GetFolderPath('LocalApplicationData')
 $trunkDir = "$localApplicationData\trunk\cli\trunk-${version}-windows"
 $trunkExe = "$trunkDir\trunk.exe"
-echo $trunkExe
 
 # Download trunk.exe if it doesn't exist.
 if (!(Test-Path $trunkExe)) {
