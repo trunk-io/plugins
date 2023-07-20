@@ -61,7 +61,7 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      if: $RUNNER_OS == Windows
+      if: env.RUNNER_OS == 'Windows'
       run: npm test --ci ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
@@ -72,7 +72,7 @@ runs:
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
 
     - name: Run plugin tests
-      if: $RUNNER_OS != Windows
+      if: env.RUNNER_OS != 'Windows'
       uses: trunk-io/breakpoint@v1
       with:
         breakpoint-id: trunk-plugins-linter-tests
