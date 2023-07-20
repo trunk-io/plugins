@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 // iwyu doesn't use semver versioning, so we need to pass a custom callback.
 // Examples of iwyu versions include 0.10, 0.19
@@ -37,7 +37,7 @@ const preCheck = (driver: TrunkLintDriver) => {
   const oldCompileContents = driver.readFile("compile_commands.json");
   const newCompileContents = oldCompileContents.replace(
     /\$\{EXECUTION_ROOT\}/g,
-    driver.getSandbox()
+    driver.getSandbox(),
   );
   driver.writeFile("compile_commands.json", newCompileContents);
 };
@@ -48,4 +48,5 @@ customLinterCheckTest({
   pathsToSnapshot: ["test.cc"],
   versionGreaterThanOrEqual,
   preCheck,
+  skipTestIf: skipOS(["win32"]),
 });

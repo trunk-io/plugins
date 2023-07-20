@@ -1,7 +1,7 @@
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 // ansible-lint's trunk invokations are trigger-based, so we need to add this to the trunk.yaml.
 const preCheck =
@@ -29,14 +29,20 @@ const preCheck =
       const configFile = "jboss-standalone/demo-aws-launch.yml";
       driver.writeFile(
         configFile,
-        driver.readFile(configFile).replace("amazon.aws.ec2_instance", "ec2")
+        driver.readFile(configFile).replace("amazon.aws.ec2_instance", "ec2"),
       );
     }
   };
 
-customLinterCheckTest({ linterName: "ansible-lint", testName: "FQCN", preCheck: preCheck() });
+customLinterCheckTest({
+  linterName: "ansible-lint",
+  testName: "FQCN",
+  preCheck: preCheck(),
+  skipTestIf: skipOS(["win32"]),
+});
 customLinterCheckTest({
   linterName: "ansible-lint",
   testName: "non_FQCN",
   preCheck: preCheck(false),
+  skipTestIf: skipOS(["win32"]),
 });

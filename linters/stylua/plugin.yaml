@@ -16,6 +16,7 @@ lint:
     - name: stylua
       files: [lua]
       download: stylua
+      known_good_version: 0.17.0
       commands:
         - name: format
           output: rewrite

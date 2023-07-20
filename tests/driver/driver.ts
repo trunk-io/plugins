@@ -19,8 +19,8 @@ const TEMP_SUBDIR = "tmp";
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
 
-const executionEnv = (sandbox: string) => {
-  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): TRUNK_CLI_VERSION must be stripped from CI-Debugger
+export const executionEnv = (sandbox: string) => {
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Strip TRUNK_CLI_VERSION from CI-Debugger
   const { PWD, INIT_CWD, TRUNK_CLI_VERSION, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
@@ -96,6 +96,7 @@ export class GenericTrunkDriver {
       recursive: true,
       filter: testCreationFilter(this.testDir),
     });
+    this.copyFileFromRoot(".gitattributes");
 
     if (this.setupSettings.setupTrunk) {
       // Initialize trunk via config
@@ -116,19 +117,20 @@ export class GenericTrunkDriver {
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
         .addConfig("commit.gpgsign", "false")
+        .addConfig("core.autocrlf", "input")
         .commit("first commit");
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
     try {
       // This directory is generated during launcher log creation and is required for binary cache results
-      fs.mkdirSync(path.resolve(this.sandboxPath, TEMP_SUBDIR));
       await this.runTrunk(["--help"]);
-    } catch (error) {
+    } catch (err: any) {
       // The trunk launcher is not designed to handle concurrent installs.
       // This command may fail if another test installs at the same time.
       // Don't block if this happens.
-      console.warn(`Error running --help`, error);
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+      console.warn(`Error running --help with stdout: %s\nand stderr: %s`, err.stdout, err.stderr);
     }
   }
 
@@ -138,25 +140,31 @@ export class GenericTrunkDriver {
    */
   tearDown() {
     this.debug("Cleaning up %s", this.sandboxPath);
-    const trunkCommand = ARGS.cliPath ?? "trunk";
 
     // Preserve test directory if `SANDBOX_DEBUG` is truthy.
     if (ARGS.sandboxDebug) {
-      execFileSync(trunkCommand, ["daemon", "shutdown"], {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.getSandbox()),
-      });
+      this.runTrunkSync(["daemon", "shutdown"]);
       console.log(`Preserving test dir ${this.getSandbox()}`);
       return;
     }
 
-    execFileSync(trunkCommand, ["deinit"], {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.getSandbox()),
-    });
+    if (process.platform == "win32") {
+      try {
+        // On Windows, deinit will often fail with permission error for cleaning up the cache dir
+        this.runTrunkSync(["deinit"]);
+      } catch (_err: any) {
+        // this.debug("deinit failed with error stdout: %s\nand stderr: %s", _err.stdout, _err.stderr);
+      }
+    } else {
+      this.runTrunkSync(["deinit"]);
+    }
 
-    if (this.sandboxPath) {
-      fs.rmSync(this.sandboxPath, { recursive: true });
+    try {
+      if (this.sandboxPath) {
+        fs.rmSync(this.sandboxPath, { recursive: true });
+      }
+    } catch (_err) {
+      // TODO(Tyler): Windows will often fail this step due to permissions error
     }
   }
 
@@ -260,9 +268,43 @@ export class GenericTrunkDriver {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
     });
-    return YAML.parse(printConfig.toString());
+    return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
   };
 
+  /**
+   * Reformat trunk execution args into the expected platform-specific invocation
+   */
+  buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
+    const trunkPath = ARGS.cliPath ?? "trunk";
+    if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
+      return [
+        "powershell",
+        ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
+        {
+          cwd: this.sandboxPath,
+          env: executionEnv(this.sandboxPath ?? ""),
+          ...execOptions,
+          windowsHide: true,
+        },
+      ];
+    }
+    return [
+      trunkPath,
+      args.filter((arg) => arg.length > 0),
+      {
+        cwd: this.sandboxPath,
+        env: executionEnv(this.sandboxPath ?? ""),
+        ...execOptions,
+        windowsHide: true,
+      },
+    ];
+  }
+
+  /**
+   * Run a specified trunk command with `args` and additional options.
+   * @param args string of arguments to run, excluding `trunk`
+   * @param execOptions
+   */
   async runTrunkCmd(
     argStr: string,
     execOptions?: ExecOptions,
@@ -282,18 +324,33 @@ export class GenericTrunkDriver {
     args: string[],
     execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
-    const trunkPath = ARGS.cliPath ?? "trunk";
-    return await execFilePromise(
-      trunkPath,
-      args.filter((arg) => arg.length > 0),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
-        ...execOptions,
-      },
-    );
+    return await execFilePromise(...this.buildExecArgs(args, execOptions));
   }
 
+  /**
+   * Run a specified trunk command with `args` and additional options.
+   * @param args arguments to run, excluding `trunk`
+   * @param execOptions
+   */
+  runTrunkSync(args: string[], execOptions?: ExecOptions) {
+    return execFileSync(...this.buildExecArgs(args, execOptions));
+  }
+
+  /**
+   * Run a specified trunk command with `args` and additional options.
+   * @param args arguments to run, excluding `trunk`
+   * @param execOptions
+   */
+  runTrunkAsync(args: string[], execOptions?: ExecOptions) {
+    return execFile(...this.buildExecArgs(args, execOptions));
+  }
+
+  /**
+   * Run a command inside the sandbox test repo.
+   * @param bin command to run
+   * @param args arguments to run
+   * @param execOptions
+   */
   async run(bin: string, args: string[], execOptions?: ExecOptions) {
     return await execFilePromise(bin, args, {
       cwd: this.sandboxPath,

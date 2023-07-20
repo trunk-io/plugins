@@ -110,6 +110,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       return;
     }
 
+    let newTrunkContents = "<undefined contents>";
     try {
       // Cast version to string in case of decimal representation (e.g. 0.40)
       const version = `${this.extractLinterVersion()}`;
@@ -122,7 +123,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
       );
 
       // Retrieve the enabled version
-      const newTrunkContents = fs.readFileSync(
+      newTrunkContents = fs.readFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
         "utf8",
       );
@@ -133,7 +134,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         this.debug("Enabled %s", this.enabledVersion);
       }
     } catch (error) {
-      console.warn(`Failed to enable ${this.linter}`, error);
+      console.warn(`Failed to enable ${this.linter}`, error, newTrunkContents);
     }
   }
 
@@ -214,10 +215,10 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk check'", error);
+        console.log(`${error.code as number} Failure running 'trunk check'`, error);
       }
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
     }
   }
@@ -231,7 +232,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     // this has been changed from ".json" to ".out.json" for linters that run on terraform files
     // terraform extensions are .tf and .tf.json - this change prevents accidentally linting the trunk output
     const resultJsonPath = `${targetAbsPath}.out.json`;
-    const args = `--upstream=false ${targetAbsPath}`;
+    const args = `--upstream=false ${targetRelativePath}`;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }
@@ -292,10 +293,10 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         outputJson: JSON.parse(jsonContents),
         error: error as Error,
       };
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       if (trunkRunResult.exitCode != 1) {
-        console.log("Failure running 'trunk fmt'", error);
+        console.log(`${error.code as number} Failure running 'trunk fmt'`, error);
       }
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }
@@ -307,7 +308,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
   async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
-    const args = `--upstream=false ${targetAbsPath}`;
+    const args = `--upstream=false ${targetRelativePath}`;
     this.debug("Running `trunk fmt` on %s", targetRelativePath);
     return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
   }

@@ -1,0 +1,5 @@
+* text eol=lf
+*.png binary -text -eol
+*.war binary -text -eol
+*.xml binary -text -eol
+*.bat binary -text -eol

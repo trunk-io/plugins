@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest, linterCheckTest, TestCallback } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
+import { osTimeoutMultiplier, skipOS, TEST_DATA } from "tests/utils";
 
 // detekt tests can sometimes take a while.
 jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
@@ -13,10 +13,20 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
-linterCheckTest({ linterName: "detekt", namedTestPrefixes: ["basic_detekt"], preCheck });
+linterCheckTest({
+  linterName: "detekt",
+  namedTestPrefixes: ["basic_detekt"],
+  preCheck,
+  skipTestIf: skipOS(["win32"]),
+});
 
 // detekt-explicit has no default settings, leading to an empty result
-linterCheckTest({ linterName: "detekt-explicit", namedTestPrefixes: ["basic_explicit"], preCheck });
+linterCheckTest({
+  linterName: "detekt-explicit",
+  namedTestPrefixes: ["basic_explicit"],
+  preCheck,
+  skipTestIf: skipOS(["win32"]),
+});
 
 // detekt-gradle tests rely on a particular gradle-focused system setup, and they require a level of greater configuration here.
 // TODO(Tyler): Because of this setup, this leads to reduced coverage for different versions. We should augment this logic
@@ -36,4 +46,5 @@ customLinterCheckTest({
   linterName: "detekt-gradle",
   args: "-a",
   preCheck: gradlePreCheck,
+  skipTestIf: skipOS(["win32"]),
 });

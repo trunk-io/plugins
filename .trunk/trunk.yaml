@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.12.3
+  version: 1.12.4-beta.5
 
 api:
   address: api.trunk-staging.io:8443
@@ -50,7 +50,7 @@ actions:
       description: Generate boilerplate test code when new linters are defined
       runtime: python
       packages_file: repo-tools/linter-test-helper/requirements.txt
-      run: python repo-tools/linter-test-helper/generate scan ${workspace}
+      run: python3 repo-tools/linter-test-helper/generate scan ${workspace}
       triggers:
         - files: [linters/**]
 

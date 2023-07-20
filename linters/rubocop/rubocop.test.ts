@@ -7,7 +7,7 @@ customLinterCheckTest({
   linterName: "rubocop",
   testName: "basic",
   args: "-a",
-  skipTestIf: skipOS(["darwin"]),
+  skipTestIf: skipOS(["darwin", "win32"]),
 });
 
 customLinterFmtTest({
@@ -15,5 +15,5 @@ customLinterFmtTest({
   testName: "basic",
   args: "-a",
   pathsToSnapshot: [path.join(TEST_DATA, "basic.rb")],
-  skipTestIf: skipOS(["darwin"]),
+  skipTestIf: skipOS(["darwin", "win32"]),
 });

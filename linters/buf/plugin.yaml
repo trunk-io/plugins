@@ -28,6 +28,7 @@ lint:
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
   definitions:
     - name: buf-format
+      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       suggest_if: never
@@ -57,6 +58,7 @@ lint:
         run: buf --version
 
     - name: buf-lint
+      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       commands:
@@ -85,6 +87,7 @@ lint:
         run: buf --version
 
     - name: buf-breaking
+      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       suggest_if: never
