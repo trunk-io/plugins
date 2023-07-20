@@ -56,3 +56,7 @@ lint:
           list: ["${linter}", "${env.PATH}"] # system path for docker
         - name: USER
           value: ${env.USER}
+          optional: true
+        - name: USERNAME
+          value: ${env.USER}
+          optional: true
