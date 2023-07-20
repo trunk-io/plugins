@@ -1,1 +1,5 @@
+*.png binary
+*.war binary
+*.xml binary
+*.bat binary
 * text eol=lf
