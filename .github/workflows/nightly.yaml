@@ -81,7 +81,7 @@ jobs:
           cp package-lock.json package-lock.json.bak
           cp -r .github/actions .github/actions.bak
           cp -r .trunk .trunk.bak
-          cp tsconfig.json .tsconfig.json.bak
+          cp tsconfig.json tsconfig.json.bak
           cp jest.config.json jest.config.json.bak
           # Include any newly generated snapshots that have been marked release-ready
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
