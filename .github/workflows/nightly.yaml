@@ -81,6 +81,9 @@ jobs:
           cp package-lock.json package-lock.json.bak
           cp -r .github/actions .github/actions.bak
           cp -r .trunk .trunk.bak
+          cp tsconfig.json tsconfig.json.bak
+          cp jest.config.json jest.config.json.bak
+          cp .gitattributes .gitattributes.bak
           # Include any newly generated snapshots that have been marked release-ready
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
         continue-on-error: true
@@ -113,6 +116,9 @@ jobs:
           mv .github/actions.bak .github/actions
           rm -rf .trunk
           mv .trunk.bak .trunk
+          mv tsconfig.json.bak tsconfig.json
+          mv jest.config.json.bak jest.config.json
+          mv .gitattributes.bak .gitattributes
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
         continue-on-error: true
