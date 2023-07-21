@@ -45,10 +45,6 @@ jobs:
           fi
         shell: bash
 
-      - name: print runner os
-        shell: bash
-        run: echo "${RUNNER_OS}"
-
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
