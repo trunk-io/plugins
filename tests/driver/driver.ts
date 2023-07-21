@@ -88,6 +88,7 @@ export class GenericTrunkDriver {
    */
   async setUp() {
     this.sandboxPath = fs.realpathSync(fs.mkdtempSync(path.resolve(os.tmpdir(), TEMP_PREFIX)));
+    fs.mkdirSync(path.resolve(this.sandboxPath, TEMP_SUBDIR));
     this.debug("Created sandbox path %s from %s", this.sandboxPath, this.testDir);
     if (!this.sandboxPath) {
       return;
