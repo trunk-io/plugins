@@ -9,13 +9,13 @@ downloads:
         cpu:
           x86_64: x86_64
           arm_64: arm64
-        url: https://github.com/getsentry/sentry-cli/releases/download/2.19.4/sentry-cli-${os}-${cpu}
+        url: https://github.com/getsentry/sentry-cli/releases/download/${version}/sentry-cli-${os}-${cpu}
       - os:
           windows: Windows
         cpu:
           x86_64: x86_64
           arm_64: arm64
-        url: https://github.com/getsentry/sentry-cli/releases/download/2.19.4/sentry-cli-${os}-${cpu}.exe
+        url: https://github.com/getsentry/sentry-cli/releases/download/${version}/sentry-cli-${os}-${cpu}.exe
 tools:
   definitions:
     - name: sentry-cli
