@@ -57,6 +57,3 @@ lint:
         - name: USER
           value: ${env.USER}
           optional: true
-        - name: USERNAME
-          value: ${env.USER}
-          optional: true

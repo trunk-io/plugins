@@ -41,7 +41,4 @@ lint:
         - name: USER
           value: ${env.USER}
           optional: true
-        - name: USERNAME
-          value: ${env.USER}
-          optional: true
       known_good_version: 1.0.41
