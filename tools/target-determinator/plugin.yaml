@@ -10,6 +10,13 @@ downloads:
           x86_64: amd64
           arm_64: arm64
         url: https://github.com/bazel-contrib/target-determinator/releases/download/v${version}/target-determinator.${os}.${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/bazel-contrib/target-determinator/releases/download/v${version}/target-determinator.${os}.${cpu}.exe
+
 tools:
   definitions:
     - name: target-determinator
