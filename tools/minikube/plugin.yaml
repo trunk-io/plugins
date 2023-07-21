@@ -10,6 +10,13 @@ downloads:
           x86_64: amd64
           arm_64: arm64
         url: https://github.com/kubernetes/minikube/releases/download/v${version}/minikube-${os}-${cpu}
+      - os:
+          linux: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/kubernetes/minikube/releases/download/v${version}/minikube-${os}-${cpu}.exe
+
 tools:
   definitions:
     - name: minikube

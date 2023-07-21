@@ -10,6 +10,13 @@ downloads:
           x86_64: x64
           arm_64: arm64
         url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}
+      - os:
+          windows: win
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}.exe
+
 tools:
   definitions:
     - name: pnpm

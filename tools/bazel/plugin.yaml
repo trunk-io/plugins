@@ -10,6 +10,12 @@ downloads:
           x86_64: x86_64
           arm_64: arm64
         url: https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-${os}-${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-${os}-${cpu}.exe
 tools:
   definitions:
     - name: bazel
