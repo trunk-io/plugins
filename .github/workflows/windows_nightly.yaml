@@ -4,8 +4,8 @@ on:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
-  # pull_request:
-  #   paths: [.github/workflows/windows_nightly.yaml]
+  pull_request:
+    paths: [.github/workflows/windows_nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -44,6 +44,10 @@ jobs:
             rm -rf ${tmp_dir}
           fi
         shell: bash
+
+      - name: print runner os
+        shell: bash
+        run: echo "${RUNNER_OS}"
 
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
