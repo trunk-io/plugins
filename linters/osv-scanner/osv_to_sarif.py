@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import re
 import sys
 
 # Used to map OSV/GHSA severities to the corresponding SARIF severity
@@ -74,7 +75,10 @@ def main(argv):
         path = result["source"]["path"]
 
         # path is an absolute path, so this should always be safe
-        lockfile_lines = enumerate(open(path, "r").readlines())
+        # lockfile_lines = enumerate(open(path, "r"), 1)
+
+        # read lockfile into a string
+        lockfile_lines = open(path).read().splitlines()
 
         for pkg_vulns in result["packages"]:
             pkg = pkg_vulns["package"]
@@ -86,17 +90,19 @@ def main(argv):
                     message = vuln["summary"]
                 else:
                     message = vuln["details"]
+
+                # Put single quotes around package names to clarify that it's a package
+                message = re.sub(f'({pkg["name"]})', r"'\1'", message)
+
                 description = (
                     f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {message}'
                 )
 
-                lines = [
-                    zero_indexed + 1
-                    for zero_indexed, line in lockfile_lines
-                    if pkg["name"] in line and pkg["version"] in line
-                ]
-                lines += [0]
-                lineno = lines[0]
+                lineno = 0
+                for num, line in enumerate(lockfile_lines, 1):
+                    if pkg["name"] in line and pkg["version"] in line:
+                        lineno = num
+                        break
 
                 results.append(
                     to_result_sarif(
