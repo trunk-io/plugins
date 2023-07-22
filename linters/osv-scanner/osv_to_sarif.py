@@ -75,7 +75,7 @@ def main(argv):
         path = result["source"]["path"]
 
         # read lockfile into a string
-        lockfile_lines = open(path).read().splitlines()
+        lockfile_lines = enumerate(open(path).read().splitlines(), 1)
 
         for pkg_vulns in result["packages"]:
             pkg = pkg_vulns["package"]
@@ -96,7 +96,7 @@ def main(argv):
                 )
 
                 lineno = 0
-                for num, line in enumerate(lockfile_lines, 1):
+                for num, line in lockfile_lines:
                     if pkg["name"] in line and pkg["version"] in line:
                         lineno = num
                         break
