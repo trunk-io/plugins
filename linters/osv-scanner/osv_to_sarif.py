@@ -75,7 +75,7 @@ def main(argv):
         path = result["source"]["path"]
 
         # path is an absolute path, so this should always be safe
-        lockfile_lines = enumerate(open(path).read().splitlines(), 1)
+        lockfile_lines = open(path).read().splitlines()
 
         for pkg_vulns in result["packages"]:
             pkg = pkg_vulns["package"]
@@ -96,7 +96,7 @@ def main(argv):
                 )
 
                 lineno = 0
-                for num, line in lockfile_lines:
+                for num, line in enumerate(lockfile_lines, 1):
                     if pkg["name"] in line and pkg["version"] in line:
                         lineno = num
                         break
