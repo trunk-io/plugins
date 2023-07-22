@@ -74,7 +74,7 @@ def main(argv):
             continue
         path = result["source"]["path"]
 
-        # read lockfile into a string
+        # path is an absolute path, so this should always be safe
         lockfile_lines = enumerate(open(path).read().splitlines(), 1)
 
         for pkg_vulns in result["packages"]:
