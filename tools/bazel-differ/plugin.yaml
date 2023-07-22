@@ -10,6 +10,7 @@ downloads:
           x86_64: x86_64
           arm_64: arm64
         url: https://github.com/ewhauser/bazel-differ/releases/download/v${version}/bazel-differ-${os}-${cpu}
+      # no windows release
 tools:
   definitions:
     - name: bazel-differ
