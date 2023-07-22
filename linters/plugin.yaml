@@ -386,7 +386,10 @@ lint:
         - .stylelintrc
 
     - name: prisma
-      extensions: [prisma]
+      extensions:
+        - prisma
+      comments:
+        - slashes-inline
 
     - name: proto
       extensions:
