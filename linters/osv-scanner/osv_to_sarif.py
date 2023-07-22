@@ -74,9 +74,6 @@ def main(argv):
             continue
         path = result["source"]["path"]
 
-        # path is an absolute path, so this should always be safe
-        # lockfile_lines = enumerate(open(path, "r"), 1)
-
         # read lockfile into a string
         lockfile_lines = open(path).read().splitlines()
 
