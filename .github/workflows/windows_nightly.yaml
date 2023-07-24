@@ -4,8 +4,8 @@ on:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
-  # pull_request:
-  # paths: [.github/workflows/windows_nightly.yaml]
+  pull_request:
+    paths: [.github/workflows/windows_nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -52,7 +52,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           # manually specify more parallelism to avoid bottlenecks
-          append-args: linters -- --maxWorkers=5
+          append-args: linters/txtpbfmt -- --maxWorkers=5
           # CI Debugger is not yet supported on Windows
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
