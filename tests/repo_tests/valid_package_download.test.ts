@@ -16,28 +16,26 @@ describe("Validate linter download/package setup", () => {
     .readdirSync(linterDir)
     .filter((file) => fs.lstatSync(path.resolve(linterDir, file)).isDirectory());
 
-  linters
-    .filter((linter) => !excludedLinters.includes(linter))
-    .forEach((linter) => {
-      // trunk-ignore(eslint/jest/valid-title)
-      it(linter, () => {
-        // trunk-ignore-begin(eslint): Expected any accesses
-        // Ignoring no-unsafe-member-access, no-unsafe-assignment, no-unsafe-call, no-unsafe-return, and conditional jest expect
-        const yamlContents = parseYaml(path.resolve(linterDir, linter, "plugin.yaml"));
+  linters.forEach((linter) => {
+    // trunk-ignore(eslint/jest/valid-title)
+    it(linter, () => {
+      // trunk-ignore-begin(eslint): Expected any accesses
+      // Ignoring no-unsafe-member-access, no-unsafe-assignment, no-unsafe-call, no-unsafe-return, and conditional jest expect
+      const yamlContents = parseYaml(path.resolve(linterDir, linter, "plugin.yaml"));
 
-        yamlContents.lint?.definitions?.forEach((definition: any) => {
-          // All linters that have downloads must define them
-          if (definition.download) {
-            const downloads = (yamlContents.lint?.downloads ?? []).map(
-              (download: any) => download?.name,
-            );
-            expect(downloads).toContain(definition.download);
-          }
-          if (definition.download || definition.package) {
-            expect(definition.known_good_version).toBeTruthy();
-          }
-          // trunk-ignore-end(eslint)
-        });
+      yamlContents.lint?.definitions?.forEach((definition: any) => {
+        // All linters that have downloads must define them
+        if (definition.download && !excludedLinters.includes(linter)) {
+          const downloads = (yamlContents.lint?.downloads ?? []).map(
+            (download: any) => download?.name,
+          );
+          expect(downloads).toContain(definition.download);
+        }
+        if (definition.download || definition.package) {
+          expect(definition.known_good_version).toBeTruthy();
+        }
+        // trunk-ignore-end(eslint)
       });
     });
+  });
 });
