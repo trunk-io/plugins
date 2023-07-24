@@ -33,8 +33,8 @@ def main(argv):
     for line in sys.stdin.readlines():
         vuln_json = json.loads(line)
         path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
-        line_number = int(
-            vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0")
+        line_number = (
+            int(vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0")) + 1
         )
         # trufflehog doesn't have vuln IDs
         # this is the name of the detector that found the error (e.g. AWS, Github, PrivateKey)

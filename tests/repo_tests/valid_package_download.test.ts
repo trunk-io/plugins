@@ -8,7 +8,8 @@ const excludedLinters: string[] = ["clippy", "gofmt", "rustfmt"];
 
 // This test asserts that all linters that have a `download` specified (as opposed to custom run command or package)
 // Must also define that download in its same file. Otherwise, this would be a runtime error.
-describe("All linters that use downloads must define them", () => {
+// Additionally, any linters that reference a download or package must have a known_good_version.
+describe("Validate linter download/package setup", () => {
   // Find all linter subdirectories
   const linterDir = path.resolve(REPO_ROOT, "linters");
   const linters = fs
@@ -25,13 +26,17 @@ describe("All linters that use downloads must define them", () => {
         const yamlContents = parseYaml(path.resolve(linterDir, linter, "plugin.yaml"));
 
         yamlContents.lint?.definitions?.forEach((definition: any) => {
+          // All linters that have downloads must define them
           if (definition.download) {
             const downloads = (yamlContents.lint?.downloads ?? []).map(
               (download: any) => download?.name,
             );
             expect(downloads).toContain(definition.download);
-            // trunk-ignore-end(eslint)
           }
+          if (definition.download || definition.package) {
+            expect(definition.known_good_version).toBeTruthy();
+          }
+          // trunk-ignore-end(eslint)
         });
       });
     });
