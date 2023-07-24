@@ -18,16 +18,12 @@ plugins:
       ref: v0.0.4
 
 lint:
-  # enabled list inherited from plugin 'configs'
-  enabled:
-    - yamllint@1.26.3
-    - checkov@2.3.296
-    - nancy@1.0.42
-    - trivy@0.43.1
-    - osv-scanner@1.3.5
+  # enabled linters inherited from github.com/trunk-io/configs plugin
+  enabled: []
+
   disabled:
-    # pylint diagnostics are a bit too strict for our parsers
-    - pylint
+    - pylint # pylint diagnostics are too strict
+
   ignore:
     - linters: [ALL]
       paths:
@@ -63,8 +59,8 @@ actions:
       shell: bash
 
   enabled:
-    # - npm-check
-    - npm-check-pre-push
+    # enabled actions inherited from github.com/trunk-io/configs plugin
     - linter-test-helper
+    - npm-check-pre-push
     - remove-release-snapshots
     - repo-tests

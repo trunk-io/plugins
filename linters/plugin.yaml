@@ -218,6 +218,14 @@ lint:
       comments:
         - hyphen-hash
 
+    - name: hcl
+      extensions:
+        - hcl
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
+
     - name: html
       extensions:
         - html
@@ -377,6 +385,12 @@ lint:
         - .prettierrc
         - .stylelintrc
 
+    - name: prisma
+      extensions:
+        - prisma
+      comments:
+        - slashes-inline
+
     - name: proto
       extensions:
         - proto
@@ -483,14 +497,6 @@ lint:
       extensions:
         - tf
         - tf.json
-
-    - name: hcl
-      extensions:
-        - hcl
-      comments:
-        - hash
-        - slashes-inline
-        - slashes-block
 
     - name: toml
       extensions:
