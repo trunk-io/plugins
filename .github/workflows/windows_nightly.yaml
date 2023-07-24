@@ -5,7 +5,7 @@ on:
     - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
   # pull_request:
-  #   paths: [.github/workflows/windows_nightly.yaml]
+  # paths: [.github/workflows/windows_nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
