@@ -33,8 +33,10 @@ runtimes:
           list: ["${runtime}/bin"]
         - name: GOROOT
           value: ${runtime}
-        # - name: GO111MODULE
-        #   value: on
+        - name: GOROOT_FINAL
+          value: ${runtime}
+        - name: GO111MODULE
+          value: on
         - name: CGO_ENABLED
           value: 0
         - name: http_proxy
