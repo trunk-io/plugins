@@ -45,10 +45,6 @@ jobs:
           fi
         shell: bash
 
-      - name: Disable Windows Defender
-        shell: powershell
-        run: Set-MpPreference -DisableRealtimeMonitoring $true
-
       - name: Linter Tests
         uses: ./.github/actions/linter_tests
         with:
@@ -56,7 +52,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           # manually specify more parallelism to avoid bottlenecks
-          append-args: linters/txtpbfmt linters/g -- --maxWorkers=5
+          append-args: linters/golines -- --maxWorkers=5
           # CI Debugger is not yet supported on Windows
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
@@ -65,7 +61,6 @@ jobs:
         run:
           find
           "C:\Users\RUNNER~1\AppData\Local\Temp\plugins_testing_download_cache\go\1.19.5-c5ed76413ea5f31324553395eb94540e\src"
-          -maxDepth 1
         if: always()
 
       # # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
