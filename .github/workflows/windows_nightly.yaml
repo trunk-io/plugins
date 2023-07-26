@@ -62,6 +62,7 @@ jobs:
           find
           "C:\Users\RUNNER~1\AppData\Local\Temp\plugins_testing_download_cache\go\1.19.5-c5ed76413ea5f31324553395eb94540e\src"
           -maxDepth 1
+        if: always()
 
       # # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # # akin to the linter_tests job.
