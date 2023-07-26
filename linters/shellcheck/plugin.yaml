@@ -4,9 +4,12 @@ lint:
     - name: shellcheck
       version: 0.8.0
       downloads:
-        - os: linux
-          cpu: x86_64
-          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.linux.x86_64.tar.xz
+        - os:
+            linux: linux
+          cpu:
+            arm_64: aarch64
+            x86_64: x86_64
+          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.${os}.${arch}.tar.xz
           strip_components: 1
         - os: macos
           cpu: x86_64
