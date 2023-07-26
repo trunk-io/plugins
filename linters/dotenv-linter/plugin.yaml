@@ -10,6 +10,11 @@ lint:
           version: <3.1.1
         - os:
             linux: alpine
+          cpu:
+            x86_64: x86_64
+            arm_64: aarch64
+          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
+        - os:
             macos: darwin
           cpu:
             x86_64: x86_64

@@ -3,8 +3,11 @@ downloads:
   - name: gt
     executable: true
     downloads:
+      - os: linux
+        cpu: x86_64
+        # No arm64
+        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
       - os:
-          linux: linux
           macos: macos
         url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
       - os:
