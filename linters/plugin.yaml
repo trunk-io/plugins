@@ -172,6 +172,11 @@ lint:
       comments:
         - hash
 
+    - name: dustilock
+      filenames:
+        - requirements.txt
+        - package.json
+
     - name: gemspec
       extensions:
         - gemspec

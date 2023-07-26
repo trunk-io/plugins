@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "scripts": {
+      "parse": "ts-node tests/parse/index.ts",
+      "test": "jest",
+      "trunk": "trunk"
+    },
+    "devDependencies": {
+      "corporateInternalTool": "^2.2.0",
+      "someDefinitelyNotPublicUtility": "^13.37"
+    },
+    "bundleDependencies": [
+      "tests"
+    ],
+    "engines": {
+      "node": ">=16"
+    }
+  }
