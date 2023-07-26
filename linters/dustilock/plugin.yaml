@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: dustilock
+      files: [dustilock]
+      runtime: go
+      package: github.com/checkmarx/dustilock
+      commands:
+        - name: scan
+          output: sarif
+          run: dustilock --path ${target}
+          target: ${parent}
+          success_codes: [0, 1]
+          read_output_from: stderr
+          batch: false
+          is_security: true
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/dustilock/dustilock_to_sarif.py
+      suggest_if: never
+      known_good_version: 1.2.0

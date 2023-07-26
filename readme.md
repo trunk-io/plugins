@@ -68,7 +68,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                              |
 | Rust            | [clippy], [rustfmt]                                                                                                 |
 | Scala           | [scalafmt]                                                                                                          |
-| Security        | [checkov], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                                      |
+| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                         |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                               |
 | SVG             | [svgo]                                                                                                              |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
@@ -99,6 +99,7 @@ trunk check enable {linter}
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
+[dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
 [git-diff-check]: https://git-scm.com/docs/git-diff
