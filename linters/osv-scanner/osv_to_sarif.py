@@ -59,15 +59,19 @@ def to_result_sarif(
 
 
 def main(argv):
-    # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.
-    if sys.platform == "win32":
-        filtered_stdin = "".join(i for i in sys.stdin.read() if ord(i) < 256)
-        osv_json = json.loads(filtered_stdin)
-    else:
-        osv_json = json.load(sys.stdin)
+    try:
+        # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.
+        if sys.platform == "win32":
+            filtered_stdin = "".join(i for i in sys.stdin.read() if ord(i) < 256)
+            osv_json = json.loads(filtered_stdin)
+        else:
+            osv_json = json.load(sys.stdin)
+    except json.decoder.JSONDecodeError as err:
+        if str(err) == "Expecting value: line 1 column 1 (char 0)":
+            osv_json = {"results": []}
+        else:
+            raise err
     results = osv_json.get("results", [])
-    if results is None:
-        results = []
 
     for result in results:
         if "source" not in result:
@@ -88,12 +92,59 @@ def main(argv):
                 else:
                     message = vuln["details"]
 
-                # Put single quotes around package names to clarify that it's a package
-                message = re.sub(f'({pkg["name"]})', r"'\1'", message)
-
-                description = (
-                    f'Vulnerability in {pkg["name"]}@{pkg["version"]}: {message}'
+                # Put single quotes around package names to clarify that it's a package,
+                # but not if it's part of a bigger string
+                # e.g. the package "golang.org/x/sys" should not get quoted in the string "golang.org/x/sys/unix"
+                message = re.sub(
+                    f'(^|\s)({pkg["name"]})($|\s)',
+                    r"\1'\2'\3",
+                    message,
+                    flags=re.IGNORECASE,
                 )
+
+                has_version = False
+                versions = {}
+                affected = vuln.get("affected", [])
+                for affected_pkg in affected:
+                    if pkg["name"].lower() != affected_pkg["package"]["name"].lower():
+                        continue
+                    ranges = affected_pkg.get("ranges", [])
+                    for r in ranges:
+                        # ECOSYSTEM is the package versions
+                        if r.get("type", "") != "ECOSYSTEM":
+                            continue
+
+                        has_version = True
+                        for event in r["events"]:
+                            versions.update(event)
+                    if has_version:
+                        break
+
+                introduced_version = versions.get("introduced", None)
+                fixed_version = versions.get("fixed", None)
+                last_affected_version = versions.get("last_affected", None)
+
+                if (
+                    has_version
+                    and introduced_version
+                    and (fixed_version or last_affected_version)
+                ):
+                    version_msg = f"Impacted versions: [{introduced_version}, {fixed_version or last_affected_version}"
+
+                    # Using bracket notation for version ranges
+                    # [1.2.1, 1.4.0] is 1.2.1 to 1.4.0 inclusive
+                    # [1.2.1, 1.4.0) is 1.2.1 up to but not including 1.4.0
+                    if fixed_version:
+                        version_msg = (
+                            f"Fix: upgrade to {fixed_version} or higher. {version_msg})"
+                        )
+                    else:
+                        version_msg += "]"
+
+                    if message[-1] != ".":
+                        message += "."
+
+                    message += " " + version_msg
 
                 lineno = 0
                 for num, line in enumerate(lockfile_lines, 1):
@@ -103,7 +154,7 @@ def main(argv):
 
                 results.append(
                     to_result_sarif(
-                        path, lineno, vuln_id, description, get_sarif_severity(vuln)
+                        path, lineno, vuln_id, message, get_sarif_severity(vuln)
                     )
                 )
 
