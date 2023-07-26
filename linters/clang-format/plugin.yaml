@@ -10,6 +10,11 @@ lint:
           version: <14.0.0
         - os:
             linux: linux
+          cpu:
+            arm_64: aarch64
+          url: https://trunk.io/releases/clang-format-${version}-${os}-${cpu}.tar.gz
+        - os:
+            linux: linux
             macos: macos
           cpu:
             x86_64: x86_64
