@@ -45,6 +45,7 @@ runs:
       run: |
         case "$RUNNER_OS" in
           Linux)
+            sudo apt-get update
             sudo apt-get -y install libperl-critic-perl perltidy
             ;;
           macOS)
