@@ -88,13 +88,16 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
     } else if (toEnableVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
-      return (
+      const kgv =
         (this.getFullTrunkConfig().lint.definitions.find(
           ({ name }: { name: string }) => name === this.linter,
-        )?.known_good_version as string) ?? ""
-      );
+        )?.known_good_version as string) ?? "";
+      if (this.linter === "include-what-you-use" && `${kgv}`.length === 3) {
+        // TODO(Tyler): `trunk config print` does not correctly wrap quotes around kgv, so we must patch iwyu here
+        return `${kgv}0`;
+      }
+      return kgv;
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     } else if (toEnableVersion !== "Snapshots") {
       // toEnableVersion is a version string
