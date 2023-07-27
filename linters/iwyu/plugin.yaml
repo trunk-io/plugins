@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: include-what-you-use
-      version: 0.19
+      version: 0.20
       downloads:
         - os:
             linux: linux
@@ -39,7 +39,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: 0.19
+      known_good_version: 0.20
       version_command:
         parse_regex: include-what-you-use ([^ ]+).*
         run: include-what-you-use --version

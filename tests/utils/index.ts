@@ -226,6 +226,27 @@ export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
 /**
+ * Helper callback that skips a test if the CPU arch is included in excludedCPU.
+ * Intended to be passed to `skipTestIf`.
+ */
+export const skipCPU = (excludedCPU: string[]) => (_version?: string) =>
+  excludedCPU.length === 0 || excludedCPU.includes(process.arch);
+
+/**
+ * Helper callback that skips a test if the OS and CPU arch is included in excludedCPU and excludedOS.
+ * Intended to be passed to `skipTestIf`.
+ */
+interface CpuOsPair {
+  os: string;
+  cpu: string;
+}
+
+export const skipCPUOS = (pairs: CpuOsPair[]) => (_version?: string) =>
+  pairs
+    .map((pair: CpuOsPair) => pair.os == process.platform && pair.cpu == process.arch)
+    .reduce((acc: boolean, val: boolean) => acc || val);
+
+/**
  * GitHub MacOS runners can run much slower, so allow for a larger timeout.
  */
 export const osTimeoutMultiplier =
