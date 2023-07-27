@@ -9,11 +9,19 @@ lint:
         - url: https://github.com/pinterest/ktlint/releases/download/${version}/ktlint
   definitions:
     - name: ktlint
-      supported_platforms: [linux, macos]
       files: [kotlin]
       download: ktlint
       runtime: java
       commands:
+        - name: format
+          platforms: [windows]
+          run: java -jar ${linter}/ktlint.exe -F "${target}"
+          output: rewrite
+          cache_results: true
+          formatter: true
+          in_place: true
+          batch: true
+          success_codes: [0, 1]
         - name: format
           run: ktlint -F "${target}"
           output: rewrite
@@ -34,4 +42,4 @@ lint:
       known_good_version: 0.43.2
       version_command:
         parse_regex: ${semver}
-        run: ktlint --version
+        run: java -jar ${linter}/ktlint.exe --version
