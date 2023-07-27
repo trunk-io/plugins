@@ -2,7 +2,6 @@ version: 0.1
 lint:
   downloads:
     - name: include-what-you-use
-      version: 0.19
       downloads:
         - os:
             linux: linux
