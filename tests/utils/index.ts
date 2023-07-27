@@ -236,8 +236,15 @@ export const skipCPU = (excludedCPU: string[]) => (_version?: string) =>
  * Helper callback that skips a test if the OS and CPU arch is included in excludedCPU and excludedOS.
  * Intended to be passed to `skipTestIf`.
  */
-export const skipCPUOS = (excludedOS: string[], excludedCPU: string[]) => (_version?: string) =>
-  excludedCPU.includes(process.arch) && excludedOS.includes(process.platform);
+interface CpuOsPair {
+  os: string;
+  cpu: string;
+}
+
+export const skipCPUOS = (pairs: CpuOsPair[]) => (_version?: string) =>
+  pairs
+    .map((pair: CpuOsPair) => pair.os == process.platform && pair.cpu == process.arch)
+    .reduce((acc: boolean, val: boolean) => acc || val);
 
 /**
  * GitHub MacOS runners can run much slower, so allow for a larger timeout.

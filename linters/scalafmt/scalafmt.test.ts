@@ -8,13 +8,8 @@ const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(".scalafmt.conf", contents);
 };
 
-const skipTestIfLambda = (version?: string | undefined) => {
-  const os_version = skipOS(["win32"])(version);
-  if (os_version) {
-    return os_version;
-  }
-  return skipCPUOS(["linux"], ["arm64"])(version);
-};
+const skipTestIfLambda = (version?: string | undefined) =>
+  skipOS(["win32"])(version) || skipCPUOS([{ os: "linux", cpu: "arm64" }])(version);
 
 // scalafmt succeeds on empty files
 linterCheckTest({

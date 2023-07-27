@@ -20,4 +20,8 @@ lint:`,
   driver.writeFile(trunkYamlPath, newContents);
 };
 
-linterCheckTest({ linterName: "sourcery", preCheck, skipTestIf: skipCPUOS(["linux"], ["arm64"]) });
+linterCheckTest({
+  linterName: "sourcery",
+  preCheck,
+  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
+});

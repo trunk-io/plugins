@@ -9,7 +9,7 @@ customLinterCheckTest({
   linterName: "oxipng",
   testName: "malformed",
   args: path.join(TEST_DATA, "bad.png"),
-  skipTestIf: skipCPUOS(["linux"], ["arm64"]),
+  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
 });
 
 // Snapshots cannot handle png files well, so just test for successful run and inequality
@@ -34,5 +34,5 @@ customLinterFmtTest({
   preCheck,
   postCheck, // Assert that the file was compressed
   pathsToSnapshot: [path.join(TEST_DATA, "empty.txt")], // The version the test runs on depends on there being at least one snapshot
-  skipTestIf: skipCPUOS(["linux"], ["arm64"]),
+  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
 });
