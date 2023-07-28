@@ -36,8 +36,7 @@ const normalizePath = (value?: string): string | undefined => {
     if (path.isAbsolute(value)) {
       return value;
     }
-    path.resolve(REPO_ROOT, value);
-    return value;
+    return path.resolve(REPO_ROOT, value);
   }
   return undefined;
 };
