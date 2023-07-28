@@ -58,7 +58,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
-      suggest_if: files_present
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${linter}", "${env.PATH}"]
