@@ -37,6 +37,7 @@ const normalizePath = (value?: string): string | undefined => {
       return value;
     }
     path.resolve(REPO_ROOT, value);
+    return value;
   }
   return undefined;
 };
