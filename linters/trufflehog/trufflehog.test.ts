@@ -29,7 +29,6 @@ const normalizeLandingState = (landingState: LandingState) => {
 
 customLinterCheckTest({
   linterName: "trufflehog-git",
-  testName: "secret_in_history",
   preCheck,
   normalizeLandingState,
 });
