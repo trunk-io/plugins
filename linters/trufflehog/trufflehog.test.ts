@@ -1,5 +1,6 @@
 import { customLinterCheckTest, linterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
+import { LandingState } from "tests/types";
 
 linterCheckTest({ linterName: "trufflehog" });
 
@@ -9,15 +10,21 @@ const preCheck = async (driver: TrunkLintDriver) => {
     await driver.gitDriver.checkoutLocalBranch("branch-with-secrets");
     driver.copyFileFromRootTo("linters/trufflehog/test_data/secrets.in.py", "secrets.in.py");
     driver.copyFileFromRootTo("linters/trufflehog/test_data/secrets.in.py", "secrets2.in.py");
-    await driver.gitDriver.add("secrets.in.py");
-    await driver.gitDriver.add("secrets2.in.py");
-    await driver.deterministicCommit("Add secrets");
+    await driver.gitDriver.add("secrets.in.py").add("secrets2.in.py").commit("Add secrets");
     driver.deleteFile("secrets.in.py");
-    await driver.gitDriver.add("secrets.in.py");
-    await driver.deterministicCommit("Remove secrets");
+    await driver.gitDriver.add("secrets.in.py").commit("Remove secrets");
 
     // Unset the date so that the next commit is created with the current date.
     driver.gitDriver.env(process.env);
+  }
+};
+
+// Rewrite the landing state to remove non-deterministic commit hashes.
+const normalizeLandingState = (landingState: LandingState) => {
+  for (const issue of landingState?.issues ?? []) {
+    if (issue.message) {
+      issue.message = issue.message.replace(/commit [0-9a-f]{40}/g, "commit <hash>");
+    }
   }
 };
 
@@ -25,4 +32,5 @@ customLinterCheckTest({
   linterName: "trufflehog-git",
   testName: "secret_in_history",
   preCheck,
+  normalizeLandingState,
 });
