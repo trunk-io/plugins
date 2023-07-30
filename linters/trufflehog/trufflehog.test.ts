@@ -21,9 +21,11 @@ const preCheck = async (driver: TrunkLintDriver) => {
 
 // Rewrite the landing state to remove non-deterministic commit hashes.
 const normalizeLandingState = (landingState: LandingState) => {
-  for (const issue of landingState?.issues ?? []) {
-    if (issue.message) {
-      issue.message = issue.message.replace(/commit [0-9a-f]{40}/g, "commit <hash>");
+  if (landingState.issues) {
+    for (const issue of landingState.issues) {
+      if (issue.message) {
+        issue.message = issue.message.replace(/commit [0-9a-f]{40}/g, "commit <hash>");
+      }
     }
   }
 };
