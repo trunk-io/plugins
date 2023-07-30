@@ -1,8 +1,8 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { LandingState } from "tests/types";
 import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
@@ -12,8 +12,6 @@ import {
   landingStateWrapper,
   TEST_DATA,
 } from "tests/utils";
-
-import { FileIssue } from "./types";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
