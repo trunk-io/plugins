@@ -9,9 +9,15 @@ const preCheck = async (driver: TrunkLintDriver) => {
     await driver.gitDriver.checkoutLocalBranch("branch-with-secrets");
     driver.copyFileFromRootTo("linters/trufflehog/test_data/secrets.in.py", "secrets.in.py");
     driver.copyFileFromRootTo("linters/trufflehog/test_data/secrets.in.py", "secrets2.in.py");
-    await driver.gitDriver.add("secrets.in.py").add("secrets2.in.py").commit("Add secrets");
+    await driver.gitDriver.add("secrets.in.py");
+    await driver.gitDriver.add("secrets2.in.py");
+    await driver.deterministicCommit("Add secrets");
     driver.deleteFile("secrets.in.py");
-    await driver.gitDriver.add("secrets.in.py").commit("Remove secrets");
+    await driver.gitDriver.add("secrets.in.py");
+    await driver.deterministicCommit("Remove secrets");
+
+    // Unset the date so that the next commit is created with the current date.
+    driver.gitDriver.env(process.env);
   }
 };
 

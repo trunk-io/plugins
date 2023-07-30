@@ -73,11 +73,35 @@ export class GenericTrunkDriver {
   /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
   debugNamespace: string;
 
+  //**  The timestamp of the next deterministic commit */
+  private deterministic_commit_timestamp_ = 1000000000;
+
   constructor(testDir: string, setupSettings: SetupSettings, debug: Debugger) {
     this.testDir = testDir;
     this.setupSettings = setupSettings;
     this.debug = debug;
     this.debugNamespace = this.debug.namespace.replace("Driver:", "");
+  }
+
+  async deterministicCommit(message: string) {
+    if (this.gitDriver) {
+      // Set the date for the next commit so that the hash is deterministic.
+      const date = `${this.deterministic_commit_timestamp_} -0000`;
+      this.gitDriver.env({
+        ...process.env,
+        GIT_AUTHOR_DATE: date,
+        GIT_COMMITTER_DATE: date,
+      });
+
+      // Now commit.
+      await this.gitDriver.commit(message);
+
+      // Unset the date so that the next commit is created with the current date.
+      this.gitDriver.env(process.env);
+
+      // Increment the timestamp so that the next commit is in the future.
+      this.deterministic_commit_timestamp_ += 1000;
+    }
   }
 
   /**
@@ -118,8 +142,9 @@ export class GenericTrunkDriver {
         .addConfig("user.name", "Plugin Author")
         .addConfig("user.email", "trunk-plugins@example.com")
         .addConfig("commit.gpgsign", "false")
-        .addConfig("core.autocrlf", "input")
-        .commit("first commit");
+        .addConfig("core.autocrlf", "input");
+
+      await this.deterministicCommit("first commit");
     }
 
     // Run a cli-dependent command to wait on and verify trunk is installed
