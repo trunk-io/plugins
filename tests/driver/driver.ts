@@ -73,9 +73,6 @@ export class GenericTrunkDriver {
   /** Specifies a namespace suffix for using the same debugger pattern as the Driver. */
   debugNamespace: string;
 
-  //**  The timestamp of the next deterministic commit */
-  private deterministic_commit_timestamp_ = 1000000000;
-
   constructor(testDir: string, setupSettings: SetupSettings, debug: Debugger) {
     this.testDir = testDir;
     this.setupSettings = setupSettings;
