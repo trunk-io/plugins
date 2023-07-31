@@ -14,6 +14,7 @@ lint:
           formatter: true
       runtime: python
       package: autopep8
+      extra_packages: [pycodestyle@2.10.0]
       suggest_if: config_present
       direct_configs: [.pep8]
       affects_cache:
