@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: hadolint
-      version: 2.8.0
+      version: 2.10.0
       executable: true
       downloads:
         - os: linux
@@ -39,7 +39,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       issue_url_format: https://github.com/hadolint/hadolint/wiki/{}
-      known_good_version: 2.8.0
+      known_good_version: 2.10.0
       suggest_if: files_present
       version_command:
         parse_regex: ${semver}
