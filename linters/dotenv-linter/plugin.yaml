@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: dotenv-linter
-      version: 3.2.0
+      version: 3.3.0
       downloads:
         # macos arm64 was introduced after this version.
         - os: macos
@@ -42,4 +42,4 @@ lint:
       version_command:
         parse_regex: dotenv-linter ${semver}
         run: dotenv-linter --version
-      known_good_version: 3.2.0
+      known_good_version: 3.3.0
