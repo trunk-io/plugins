@@ -250,7 +250,13 @@ export const skipCPUOS = (pairs: CpuOsPair[]) => (_version?: string) =>
  * GitHub MacOS runners can run much slower, so allow for a larger timeout.
  */
 export const osTimeoutMultiplier =
-  process.platform === "darwin" ? 3 : process.platform === "win32" ? 1.5 : 1;
+  process.platform === "darwin"
+    ? 3
+    : process.platform === "win32"
+    ? 1.5
+    : process.platform === "linux" && process.arch === "arm64"
+    ? 3
+    : 1;
 
 /**
  * This wrapper on existing matchers is used to improve debuggability when an unexpected failure occurs.
