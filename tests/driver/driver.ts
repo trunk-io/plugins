@@ -216,6 +216,19 @@ export class GenericTrunkDriver {
   }
 
   /**
+   * Copies a file at the `relPath` inside the repository root to the specified relative path in the sandbox root.
+   * Recursively creates its parent directory if it does not exist.
+   */
+  copyFileFromRootTo(relPath: string, toPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(REPO_ROOT, relPath);
+    const destPath = path.resolve(sandboxPath, toPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.copyFileSync(sourcePath, destPath);
+  }
+
+  /**
    * Moves/renames a file at from the `sourceRelPath` inside the sandbox to the `destRelPath`.
    * Recursively creates the destination's parent directory if it does not exist.
    */
