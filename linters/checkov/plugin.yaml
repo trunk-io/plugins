@@ -1,11 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: checkov
+      runtime: python
+      package: checkov
+      shims: [checkov]
 lint:
   definitions:
     - name: checkov
       supported_platforms: [linux, macos]
       files: [terraform, cloudformation, docker, yaml, json]
-      runtime: python
-      package: checkov
+      tools: [checkov]
       commands:
         - name: lint
           run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},

@@ -1,9 +1,15 @@
 version: 0.1
-lint:
+tools:
   definitions:
     - name: kube-linter
       runtime: go
       package: golang.stackrox.io/kube-linter/cmd/kube-linter
+      shims: [kube-linter]
+      known_good_version: 0.6.4
+lint:
+  definitions:
+    - name: kube-linter
+      tools: [kube-linter]
       files:
         - yaml
       commands:

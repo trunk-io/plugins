@@ -1,28 +1,32 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: osv-scanner
+    version: 1.2.0
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
+tools:
+  definitions:
     - name: osv-scanner
-      version: 1.2.0
-      executable: true
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
-        - os: windows
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
-
+      download: osv-scanner
+      shims: [osv-scanner]
+lint:
   definitions:
     - name: osv-scanner
       files: [lockfile]
-      download: osv-scanner
-      known_good_version: 1.3.6
+      tools: [osv-scanner]
+      known_good_version: 1.2.0
       commands:
         - name: scan
           output: sarif
@@ -33,8 +37,6 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/osv-scanner/osv_to_sarif.py
-      direct_configs:
-        - osv-scanner.toml
       issue_url_format: https://osv.dev/{}
       suggest_if: files_present
       environment:

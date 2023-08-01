@@ -1,30 +1,36 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: hadolint
+    version: 2.8.0
+    executable: true
+    downloads:
+      - os: linux
+        cpu: x86_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-x86_64
+      - os: linux
+        cpu: arm_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-arm64
+      - os: macos
+        cpu: x86_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
+      # Use rosetta
+      - os: macos
+        cpu: arm_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
+      - os: windows
+        cpu: x86_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Windows-x86_64.exe
+tools:
+  definitions:
     - name: hadolint
-      version: 2.10.0
-      executable: true
-      downloads:
-        - os: linux
-          cpu: x86_64
-          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-x86_64
-        - os: linux
-          cpu: arm_64
-          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-arm64
-        - os: macos
-          cpu: x86_64
-          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
-        # Use rosetta
-        - os: macos
-          cpu: arm_64
-          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
-        - os: windows
-          cpu: x86_64
-          url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Windows-x86_64.exe
+      download: hadolint
+      shims: [hadolint]
+      known_good_version: 2.8.0
+lint:
   definitions:
     - name: hadolint
       files: [docker]
-      download: hadolint
+      tools: [hadolint]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle hadolint's JSON output.
@@ -39,7 +45,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       issue_url_format: https://github.com/hadolint/hadolint/wiki/{}
-      known_good_version: 2.10.0
+      known_good_version: 2.8.0
       suggest_if: files_present
       version_command:
         parse_regex: ${semver}

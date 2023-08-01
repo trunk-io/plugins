@@ -1,28 +1,34 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: actionlint
+    version: 1.6.9
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_darwin_amd64.tar.gz
+        version: <1.4.1
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
+      # No x86_64 download available
+      - os: windows
+        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_windows_386.zip
+tools:
+  definitions:
     - name: actionlint
-      version: 1.6.9
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_darwin_amd64.tar.gz
-          version: <1.4.1
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
-        # No x86_64 download available
-        - os: windows
-          url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_windows_386.zip
+      download: actionlint
+      shims: [actionlint]
+      known_good_version: 1.6.9
+lint:
   definitions:
     - name: actionlint
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
-      download: actionlint
+      tools: [actionlint]
       commands:
         - name: lint
           output: actionlint

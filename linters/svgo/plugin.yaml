@@ -1,4 +1,10 @@
 version: 0.1
+tools:
+  definitions:
+    - name: svgo
+      runtime: node
+      package: svgo
+      shims: [svgo]
 lint:
   definitions:
     # while svgo could be a formatter, it is optimizing, not formatting, so it's more intuitive to run on `trunk check`
@@ -12,8 +18,7 @@ lint:
           success_codes: [0]
           batch: true
           in_place: true
-      runtime: node
-      package: svgo
+      tools: [svgo]
       direct_configs: [svgo.config.js, svgo.config.mjs, svgo.config.cjs]
       suggest_if: files_present
       known_good_version: 2.8.0
