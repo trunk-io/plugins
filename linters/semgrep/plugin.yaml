@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: semgrep
       shims: [semgrep]
-      known_good_version: 1.7.0
+      known_good_version: 1.33.2
 lint:
   definitions:
     - name: semgrep
@@ -33,7 +33,7 @@ lint:
       environment:
         - name: PATH
           list: ["${env.PATH}"]
-      known_good_version: 1.7.0
+      known_good_version: 1.33.2
       known_bad_versions: [1.5.1] # Does not work on MacOS
       version_command:
         parse_regex: ${semver}
