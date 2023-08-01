@@ -58,6 +58,38 @@ def to_result_sarif(
     }
 
 
+def join_common_sets(lst):
+    init_len = 0
+    final_len = 1
+    while init_len != final_len:
+        init_len = len(lst)
+        ret = []
+        for s in lst:
+            unique = True
+            for stored_set in ret:
+                if len(stored_set.intersection(s)) > 0:
+                    stored_set.update(s)
+                    unique = False
+                    break
+            if unique:
+                ret.append(s)
+
+        final_len = len(ret)
+        lst = list(ret)
+    return ret
+
+
+PREFERRED_ORDER = ["GHSA-.*", "CVE-.*", "PYSEC-.*"]
+
+
+def get_preferred_alias(aliases):
+    for rx in PREFERRED_ORDER:
+        found_aliases = sorted(alias for alias in aliases if re.match(rx, alias))
+        if len(found_aliases) > 0:
+            return found_aliases[0]
+    return sorted(aliases)[0]
+
+
 def main(argv):
     try:
         # On Windows, Unicode characters in the osv-scanner output cause json parsing errors. Filter them out since we don't care about their fields.
@@ -73,6 +105,8 @@ def main(argv):
             raise err
     results = osv_json.get("results", [])
 
+    deduped_issues = []
+
     for result in results:
         if "source" not in result:
             continue
@@ -83,6 +117,9 @@ def main(argv):
 
         for pkg_vulns in result["packages"]:
             pkg = pkg_vulns["package"]
+            pkg_version = pkg["version"]
+            issues_dict = {}
+            aliases = []
             for vuln in pkg_vulns["vulnerabilities"]:
                 vuln_id = vuln["id"]
                 # <=1.34.0: summaries could have empty text
@@ -120,48 +157,35 @@ def main(argv):
                     if has_version:
                         break
 
-                introduced_version = versions.get("introduced", None)
                 fixed_version = versions.get("fixed", None)
-                last_affected_version = versions.get("last_affected", None)
 
-                if (
-                    has_version
-                    and introduced_version
-                    and (fixed_version or last_affected_version)
-                ):
-                    version_msg = f"Impacted versions: [{introduced_version}, {fixed_version or last_affected_version}"
-
-                    # Using bracket notation for version ranges
-                    # [1.2.1, 1.4.0] is 1.2.1 to 1.4.0 inclusive
-                    # [1.2.1, 1.4.0) is 1.2.1 up to but not including 1.4.0
-                    if fixed_version:
-                        version_msg = (
-                            f"Fix: upgrade to {fixed_version} or higher. {version_msg})"
-                        )
-                    else:
-                        version_msg += "]"
-
-                    if message[-1] != ".":
-                        message += "."
-
-                    message += " " + version_msg
+                description = f"{message}{'.' if message[-1] != '.' else ''} Current version is affected: {pkg_version}."
+                if fixed_version:
+                    description += (
+                        f" Patch available: upgrade to {fixed_version} or higher."
+                    )
 
                 lineno = 0
                 for num, line in enumerate(lockfile_lines, 1):
                     if pkg["name"] in line and pkg["version"] in line:
                         lineno = num
                         break
+                alias_set = set(vuln.get("aliases", [])) | {vuln_id}
 
-                results.append(
-                    to_result_sarif(
-                        path, lineno, vuln_id, message, get_sarif_severity(vuln)
+                for alias in alias_set:
+                    issues_dict[alias] = to_result_sarif(
+                        path, lineno, alias, description, get_sarif_severity(vuln)
                     )
-                )
+                aliases.append(alias_set)
+
+            aliases = join_common_sets(aliases)
+            for alias_set in aliases:
+                deduped_issues.append(issues_dict[get_preferred_alias(alias_set)])
 
     sarif = {
         "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         "version": "2.1.0",
-        "runs": [{"results": results}],
+        "runs": [{"results": deduped_issues}],
     }
 
     print(json.dumps(sarif, indent=2))
