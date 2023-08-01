@@ -21,7 +21,7 @@ tools:
     - name: include-what-you-use
       download: include-what-you-use
       shims: [include-what-you-use]
-      known_good_version: 0.19
+      known_good_version: 0.20
       environment:
         - name: PATH
           list: ["${tool}/bin"]
@@ -44,7 +44,7 @@ lint:
       include_scanner_type: compile_command
       query_compile_commands: true
       suggest_if: never
-      known_good_version: 0.19
+      known_good_version: 0.20
       version_command:
         parse_regex: include-what-you-use ([^ ]+).*
         run: include-what-you-use --version
