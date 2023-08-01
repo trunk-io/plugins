@@ -19,8 +19,7 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-  enabled:
-    - pmd@7.0.0-rc3
+  enabled: []
 
   disabled:
     - pylint # pylint diagnostics are too strict
