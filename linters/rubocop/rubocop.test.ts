@@ -5,7 +5,7 @@ import { skipOS, TEST_DATA } from "tests/utils";
 
 const preCheck = (driver: TrunkLintDriver) => {
   if (process.platform == "win32") {
-    driver.writeFileSync(".rubocop.yml", `Layout/EndOfLine:
+    driver.writeFile(".rubocop.yml", `Layout/EndOfLine:
   Enabled: false
 `);
   }
