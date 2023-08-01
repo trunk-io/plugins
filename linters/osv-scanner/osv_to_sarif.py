@@ -159,7 +159,7 @@ def main(argv):
 
                 fixed_version = versions.get("fixed", None)
 
-                description = f"{message}{'.' if message[-1] != '.' else ''} Current version is affected: {pkg_version}."
+                description = f"{message}{'.' if message[-1] != '.' else ''} Current version is vulnerable: {pkg_version}."
                 if fixed_version:
                     description += (
                         f" Patch available: upgrade to {fixed_version} or higher."
