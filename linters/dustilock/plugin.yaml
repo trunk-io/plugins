@@ -10,7 +10,8 @@ lint:
           output: regex
           # example line:
           # error - python package "myinternaltool" is available for public registration. /home/maverick/plugins/requirements.txt
-          parse_regex: (error - (?P<message>(?P<code>python|npm)[^.]*\.) (?P<path>\/.*))
+          parse_regex:
+            (error - (?P<message>(?P<code>python|npm)[^.]*\.) (?P<path>(\/|[A-Za-z]:\\).*))
           run: dustilock --path ${target}
           target: ${parent}
           success_codes: [0, 1]
