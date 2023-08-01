@@ -22,7 +22,7 @@ lint:
       files: [ALL]
       tools: [trufflehog]
       known_good_version: 3.31.3
-      known_bad_versions: [3.41.0]
+      known_bad_versions: [3.41.0, 3.45.0]
       commands:
         - name: lint
           output: sarif

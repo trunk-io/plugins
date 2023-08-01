@@ -6,7 +6,7 @@ downloads:
         os: linux
         cpu:
           x86_64: 64bit
-          arm_64: ARM
+          arm_64: ARM64
       - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
         os: macos
         cpu:
@@ -61,3 +61,4 @@ lint:
           list: ["${linter}", "${env.PATH}"] # system path for docker
         - name: USER
           value: ${env.USER}
+          optional: true

@@ -5,10 +5,13 @@ downloads:
       semver: ${version}=>(?:release-cli-|release-taplo-cli-)?(?P<semver>.*)
     downloads:
       # Versions >=0.8.0
-      - os: linux
-        cpu: x86_64
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
         version: ">=0.8.0"
-        url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-linux-x86_64.gz
+        url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-linux-${cpu}.gz
       - os: macos
         cpu: x86_64
         version: ">=0.8.0"
