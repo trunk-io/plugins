@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest, linterCheckTest, TestCallback } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { osTimeoutMultiplier, skipOS, TEST_DATA } from "tests/utils";
+import { DOWNLOAD_CACHE, osTimeoutMultiplier, recurseLevels, skipOS, TEST_DATA } from "tests/utils";
 
 // detekt tests can sometimes take a while.
 jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
@@ -38,6 +38,23 @@ const gradlePreCheck: TestCallback = (driver) => {
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA, "detekt_gradle")).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, "detekt_gradle", file), file);
   });
+
+  const trunkYamlPath = ".trunk/trunk.yaml";
+  const currentContents = driver.readFile(trunkYamlPath);
+  const newContents = currentContents.concat(`  definitions:
+    - name: detekt-gradle
+      runtime: java
+`);
+  driver.writeFile(trunkYamlPath, newContents);
+
+  driver.runTrunkSync(["install"]);
+  const javaPath = recurseLevels(path.resolve(DOWNLOAD_CACHE, "jdk-13"), 1);
+  const finalContents = newContents.concat(`      environment:
+        - name: JAVA_HOME
+          value: ${javaPath}
+          optional: false
+`);
+  driver.writeFile(trunkYamlPath, finalContents);
   // trunk-ignore-end(semgrep)
 };
 
