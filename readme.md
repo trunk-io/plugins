@@ -62,6 +62,7 @@ trunk check enable {linter}
 | package.json    | [sort-package-json]                                                                                                 |
 | Perl            | [perlcritic], [perltidy]                                                                                            |
 | PNG             | [oxipng]                                                                                                            |
+| Prisma          | [prisma]                                                                                                            |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                    |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright] [semgrep], [yapf], [ruff], [sourcery] |
 | Renovate        | [renovate]                                                                                                          |
@@ -128,6 +129,7 @@ trunk check enable {linter}
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
+[prisma]: https://github.com/prisma/prisma#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme
