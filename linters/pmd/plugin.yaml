@@ -3,13 +3,8 @@ lint:
   downloads:
     - name: pmd
       downloads:
-        # Cross-platform download
-        - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-dist-${semver}-bin.zip
-          strip_components: 1
-          version: 7.0.0-rc3
         - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-bin-${semver}.zip
           strip_components: 1
-          version: <7.0.0
       args:
         semver: ${version}=>(pmd_releases\/)*(?P<semver>.*)
   definitions:
@@ -19,32 +14,28 @@ lint:
         - name: lint-apex
           output: sarif
           # Override this in your repo if you have a custom rulesets
-          run:
-            pmd check -R rulesets/apex/quickstart.xml -d ${target} -f sarif --no-progress
-            --report-file=${tmpfile}
+          run: run.sh pmd -R rulesets/apex/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
-          read_output_from: tmp_file
-          batch: true
-          cache_results: true
-          version: ">6.55.0"
+          read_output_from: stdout
+          version: <7.0.0
           files:
             - apex
         - name: lint-java
           output: sarif
           # Override this in your repo if you have a custom rulesets
-          run:
-            pmd check -R rulesets/java/quickstart.xml -d ${target} -f sarif --no-progress
-            --report-file=${tmpfile}
+          run: run.sh pmd -R rulesets/java/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
-          read_output_from: tmp_file
-          batch: true
-          cache_results: true
-          version: ">6.55.0"
+          read_output_from: stdout
+          version: <7.0.0
           files:
             - java
       runtime: java
       suggest_if: never
       known_good_version: 6.55.0
+      known_bad_versions:
+        - pmd_releases/7.0.0-rc3
+        - pmd_releases/7.0.0-rc2
+        - pmd_releases/7.0.0-rc1
       environment:
         - name: PATH
           list: ["${env.PATH}"]
