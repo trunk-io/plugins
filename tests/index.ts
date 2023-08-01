@@ -532,6 +532,7 @@ export const linterCheckTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  versionGreaterThanOrEqual,
 }: {
   linterName: string;
   dirname?: string;
@@ -539,6 +540,7 @@ export const linterCheckTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean;
 }) => {
   // Step 1a: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -577,6 +579,7 @@ export const linterCheckTest = ({
               prefix,
               "check",
               driver.enabledVersion,
+              versionGreaterThanOrEqual,
             );
             debug(
               "Using snapshot (for dir: %s, linter: %s, version: %s) %s",

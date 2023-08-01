@@ -40,6 +40,15 @@ lint:
       regexes:
         - .+
 
+    - name: apex
+      extensions:
+        - cls
+        - tgr
+        - page
+      comments:
+        - slashes-inline
+        - slashes-block
+
     - name: bazel-build
       extensions:
         - BUILD
