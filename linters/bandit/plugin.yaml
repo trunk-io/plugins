@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: bandit
       shims: [bandit]
+      known_good_version: 1.7.3
 lint:
   definitions:
     - name: bandit

@@ -5,6 +5,7 @@ tools:
       runtime: go
       package: github.com/praetorian-inc/gokart
       shims: [gokart]
+      known_good_version: 0.5.1
 lint:
   definitions:
     - name: gokart

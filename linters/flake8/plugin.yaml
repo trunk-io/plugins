@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: flake8
       shims: [flake8]
+      known_good_version: 4.0.1
 lint:
   definitions:
     - name: flake8

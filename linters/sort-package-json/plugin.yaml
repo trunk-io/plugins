@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: sort-package-json
       shims: [sort-package-json]
+      known_good_version: 2.1.0
 lint:
   files:
     - name: package-json

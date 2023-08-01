@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: pylint
       shims: [pylint]
+      known_good_version: 2.11.1
 lint:
   definitions:
     - name: pylint

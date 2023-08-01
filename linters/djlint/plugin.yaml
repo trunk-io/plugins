@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: djlint
       shims: [djlint]
+      known_good_version: 1.19.16
 lint:
   definitions:
     - name: djlint

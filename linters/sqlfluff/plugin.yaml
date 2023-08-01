@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: sqlfluff
       shims: [sqlfluff]
+      known_good_version: 1.4.5
 lint:
   definitions:
     - name: sqlfluff

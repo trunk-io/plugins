@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: ruff
       shims: [ruff]
+      known_good_version: 0.0.250
 lint:
   definitions:
     - name: ruff

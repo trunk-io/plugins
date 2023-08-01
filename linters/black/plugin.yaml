@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: black[python2,jupyter]
       shims: [black]
+      known_good_version: 22.3.0
 lint:
   definitions:
     - name: black

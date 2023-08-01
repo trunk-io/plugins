@@ -5,6 +5,7 @@ tools:
       runtime: go
       package: mvdan.cc/gofumpt
       shims: [gofumpt]
+      known_good_version: 0.5.0
 lint:
   definitions:
     - name: gofumpt

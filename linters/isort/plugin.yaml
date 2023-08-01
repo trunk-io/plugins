@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: isort
       shims: [isort]
+      known_good_version: 5.9.3
 lint:
   definitions:
     - name: isort

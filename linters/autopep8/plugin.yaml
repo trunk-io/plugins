@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: autopep8
       shims: [autopep8]
+      known_good_version: 1.5.7
 lint:
   definitions:
     - name: autopep8

@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: codespell
       shims: [codespell]
+      known_good_version: 2.2.2
 lint:
   definitions:
     - name: codespell

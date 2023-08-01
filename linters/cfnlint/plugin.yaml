@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: cfn-lint
       shims: [cfn-lint]
+      known_good_version: 0.58.2
 lint:
   definitions:
     - name: cfnlint

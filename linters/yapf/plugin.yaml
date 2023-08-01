@@ -6,6 +6,7 @@ tools:
       package: yapf
       extra_packages: [toml]
       shims: [yapf]
+      known_good_version: 0.32.0
 lint:
   definitions:
     - name: yapf

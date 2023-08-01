@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: prettier
       shims: [prettier]
+      known_good_version: 2.6.2
 lint:
   definitions:
     - name: prettier

@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: shandy-sqlfmt
       shims: [sqlfmt]
+      known_good_version: 0.16.0
 lint:
   definitions:
     - name: sqlfmt

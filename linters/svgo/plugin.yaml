@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: svgo
       shims: [svgo]
+      known_good_version: 2.8.0
 lint:
   definitions:
     # while svgo could be a formatter, it is optimizing, not formatting, so it's more intuitive to run on `trunk check`

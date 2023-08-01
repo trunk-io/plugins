@@ -21,6 +21,7 @@ tools:
     - name: osv-scanner
       download: osv-scanner
       shims: [osv-scanner]
+      known_good_version: 1.2.0
 lint:
   definitions:
     - name: osv-scanner

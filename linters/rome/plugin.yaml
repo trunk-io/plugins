@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: rome
       shims: [rome]
+      known_good_version: 10.0.1
 lint:
   definitions:
     - name: rome

@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: renovate
       shims: [renovate]
+      known_good_version: 34.122.0
 lint:
   files:
     - name: renovate-config

@@ -5,6 +5,7 @@ tools:
       runtime: go
       package: github.com/zricethezav/gitleaks/v${major_version}
       shims: [gitleaks]
+      known_good_version: 8.8.7
 lint:
   definitions:
     - name: gitleaks

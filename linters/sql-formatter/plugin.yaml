@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: sql-formatter
       shims: [sql-formatter]
+      known_good_version: 7.0.1
 lint:
   definitions:
     - name: sql-formatter

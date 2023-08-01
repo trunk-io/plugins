@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: yamllint
       shims: [yamllint]
+      known_good_version: 1.26.3
 lint:
   definitions:
     - name: yamllint

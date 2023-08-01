@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: checkov
       shims: [checkov]
+      known_good_version: 2.3.75
 lint:
   definitions:
     - name: checkov

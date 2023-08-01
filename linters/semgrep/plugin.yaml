@@ -5,6 +5,7 @@ tools:
       runtime: python
       package: semgrep
       shims: [semgrep]
+      known_good_version: 1.7.0
 lint:
   definitions:
     - name: semgrep

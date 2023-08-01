@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: stylelint
       shims: [stylelint]
+      known_good_version: 14.6.1
 lint:
   definitions:
     - name: stylelint

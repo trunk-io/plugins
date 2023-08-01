@@ -5,6 +5,7 @@ tools:
       runtime: ruby
       package: brakeman
       shims: [brakeman]
+      known_good_version: 5.4.0
 lint:
   definitions:
     - name: brakeman

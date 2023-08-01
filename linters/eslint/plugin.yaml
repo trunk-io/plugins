@@ -5,6 +5,7 @@ tools:
       runtime: node
       package: eslint
       shims: [eslint]
+      known_good_version: 8.10.0
 lint:
   definitions:
     - name: eslint
