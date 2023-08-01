@@ -8,4 +8,4 @@ actions:
         properly.
       run: buf generate
       triggers:
-        - files: ["**/*.proto"]
+        - files: ["**/*.proto", buf.gen.yaml, buf.work.yaml]
