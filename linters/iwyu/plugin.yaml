@@ -1,9 +1,15 @@
 version: 0.1
 downloads:
   - name: include-what-you-use
+    version: 0.20
     downloads:
       - os:
           linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
+      - os:
           macos: macos
         cpu:
           x86_64: x86_64

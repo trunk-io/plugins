@@ -9,12 +9,17 @@ downloads:
         version: <14.0.0
       - os:
           linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
+      - os:
           macos: macos
         cpu:
           x86_64: x86_64
           arm_64: arm64
         url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
-        # TODO(chris): Windows download
+      # TODO(chris): Windows download
 tools:
   definitions:
     - name: clang-tidy
