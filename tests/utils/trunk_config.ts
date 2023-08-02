@@ -36,10 +36,6 @@ export const getTrunkVersion = (): string => {
 export const newTrunkYamlContents = (trunkVersion?: string): string => `version: 0.1
 cli:
   version: ${trunkVersion ?? getTrunkVersion()}
-plugins:
-  sources:
-  - id: trunk
-    local: ${REPO_ROOT}
 runtimes:
   enabled:
     # required in order to query latest
@@ -47,6 +43,10 @@ runtimes:
     - node@18.12.1
     - python@3.10.8
     - ruby@3.1.3
+plugins:
+  sources:
+  - id: trunk
+    local: ${REPO_ROOT}
 lint:
   ignore:
     - linters: [ALL]
