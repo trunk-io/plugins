@@ -64,7 +64,3 @@ actions:
     - npm-check-pre-push
     - remove-release-snapshots
     - repo-tests
-tools:
-  enabled:
-    - amazon-ecr-credential-helper@0.7.0
-    - alp@1.0.14
