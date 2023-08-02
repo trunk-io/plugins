@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: dustilock
+      runtime: go
+      package: github.com/checkmarx/dustilock
+      shims: [dustilock]
+      known_good_version: 1.2.0
 lint:
   definitions:
     - name: dustilock
       files: [dustilock]
-      runtime: go
-      package: github.com/checkmarx/dustilock
+      tools: [dustilock]
       commands:
         - name: scan
           output: regex

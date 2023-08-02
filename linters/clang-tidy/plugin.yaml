@@ -1,26 +1,35 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: clang-tidy
+    version: 15.0.6
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://trunk.io/releases/clang-tidy-${version}-macos-x86_64.tar.gz
+        version: <14.0.0
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
+      - os:
+          macos: macos
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
+      # TODO(chris): Windows download
+tools:
+  definitions:
     - name: clang-tidy
-      version: 15.0.6
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://trunk.io/releases/clang-tidy-${version}-macos-x86_64.tar.gz
-          version: <14.0.0
-        - os:
-            linux: linux
-          cpu:
-            arm_64: aarch64
-            x86_64: x86_64
-          url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
-        - os:
-            macos: macos
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://trunk.io/releases/clang-tidy-${version}-${os}-${cpu}.tar.gz
-        # TODO(chris): Windows download
+      download: clang-tidy
+      shims: [clang-tidy]
+      known_good_version: 16.0.3
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+lint:
   definitions:
     - name: clang-tidy
       supported_platforms: [linux, macos]
@@ -33,7 +42,7 @@ lint:
           cache_results: true
           run_linter_from: compile_command
           read_output_from: tmp_file
-      download: clang-tidy
+      tools: [clang-tidy]
       suggest_if: config_present
       direct_configs: [.clang-tidy]
       include_scanner_type: compile_command

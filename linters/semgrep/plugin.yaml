@@ -1,11 +1,17 @@
 version: 0.1
+tools:
+  definitions:
+    - name: semgrep
+      runtime: python
+      package: semgrep
+      shims: [semgrep]
+      known_good_version: 1.33.2
 lint:
   definitions:
     - name: semgrep
       supported_platforms: [linux, macos]
       files: [ALL]
-      runtime: python
-      package: semgrep
+      tools: [semgrep]
       commands:
         - name: check
           output: sarif

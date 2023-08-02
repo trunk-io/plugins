@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: rufo
+      runtime: ruby
+      package: rufo
+      shims: [rufo]
+      known_good_version: 0.13.0
 lint:
   definitions:
     - name: rufo
@@ -14,8 +21,7 @@ lint:
           formatter: true
       direct_configs: [.rufo]
       suggest_if: config_present
-      runtime: ruby
-      package: rufo
+      tools: [rufo]
       known_good_version: 0.13.0
       version_command:
         parse_regex: ${semver}

@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: ruff
+      runtime: python
+      package: ruff
+      shims: [ruff]
+      known_good_version: 0.0.250
 lint:
   definitions:
     - name: ruff
@@ -22,8 +29,7 @@ lint:
             run: python3 ${cwd}/ruff_to_sarif.py 1
           batch: true
           success_codes: [0, 1]
-      runtime: python
-      package: ruff
+      tools: [ruff]
       direct_configs: [ruff.toml]
       affects_cache:
         - pyproject.toml

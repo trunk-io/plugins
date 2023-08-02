@@ -1,79 +1,84 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: taplo
+    args:
+      semver: ${version}=>(?:release-cli-|release-taplo-cli-)?(?P<semver>.*)
+    downloads:
+      # Versions >=0.8.0
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        version: ">=0.8.0"
+        url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-linux-${cpu}.gz
+      - os: macos
+        cpu: x86_64
+        version: ">=0.8.0"
+        url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-darwin-x86_64.gz
+        # Use rosetta
+      - os: macos
+        cpu: arm_64
+        version: ">=0.8.0"
+        url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-darwin-aarch64.gz
+      # https://github.com/tamasfe/taplo/issues/397
+      # - os: windows
+      #   cpu: x86_64
+      #   version: ">=0.8.0"
+      #   url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-windows-x86_64.zip
+
+      # Versions >=0.6.7
+      - os: linux
+        cpu: x86_64
+        version: ">=0.6.7"
+        url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-unknown-linux-gnu.tar.gz
+      - os: macos
+        cpu: x86_64
+        version: ">=0.6.7"
+        url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-apple-darwin-gnu.tar.gz
+        # Use rosetta
+      - os: macos
+        cpu: arm_64
+        version: ">=0.6.7"
+        url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-apple-darwin-gnu.tar.gz
+
+      # Versions >=0.6.0
+      - os: linux
+        cpu: x86_64
+        version: ">=0.6.0"
+        url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-unknown-linux-gnu.tar.gz
+      - os: macos
+        cpu: x86_64
+        version: ">=0.6.0"
+        url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-apple-darwin-gnu.tar.gz
+      # Use rosetta
+      - os: macos
+        cpu: arm_64
+        version: ">=0.6.0"
+        url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-apple-darwin-gnu.tar.gz
+
+      # All older versions
+      - os: linux
+        cpu: x86_64
+        url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-unknown-linux-gnu.tar.gz
+      - os: macos
+        cpu: x86_64
+        url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-apple-darwin-gnu.tar.gz
+      # Use rosetta
+      - os: macos
+        cpu: arm_64
+        url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-apple-darwin-gnu.tar.gz
+tools:
+  definitions:
     - name: taplo
-      args:
-        semver: ${version}=>(?:release-cli-|release-taplo-cli-)?(?P<semver>.*)
-      downloads:
-        # Versions >=0.8.0
-        - os:
-            linux: linux
-          cpu:
-            arm_64: aarch64
-            x86_64: x86_64
-          version: ">=0.8.0"
-          url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-linux-${cpu}.gz
-        - os: macos
-          cpu: x86_64
-          version: ">=0.8.0"
-          url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-darwin-x86_64.gz
-          # Use rosetta
-        - os: macos
-          cpu: arm_64
-          version: ">=0.8.0"
-          url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-darwin-aarch64.gz
-        # https://github.com/tamasfe/taplo/issues/397
-        # - os: windows
-        #   cpu: x86_64
-        #   version: ">=0.8.0"
-        #   url: https://github.com/tamasfe/taplo/releases/download/${semver}/taplo-windows-x86_64.zip
-
-        # Versions >=0.6.7
-        - os: linux
-          cpu: x86_64
-          version: ">=0.6.7"
-          url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-unknown-linux-gnu.tar.gz
-        - os: macos
-          cpu: x86_64
-          version: ">=0.6.7"
-          url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-apple-darwin-gnu.tar.gz
-          # Use rosetta
-        - os: macos
-          cpu: arm_64
-          version: ">=0.6.7"
-          url: https://github.com/tamasfe/taplo/releases/download/release-taplo-cli-${semver}/taplo-x86_64-apple-darwin-gnu.tar.gz
-
-        # Versions >=0.6.0
-        - os: linux
-          cpu: x86_64
-          version: ">=0.6.0"
-          url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-unknown-linux-gnu.tar.gz
-        - os: macos
-          cpu: x86_64
-          version: ">=0.6.0"
-          url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-apple-darwin-gnu.tar.gz
-        # Use rosetta
-        - os: macos
-          cpu: arm_64
-          version: ">=0.6.0"
-          url: https://github.com/tamasfe/taplo/releases/download/release-cli-${semver}/taplo-${semver}-x86_64-apple-darwin-gnu.tar.gz
-
-        # All older versions
-        - os: linux
-          cpu: x86_64
-          url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-unknown-linux-gnu.tar.gz
-        - os: macos
-          cpu: x86_64
-          url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-apple-darwin-gnu.tar.gz
-        # Use rosetta
-        - os: macos
-          cpu: arm_64
-          url: https://github.com/tamasfe/taplo/releases/download/${version}/taplo-x86_64-apple-darwin-gnu.tar.gz
-
+      download: taplo
+      shims: [taplo]
+      known_good_version: 0.8.0
+lint:
   definitions:
     - name: taplo
       files: [toml]
-      download: taplo
+      tools: [taplo]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle taplo's output.

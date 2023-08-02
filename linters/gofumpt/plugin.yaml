@@ -1,10 +1,16 @@
 version: 0.1
-lint:
+tools:
   definitions:
     - name: gofumpt
       runtime: go
-      files: [go]
       package: mvdan.cc/gofumpt
+      shims: [gofumpt]
+      known_good_version: 0.5.0
+lint:
+  definitions:
+    - name: gofumpt
+      tools: [gofumpt]
+      files: [go]
       commands:
         - name: format
           output: rewrite

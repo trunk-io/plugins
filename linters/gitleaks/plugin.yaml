@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: gitleaks
+      runtime: go
+      package: github.com/zricethezav/gitleaks/v${major_version}
+      shims: [gitleaks]
+      known_good_version: 8.8.7
 lint:
   definitions:
     - name: gitleaks
@@ -12,8 +19,7 @@ lint:
           sandbox_type: copy_targets
           cache_results: true
           allow_empty_files: false
-      runtime: go
-      package: github.com/zricethezav/gitleaks/v${major_version}
+      tools: [gitleaks]
       direct_configs:
         - .gitleaks.config
         - .gitleaks.toml

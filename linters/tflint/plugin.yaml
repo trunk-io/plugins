@@ -1,21 +1,27 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: tflint
+    version: 0.35.0
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://github.com/terraform-linters/tflint/releases/download/v${version}/tflint_darwin_amd64.zip
+        version: <0.29.1
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/terraform-linters/tflint/releases/download/v${version}/tflint_${os}_${cpu}.zip
+tools:
+  definitions:
     - name: tflint
-      version: 0.35.0
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://github.com/terraform-linters/tflint/releases/download/v${version}/tflint_darwin_amd64.zip
-          version: <0.29.1
-        - os:
-            linux: linux
-            macos: darwin
-            windows: windows
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/terraform-linters/tflint/releases/download/v${version}/tflint_${os}_${cpu}.zip
+      download: tflint
+      shims: [tflint]
+      known_good_version: 0.35.0
+lint:
   definitions:
     - name: tflint
       files: [terraform]
@@ -39,7 +45,7 @@ lint:
           run_linter_from: root_file
           run_from_root_target: .tflint.hcl
       suggest_if: files_present
-      download: tflint
+      tools: [tflint]
       direct_configs: [.tflint.hcl]
       environment:
         - name: PATH

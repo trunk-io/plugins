@@ -1,20 +1,26 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: trufflehog
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/trufflesecurity/trufflehog/releases/download/v${version}/trufflehog_${version}_${os}_${cpu}.tar.gz
+tools:
+  definitions:
     - name: trufflehog
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-            windows: windows
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/trufflesecurity/trufflehog/releases/download/v${version}/trufflehog_${version}_${os}_${cpu}.tar.gz
+      download: trufflehog
+      shims: [trufflehog]
+      known_good_version: 3.31.3
+lint:
   definitions:
     - name: trufflehog
       files: [ALL]
-      download: trufflehog
+      tools: [trufflehog]
       known_good_version: 3.31.3
       known_bad_versions: [3.41.0, 3.45.0]
       commands:
