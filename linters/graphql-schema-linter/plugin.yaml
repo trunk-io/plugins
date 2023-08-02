@@ -11,11 +11,20 @@ tools:
 lint:
   definitions:
     - name: graphql-schema-linter
-      supported_platforms: [linux, macos]
       tools: [graphql-schema-linter]
       known_good_version: 3.0.1
       files: [graphql-schema]
       commands:
+        - name: lint
+          # on Windows, we need to make sure the binary resolves to the cmd form
+          platforms: [windows]
+          output: sarif
+          run: graphql-schema-linter.cmd -f json ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: python3 ${cwd}/parse.py
         - name: lint
           output: sarif
           run: graphql-schema-linter -f json ${target}

@@ -1,7 +1,7 @@
 import * as path from "path";
 import { customLinterCheckTest, linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { skipOS, TEST_DATA } from "tests/utils";
+import { TEST_DATA } from "tests/utils";
 
 // buf-breaking detects breaking changes to proto files by using git-awareness
 const preCheck = (addDup: boolean) => async (driver: TrunkLintDriver) => {
@@ -37,12 +37,10 @@ const preCheck = (addDup: boolean) => async (driver: TrunkLintDriver) => {
 linterCheckTest({
   linterName: "buf-lint",
   namedTestPrefixes: ["buf_lint"],
-  skipTestIf: skipOS(["win32"]),
 });
 linterFmtTest({
   linterName: "buf-format",
   namedTestPrefixes: ["buf_lint"],
-  skipTestIf: skipOS(["win32"]),
 });
 
 // NOTE(Tyler): This isn't a perfect config of buf breaking. For instance, if files are moved/renamed, buf cannot account for
@@ -52,7 +50,6 @@ customLinterCheckTest({
   testName: "basic",
   args: "-a",
   preCheck: preCheck(false),
-  skipTestIf: skipOS(["win32"]),
 });
 
 // NOTE(Tyler): buf-breaking will non-deterministically choose one of the proto files to be the original and one to be the
@@ -62,5 +59,4 @@ customLinterCheckTest({
   testName: "dupFile",
   args: "-a",
   preCheck: preCheck(true),
-  skipTestIf: skipOS(["win32"]),
 });

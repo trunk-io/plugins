@@ -17,7 +17,6 @@ linterCheckTest({
   linterName: "detekt",
   namedTestPrefixes: ["basic_detekt"],
   preCheck,
-  skipTestIf: skipOS(["win32"]),
 });
 
 // detekt-explicit has no default settings, leading to an empty result
@@ -25,7 +24,6 @@ linterCheckTest({
   linterName: "detekt-explicit",
   namedTestPrefixes: ["basic_explicit"],
   preCheck,
-  skipTestIf: skipOS(["win32"]),
 });
 
 // detekt-gradle tests rely on a particular gradle-focused system setup, and they require a level of greater configuration here.
@@ -58,6 +56,7 @@ const gradlePreCheck: TestCallback = (driver) => {
   // trunk-ignore-end(semgrep)
 };
 
+// TODO(Tyler): detekt-gradle has issues resolving stdin correctly on Windows.
 // Make sure to run `git lfs pull` before running this test.
 customLinterCheckTest({
   linterName: "detekt-gradle",

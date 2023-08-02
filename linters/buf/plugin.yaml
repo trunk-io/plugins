@@ -28,7 +28,6 @@ lint:
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
   definitions:
     - name: buf-format
-      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       suggest_if: never
@@ -52,13 +51,12 @@ lint:
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
-      known_good_version: 1.2.0 # format subcommand was added in 1.2.0
+      known_good_version: 1.17.0 # format subcommand was added in 1.2.0
       version_command:
         parse_regex: ${semver}
         run: buf --version
 
     - name: buf-lint
-      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       commands:
@@ -87,7 +85,6 @@ lint:
         run: buf --version
 
     - name: buf-breaking
-      supported_platforms: [linux, macos]
       files: [proto]
       download: buf
       suggest_if: never
