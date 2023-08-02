@@ -1,11 +1,17 @@
 import Debug from "debug";
 import fs from "fs";
+import * as os from "os";
 import path from "path";
 import semver from "semver";
 import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
+export const TEMP_PREFIX = "plugins_";
+export const DOWNLOAD_CACHE = path.resolve(
+  fs.realpathSync(os.tmpdir()),
+  `${TEMP_PREFIX}testing_download_cache`,
+);
 
 // As this file and folder increase in complexity, extract out functionality into other categories.
 // Avoid overpolluting a `utils` folder.
@@ -216,6 +222,24 @@ export const getVersionsForTest = (
     return [ARGS.linterVersion];
   }
   return [undefined];
+};
+
+/**
+ * Helper function to step N directories into a path. Throws if unavailable
+ */
+export const recurseLevels = (starterPath: string, n: number) => {
+  let currentPath = starterPath;
+  for (let i = 0; i < n; i++) {
+    const contents = fs.readdirSync(currentPath);
+    for (const file of contents) {
+      if (fs.lstatSync(path.resolve(currentPath, file)).isDirectory()) {
+        currentPath = path.resolve(currentPath, file);
+        break;
+      }
+      throw new Error(`Could not find directory inside of ${currentPath}`);
+    }
+  }
+  return currentPath;
 };
 
 /**
