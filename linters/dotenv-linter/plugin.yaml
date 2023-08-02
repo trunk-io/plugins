@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: dotenv-linter
-    version: 3.2.0
+    version: 3.3.0
     downloads:
       # macos arm64 was introduced after this version.
       - os: macos
@@ -9,6 +9,11 @@ downloads:
         version: <3.1.1
       - os:
           linux: alpine
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
+      - os:
           macos: darwin
         cpu:
           x86_64: x86_64
@@ -22,7 +27,7 @@ tools:
     - name: dotenv-linter
       download: dotenv-linter
       shims: [dotenv-linter]
-      known_good_version: 3.2.0
+      known_good_version: 3.3.0
 lint:
   definitions:
     - name: dotenv-linter
@@ -43,4 +48,4 @@ lint:
       version_command:
         parse_regex: dotenv-linter ${semver}
         run: dotenv-linter --version
-      known_good_version: 3.2.0
+      known_good_version: 3.3.0
