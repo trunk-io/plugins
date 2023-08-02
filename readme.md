@@ -37,6 +37,7 @@ trunk check enable {linter}
 | --------------- | ------------------------------------------------------------------------------------------------------------------- |
 | All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                                 |
 | Ansible         | [ansible-lint]                                                                                                      |
+| Apex            | [ansible-lint], [pmd]                                                                                               |
 | Bash            | [shellcheck], [shfmt]                                                                                               |
 | Bazel, Starlark | [buildifier]                                                                                                        |
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                                 |
@@ -51,7 +52,7 @@ trunk check enable {linter}
 | GraphQL         | [graphql-schema-linter]                                                                                             |
 | HAML            | [haml-lint]                                                                                                         |
 | HTML Templates  | [djlint]                                                                                                            |
-| Java            | [google-java-format], [semgrep]                                                                                     |
+| Java            | [google-java-format], [pmd], [semgrep]                                                                              |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                                                             |
 | JSON            | [eslint], [prettier], [semgrep]                                                                                     |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                           |
@@ -127,6 +128,7 @@ trunk check enable {linter}
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
+[pmd]: https://pmd.github.io/
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
 [prisma]: https://github.com/prisma/prisma#readme
