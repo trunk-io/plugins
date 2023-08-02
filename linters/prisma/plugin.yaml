@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: prisma
+      runtime: node
+      package: prisma
+      known_good_version: 4.16.1
+      shims: [prisma]
 lint:
   definitions:
     - name: prisma
