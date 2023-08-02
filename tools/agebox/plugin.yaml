@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: agebox
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/slok/agebox/releases/download/v${version}/agebox-${os}-${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/slok/agebox/releases/download/v${version}/agebox-${os}-${cpu}.exe
+tools:
+  definitions:
+    - name: agebox
+      download: agebox
+      known_good_version: 0.6.1
+      shims: [agebox]

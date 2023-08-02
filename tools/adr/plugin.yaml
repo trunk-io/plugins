@@ -1,0 +1,18 @@
+version: 0.1
+downloads:
+  - name: adr
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        url: https://github.com/npryce/adr-tools/archive/${version}.tar.gz
+        strip_components: 1
+tools:
+  definitions:
+    - name: adr
+      download: adr
+      known_good_version: 3.0.0
+      shims: [adr]
+      environment:
+        - name: PATH
+          list: ["${tool}/src"]
