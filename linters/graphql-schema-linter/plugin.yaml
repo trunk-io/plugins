@@ -27,7 +27,7 @@ lint:
             run: python3 ${cwd}/parse.py
         - name: lint
           output: sarif
-          run: graphql-schema-linter.cmd -f json ${target}
+          run: graphql-schema-linter -f json ${target}
           success_codes: [0, 1]
           read_output_from: stdout
           parser:
