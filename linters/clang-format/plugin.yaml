@@ -28,7 +28,7 @@ tools:
       known_good_version: 14.0.1
       environment:
         - name: PATH
-          list: ["${linter}/bin"]
+          list: ["${tool}/bin"]
 lint:
   definitions:
     - name: clang-format
