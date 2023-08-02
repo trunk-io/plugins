@@ -40,6 +40,13 @@ plugins:
   sources:
   - id: trunk
     local: ${REPO_ROOT}
+runtimes:
+  enabled:
+    # required in order to query latest
+    - go@1.19.5
+    - node@18.12.1
+    - python@3.10.8
+    - ruby@3.1.3
 lint:
   ignore:
     - linters: [ALL]
