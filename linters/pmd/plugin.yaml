@@ -17,7 +17,6 @@ lint:
           run: run.sh pmd -R rulesets/apex/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          version: <7.0.0
           files:
             - apex
         - name: lint-java
@@ -26,7 +25,6 @@ lint:
           run: run.sh pmd -R rulesets/java/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          version: <7.0.0
           files:
             - java
       runtime: java
