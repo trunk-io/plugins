@@ -5,11 +5,14 @@ import { skipOS, TEST_DATA } from "tests/utils";
 
 const preCheck = (driver: TrunkLintDriver) => {
   if (process.platform == "win32") {
-    driver.writeFile(".rubocop.yml", `Layout/EndOfLine:
+    driver.writeFile(
+      ".rubocop.yml",
+      `Layout/EndOfLine:
   Enabled: false
-`);
+`,
+    );
   }
-}
+};
 
 // Ruby build is quite slow on Mac, so only run tests on linux for now
 customLinterCheckTest({
