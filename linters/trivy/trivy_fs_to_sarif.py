@@ -3,10 +3,33 @@
 import json
 import sys
 
+# Used to map OSV/GHSA severities to the corresponding SARIF severity
+# OSV/GHSA: https://docs.github.com/en/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-cvss-levels
+# SARIF: https://docs.oasis-open.org/sarif/sarif/v2.0/csprd02/sarif-v2.0-csprd02.html#_Toc10127839
+SARIF_SEVERITY_BY_OSV_SEVERITY = {
+    "CRITICAL": "error",
+    "HIGH": "error",
+    "MODERATE": "warning",
+    "MEDIUM": "warning",
+    "LOW": "note",
+}
 
-def to_result_sarif(path: str, vuln_id: str, description: str):
+DEFAULT_SARIF_SEVERITY = "error"
+
+
+def get_sarif_severity(vuln) -> str:
+    """Get the SARIF severity appropriate for a given OSV vulnerability entry."""
+    if "Severity" not in vuln:
+        return DEFAULT_SARIF_SEVERITY
+
+    severity = vuln["Severity"].upper()
+
+    return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)
+
+
+def to_result_sarif(path: str, severity: str, vuln_id: str, description: str):
     return {
-        "level": "error",
+        "level": severity,
         "locations": [
             {
                 "physicalLocation": {
@@ -37,7 +60,12 @@ def main(argv):
             description = vuln["Description"]
 
             results.append(
-                to_result_sarif(trivy_json["ArtifactName"], vuln_id, description)
+                to_result_sarif(
+                    trivy_json["ArtifactName"],
+                    get_sarif_severity(vuln),
+                    vuln_id,
+                    description,
+                )
             )
 
     sarif = {
