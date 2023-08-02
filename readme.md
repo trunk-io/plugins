@@ -37,6 +37,7 @@ trunk check enable {linter}
 | --------------- | ------------------------------------------------------------------------------------------------------------------- |
 | All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                                 |
 | Ansible         | [ansible-lint]                                                                                                      |
+| Apex            | [pmd]                                                                                                               |
 | Bash            | [shellcheck], [shfmt]                                                                                               |
 | Bazel, Starlark | [buildifier]                                                                                                        |
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                                 |
@@ -51,7 +52,7 @@ trunk check enable {linter}
 | GraphQL         | [graphql-schema-linter]                                                                                             |
 | HAML            | [haml-lint]                                                                                                         |
 | HTML Templates  | [djlint]                                                                                                            |
-| Java            | [google-java-format], [semgrep]                                                                                     |
+| Java            | [google-java-format], [pmd], [semgrep]                                                                              |
 | Javascript      | [eslint], [prettier], [rome], [semgrep]                                                                             |
 | JSON            | [eslint], [prettier], [semgrep]                                                                                     |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                           |
@@ -62,13 +63,14 @@ trunk check enable {linter}
 | package.json    | [sort-package-json]                                                                                                 |
 | Perl            | [perlcritic], [perltidy]                                                                                            |
 | PNG             | [oxipng]                                                                                                            |
+| Prisma          | [prisma]                                                                                                            |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                    |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright] [semgrep], [yapf], [ruff], [sourcery] |
 | Renovate        | [renovate]                                                                                                          |
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                              |
 | Rust            | [clippy], [rustfmt]                                                                                                 |
 | Scala           | [scalafmt]                                                                                                          |
-| Security        | [checkov], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                                      |
+| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                         |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                               |
 | SVG             | [svgo]                                                                                                              |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                           |
@@ -99,6 +101,7 @@ trunk check enable {linter}
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
+[dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
 [git-diff-check]: https://git-scm.com/docs/git-diff
@@ -125,8 +128,10 @@ trunk check enable {linter}
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
+[pmd]: https://pmd.github.io/
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
+[prisma]: https://github.com/prisma/prisma#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme

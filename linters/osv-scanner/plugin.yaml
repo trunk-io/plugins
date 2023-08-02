@@ -1,27 +1,32 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: osv-scanner
+    version: 1.3.6
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
+tools:
+  definitions:
     - name: osv-scanner
-      version: 1.2.0
-      executable: true
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_${os}_${cpu}
-        - os: windows
-          cpu:
-            x86_64: amd64
-            arm_64: arm64
-          url: https://github.com/google/osv-scanner/releases/download/v${version}/osv-scanner_${version}_windows_${cpu}.exe
-
+      download: osv-scanner
+      shims: [osv-scanner]
+      known_good_version: 1.3.6
+lint:
   definitions:
     - name: osv-scanner
       files: [lockfile]
-      download: osv-scanner
+      tools: [osv-scanner]
       known_good_version: 1.3.6
       commands:
         - name: scan

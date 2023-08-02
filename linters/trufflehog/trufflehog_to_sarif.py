@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import sys
 
 
@@ -32,10 +33,7 @@ def main(argv):
 
     for line in sys.stdin.readlines():
         vuln_json = json.loads(line)
-        path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
-        line_number = int(
-            vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0")
-        )
+
         # trufflehog doesn't have vuln IDs
         # this is the name of the detector that found the error (e.g. AWS, Github, PrivateKey)
         vuln_id = vuln_json["DetectorName"]
@@ -44,7 +42,42 @@ def main(argv):
         # and the detector that found it.
         #
         # This default is here because Github secrets (and possibly others) redact to an empty string.
-        description = vuln_json["Redacted"] or "Secret detected"
+        if vuln_json["Redacted"]:
+            description = "Secret detected: " + vuln_json["Redacted"]
+        else:
+            description = "Secret detected"
+
+        if "Filesystem" in vuln_json["SourceMetadata"]["Data"]:
+            path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
+            line_number = (
+                int(vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0"))
+                + 1
+            )
+        elif "Git" in vuln_json["SourceMetadata"]["Data"]:
+            file = vuln_json["SourceMetadata"]["Data"]["Git"]["file"]
+            line = vuln_json["SourceMetadata"]["Data"]["Git"]["line"]
+            commit = vuln_json["SourceMetadata"]["Data"]["Git"]["commit"]
+            if os.path.exists(file):
+                description = "{} on commit {}".format(
+                    description,
+                    commit,
+                )
+                path = file
+                line_number = line
+            else:
+                description = "{}:{}: {} on commit {} (file since deleted)".format(
+                    file,
+                    line,
+                    description,
+                    commit,
+                )
+                path = "."
+                line_number = 0
+        else:
+            raise Exception(
+                "Unknown source metadata: {}".format(vuln_json["SourceMetadata"])
+            )
+
         results.append(to_result_sarif(path, line_number, vuln_id, description))
 
     sarif = {

@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: cue-fmt
+      runtime: go
+      package: cuelang.org/go/cmd/cue
+      shims: [cue]
+      known_good_version: 0.5.0
 lint:
   definitions:
     - name: cue-fmt
@@ -10,8 +17,7 @@ lint:
           success_codes: [0]
           in_place: true
           formatter: true
-      runtime: go
-      package: cuelang.org/go/cmd/cue
+      tools: [cue-fmt]
       suggest_if: files_present
       # cue-fmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
       known_good_version: 0.5.0

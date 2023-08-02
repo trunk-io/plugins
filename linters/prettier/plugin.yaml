@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: prettier
+      runtime: node
+      package: prettier
+      shims: [prettier]
+      known_good_version: 2.6.2
 lint:
   definitions:
     - name: prettier
@@ -21,8 +28,7 @@ lint:
           batch: true
           in_place: true
           formatter: true
-      runtime: node
-      package: prettier
+      tools: [prettier]
       suggest_if: files_present
       direct_configs:
         - .prettierrc

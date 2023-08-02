@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: flake8
+      runtime: python
+      package: flake8
+      shims: [flake8]
+      known_good_version: 4.0.1
 lint:
   definitions:
     - name: flake8
@@ -14,8 +21,7 @@ lint:
           run_linter_from: parent_directory
           success_codes: [0]
           cache_results: true
-      runtime: python
-      package: flake8
+      tools: [flake8]
       direct_configs: [.flake8]
       suggest_if: config_present
       affects_cache:

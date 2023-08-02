@@ -5,14 +5,12 @@ import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
 import { SetupSettings } from "tests/driver";
-import { ARGS, REPO_ROOT, TEST_DATA } from "tests/utils";
+import { ARGS, DOWNLOAD_CACHE, REPO_ROOT, TEMP_PREFIX, TEST_DATA } from "tests/utils";
 import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
 const execFilePromise = util.promisify(execFile);
-
-const TEMP_PREFIX = "plugins_";
 
 const TEMP_SUBDIR = "tmp";
 
@@ -25,10 +23,7 @@ export const executionEnv = (sandbox: string) => {
   return {
     ...strippedEnv,
     // This keeps test downloads separate from manual trunk invocations
-    TRUNK_DOWNLOAD_CACHE: path.resolve(
-      fs.realpathSync(os.tmpdir()),
-      `${TEMP_PREFIX}testing_download_cache`,
-    ),
+    TRUNK_DOWNLOAD_CACHE: DOWNLOAD_CACHE,
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
   };
@@ -210,6 +205,19 @@ export class GenericTrunkDriver {
     const sandboxPath = this.getSandbox();
     const sourcePath = path.resolve(REPO_ROOT, relPath);
     const destPath = path.resolve(sandboxPath, relPath);
+    const destDir = path.parse(destPath).dir;
+    fs.mkdirSync(destDir, { recursive: true });
+    fs.copyFileSync(sourcePath, destPath);
+  }
+
+  /**
+   * Copies a file at the `relPath` inside the repository root to the specified relative path in the sandbox root.
+   * Recursively creates its parent directory if it does not exist.
+   */
+  copyFileFromRootTo(relPath: string, toPath: string) {
+    const sandboxPath = this.getSandbox();
+    const sourcePath = path.resolve(REPO_ROOT, relPath);
+    const destPath = path.resolve(sandboxPath, toPath);
     const destDir = path.parse(destPath).dir;
     fs.mkdirSync(destDir, { recursive: true });
     fs.copyFileSync(sourcePath, destPath);

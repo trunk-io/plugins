@@ -45,7 +45,8 @@ runs:
       run: |
         case "$RUNNER_OS" in
           Linux)
-            sudo apt-get -y install libperl-critic-perl perltidy
+            sudo apt-get update
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev
             ;;
           macOS)
             brew install cpm
@@ -79,6 +80,7 @@ runs:
         shell: bash
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
+        org: trunk-staging-org
         run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}

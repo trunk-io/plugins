@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: checkov
+      runtime: python
+      package: checkov
+      shims: [checkov]
+      known_good_version: 2.3.75
 lint:
   definitions:
     - name: checkov
       files: [terraform, cloudformation, docker, yaml, json]
-      runtime: python
-      package: checkov
+      tools: [checkov]
       commands:
         - name: lint
           # on Windows, we need to make sure 'checkov' resolves to 'checkov.cmd'

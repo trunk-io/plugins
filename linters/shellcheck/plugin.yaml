@@ -1,27 +1,36 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: shellcheck
+    version: 0.8.0
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.${os}.${cpu}.tar.xz
+        strip_components: 1
+      - os: macos
+        cpu: x86_64
+        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+        strip_components: 1
+      # Use rosetta
+      - os: macos
+        cpu: arm_64
+        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+        strip_components: 1
+      # No windows release
+tools:
+  definitions:
     - name: shellcheck
-      version: 0.8.0
-      downloads:
-        - os: linux
-          cpu: x86_64
-          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.linux.x86_64.tar.xz
-          strip_components: 1
-        - os: macos
-          cpu: x86_64
-          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
-          strip_components: 1
-        # Use rosetta
-        - os: macos
-          cpu: arm_64
-          url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
-          strip_components: 1
-        # No windows release
+      download: shellcheck
+      shims: [shellcheck]
+      known_good_version: 0.8.0
+lint:
   definitions:
     - name: shellcheck
       files: [shell]
-      download: shellcheck
+      tools: [shellcheck]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle rubocop's JSON output.

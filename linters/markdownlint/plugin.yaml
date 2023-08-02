@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: markdownlint
+      runtime: node
+      package: markdownlint-cli
+      shims: [markdownlint]
+      known_good_version: 0.31.1
 lint:
   definitions:
     - name: markdownlint
       files: [markdown]
-      runtime: node
-      package: markdownlint-cli
+      tools: [markdownlint]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.

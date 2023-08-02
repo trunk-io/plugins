@@ -1,6 +1,6 @@
 version: 0.1
 # IfChange
-required_trunk_version: ">=1.12.0"
+required_trunk_version: ">=1.13.1-beta.8"
 # ThenChange tests/repo_tests/config_check.test.ts
 
 environments:

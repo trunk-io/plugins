@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: golines
+      runtime: go
+      package: github.com/segmentio/golines
+      shims: [golines]
+      known_good_version: 0.11.0
 lint:
   definitions:
     - name: golines
       files: [go]
-      runtime: go
-      package: github.com/segmentio/golines
+      tools: [golines]
       commands:
         - name: format
           output: rewrite

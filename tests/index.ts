@@ -2,6 +2,7 @@ import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
@@ -11,8 +12,6 @@ import {
   landingStateWrapper,
   TEST_DATA,
 } from "tests/utils";
-
-import { FileIssue } from "./types";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -238,6 +237,7 @@ export const customLinterCheckTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  normalizeLandingState,
 }: {
   linterName: string;
   testName?: string;
@@ -248,6 +248,7 @@ export const customLinterCheckTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  normalizeLandingState?: (landingState: LandingState) => void;
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
@@ -266,6 +267,11 @@ export const customLinterCheckTest = ({
           expect(testRunResult).toMatchObject({
             success: true,
           });
+
+          // Allow the user to normalize the landing state before snapshotting.
+          if (normalizeLandingState && testRunResult.landingState) {
+            normalizeLandingState(testRunResult.landingState);
+          }
 
           // Step 4a: Verify that the output matches expected snapshots for that linter version.
           // See `getSnapshotPathForAssert` and `linterCheckTest` for explanation of snapshot logic.

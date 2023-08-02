@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: goimports
+      runtime: go
+      package: golang.org/x/tools/cmd/goimports
+      shims: [goimports]
+      known_good_version: 0.9.1
 lint:
   definitions:
     - name: goimports
@@ -11,8 +18,7 @@ lint:
           stdin: true
           cache_results: true
           formatter: true
-      runtime: go
-      package: golang.org/x/tools/cmd/goimports
+      tools: [goimports]
       suggest_if: never
       environment:
         - name: PATH

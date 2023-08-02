@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pmd test apex 1`] = `
+{
+  "issues": [
+    {
+      "code": "ApexDoc",
+      "column": "14",
+      "file": "test_data/apex.in.cls",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pmd",
+      "message": "Missing ApexDoc comment",
+      "ranges": [
+        {
+          "filePath": "test_data/apex.in.cls",
+          "length": "63",
+          "offset": "13",
+        },
+      ],
+      "targetType": "apex",
+    },
+    {
+      "code": "AvoidGlobalModifier",
+      "column": "14",
+      "file": "test_data/apex.in.cls",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pmd",
+      "message": "Avoid using global modifier",
+      "ranges": [
+        {
+          "filePath": "test_data/apex.in.cls",
+          "length": "63",
+          "offset": "13",
+        },
+      ],
+      "targetType": "apex",
+    },
+    {
+      "code": "ApexDoc",
+      "column": "15",
+      "file": "test_data/apex.in.cls",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "pmd",
+      "message": "Missing ApexDoc comment",
+      "ranges": [
+        {
+          "filePath": "test_data/apex.in.cls",
+          "length": "33",
+          "offset": "40",
+        },
+      ],
+      "targetType": "apex",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint-apex",
+      "fileGroupName": "apex",
+      "linter": "pmd",
+      "paths": [
+        "test_data/apex.in.cls",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

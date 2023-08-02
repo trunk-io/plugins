@@ -1,0 +1,28 @@
+version: 0.1
+tools:
+  definitions:
+    - name: dustilock
+      runtime: go
+      package: github.com/checkmarx/dustilock
+      shims: [dustilock]
+      known_good_version: 1.2.0
+lint:
+  definitions:
+    - name: dustilock
+      files: [dustilock]
+      tools: [dustilock]
+      commands:
+        - name: scan
+          output: regex
+          # example line:
+          # error - python package "myinternaltool" is available for public registration. /home/maverick/plugins/requirements.txt
+          parse_regex:
+            (error - (?P<message>(?P<code>python|npm)[^.]*\.) (?P<path>(\/|[A-Za-z]:\\).*))
+          run: dustilock --path ${target}
+          target: ${parent}
+          success_codes: [0, 1]
+          read_output_from: stderr
+          batch: false
+          is_security: true
+      suggest_if: never
+      known_good_version: 1.2.0

@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: sql-formatter
+      runtime: node
+      package: sql-formatter
+      shims: [sql-formatter]
+      known_good_version: 7.0.1
 lint:
   definitions:
     - name: sql-formatter
@@ -10,8 +17,7 @@ lint:
           success_codes: [0]
           formatter: true
           stdin: true
-      runtime: node
-      package: sql-formatter
+      tools: [sql-formatter]
       known_good_version: 7.0.1
       suggest_if: never
       version_command:

@@ -1,7 +1,7 @@
 import path from "path";
 import { linterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { skipCPUOS, TEST_DATA } from "tests/utils";
 
 // // You must login in order to use sourcery
 const preCheck = (driver: TrunkLintDriver) => {
@@ -15,9 +15,13 @@ const preCheck = (driver: TrunkLintDriver) => {
     `
   - id: plugin-overrides
     local: .
-lint:`
+lint:`,
   );
   driver.writeFile(trunkYamlPath, newContents);
 };
 
-linterCheckTest({ linterName: "sourcery", preCheck });
+linterCheckTest({
+  linterName: "sourcery",
+  preCheck,
+  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
+});

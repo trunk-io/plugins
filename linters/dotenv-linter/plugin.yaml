@@ -1,27 +1,38 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: dotenv-linter
+    version: 3.3.0
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-darwin-x86_64.tar.gz
+        version: <3.1.1
+      - os:
+          linux: alpine
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
+      - os:
+          macos: darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
+      - os: windows
+        cpu: x86_64
+        url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-win-x64.zip
+tools:
+  definitions:
     - name: dotenv-linter
-      version: 3.2.0
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-darwin-x86_64.tar.gz
-          version: <3.1.1
-        - os:
-            linux: alpine
-            macos: darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-${os}-${cpu}.tar.gz
-        - os: windows
-          cpu: x86_64
-          url: https://github.com/dotenv-linter/dotenv-linter/releases/download/v${version}/dotenv-linter-win-x64.zip
+      download: dotenv-linter
+      shims: [dotenv-linter]
+      known_good_version: 3.3.0
+lint:
   definitions:
     - name: dotenv-linter
       files: [dotenv]
-      download: dotenv-linter
+      tools: [dotenv-linter]
       commands:
         - name: format
           output: rewrite
@@ -37,4 +48,4 @@ lint:
       version_command:
         parse_regex: dotenv-linter ${semver}
         run: dotenv-linter --version
-      known_good_version: 3.2.0
+      known_good_version: 3.3.0

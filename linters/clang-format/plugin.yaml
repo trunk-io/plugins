@@ -1,21 +1,35 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: clang-format
+    version: 14.0.1
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://trunk.io/releases/clang-format-${version}-macos-x86_64.tar.gz
+        version: <14.0.0
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://trunk.io/releases/clang-format-${version}-${os}-${cpu}.tar.gz
+      - os:
+          macos: macos
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://trunk.io/releases/clang-format-${version}-${os}-${cpu}.tar.gz
+      # TODO(chris): Windows download
+tools:
+  definitions:
     - name: clang-format
-      version: 14.0.1
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          url: https://trunk.io/releases/clang-format-${version}-macos-x86_64.tar.gz
-          version: <14.0.0
-        - os:
-            linux: linux
-            macos: macos
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://trunk.io/releases/clang-format-${version}-${os}-${cpu}.tar.gz
-        # TODO(chris): Windows download
+      download: clang-format
+      shims: [clang-format]
+      known_good_version: 14.0.1
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+lint:
   definitions:
     - name: clang-format
       supported_platforms: [linux, macos]
@@ -28,12 +42,9 @@ lint:
           stdin: true
           cache_results: true
           formatter: true
-      download: clang-format
+      tools: [clang-format]
       suggest_if: config_present
       direct_configs: [.clang-format]
-      environment:
-        - name: PATH
-          list: ["${linter}/bin"]
       known_good_version: 16.0.3
       version_command:
         parse_regex: ${semver}

@@ -5,6 +5,10 @@ downloads:
     downloads:
       - os:
           linux: linux
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
+      - os:
           macos: macos
         url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
       - os:

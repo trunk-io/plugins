@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: codespell
+      runtime: python
+      package: codespell
+      shims: [codespell]
+      known_good_version: 2.2.2
 lint:
   definitions:
     - name: codespell
@@ -8,8 +15,7 @@ lint:
       affects_cache:
         - pyproject.toml
         - setup.cfg
-      runtime: python
-      package: codespell
+      tools: [codespell]
       known_good_version: 2.2.2
       known_bad_versions: [2.2.3]
       commands:

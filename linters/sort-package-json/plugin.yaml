@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: sort-package-json
+      runtime: node
+      package: sort-package-json
+      shims: [sort-package-json]
+      known_good_version: 2.1.0
 lint:
   files:
     - name: package-json
@@ -14,8 +21,7 @@ lint:
           success_codes: [0]
           in_place: true
           formatter: true
-      runtime: node
-      package: sort-package-json
+      tools: [sort-package-json]
       suggest_if: never # decide whether this is something we want on by default
       path_format: generic
       known_good_version: 2.1.0

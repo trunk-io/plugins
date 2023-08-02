@@ -1,22 +1,35 @@
 version: 0.1
-lint:
-  downloads:
-    - name: include-what-you-use
-      version: 0.19
-      downloads:
-        - os:
-            linux: linux
-            macos: macos
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
-        # TODO(chris): Windows download
+downloads:
+  - name: include-what-you-use
+    version: 0.20
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          arm_64: aarch64
+          x86_64: x86_64
+        url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
+      - os:
+          macos: macos
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://trunk.io/releases/include-what-you-use-${version}-${os}-${cpu}.tar.gz
+      # TODO(chris): Windows download
+tools:
   definitions:
     - name: include-what-you-use
-      supported_platforms: [linux, macos]
-      files: [c/c++-source]
       download: include-what-you-use
+      shims: [include-what-you-use]
+      known_good_version: 0.20
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+lint:
+  definitions:
+    - name: include-what-you-use
+      files: [c/c++-source]
+      tools: [include-what-you-use]
       commands:
         - name: lint
           run_linter_from: compile_command
@@ -31,10 +44,7 @@ lint:
       include_scanner_type: compile_command
       query_compile_commands: true
       suggest_if: never
-      environment:
-        - name: PATH
-          list: ["${linter}/bin"]
-      known_good_version: 0.19
+      known_good_version: 0.20
       version_command:
         parse_regex: include-what-you-use ([^ ]+).*
         run: include-what-you-use --version

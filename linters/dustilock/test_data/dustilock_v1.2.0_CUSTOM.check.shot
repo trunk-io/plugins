@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter dustilock test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "npm",
+      "column": "1",
+      "file": "test_data/package.json",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "dustilock",
+      "message": "npm package "corporateInternalTool" is available for public registration.",
+      "targetType": "dustilock",
+    },
+    {
+      "code": "npm",
+      "column": "1",
+      "file": "test_data/package.json",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "dustilock",
+      "message": "npm package "someDefinitelyNotPublicUtility" is available for public registration.",
+      "targetType": "dustilock",
+    },
+    {
+      "code": "python",
+      "column": "1",
+      "file": "test_data/requirements.txt",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "dustilock",
+      "message": "python package "mynonpublicinternaltool" is available for public registration.",
+      "targetType": "dustilock",
+    },
+    {
+      "code": "python",
+      "column": "1",
+      "file": "test_data/requirements.txt",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "dustilock",
+      "message": "python package "yetanotherinternaltool" is available for public registration.",
+      "targetType": "dustilock",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "scan",
+      "fileGroupName": "dustilock",
+      "linter": "dustilock",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
