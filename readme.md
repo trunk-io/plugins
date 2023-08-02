@@ -37,7 +37,7 @@ trunk check enable {linter}
 | --------------- | ------------------------------------------------------------------------------------------------------------------- |
 | All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                                 |
 | Ansible         | [ansible-lint]                                                                                                      |
-| Apex            | [ansible-lint], [pmd]                                                                                               |
+| Apex            | [pmd]                                                                                                               |
 | Bash            | [shellcheck], [shfmt]                                                                                               |
 | Bazel, Starlark | [buildifier]                                                                                                        |
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                                 |
