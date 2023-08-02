@@ -53,6 +53,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trivy/trivy_config_to_sarif.py
+          enabled: false
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version

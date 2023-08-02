@@ -1,5 +1,4 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter trivy test CUSTOM 1`] = `
 {
@@ -20,6 +19,15 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
       "linter": "trivy",
       "paths": [
         "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/Gemfile.lock",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -47,6 +55,15 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
       "linter": "trivy",
       "paths": [
         "test_data/basic.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/go.mod",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -97,6 +114,15 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
     },
     {
       "command": "fs",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/Gemfile.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
       "fileGroupName": "terraform",
       "linter": "trivy",
       "paths": [
@@ -119,6 +145,15 @@ exports[`Testing linter trivy test CUSTOM 1`] = `
       "linter": "trivy",
       "paths": [
         "test_data/basic.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/go.mod",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

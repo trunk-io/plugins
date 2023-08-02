@@ -56,15 +56,25 @@ def main(argv):
 
     for result in trivy_json.get("Results", []):
         for vuln in result.get("Vulnerabilities", []):
+            pkg_name = vuln["PkgName"]
             vuln_id = vuln["VulnerabilityID"]
-            description = vuln["Description"]
+            description = vuln["Title"]
+            current_version = vuln["InstalledVersion"]
+            fixed_version = vuln.get("FixedVersion", None)
+
+            if description[-1] != ".":
+                description += "."
+
+            message = f"Vulnerability in '{pkg_name}': {description} Current version is vulnerable: {current_version}."
+            if fixed_version:
+                message += f" Patch available: upgrade to {fixed_version} or higher."
 
             results.append(
                 to_result_sarif(
                     trivy_json["ArtifactName"],
                     get_sarif_severity(vuln),
                     vuln_id,
-                    description,
+                    message,
                 )
             )
 
