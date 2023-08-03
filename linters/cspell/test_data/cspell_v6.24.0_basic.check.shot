@@ -5,6 +5,16 @@ exports[`Testing linter cspell test basic 1`] = `
   "issues": [
     {
       "code": "error",
+      "column": "1",
+      "file": ".trunk/trunk.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "cspell",
+      "message": "Unknown word (runtimes) Suggestions: [runtime, runtiness, runtiest, runtier, rutiles]",
+      "targetType": "ALL",
+    },
+    {
+      "code": "error",
       "column": "6",
       "file": "cspell.test.ts",
       "level": "LEVEL_HIGH",

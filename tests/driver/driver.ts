@@ -40,7 +40,7 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
 
   const { base, dir } = path.parse(file);
   // If top-level, only copy plugin.yaml, test file, test_data, and parsers
-  if (base !== TEST_DATA && dir === topLevelDir) {
+  if (base !== TEST_DATA && dir.endsWith(topLevelDir)) {
     return (
       base === "plugin.yaml" ||
       base.endsWith(".test.ts") ||
