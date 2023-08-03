@@ -27,7 +27,9 @@ def get_sarif_severity(vuln) -> str:
     return SARIF_SEVERITY_BY_OSV_SEVERITY.get(severity, DEFAULT_SARIF_SEVERITY)
 
 
-def to_result_sarif(path: str, severity: str, vuln_id: str, description: str):
+def to_result_sarif(
+    path: str, severity: str, vuln_id: str, description: str, lineno: int
+):
     return {
         "level": severity,
         "locations": [
@@ -38,7 +40,7 @@ def to_result_sarif(path: str, severity: str, vuln_id: str, description: str):
                     },
                     "region": {
                         "startColumn": 0,
-                        "startLine": 0,
+                        "startLine": lineno,
                     },
                 }
             }
@@ -53,18 +55,40 @@ def to_result_sarif(path: str, severity: str, vuln_id: str, description: str):
 def main(argv):
     trivy_json = json.load(sys.stdin)
     results = []
+    lockfiles = {}
 
     for result in trivy_json.get("Results", []):
         for vuln in result.get("Vulnerabilities", []):
+            pkg_name = vuln["PkgName"]
+            path = trivy_json["ArtifactName"]
             vuln_id = vuln["VulnerabilityID"]
-            description = vuln["Description"]
+            description = vuln["Title"]
+            current_version = vuln["InstalledVersion"]
+            fixed_version = vuln.get("FixedVersion", None)
+
+            if path not in lockfiles:
+                lockfiles[path] = open(path).read().splitlines()
+
+            if description[-1] != ".":
+                description += "."
+
+            message = f"Vulnerability in '{pkg_name}': {description} Current version is vulnerable: {current_version}."
+            if fixed_version:
+                message += f" Patch available: upgrade to {fixed_version} or higher."
+
+            lineno = 0
+            for num, line in enumerate(lockfiles[path], 1):
+                if pkg_name in line and current_version in line:
+                    lineno = num
+                    break
 
             results.append(
                 to_result_sarif(
-                    trivy_json["ArtifactName"],
+                    path,
                     get_sarif_severity(vuln),
                     vuln_id,
-                    description,
+                    message,
+                    lineno,
                 )
             )
 

@@ -36,17 +36,11 @@ def main(argv):
             continue
         for vuln in result["Misconfigurations"]:
             vuln_id = vuln["ID"]
-            description = vuln["Description"]
-            lines = trivy_json.get("CauseMetadata", {}).get("Code", {}).get("Lines", [])
-            if len(lines):
-                line_num = lines[0].get("Number", 0)
-            else:
-                line_num = 0
+            message = vuln["Message"]
+            line_num = vuln.get("CauseMetadata", {}).get("StartLine", 0)
 
             results.append(
-                to_result_sarif(
-                    trivy_json["ArtifactName"], vuln_id, description, line_num
-                )
+                to_result_sarif(trivy_json["ArtifactName"], vuln_id, message, line_num)
             )
 
     sarif = {
