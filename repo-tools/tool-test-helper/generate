@@ -21,7 +21,6 @@ downloads:
           amd64: amd64
           arm64: arm64
         url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
-# Fill out this part if the linter is tool-based (most common case) - otherwise delete
 tools:
   definitions:
     - name: NAME_HERE
@@ -29,32 +28,27 @@ tools:
       # download: NAME_HERE
       known_good_version: VERSION_HERE
       shims: [NAME_HERE]
-lint:
-  definitions:
-    - name: NAME_HERE
-      # TOOL_OR_RUNTIME_OR_DOWNLOAD_INFO_HERE
-      known_good_version: # VERSION_HERE
-      commands:
-        - name: LINT_OR_FORMAT_HERE
-          output: OUTPUT_TYPE_HERE
-          run: COMMAND_HERE
-          success_codes: [0]
 """
 
-INITIAL_TEST_CONTENTS = """import { linterCheckTest, linterFmtTest } from "tests";
-// Uncomment and use if your tool is a linter
-// linterCheckTest({ linterName: "*{}*" });
-
-// Uncomment and use if your tool is a formatter
-// linterFmtTest({ linterName: "*{}*" });
+INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest } from "tests";
+toolTest({
+  toolName: "NAME_HERE",
+  toolVersion: "VERSION_HERE",
+  testConfigs: [
+    makeToolTestConfig({
+      command: ["TOOL_NAME", ...args],
+      expectedOut: "OUTPUT_HERE",
+    }),
+  ],
+});
 
 // Guidelines for configuring tests:
-//  - By default, linters and formatters will only run on files with syntax `<name>.in.<extension>`
-//  - You can customize test setup using the `preCheck` callback (see git_diff_check.test.ts and golangci_lint.test.ts)
-//  - You can specify additional customization using the `customLinterCheckTest and customLinterFmtTest` helpers
-//  - Additional information on test setup can be found in tests/readme.md
+//  - Usually, just a version or help text command is sufficient
+//  - add a test for each command that is used in the plugin.yaml
+//  - exit code 0 is assumed, so set expectedExitCode if it is different
+//  - expectedOut/expectedErr do a substring match, so you can just put a portion of the output
 //
-// If you are unable to write a test for this linter, please document why in your PR, and add
+// If you are unable to write a test for this tool, please document why in your PR, and add
 // it to the list in tests/repo_tests/test_coverage_test.ts
 """
 
@@ -67,10 +61,10 @@ def cli():
 @cli.command()
 @click.argument("workspace")
 def scan(workspace):
-    linter_dir = os.path.join(workspace, "linters")
+    tool_dir = os.path.join(workspace, "tools")
     generated_files = False
-    for linter_name in os.listdir(linter_dir):
-        subdir_path = os.path.join(linter_dir, linter_name)
+    for tool_name in os.listdir(tool_dir):
+        subdir_path = os.path.join(tool_dir, tool_name)
         if os.path.isfile(subdir_path):
             continue
 
@@ -89,15 +83,12 @@ def scan(workspace):
             # Write test file
             with open(
                 os.path.join(
-                    subdir_path, "{}.test.ts".format(linter_name.replace("-", "_"))
+                    subdir_path, "{}.test.ts".format(tool_name.replace("-", "_"))
                 ),
                 "w",
             ) as test_file:
-                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", linter_name))
+                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", tool_name))
 
-            # Create empty test_data dir
-            test_dir = os.path.join(subdir_path, "test_data")
-            os.mkdir(test_dir)
             print("Created starter files in {}", subdir_path)
 
     if not generated_files:
