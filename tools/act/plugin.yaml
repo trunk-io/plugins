@@ -1,0 +1,30 @@
+version: 0.1
+downloads:
+  - name: act
+    downloads:
+      - os:
+          linux: Linux
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/nektos/act/releases/download/v${version}/act_${os}_${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          arm_64: arm64
+        url: https://github.com/nektos/act/releases/download/v${version}/act_${os}_${cpu}.zip
+        version: ">=0.2.49"
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/nektos/act/releases/download/v${version}/act_${os}_${cpu}.zip
+        version: <=0.2.48
+tools:
+  definitions:
+    - name: act
+      download: act
+      known_good_version: 0.2.49
+      shims: [act]
