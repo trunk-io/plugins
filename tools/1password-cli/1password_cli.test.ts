@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "1password-cli",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "2.19.0",
     }),
   ],
+  skipTestIf: skipOS(["darwin"]),
 });

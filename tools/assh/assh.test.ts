@@ -2,7 +2,7 @@ import { makeToolTestConfig, toolTest } from "tests";
 
 toolTest({
   toolName: "assh",
-  toolVersion: "2.10.0",
+  toolVersion: "2.15.0",
   testConfigs: [
     makeToolTestConfig({
       command: ["assh", "--version"],

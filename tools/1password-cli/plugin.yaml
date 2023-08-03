@@ -2,8 +2,9 @@ version: 0.1
 downloads:
   - name: 1password-cli
     downloads:
-      - os: macos
-        url: https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_apple_universal_v${version}.pkg
+      # TODO(lauri): Investigate pkg unpacking support
+      #- os: macos
+      #  url: https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_apple_universal_v${version}.pkg
       - os:
           linux: linux
         cpu:
