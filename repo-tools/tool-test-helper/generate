@@ -31,7 +31,7 @@ lint:
 INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest } from "tests";
 toolTest({
   toolName: "NAME_HERE",
-  toolVersion: "VERSOPM_HERE",
+  toolVersion: "VERSION_HERE",
   testConfigs: [
     makeToolTestConfig({
       command: ["TOOL_NAME", ...args],
