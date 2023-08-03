@@ -6,10 +6,33 @@ from datetime import datetime, timedelta
 import click
 
 INITIAL_PLUGIN_CONTENTS = """version: 0.1
-lint:
+# Tools can be either runtime package-based or
+# download-based. This boilerplate assumes the (far more verbose) latter case.
+downloads:
+  - name: NAME_HERE
+    # executable: true
+    # NOTE: These are (common) sample values. Please replace with real values.
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          amd64: amd64
+          arm64: arm64
+        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
+# Fill out this part if the linter is tool-based (most common case) - otherwise delete
+tools:
   definitions:
     - name: NAME_HERE
       # RUNTIME_OR_DOWNLOAD_INFO_HERE
+      # download: NAME_HERE
+      known_good_version: VERSION_HERE
+      shims: [NAME_HERE]
+lint:
+  definitions:
+    - name: NAME_HERE
+      # TOOL_OR_RUNTIME_OR_DOWNLOAD_INFO_HERE
       known_good_version: # VERSION_HERE
       commands:
         - name: LINT_OR_FORMAT_HERE
