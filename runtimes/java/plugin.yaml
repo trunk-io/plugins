@@ -76,3 +76,37 @@ runtimes:
           parse_regex: ${semver}
         - run: java -version
           parse_regex: java version "(.*)"
+      shims:
+        - jaotc
+        - jarsigner
+        - javac
+        - javap
+        - jconsole
+        - jdeprscan
+        - jfr
+        - jimage
+        - jjs
+        - jmap
+        - jps
+        - jshell
+        - jstat
+        - keytool
+        - rmic
+        - rmiregistry
+        - unpack200
+        - jar
+        - java
+        - javadoc
+        - jcmd
+        - jdb
+        - jdeps
+        - jhsdb
+        - jinfo
+        - jlink
+        - jmod
+        - jrunscript
+        - jstack
+        - jstatd
+        - pack200
+        - rmid
+        - serialver

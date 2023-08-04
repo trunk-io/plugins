@@ -35,3 +35,17 @@ runtimes:
       version_commands:
         - run: ruby --version
           parse_regex: ruby ([0-9\.]+)(p+.*)
+      shims:
+        - bundle
+        - bundler
+        - erb
+        - gem
+        - irb
+        - racc
+        - rake
+        - rbs
+        - rdbg
+        - rdoc
+        - ri
+        - ruby
+        - typeprof
