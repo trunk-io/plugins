@@ -40,6 +40,9 @@ runtimes:
         - name: http_proxy
           value: ${env.http_proxy}
           optional: true
+        - name: GOPRIVATE
+          value: ${env.GOPRIVATE}
+          optional: true
         - name: https_proxy
           value: ${env.https_proxy}
           optional: true
