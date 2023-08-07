@@ -5,5 +5,5 @@ import { skipOS } from "tests/utils";
 customLinterCheckTest({
   linterName: "haml-lint",
   args: "-a",
-  skipTestIf: skipOS(["darwin", "win32"]),
+  skipTestIf: skipOS(["darwin"]),
 });
