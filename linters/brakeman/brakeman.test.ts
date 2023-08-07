@@ -7,5 +7,5 @@ jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
 customLinterCheckTest({
   linterName: "brakeman",
   args: TEST_DATA,
-  skipTestIf: skipOS(["darwin", "win32"]),
+  skipTestIf: skipOS(["darwin"]),
 });
