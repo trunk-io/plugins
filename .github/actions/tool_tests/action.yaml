@@ -31,6 +31,23 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
 
+    - name: Install packages
+      run: |
+        case "$RUNNER_OS" in
+          Linux)
+            sudo apt-get update
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev pkg-config libfuse-dev
+            ;;
+          macOS)
+            brew tap macos-fuse-t/homebrew-cask
+            brew install fuse-t
+            brew install cpm
+            cpm install -g --no-test --color Perl::Critic Perl::Tidy
+            brew unlink perl && brew link perl
+            ;;
+        esac
+      shell: bash
+
     - name: Install dependencies
       run: npm ci
       shell: bash
