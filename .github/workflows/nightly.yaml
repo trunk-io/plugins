@@ -16,7 +16,7 @@ jobs:
   linter_tests_main:
     name: Plugin Tests Main
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -51,13 +51,14 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests Release
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -150,6 +151,7 @@ jobs:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # akin to the linter_tests job.
