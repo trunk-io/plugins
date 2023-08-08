@@ -145,6 +145,7 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Tool Tests Latest
         # Run tests using Latest with any modified tools (see filters.yaml). Don't run when cancelled.
@@ -154,6 +155,7 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: ${{ needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:
