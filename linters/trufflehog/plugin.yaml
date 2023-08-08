@@ -49,6 +49,7 @@ lint:
       download: trufflehog
       known_good_version: 3.40.0
       known_bad_versions: [3.41.0]
+      hold_the_line: false
       commands:
         - name: lint
           output: sarif
@@ -71,3 +72,14 @@ lint:
       version_command:
         parse_regex: trufflehog ${semver}
         run: trufflehog --version
+
+actions:
+  definitions:
+    - id: trufflehog-pre-commit
+      description: Don't allow secrets in commits (via Trufflehog)
+      display_name: Trufflehog Pre-Commit Hook
+      run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog-git
+      interactive: optional
+      triggers:
+        - git_hooks: [pre-commit]
+      notify_on_error: false

@@ -18,8 +18,8 @@ downloads:
           macos: darwin
           windows: windows
         cpu:
-          amd64: amd64
-          arm64: arm64
+          x86_64: amd64
+          arm_64: arm64
         url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
 # Fill out this part if the linter is tool-based (most common case) - otherwise delete
 tools:

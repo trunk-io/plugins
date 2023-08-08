@@ -92,7 +92,7 @@ jobs:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters' || needs.detect_changes.outputs.tools == 'true' ||
       needs.detect_changes.outputs.all-tools == 'tools'
-    timeout-minutes: 90
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
