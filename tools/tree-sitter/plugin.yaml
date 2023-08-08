@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: tree-sitter
+    downloads:
+      - os:
+          linux: linux
+          macos: macos
+          windows: windows
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/tree-sitter/tree-sitter/releases/download/v${version}/tree-sitter-${os}-${cpu}.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x64
+        url: https://github.com/tree-sitter/tree-sitter/releases/download/v${version}/tree-sitter-${os}-${cpu}.gz
+tools:
+  definitions:
+    - name: tree-sitter
+      download: tree-sitter
+      known_good_version: 0.20.8
+      shims: [tree-sitter]
