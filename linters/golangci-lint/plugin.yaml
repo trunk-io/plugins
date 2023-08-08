@@ -6,10 +6,15 @@ lint:
       environment:
         - name: GOLANGCI_LINT_CACHE
           value: ${cachedir}
+          # Needs to use system `diff` and `git`
         - name: PATH
-          list: ["${env.PATH}"] # Needs to use system `diff`
+          list: ["${env.PATH}"]
         - name: GO111MODULE
           value: auto
+          # May need to git clone with ssh authenticaion for private packages.
+        - name: SSH_AUTH_SOCK
+          value: ${env.SSH_AUTH_SOCK}
+          optional: true
       runtime: go
       package: github.com/golangci/golangci-lint/cmd/golangci-lint
       run_from_root_file: go.mod

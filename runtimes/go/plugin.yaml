@@ -31,6 +31,9 @@ runtimes:
           value: ${home}
         - name: PATH
           list: ["${runtime}/bin"]
+        - name: GOPRIVATE
+          value: ${env.GOPRIVATE}
+          optional: true
         - name: GOROOT
           value: ${runtime}
         - name: GO111MODULE
