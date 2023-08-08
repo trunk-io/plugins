@@ -31,6 +31,9 @@ runtimes:
           value: ${home}
         - name: PATH
           list: ["${runtime}/bin"]
+        - name: GOPRIVATE
+          value: ${env.GOPRIVATE}
+          optional: true
         - name: GOROOT
           value: ${runtime}
         - name: GO111MODULE
@@ -39,9 +42,6 @@ runtimes:
           value: 0
         - name: http_proxy
           value: ${env.http_proxy}
-          optional: true
-        - name: GOPRIVATE
-          value: ${env.GOPRIVATE}
           optional: true
         - name: https_proxy
           value: ${env.https_proxy}
