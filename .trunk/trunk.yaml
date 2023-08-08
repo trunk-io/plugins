@@ -74,6 +74,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
-tools:
-  enabled:
-    - tree-sitter@0.20.8
