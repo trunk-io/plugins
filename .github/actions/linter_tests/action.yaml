@@ -46,7 +46,7 @@ runs:
         case "$RUNNER_OS" in
           Linux)
             sudo apt-get update
-            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev pkg-config libfuse-dev
             ;;
           macOS)
             brew install cpm
