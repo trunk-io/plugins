@@ -4,7 +4,7 @@ downloads:
     downloads:
       - os:
           linux: linux
-          macos: darwin
+          macos: macos
           windows: windows
         cpu:
           x86_64: x64
