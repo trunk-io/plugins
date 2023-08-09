@@ -3,9 +3,9 @@ import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
 import { ARGS, REPO_ROOT } from "tests/utils";
+import { getTrunkVersion } from "tests/utils/trunk_config";
 
 import { GenericTrunkDriver } from "./driver";
-import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const baseDebug = Debug("Driver");
 
