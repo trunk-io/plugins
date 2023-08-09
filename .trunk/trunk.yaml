@@ -74,5 +74,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
-  disabled:
-    - trunk-announce
