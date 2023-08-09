@@ -1,0 +1,19 @@
+version: 0.1
+downloads:
+  - name: direnv
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/direnv/direnv/releases/download/v${version}/direnv.${os}-${cpu}
+        # No windows release
+tools:
+  definitions:
+    - name: direnv
+      download: direnv
+      known_good_version: 2.32.3
+      shims: [direnv]
