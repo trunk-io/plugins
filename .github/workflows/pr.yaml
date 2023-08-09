@@ -108,32 +108,32 @@ jobs:
           # No need to key on trunk version unless we change how we store downloads.
           key: trunk-${{ runner.os }}
 
-      # - name: Linter Tests
-      #   # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
-      #   uses: ./.github/actions/linter_tests
-      #   if:
-      #     needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
-      #     == 'linters'
-      #   with:
-      #     linter-version: KnownGoodVersion
-      #     sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-      #     append-args:
-      #       ${{ needs.detect_changes.outputs.all-linters }} ${{
-      #       needs.detect_changes.outputs.linters-files }}
-      #     trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        uses: ./.github/actions/linter_tests
+        if:
+          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
+          == 'linters'
+        with:
+          linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-      # - name: Linter Tests Latest
-      #   # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-      #   if:
-      #     (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
-      #     needs.detect_changes.outputs.linters-files != ''
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: Latest
-      #     sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-      #     # TODO(Tyler): We need downloads to work with known_bad_versions
-      #     append-args: ${{ needs.detect_changes.outputs.linters-files }}
-      #     trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests Latest
+        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
+          needs.detect_changes.outputs.linters-files != ''
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          # TODO(Tyler): We need downloads to work with known_bad_versions
+          append-args: ${{ needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
@@ -143,9 +143,8 @@ jobs:
           needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
-            tools/target-determinator tools/amazon-ecr-credential-helper
-            #${{ needs.detect_changes.outputs.all-tools }} ${{
-            # needs.detect_changes.outputs.tools-files }}
+            ${{ needs.detect_changes.outputs.all-tools }} ${{
+            needs.detect_changes.outputs.tools-files }}
 
       - name: Tool Tests Latest
         # Run tests using Latest with any modified tools (see filters.yaml). Don't run when cancelled.
