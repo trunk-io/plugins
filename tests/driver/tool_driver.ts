@@ -2,9 +2,10 @@ import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
-import { ARGS } from "tests/utils";
+import { ARGS, REPO_ROOT } from "tests/utils";
 
 import { GenericTrunkDriver } from "./driver";
+import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const baseDebug = Debug("Driver");
 
@@ -45,6 +46,25 @@ export class TrunkToolDriver extends GenericTrunkDriver {
     super(testDir, setupSettings, getDebugger(tool));
     this.tool = tool;
     this.toEnableVersion = version;
+  }
+
+  getTrunkYamlContents(trunkVersion: string | undefined): string {
+    return `version: 0.1
+    cli:
+      version: ${trunkVersion ?? getTrunkVersion()}
+    plugins:
+      sources:
+      - id: trunk
+        local: ${REPO_ROOT}
+    lint:
+      ignore:
+        - linters: [ALL]
+          paths:
+            - tmp/**
+            - node_modules/**
+            - .trunk/configs/**
+            - .gitattributes
+    `;
   }
 
   /**
