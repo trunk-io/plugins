@@ -50,21 +50,20 @@ export class TrunkToolDriver extends GenericTrunkDriver {
 
   getTrunkYamlContents(trunkVersion: string | undefined): string {
     return `version: 0.1
-    cli:
-      version: ${trunkVersion ?? getTrunkVersion()}
-    plugins:
-      sources:
-      - id: trunk
-        local: ${REPO_ROOT}
-    lint:
-      ignore:
-        - linters: [ALL]
-          paths:
-            - tmp/**
-            - node_modules/**
-            - .trunk/configs/**
-            - .gitattributes
-    `;
+cli:
+  version: ${trunkVersion ?? getTrunkVersion()}
+plugins:
+  sources:
+  - id: trunk
+    local: ${REPO_ROOT}
+lint:
+  ignore:
+    - linters: [ALL]
+      paths:
+        - tmp/**
+        - node_modules/**
+        - .trunk/configs/**
+        - .gitattributes`;
   }
 
   /**

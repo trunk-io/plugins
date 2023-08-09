@@ -81,31 +81,27 @@ export class TrunkLintDriver extends GenericTrunkDriver {
 
   getTrunkYamlContents(trunkVersion: string | undefined): string {
     return `version: 0.1
-    cli:
-      version: ${trunkVersion ?? getTrunkVersion()}
-    runtimes:
-      enabled:
-        # required in order to query latest
-        - go@1.19.5
-        - node@18.12.1
-        - python@3.10.8
-        - ruby@3.1.3
-    tools:
-      disabled:
-        - ruby
-    plugins:
-      sources:
-      - id: trunk
-        local: ${REPO_ROOT}
-    lint:
-      ignore:
-        - linters: [ALL]
-          paths:
-            - tmp/**
-            - node_modules/**
-            - .trunk/configs/**
-            - .gitattributes
-    `;
+cli:
+  version: ${trunkVersion ?? getTrunkVersion()}
+runtimes:
+  enabled:
+    # required in order to query latest
+    - go@1.19.5
+    - node@18.12.1
+    - python@3.10.8
+    - ruby@3.1.3
+plugins:
+  sources:
+  - id: trunk
+    local: ${REPO_ROOT}
+lint:
+  ignore:
+    - linters: [ALL]
+      paths:
+        - tmp/**
+        - node_modules/**
+        - .trunk/configs/**
+        - .gitattributes`;
   }
 
   /**
