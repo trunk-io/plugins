@@ -143,8 +143,9 @@ jobs:
           needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
-            ${{ needs.detect_changes.outputs.all-tools }} ${{
-            needs.detect_changes.outputs.tools-files }}
+            tools/target-determinator tools/amazon-ecr-credential-helper
+            #${{ needs.detect_changes.outputs.all-tools }} ${{
+            # needs.detect_changes.outputs.tools-files }}
 
       - name: Tool Tests Latest
         # Run tests using Latest with any modified tools (see filters.yaml). Don't run when cancelled.
