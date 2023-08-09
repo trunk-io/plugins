@@ -89,6 +89,12 @@ export class TrunkToolDriver extends GenericTrunkDriver {
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
+      if ("stdout" in (error as any)) {
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+        console.log("Error output:", ((error as any).stdout as Buffer).toString());
+      } else {
+        console.log("Error keys:  ", Object.keys(error as object));
+      }
     }
   }
 
