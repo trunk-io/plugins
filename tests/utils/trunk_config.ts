@@ -43,6 +43,9 @@ runtimes:
     - node@18.12.1
     - python@3.10.8
     - ruby@3.1.3
+tools:
+  disabled:
+    - ruby
 plugins:
   sources:
   - id: trunk
