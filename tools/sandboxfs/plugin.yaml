@@ -1,0 +1,12 @@
+version: 0.1
+tools:
+  definitions:
+    ## Note, depends on libfuse-dev on linux and OSXFUSE on macos
+    - name: sandboxfs
+      runtime: rust
+      package: sandboxfs
+      known_good_version: 0.2.0
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [sandboxfs]

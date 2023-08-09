@@ -16,6 +16,9 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: tools
+  trunk-token:
+    description: CI debugger api token
+    required: true
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -31,15 +34,48 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
 
+    - name: Install packages
+      run: |
+        case "$RUNNER_OS" in
+          Linux)
+            sudo apt-get update
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev pkg-config libfuse-dev
+            ;;
+          macOS)
+            brew tap macos-fuse-t/homebrew-cask
+            brew install fuse-t
+            sed "s/1.0.26/2.6.0/g" /usr/local/lib/pkgconfig/fuse-t.pc | sudo tee /usr/local/lib/pkgconfig/osxfuse.pc
+            brew install cpm
+            cpm install -g --no-test --color Perl::Critic Perl::Tidy
+            brew unlink perl && brew link perl
+            ;;
+        esac
+      shell: bash
+
     - name: Install dependencies
       run: npm ci
       shell: bash
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
+      if: runner.os == 'Windows'
       run: npm test --ci ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
+      env:
+        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+        PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
+
+    - name: Run plugin tests
+      if: runner.os != 'Windows'
+      uses: trunk-io/breakpoint@v1
+      with:
+        breakpoint-id: trunk-plugins-linter-tests
+        shell: bash
+        working-directory: ${{ inputs.path }}
+        trunk-token: ${{ inputs.trunk-token  }}
+        org: trunk-staging-org
+        run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
