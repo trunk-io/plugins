@@ -4,8 +4,9 @@ on:
     # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
     - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
-  # pull_request:
-  # paths: [.github/workflows/windows_nightly.yaml]
+  # TODO: TYLER REVERT
+  pull_request:
+    paths: [.github/workflows/windows_nightly.yaml]
   workflow_dispatch: {}
 
 permissions: read-all
@@ -56,8 +57,13 @@ jobs:
           # CI Debugger is not yet supported on Windows
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-      # # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
-      # # akin to the linter_tests job.
-      # - name: Tool Tests
-      #   if: failure() || success()
-      #   uses: ./.github/actions/tool_tests
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        if: failure() || success()
+        uses: ./.github/actions/tool_tests
+        with:
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          append-args: tools -- --maxWorkers=5
+          # CI Debugger is not yet supported on Windows
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
