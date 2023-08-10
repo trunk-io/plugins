@@ -6,7 +6,7 @@ import path from "path";
 import * as git from "simple-git";
 import { SetupSettings } from "tests/driver";
 import { ARGS, DOWNLOAD_CACHE, REPO_ROOT, TEMP_PREFIX, TEST_DATA } from "tests/utils";
-import { getTrunkConfig, newTrunkYamlContents } from "tests/utils/trunk_config";
+import { getTrunkConfig } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
 
@@ -52,7 +52,7 @@ const testCreationFilter = (topLevelDir: string) => (file: string) => {
   return true;
 };
 
-export class GenericTrunkDriver {
+export abstract class GenericTrunkDriver {
   /** Refers to the absolute path to linter's subdir. */
   testDir: string;
   /** Created in /tmp during setup. */
@@ -74,6 +74,8 @@ export class GenericTrunkDriver {
     this.debug = debug;
     this.debugNamespace = this.debug.namespace.replace("Driver:", "");
   }
+
+  abstract getTrunkYamlContents(trunkVersion: string | undefined): string;
 
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
@@ -101,7 +103,7 @@ export class GenericTrunkDriver {
       }
       fs.writeFileSync(
         path.resolve(this.sandboxPath, ".trunk/trunk.yaml"),
-        newTrunkYamlContents(this.setupSettings.trunkVersion),
+        this.getTrunkYamlContents(this.setupSettings.trunkVersion),
       );
     }
 

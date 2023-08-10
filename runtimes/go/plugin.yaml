@@ -55,3 +55,4 @@ runtimes:
       version_commands:
         - run: go version
           parse_regex: go version go(.*) (.*)
+      shims: [go, gofmt]

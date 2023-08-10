@@ -36,3 +36,17 @@ runtimes:
       version_commands:
         - run: rustc --version
           parse_regex: ${semver}
+      shims:
+        - cargo
+        - cargo-clippy
+        - cargo-fmt
+        - clippy-driver
+        - rls
+        - rust-analyzer
+        - rustc
+        - rust-demangler
+        - rustdoc
+        - rustfmt
+        - rust-gdb
+        - rust-gdbgui
+        - rust-lldb

@@ -2,7 +2,8 @@ import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
-import { ARGS } from "tests/utils";
+import { ARGS, REPO_ROOT } from "tests/utils";
+import { getTrunkVersion } from "tests/utils/trunk_config";
 
 import { GenericTrunkDriver } from "./driver";
 
@@ -47,6 +48,25 @@ export class TrunkToolDriver extends GenericTrunkDriver {
     this.toEnableVersion = version;
   }
 
+  getTrunkYamlContents(trunkVersion: string | undefined): string {
+    return `version: 0.1
+cli:
+  version: ${trunkVersion ?? getTrunkVersion()}
+plugins:
+  sources:
+  - id: trunk
+    local: ${REPO_ROOT}
+lint:
+  ignore:
+    - linters: [ALL]
+      paths:
+        - tmp/**
+        - node_modules/**
+        - .trunk/configs/**
+        - .gitattributes
+`;
+  }
+
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
    * 1. Creating a git repo
@@ -89,6 +109,12 @@ export class TrunkToolDriver extends GenericTrunkDriver {
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
+      if ("stdout" in (error as any)) {
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+        console.log("Error output:", ((error as any).stdout as Buffer).toString());
+      } else {
+        console.log("Error keys:  ", Object.keys(error as object));
+      }
     }
   }
 

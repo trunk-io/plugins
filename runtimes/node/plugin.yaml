@@ -56,3 +56,4 @@ runtimes:
       version_commands:
         - run: node --version
           parse_regex: ${semver}
+      shims: [node, npm, npx, corepack]

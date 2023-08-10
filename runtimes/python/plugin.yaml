@@ -82,3 +82,4 @@ runtimes:
       version_commands:
         - run: python3 --version
           parse_regex: Python ${semver}
+      shims: [python3, pip3, pydoc3, python3-config, pip]

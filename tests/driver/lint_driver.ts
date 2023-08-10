@@ -3,7 +3,7 @@ import * as fs from "fs";
 import path from "path";
 import { SetupSettings } from "tests/driver";
 import { LandingState, TrunkVerb } from "tests/types";
-import { ARGS } from "tests/utils";
+import { ARGS, REPO_ROOT } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
 
@@ -77,6 +77,32 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     super(testDir, setupSettings, getDebugger(linter));
     this.linter = linter;
     this.toEnableVersion = version;
+  }
+
+  getTrunkYamlContents(trunkVersion: string | undefined): string {
+    return `version: 0.1
+cli:
+  version: ${trunkVersion ?? getTrunkVersion()}
+runtimes:
+  enabled:
+    # required in order to query latest
+    - go@1.19.5
+    - node@18.12.1
+    - python@3.10.8
+    - ruby@3.1.3
+plugins:
+  sources:
+  - id: trunk
+    local: ${REPO_ROOT}
+lint:
+  ignore:
+    - linters: [ALL]
+      paths:
+        - tmp/**
+        - node_modules/**
+        - .trunk/configs/**
+        - .gitattributes
+`;
   }
 
   /**
