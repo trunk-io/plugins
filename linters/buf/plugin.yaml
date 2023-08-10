@@ -1,5 +1,6 @@
 version: 0.1
 lint:
+  # TODO(Tyler): This should be its own tool if we can avoid the eponymous pitfall
   downloads:
     - name: buf
       version: 1.0.0-rc11
