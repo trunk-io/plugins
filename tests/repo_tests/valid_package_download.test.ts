@@ -4,7 +4,13 @@ import { REPO_ROOT } from "tests/utils";
 import { parseYaml } from "tests/utils/trunk_config";
 
 // These linters use go or rust downloads.
-const excludedLinters: string[] = ["clippy", "gofmt", "rustfmt"];
+const excludedLinters: string[] = [
+  "clippy",
+  "gofmt",
+  "rustfmt",
+  "terraform-fmt",
+  "terraform-validate",
+];
 
 // This test asserts that all linters that have a `download` specified (as opposed to custom run command or package)
 // Must also define that download in its same file. Otherwise, this would be a runtime error.
@@ -25,7 +31,7 @@ describe("Validate linter download/package setup", () => {
 
       yamlContents.lint?.definitions?.forEach((definition: any) => {
         // All linters that have downloads must define them
-        if (definition.download && !excludedLinters.includes(linter)) {
+        if (definition.download && !excludedLinters.includes(definition.name)) {
           const downloads: string[] = [];
           if (yamlContents.lint?.downloads) {
             yamlContents.lint?.downloads.forEach((download: any) => {
