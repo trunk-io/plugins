@@ -97,7 +97,7 @@ export class TrunkToolDriver extends GenericTrunkDriver {
           ),
         )
       ) {
-        throw new Error(`Failed to install ${this.tool}`);
+        throw new Error(`Could not install or find installed ${this.tool}`);
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
