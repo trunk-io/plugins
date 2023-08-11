@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: terramate
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/terramate-io/terramate/releases/download/v${version}/terramate_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/terramate-io/terramate/releases/download/v${version}/terramate_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: terramate
+      download: terramate
+      known_good_version: 0.4.0
+      shims: [terramate]

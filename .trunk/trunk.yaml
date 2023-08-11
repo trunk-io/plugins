@@ -74,3 +74,6 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
+tools:
+  enabled:
+    - terraform-docs@0.16.0
