@@ -210,6 +210,9 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         console.log(error.stdout as string);
         console.log(error.stderr as string);
       }
+      if (linter == "eslint") {
+        console.log(jsonContents);
+      }
 
       const trunkRunResult: TrunkRunResult = {
         exitCode: error.code as number,

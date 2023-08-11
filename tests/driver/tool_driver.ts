@@ -98,10 +98,10 @@ export class TrunkToolDriver extends GenericTrunkDriver {
   extractToolVersion = (): string => {
     const toEnableVersion = this.toEnableVersion ?? ARGS.linterVersion;
 
+    // TODO(Tyler): We should leverage latest here and use the ReleaseVersionService
     if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
     } else if (toEnableVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().tool.definitions.find(
@@ -121,7 +121,10 @@ export class TrunkToolDriver extends GenericTrunkDriver {
 
   async runTool(command: string[]): Promise<TrunkToolRunResult> {
     try {
-      const { stdout, stderr } = await this.run(`.trunk/tools/${command[0]}`, command.slice(1));
+      const { stdout, stderr } = await this.run(
+        `.trunk/tools/${command[0]}${process.platform === "win32" ? ".bat" : ""}`,
+        command.slice(1),
+      );
       return {
         exitCode: 0,
         stdout,
