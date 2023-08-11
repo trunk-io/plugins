@@ -1,6 +1,7 @@
 version: 0.1
 tools:
   definitions:
+    # Doesn't work OOTB on Windows, see https://github.com/orgs/asciinema/discussions/47
     - name: asciinema
       runtime: python
       package: asciinema

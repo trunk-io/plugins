@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "prisma",
@@ -9,4 +10,6 @@ toolTest({
       expectedOut: "4.16.1",
     }),
   ],
+  // prisma.bat doesn't exit and close handles on Windows
+  skipTestIf: skipOS(["win32"]),
 });

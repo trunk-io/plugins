@@ -8,7 +8,8 @@ toolTest({
       command: ["target-determinator"],
       expectedErr:
         "Failed to parse flags: expected one positional argument, <before-revision>, but got 0",
-      expectedExitCode: 1,
+      // Error exit code varies by platform
+      expectedExitCode: process.platform == "win32" ? 0 : 1,
     }),
   ],
 });

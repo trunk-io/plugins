@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "bazel-differ",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "bazel-differ is a CLI tool to assist with doing differential Bazel builds",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });

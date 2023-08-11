@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "air",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "1.44.0",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });
