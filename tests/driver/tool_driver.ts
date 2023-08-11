@@ -120,9 +120,24 @@ export class TrunkToolDriver extends GenericTrunkDriver {
   /**** Execution methods ****/
 
   async runTool(command: string[]): Promise<TrunkToolRunResult> {
+    const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
+      ? "dev-tools"
+      : "tools";
     try {
+      if (process.platform == "win32") {
+        const { stdout, stderr } = await this.run("powershell", [
+          `.trunk/${tools_subdir}/${command[0]}.bat`,
+          ...command.slice(1),
+        ]);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr,
+        };
+      }
+
       const { stdout, stderr } = await this.run(
-        `.trunk/tools/${command[0]}${process.platform === "win32" ? ".bat" : ""}`,
+        `.trunk/${tools_subdir}/${command[0]}`,
         command.slice(1),
       );
       return {
