@@ -125,8 +125,15 @@ export class GenericTrunkDriver {
       // The trunk launcher is not designed to handle concurrent installs.
       // This command may fail if another test installs at the same time.
       // Don't block if this happens.
-      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-      console.warn(`Error running --help with stdout: %s\nand stderr: %s`, err.stdout, err.stderr);
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      if (!(err.stderr as string).includes("Cannot remove item")) {
+        console.warn(
+          `Error running --help with stdout: %s\nand stderr: %s`,
+          err.stdout,
+          err.stderr,
+        );
+      }
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
     }
   }
 
