@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 toolTest({
   toolName: "direnv",
   toolVersion: "2.32.3",
@@ -8,4 +9,5 @@ toolTest({
       expectedOut: "2.32.3",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });

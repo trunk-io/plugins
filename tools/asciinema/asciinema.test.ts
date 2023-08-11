@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "asciinema",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "asciinema 2.1.0",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });

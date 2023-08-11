@@ -191,12 +191,16 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         console.log(stdout);
         console.log(stderr);
       }
+      const output = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
+      if (linter == "eslint") {
+        console.log(output);
+      }
       return this.parseRunResult(
         {
           exitCode: 0,
           stdout,
           stderr,
-          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+          outputJson: JSON.parse(output),
         },
         "Check",
         targetAbsPath,
@@ -209,9 +213,6 @@ export class TrunkLintDriver extends GenericTrunkDriver {
         jsonContents = "{}";
         console.log(error.stdout as string);
         console.log(error.stderr as string);
-      }
-      if (linter == "eslint") {
-        console.log(jsonContents);
       }
 
       const trunkRunResult: TrunkRunResult = {

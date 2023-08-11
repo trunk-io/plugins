@@ -84,7 +84,19 @@ export class TrunkToolDriver extends GenericTrunkDriver {
 
       // Sync the tool to ensure it's available
       await this.runTrunk(["tools", "install"]);
-      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "tools", this.tool))) {
+      const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
+        ? "dev-tools"
+        : "tools";
+      if (
+        !fs.existsSync(
+          path.resolve(
+            this.sandboxPath,
+            ".trunk",
+            tools_subdir,
+            `${this.tool}${process.platform == "win32" ? ".bat" : ""}`,
+          ),
+        )
+      ) {
         throw new Error(`Failed to install ${this.tool}`);
       }
     } catch (error) {

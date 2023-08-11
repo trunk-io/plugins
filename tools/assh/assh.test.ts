@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "assh",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "assh version n/a (n/a)",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });

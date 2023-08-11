@@ -14,7 +14,7 @@ downloads:
         strip_components: 1
         cpu:
           x86_64: amd64
-        url: https://github.com/FiloSottile/age/releases/download/v${version}/age-v${version}-${os}-${cpu}.zip
+        url: https://github.com/FiloSottile/age/releases/download/v${version}/age-v${version}-windows-${cpu}.zip
 tools:
   definitions:
     - name: age
