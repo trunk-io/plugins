@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 toolTest({
   toolName: "tfmigrate",
   toolVersion: "0.3.14",
@@ -8,4 +9,5 @@ toolTest({
       expectedOut: "0.3.14",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });
