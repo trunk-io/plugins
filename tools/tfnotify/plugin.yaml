@@ -1,0 +1,18 @@
+version: 0.1
+downloads:
+  - name: tfnotify
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/mercari/tfnotify/releases/download/v${version}/tfnotify_${os}_${cpu}.tar.gz
+    # no windows binary
+tools:
+  definitions:
+    - name: tfnotify
+      download: tfnotify
+      known_good_version: 0.8.0
+      shims: [tfnotify]

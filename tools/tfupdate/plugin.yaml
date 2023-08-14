@@ -1,0 +1,18 @@
+version: 0.1
+downloads:
+  - name: tfupdate
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/minamijoyo/tfupdate/releases/download/v${version}/tfupdate_${version}_${os}_${cpu}.tar.gz
+tools:
+  definitions:
+    - name: tfupdate
+      download: tfupdate
+      known_good_version: 0.7.2
+      shims: [tfupdate]
