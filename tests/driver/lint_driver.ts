@@ -217,12 +217,16 @@ lint:
         console.log(stdout);
         console.log(stderr);
       }
+      const output = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
+      if (linter == "eslint") {
+        console.log(output);
+      }
       return this.parseRunResult(
         {
           exitCode: 0,
           stdout,
           stderr,
-          outputJson: JSON.parse(fs.readFileSync(resultJsonPath, { encoding: "utf-8" })),
+          outputJson: JSON.parse(output),
         },
         "Check",
         targetAbsPath,

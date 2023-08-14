@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "amazon-ecr-credential-helper",
@@ -10,4 +11,5 @@ toolTest({
       expectedExitCode: 1,
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });
