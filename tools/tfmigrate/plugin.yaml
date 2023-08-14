@@ -1,6 +1,4 @@
 version: 0.1
-# Tools can be either runtime package-based or
-# download-based. This boilerplate assumes the (far more verbose) latter case.
 downloads:
   - name: tfmigrate
     downloads:
