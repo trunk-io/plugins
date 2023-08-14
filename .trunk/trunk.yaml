@@ -76,6 +76,7 @@ actions:
     - tool-test-helper
 tools:
   enabled:
+    - tfnotify@0.8.0
     - tfmigrate@0.3.14
     - terramate@0.4.0
     - terraformer@0.8.24
