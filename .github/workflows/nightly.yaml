@@ -58,7 +58,7 @@ jobs:
   linter_tests_release:
     name: Plugin Tests Release
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 120
+    timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
@@ -156,7 +156,10 @@ jobs:
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # akin to the linter_tests job.
       - name: Tool Tests
+        if: failure() || success()
         uses: ./.github/actions/tool_tests
+        with:
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.

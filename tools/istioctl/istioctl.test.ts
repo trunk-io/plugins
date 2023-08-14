@@ -11,5 +11,5 @@ toolTest({
       expectedOut: "1.14.6",
     }),
   ],
-  skipTestIf: skipOS(["darwin"]),
+  skipTestIf: skipOS(["darwin", "win32"]),
 });

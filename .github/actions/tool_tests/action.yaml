@@ -16,6 +16,9 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: tools
+  trunk-token:
+    description: CI debugger api token
+    required: true
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -37,9 +40,25 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
+      if: runner.os == 'Windows'
       run: npm test --ci ${{ inputs.append-args }}
       shell: bash
       working-directory: ${{ inputs.path }}
+      env:
+        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+        PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
+
+    - name: Run plugin tests
+      if: runner.os != 'Windows'
+      # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
+      uses: trunk-io/breakpoint@v1
+      with:
+        breakpoint-id: trunk-plugins-tool-tests
+        shell: bash
+        working-directory: ${{ inputs.path }}
+        trunk-token: ${{ inputs.trunk-token  }}
+        org: trunk-staging-org
+        run: npm test --ci ${{ inputs.append-args }}
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}

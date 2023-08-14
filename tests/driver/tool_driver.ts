@@ -104,8 +104,20 @@ lint:
 
       // Sync the tool to ensure it's available
       await this.runTrunk(["tools", "install"]);
-      if (!fs.existsSync(path.resolve(this.sandboxPath, ".trunk", "tools", this.tool))) {
-        throw new Error(`Failed to install ${this.tool}`);
+      const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
+        ? "dev-tools"
+        : "tools";
+      if (
+        !fs.existsSync(
+          path.resolve(
+            this.sandboxPath,
+            ".trunk",
+            tools_subdir,
+            `${this.tool}${process.platform == "win32" ? ".bat" : ""}`,
+          ),
+        )
+      ) {
+        throw new Error(`Could not install or find installed ${this.tool}`);
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
@@ -124,10 +136,10 @@ lint:
   extractToolVersion = (): string => {
     const toEnableVersion = this.toEnableVersion ?? ARGS.linterVersion;
 
+    // TODO(Tyler): We should leverage latest here and use the ReleaseVersionService
     if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
     } else if (toEnableVersion === "KnownGoodVersion") {
-      // TODO(Tyler): Add fallback to use lint.downloads.version to match trunk fallback behavior.
       // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().tool.definitions.find(
@@ -146,8 +158,26 @@ lint:
   /**** Execution methods ****/
 
   async runTool(command: string[]): Promise<TrunkToolRunResult> {
+    const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
+      ? "dev-tools"
+      : "tools";
     try {
-      const { stdout, stderr } = await this.run(`.trunk/tools/${command[0]}`, command.slice(1));
+      if (process.platform == "win32") {
+        const { stdout, stderr } = await this.run("powershell", [
+          `.trunk/${tools_subdir}/${command[0]}.bat`,
+          ...command.slice(1),
+        ]);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr,
+        };
+      }
+
+      const { stdout, stderr } = await this.run(
+        `.trunk/${tools_subdir}/${command[0]}`,
+        command.slice(1),
+      );
       return {
         exitCode: 0,
         stdout,

@@ -1,4 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
+import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "adr",
@@ -9,4 +10,5 @@ toolTest({
       expectedOut: "adr help COMMAND [ARG]",
     }),
   ],
+  skipTestIf: skipOS(["win32"]),
 });
