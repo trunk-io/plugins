@@ -1,6 +1,7 @@
 version: 0.1
 tools:
   definitions:
+    # TODO(Tyler): Once we can make ansible its own tool without breaking upgrade, this should be extracted into its own tool directory
     - name: ansible-lint
       runtime: python
       package: ansible-lint

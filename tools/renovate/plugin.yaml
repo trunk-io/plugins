@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: renovate
+      runtime: node
+      package: renovate
+      shims: [renovate, renovate-config-validator]
+      known_good_version: 34.122.0

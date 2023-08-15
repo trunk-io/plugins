@@ -32,11 +32,11 @@ tools:
 
 INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest } from "tests";
 toolTest({
-  toolName: "NAME_HERE",
+  toolName: "*{}*",
   toolVersion: "VERSION_HERE",
   testConfigs: [
     makeToolTestConfig({
-      command: ["TOOL_NAME", ...args],
+      command: ["*{}*", ...args],
       expectedOut: "OUTPUT_HERE",
     }),
   ],

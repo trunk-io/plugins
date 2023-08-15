@@ -1,11 +1,4 @@
 version: 0.1
-tools:
-  definitions:
-    - name: renovate
-      runtime: node
-      package: renovate
-      shims: [renovate]
-      known_good_version: 34.122.0
 lint:
   files:
     - name: renovate-config
@@ -17,8 +10,7 @@ lint:
   definitions:
     - name: renovate
       files: [renovate-config]
-      runtime: node
-      package: renovate
+      tools: [renovate]
       commands:
         - name: validate
           run: renovate-config-validator ${target}

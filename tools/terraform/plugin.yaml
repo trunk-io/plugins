@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: terraform
+    version: 1.1.4
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_darwin_amd64.zip
+        version: <1.0.2
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: terraform
+      download: terraform
+      shims: [terraform]
+      known_good_version: 1.1.4
