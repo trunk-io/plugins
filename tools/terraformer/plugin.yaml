@@ -1,6 +1,7 @@
 version: 0.1
 downloads:
   - name: terraformer
+    executable: true
     downloads:
       - os:
           linux: linux
@@ -14,7 +15,7 @@ downloads:
         cpu:
           x86_64: amd64
           arm_64: arm64
-        url: https://github.com/GoogleCloudPlatform/terraformer/releases/download/${version}/terraformer-all-${os}-${cpu}.exe
+        url: https://github.com/GoogleCloudPlatform/terraformer/releases/download/${version}/terraformer-alicloud-${os}-${cpu}.exe
 tools:
   definitions:
     - name: terraformer

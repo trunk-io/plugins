@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: sourcery
+      runtime: python
+      package: sourcery
+      shims: [sourcery]
+      known_good_version: 1.2.0
