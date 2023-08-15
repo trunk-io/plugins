@@ -1,0 +1,9 @@
+version: 0.1
+# NOTE: This only works if rust runtime version >=1.70.0
+tools:
+  definitions:
+    - name: ripgrep
+      package: ripgrep
+      runtime: rust
+      known_good_version: 13.0.0
+      shims: [rg]
