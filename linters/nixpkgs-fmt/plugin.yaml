@@ -13,7 +13,4 @@ lint:
           stdin: true
           formatter: true
       suggest_if: files_present
-      environment:
-        - name: PATH
-          list: ["${linter}/bin"]
       known_good_version: 1.3.0

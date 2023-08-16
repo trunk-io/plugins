@@ -32,7 +32,10 @@ runtimes:
         - name: https_proxy
           value: ${env.https_proxy}
           optional: true
-      known_good_version: 1.67.0
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 1.71.1
       version_commands:
         - run: rustc --version
           parse_regex: ${semver}
