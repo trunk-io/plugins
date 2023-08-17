@@ -1,3 +1,9 @@
-import { customLinterCheckTest } from "tests";
+import path from "path";
+import { customLinterCheckTest, TestCallback } from "tests";
+import { TEST_DATA } from "tests/utils";
 
-customLinterCheckTest({ linterName: "gokart", args: "-a -y" });
+const preCheck: TestCallback = (driver) => {
+  driver.moveFile(path.join(TEST_DATA, "go.mod"), "go.mod");
+};
+
+customLinterCheckTest({ linterName: "gokart", args: "-a -y", preCheck });

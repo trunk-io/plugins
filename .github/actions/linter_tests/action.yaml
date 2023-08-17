@@ -71,6 +71,8 @@ runs:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+        # Debug recurrent eslint circular JSON errors
+        DEBUG: Driver:eslint:*
 
     - name: Run plugin tests
       if: runner.os != 'Windows'

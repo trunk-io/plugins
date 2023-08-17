@@ -15,7 +15,6 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      run_from_root_file: go.mod
       commands:
         - name: lint
           output: sarif
@@ -26,6 +25,7 @@ lint:
           # gokart runs on directory targets but requires these directories to not be symlinks
           sandbox_type: expanded
           run_linter_from: root_file
+          run_from_root_target: go.mod
           is_security: true
       direct_configs:
         - analyzers.yml
