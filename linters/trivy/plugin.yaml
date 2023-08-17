@@ -55,6 +55,7 @@ lint:
           # Trivy does not support batching
           batch: false
           is_security: true
+          enabled: false
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trivy/trivy_fs_secret_to_sarif.py
@@ -70,6 +71,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trivy/trivy_config_to_sarif.py
+      direct_configs: [trivy-secret.yaml]
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version

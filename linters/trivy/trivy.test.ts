@@ -7,7 +7,7 @@ import { TEST_DATA } from "tests/utils";
 import { createFuzzyMatcher } from "tests/utils/landing_state";
 
 const callbackGenerator =
-  (command: string, otherPreCheck?: (driver: TrunkLintDriver) => void): TestCallback =>
+  (command: string, otherPreCheck?: TestCallback): TestCallback =>
   (driver) => {
     const trunkYamlPath = ".trunk/trunk.yaml";
     const currentContents = driver.readFile(trunkYamlPath);
@@ -29,11 +29,8 @@ const configExpectedFileIssues = JSON.parse(
 fuzzyLinterCheckTest({
   linterName: "trivy",
   testName: "config",
-  args: "-a -y",
-  fileIssueAssertionCallback: createFuzzyMatcher(
-    () => configExpectedFileIssues,
-    Math.floor(0.9 * configExpectedFileIssues.length),
-  ),
+  args: "-a",
+  fileIssueAssertionCallback: createFuzzyMatcher(() => configExpectedFileIssues, 13),
   preCheck: callbackGenerator("config"),
 });
 
@@ -44,11 +41,8 @@ const vulnExpectedFileIssues = JSON.parse(
 fuzzyLinterCheckTest({
   linterName: "trivy",
   testName: "fs-vuln",
-  args: "-a -y",
-  fileIssueAssertionCallback: createFuzzyMatcher(
-    () => vulnExpectedFileIssues,
-    Math.floor(0.9 * vulnExpectedFileIssues.length),
-  ),
+  args: "-a",
+  fileIssueAssertionCallback: createFuzzyMatcher(() => vulnExpectedFileIssues, 44),
   preCheck: callbackGenerator("fs-vuln"),
 });
 
@@ -60,6 +54,6 @@ const secretPreCheck = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "trivy",
   testName: "fs-secret",
-  args: "-a -y",
+  args: "-a",
   preCheck: callbackGenerator("fs-secret", secretPreCheck),
 });
