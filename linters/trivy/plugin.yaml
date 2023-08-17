@@ -26,14 +26,16 @@ tools:
 lint:
   definitions:
     - name: trivy
-      files: [lockfile, docker, yaml, terraform]
       tools: [trivy]
       suggest_if: files_present
       known_good_version: 0.37.1
       commands:
-        - name: fs
+        - name: fs-vuln
+          files: [lockfile]
           output: sarif
-          run: trivy fs ${target} --format json --no-progress --cache-dir ${shared_cachedir}
+          run:
+            trivy fs ${target} --scanners vuln --format json --no-progress --cache-dir
+            ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
@@ -41,8 +43,23 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: python3 ${plugin}/linters/trivy/trivy_fs_to_sarif.py
+            run: python3 ${plugin}/linters/trivy/trivy_fs_vuln_to_sarif.py
+        - name: fs-secret
+          files: [ALL]
+          output: sarif
+          run:
+            trivy fs ${target} --scanners secret --format json --no-progress --cache-dir
+            ${shared_cachedir}
+          success_codes: [0]
+          read_output_from: stdout
+          # Trivy does not support batching
+          batch: false
+          is_security: true
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/trivy/trivy_fs_secret_to_sarif.py
         - name: config
+          files: [docker, yaml, terraform]
           output: sarif
           run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
           success_codes: [0]
