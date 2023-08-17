@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "dgSpecHash": "00JDY8hRiSd3gKN9b5YUv4+POl3SV48c0hOtnejYqHHS0ebJ+PyfjWGqH0V5A4QkSFwry8mf93Zzve6qv2KmtQ==",
-  "success": true,
-  "projectFilePath": "/Users/soorokt/Projects/trunk-io/plugins/linters/dotnet-format/test_data/basic/basic.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
-}

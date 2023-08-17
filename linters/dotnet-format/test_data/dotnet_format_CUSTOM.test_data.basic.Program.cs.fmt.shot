@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter dotnet-format test CUSTOM 1`] = `
+"﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
+"
+`;

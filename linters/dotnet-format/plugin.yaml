@@ -5,9 +5,16 @@ lint:
       files: [c#]
       commands:
         - name: format
-          run: dotnet format # might need to add --include ${target}
+          run: dotnet format --include ${target}
           output: rewrite
-          run_linter_from: root_file
+          in_place: true
           formatter: true
+          run_linter_from: root_file
+          batch: true
           success_codes: [0]
-      run_from_root_file: basic.csproj
+          # TODO: Tyler Add Regex Support
+          run_from_root_target: basic.csproj
+      affects_cache:
+        - buf.lock
+        - .editorconfig
+      suggest_if: never
