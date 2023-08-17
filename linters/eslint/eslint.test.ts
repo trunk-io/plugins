@@ -14,9 +14,12 @@ const moveConfig = (driver: TrunkLintDriver) => {
 };
 
 const preCheck = (driver: TrunkLintDriver) => {
+  console.log("about to run precheck");
   moveConfig(driver);
   // TODO(Tyler): Cache node_modules between runs
+  console.log("about to run npm install");
   execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
+  console.log("done running npm install");
 };
 
 // This set of testing is incomplete with regard to failure modes and unicode autofixes with eslint, but it serves as a sampling
