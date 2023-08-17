@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trivy test config 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        ".trunk/trunk.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "terraform",
+      "linter": "trivy",
+      "paths": [
+        "test_data/aws.tf",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "docker",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "config",
+      "fileGroupName": "yaml",
+      "linter": "trivy",
+      "paths": [
+        "test_data/basic.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
