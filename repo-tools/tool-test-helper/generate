@@ -9,7 +9,7 @@ INITIAL_PLUGIN_CONTENTS = """version: 0.1
 # Tools can be either runtime package-based or
 # download-based. This boilerplate assumes the (far more verbose) latter case.
 downloads:
-  - name: *{}*
+  - name: NAME_HERE
     # executable: true
     # NOTE: These are (common) sample values. Please replace with real values.
     downloads:
@@ -23,12 +23,11 @@ downloads:
         url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
 tools:
   definitions:
-    - name: *{}*
+    - name: NAME_HERE
       # RUNTIME_OR_DOWNLOAD_INFO_HERE
-      # download: *{}*
+      # download: NAME_HERE
       known_good_version: VERSION_HERE
-      # NOTE: shim may differ from tool name
-      shims: [*{}*]
+      shims: [NAME_HERE]
 """
 
 INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest, toolInstallTest } from "tests";
@@ -37,7 +36,7 @@ toolTest({
   toolVersion: "VERSION_HERE",
   testConfigs: [
     makeToolTestConfig({
-      command: ["SHIM_NAME", "COMMAND_HERE"],
+      command: ["*{}*", ...args],
       expectedOut: "OUTPUT_HERE",
     }),
   ],
@@ -86,7 +85,7 @@ def scan(workspace):
             generated_files = True
             # Write plugin.yaml
             with open(os.path.join(subdir_path, "plugin.yaml"), "w") as plugin_file:
-                plugin_file.write(INITIAL_PLUGIN_CONTENTS.replace("*{}*", tool_name))
+                plugin_file.write(INITIAL_PLUGIN_CONTENTS)
 
             # Write test file
             with open(

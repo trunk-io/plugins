@@ -42,6 +42,7 @@ trunk check enable {linter}
 | Bash            | [shellcheck], [shfmt]                                                                                                |
 | Bazel, Starlark | [buildifier]                                                                                                         |
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                                  |
+| C#              | [dotnet-format]                                                                                                      |
 | CircleCI Config | [circleci]                                                                                                           |
 | Cloudformation  | [cfnlint], [checkov]                                                                                                 |
 | CSS, SCSS       | [stylelint], [prettier]                                                                                              |

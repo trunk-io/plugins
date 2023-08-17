@@ -1,0 +1,13 @@
+version: 0.1
+lint:
+  definitions:
+    - name: dotnet-format
+      files: [c#]
+      commands:
+        - name: format
+          run: dotnet format # might need to add --include ${target}
+          output: rewrite
+          run_linter_from: root_file
+          formatter: true
+          success_codes: [0]
+      run_from_root_file: basic.csproj
