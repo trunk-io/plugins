@@ -1,0 +1,28 @@
+version: 0.1
+# Tools can be either runtime package-based or
+# download-based. This boilerplate assumes the (far more verbose) latter case.
+downloads:
+  - name: circleci-cli
+    # executable: true
+    # NOTE: These are (common) sample values. Please replace with real values.
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_${cpu}_${os}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: circleci-cli
+      download: circleci-cli
+      known_good_version: 0.1.28811
+      shims: [circleci-cli]
