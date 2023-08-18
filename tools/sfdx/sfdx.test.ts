@@ -8,5 +8,9 @@ toolTest({
       command: ["sfdx", "--version"],
       expectedOut: "2.0.1",
     }),
+    makeToolTestConfig({
+      command: ["sf", "--version"],
+      expectedOut: "2.0.1",
+    }),
   ],
 });
