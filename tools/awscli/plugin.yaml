@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: awscli
+      runtime: python
+      package: awscli
+      known_good_version: 1.29.30
+      shims: [aws]
