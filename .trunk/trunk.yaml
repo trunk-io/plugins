@@ -74,6 +74,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
-tools:
-  enabled:
-    - awscli@1.29.30
