@@ -34,6 +34,7 @@ runs:
       with:
         breakpoint-id: trunk-plugins-debug
         shell: bash
+        working-directory: ${{ . }}
         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
         org: trunk-staging-org
         run: ./trunk.sh config print
