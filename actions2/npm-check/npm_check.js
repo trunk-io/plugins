@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // trunk-ignore-all(eslint)
-const yarnCheck = require("yarn-check");
+const npmCheck = require("npm-check");
 const YAML = require("yaml");
 const path = require("path");
 
@@ -11,11 +11,13 @@ const pluralize = (count, singular, plural) => {
   return count === 1 ? singular : plural;
 };
 
-yarnCheck({})
+npmCheck({})
   .then((current) => {
-    const uninstalled = current.get("packages").filter((p) => !p.isInstalled);
+    const uninstalled = current.get("packages").filter((p) => {
+      return !p.isInstalled;
+    });
     if (uninstalled.length == 0) {
-      const yaml = YAML.stringify({ notifications_to_delete: ["yarn-check"] });
+      const yaml = YAML.stringify({ notifications_to_delete: ["npm-check"] });
       console.log(yaml);
       return;
     }
@@ -23,27 +25,26 @@ yarnCheck({})
     const yaml = YAML.stringify({
       notifications: [
         {
-          id: "yarn-check",
-          title: "Yarn Check",
-          message: `${uninstalled_count} yarn ${pluralize(
+          id: "npm-check",
+          title: "NPM Check",
+          message: `${uninstalled_count} npm ${pluralize(
             uninstalled_count,
             "package",
-            "packages"
+            "packages",
           )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
-          commands: [{ run: "yarn install", title: "yarn install" }],
+          commands: [{ run: "npm install", title: "npm install" }],
           icon: iconPath,
         },
       ],
     });
     console.log(yaml);
-    return;
   })
   .catch((err) => {
     const yaml = YAML.stringify({
       notifications: [
         {
-          id: "yarn-check",
-          title: "Yarn Check",
+          id: "npm-check",
+          title: "NPM Check",
           message: `Error: ${err.message}`,
           icon: iconPath,
         },

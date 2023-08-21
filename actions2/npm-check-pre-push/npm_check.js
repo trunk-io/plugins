@@ -22,11 +22,11 @@ npmCheck({})
     const message = `${uninstalled_count} npm ${pluralize(
       uninstalled_count,
       "package",
-      "packages"
+      "packages",
     )} ${pluralize(
       uninstalled_count,
       "needs",
-      "need"
+      "need",
     )} to be installed to run tests. Run 'npm install' to fix this.\n`;
     console.log(chalk.red(message));
     process.exit(1);

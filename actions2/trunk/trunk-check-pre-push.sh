@@ -12,9 +12,9 @@ if ! trunk="$(command -v trunk)"; then
     trunk=tools/trunk
   elif [[ -f trunk && -x trunk ]]; then
     trunk=./trunk
-  elif [[ -n ${XDG_CACHE_HOME:-} && -f "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" && -x "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" ]]; then
+  elif [[ -n ${XDG_CACHE_HOME-} && -f "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" && -x "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" ]]; then
     trunk="${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk"
-  elif [[ -n ${HOME:-} && -f "${HOME}/.cache/trunk/launcher/trunk" && -x "${HOME}/.cache/trunk/launcher/trunk" ]]; then
+  elif [[ -n ${HOME-} && -f "${HOME}/.cache/trunk/launcher/trunk" && -x "${HOME}/.cache/trunk/launcher/trunk" ]]; then
     trunk="${HOME}/.cache/trunk/launcher/trunk"
   else
     echo "Unable to find trunk binary"
