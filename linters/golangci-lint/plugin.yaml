@@ -6,13 +6,6 @@ tools:
       runtime: go
       package: github.com/golangci/golangci-lint/cmd/golangci-lint
       shims: [golangci-lint]
-      environment:
-        - name: GO111MODULE
-          value: auto
-          # May need to git clone with ssh authenticaion for private packages.
-        - name: SSH_AUTH_SOCK
-          value: ${env.SSH_AUTH_SOCK}
-          optional: true
       known_good_version: 1.46.2
 
 lint:
@@ -26,6 +19,12 @@ lint:
         # Needs to use system `diff` and `git`
         - name: PATH
           list: ["${env.PATH}"]
+        - name: GO111MODULE
+          value: auto
+        # May need to git clone with ssh authenticaion for private packages.
+        - name: SSH_AUTH_SOCK
+          value: ${env.SSH_AUTH_SOCK}
+          optional: true
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
