@@ -13,6 +13,10 @@ runs:
       run: npm ci
       shell: bash
 
+    - name: find yamls
+      run: find . | grep ".yaml"
+      shell: bash
+
     - name: Config print
       run: ${TRUNK_PATH} config print
       shell: bash
