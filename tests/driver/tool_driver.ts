@@ -103,7 +103,7 @@ lint:
       }
 
       // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "install"]);
+      await this.runTrunk(["tools", "install", "--ci"]);
       const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
         ? "dev-tools"
         : "tools";
