@@ -25,6 +25,15 @@ runs:
       run: cp ${TRUNK_PATH} ./trunk.sh
       shell: bash
 
+    # - name: Config print
+    #   run: ./trunk.sh config print
+    #   shell: bash
+
     - name: Config print
-      run: ./trunk.sh config print
-      shell: bash
+      uses: trunk-io/breakpoint@v1
+      with:
+        breakpoint-id: trunk-plugins-debug
+        shell: bash
+        trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+        org: trunk-staging-org
+        run: ./trunk.sh config print
