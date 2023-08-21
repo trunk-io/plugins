@@ -17,6 +17,14 @@ runs:
       run: find . | grep ".yaml"
       shell: bash
 
+    - name: pwd
+      run: pwd
+      shell: bash
+
+    - name: cp
+      run: cp ${TRUNK_PATH} ./trunk.sh
+      shell: bash
+
     - name: Config print
-      run: ${TRUNK_PATH} config print
+      run: ./trunk.sh config print
       shell: bash
