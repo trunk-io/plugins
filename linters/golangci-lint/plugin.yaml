@@ -57,7 +57,7 @@ lint:
         - go.mod
         - go.sum
       issue_url_format: https://golangci-lint.run/usage/linters/
-      known_good_version: 1.46.2
+      known_good_version: 1.49.0
       version_command:
         parse_regex: ${semver}
         run: golangci-lint --version
