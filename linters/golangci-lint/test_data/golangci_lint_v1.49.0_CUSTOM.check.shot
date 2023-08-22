@@ -1,28 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter golangci-lint test empty 1`] = `
+exports[`Testing linter golangci-lint test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "code": "typecheck",
-      "column": "1",
-      "file": "test_data/empty.go",
+      "code": "deadcode",
+      "column": "6",
+      "file": "test_data/unused_func.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
-      "line": "1",
+      "line": "5",
       "linter": "golangci-lint",
-      "message": "expected 'package', found 'EOF'",
+      "message": "\`helper\` is unused",
       "targetType": "go",
     },
     {
       "code": "typecheck",
-      "column": "23",
       "file": "test_data/wrapper/printer.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
-      "line": "12",
+      "line": "1",
       "linter": "golangci-lint",
-      "message": "undeclared name: \`Wrapper2\`",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
       "targetType": "go",
     },
   ],
@@ -33,15 +33,6 @@ exports[`Testing linter golangci-lint test empty 1`] = `
       "linter": "golangci-lint",
       "paths": [
         "test_data",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "go",
-      "linter": "golangci-lint",
-      "paths": [
-        "test_data/wrapper",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

@@ -16,13 +16,13 @@ exports[`Testing linter golangci-lint test empty 1`] = `
     },
     {
       "code": "typecheck",
-      "column": "23",
       "file": "test_data/wrapper/printer.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
-      "line": "12",
+      "line": "1",
       "linter": "golangci-lint",
-      "message": "undeclared name: \`Wrapper2\`",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
       "targetType": "go",
     },
   ],
