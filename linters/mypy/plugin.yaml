@@ -4,14 +4,24 @@ lint:
     - name: mypy
       files: [python]
       commands:
-        - name: lint
+        # - name: lint
+        #   # Custom parser type defined in the trunk cli to handle mypy's output.
+        #   output: mypy
+        #   run:
+        #     mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
+        #     --show-column-numbers ${target}
+        #   success_codes: [0, 1]
+        #   stdin: false
+        - name: lint-ci
           # Custom parser type defined in the trunk cli to handle mypy's output.
           output: mypy
           run:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
-            --show-column-numbers ${target}
+            --show-column-numbers ${workspace}
           success_codes: [0, 1]
           stdin: false
+          target: ${root_or_parent_with(file_that_will_never_exist)}
+          run_when: [ci]
       runtime: python
       package: mypy
       direct_configs:
@@ -26,3 +36,30 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: mypy --version
+    # - name: mypy-all
+    #   files: [python]
+    #   commands:
+    #     - name: lint
+    #       # Custom parser type defined in the trunk cli to handle mypy's output.
+    #       output: mypy
+    #       run:
+    #         mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
+    #         --show-column-numbers
+    #       success_codes: [0, 1]
+    #       stdin: false
+    #       target: ${root_or_parent_with(file_that_will_never_exist)}
+    #   runtime: python
+    #   package: mypy
+    #   run_when: [ci, cli]
+    #   direct_configs:
+    #     - mypy.ini
+    #     - .mypy.ini
+    #   affects_cache:
+    #     - pyproject.toml
+    #     - setup.cfg
+    #   is_recommended: false
+    #   issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
+    #   known_good_version: 0.931
+    #   version_command:
+    #     parse_regex: ${semver}
+    #     run: mypy --version

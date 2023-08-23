@@ -65,6 +65,9 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
+    - linters: [mypy]
+      paths:
+        - "**/test_data/autopep8/**"
 
 actions:
   definitions:
