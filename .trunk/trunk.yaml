@@ -43,6 +43,7 @@ lint:
           list: ["${linter}"]
 
   enabled:
+    - mypy@1.5.1
     - actionlint@1.6.23
     - black@23.1.0
     - eslint@8.36.0
