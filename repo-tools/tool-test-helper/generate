@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+
+import os
+from datetime import datetime, timedelta
+
+import click
+
+INITIAL_PLUGIN_CONTENTS = """version: 0.1
+# Tools can be either runtime package-based or
+# download-based. This boilerplate assumes the (far more verbose) latter case.
+downloads:
+  - name: *{}*
+    # executable: true
+    # NOTE: These are (common) sample values. Please replace with real values.
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
+tools:
+  definitions:
+    - name: *{}*
+      # RUNTIME_OR_DOWNLOAD_INFO_HERE
+      # download: *{}*
+      known_good_version: VERSION_HERE
+      # NOTE: shim may differ from tool name
+      shims: [*{}*]
+"""
+
+INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest } from "tests";
+toolTest({
+  toolName: "*{}*",
+  toolVersion: "VERSION_HERE",
+  testConfigs: [
+    makeToolTestConfig({
+      command: ["SHIM_NAME", "COMMAND_HERE"],
+      expectedOut: "OUTPUT_HERE",
+    }),
+  ],
+});
+
+// Guidelines for configuring tests:
+//  - Usually, just a version or help text command is sufficient
+//  - add a test for each command that is used in the plugin.yaml
+//  - exit code 0 is assumed, so set expectedExitCode if it is different
+//  - expectedOut/expectedErr do a substring match, so you can just put a portion of the output
+//
+// If you are unable to write a test for this tool, please document why in your PR, and add
+// it to the list in tests/repo_tests/test_coverage_test.ts
+"""
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@click.argument("workspace")
+def scan(workspace):
+    tool_dir = os.path.join(workspace, "tools")
+    generated_files = False
+    for tool_name in os.listdir(tool_dir):
+        subdir_path = os.path.join(tool_dir, tool_name)
+        if os.path.isfile(subdir_path):
+            continue
+
+        subdir_contents = os.listdir(subdir_path)
+        # If this is a newly created, empty directory, dump template files
+        if (
+            len(subdir_contents) == 0
+            and os.stat(subdir_path).st_ctime
+            > (datetime.now() - timedelta(seconds=10)).timestamp()
+        ):
+            generated_files = True
+            # Write plugin.yaml
+            with open(os.path.join(subdir_path, "plugin.yaml"), "w") as plugin_file:
+                plugin_file.write(INITIAL_PLUGIN_CONTENTS.replace("*{}*", tool_name))
+
+            # Write test file
+            with open(
+                os.path.join(
+                    subdir_path, "{}.test.ts".format(tool_name.replace("-", "_"))
+                ),
+                "w",
+            ) as test_file:
+                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", tool_name))
+
+            print("Created starter files in {}", subdir_path)
+
+    if not generated_files:
+        print("No generated files")
+
+
+if __name__ == "__main__":
+    cli()

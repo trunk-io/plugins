@@ -1,4 +1,5 @@
 import { linterFmtTest, TestCallback } from "tests";
+import { skipOS } from "tests/utils";
 
 // Earlier nixpkgs-fmt transitive dependencies are no longer
 // supported through older rust runtime installs.
@@ -12,4 +13,4 @@ const preCheck: TestCallback = (driver) => {
   driver.writeFile(trunkYamlPath, newContents);
 };
 
-linterFmtTest({ linterName: "nixpkgs-fmt", preCheck });
+linterFmtTest({ linterName: "nixpkgs-fmt", preCheck, skipTestIf: skipOS(["win32"]) });

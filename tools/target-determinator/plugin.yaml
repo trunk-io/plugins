@@ -1,0 +1,27 @@
+version: 0.1
+downloads:
+  - name: target-determinator
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/bazel-contrib/target-determinator/releases/download/v${version}/target-determinator.${os}.${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/bazel-contrib/target-determinator/releases/download/v${version}/target-determinator.${os}.${cpu}.exe
+
+tools:
+  definitions:
+    - name: target-determinator
+      download: target-determinator
+      known_good_version: 0.3.0
+      shims:
+        - name: target-determinator
+          target: target-determinator

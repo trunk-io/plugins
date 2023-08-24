@@ -1,4 +1,12 @@
 version: 0.1
+tools:
+  definitions:
+    - name: autopep8
+      runtime: python
+      package: autopep8
+      extra_packages: [pycodestyle@2.10.0]
+      shims: [autopep8]
+      known_good_version: 1.5.7
 lint:
   definitions:
     - name: autopep8
@@ -12,8 +20,8 @@ lint:
           in_place: true
           cache_results: true
           formatter: true
-      runtime: python
-      package: autopep8
+      tools: [autopep8]
+      suggest_if: config_present
       direct_configs: [.pep8]
       affects_cache:
         - .flake8

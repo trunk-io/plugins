@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: stylelint
+      runtime: node
+      package: stylelint
+      shims: [stylelint]
+      known_good_version: 14.6.1
 lint:
   definitions:
     - name: stylelint
       files: [css, sass]
-      runtime: node
-      package: stylelint
+      tools: [stylelint]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle stylelint's JSON output.
@@ -24,6 +30,7 @@ lint:
         - .stylelintrc.yaml
         - .stylelintrc.js
         - .stylelintrc.cjs
+      suggest_if: config_present
       affects_cache:
         - package.json
         - .stylelintignore
@@ -38,7 +45,7 @@ lint:
       deprecated:
         "'stylelint-fmt' is now handled by 'stylelint'. Please delete 'stylelint-fmt' from your
         config"
-      is_recommended: false
+      suggest_if: never
       command: [stylelint, --fix, "${target}"]
       runtime: node
       package: stylelint

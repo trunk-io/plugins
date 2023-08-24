@@ -1,0 +1,15 @@
+version: 0.1
+actions:
+  definitions:
+    - id: yarn-check
+      display_name: Yarn Check
+      runtime: node
+      packages_file: package.json
+      triggers:
+        - schedule: 24h
+        - files: [package.json, yarn.lock]
+      run: node ${cwd}/yarn-check/yarn_check.js
+      output_type: notification_v1
+      environment:
+        - name: NODE_PATH
+          value: ${linter}/node_modules

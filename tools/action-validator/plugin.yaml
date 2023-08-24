@@ -1,0 +1,19 @@
+version: 0.1
+downloads:
+  - name: action-validator
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/mpalmer/action-validator/releases/download/v${version}/action-validator_${os}_${cpu}
+        # no windows release
+tools:
+  definitions:
+    - name: action-validator
+      download: action-validator
+      known_good_version: 0.5.3
+      shims: [action-validator]

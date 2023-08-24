@@ -11,6 +11,7 @@ downloads:
       - os:
           linux: unknown-linux-gnu
           macos: apple-darwin
+          windows: pc-windows-msvc
         cpu:
           x86_64: x86_64
           arm_64: aarch64
@@ -22,10 +23,33 @@ runtimes:
       download: rust
       runtime_environment:
         - name: HOME
-          value: ${home}
+          value: ${env.HOME:-}
         - name: PATH
           list: ["${runtime}/bin"]
-      known_good_version: 1.67.0
+        - name: http_proxy
+          value: ${env.http_proxy}
+          optional: true
+        - name: https_proxy
+          value: ${env.https_proxy}
+          optional: true
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      known_good_version: 1.71.1
       version_commands:
         - run: rustc --version
           parse_regex: ${semver}
+      shims:
+        - cargo
+        - cargo-clippy
+        - cargo-fmt
+        - clippy-driver
+        - rls
+        - rust-analyzer
+        - rustc
+        - rust-demangler
+        - rustdoc
+        - rustfmt
+        - rust-gdb
+        - rust-gdbgui
+        - rust-lldb

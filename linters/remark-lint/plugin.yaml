@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: remark-lint
+      supported_platforms: [linux, macos]
       files: [markdown]
       package: remark-cli
       extra_packages:
@@ -11,7 +12,7 @@ lint:
         - vfile-reporter-json
       runtime: node
       known_good_version: 11.0.0
-      is_recommended: false
+      suggest_if: config_present
       direct_configs:
         - .remarkrc
         - .remarkrc.json
@@ -32,12 +33,12 @@ lint:
           output: sarif
           run: remark ${target} --frail --output --report=vfile-reporter-json
           success_codes: [0, 1]
-          in_place: true
+          sandbox_type: copy_targets
           cache_results: true
           read_output_from: stderr
           parser:
             runtime: python
-            run: ${cwd}/parse.py
+            run: python3 ${cwd}/parse.py
       symlinks:
         # symlink the tool node_modules into the sandbox. this enables
         # the hermetic tool to run correctly with plugins

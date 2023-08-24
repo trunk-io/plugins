@@ -1,22 +1,30 @@
 import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest, linterCheckTest, TestCallback } from "tests";
-import { TrunkDriver } from "tests/driver";
-import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
+import { TrunkLintDriver } from "tests/driver";
+import { DOWNLOAD_CACHE, osTimeoutMultiplier, recurseLevels, skipOS, TEST_DATA } from "tests/utils";
 
 // detekt tests can sometimes take a while.
 jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
 
 // Running check on the input manually requires the existence of a top level .detekt.yaml
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(".detekt.yaml", "");
 };
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
-linterCheckTest({ linterName: "detekt", namedTestPrefixes: ["basic_detekt"], preCheck });
+linterCheckTest({
+  linterName: "detekt",
+  namedTestPrefixes: ["basic_detekt"],
+  preCheck,
+});
 
 // detekt-explicit has no default settings, leading to an empty result
-linterCheckTest({ linterName: "detekt-explicit", namedTestPrefixes: ["basic_explicit"], preCheck });
+linterCheckTest({
+  linterName: "detekt-explicit",
+  namedTestPrefixes: ["basic_explicit"],
+  preCheck,
+});
 
 // detekt-gradle tests rely on a particular gradle-focused system setup, and they require a level of greater configuration here.
 // TODO(Tyler): Because of this setup, this leads to reduced coverage for different versions. We should augment this logic
@@ -28,12 +36,31 @@ const gradlePreCheck: TestCallback = (driver) => {
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA, "detekt_gradle")).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, "detekt_gradle", file), file);
   });
+
+  const trunkYamlPath = ".trunk/trunk.yaml";
+  const currentContents = driver.readFile(trunkYamlPath);
+  const newContents = currentContents.concat(`  definitions:
+    - name: detekt-gradle
+      runtime: java
+`);
+  driver.writeFile(trunkYamlPath, newContents);
+
+  driver.runTrunkSync(["install"]);
+  const javaPath = recurseLevels(path.resolve(DOWNLOAD_CACHE, "jdk-13"), 1);
+  const finalContents = newContents.concat(`      environment:
+        - name: JAVA_HOME
+          value: ${javaPath}
+          optional: false
+`);
+  driver.writeFile(trunkYamlPath, finalContents);
   // trunk-ignore-end(semgrep)
 };
 
+// TODO(Tyler): detekt-gradle has issues resolving stdin correctly on Windows.
 // Make sure to run `git lfs pull` before running this test.
 customLinterCheckTest({
   linterName: "detekt-gradle",
   args: "-a",
   preCheck: gradlePreCheck,
+  skipTestIf: skipOS(["win32"]),
 });

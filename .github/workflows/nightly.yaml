@@ -16,7 +16,7 @@ jobs:
   linter_tests_main:
     name: Plugin Tests Main
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -24,7 +24,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Cache tool downloads
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
@@ -50,13 +50,15 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests Release
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
@@ -67,7 +69,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           fetch-depth: 0
 
@@ -79,6 +81,10 @@ jobs:
           cp package.json package.json.bak
           cp package-lock.json package-lock.json.bak
           cp -r .github/actions .github/actions.bak
+          cp -r .trunk .trunk.bak
+          cp tsconfig.json tsconfig.json.bak
+          cp jest.config.json jest.config.json.bak
+          cp .gitattributes .gitattributes.bak
           # Include any newly generated snapshots that have been marked release-ready
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
         continue-on-error: true
@@ -91,17 +97,29 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
+          sparse_checkout: |
+            plugin.yaml
+            linters
+            actions
+            tools
 
       - name: Overwrite test runners with latest behavior
         run: |
+          rm -rf tests
           mv tests.bak tests
           mv package.json.bak package.json
           mv package-lock.json.bak package-lock.json
+          rm -rf .github/actions
           mv .github/actions.bak .github/actions
+          rm -rf .trunk
+          mv .trunk.bak .trunk
+          mv tsconfig.json.bak tsconfig.json
+          mv jest.config.json.bak jest.config.json
+          mv .gitattributes.bak .gitattributes
           # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
           grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
         continue-on-error: true
@@ -132,6 +150,16 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.os }}-res.json
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        if: failure() || success()
+        uses: ./.github/actions/tool_tests
+        with:
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
@@ -152,7 +180,7 @@ jobs:
       SLACK_CHANNEL_ID: plugins-notifications
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Retrieve Test Outputs ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
@@ -165,7 +193,7 @@ jobs:
           name: macos-latest-test-results
 
       - name: Setup Node
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           node-version: 18
 
@@ -188,7 +216,7 @@ jobs:
           PLUGIN_VERSION: ${{needs.linter_tests_release.outputs.plugin-version}}
           # Used to format Slack notification for failures
           RUN_ID: ${{ github.run_id }}
-          TEST_REF: latest release
+          TEST_REF: Release
 
       - name: Upload Test Results Staging
         continue-on-error: true
@@ -218,7 +246,7 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -227,7 +255,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: steps.upload-staging.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -248,7 +276,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if: steps.upload-prod.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}

@@ -1,0 +1,25 @@
+version: 0.1
+downloads:
+  - name: circleci
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v${version}/circleci-cli_${version}_${os}_${cpu}.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: circleci
+      download: circleci
+      shims: [circleci]
+      known_good_version: 0.1.22770

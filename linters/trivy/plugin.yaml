@@ -1,28 +1,41 @@
 version: 0.1
-lint:
-  downloads:
-    - name: trivy
-      downloads:
-        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_Linux-${cpu}.tar.gz
-          os: linux
-          cpu:
-            x86_64: 64bit
-            arm_64: ARM
-        - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
-          os: macos
-          cpu:
-            x86_64: 64bit
-            arm_64: ARM64
-
+downloads:
+  - name: trivy
+    downloads:
+      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_Linux-${cpu}.tar.gz
+        os: linux
+        cpu:
+          x86_64: 64bit
+          arm_64: ARM64
+      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_macOS-${cpu}.tar.gz
+        os: macos
+        cpu:
+          x86_64: 64bit
+          arm_64: ARM64
+      - url: https://github.com/aquasecurity/trivy/releases/download/v${version}/trivy_${version}_windows-${cpu}.zip
+        os: windows
+        cpu:
+          x86_64: 64bit
+          arm_64: ARM64
+tools:
   definitions:
     - name: trivy
-      files: [lockfile, docker, yaml, terraform]
       download: trivy
+      shims: [trivy]
+      known_good_version: 0.37.1
+lint:
+  definitions:
+    - name: trivy
+      tools: [trivy]
+      suggest_if: files_present
       known_good_version: 0.37.1
       commands:
-        - name: fs
+        - name: fs-vuln
+          files: [lockfile]
           output: sarif
-          run: trivy fs ${target} --format json --no-progress --cache-dir ${shared_cachedir}
+          run:
+            trivy fs ${target} --scanners vuln --format json --no-progress --cache-dir
+            ${shared_cachedir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
@@ -30,9 +43,24 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/trivy/trivy_fs_to_sarif.py
-
+            run: python3 ${plugin}/linters/trivy/trivy_fs_vuln_to_sarif.py
+        - name: fs-secret
+          files: [ALL]
+          output: sarif
+          run:
+            trivy fs ${target} --scanners secret --format json --no-progress --cache-dir
+            ${shared_cachedir}
+          success_codes: [0]
+          read_output_from: stdout
+          # Trivy does not support batching
+          batch: false
+          is_security: true
+          enabled: false
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/trivy/trivy_fs_secret_to_sarif.py
         - name: config
+          files: [docker, yaml, terraform]
           output: sarif
           run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
           success_codes: [0]
@@ -42,8 +70,14 @@ lint:
           is_security: true
           parser:
             runtime: python
-            run: ${plugin}/linters/trivy/trivy_config_to_sarif.py
-
+            run: python3 ${plugin}/linters/trivy/trivy_config_to_sarif.py
+      direct_configs: [trivy-secret.yaml]
+      version_command:
+        parse_regex: Version ${semver}
+        run: trivy --version
       environment:
         - name: PATH
-          list: ["${linter}"]
+          list: ["${linter}", "${env.PATH}"] # system path for docker
+        - name: USER
+          value: ${env.USER}
+          optional: true

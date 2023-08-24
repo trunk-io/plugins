@@ -1,0 +1,25 @@
+version: 0.1
+downloads:
+  - name: eksctl
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/eksctl-io/eksctl/releases/download/v${version}/eksctl_${os}_${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/eksctl-io/eksctl/releases/download/v${version}/eksctl_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: eksctl
+      download: eksctl
+      known_good_version: 0.74.0
+      shims:
+        - name: eksctl
+          target: eksctl

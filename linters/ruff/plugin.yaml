@@ -1,25 +1,42 @@
 version: 0.1
+tools:
+  definitions:
+    - name: ruff
+      runtime: python
+      package: ruff
+      shims: [ruff]
+      known_good_version: 0.0.250
 lint:
   definitions:
     - name: ruff
       files: [python]
       commands:
         - name: lint
+          # As of ruff v0.0.266, column edits are 1-indexed
+          version: ">=0.0.266"
           run: ruff check --cache-dir ${cachedir} --format json ${target}
           output: sarif
           parser:
             runtime: python
-            run: ${cwd}/ruff_to_sarif.py
+            run: python3 ${cwd}/ruff_to_sarif.py 0
           batch: true
           success_codes: [0, 1]
-      runtime: python
-      package: ruff
-      direct_configs: [pyproject.toml, ruff.toml]
+        - name: lint
+          run: ruff check --cache-dir ${cachedir} --format json ${target}
+          output: sarif
+          parser:
+            runtime: python
+            run: python3 ${cwd}/ruff_to_sarif.py 1
+          batch: true
+          success_codes: [0, 1]
+      tools: [ruff]
+      direct_configs: [ruff.toml]
       affects_cache:
+        - pyproject.toml
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.250
-      good_without_config: true
+      suggest_if: files_present
       version_command:
         parse_regex: ruff ${semver}
         run: ruff --version
@@ -35,13 +52,13 @@ lint:
       runtime: python
       package: ruff
       extra_packages: [nbqa==1.6.3]
-      direct_configs: [pyproject.toml, ruff.toml]
+      direct_configs: [ruff.toml]
       affects_cache:
+        - pyproject.toml
         - setup.cfg
         - tox.ini
       known_good_version: 0.0.250
-      is_recommended: false
-      good_without_config: true
+      suggest_if: never
       version_command:
         parse_regex: ruff ${semver}
         run: ruff --version

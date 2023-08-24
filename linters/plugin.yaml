@@ -21,6 +21,10 @@ lint:
     - name: percent-inline
       leading_delimiter: \%
 
+    - name: pod-comment
+      leading_delimiter: =begin comment
+      trailing_delimiter: =end comment
+
     - name: slashes-block
       leading_delimiter: /*
       trailing_delimiter: "*/"
@@ -35,6 +39,15 @@ lint:
     - name: ALL
       regexes:
         - .+
+
+    - name: apex
+      extensions:
+        - cls
+        - tgr
+        - page
+      comments:
+        - slashes-inline
+        - slashes-block
 
     - name: bazel-build
       extensions:
@@ -150,6 +163,8 @@ lint:
       regexes:
         # ?i is case-insensitive
         # ?: is a non-capturing group, so that the RE2 DFA is more memory efficient
+        # NOTE(Tyler): This is more strict than it realistically needs to be, but this partial match
+        # and the file extensions provide a general enough capture.
         - (?i)(?:^|/)Dockerfile\..+$
       filenames:
         - Dockerfile
@@ -165,6 +180,11 @@ lint:
         - env
       comments:
         - hash
+
+    - name: dustilock
+      filenames:
+        - requirements.txt
+        - package.json
 
     - name: gemspec
       extensions:
@@ -195,7 +215,14 @@ lint:
 
     - name: graphql
       extensions:
+        - gql
         - graphql
+      comments:
+        - hash
+
+    - name: graphql-schema
+      extensions:
+        - graphqls
       comments:
         - hash
 
@@ -204,6 +231,14 @@ lint:
         - haml
       comments:
         - hyphen-hash
+
+    - name: hcl
+      extensions:
+        - hcl
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
 
     - name: html
       extensions:
@@ -319,58 +354,25 @@ lint:
       comments:
         - html-tag
 
+    - name: nix
+      extensions:
+        - nix
+
     - name: objective-c-source
       extensions:
         - m
 
-    # This is the same as the lockfile type above, minus go.sum because osv-scanner does not support that
-    # TODO(Tyler): once linter ignores are supported, move this into a linter ignore
-    - name: osv-lockfiles
-      filenames:
-        # Cargo (Rust)
-        - Cargo.lock
-
-        # CocoaPods (Swift/Obj-C)
-        - Podfile.lock
-
-        # Composer (PHP)
-        - composer.lock
-
-        # Conan (C++)
-        - conan.lock
-
-        # Golang
-        - go.mod
-
-        # Gradle (Android/Java/Kotlin)
-        - buildscript-gradle.lockfile
-        - gradle.lockfile
-
-        # Maven
-        - pom.xml
-
-        # Mix (Erlang/Elixir)
-        - mix.lock
-
-        # Node
-        - package-lock.json
-        - pnpm-lock.yaml
-        - yarn.lock
-
-        # NuGet (.NET)
-        - packages.lock.json
-        - packages.config
-
-        # Pub (Dart)
-        - pubspec.lock
-
-        # Python
-        - requirements.txt
-        - Pipfile.lock
-        - poetry.lock
-
-        # Ruby
-        - Gemfile.lock
+    - name: perl
+      extensions:
+        - pl
+        - PL
+        - pm
+        - pod
+        - psgi
+        - t
+      comments:
+        - hash
+        - pod-comment
 
     - name: php
       extensions:
@@ -397,6 +399,12 @@ lint:
         - .prettierrc
         - .stylelintrc
 
+    - name: prisma
+      extensions:
+        - prisma
+      comments:
+        - slashes-inline
+
     - name: proto
       extensions:
         - proto
@@ -412,6 +420,12 @@ lint:
       shebangs:
         - python
         - python3
+      comments:
+        - hash
+
+    - name: python-interface
+      extensions:
+        - pyi
       comments:
         - hash
 
@@ -512,6 +526,13 @@ lint:
         - slashes-inline
         - slashes-block
 
+    - name: textproto
+      extensions:
+        - textproto
+        - textpb
+      comments:
+        - hash
+
     - name: xib
       extensions:
         - xib
@@ -553,7 +574,6 @@ lint:
         - "**/vendor/**"
         - "**/yarn.lock"
 
-    # TODO(Tyler): Once we bump required_trunk_version to merge plugin lint ignores, we can rmeove the osv-lockfiles type.
     - linters: [osv-scanner]
       paths: ["**/go.sum"]
 

@@ -1,0 +1,18 @@
+version: 0.1
+downloads:
+  - name: tfmigrate
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/minamijoyo/tfmigrate/releases/download/v${version}/tfmigrate_${version}_${os}_${cpu}.tar.gz
+    # no windows binary
+tools:
+  definitions:
+    - name: tfmigrate
+      download: tfmigrate
+      known_good_version: 0.3.14
+      shims: [tfmigrate]

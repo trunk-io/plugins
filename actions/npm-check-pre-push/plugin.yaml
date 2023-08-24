@@ -1,0 +1,13 @@
+version: 0.1
+actions:
+  definitions:
+    - id: npm-check-pre-push
+      display_name: NPM Check
+      runtime: node
+      packages_file: package.json
+      triggers:
+        - git_hooks: [pre-push]
+      run: node ${cwd}/npm_check.js
+      environment:
+        - name: NODE_PATH
+          value: ${linter}/node_modules

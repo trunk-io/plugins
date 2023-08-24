@@ -1,8 +1,15 @@
 version: 0.1
+tools:
+  definitions:
+    - name: mypy
+      runtime: python
+      package: mypy
+      shims: [mypy]
+      known_good_version: 0.931
 lint:
   definitions:
     - name: mypy
-      files: [python]
+      files: [python, python-interface]
       commands:
         # - name: lint
         #   # Custom parser type defined in the trunk cli to handle mypy's output.
@@ -24,13 +31,14 @@ lint:
           run_when: [ci]
       runtime: python
       package: mypy
+      tools: [mypy]
       direct_configs:
         - mypy.ini
         - .mypy.ini
       affects_cache:
         - pyproject.toml
         - setup.cfg
-      is_recommended: false
+      suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
       known_good_version: 0.931
       version_command:

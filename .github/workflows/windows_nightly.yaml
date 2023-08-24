@@ -1,0 +1,96 @@
+name: Windows Tests
+on:
+  schedule:
+    # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
+    - cron: 0 8 * * 1-5
+  # Only enable on pull requests for testing
+  # pull_request:
+  #   paths: [.github/workflows/windows_nightly.yaml]
+  workflow_dispatch: {}
+
+permissions: read-all
+
+jobs:
+  # Run tests against all linters for snapshots and latest version as they exist on main
+  # This job is used to diagnose plugin config health in advance of a release
+  linter_tests_main:
+    name: Linter Tests Main
+    runs-on: windows-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        linter-version: [Snapshots, Latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Cache tool downloads
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
+      - name: Linter Tests
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          # manually specify more parallelism to avoid bottlenecks
+          append-args: linters -- --maxWorkers=5
+          # CI Debugger is not yet supported on Windows
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  tool_tests_main:
+    name: Tool Tests Main
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Cache tool downloads
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+        with:
+          path: /tmp/plugins_testing_download_cache
+          # No need to key on trunk version unless we change how we store downloads.
+          key: trunk-${{ runner.os }}
+
+      - name: Delete cache
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        if: env.TRIGGER != 'pull_request'
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests
+        if: failure() || success()
+        uses: ./.github/actions/tool_tests
+        with:
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          append-args: tools -- --maxWorkers=5
+          # CI Debugger is not yet supported on Windows
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}

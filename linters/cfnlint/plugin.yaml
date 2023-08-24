@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: cfnlint
+      runtime: python
+      package: cfn-lint
+      shims: [cfn-lint]
+      known_good_version: 0.58.2
 lint:
   definitions:
     - name: cfnlint
@@ -11,9 +18,8 @@ lint:
           error_codes: [32]
           batch: true
           cache_results: true
-      runtime: python
-      package: cfn-lint
-      good_without_config: true
+      tools: [cfnlint]
+      suggest_if: files_present
       issue_url_format: https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md
       known_good_version: 0.58.2
       version_command:

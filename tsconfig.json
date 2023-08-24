@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es2021",
     "module": "commonjs",
     "moduleResolution": "Node",
-    "lib": ["es2019", "dom"],
+    "lib": ["es2021", "dom"],
     "jsx": "preserve",
     "sourceMap": true,
     "outDir": "out",

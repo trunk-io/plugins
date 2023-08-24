@@ -1,0 +1,57 @@
+version: 0.1
+lint:
+  downloads:
+    - name: pmd
+      downloads:
+        - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-bin-${semver}.zip
+          strip_components: 1
+      args:
+        semver: ${version}=>(pmd_releases\/)*(?P<semver>.*)
+  definitions:
+    - name: pmd
+      download: pmd
+      commands:
+        - name: lint-apex
+          platforms: [windows]
+          output: sarif
+          # Override this in your repo if you have a custom rulesets
+          run: pmd.bat -R rulesets/apex/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files:
+            - apex
+        - name: lint-apex
+          output: sarif
+          # Override this in your repo if you have a custom rulesets
+          run: run.sh pmd -R rulesets/apex/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files:
+            - apex
+        - name: lint-java
+          platforms: [windows]
+          output: sarif
+          # Override this in your repo if you have a custom rulesets
+          run: pmd.bat -R rulesets/java/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files:
+            - java
+        - name: lint-java
+          output: sarif
+          # Override this in your repo if you have a custom rulesets
+          run: run.sh pmd -R rulesets/java/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files:
+            - java
+      runtime: java
+      suggest_if: never
+      known_good_version: 6.55.0
+      known_bad_versions:
+        - pmd_releases/7.0.0-rc3
+        - pmd_releases/7.0.0-rc2
+        - pmd_releases/7.0.0-rc1
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]

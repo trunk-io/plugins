@@ -1,0 +1,11 @@
+version: 0.1
+tools:
+  definitions:
+    # Doesn't work OOTB on Windows, see https://github.com/orgs/asciinema/discussions/47
+    - name: asciinema
+      runtime: python
+      package: asciinema
+      known_good_version: 2.1.0
+      shims:
+        - name: asciinema
+          target: asciinema

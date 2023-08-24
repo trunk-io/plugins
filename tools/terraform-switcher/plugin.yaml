@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: terraform-switcher
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/warrensbox/terraform-switcher/releases/download/${version}/terraform-switcher_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/warrensbox/terraform-switcher/releases/download/${version}/terraform-switcher_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: terraform-switcher
+      download: terraform-switcher
+      known_good_version: 0.13.1308
+      shims: [tfswitch]

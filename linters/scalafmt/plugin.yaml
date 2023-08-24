@@ -1,25 +1,33 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: scalafmt
+    version: 3.4.3
+    executable: true
+    downloads:
+      - os: linux
+        cpu: x86_64
+        url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-linux-musl
+      - os: macos
+        cpu: x86_64
+        url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+      # Use rosetta
+      - os: macos
+        cpu: arm_64
+        url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+      # No windows release
+tools:
+  definitions:
     - name: scalafmt
-      version: 3.4.3
-      executable: true
-      downloads:
-        - os: linux
-          cpu: x86_64
-          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-linux-musl
-        - os: macos
-          cpu: x86_64
-          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
-        # Use rosetta
-        - os: macos
-          cpu: arm_64
-          url: https://github.com/scalameta/scalafmt/releases/download/v${version}/scalafmt-macos
+      download: scalafmt
+      shims: [scalafmt]
+      known_good_version: 3.4.3
+lint:
   definitions:
     - name: scalafmt
       files: [scala]
-      download: scalafmt
+      tools: [scalafmt]
       direct_configs: [.scalafmt.conf]
+      suggest_if: config_present
       commands:
         - name: format
           output: rewrite

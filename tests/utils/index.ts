@@ -1,11 +1,17 @@
 import Debug from "debug";
 import fs from "fs";
+import * as os from "os";
 import path from "path";
 import semver from "semver";
 import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
+export const TEMP_PREFIX = "plugins_";
+export const DOWNLOAD_CACHE = path.resolve(
+  fs.realpathSync(os.tmpdir()),
+  `${TEMP_PREFIX}testing_download_cache`,
+);
 
 // As this file and folder increase in complexity, extract out functionality into other categories.
 // Avoid overpolluting a `utils` folder.
@@ -36,7 +42,7 @@ const normalizePath = (value?: string): string | undefined => {
     if (path.isAbsolute(value)) {
       return value;
     }
-    path.resolve(REPO_ROOT, value);
+    return path.resolve(REPO_ROOT, value);
   }
   return undefined;
 };
@@ -88,7 +94,7 @@ export const getSnapshotName = (
   linterName: string,
   prefix: string,
   checkType: CheckType,
-  linterVersion?: string
+  linterVersion?: string,
 ) => {
   const normalizedName = linterName.replace(/-/g, "_");
   if (!linterVersion) {
@@ -100,22 +106,11 @@ export const getSnapshotName = (
 /**
  * Calculate the regex for a given snapshot file to determine available versions. Use this as a standardized convention.
  * @param linterName the name of the linter being tested. Does not include subcommand
- * @param prefix the prefix of the named file tested against
+ * @param prefix the prefix of the named file tested against. For custom fmt tests, includes the test name and file path
  * @param checkType "check" or "fmt"
- * @param custom whether or not this is invoked from a customLinterCheckTest/customFmtCheckTest
  */
-export const getSnapshotRegex = (
-  linterName: string,
-  prefix: string,
-  checkType: CheckType,
-  custom: boolean
-) => {
-  if (checkType == "fmt" && custom) {
-    // For custom fmt tests, there is no central prefixed snapshot, only specific files.
-    return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?(?<file>.+).${checkType}.shot`;
-  }
-  return `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
-};
+export const getSnapshotRegex = (linterName: string, prefix: string, checkType: CheckType) =>
+  `${linterName.replace(/-/g, "_")}_(v(?<version>[^_]+)_)?${prefix}.${checkType}.shot`;
 
 /**
  * Identifies snapshot file to use, based on linter, version, and ARGS.dumpNewSnapshot.
@@ -125,7 +120,6 @@ export const getSnapshotRegex = (
  * @param prefix prefix of the file being checked
  * @param checkType "check" or "fmt"
  * @param linterVersion version of the linter that was enabled (may be undefined)
- * @param custom denotes whether this is a custom test, for use with custom fmt test naming
  * @param versionGreaterThanOrEqual optional comparator for sorting non-semver linter snapshots
  * @returns absolute path to the relevant snapshot file
  */
@@ -135,12 +129,11 @@ export const getSnapshotPathForAssert = (
   prefix: string,
   checkType: CheckType,
   linterVersion?: string,
-  custom = false,
-  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean
+  versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean,
 ): string => {
   const specificVersionSnapshotName = path.resolve(
     snapshotDirPath,
-    getSnapshotName(linterName, prefix, checkType, linterVersion)
+    getSnapshotName(linterName, prefix, checkType, linterVersion),
   );
 
   // If this is a versionless linter, don't specify a version.
@@ -155,7 +148,7 @@ export const getSnapshotPathForAssert = (
   }
 
   // Otherwise, find the most recent matching snapshot.
-  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType, custom);
+  const snapshotFileRegex = getSnapshotRegex(linterName, prefix, checkType);
   const availableSnapshots = fs
     .readdirSync(snapshotDirPath)
     .filter((name) => name.match(snapshotFileRegex))
@@ -195,7 +188,6 @@ export const getVersionsForTest = (
   linterName: string,
   prefix: string,
   checkType: CheckType,
-  custom = false
 ) => {
   // TODO(Tyler): Add ARGS.linterVersion Query case for full matrix coverage
   let matchExists = false;
@@ -203,26 +195,26 @@ export const getVersionsForTest = (
   const versionsList = fs
     .readdirSync(path.resolve(dirname, TEST_DATA))
     .map((file) => {
-      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType, custom));
+      const fileMatch = file.match(getSnapshotRegex(linterName, prefix, checkType));
       if (fileMatch) {
         matchExists = true;
         return fileMatch.groups?.version;
       }
     })
-    .filter(Boolean)
-    .sort();
+    .filter(Boolean);
+  const uniqueVersionsList = Array.from(new Set(versionsList)).sort();
 
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
   if (!matchExists && !ARGS.linterVersion) {
     console.log(
-      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`
+      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`,
     );
     return ["KnownGoodVersion"];
   }
 
   // Versionless linters must return a non-empty array, so check the list's length here.
-  if (ARGS.linterVersion === "Snapshots" && versionsList.length > 0) {
-    return versionsList;
+  if (ARGS.linterVersion === "Snapshots" && uniqueVersionsList.length > 0) {
+    return uniqueVersionsList;
   }
 
   // Enabled version logic will be handled later in the pipeline if ARGS.linterVersion is KnownGoodVersion|Latest|string
@@ -233,6 +225,24 @@ export const getVersionsForTest = (
 };
 
 /**
+ * Helper function to step N directories into a path. Throws if unavailable
+ */
+export const recurseLevels = (starterPath: string, n: number) => {
+  let currentPath = starterPath;
+  for (let i = 0; i < n; i++) {
+    const contents = fs.readdirSync(currentPath);
+    for (const file of contents) {
+      if (fs.lstatSync(path.resolve(currentPath, file)).isDirectory()) {
+        currentPath = path.resolve(currentPath, file);
+        break;
+      }
+      throw new Error(`Could not find directory inside of ${currentPath}`);
+    }
+  }
+  return currentPath;
+};
+
+/**
  * Helper callback that skips a test if the OS is included in excludedOS.
  * Intended to be passed to `skipTestIf`.
  */
@@ -240,9 +250,37 @@ export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
 /**
+ * Helper callback that skips a test if the CPU arch is included in excludedCPU.
+ * Intended to be passed to `skipTestIf`.
+ */
+export const skipCPU = (excludedCPU: string[]) => (_version?: string) =>
+  excludedCPU.length === 0 || excludedCPU.includes(process.arch);
+
+/**
+ * Helper callback that skips a test if the OS and CPU arch is included in excludedCPU and excludedOS.
+ * Intended to be passed to `skipTestIf`.
+ */
+interface CpuOsPair {
+  os: string;
+  cpu: string;
+}
+
+export const skipCPUOS = (pairs: CpuOsPair[]) => (_version?: string) =>
+  pairs
+    .map((pair: CpuOsPair) => pair.os == process.platform && pair.cpu == process.arch)
+    .reduce((acc: boolean, val: boolean) => acc || val);
+
+/**
  * GitHub MacOS runners can run much slower, so allow for a larger timeout.
  */
-export const osTimeoutMultiplier = process.platform === "darwin" ? 3 : 1;
+export const osTimeoutMultiplier =
+  process.platform === "darwin"
+    ? 3
+    : process.platform === "win32"
+    ? 1.5
+    : process.platform === "linux" && process.arch === "arm64"
+    ? 3
+    : 1;
 
 /**
  * This wrapper on existing matchers is used to improve debuggability when an unexpected failure occurs.

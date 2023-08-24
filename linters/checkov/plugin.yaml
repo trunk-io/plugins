@@ -1,17 +1,33 @@
 version: 0.1
+tools:
+  definitions:
+    - name: checkov
+      runtime: python
+      package: checkov
+      shims: [checkov]
+      known_good_version: 2.3.75
 lint:
   definitions:
     - name: checkov
       files: [terraform, cloudformation, docker, yaml, json]
-      runtime: python
-      package: checkov
+      tools: [checkov]
       commands:
+        - name: lint
+          # on Windows, we need to make sure 'checkov' resolves to 'checkov.cmd'
+          platforms: [windows]
+          run: checkov.cmd -f ${target} -o sarif --output-file-path ${tmpfile},
+          output: sarif
+          success_codes: [0, 1]
+          read_output_from: tmp_file
+          is_security: true
         - name: lint
           run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},
           output: sarif
           success_codes: [0, 1]
           read_output_from: tmp_file
+          is_security: true
       known_good_version: 2.3.75
+      suggest_if: files_present
       direct_configs:
         - .checkov.yml
         - .checkov.yaml

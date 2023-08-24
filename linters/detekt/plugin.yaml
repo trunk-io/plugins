@@ -13,6 +13,16 @@ lint:
       download: detekt
       commands:
         - name: lint
+          platforms: [windows]
+          output: sarif
+          run:
+            detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
+            sarif:${tmpfile}
+          success_codes: [0, 1, 2]
+          read_output_from: tmp_file
+          batch: true
+          cache_results: true
+        - name: lint
           output: sarif
           run:
             detekt-cli --build-upon-default-config --config .detekt.yaml --input ${target,} --report
@@ -23,7 +33,7 @@ lint:
           cache_results: true
       direct_configs: [.detekt.yaml]
       runtime: java
-      is_recommended: false
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${env.PATH}"]
@@ -37,6 +47,14 @@ lint:
       download: detekt
       commands:
         - name: lint
+          platforms: [windows]
+          output: sarif
+          run:
+            detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
+            --auto-correct
+          success_codes: [0, 1, 2]
+          read_output_from: tmp_file
+        - name: lint
           output: sarif
           run:
             detekt-cli --config .detekt.yaml --input ${target} --report sarif:${tmpfile}
@@ -45,7 +63,7 @@ lint:
           read_output_from: tmp_file
       direct_configs: [.detekt.yaml]
       runtime: java
-      is_recommended: false
+      suggest_if: never
       environment:
         - name: PATH
           list: ["${env.PATH}"]
@@ -55,16 +73,17 @@ lint:
         run: detekt-cli --version
 
     - name: detekt-gradle
+      supported_platforms: [linux, macos]
       files: [kotlin]
       commands:
         - name: lint
           # Custom parser/trigger type defined in the trunk cli.
           output: detekt_gradle
           target: .
-          run: ${workspace}/gradlew detekt --info --continue
+          run: sh ${workspace}/gradlew detekt --info --continue
           success_codes: [0, 1]
           disable_upstream: true
-      is_recommended: false
+      suggest_if: never
       environment:
         - name: GRADLE_OPTS
           value: ${env.GRADLE_OPTS}

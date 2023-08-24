@@ -12,8 +12,9 @@ lint:
           cache_results: true
           formatter: true
       download: go # loaded by default with trunk
-      good_without_config: true
-      known_good_version: 1.19.3
+      suggest_if: files_present
+      # go releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
+      known_good_version: 1.20.4
       environment:
         - name: PATH
           list: ["${linter}/bin"]

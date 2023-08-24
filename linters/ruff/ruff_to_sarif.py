@@ -19,6 +19,11 @@ def get_region(entry, column_offset=0):
     return region
 
 
+# As of ruff v0.0.266, column edits are 1-indexed. This is handled by the command definition
+ruff_column_index = 1
+if len(sys.argv) > 1:
+    ruff_column_index = int(sys.argv[1])
+
 for result in json.load(sys.stdin):
     # As of ruff v0.0.260, some autofixable diagnostics may appear redundantly
     if "location" not in result:
@@ -72,7 +77,7 @@ for result in json.load(sys.stdin):
                             {
                                 # Ruff gives 0-indexed columns, SARIF requires 1-indexed
                                 # https://github.com/charliermarsh/ruff/issues/3106
-                                "deletedRegion": get_region(fix, 1),
+                                "deletedRegion": get_region(fix, ruff_column_index),
                                 "insertedContent": {
                                     "text": fix["content"],
                                 },

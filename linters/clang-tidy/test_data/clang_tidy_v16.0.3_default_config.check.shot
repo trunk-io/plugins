@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter clang-tidy test default_config 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test.hh",
+              "offset": "14",
+              "replacementText": "static ",
+            },
+          ],
+        },
+      ],
+      "code": "readability-convert-member-functions-to-static",
+      "column": "15",
+      "file": "test.hh",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
+      "level": "LEVEL_MEDIUM",
+      "line": "2",
+      "linter": "clang-tidy",
+      "message": "method 'Bar' can be made static",
+      "targetType": "c++-header",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "c++-source",
+      "linter": "clang-tidy",
+      "paths": [
+        "a_includes.cc",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-source",
+      "linter": "clang-tidy",
+      "paths": [
+        "b_includes.cc",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-source",
+      "linter": "clang-tidy",
+      "paths": [
+        "basic.cc",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-header",
+      "linter": "clang-tidy",
+      "paths": [
+        "invalid_case_style.hh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "c++-header",
+      "linter": "clang-tidy",
+      "paths": [
+        "test.hh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

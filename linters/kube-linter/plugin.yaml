@@ -1,22 +1,15 @@
 version: 0.1
-lint:
-  downloads:
-    - name: kube-linter
-      version: 0.5.0
-      downloads:
-        - os:
-            linux: linux
-            macos: darwin
-          url: https://github.com/stackrox/kube-linter/releases/download/${version}/kube-linter-${os}
-          version: <0.6.1
-        - os:
-            linux: linux
-            macos: darwin
-          url: https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-${os}
-
+tools:
   definitions:
     - name: kube-linter
-      download: kube-linter
+      runtime: go
+      package: golang.stackrox.io/kube-linter/cmd/kube-linter
+      shims: [kube-linter]
+      known_good_version: 0.6.4
+lint:
+  definitions:
+    - name: kube-linter
+      tools: [kube-linter]
       files:
         - yaml
       commands:
@@ -26,4 +19,5 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.5.0
+      known_good_version: 0.6.4
+      suggest_if: never

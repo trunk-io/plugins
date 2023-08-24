@@ -1,0 +1,24 @@
+version: 0.1
+downloads:
+  - name: terraformer
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/GoogleCloudPlatform/terraformer/releases/download/${version}/terraformer-all-${os}-${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/GoogleCloudPlatform/terraformer/releases/download/${version}/terraformer-alicloud-${os}-${cpu}.exe
+tools:
+  definitions:
+    - name: terraformer
+      download: terraformer
+      known_good_version: 0.8.24
+      shims: [terraformer]

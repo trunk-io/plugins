@@ -6,7 +6,7 @@ exports[`Testing linter golangci-lint test empty 1`] = `
     {
       "code": "typecheck",
       "column": "1",
-      "file": "empty.go",
+      "file": "test_data/empty.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
       "line": "1",
@@ -15,38 +15,18 @@ exports[`Testing linter golangci-lint test empty 1`] = `
       "targetType": "go",
     },
     {
-      "code": "unused",
-      "column": "6",
-      "file": "test_data/unused_func.go",
-      "issueUrl": "https://golangci-lint.run/usage/linters/",
-      "level": "LEVEL_HIGH",
-      "line": "5",
-      "linter": "golangci-lint",
-      "message": "func \`helper\` is unused",
-      "targetType": "go",
-    },
-    {
       "code": "typecheck",
-      "column": "23",
       "file": "test_data/wrapper/printer.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
-      "line": "12",
+      "line": "1",
       "linter": "golangci-lint",
-      "message": "undeclared name: \`Wrapper2\`",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
       "targetType": "go",
     },
   ],
   "lintActions": [
-    {
-      "command": "lint",
-      "fileGroupName": "go",
-      "linter": "golangci-lint",
-      "paths": [
-        ".",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
     {
       "command": "lint",
       "fileGroupName": "go",

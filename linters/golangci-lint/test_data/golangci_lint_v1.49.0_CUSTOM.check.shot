@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter golangci-lint test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "deadcode",
+      "column": "6",
+      "file": "test_data/unused_func.go",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "golangci-lint",
+      "message": "\`helper\` is unused",
+      "targetType": "go",
+    },
+    {
+      "code": "typecheck",
+      "file": "test_data/wrapper/printer.go",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "golangci-lint",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

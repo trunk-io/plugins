@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter graphql-schema-linter test invalid-ast 1`] = `
+{
+  "issues": [
+    {
+      "code": "invalid-graphql-schema",
+      "column": "1",
+      "file": "test_data/invalid-ast.in.graphqls",
+      "level": "LEVEL_HIGH",
+      "line": "9",
+      "linter": "graphql-schema-linter",
+      "message": "Must provide only one schema definition.",
+      "targetType": "graphql-schema",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "graphql-schema",
+      "linter": "graphql-schema-linter",
+      "paths": [
+        "test_data/invalid-ast.in.graphqls",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

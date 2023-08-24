@@ -1,4 +1,12 @@
 version: 0.1
+tools:
+  definitions:
+    - name: yapf
+      runtime: python
+      package: yapf
+      extra_packages: [toml]
+      shims: [yapf]
+      known_good_version: 0.32.0
 lint:
   definitions:
     - name: yapf
@@ -13,15 +21,14 @@ lint:
           allow_empty_files: false
           cache_results: true
           formatter: true
-      runtime: python
-      package: yapf
-      extra_packages: [toml]
+      tools: [yapf]
       direct_configs:
         - .style.yapf
         - .yapfignore
       affects_cache:
         - setup.cfg
         - pyproject.toml
+      suggest_if: config_present
       known_good_version: 0.32.0
       version_command:
         parse_regex: yapf ${semver}

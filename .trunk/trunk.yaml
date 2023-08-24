@@ -1,64 +1,29 @@
 version: 0.1
 
+# version used for local trunk runs and testing
 cli:
-  # version used for local trunk runs and testing
-  version: 1.7.0
+  version: 1.14.2-beta.1
+
+api:
+  address: api.trunk-staging.io:8443
+  org: trunk-staging-org
 
 plugins:
   sources:
     - id: trunk
       local: .
 
-runtimes:
-  enabled:
-    - go@1.19.5
-    - node@18.12.1
-    - python@3.10.8
+    - id: configs
+      uri: https://github.com/trunk-io/configs
+      ref: v0.0.6
 
 lint:
-  downloads:
-    - name: trunk-toolbox
-      # Our own internal alpha linter
-      downloads:
-        - os:
-            linux: unknown-linux-gnu
-            macos: apple-darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: aarch64
-          url: https://github.com/trunk-io/toolbox/releases/download/${version}/trunk-toolbox-${version}-${cpu}-${os}.tar.gz
-  definitions:
-    - name: trunk-toolbox
-      download: trunk-toolbox
-      files: [ALL]
-      commands:
-        - output: sarif
-          run: trunk-toolbox --upstream ${upstream-ref}
-          success_codes: [0]
-          read_output_from: stdout
-          disable_upstream: true
-          target: .
-      environment:
-        - name: PATH
-          list: ["${linter}"]
-
+  # enabled linters inherited from github.com/trunk-io/configs plugin
   enabled:
     - mypy@1.5.1
-    - actionlint@1.6.23
-    - black@23.1.0
-    - eslint@8.36.0
-    - git-diff-check
-    - gitleaks@8.16.1
-    - isort@5.12.0
-    - markdownlint@0.33.0
-    - prettier@2.8.4
-    - renovate@35.8.3
-    - ruff@0.0.256
-    - shellcheck@0.9.0
-    - shfmt@3.5.0
-    - taplo@0.7.0
-    - trunk-toolbox@0.0.0-sam.18
-    - yamllint@1.29.0
+  disabled:
+    - pylint # pylint diagnostics are too strict
+
 
   ignore:
     - linters: [ALL]
@@ -81,13 +46,22 @@ actions:
         - git_hooks: [pre-push]
 
     - id: linter-test-helper
-      display_name: Test Generator
+      display_name: Linter Test Generator
       description: Generate boilerplate test code when new linters are defined
       runtime: python
-      packages_file: tools/linter-test-helper/requirements.txt
-      run: tools/linter-test-helper/generate scan ${workspace}
+      packages_file: repo-tools/linter-test-helper/requirements.txt
+      run: python3 repo-tools/linter-test-helper/generate scan ${workspace}
       triggers:
         - files: [linters/**]
+
+    - id: tool-test-helper
+      display_name: Tool Test Generator
+      description: Generate boilerplate test code when new tools are defined
+      runtime: python
+      packages_file: repo-tools/tool-test-helper/requirements.txt
+      run: python3 repo-tools/tool-test-helper/generate scan ${workspace}
+      triggers:
+        - files: [tools/**]
 
     - id: remove-release-snapshots
       display_name: Remove Release Snapshots
@@ -98,11 +72,9 @@ actions:
       shell: bash
 
   enabled:
+    # enabled actions inherited from github.com/trunk-io/configs plugin
+    - linter-test-helper
+    - npm-check-pre-push
     - remove-release-snapshots
     - repo-tests
-    - linter-test-helper
-    - trunk-announce
-    - trunk-cache-prune
-    - trunk-upgrade-available
-    - trunk-check-pre-push
-    - trunk-fmt-pre-commit
+    - tool-test-helper

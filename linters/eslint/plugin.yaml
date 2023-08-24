@@ -1,10 +1,16 @@
 version: 0.1
+tools:
+  definitions:
+    - name: eslint
+      runtime: node
+      package: eslint
+      shims: [eslint]
+      known_good_version: 8.10.0
 lint:
   definitions:
     - name: eslint
       files: [typescript, javascript]
-      runtime: node
-      package: eslint
+      tools: [eslint]
       commands:
         - name: lint
           output: eslint
@@ -19,6 +25,7 @@ lint:
         - .eslintrc.json
         - .eslintrc.yaml
         - .eslintrc.yml
+      suggest_if: config_present
       affects_cache:
         - .eslintignore
         - package.json

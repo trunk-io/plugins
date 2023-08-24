@@ -1,0 +1,35 @@
+version: 0.1
+tools:
+  definitions:
+    - name: pyright
+      runtime: node
+      package: pyright
+      shims: [pyright]
+      known_good_version: 1.1.304
+lint:
+  definitions:
+    - name: pyright
+      files: [python]
+      suggest_if: config_present
+      commands:
+        - name: lint
+          output: sarif
+          run: pyright --outputjson ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+          cache_results: true
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/pyright/pyright_to_sarif.py
+      tools: [pyright]
+      direct_configs:
+        - pyrightconfig.json
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
+      issue_url_format: https://github.com/microsoft/pyright/blob/main/docs/configuration.md#{}
+      known_good_version: 1.1.304
+      version_command:
+        parse_regex: pyright ${semver}
+        run: pyright --version

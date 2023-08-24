@@ -10,10 +10,22 @@ lint:
       files: [java]
       download: google-java-format.jar
       commands:
-        - output: rewrite
+        - name: format
+          platforms: [windows]
+          output: rewrite
+          run: java -jar ${linter}/google-java-format.jar.exe --replace ${target}
+          success_codes: [0]
+          in_place: true
+          formatter: true
+        - name: format
+          output: rewrite
           run: java -jar ${linter}/google-java-format.jar --replace ${target}
           success_codes: [0]
           in_place: true
           formatter: true
       runtime: java
+      suggest_if: never
       known_good_version: 1.15.0
+      version_command:
+        parse_regex: "google-java-format: Version ${semver}"
+        run: java -jar ${linter}/google-java-format.jar.exe --version

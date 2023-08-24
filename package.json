@@ -1,15 +1,15 @@
 {
   "private": true,
   "scripts": {
+    "parse": "ts-node tests/parse/index.ts",
     "test": "jest",
-    "trunk": "trunk",
-    "parse": "ts-node tests/parse/index.ts"
+    "trunk": "trunk"
   },
   "devDependencies": {
     "@jest/console": "^29.4.1",
     "@jest/reporters": "^29.4.1",
     "@jest/test-result": "^29.4.1",
-    "@trunkio/launcher": "^1.2.3",
+    "@trunkio/launcher": "^1.2.4",
     "@types/caller": "^1.0.0",
     "@types/debug": "^4.1.7",
     "@types/jest": "^29.2.4",

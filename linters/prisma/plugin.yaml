@@ -1,0 +1,22 @@
+version: 0.1
+lint:
+  definitions:
+    - name: prisma
+      tools: [prisma]
+      files: [prisma]
+      known_good_version: 4.16.1
+      suggest_if: never
+      commands:
+        - name: format
+          platforms: [windows]
+          output: rewrite
+          success_codes: [0]
+          in_place: true
+          formatter: true
+          run: prisma.cmd format --schema=${target}
+        - name: format
+          output: rewrite
+          success_codes: [0]
+          in_place: true
+          formatter: true
+          run: prisma format --schema=${target}

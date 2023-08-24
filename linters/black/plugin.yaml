@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: black
+      runtime: python
+      package: black[python2,jupyter]
+      shims: [black]
+      known_good_version: 22.3.0
 lint:
   definitions:
     - name: black
@@ -13,9 +20,8 @@ lint:
           allow_empty_files: false
           cache_results: true
           formatter: true
-      runtime: python
-      package: black[python2,jupyter]
-      good_without_config: true
+      tools: [black]
+      suggest_if: files_present
       affects_cache: [pyproject.toml]
       known_good_version: 22.3.0
       version_command:
@@ -37,9 +43,11 @@ lint:
           formatter: true
       runtime: python
       package: black[python2]
+      suggest_if: never
       affects_cache: [pyproject.toml]
       formatter: true
       known_good_version: 22.3.0
+      deprecated: "'black-py' is now handled by 'black'. Please delete 'black-py' from your config"
       version_command:
         parse_regex: black, version (.*)
         run: black --version

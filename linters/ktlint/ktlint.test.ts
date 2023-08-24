@@ -1,8 +1,8 @@
 import { linterFmtTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 
 // Grab the root .editorconfig
-const preCheck = (driver: TrunkDriver) => {
+const preCheck = (driver: TrunkLintDriver) => {
   driver.copyFileFromRoot(".editorconfig");
 };
 

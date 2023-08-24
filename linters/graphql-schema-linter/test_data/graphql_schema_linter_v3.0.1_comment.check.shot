@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter graphql-schema-linter test comment 1`] = `
+{
+  "issues": [
+    {
+      "code": "invalid-graphql-schema",
+      "column": "11",
+      "file": "test_data/comment.in.graphqls",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "graphql-schema-linter",
+      "message": "Unknown type "User".",
+      "targetType": "graphql-schema",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "graphql-schema",
+      "linter": "graphql-schema-linter",
+      "paths": [
+        "test_data/comment.in.graphqls",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: age
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        strip_components: 1
+        url: https://github.com/FiloSottile/age/releases/download/v${version}/age-v${version}-${os}-${cpu}.tar.gz
+      - os: windows
+        strip_components: 1
+        cpu:
+          x86_64: amd64
+        url: https://github.com/FiloSottile/age/releases/download/v${version}/age-v${version}-windows-${cpu}.zip
+tools:
+  definitions:
+    - name: age
+      download: age
+      known_good_version: 1.1.1
+      shims: [age, age-keygen]

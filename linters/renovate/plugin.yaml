@@ -10,8 +10,7 @@ lint:
   definitions:
     - name: renovate
       files: [renovate-config]
-      runtime: node
-      package: renovate
+      tools: [renovate]
       commands:
         - name: validate
           run: renovate-config-validator ${target}
@@ -20,7 +19,7 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: ${cwd}/parse.py
+            run: python3 ${cwd}/parse.py
       direct_configs:
         - renovate.json
         - renovate.json5
@@ -31,6 +30,7 @@ lint:
         - .renovaterc
         - .renovaterc.json
         - .renovaterc.json5
+      suggest_if: config_present
       known_good_version: 34.122.0
       version_command:
         parse_regex: ${semver}

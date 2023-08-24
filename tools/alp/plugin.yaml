@@ -1,0 +1,18 @@
+version: 0.1
+downloads:
+  - name: alp
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/tkuchiki/alp/releases/download/v${version}/alp_${os}_${cpu}.tar.gz
+tools:
+  definitions:
+    - name: alp
+      download: alp
+      known_good_version: 1.0.14
+      shims: [alp]

@@ -3,17 +3,20 @@ lint:
   definitions:
     - name: golangci-lint
       files: [go]
-      type: golangci_lint
       environment:
         - name: GOLANGCI_LINT_CACHE
           value: ${cachedir}
+          # Needs to use system `diff` and `git`
         - name: PATH
-          list: ["${env.PATH}"] # Needs to use system `diff`
+          list: ["${env.PATH}"]
         - name: GO111MODULE
           value: auto
+          # May need to git clone with ssh authenticaion for private packages.
+        - name: SSH_AUTH_SOCK
+          value: ${env.SSH_AUTH_SOCK}
+          optional: true
       runtime: go
       package: github.com/golangci/golangci-lint/cmd/golangci-lint
-      run_from_root_file: go.mod
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
@@ -34,8 +37,9 @@ lint:
           # 7 - error logged
           success_codes: [0, 2, 7]
           run_linter_from: root_file
+          run_from_root_target: go.mod
           disable_upstream: true # TODO(Sam): re-enable the upstream for golang (needs test coverage)
-      good_without_config: true
+      suggest_if: files_present
       direct_configs:
         - .golangci.json
         - .golangci.toml
@@ -45,7 +49,7 @@ lint:
         - go.mod
         - go.sum
       issue_url_format: https://golangci-lint.run/usage/linters/
-      known_good_version: 1.46.2
+      known_good_version: 1.49.0
       version_command:
         parse_regex: ${semver}
         run: golangci-lint --version

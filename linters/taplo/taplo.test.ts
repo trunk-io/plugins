@@ -11,6 +11,7 @@ const versionGreaterThanOrEqual = (a: string, b: string) => {
   return semver.gte(normalizedA, normalizedB);
 };
 
+// NOTE(Tyler): Currently, taplo doesn't have a fully compatible download for Windows. We hope to enable it in the future.
 customLinterCheckTest({
   linterName: "taplo",
   args: "-a -y",

@@ -1,0 +1,34 @@
+version: 0.1
+lint:
+  definitions:
+    - name: sourcery
+      files: [python]
+      commands:
+        - name: lint
+          output: regex
+          run: sourcery review  --no-summary --csv ${target}
+          parse_regex: ((?P<path>.*),(?P<line>\d+),(?P<code>.*),(?P<message>.*))
+          success_codes: [0]
+          read_output_from: stdout
+          batch: true
+          cache_results: true
+        - name: fix
+          output: rewrite
+          run: sourcery review  --no-summary --csv --fix ${target}
+          success_codes: [0]
+          batch: true
+          # NOTE(Tyler): Autofixes will show up as complete "formatting-like" diagnostics. However, strictly speaking, this isn't a formatter, so we don't want to set formatter: true
+          in_place: true
+      tools: [sourcery]
+      suggest_if: never
+      direct_configs:
+        - .sourcery.yaml
+        - sourcery.yaml
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
+      issue_url_format: https://docs.sourcery.ai/Reference/Python/Default-Rules/{}
+      known_good_version: 1.2.0
+      version_command:
+        parse_regex: sourcery ${semver}
+        run: sourcery --version

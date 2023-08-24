@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+
+import os
+from datetime import datetime, timedelta
+
+import click
+
+INITIAL_PLUGIN_CONTENTS = """version: 0.1
+# Tools can be either runtime package-based or
+# download-based. This boilerplate assumes the (far more verbose) latter case.
+downloads:
+  - name: NAME_HERE
+    # executable: true
+    # NOTE: These are (common) sample values. Please replace with real values.
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
+# Fill out this part if the linter is tool-based (most common case) - otherwise delete
+tools:
+  definitions:
+    - name: NAME_HERE
+      # RUNTIME_OR_DOWNLOAD_INFO_HERE
+      # download: NAME_HERE
+      known_good_version: VERSION_HERE
+      shims: [NAME_HERE]
+lint:
+  definitions:
+    - name: NAME_HERE
+      # TOOL_OR_RUNTIME_OR_DOWNLOAD_INFO_HERE
+      known_good_version: # VERSION_HERE
+      commands:
+        - name: LINT_OR_FORMAT_HERE
+          output: OUTPUT_TYPE_HERE
+          run: COMMAND_HERE
+          success_codes: [0]
+"""
+
+INITIAL_TEST_CONTENTS = """import { linterCheckTest, linterFmtTest } from "tests";
+// Uncomment and use if your tool is a linter
+// linterCheckTest({ linterName: "*{}*" });
+
+// Uncomment and use if your tool is a formatter
+// linterFmtTest({ linterName: "*{}*" });
+
+// Guidelines for configuring tests:
+//  - By default, linters and formatters will only run on files with syntax `<name>.in.<extension>`
+//  - You can customize test setup using the `preCheck` callback (see git_diff_check.test.ts and golangci_lint.test.ts)
+//  - You can specify additional customization using the `customLinterCheckTest and customLinterFmtTest` helpers
+//  - Additional information on test setup can be found in tests/readme.md
+//
+// If you are unable to write a test for this linter, please document why in your PR, and add
+// it to the list in tests/repo_tests/test_coverage_test.ts
+"""
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@click.argument("workspace")
+def scan(workspace):
+    linter_dir = os.path.join(workspace, "linters")
+    generated_files = False
+    for linter_name in os.listdir(linter_dir):
+        subdir_path = os.path.join(linter_dir, linter_name)
+        if os.path.isfile(subdir_path):
+            continue
+
+        subdir_contents = os.listdir(subdir_path)
+        # If this is a newly created, empty directory, dump template files
+        if (
+            len(subdir_contents) == 0
+            and os.stat(subdir_path).st_ctime
+            > (datetime.now() - timedelta(seconds=10)).timestamp()
+        ):
+            generated_files = True
+            # Write plugin.yaml
+            with open(os.path.join(subdir_path, "plugin.yaml"), "w") as plugin_file:
+                plugin_file.write(INITIAL_PLUGIN_CONTENTS)
+
+            # Write test file
+            with open(
+                os.path.join(
+                    subdir_path, "{}.test.ts".format(linter_name.replace("-", "_"))
+                ),
+                "w",
+            ) as test_file:
+                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", linter_name))
+
+            # Create empty test_data dir
+            test_dir = os.path.join(subdir_path, "test_data")
+            os.mkdir(test_dir)
+            print("Created starter files in {}", subdir_path)
+
+    if not generated_files:
+        print("No generated files")
+
+
+if __name__ == "__main__":
+    cli()

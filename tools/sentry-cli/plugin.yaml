@@ -1,0 +1,31 @@
+version: 0.1
+downloads:
+  - name: sentry-cli
+    executable: true
+    downloads:
+      - os:
+          linux: Linux
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/getsentry/sentry-cli/releases/download/${version}/sentry-cli-${os}-${cpu}
+      - os:
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/getsentry/sentry-cli/releases/download/${version}/sentry-cli-${os}-${cpu}
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/getsentry/sentry-cli/releases/download/${version}/sentry-cli-${os}-${cpu}.exe
+tools:
+  definitions:
+    - name: sentry-cli
+      download: sentry-cli
+      known_good_version: 1.66.0
+      shims:
+        - name: sentry-cli
+          target: sentry-cli

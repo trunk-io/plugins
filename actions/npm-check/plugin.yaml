@@ -1,0 +1,15 @@
+version: 0.1
+actions:
+  definitions:
+    - id: npm-check
+      display_name: NPM Check
+      runtime: node
+      packages_file: package.json
+      triggers:
+        - schedule: 24h
+        - files: [package.json, package-lock.json]
+      run: node ${cwd}/npm_check.js
+      output_type: notification_v1
+      environment:
+        - name: NODE_PATH
+          value: ${linter}/node_modules

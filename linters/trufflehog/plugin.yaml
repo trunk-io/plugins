@@ -1,0 +1,85 @@
+version: 0.1
+downloads:
+  - name: trufflehog
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/trufflesecurity/trufflehog/releases/download/v${version}/trufflehog_${version}_${os}_${cpu}.tar.gz
+tools:
+  definitions:
+    - name: trufflehog
+      download: trufflehog
+      shims: [trufflehog]
+      known_good_version: 3.31.3
+lint:
+  definitions:
+    - name: trufflehog
+      files: [ALL]
+      tools: [trufflehog]
+      known_good_version: 3.31.3
+      known_bad_versions: [3.41.0, 3.45.0]
+      commands:
+        - name: lint
+          output: sarif
+          run: trufflehog filesystem --json --fail --no-verification --no-update ${target}
+          read_output_from: stdout
+          success_codes: [0, 183]
+          is_security: true
+          batch: true
+          cache_results: true
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+      suggest_if: files_present
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+      version_command:
+        parse_regex: trufflehog ${semver}
+        run: trufflehog --version
+
+    # Variant of trufflehog that scans git history.
+    - name: trufflehog-git
+      files: [ALL]
+      download: trufflehog
+      known_good_version: 3.40.0
+      known_bad_versions: [3.41.0]
+      hold_the_line: false
+      commands:
+        - name: lint
+          output: sarif
+          target: .
+          run:
+            trufflehog git --json --fail --no-verification --no-update file://${target}
+            --since-commit ${upstream-ref}
+          disable_upstream: true
+          read_output_from: stdout
+          success_codes: [0, 183]
+          is_security: true
+          cache_results: false
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+      suggest_if: never
+      environment:
+        - name: PATH
+          list: ["${linter}", "${env.PATH}"]
+      version_command:
+        parse_regex: trufflehog ${semver}
+        run: trufflehog --version
+
+actions:
+  definitions:
+    - id: trufflehog-pre-commit
+      description: Don't allow secrets in commits (via Trufflehog)
+      display_name: Trufflehog Pre-Commit Hook
+      run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog-git
+      interactive: optional
+      triggers:
+        - git_hooks: [pre-commit]
+      notify_on_error: false

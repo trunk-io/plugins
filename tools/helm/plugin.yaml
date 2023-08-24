@@ -1,0 +1,21 @@
+version: 0.1
+downloads:
+  - name: helm
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://get.helm.sh/helm-v${version}-${os}-${cpu}.tar.gz
+        strip_components: 1
+tools:
+  definitions:
+    - name: helm
+      download: helm
+      known_good_version: 3.9.4
+      shims:
+        - name: helm
+          target: helm

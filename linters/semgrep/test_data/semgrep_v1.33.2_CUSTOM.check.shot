@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter semgrep test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5",
+      "column": "12",
+      "file": "test_data/basic.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "semgrep",
+      "message": "Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.go",
+          "length": "9",
+          "offset": "89",
+        },
+      ],
+      "targetType": "ALL",
+    },
+    {
+      "code": "python.django.security.injection.code.globals-misuse-code-execution.globals-misuse-code-execution",
+      "column": "5",
+      "file": "test_data/request.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "semgrep",
+      "message": "Found request data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "ranges": [
+        {
+          "filePath": "test_data/request.py",
+          "length": "123",
+          "offset": "37",
+        },
+      ],
+      "targetType": "ALL",
+    },
+    {
+      "code": "python.lang.security.dangerous-globals-use.dangerous-globals-use",
+      "column": "16",
+      "file": "test_data/request.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "semgrep",
+      "message": "Found non static data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+      "ranges": [
+        {
+          "filePath": "test_data/request.py",
+          "length": "20",
+          "offset": "89",
+        },
+      ],
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/basic.go",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/element.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_go.go",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_js.js",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_py.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/request.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/basic.go",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/element.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_go.go",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_js.js",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/empty_py.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "ALL",
+      "linter": "semgrep",
+      "paths": [
+        "test_data/request.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,0 +1,22 @@
+version: 0.1
+downloads:
+  - name: terraform-docs
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/terraform-docs/terraform-docs/releases/download/v${version}/terraform-docs-v${version}-${os}-${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/terraform-docs/terraform-docs/releases/download/v${version}/terraform-docs-v${version}-${os}-${cpu}.zip
+tools:
+  definitions:
+    - name: terraform-docs
+      download: terraform-docs
+      known_good_version: 0.16.0
+      shims: [terraform-docs]

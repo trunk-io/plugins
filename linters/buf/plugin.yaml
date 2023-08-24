@@ -1,5 +1,6 @@
 version: 0.1
 lint:
+  # TODO(Tyler): This should be its own tool if we can avoid the eponymous pitfall
   downloads:
     - name: buf
       version: 1.0.0-rc11
@@ -11,15 +12,26 @@ lint:
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
         - os:
             linux: Linux
+          cpu:
+            x86_64: x86_64
+            arm_64: aarch64
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+        - os:
             macos: Darwin
           cpu:
             x86_64: x86_64
             arm_64: arm64
           url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+        - os: windows
+          cpu:
+            x86_64: x86_64
+            arm_64: arm64
+          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
   definitions:
     - name: buf-format
       files: [proto]
       download: buf
+      suggest_if: never
       commands:
         - name: format
           output: rewrite
@@ -35,7 +47,12 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       issue_url_format: https://docs.buf.build/lint/rules#{}
-      known_good_version: 1.2.0 # format subcommand was added in 1.2.0
+      direct_configs: [buf.yaml]
+      affects_cache:
+        - buf.lock
+        - buf.gen.yaml
+        - buf.work.yaml
+      known_good_version: 1.17.0 # format subcommand was added in 1.2.0
       version_command:
         parse_regex: ${semver}
         run: buf --version
@@ -49,8 +66,9 @@ lint:
           run: buf lint --path ${target} --error-format json
           success_codes: [0, 100]
           run_linter_from: root_file
-      run_from_root_file: buf.yaml
+          run_from_root_target: buf.yaml
       direct_configs: [buf.yaml]
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${linter}"]
@@ -58,7 +76,6 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       affects_cache:
-        - buf.yaml
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
@@ -71,14 +88,20 @@ lint:
     - name: buf-breaking
       files: [proto]
       download: buf
+      suggest_if: never
       commands:
         - name: lint
           output: buf
           target: ${root_or_parent_with(buf.work.yaml)}
-          run: buf breaking --against .git#branch=${upstream-ref} --error-format json
-          success_codes: [0, 100]
+          run:
+            buf breaking --against .git#branch=${upstream-ref} --error-format json
+            --disable-symlinks
+          success_codes: [0, 1, 100]
           run_linter_from: root_file
-      run_from_root_file: buf.work.yaml
+          # buf is configured to not follow symlinks, and relies on git state, so don't cache results
+          sandbox_type: copy_targets
+          cache_results: false
+          run_from_root_target: buf.work.yaml
       direct_configs: [buf.yaml, buf.work.yaml]
       environment:
         - name: PATH
@@ -88,13 +111,11 @@ lint:
           list: ["${env.BUF_TOKEN}"]
           optional: true
       affects_cache:
-        - buf.yaml
         - buf.lock
         - buf.gen.yaml
         - buf.work.yaml
-      is_recommended: false
       issue_url_format: https://docs.buf.build/breaking/rules#{}
-      known_good_version: 1.1.0
+      known_good_version: 1.5.0
       version_command:
         parse_regex: ${semver}
         run: buf --version

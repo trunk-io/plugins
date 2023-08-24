@@ -1,20 +1,13 @@
 import path from "path";
 import { customLinterCheckTest } from "tests";
-import { TrunkDriver } from "tests/driver";
+import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-const preCheck = (driver: TrunkDriver) => {
-  ["go.mod", ".golangci.yml"].forEach((file) => {
-    // trunk-ignore(semgrep): paths used here are safe
-    driver.moveFile(path.join(TEST_DATA, file), file);
-  });
-};
-
-customLinterCheckTest({ linterName: "golangci-lint", args: "-a -y", preCheck });
+customLinterCheckTest({ linterName: "golangci-lint", args: "-a -y" });
 
 // Adding an empty file will cause some other issues to be suppressed.
-const addEmpty = (driver: TrunkDriver) => {
-  driver.writeFile("empty.go", "");
+const addEmpty = (driver: TrunkLintDriver) => {
+  driver.writeFile(path.join(TEST_DATA, "empty.go"), "");
 };
 
 customLinterCheckTest({
@@ -25,7 +18,7 @@ customLinterCheckTest({
 });
 
 // Having an ignored file and no other files causes an error diagnostic to be surfaced.
-const setupUnbuildable = (driver: TrunkDriver) => {
+const setupUnbuildable = (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, "unbuildable.go"), "unbuildable.go");
   driver.deleteFile(TEST_DATA);
 };

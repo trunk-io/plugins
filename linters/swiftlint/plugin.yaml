@@ -1,18 +1,23 @@
 version: 0.1
-lint:
-  downloads:
+downloads:
+  - name: swiftlint
+    version: 0.49.1
+    downloads:
+      # macOS only, universal binary supports x86_64 and arm64
+      - os: macos
+        url: https://github.com/realm/SwiftLint/releases/download/${version}/portable_swiftlint.zip
+tools:
+  definitions:
     - name: swiftlint
-      version: 0.49.1
-      downloads:
-        # macOS only, universal binary supports x86_64 and arm64
-        - os: macos
-          url: https://github.com/realm/SwiftLint/releases/download/${version}/portable_swiftlint.zip
-
+      download: swiftlint
+      shims: [swiftlint]
+      known_good_version: 0.49.1
+lint:
   definitions:
     - name: swiftlint
       files:
         - swift
-      download: swiftlint
+      tools: [swiftlint]
       commands:
         - name: lint
           output: regex
@@ -28,6 +33,7 @@ lint:
         - .swiftlint.yml
         - .swiftlint.yaml
         - .swiftlint
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${linter}"]

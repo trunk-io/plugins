@@ -1,0 +1,43 @@
+version: 0.1
+downloads:
+  - name: gh
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.zip
+        strip_components: 1
+      # macOS releases since 2.28.0 started using .zip instead of .tar.gz
+      - os:
+          macos: macOS
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.zip
+        strip_components: 1
+        version: ">=2.28.0"
+      - os:
+          macos: macOS
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
+tools:
+  definitions:
+    - name: gh
+      download: gh
+      known_good_version: 2.27.0
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [gh]

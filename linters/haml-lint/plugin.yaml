@@ -1,4 +1,11 @@
 version: 0.1
+tools:
+  definitions:
+    - name: haml-lint
+      runtime: ruby
+      package: haml_lint
+      shims: [haml-lint]
+      known_good_version: 0.40.0
 lint:
   definitions:
     - name: haml-lint
@@ -12,10 +19,8 @@ lint:
           batch: true
           cache_results: false
       direct_configs: [.haml-lint.yml]
-      runtime: ruby
-      package: haml_lint
-      good_without_config: true
-      is_recommended: true
+      tools: [haml-lint]
+      suggest_if: files_present
       known_good_version: 0.40.0
       version_command:
         parse_regex: ${semver}

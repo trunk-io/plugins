@@ -29,21 +29,3 @@ export const getTrunkVersion = (): string => {
   const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string;
   return ARGS.cliVersion ?? repoCliVersion ?? "bad-version";
 };
-
-/**
- * Generate contents for a newly generated, empty trunk.yaml.
- */
-export const newTrunkYamlContents = (trunkVersion?: string): string => `version: 0.1
-cli:
-  version: ${trunkVersion ?? getTrunkVersion()}
-plugins:
-  sources:
-  - id: trunk
-    local: ${REPO_ROOT}
-lint:
-  ignore:
-    - linters: [ALL]
-      paths:
-        - tmp/**
-        - node_modules/**
-`;

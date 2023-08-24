@@ -1,8 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter cspell test basic 1`] = `
 {
   "issues": [
+    {
+      "code": "error",
+      "column": "1",
+      "file": ".trunk/trunk.yaml",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "cspell",
+      "message": "Unknown word (runtimes) Suggestions: [runtime, runtiness, runtiest, runtier, rutiles]",
+      "targetType": "ALL",
+    },
     {
       "code": "error",
       "column": "6",
@@ -320,15 +331,6 @@ exports[`Testing linter cspell test basic 1`] = `
       "linter": "cspell",
       "paths": [
         "cspell.test.ts",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "ALL",
-      "linter": "cspell",
-      "paths": [
-        "cspell.yaml",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
