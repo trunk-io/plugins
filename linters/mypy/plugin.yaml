@@ -11,24 +11,32 @@ lint:
     - name: mypy
       files: [python, python-interface]
       commands:
-        # - name: lint
-        #   # Custom parser type defined in the trunk cli to handle mypy's output.
-        #   output: mypy
-        #   run:
-        #     mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
-        #     --show-column-numbers ${target}
-        #   success_codes: [0, 1]
-        #   stdin: false
-        - name: lint-ci
+        - name: lint
           # Custom parser type defined in the trunk cli to handle mypy's output.
+          output: mypy
+          run:
+            mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
+            --show-column-numbers ${target}
+          success_codes: [0, 1]
+          stdin: false
+        - name: lint-ci-all
+          # special command (disabled by default) to run mypy on entire python codebase when a python file changes
+          # allows dependent un-changed files to be checked vs. normal run that only checks changed files
+          # to enable add command to enabled list like this:
+          #
+          # enabled:
+          #   - mypy@1.5.1:
+          #       commands: [lint, lint-ci-all]
+          #
           output: mypy
           run:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
             --show-column-numbers ${workspace}
           success_codes: [0, 1]
           stdin: false
-          target: ${root_or_parent_with(file_that_will_never_exist)}
+          target: ${root_or_parent_with(ROOT_OF_PYTHON_CODE)}
           run_when: [ci]
+          enabled: false
       runtime: python
       package: mypy
       tools: [mypy]
@@ -40,34 +48,7 @@ lint:
         - setup.cfg
       suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
-      known_good_version: 0.931
+      known_good_version: 1.5.1
       version_command:
         parse_regex: ${semver}
         run: mypy --version
-    # - name: mypy-all
-    #   files: [python]
-    #   commands:
-    #     - name: lint
-    #       # Custom parser type defined in the trunk cli to handle mypy's output.
-    #       output: mypy
-    #       run:
-    #         mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
-    #         --show-column-numbers
-    #       success_codes: [0, 1]
-    #       stdin: false
-    #       target: ${root_or_parent_with(file_that_will_never_exist)}
-    #   runtime: python
-    #   package: mypy
-    #   run_when: [ci, cli]
-    #   direct_configs:
-    #     - mypy.ini
-    #     - .mypy.ini
-    #   affects_cache:
-    #     - pyproject.toml
-    #     - setup.cfg
-    #   is_recommended: false
-    #   issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
-    #   known_good_version: 0.931
-    #   version_command:
-    #     parse_regex: ${semver}
-    #     run: mypy --version

@@ -20,10 +20,11 @@ plugins:
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
   enabled:
-    - mypy@1.5.1
+    - mypy@1.5.1:
+        commands: [lint, ci-all]
+
   disabled:
     - pylint # pylint diagnostics are too strict
-
 
   ignore:
     - linters: [ALL]
