@@ -19,9 +19,7 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-  enabled:
-    - mypy@1.5.1:
-        commands: [lint, ci-all]
+  enabled: []
 
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -31,9 +29,6 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
-    - linters: [mypy]
-      paths:
-        - "**/test_data/autopep8/**"
 
 actions:
   definitions:
