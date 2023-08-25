@@ -16,7 +16,14 @@ const moveConfig = (driver: TrunkLintDriver) => {
 const preCheck = (driver: TrunkLintDriver) => {
   moveConfig(driver);
   // TODO(Tyler): Cache node_modules between runs
-  execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
+  try {
+    driver.debug("About to install eslint deps");
+    execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
+  } catch (err: any) {
+    console.warn("Error installing eslint deps");
+    console.warn(err);
+    throw err;
+  }
 };
 
 // This set of testing is incomplete with regard to failure modes and unicode autofixes with eslint, but it serves as a sampling

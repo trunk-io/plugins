@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "^5.50.0",
     "caller": "^1.1.0",
     "debug": "^4.3.4",
-    "eslint": "^8.30.0",
+    "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
