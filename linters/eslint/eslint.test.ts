@@ -2,9 +2,9 @@ import { execSync } from "child_process";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
 
-const INSTALL_TIMEOUT = 60000;
+const INSTALL_TIMEOUT = 90000 * osTimeoutMultiplier;
 
 const moveConfig = (driver: TrunkLintDriver) => {
   [".eslintrc.yaml", "package.json"].forEach((file) => {

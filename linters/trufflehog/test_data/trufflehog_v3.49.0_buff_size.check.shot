@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trufflehog test buff_size 1`] = `
+{
+  "issues": [
+    {
+      "code": "URI",
+      "file": "test_data/buff_size.in.cc",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "200",
+      "linter": "trufflehog",
+      "message": "Secret detected: https://gitlab-ci-token:********@gitlab.com",
+      "targetType": "ALL",
+    },
+    {
+      "code": "URI",
+      "file": "test_data/buff_size.in.cc",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "232",
+      "linter": "trufflehog",
+      "message": "Secret detected: https://gitlab-ci-token:********@gitlab.com",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trufflehog",
+      "paths": [
+        "test_data/buff_size.in.cc",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trufflehog test buff_size 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trufflehog",
+      "paths": [
+        "test_data/buff_size.in.cc",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
