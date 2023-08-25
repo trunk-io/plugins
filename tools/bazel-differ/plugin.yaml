@@ -7,4 +7,4 @@ tools:
       known_good_version: 0.0.5
       shims:
         - name: bazel-differ
-          target: bazel-differ
+          target: cli
