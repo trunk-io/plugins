@@ -4,8 +4,14 @@ downloads:
     executable: true
     downloads:
       - os:
-          linux: linux
           macos: darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/ewhauser/bazel-differ/releases/download/v${version}/bazel-differ-${os}-${cpu}
+        version: "<=0.0.6"
+      - os:
+          linux: linux
         cpu:
           x86_64: x86_64
           arm_64: arm64
