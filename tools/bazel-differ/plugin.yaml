@@ -9,7 +9,7 @@ downloads:
           x86_64: x86_64
           arm_64: arm64
         url: https://github.com/ewhauser/bazel-differ/releases/download/v${version}/bazel-differ-${os}-${cpu}
-        version: "<=0.0.6"
+        version: <=0.0.6
       - os:
           linux: linux
         cpu:
