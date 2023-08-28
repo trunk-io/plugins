@@ -21,7 +21,7 @@ lint:
           list: ["${env.PATH}"]
         - name: GO111MODULE
           value: auto
-        # May need to git clone with ssh authenticaion for private packages.
+        # May need to git clone with ssh authentication for private packages.
         - name: SSH_AUTH_SOCK
           value: ${env.SSH_AUTH_SOCK}
           optional: true
