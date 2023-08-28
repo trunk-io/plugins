@@ -199,6 +199,8 @@ lint:
 
   getShims(): string[] {
     // get the full trunk config
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     const fullTrunkConfig = this.getFullTrunkConfig();
     // get the tool definition
     const toolDefinition = fullTrunkConfig.tools.definitions.find(
@@ -206,6 +208,8 @@ lint:
     );
     // get the shims
     const shims = toolDefinition?.shims ?? [];
-    return shims.map(({ name }: { name: string }) => name);
+    return shims.map(({ name }: { name: string }) => name) as string[];
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
   }
 }
