@@ -103,21 +103,23 @@ lint:
       }
 
       // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "install", "--ci"]);
+      await this.runTrunk(["tools", "install", this.tool, "--ci"]);
       const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
         ? "dev-tools"
         : "tools";
-      if (
-        !fs.existsSync(
-          path.resolve(
-            this.sandboxPath,
-            ".trunk",
-            tools_subdir,
-            `${this.tool}${process.platform == "win32" ? ".bat" : ""}`,
-          ),
-        )
-      ) {
-        throw new Error(`Could not install or find installed ${this.tool}`);
+      for (const shim of this.getShims()) {
+        if (
+          !fs.existsSync(
+            path.resolve(
+              this.sandboxPath,
+              ".trunk",
+              tools_subdir,
+              `${shim}${process.platform == "win32" ? ".bat" : ""}`,
+            ),
+          )
+        ) {
+          throw new Error(`Could not install or find installed ${shim}`);
+        }
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
@@ -193,5 +195,21 @@ lint:
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
     }
+  }
+
+  getShims(): string[] {
+    // get the full trunk config
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    const fullTrunkConfig = this.getFullTrunkConfig();
+    // get the tool definition
+    const toolDefinition = fullTrunkConfig.tools.definitions.find(
+      ({ name }: { name: string }) => name === this.tool,
+    );
+    // get the shims
+    const shims = toolDefinition?.shims ?? [];
+    return shims.map(({ name }: { name: string }) => name) as string[];
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
   }
 }
