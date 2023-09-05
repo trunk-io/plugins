@@ -167,6 +167,56 @@ jobs:
             needs.detect_changes.outputs.tools-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
+  # Run Windows tests for modified linters and tools
+  # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
+  windows_linter_tests:
+    name: Windows Linter Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.linters == 'true'
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Cache tool downloads
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
+
+      - name: Linter Tests
+        # Run tests using Latest with any modified linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  windows_tool_tests:
+    name: Windows Tool Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.tools == 'true'
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Cache tool downloads
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
+
+      - name: Tool Tests
+        # Run tests using KnownGoodVersion with any modified tools
+        uses: ./.github/actions/tool_tests
+        with:
+          append-args: ${{needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
   # Run repo healthcheck tests
   repo_tests:
     name: Repo Tests
