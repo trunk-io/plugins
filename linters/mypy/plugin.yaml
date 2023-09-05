@@ -20,7 +20,7 @@ lint:
           success_codes: [0, 1]
           stdin: false
         - name: lint-ci-all
-          # special command (disabled by default) to run mypy on entire python codebase when a python file changes
+          # Run mypy on entire python codebase (ci only) when a python file changes
           # allows dependent un-changed files to be checked vs. normal run that only checks changed files
           # to enable add command to enabled list like this:
           #
