@@ -53,12 +53,12 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
-| Javascript      | [eslint], [prettier], [rome], [semgrep]                                                                              |
-| JSON            | [eslint], [prettier], [semgrep]                                                                                      |
+| Javascript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
+| JSON            | [deno], [eslint], [prettier], [semgrep]                                                                              |
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                            |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
-| Markdown        | [markdownlint], [remark-lint]                                                                                        |
+| Markdown        | [deno], [markdownlint], [remark-lint]                                                                                |
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
@@ -78,7 +78,7 @@ trunk check enable {linter}
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
-| Typescript      | [eslint], [prettier], [rome], [semgrep]                                                                              |
+| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                    |
 
 [actionlint]: https://github.com/rhysd/actionlint#readme
@@ -98,6 +98,7 @@ trunk check enable {linter}
 [codespell]: https://github.com/codespell-project/codespell#readme
 [cspell]: https://github.com/streetsidesoftware/cspell#readme
 [cue-fmt]: https://cuelang.org/
+[deno]: https://deno.land/manual
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme

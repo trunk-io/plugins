@@ -1,0 +1,46 @@
+version: 0.1
+downloads:
+  - name: deno
+    downloads:
+      - os:
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
+      - os:
+          linux: unknown-linux-gnu
+          windows: pc-windows-msvc
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
+tools:
+  definitions:
+    - name: deno
+      download: deno
+      known_good_version: 1.36.4
+      shims:
+        - name: deno
+          target: deno
+lint:
+  definitions:
+    - name: deno
+      files: [javascript, typescript, markdown, json]
+      commands:
+        - name: format
+          output: rewrite
+          run: deno fmt ${target}
+          success_codes: [0, 1]
+          cache_results: true
+          formatter: true
+          batch: true
+          in_place: true
+      tools: [deno]
+      suggest_if: config_present
+      direct_configs:
+        - deno.json
+        - deno.jsonc
+      known_good_version: 1.36.4
+      version_command:
+        parse_regex: deno ${semver} .*
+        run: deno --version
