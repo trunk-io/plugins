@@ -4,11 +4,15 @@ downloads:
     downloads:
       - os:
           macos: apple-darwin
-          linux: unknown-linux-gnu
-          windows: windows-msvc
         cpu:
           x86_64: x86_64
           arm_64: aarch64
+        url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
+      - os:
+          linux: unknown-linux-gnu
+          windows: pc-windows-msvc
+        cpu:
+          x86_64: x86_64
         url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
 tools:
   definitions:
