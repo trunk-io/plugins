@@ -74,6 +74,3 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
-tools:
-  enabled:
-    - yarn@1.23.0
