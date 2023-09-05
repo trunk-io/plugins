@@ -1,5 +1,4 @@
 import { makeToolTestConfig, toolTest } from "tests";
-import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "yarn",
