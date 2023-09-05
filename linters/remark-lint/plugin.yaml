@@ -40,6 +40,7 @@ lint:
             runtime: python
             run: python3 ${cwd}/parse.py
       symlinks:
+        # TODO(Tyler): Remove this block once we can do hierarchical sandboxes.
         # symlink the tool node_modules into the sandbox. this enables
         # the hermetic tool to run correctly with plugins
         - from: ${linter_dir}/node_modules
