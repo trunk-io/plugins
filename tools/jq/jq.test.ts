@@ -11,3 +11,10 @@ toolTest({
   testConfigs: [makeToolTestConfig({ command: ["jq", "--version"], expectedOut: "jq-1.6" })],
   skipTestIf: skipTestIfLambda,
 });
+
+toolTest({
+  toolName: "jq",
+  toolVersion: "1.5",
+  testConfigs: [makeToolTestConfig({ command: ["jq", "--version"], expectedOut: "jq-1.5" })],
+  skipTestIf: skipTestIfLambda,
+});
