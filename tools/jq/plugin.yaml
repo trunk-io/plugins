@@ -1,0 +1,27 @@
+version: 0.1
+downloads:
+  - name: jq
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+        url: https://github.com/jqlang/jq/releases/download/jq-${version}/jq-linux64
+        version: <=1.6.0
+      - os:
+          macos: darwin
+        url: https://github.com/jqlang/jq/releases/download/jq-${version}/jq-osx-amd64
+        version: <=1.6.0
+      - os:
+          windows: win
+        url: https://github.com/jqlang/jq/releases/download/jq-${version}/jq-win64.exe
+        version: <=1.6.0
+tools:
+  definitions:
+    - name: jq
+      known_good_version: 1.6
+      download: jq
+      shims:
+        - name: jq
+          target: jq
