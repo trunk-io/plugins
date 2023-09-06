@@ -5,7 +5,7 @@ cli:
   version: 1.14.2
 
 api:
-  address: api.trunk-staging.io:8443
+  # address: api.trunk-staging.io:8443
   org: trunk-staging-org
 
 plugins:
