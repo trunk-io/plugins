@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter ktlint test complex 1`] = `
+"class TestBaselineExtraErrorFile {
+  { }}
+}
+"
+`;
