@@ -1,0 +1,24 @@
+version: 0.1
+downloads:
+  - name: deno
+    downloads:
+      - os:
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
+      - os:
+          linux: unknown-linux-gnu
+          windows: pc-windows-msvc
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/denoland/deno/releases/download/v${version}/deno-${cpu}-${os}.zip
+tools:
+  definitions:
+    - name: deno
+      download: deno
+      known_good_version: 1.36.4
+      shims:
+        - name: deno
+          target: deno
