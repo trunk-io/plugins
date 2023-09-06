@@ -19,9 +19,7 @@ tools:
     - name: deno
       download: deno
       known_good_version: 1.36.4
-      shims:
-        - name: deno
-          target: deno
+      shims: [deno]
 lint:
   definitions:
     - name: deno
