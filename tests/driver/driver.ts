@@ -283,10 +283,8 @@ export abstract class GenericTrunkDriver {
    * Return the yaml result of parsing the output of `trunk config print` in the test sandbox.
    */
   getFullTrunkConfig = (): any => {
-    const printConfig = execSync(`${ARGS.cliPath ?? "trunk"} config print`, {
-      cwd: this.sandboxPath,
-      env: executionEnv(this.sandboxPath ?? ""),
-    });
+    const [executable, args, options] = this.buildExecArgs(["config", "print"]);
+    const printConfig = execSync([executable, ...args].join(" "), options);
     return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
   };
 
