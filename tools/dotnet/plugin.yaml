@@ -1,0 +1,36 @@
+version: 0.1
+downloads:
+  - name: dotnet
+    version: 7.0.400
+    # This list comes from https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+    # Microsoft does not provide a URL directly to the downloads that easily supports version matching with our schema.
+    downloads:
+      - os: linux
+        cpu: x86_64
+        url: https://download.visualstudio.microsoft.com/download/pr/dbfe6cc7-dd82-4cec-b267-31ed988b1652/c60ab4793c3714be878abcb9aa834b63/dotnet-sdk-7.0.400-linux-x64.tar.gz
+        version: 7.0.400
+      - os: linux
+        cpu: arm_64
+        url: https://download.visualstudio.microsoft.com/download/pr/16b0b1af-6eab-4f9e-b9a4-9b29f6a1d681/4624e54b61cae05b1025211482f9c5e9/dotnet-sdk-7.0.400-linux-arm64.tar.gz
+        version: 7.0.400
+      - os: macos
+        cpu: x86_64
+        url: https://download.visualstudio.microsoft.com/download/pr/1a603c4a-7e79-44ef-8e09-426a2c1c6e60/eb3dea0e50d73fbf28edf88aa8378e38/dotnet-sdk-7.0.400-osx-x64.tar.gz
+        version: 7.0.400
+      - os: linux
+        cpu: arm_64
+        url: https://download.visualstudio.microsoft.com/download/pr/3df92af2-c066-403b-ae65-10b7ec879b32/a4a5a807d92510d5b74ee8fef9b2babd/dotnet-sdk-7.0.400-osx-arm64.tar.gz
+        version: 7.0.400
+      - os: windows
+        cpu: x86_64
+        url: https://download.visualstudio.microsoft.com/download/pr/0f17575a-a6b0-4365-9b79-64db70022d23/56e0da10678e4b2cad0cba0a83a561af/dotnet-sdk-7.0.400-win-x86.zip
+        version: 7.0.400
+tools:
+  definitions:
+    - name: dotnet
+      download: dotnet
+      shims: [dotnet]
+      known_good_version: 7.0.400
+      environment:
+        - name: DOTNET_ROOT
+          value: ${linter}

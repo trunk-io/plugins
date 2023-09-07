@@ -3,9 +3,12 @@ lint:
   definitions:
     - name: dotnet-format
       files: [c#]
+      tools: [dotnet]
+      # NOTE(Tyler): dotnet and dotnet-format are versioned differently, so the version here is actually the dotnet version. We could specify a verison in a post-install hook via https://download.visualstudio.microsoft.com/download/pr/0f17575a-a6b0-4365-9b79-64db70022d23/56e0da10678e4b2cad0cba0a83a561af/dotnet-sdk-7.0.400-win-x86.zip, but we don't support that yet.
+      known_good_version: 7.0.400
       commands:
         - name: format
-          run: /home/tyler/repos/plugins/dotnet-format --include ${target}
+          run: dotnet format --include ${target}
           output: rewrite
           in_place: true
           formatter: true
