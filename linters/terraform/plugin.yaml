@@ -10,7 +10,7 @@ lint:
           output: terraform_validate
           target: ${parent}
           run: terraform validate -json
-          run_linter_from: directory
+          run_from: ${directory}
           success_codes: [0, 1]
           enabled: false
         - name: fmt

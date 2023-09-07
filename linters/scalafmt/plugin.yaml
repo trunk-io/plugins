@@ -33,8 +33,7 @@ lint:
           output: rewrite
           run: scalafmt --stdin --stdout
           success_codes: [0]
-          run_linter_from: root_file
-          run_from_root_target: .scalafmt.conf
+          run_from: ${root_or_parent_with(.scalafmt.conf)}
           stdin: true
           cache_results: true
           formatter: true

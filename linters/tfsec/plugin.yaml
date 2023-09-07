@@ -34,7 +34,7 @@ lint:
           output: sarif
           target: ${parent}
           run: tfsec ${target} --format=sarif --ignore-hcl-errors
-          run_linter_from: directory
+          run_from: ${directory}
           is_security: true
           success_codes: [0, 1]
           read_output_from: stdout

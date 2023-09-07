@@ -18,7 +18,7 @@ lint:
             "((?P<path>.*):(?P<line>-?\\d+):(?P<col>-?\\d+): (?P<code>\\S+) (?P<message>.+))"
           batch: true
           read_output_from: tmp_file
-          run_linter_from: parent_directory
+          run_from: ${parent}
           success_codes: [0]
           cache_results: true
       tools: [flake8]

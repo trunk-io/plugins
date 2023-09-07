@@ -40,7 +40,7 @@ lint:
           run: clang-tidy --export-fixes=${tmpfile} ${target} -p ${compile_commands_dir}
           success_codes: [0, 1]
           cache_results: true
-          run_linter_from: compile_command
+          run_from: ${compile_command}
           read_output_from: tmp_file
       tools: [clang-tidy]
       suggest_if: config_present
