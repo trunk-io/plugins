@@ -38,6 +38,9 @@ lint:
           is_security: true
           success_codes: [0, 1]
           read_output_from: stdout
+          parser:
+            runtime: python
+            run: python3 ${cwd}/parse.py
       environment:
         - name: PATH
           list: ["${linter}"]
