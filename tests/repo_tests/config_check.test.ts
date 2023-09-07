@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import path from "path";
 import { setupDriver } from "tests";
-import { REPO_ROOT } from "tests/utils";
+import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 
 // Avoid strictly typing composite config
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
@@ -9,6 +9,8 @@ import { REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
+
+jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
 
 /**
  * This test runs 'trunk config print' from the root of the repository to verify a healthy config.
