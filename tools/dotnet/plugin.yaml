@@ -34,3 +34,6 @@ tools:
       environment:
         - name: DOTNET_ROOT
           value: ${linter}
+        - name: USERPROFILE
+          value: ${env.USERPROFILE}
+          optional: true

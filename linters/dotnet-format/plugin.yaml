@@ -8,7 +8,7 @@ lint:
       known_good_version: 7.0.400
       commands:
         - name: format
-          run: dotnet format --include ${target}
+          run: dotnet format --no-restore --include ${target}
           output: rewrite
           in_place: true
           formatter: true
