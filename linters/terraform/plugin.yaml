@@ -63,7 +63,6 @@ lint:
       files: [terraform]
       type: terraform_validate
       command: [terraform, validate, -json]
-      run_linter_from: directory
       download: terraform
       success_codes: [0, 1]
       environment:
