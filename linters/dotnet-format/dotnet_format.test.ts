@@ -9,5 +9,6 @@ customLinterFmtTest({
   pathsToSnapshot: [
     path.join(TEST_DATA, "basic/basic.in.cs"),
     path.join(TEST_DATA, "basic/Program.cs"),
+    path.join(TEST_DATA, "second_one/Program.cs"),
   ],
 });

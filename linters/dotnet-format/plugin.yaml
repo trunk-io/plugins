@@ -5,15 +5,13 @@ lint:
       files: [c#]
       commands:
         - name: format
-          run: dotnet format --include ${target}
+          run: /home/tyler/repos/plugins/dotnet-format --include ${target}
           output: rewrite
           in_place: true
           formatter: true
-          run_linter_from: root_file
           batch: true
           success_codes: [0]
-          # TODO: Tyler Add Regex Support
-          run_from_root_target: basic.csproj
+          run_from: ${root_or_parent_with_regex((.+\.csproj)|(.+\.sln))}
       affects_cache:
         - buf.lock
         - .editorconfig
