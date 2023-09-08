@@ -18,7 +18,7 @@ lint:
           target: ${parent_with(app)}
           run: brakeman -f sarif --no-pager
           success_codes: [0, 1, 3]
-          run_from: ${directory}
+          run_from: ${target_directory}
         - name: lint
           # Custom parser type defined in the trunk cli to handle brakeman's JSON output.
           output: brakeman
