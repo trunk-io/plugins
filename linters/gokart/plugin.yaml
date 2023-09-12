@@ -11,7 +11,7 @@ lint:
     - name: gokart
       files: [go]
       tools: [gokart]
-      suggest_if: files_present
+      suggest_if: config_present
       environment:
         - name: PATH
           list: ["${linter}"]
