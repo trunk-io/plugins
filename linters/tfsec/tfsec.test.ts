@@ -1,2 +1,2 @@
-import { linterCheckTest } from "tests";
-linterCheckTest({ linterName: "tfsec" });
+import { customLinterCheckTest } from "tests";
+customLinterCheckTest({ linterName: "tfsec", args: "-a", testName: "basic" });
