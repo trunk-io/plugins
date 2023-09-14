@@ -24,7 +24,6 @@ export const executionEnv = (sandbox: string) => {
     ...strippedEnv,
     // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: DOWNLOAD_CACHE,
-    TRUNK_TELEMETRY: "off",
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
   };
