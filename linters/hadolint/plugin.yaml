@@ -38,6 +38,7 @@ lint:
           run: hadolint ${target} -f json --no-fail
           success_codes: [0]
           cache_results: true
+      run_timeout: 1m
       direct_configs:
         - .hadolint.yaml
         - .hadolint.yml
