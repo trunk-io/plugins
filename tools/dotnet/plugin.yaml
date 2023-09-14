@@ -17,7 +17,7 @@ downloads:
         cpu: x86_64
         url: https://download.visualstudio.microsoft.com/download/pr/1a603c4a-7e79-44ef-8e09-426a2c1c6e60/eb3dea0e50d73fbf28edf88aa8378e38/dotnet-sdk-7.0.400-osx-x64.tar.gz
         version: 7.0.400
-      - os: linux
+      - os: macos
         cpu: arm_64
         url: https://download.visualstudio.microsoft.com/download/pr/3df92af2-c066-403b-ae65-10b7ec879b32/a4a5a807d92510d5b74ee8fef9b2babd/dotnet-sdk-7.0.400-osx-arm64.tar.gz
         version: 7.0.400
