@@ -29,7 +29,6 @@ lint:
           formatter: true
           stdin: true
           success_codes: [0, 1]
-      run_linter_from: workspace
       suggest_if: config_present
       known_good_version: 0.17.0
       direct_configs:

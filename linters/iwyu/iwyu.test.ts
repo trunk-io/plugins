@@ -17,7 +17,7 @@ const preCheck = (driver: TrunkLintDriver) => {
     - name: include-what-you-use
       commands:
         - name: lint
-          run_linter_from: compile_command
+          run_from: compile_command
           run: include-what-you-use -Xiwyu --no_fwd_decls \${compile_command}
           disable_upstream: true
           cache_results: false

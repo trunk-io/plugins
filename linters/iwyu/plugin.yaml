@@ -32,7 +32,7 @@ lint:
       tools: [include-what-you-use]
       commands:
         - name: lint
-          run_linter_from: compile_command
+          run_from: compile_command
           run: include-what-you-use -Xiwyu --no_fwd_decls "${compile_command}"
           # Custom parser type defined in the trunk cli to handle iwyu's output.
           output: iwyu
