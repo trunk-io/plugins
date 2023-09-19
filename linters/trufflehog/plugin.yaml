@@ -26,7 +26,9 @@ lint:
       commands:
         - name: lint
           output: sarif
-          run: trufflehog filesystem --json --fail --no-verification --no-update ${target}
+          run:
+            trufflehog filesystem --json --fail --no-verification --no-update
+            --exclude-detectors=PagerDutyApiKey ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
