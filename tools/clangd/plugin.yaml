@@ -1,0 +1,22 @@
+version: 0.1
+downloads:
+  - name: clangd
+    downloads:
+      - os:
+          linux: linux
+          macos: mac
+          windows: windows
+        url: https://github.com/clangd/clangd/releases/download/${version}/clangd-${os}-${version}.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: clangd
+      known_good_version: 16.0.2
+      download: clangd
+      shims: [clangd]
+      environment:
+        - name: PATH
+          value: ${tool}/bin
+      health_checks:
+        - command: clangd --version
+          parse_regex: clangd version ${semver}

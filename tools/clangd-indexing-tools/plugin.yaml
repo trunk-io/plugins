@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: clangd-indexing-tools
+    downloads:
+      - os:
+          linux: linux
+          macos: mac
+          windows: windows
+        url: https://github.com/clangd/clangd/releases/download/${version}/clangd_indexing_tools-${os}-${version}.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: clangd-indexing-tools
+      known_good_version: 16.0.2
+      download: clangd-indexing-tools
+      shims: [clangd-indexer, clangd-index-server, clangd-index-server-monitor]
+      environment:
+        - name: PATH
+          value: ${tool}/bin
+      health_checks:
+        - command: clangd-indexer --version
+          parse_regex: LLVM version ${semver}
+        - command: clangd-index-server --version
+          parse_regex: LLVM version ${semver}
+        - command: clangd-index-server-monitor --version
+          parse_regex: LLVM version ${semver}

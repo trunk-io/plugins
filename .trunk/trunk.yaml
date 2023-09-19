@@ -74,3 +74,7 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
+tools:
+  enabled:
+    - clangd-indexing-tools@16.0.2
+    - clangd@16.0.2
