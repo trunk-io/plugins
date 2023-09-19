@@ -28,7 +28,7 @@ lint:
     - name: actionlint
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
-      tools: [actionlint]
+      tools: [actionlint, shellcheck]
       commands:
         - name: lint
           output: actionlint
