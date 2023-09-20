@@ -16,12 +16,13 @@ describe("All linters must have tests", () => {
   const stdout = execSync("npm test -- --listTests", { cwd: REPO_ROOT }).toString();
   const testFiles = stdout
     .split("\n")
-    .filter((file) => file.startsWith("/"))
+    .filter((file) => file.startsWith("/") || file.match(/[A-Z]:\\/))
     .map((file) => path.relative(REPO_ROOT, file));
 
   // Key the tests by their linter subdirectory
   const testDirMap = testFiles.reduce((accumulator: Map<string, string[]>, file: string) => {
-    const linterSubdir = file.match(/linters\/[^/]+/);
+    const linterSubdir =
+      process.platform === "win32" ? file.match(/linters\\[^\\]+/) : file.match(/linters\/[^/]+/);
     if (linterSubdir) {
       const matches = accumulator.get(linterSubdir[0]) ?? [];
       accumulator.set(linterSubdir[0], [...matches, file]);
