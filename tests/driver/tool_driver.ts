@@ -77,7 +77,6 @@ lint:
    * 1. Creating a git repo
    * 2. Dumping a newly generated trunk.yaml
    * 3. Enabling the specified 'tool'
-   * 4. Sync to make sure it's available
    */
   async setUp() {
     await super.setUp();

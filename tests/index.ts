@@ -246,7 +246,7 @@ const runInstall = async (
   exitCode: number;
 }> => {
   try {
-    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName]);
+    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
     return { exitCode: 0, stdout, stderr };
   } catch (e: any) {
     // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
@@ -254,6 +254,11 @@ const runInstall = async (
   }
 };
 
+// NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
+// in case of tools with configured health checks, this should be a sufficient amount of testing. If not
+// the regular toolTest framework allows running arbitrary commands with the tool.
+// If this is deemed to provide sufficient test coverage it will become the sole tool testing framework
+// going forward.
 export const toolInstallTest = ({
   toolName,
   toolVersion,
