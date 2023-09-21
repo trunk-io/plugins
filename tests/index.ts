@@ -243,12 +243,13 @@ const runInstall = async (
 ): Promise<{
   stdout: string;
   stderr: string;
-  exitCode: Number;
+  exitCode: number;
 }> => {
   try {
     const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName]);
     return { exitCode: 0, stdout, stderr };
   } catch (e: any) {
+    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
     return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
   }
 };
