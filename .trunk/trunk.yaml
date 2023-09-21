@@ -76,5 +76,6 @@ actions:
     - tool-test-helper
 tools:
   enabled:
+    - bazel@6.3.2
     - clangd-indexing-tools@16.0.2
     - clangd@16.0.2

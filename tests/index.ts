@@ -152,6 +152,35 @@ export const setupTrunkToolDriver = (
       await preCheck(driver);
       driver.debug("Finished running custom preCheck hook");
     }
+    await driver.setUpWithInstall();
+  });
+
+  afterAll(() => {
+    driver.tearDown();
+  });
+  return driver;
+};
+
+export const setUpTrunkToolDriverForHealthCheck = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  toolName?: string,
+  version?: string,
+  preCheck?: ToolTestCallback,
+): TrunkToolDriver => {
+  const driver = new TrunkToolDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    toolName,
+    version,
+  );
+
+  beforeAll(async () => {
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
     await driver.setUp();
   });
 
@@ -205,6 +234,46 @@ export const toolTest = ({
         expect(exitCode).toEqual(expectedExitCode);
       });
     });
+  });
+};
+
+const runInstall = async (
+  driver: TrunkToolDriver,
+  toolName: string,
+): Promise<{
+  stdout: string;
+  stderr: string;
+  exitCode: Number;
+}> => {
+  try {
+    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName]);
+    return { exitCode: 0, stdout, stderr };
+  } catch (e: any) {
+    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+  }
+};
+
+export const toolInstallTest = ({
+  toolName,
+  toolVersion,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  toolName: string;
+  toolVersion: string;
+  dirName?: string;
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: ToolTestCallback;
+}) => {
+  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
+  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
+    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
+    expect(exitCode).toEqual(0);
+    expect(stdout).toContain(toolName);
+    expect(stdout).toContain(toolVersion);
+    expect(stderr).toEqual("");
+    expect(stdout).not.toContain("Failures:");
   });
 };
 
