@@ -45,7 +45,7 @@ lint:
       suggest_if: files_present
       environment:
         - name: PATH
-          list: ["${linter}"]    
+          list: ["${linter}"]
       version_command:
         parse_regex: "version: ${version}"
         run: osv-scanner --version
