@@ -119,6 +119,7 @@ lint:
   async installTool() {
     // Enable tested tool if specified
     if (!this.tool || !this.sandboxPath) {
+      console.error("Tool or sandbox path not specified - we should not be here!");
       return;
     }
     try {
@@ -141,6 +142,7 @@ lint:
           throw new Error(`Could not install or find installed ${shim}`);
         }
       }
+      this.debug("Installed %s", this.tool);
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
       if ("stdout" in (error as any)) {

@@ -209,6 +209,35 @@ export const makeToolTestConfig = ({
   expectedExitCode,
 });
 
+// NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
+// in case of tools with configured health checks, this should be a sufficient amount of testing. If not
+// the regular toolTest framework allows running arbitrary commands with the tool.
+// If this is deemed to provide sufficient test coverage it will become the sole tool testing framework
+// going forward.
+export const toolInstallTest = ({
+  toolName,
+  toolVersion,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  toolName: string;
+  toolVersion: string;
+  dirName?: string;
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: ToolTestCallback;
+}) => {
+  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
+  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
+    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
+    expect(exitCode).toEqual(0);
+    expect(stdout).toContain(toolName);
+    expect(stdout).toContain(toolVersion);
+    expect(stderr).toEqual("");
+    expect(stdout).not.toContain("Failures:");
+  });
+};
+
 export const toolTest = ({
   toolName,
   toolVersion,
@@ -252,35 +281,6 @@ const runInstall = async (
     // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
     return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
   }
-};
-
-// NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
-// in case of tools with configured health checks, this should be a sufficient amount of testing. If not
-// the regular toolTest framework allows running arbitrary commands with the tool.
-// If this is deemed to provide sufficient test coverage it will become the sole tool testing framework
-// going forward.
-export const toolInstallTest = ({
-  toolName,
-  toolVersion,
-  dirName = path.dirname(caller()),
-  skipTestIf = (_version?: string) => false,
-  preCheck,
-}: {
-  toolName: string;
-  toolVersion: string;
-  dirName?: string;
-  skipTestIf?: (version?: string) => boolean;
-  preCheck?: ToolTestCallback;
-}) => {
-  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
-  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
-    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain(toolName);
-    expect(stdout).toContain(toolVersion);
-    expect(stderr).toEqual("");
-    expect(stdout).not.toContain("Failures:");
-  });
 };
 
 // TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
