@@ -45,6 +45,9 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
+        - name: GOROOT
+          value: ${env.GOROOT}
+          optional: true          
       version_command:
         parse_regex: "version: ${version}"
         run: osv-scanner --version
