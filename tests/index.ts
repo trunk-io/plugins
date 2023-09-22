@@ -190,24 +190,22 @@ export const setUpTrunkToolDriverForHealthCheck = (
   return driver;
 };
 
-interface ToolTestConfig {
-  command: string[];
-  expectedOut?: string;
-  expectedErr?: string;
-  expectedExitCode?: number;
-}
-
-export const makeToolTestConfig = ({
-  command,
-  expectedOut = "",
-  expectedErr = "",
-  expectedExitCode = 0,
-}: ToolTestConfig) => ({
-  command,
-  expectedOut,
-  expectedErr,
-  expectedExitCode,
-});
+const runInstall = async (
+  driver: TrunkToolDriver,
+  toolName: string,
+): Promise<{
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+}> => {
+  try {
+    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
+    return { exitCode: 0, stdout, stderr };
+  } catch (e: any) {
+    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+  }
+};
 
 // NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
 // in case of tools with configured health checks, this should be a sufficient amount of testing. If not
@@ -238,6 +236,25 @@ export const toolInstallTest = ({
   });
 };
 
+interface ToolTestConfig {
+  command: string[];
+  expectedOut?: string;
+  expectedErr?: string;
+  expectedExitCode?: number;
+}
+
+export const makeToolTestConfig = ({
+  command,
+  expectedOut = "",
+  expectedErr = "",
+  expectedExitCode = 0,
+}: ToolTestConfig) => ({
+  command,
+  expectedOut,
+  expectedErr,
+  expectedExitCode,
+});
+
 export const toolTest = ({
   toolName,
   toolVersion,
@@ -264,23 +281,6 @@ export const toolTest = ({
       });
     });
   });
-};
-
-const runInstall = async (
-  driver: TrunkToolDriver,
-  toolName: string,
-): Promise<{
-  stdout: string;
-  stderr: string;
-  exitCode: number;
-}> => {
-  try {
-    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
-    return { exitCode: 0, stdout, stderr };
-  } catch (e: any) {
-    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
-  }
 };
 
 // TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
