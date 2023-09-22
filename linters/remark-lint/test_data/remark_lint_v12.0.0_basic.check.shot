@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter remark-lint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "list-item-indent",
+      "column": "4",
+      "file": "test_data/basic.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "remark-lint",
+      "message": "Incorrect list-item indent: add 1 space",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "remark-lint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
