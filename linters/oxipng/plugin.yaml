@@ -26,6 +26,8 @@ lint:
           success_codes: [0]
           in_place: true
           disable_upstream: true
+          fix_verb: fix
+          fix_prompt: Unoptimized image
       environment:
         - name: PATH
           list: ["${linter}"]
