@@ -18,6 +18,10 @@ lint:
           batch: true
           success_codes: [0]
           run_from: ${root_or_parent_with_regex((.+\.csproj)|(.+\.sln))}
+      environment:
+        # This is added in an attempt to address hanging errors on Mac.
+        - name: DOTNET_CLI_TELEMETRY_OPTOUT
+          value: 1
       run_timeout: 20s
       affects_cache:
         - buf.lock
