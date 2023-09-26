@@ -1,11 +1,6 @@
-import { makeToolTestConfig, toolTest } from "tests";
-toolTest({
+import { toolInstallTest } from "tests";
+
+toolInstallTest({
   toolName: "clangd",
   toolVersion: "16.0.2",
-  testConfigs: [
-    makeToolTestConfig({
-      command: ["clangd", "--version"],
-      expectedOut: "clangd version 16.0.2",
-    }),
-  ],
 });
