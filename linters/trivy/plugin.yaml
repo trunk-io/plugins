@@ -22,13 +22,13 @@ tools:
     - name: trivy
       download: trivy
       shims: [trivy]
-      known_good_version: 0.37.1
+      known_good_version: 0.44.1
 lint:
   definitions:
     - name: trivy
       tools: [trivy]
       suggest_if: files_present
-      known_good_version: 0.37.1
+      known_good_version: 0.44.1
       commands:
         - name: fs-vuln
           files: [lockfile]
