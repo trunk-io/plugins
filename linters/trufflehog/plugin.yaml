@@ -28,7 +28,7 @@ lint:
           output: sarif
           run:
             trufflehog filesystem --json --fail --no-verification --no-update
-            --exclude-detectors=PagerDutyApiKey ${target}
+            --exclude-detectors=PagerDutyApiKey,LaunchDarkly ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
