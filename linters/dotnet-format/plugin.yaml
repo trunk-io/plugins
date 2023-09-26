@@ -18,6 +18,7 @@ lint:
           batch: true
           success_codes: [0]
           run_from: ${root_or_parent_with_regex((.+\.csproj)|(.+\.sln))}
+      run_timeout: 20s
       affects_cache:
         - buf.lock
         - .editorconfig
