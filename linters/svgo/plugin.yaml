@@ -19,6 +19,8 @@ lint:
           success_codes: [0]
           batch: true
           in_place: true
+          fix_verb: fix
+          fix_prompt: Unoptimized svg
       tools: [svgo]
       direct_configs: [svgo.config.js, svgo.config.mjs, svgo.config.cjs]
       suggest_if: files_present
