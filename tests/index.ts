@@ -301,6 +301,7 @@ export const toolTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param normalizeLandingState a mutator to standardize the landing state output
  */
 export const customLinterCheckTest = ({
   linterName,
@@ -512,6 +513,7 @@ export const customLinterFmtTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param normalizeLandingState a mutator to standardize the landing state output
  */
 export const fuzzyLinterCheckTest = ({
   linterName,
@@ -523,6 +525,7 @@ export const fuzzyLinterCheckTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  normalizeLandingState,
 }: {
   linterName: string;
   testName?: string;
@@ -534,6 +537,7 @@ export const fuzzyLinterCheckTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  normalizeLandingState?: (landingState: LandingState) => void;
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
@@ -552,6 +556,11 @@ export const fuzzyLinterCheckTest = ({
           expect(testRunResult).toMatchObject({
             success: true,
           });
+
+          // Allow the user to normalize the landing state before snapshotting.
+          if (normalizeLandingState && testRunResult.landingState) {
+            normalizeLandingState(testRunResult.landingState);
+          }
 
           // Step 4a: Verify that the output matches expected snapshots for that linter version.
           // See `getSnapshotPathForAssert` and `linterCheckTest` for explanation of snapshot logic.

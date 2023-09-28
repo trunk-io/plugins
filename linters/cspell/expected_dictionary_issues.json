@@ -1,0 +1,172 @@
+[
+  {
+    "code": "error",
+    "column": "17",
+    "file": "test_data/basic_md.in.md",
+    "level": "LEVEL_HIGH",
+    "line": "3",
+    "linter": "cspell",
+    "message": "Unknown word (reallly) Suggestions: [rally, really, realty, regally, reilly]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "20",
+    "file": "test_data/basic_md.in.md",
+    "level": "LEVEL_HIGH",
+    "line": "5",
+    "linter": "cspell",
+    "message": "Unknown word (realy) Suggestions: [ready, real, really*, relay, rely]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "84",
+    "file": "test_data/basic_md.in.md",
+    "level": "LEVEL_HIGH",
+    "line": "5",
+    "linter": "cspell",
+    "message": "Unknown word (realy) Suggestions: [ready, real, really*, relay, rely]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "9",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "19",
+    "linter": "cspell",
+    "message": "Unknown word (prit) Suggestions: [prat, pret, prig, prim, priv]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "19",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "20",
+    "linter": "cspell",
+    "message": "Unknown word (lamda) Suggestions: [ladda, lama, lambda, lamia, lamoda]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "9",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "20",
+    "linter": "cspell",
+    "message": "Unknown word (callbak) Suggestions: [calabar, calla, callao, callas, callback]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "17",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "22",
+    "linter": "cspell",
+    "message": "Unknown word (helol) Suggestions: [Helot, hell, hello, helo, helot]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "26",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "22",
+    "linter": "cspell",
+    "message": "Unknown word (anme) Suggestions: [acme, anime, anne, ante, name]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "8",
+    "file": "test_data/basic_py.in.py",
+    "level": "LEVEL_HIGH",
+    "line": "8",
+    "linter": "cspell",
+    "message": "Unknown word (pands) Suggestions: [pads, pan's, panda, panes, pans]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "7",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "10",
+    "linter": "cspell",
+    "message": "Unknown word (barfoo) Suggestions: [baboo, bamboo, barf, barfs, baron]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "19",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "17",
+    "linter": "cspell",
+    "message": "Unknown word (callbakc) Suggestions: [callable, callback, callbacks, calpack, fallback]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "7",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "17",
+    "linter": "cspell",
+    "message": "Unknown word (callbakc) Suggestions: [callable, callback, callbacks, calpack, fallback]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "19",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "18",
+    "linter": "cspell",
+    "message": "Unknown word (callbak) Suggestions: [calabar, calla, callao, callas, callback]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "7",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "18",
+    "linter": "cspell",
+    "message": "Unknown word (callbakk) Suggestions: [callable, callback, callbacks, clambake, fallback]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "16",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "19",
+    "linter": "cspell",
+    "message": "Unknown word (awiat) Suggestions: [agita, akita, anita, await, wait]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "7",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "19",
+    "linter": "cspell",
+    "message": "Unknown word (asnyc) Suggestions: [ansys, async, fsync, rsync, sync]",
+    "targetType": "ALL"
+  },
+  {
+    "code": "error",
+    "column": "7",
+    "file": "test_data/basic_ts.in.ts",
+    "level": "LEVEL_HIGH",
+    "line": "2",
+    "linter": "cspell",
+    "message": "Unknown word (barfoo) Suggestions: [baboo, bamboo, barf, barfs, baron]",
+    "targetType": "ALL"
+  }
+]
