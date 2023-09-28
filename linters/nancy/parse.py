@@ -81,7 +81,7 @@ def main(argv):
         "runs": [{"results": results}],
     }
 
-    print(json.dumps(sarif, indent=2, ensure_ascii=False))
+    print(json.dumps(sarif, indent=2))
 
 
 if __name__ == "__main__":

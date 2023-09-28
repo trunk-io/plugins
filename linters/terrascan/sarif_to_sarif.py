@@ -15,7 +15,7 @@ def main(argv):
                     "physicalLocation"
                 ]["artifactLocation"]["uri"][5:]
 
-    print(json.dumps(input_sarif, indent=2, ensure_ascii=False))
+    print(json.dumps(input_sarif, indent=2))
 
 
 if __name__ == "__main__":

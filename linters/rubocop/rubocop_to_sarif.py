@@ -46,4 +46,4 @@ sarif = {
     "runs": [{"results": results}],
 }
 
-print(json.dumps(sarif, indent=2, ensure_ascii=False))
+print(json.dumps(sarif, indent=2))
