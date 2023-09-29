@@ -71,6 +71,8 @@ runtimes:
         - name: https_proxy
           value: ${env.https_proxy}
           optional: true
+        - name: PYTHONUTF8 # Necessary for isort and our custom parsers on Windows
+          value: 1
       linter_environment:
         - name: PATH
           list:
