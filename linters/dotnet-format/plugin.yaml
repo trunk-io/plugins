@@ -18,11 +18,17 @@ lint:
           batch: true
           success_codes: [0]
           run_from: ${root_or_parent_with_regex((.+\.csproj)|(.+\.sln))}
+      run_timeout: 10s
       environment:
         # This is added in an attempt to address hanging errors on Mac.
         - name: DOTNET_CLI_TELEMETRY_OPTOUT
           value: 1
-      run_timeout: 20s
+        - name: DOTNET_GENERATE_ASPNET_CERTIFICATE
+          value: 0
+        - name: DOTNET_ROLL_FORWARD_ON_NO_CANDIDATE_FX
+          value: 0
+        - name: DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE
+          value: 1
       affects_cache:
         - buf.lock
         - .editorconfig
