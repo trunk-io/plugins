@@ -1,0 +1,11 @@
+version: 0.1
+tools:
+  definitions:
+    - name: ts-node
+      runtime: node
+      package: ts-node
+      known_good_version: 10.9.1
+      shims: [ts-node]
+      health_checks:
+        - command: ts-node --version
+          parse_regex: ${semver}
