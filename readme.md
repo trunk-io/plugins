@@ -35,7 +35,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                                  |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks]                                              |
 | Ansible         | [ansible-lint]                                                                                                       |
 | Apex            | [pmd]                                                                                                                |
 | Bash            | [shellcheck], [shfmt]                                                                                                |
@@ -132,6 +132,7 @@ trunk check enable {linter}
 [pmd]: https://pmd.github.io/
 [pragma-once]: linters/pragma-once/readme.md
 [prettier]: https://github.com/prettier/prettier#readme
+[pre-commit-hooks]: https://pre-commit.com/hooks.html
 [prisma]: https://github.com/prisma/prisma#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
