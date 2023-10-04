@@ -10,6 +10,7 @@ lint:
           list: ["${env.PATH}"]
       commands:
         - name: end-of-file-fixer
+          enabled: false
           output: rewrite
           in_place: true
           formatter: true
