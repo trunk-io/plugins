@@ -12,12 +12,13 @@ lint:
       files: [python]
       tools: [bandit]
       suggest_if: files_present
-      direct_configs: [.bandit, pyproject.toml]
+      direct_configs: [.bandit]
+      affects_cache: [pyproject.toml]
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle bandit's JSON output.
           output: bandit
-          run: bandit --exit-zero --ini .bandit -c pyproject.toml --format json --output ${tmpfile} ${target}
+          run: bandit --exit-zero --ini .bandit --format json --output ${tmpfile} ${target}
           success_codes: [0]
           read_output_from: tmp_file
           batch: true
