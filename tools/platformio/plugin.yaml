@@ -6,3 +6,6 @@ tools:
       package: platformio
       known_good_version: 6.1.11
       shims: [pio]
+      health_checks:
+        - command: pio --version
+          parse_regex: PlatformIO Core, version ${semver}
