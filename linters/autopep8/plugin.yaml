@@ -4,7 +4,7 @@ tools:
     - name: autopep8
       runtime: python
       package: autopep8
-      extra_packages: [pycodestyle@2.10.0]
+      extra_packages: [pycodestyle]
       shims: [autopep8]
       known_good_version: 1.5.7
 lint:
