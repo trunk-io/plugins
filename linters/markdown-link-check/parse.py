@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
 """
-markdown-link-check output looks like this:
+Parser for markdown-link-check stdout.
+
+markdown-link-check output looks like this
 
 ```
 [✖] https://docs.trunk.io/docs/compatibility → Status: 404
 [✖] /linters/stringslint/stringslint.test.ts → Status: 400
 [✖] ../linters/sqlfluff/test/sqlfluff_test.ts → Status: 400
+```
 """
 
 import json
