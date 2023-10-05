@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Parser for markdown-link-check stdout
+Parser for markdown-link-check stdout.
 
 markdown-link-check output looks like this
 
