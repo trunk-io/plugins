@@ -80,7 +80,7 @@ actions:
     - id: trufflehog-pre-commit
       description: Don't allow secrets in commits (via Trufflehog)
       display_name: Trufflehog Pre-Commit Hook
-      run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog-git
+      run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog
       interactive: optional
       triggers:
         - git_hooks: [pre-commit]
