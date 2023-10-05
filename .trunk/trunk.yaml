@@ -31,7 +31,6 @@ lint:
         - "**/test_data/**"
 
 actions:
-  output_level: verbose
   definitions:
     - id: repo-tests
       display_name: Repo Tests
