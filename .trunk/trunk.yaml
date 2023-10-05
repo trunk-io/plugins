@@ -19,7 +19,6 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-  enabled: []
 
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -31,6 +30,8 @@ lint:
         - "**/test_data/**"
 
 actions:
+  # Uncomment to enable more verbose action logs
+  # output_level: verbose
   definitions:
     - id: repo-tests
       display_name: Repo Tests
