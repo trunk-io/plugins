@@ -58,7 +58,7 @@ trunk check enable {linter}
 | Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                            |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
-| Markdown        | [deno], [markdownlint], [remark-lint]                                                                                |
+| Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check]                                                         |
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
