@@ -1,5 +1,5 @@
 # Runs tests to verify:
-# 1. All linters are specified in the readme.md
+# 1. All linters are specified in the README.md
 # 2. All linters have test coverage.
 # 3. Plugin has a healthy composite config
 name: Repo Tests
