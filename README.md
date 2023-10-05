@@ -18,7 +18,7 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v0.0.21
+      ref: v1.2.5
 ```
 
 This repo is open to contributions! See our
