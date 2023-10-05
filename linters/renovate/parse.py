@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-renovate-config-validae output looks like this:
+renovate-config-validae output looks like this :
 
 ```
 INFO: Validating renovate.json
