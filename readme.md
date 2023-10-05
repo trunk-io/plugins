@@ -122,6 +122,7 @@ trunk check enable {linter}
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
+[markdown-link-check]: https://github.com/tcort/markdown-link-check#readme
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
