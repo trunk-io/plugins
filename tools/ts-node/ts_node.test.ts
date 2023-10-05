@@ -4,7 +4,7 @@ toolTest({
   toolVersion: "10.9.1",
   testConfigs: [
     makeToolTestConfig({
-      command: ["ts-node", "version"],
+      command: ["ts-node", "--version"],
       expectedOut: "10.9.1",
     }),
   ],
