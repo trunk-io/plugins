@@ -3,6 +3,7 @@ actions:
   definitions:
     - id: yarn-check
       display_name: Yarn Check
+      description: Generate notifications if node_modules are out of date
       runtime: node
       packages_file: package.json
       triggers:
