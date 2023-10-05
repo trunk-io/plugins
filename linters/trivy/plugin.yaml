@@ -41,6 +41,7 @@ lint:
           # Trivy does not support batching
           batch: false
           is_security: true
+          enabled: false
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trivy/trivy_fs_vuln_to_sarif.py
