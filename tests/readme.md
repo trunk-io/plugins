@@ -116,7 +116,7 @@ The reasoning for this setup is threefold:
 
 trunk is [compatible](https://docs.trunk.io/docs/compatibility) with most versions of Linux and
 macOS. If your linter only runs on certain OSs, refer to the example of
-[stringslint](linters/stringslint/stringslint.test.ts) to skip OS-dependent test runs.
+[stringslint](/linters/stringslint/stringslint.test.ts) to skip OS-dependent test runs.
 
 ### Test Configuration
 
