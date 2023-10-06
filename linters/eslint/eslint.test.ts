@@ -21,7 +21,7 @@ const preCheck = (driver: TrunkLintDriver) => {
     execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
   } catch (err: any) {
     console.warn("Error installing eslint deps");
-    console.warn(err);
+    // console.warn(err);
     throw err;
   }
 };
