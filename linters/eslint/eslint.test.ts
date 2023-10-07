@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
@@ -18,10 +18,10 @@ const preCheck = (driver: TrunkLintDriver) => {
   // TODO(Tyler): Cache node_modules between runs
   try {
     driver.debug("About to install eslint deps");
-    execSync("npm install", { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
+    execFileSync("npm", ["install"], { cwd: driver.getSandbox(), timeout: INSTALL_TIMEOUT });
   } catch (err: any) {
     console.warn("Error installing eslint deps");
-    // console.warn(err);
+    console.warn(err);
     throw err;
   }
 };
