@@ -1,12 +1,12 @@
 version: 0.1
 lint:
   comment_formats:
-    - name: dashes-inline
-      leading_delimiter: --
-
     - name: dashes-block
       leading_delimiter: --[[
       trailing_delimiter: --]]
+
+    - name: dashes-inline
+      leading_delimiter: --
 
     - name: hash
       leading_delimiter: "#"
@@ -43,11 +43,11 @@ lint:
     - name: apex
       extensions:
         - cls
-        - tgr
         - page
+        - tgr
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: bazel-build
       extensions:
@@ -65,49 +65,57 @@ lint:
       comments:
         - hash
 
+    - name: c
+      inherit:
+        - c-header
+        - c-source
+
+    - name: c#
+      extensions:
+        - cs
+      comments:
+        - slashes-block
+        - slashes-inline
+        - slashes-xml
+
+    - name: c++
+      inherit:
+        - c++-header
+        - c++-source
+
+    - name: c++-header
+      extensions:
+        - H
+        - hh
+        - hpp
+        - hxx
+      comments:
+        - slashes-block
+        - slashes-inline
+
+    - name: c++-source
+      extensions:
+        - C
+        - cc
+        - cpp
+        - cxx
+      comments:
+        - slashes-block
+        - slashes-inline
+
     - name: c-header
       extensions:
         - h
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: c-source
       extensions:
         - c
       comments:
-        - slashes-inline
         - slashes-block
-
-    - name: c
-      inherit:
-        - c-source
-        - c-header
-
-    - name: c++-header
-      extensions:
-        - hh
-        - hpp
-        - hxx
-        - H
-      comments:
         - slashes-inline
-        - slashes-block
-
-    - name: c++-source
-      extensions:
-        - cc
-        - cpp
-        - cxx
-        - C
-      comments:
-        - slashes-inline
-        - slashes-block
-
-    - name: c++
-      inherit:
-        - c++-source
-        - c++-header
 
     - name: c/c++
       inherit:
@@ -118,14 +126,6 @@ lint:
       inherit:
         - c-source
         - c++-source
-
-    - name: c#
-      extensions:
-        - cs
-      comments:
-        - slashes-inline
-        - slashes-block
-        - slashes-xml
 
     - name: cloudformation
       extensions:
@@ -167,11 +167,11 @@ lint:
         # and the file extensions provide a general enough capture.
         - (?i)(?:^|/)Dockerfile\..+$
       filenames:
-        - Dockerfile
         - dockerfile
+        - Dockerfile
       extensions:
-        - Dockerfile
         - dockerfile
+        - Dockerfile
       comments:
         - hash
 
@@ -183,8 +183,8 @@ lint:
 
     - name: dustilock
       filenames:
-        - requirements.txt
         - package.json
+        - requirements.txt
 
     - name: gemspec
       extensions:
@@ -203,8 +203,8 @@ lint:
       extensions:
         - go
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: go-lockfile
       filenames:
@@ -237,8 +237,8 @@ lint:
         - hcl
       comments:
         - hash
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: html
       extensions:
@@ -250,18 +250,18 @@ lint:
       extensions:
         - java
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: javascript
       extensions:
-        - js
         - cjs
-        - mjs
+        - js
         - jsx
+        - mjs
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: json
       extensions:
@@ -275,11 +275,11 @@ lint:
     - name: kotlin
       extensions:
         - kt
-        - kts
         - ktm
+        - kts
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: latex
       extensions:
@@ -344,8 +344,8 @@ lint:
       shebangs:
         - lua
       comments:
-        - dashes-inline
         - dashes-block
+        - dashes-inline
 
     - name: markdown
       extensions:
@@ -376,19 +376,19 @@ lint:
 
     - name: php
       extensions:
-        - php
         - phar
-        - phtml
-        - pht
-        - phps
+        - php
         - php3
         - php4
         - php5
+        - phps
+        - pht
+        - phtml
         - phtml
       comments:
-        - slashes-inline
-        - slashes-block
         - hash
+        - slashes-block
+        - slashes-inline
 
     - name: png
       extensions:
@@ -409,8 +409,8 @@ lint:
       extensions:
         - proto
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: python
       extensions:
@@ -439,32 +439,32 @@ lint:
       extensions:
         - rs
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: sass
       extensions:
         - sass
         - scss
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: scala
       extensions:
         - scala
         - sc
       comments:
-        - slashes-inline
         - slashes-block
+        - slashes-inline
 
     - name: shell
       extensions:
-        - sh
         - bash
+        - sh
       shebangs:
-        - sh
         - bash
+        - sh
       comments:
         - hash
 
@@ -512,6 +512,13 @@ lint:
         - tf
         - tf.json
 
+    - name: textproto
+      extensions:
+        - textpb
+        - textproto
+      comments:
+        - hash
+
     - name: toml
       extensions:
         - toml
@@ -520,19 +527,12 @@ lint:
 
     - name: typescript
       extensions:
+        - mts
         - ts
         - tsx
-        - mts
       comments:
-        - slashes-inline
         - slashes-block
-
-    - name: textproto
-      extensions:
-        - textproto
-        - textpb
-      comments:
-        - hash
+        - slashes-inline
 
     - name: xib
       extensions:
@@ -540,8 +540,8 @@ lint:
 
     - name: yaml
       extensions:
-        - yml
         - yaml
+        - yml
       comments:
         - hash
 
@@ -575,9 +575,9 @@ lint:
         - "**/vendor/**"
         - "**/yarn.lock"
 
-    - linters: [osv-scanner]
-      paths: ["**/go.sum"]
-
     - linters: [eslint]
       paths:
         - "**/svgo.config.*js"
+
+    - linters: [osv-scanner]
+      paths: ["**/go.sum"]
