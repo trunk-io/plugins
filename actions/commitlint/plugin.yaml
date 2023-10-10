@@ -2,6 +2,8 @@ version: 0.1
 actions:
   definitions:
     - id: commitlint
+      display_name: Commitlint
+      description: Enforce git commit message standards
       runtime: node
       packages_file: package.json
       run: commitlint --edit ${1}
