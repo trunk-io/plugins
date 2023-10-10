@@ -14,7 +14,6 @@ jobs:
     timeout-minutes: 5
 
     outputs:
-      #ok
       linters: ${{ steps.filter.outputs.linters }}
       repo-tests: ${{ steps.filter.outputs.repo-tests }}
       # "linters" if ${{ steps.filter.outputs.all-linters }} is 'true'
