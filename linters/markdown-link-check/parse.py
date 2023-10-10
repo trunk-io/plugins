@@ -45,10 +45,7 @@ def to_result_sarif(
 def main(argv):
     results = []
 
-    # output = sys.stdin
-
-    # issues = output.split()
-
+    # Line numbers are not reported out of the tool right now - so we regex parse the output to extract issue codes
     for line in sys.stdin:
         parse_reg = "\s*(\[.*\])\s(.*)→.*Status:\s*(\d*)(.*)"
 

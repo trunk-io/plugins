@@ -22,8 +22,7 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/markdown-link-check/parse.py
-      # do not suggest yet / markdown-link-check doesn't provide line/col info yet and a good report
-      # suggest_if: files_present
+      suggest_if: never
       known_good_version: 3.11.2
       version_command:
         parse_regex: ${semver}
