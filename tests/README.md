@@ -118,14 +118,14 @@ The reasoning for this setup is threefold:
 
 Trunk is [compatible](https://docs.trunk.io/cli/compatibility) with Linux and macOS. Trunk is also
 in beta on [Windows](https://docs.trunk.io/cli/windows-beta). If your linter only runs on certain
-OSs, refer to the example of [stringslint](linters/stringslint/stringslint.test.ts) to skip
+OSs, refer to the example of [stringslint](../linters/stringslint/stringslint.test.ts) to skip
 OS-dependent test runs.
 
 ### Test Configuration
 
 `linterCheckTest` or `linterFmtTest` should be sufficient for most linters and formatters. If your
 test requires additional setup, follow the example of `preCheck` in
-[sqlfluff_test.ts](../linters/sqlfluff/test/sqlfluff_test.ts).
+[sqlfluff_test.ts](../linters/sqlfluff/sqlfluff.test.ts).
 
 ### Environment Overrides
 
