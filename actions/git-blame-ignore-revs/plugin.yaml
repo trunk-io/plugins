@@ -3,7 +3,7 @@ actions:
   definitions:
     - id: git-blame-ignore-revs
       display_name: Auto-enable .git-blame-ignore-revs
-      description: Automatically configure git to use .git-blame-ignore-revs while the file exists.
+      description: Automatically configure git to use .git-blame-ignore-revs while the file exists
       run: bash ${cwd}/update_config.sh
       triggers:
         - files: [.git-blame-ignore-revs]

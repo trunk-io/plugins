@@ -80,7 +80,7 @@ if (
  *  - linterName is required because a user could define multiple linters and have them run on the same target
  *  - prefix is required because a user could have a linter run on multiple targets (the driver currently is one target each)
  *  - checkType is required because a linter could have lint and fix subcommands and run on the same target
- *  - linterVersion is required because of linter changes (see tests/readme.md)
+ *  - linterVersion is required because of linter changes (see tests/README.md)
  * In the future we may want to segment these by directories for each test case/target, but for now we keep everything
  * proximally located for clarity and simplicity.
  * The check and fmt versions may not have the same count, since formatters tend to be more stable than linter diagnostics.
@@ -207,7 +207,7 @@ export const getVersionsForTest = (
   // Check if no snapshots exist yet. If this is the case, run with KnownGoodVersion and Latest, and print advisory text.
   if (!matchExists && !ARGS.linterVersion) {
     console.log(
-      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/readme.md for more information.`,
+      `No snapshots detected for ${linterName} ${prefix} ${checkType} test. Running test against KnownGoodVersion. See tests/README.md for more information.`,
     );
     return ["KnownGoodVersion"];
   }

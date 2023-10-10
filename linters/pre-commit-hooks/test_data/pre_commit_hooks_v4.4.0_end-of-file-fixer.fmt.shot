@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter pre-commit-hooks test end-of-file-fixer 1`] = `
+"This is a file without a new line
+"
+`;

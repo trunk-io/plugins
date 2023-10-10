@@ -1,5 +1,7 @@
 # Testing
 
+To run tests and generate snapshots, run `npm install` and `npm test <path-to-linter-subdir>`.
+
 ## Overview
 
 We ask that all new linter definitions in this repository add some basic testing. This should be a
@@ -15,13 +17,13 @@ linters/
 └─my-linter/
   │ plugin.yaml
   │ my_linter.test.ts
-  │ readme.md (optional)
+  │ README.md (optional)
   │ my-config.json (optional)
   └─test_data/
     └─basic.in.py (with appropriate extension)
 ```
 
-- Specify a `readme.md` if your linter integration requires additional explanation or configuration.
+- Specify a `README.md` if your linter integration requires additional explanation or configuration.
 - Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if providing this
   config file is sufficient to enable your linter in ALL cases. This will be created whenever
   someone enables your linter.
@@ -33,14 +35,14 @@ linters/
     the tests will run the following command against your input file:
 
     ```bash
-    trunk check ${path_to_input_file} --force --filter=${my_linter} --output=json
+    trunk check <input-file> --force --filter=<my-linter> --output=json
     ```
 
   - For formatters, specify a sample input file (with an appropriate file extension). For reference,
     the tests will essentially run the following command against your input file:
 
     ```bash
-    cat ${path_to_input_file} | trunk format-stdin ${path_to_input_file} --filter=${my_linter}
+    trunk fmt <input-file> --force --filter=<my-linter>
     ```
 
 Refer to [sqlfluff](../linters/sqlfluff) or [pragma-once](../linters/pragma-once) as testing
@@ -57,7 +59,7 @@ npm test
 To run an individual test, run:
 
 ```bash
-npm test ${path_to_linter_subdir}
+npm test <path-to-linter-subdir>
 ```
 
 Then, verify that the generated snapshot file includes the results you would expect (e.g. an Object
@@ -80,7 +82,7 @@ specified (See [Environment Overrides](#environment-overrides)).
 
 If this causes the test to fail when run with the latest version, this is most likely because there
 are discrepancies in the linter output across versions. Rather than running `npm test -- -u`,
-**instead run** `PLUGINS_TEST_UPDATE_SNAPSHOTS=true npm test ${path_to_failing_test}`. This will
+**instead run** `PLUGINS_TEST_UPDATE_SNAPSHOTS=true npm test <path-to-failing-test>`. This will
 create an additional snapshot for the latest version and is used to track historical test behavior
 and ensure compatibility with trunk across multiple linter versions.
 
@@ -94,8 +96,8 @@ The process of resolving snapshots for asserting output correctness is as follow
 2. If `PLUGINS_TEST_UPDATE_SNAPSHOTS` is truthy, the enabled version of the linter is used, and if a
    snapshot with this version does not exist, a new snapshot is created.
 3. Otherwise, use the most recent snapshot version that precedes the enabled version of the linter.
-   If such a snapshot does not exist, a new snapshot is created with the enabled version of the
-   linter (use [debug logging](#debugging) to see what version was enabled).
+   If no such snapshot exists, a new snapshot is created with the enabled version of the linter (use
+   [debug logging](#debugging) to see what version was enabled).
 
 The reasoning for this setup is threefold:
 
@@ -114,15 +116,16 @@ The reasoning for this setup is threefold:
 
 ### System Prereqs
 
-trunk is [compatible](https://docs.trunk.io/docs/compatibility) with most versions of Linux and
-macOS. If your linter only runs on certain OSs, refer to the example of
-[stringslint](/linters/stringslint/stringslint.test.ts) to skip OS-dependent test runs.
+Trunk is [compatible](https://docs.trunk.io/cli/compatibility) with Linux and macOS. Trunk is also
+in beta on [Windows](https://docs.trunk.io/cli/windows-beta). If your linter only runs on certain
+OSs, refer to the example of [stringslint](../linters/stringslint/stringslint.test.ts) to skip
+OS-dependent test runs.
 
 ### Test Configuration
 
 `linterCheckTest` or `linterFmtTest` should be sufficient for most linters and formatters. If your
 test requires additional setup, follow the example of `preCheck` in
-[sqlfluff_test.ts](../linters/sqlfluff/test/sqlfluff_test.ts).
+[sqlfluff_test.ts](../linters/sqlfluff/sqlfluff.test.ts).
 
 ### Environment Overrides
 
@@ -142,7 +145,7 @@ include:
 
 ### CI
 
-PRs will run 5 types of tests across both ubuntu and macOS as applicable:
+PRs will run 5 types of tests across all platforms as applicable:
 
 1. Enable and test all linters with their `known_good_version`, if applicable. To replicate this
    behavior, run: `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test`. If the
@@ -152,7 +155,7 @@ PRs will run 5 types of tests across both ubuntu and macOS as applicable:
    run: `npm test`.
 3. Assert that all linters pass config validation. This is also validated while running: `npm test`.
 4. Assert that all linters have test coverage.
-5. Assert that all linters are included in the [`readme.md`](../readme.md).
+5. Assert that all linters are included in the [`README.md`](../README.md).
 
 ### Debugging
 

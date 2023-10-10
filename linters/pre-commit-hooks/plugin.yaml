@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: pre-commit-hooks
+      known_good_version: 4.4.0
+      runtime: python
+      package: pre-commit-hooks
+      suggest_if: never
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      commands:
+        - name: end-of-file-fixer
+          enabled: false
+          output: rewrite
+          in_place: true
+          formatter: true
+          run: end-of-file-fixer ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
