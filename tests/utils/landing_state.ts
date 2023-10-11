@@ -68,14 +68,16 @@ const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix
 });
 
 // Replace any occurrences of the nondeterministic sandbox path in the output message
-const normalizeMessage = (message?: string) =>
-  message
+const normalizeMessage = (message?: string) => {
+  console.log(message, os.tmpdir(), fs.realpathSync(os.tmpdir()));
+  return message
     ?.replaceAll("\\", "/")
     .replace(fs.realpathSync(os.tmpdir()), "/tmp")
     .replace(os.tmpdir(), "/tmp")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
     .trim();
+};
 
 // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
 const normalizeFile = (file: string) => normalizePlatformPath(file.replace(".dup.", "."))!;
