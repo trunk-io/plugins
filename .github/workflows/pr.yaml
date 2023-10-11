@@ -185,11 +185,6 @@ jobs:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
 
-      # TODO: TYLER REMOVE
-      - name: env
-        run: env
-        shell: bash
-
       - name: Linter Tests
         # Run tests using Latest with any modified linters
         uses: ./.github/actions/linter_tests
