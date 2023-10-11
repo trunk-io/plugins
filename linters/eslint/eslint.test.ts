@@ -18,9 +18,10 @@ const preCheck = (driver: TrunkLintDriver) => {
   // TODO(Tyler): Cache node_modules between runs
   try {
     driver.debug("About to install eslint deps");
-    execFileSync(process.platform == "win32" ? "npm.cmd" : "npm", ["install"], {
+    execSync("npm install", {
       cwd: driver.getSandbox(),
       timeout: INSTALL_TIMEOUT,
+      windowsHide: true,
     });
   } catch (err: any) {
     console.warn("Error installing eslint deps");
