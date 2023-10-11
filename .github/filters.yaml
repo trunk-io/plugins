@@ -38,7 +38,7 @@ repo-tests:
   - linters/**
   - actions/**
   - tools/**
-  - readme.md
+  - README.md
   - .trunk/trunk.yaml
   - package.json
   - package-lock.json

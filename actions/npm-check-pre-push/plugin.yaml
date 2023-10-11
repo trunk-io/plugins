@@ -3,6 +3,7 @@ actions:
   definitions:
     - id: npm-check-pre-push
       display_name: NPM Check
+      description: Generate notifications if node_modules are out of date as a pre-push hook
       runtime: node
       packages_file: package.json
       triggers:

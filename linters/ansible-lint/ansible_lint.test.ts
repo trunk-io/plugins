@@ -24,7 +24,7 @@ const preCheck =
 
     driver.moveFile(path.join(TEST_DATA, "jboss-standalone"), "jboss-standalone");
 
-    // See linters/ansible-lint/readme.md for details on non-FQCN support
+    // See linters/ansible-lint/README.md for details on non-FQCN support
     if (!fqcn) {
       const configFile = "jboss-standalone/demo-aws-launch.yml";
       driver.writeFile(
