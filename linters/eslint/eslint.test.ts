@@ -34,6 +34,7 @@ const preCheck = (driver: TrunkLintDriver) => {
     );
 
     driver.debug(`About to install eslint deps to ${driver.getSandbox()}`);
+    driver.debug(process.env);
     execFileSync(
       path.resolve(
         driver.getSandbox(),
