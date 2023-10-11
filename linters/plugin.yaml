@@ -1,6 +1,10 @@
 version: 0.1
 lint:
   comment_formats:
+    - name: brace-hyphen-block
+      leading_delimiter: "{-"
+      trailing_delimiter: "-}"
+
     - name: dashes-block
       leading_delimiter: --[[
       trailing_delimiter: --]]
