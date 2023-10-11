@@ -192,7 +192,7 @@ jobs:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   windows_tool_tests:
@@ -215,7 +215,7 @@ jobs:
         # Run tests using KnownGoodVersion with any modified tools
         uses: ./.github/actions/tool_tests
         with:
-          append-args: ${{needs.detect_changes.outputs.tools-files }}
+          append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
