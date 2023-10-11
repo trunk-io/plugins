@@ -1,7 +1,9 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-permissions: write-all
+permissions:
+  contents: read
+  checks: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -181,9 +183,6 @@ jobs:
       - name: Trunk Check
         # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
         uses: trunk-io/trunk-action@main
-        with:
-          debug: true
-          arguments: --debug
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
