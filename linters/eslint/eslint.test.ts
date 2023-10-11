@@ -1,4 +1,4 @@
-import { execFileSync } from "child_process";
+import { execSync } from "child_process";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
