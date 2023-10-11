@@ -1,4 +1,4 @@
-import { execFileSync } from "child_process";
+import { spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
@@ -34,8 +34,7 @@ const preCheck = (driver: TrunkLintDriver) => {
     );
 
     driver.debug(`About to install eslint deps to ${driver.getSandbox()}`);
-    driver.debug(process.env);
-    execFileSync(
+    const install = spawnSync(
       path.resolve(
         driver.getSandbox(),
         `.trunk/${toolsPath}`,
@@ -49,6 +48,7 @@ const preCheck = (driver: TrunkLintDriver) => {
         windowsHide: true,
       },
     );
+    driver.debug(install);
   } catch (err: any) {
     console.warn("Error installing eslint deps");
     console.warn(err);
