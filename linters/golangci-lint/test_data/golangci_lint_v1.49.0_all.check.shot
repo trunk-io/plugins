@@ -4,14 +4,25 @@ exports[`Testing linter golangci-lint test all 1`] = `
 {
   "issues": [
     {
-      "code": "typecheck",
+      "code": "errcheck",
+      "column": "12",
       "file": "test_data/basic.go",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
-      "line": "1",
+      "line": "8",
       "linter": "golangci-lint",
-      "message": ": # golangcilint_linter_test
-./basic.go:8:2: a declared and not used",
+      "message": "Error return value of \`time.Parse\` is not checked",
+      "targetType": "go",
+    },
+    {
+      "code": "deadcode",
+      "column": "6",
+      "file": "test_data/unused_func.go",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "golangci-lint",
+      "message": "\`helper\` is unused",
       "targetType": "go",
     },
     {
@@ -33,15 +44,6 @@ wrapper/printer.go:12:23: undefined: Wrapper2",
       "linter": "golangci-lint",
       "paths": [
         "test_data",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "go",
-      "linter": "golangci-lint",
-      "paths": [
-        "test_data/wrapper",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
