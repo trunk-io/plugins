@@ -277,7 +277,7 @@ export const osTimeoutMultiplier =
   process.platform === "darwin"
     ? 3
     : process.platform === "win32"
-    ? 1.5
+    ? 3
     : process.platform === "linux" && process.arch === "arm64"
     ? 3
     : 1;
