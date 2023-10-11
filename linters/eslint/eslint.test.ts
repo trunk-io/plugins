@@ -1,6 +1,6 @@
 import { execFileSync } from "child_process";
-import path from "path";
 import fs from "fs";
+import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
@@ -23,11 +23,14 @@ const preCheck = (driver: TrunkLintDriver) => {
     driver.debug("About to install shims");
     driver.runTrunkSync(["tools", "install"]);
     driver.debug("Done installing shims");
+    // trunk-ignore-begin(semgrep): Safe paths
     const toolsPath = fs.existsSync(path.resolve(driver.getSandbox(), ".trunk/dev-tools"))
       ? "dev-tools"
       : "tools";
     driver.debug(
-      `shim contents: ${fs.readdirSync(path.resolve(driver.getSandbox(), `.trunk/${toolsPath}`))}`,
+      `shim contents: ${fs
+        .readdirSync(path.resolve(driver.getSandbox(), `.trunk/${toolsPath}`))
+        .join(", ")}`,
     );
 
     driver.debug(`About to install eslint deps to ${driver.getSandbox()}`);
@@ -35,8 +38,9 @@ const preCheck = (driver: TrunkLintDriver) => {
       path.resolve(
         driver.getSandbox(),
         `.trunk/${toolsPath}`,
-        procces.platform == "win32" ? "npm.bat" : "npm",
+        process.platform == "win32" ? "npm.bat" : "npm",
       ),
+      // trunk-ignore-end(semgrep)
       ["install"],
       {
         cwd: driver.getSandbox(),
