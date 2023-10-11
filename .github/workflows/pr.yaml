@@ -1,21 +1,7 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-# needs read-all + checks: write, but there's no shorthand for that
-permissions:
-  actions: read
-  checks: write
-  contents: read
-  deployments: read
-  id-token: read
-  issues: read
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: read
-  repository-projects: read
-  security-events: read
-  statuses: read
+permissions: read-all
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -185,6 +171,8 @@ jobs:
     name: Trunk Check runner [linux]
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      checks: write
 
     steps:
       - name: Checkout
