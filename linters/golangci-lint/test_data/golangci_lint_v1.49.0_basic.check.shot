@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter golangci-lint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "typecheck",
+      "file": "test_data/basic.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "golangci-lint",
+      "message": ": # golangcilint_linter_test
+./basic.go:8:2: a declared and not used",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
