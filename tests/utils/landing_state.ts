@@ -70,9 +70,9 @@ const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix
 // Replace any occurrences of the nondeterministic sandbox path in the output message
 const normalizeMessage = (message?: string) =>
   message
-    ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
+    ?.replaceAll("\\", "/")
+    .replace(fs.realpathSync(os.tmpdir()), "/tmp")
     .replace(os.tmpdir(), "/tmp")
-    .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
     .trim();
