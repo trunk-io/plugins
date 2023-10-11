@@ -1,5 +1,6 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import path from "path";
+import fs from "fs";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
@@ -17,8 +18,18 @@ const preCheck = (driver: TrunkLintDriver) => {
   moveConfig(driver);
   // TODO(Tyler): Cache node_modules between runs
   try {
-    driver.debug("About to install eslint deps");
-    execSync("npm install", {
+    driver.debug("About to install shims");
+    driver.runTrunkSync(["tools", "install"]);
+    driver.debug("Done installing shims");
+    const toolsPath = fs.existsSync(path.resolve(driver.getSandbox(), ".trunk/dev-tools"))
+      ? "dev-tools"
+      : "tools";
+    driver.debug(
+      `shim contents: ${fs.readdirSync(path.resolve(driver.getSandbox(), `.trunk/${toolsPath}`))}`,
+    );
+
+    driver.debug(`About to install eslint deps to ${driver.getSandbox()}`);
+    execFileSync(path.resolve(driver.getSandbox(), `.trunk/${toolsPath}/npm.bat`), ["install"], {
       cwd: driver.getSandbox(),
       timeout: INSTALL_TIMEOUT,
       windowsHide: true,
