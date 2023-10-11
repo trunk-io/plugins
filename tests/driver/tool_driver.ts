@@ -67,12 +67,16 @@ lint:
 `;
   }
 
+  async setUpWithInstall() {
+    await this.setUp();
+    await this.installTool();
+  }
+
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
    * 1. Creating a git repo
    * 2. Dumping a newly generated trunk.yaml
    * 3. Enabling the specified 'tool'
-   * 4. Sync to make sure it's available
    */
   async setUp() {
     await super.setUp();
@@ -101,7 +105,24 @@ lint:
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
       }
+    } catch (error) {
+      console.warn(`Failed to enable ${this.tool}`, error);
+      if ("stdout" in (error as any)) {
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+        console.log("Error output:", ((error as any).stdout as Buffer).toString());
+      } else {
+        console.log("Error keys:  ", Object.keys(error as object));
+      }
+    }
+  }
 
+  async installTool() {
+    // Enable tested tool if specified
+    if (!this.tool || !this.sandboxPath) {
+      console.error("Tool or sandbox path not specified - we should not be here!");
+      return;
+    }
+    try {
       // Sync the tool to ensure it's available
       await this.runTrunk(["tools", "install", this.tool, "--ci"]);
       const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
@@ -121,6 +142,7 @@ lint:
           throw new Error(`Could not install or find installed ${shim}`);
         }
       }
+      this.debug("Installed %s", this.tool);
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
       if ("stdout" in (error as any)) {

@@ -152,6 +152,35 @@ export const setupTrunkToolDriver = (
       await preCheck(driver);
       driver.debug("Finished running custom preCheck hook");
     }
+    await driver.setUpWithInstall();
+  });
+
+  afterAll(() => {
+    driver.tearDown();
+  });
+  return driver;
+};
+
+export const setUpTrunkToolDriverForHealthCheck = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  toolName?: string,
+  version?: string,
+  preCheck?: ToolTestCallback,
+): TrunkToolDriver => {
+  const driver = new TrunkToolDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    toolName,
+    version,
+  );
+
+  beforeAll(async () => {
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
     await driver.setUp();
   });
 
@@ -159,6 +188,52 @@ export const setupTrunkToolDriver = (
     driver.tearDown();
   });
   return driver;
+};
+
+const runInstall = async (
+  driver: TrunkToolDriver,
+  toolName: string,
+): Promise<{
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+}> => {
+  try {
+    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
+    return { exitCode: 0, stdout, stderr };
+  } catch (e: any) {
+    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+  }
+};
+
+// NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
+// in case of tools with configured health checks, this should be a sufficient amount of testing. If not
+// the regular toolTest framework allows running arbitrary commands with the tool.
+// If this is deemed to provide sufficient test coverage it will become the sole tool testing framework
+// going forward.
+export const toolInstallTest = ({
+  toolName,
+  toolVersion,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  toolName: string;
+  toolVersion: string;
+  dirName?: string;
+  skipTestIf?: (version?: string) => boolean;
+  preCheck?: ToolTestCallback;
+}) => {
+  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
+  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
+    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
+    expect(exitCode).toEqual(0);
+    expect(stdout).toContain(toolName);
+    expect(stdout).toContain(toolVersion);
+    expect(stderr).toEqual("");
+    expect(stdout).not.toContain("Failures:");
+  });
 };
 
 interface ToolTestConfig {
@@ -226,6 +301,7 @@ export const toolTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param normalizeLandingState a mutator to standardize the landing state output
  */
 export const customLinterCheckTest = ({
   linterName,
@@ -437,6 +513,7 @@ export const customLinterFmtTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param normalizeLandingState a mutator to standardize the landing state output
  */
 export const fuzzyLinterCheckTest = ({
   linterName,
@@ -448,6 +525,7 @@ export const fuzzyLinterCheckTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  normalizeLandingState,
 }: {
   linterName: string;
   testName?: string;
@@ -459,6 +537,7 @@ export const fuzzyLinterCheckTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  normalizeLandingState?: (landingState: LandingState) => void;
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
@@ -477,6 +556,11 @@ export const fuzzyLinterCheckTest = ({
           expect(testRunResult).toMatchObject({
             success: true,
           });
+
+          // Allow the user to normalize the landing state before snapshotting.
+          if (normalizeLandingState && testRunResult.landingState) {
+            normalizeLandingState(testRunResult.landingState);
+          }
 
           // Step 4a: Verify that the output matches expected snapshots for that linter version.
           // See `getSnapshotPathForAssert` and `linterCheckTest` for explanation of snapshot logic.

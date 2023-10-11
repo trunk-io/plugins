@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter sourcery test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "replace-interpolation-with-fstring",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "https://docs.sourcery.ai/Reference/Python/Default-Rules/replace-interpolation-with-fstring",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "sourcery",
+      "message": "Replace interpolated string formatting with f-string",
+      "targetType": "python",
+    },
+    {
+      "code": "raise-from-previous-error",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "issueUrl": "https://docs.sourcery.ai/Reference/Python/Default-Rules/raise-from-previous-error",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "sourcery",
+      "message": "Explicitly raise from a previous error",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fix",
+      "fileGroupName": "python",
+      "linter": "sourcery",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "sourcery",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sourcery",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

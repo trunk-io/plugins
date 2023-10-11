@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.15.1-beta.15
+  version: 1.16.3-beta.8
 
 api:
   address: api.trunk-staging.io:8443
@@ -19,7 +19,6 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-  enabled: []
 
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -31,6 +30,8 @@ lint:
         - "**/test_data/**"
 
 actions:
+  # Uncomment to enable more verbose action logs
+  # output_level: verbose
   definitions:
     - id: repo-tests
       display_name: Repo Tests
@@ -74,3 +75,7 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
+tools:
+  enabled:
+    - clangd-indexing-tools@16.0.2
+    - clangd@16.0.2

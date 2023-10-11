@@ -31,7 +31,7 @@ tools:
       shims: [*{}*]
 """
 
-INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest } from "tests";
+INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest, toolInstallTest } from "tests";
 toolTest({
   toolName: "*{}*",
   toolVersion: "VERSION_HERE",
@@ -43,7 +43,14 @@ toolTest({
   ],
 });
 
+toolInstallTest({
+  toolName: "*{}*",
+  toolVersion: "VERSION_HERE",
+})
+
 // Guidelines for configuring tests:
+//  - Prefer using health check in config + toolInstallTest, if you must use toolTest leave a
+//    comment explaining why. Only one of the two options is sufficient.
 //  - Usually, just a version or help text command is sufficient
 //  - add a test for each command that is used in the plugin.yaml
 //  - exit code 0 is assumed, so set expectedExitCode if it is different

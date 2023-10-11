@@ -28,7 +28,7 @@ lint:
           output: sarif
           run:
             trufflehog filesystem --json --fail --no-verification --no-update
-            --exclude-detectors=PagerDutyApiKey ${target}
+            --exclude-detectors=PagerDutyApiKey,LaunchDarkly ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
@@ -75,11 +75,16 @@ lint:
         parse_regex: trufflehog ${semver}
         run: trufflehog --version
 
+# This action runs trufflehog-git as a pre-commit hook in order to make sure that secrets don't show up in individual commits,
+# as opposed to the primary trufflehog linter integration, which is not git-aware. In order to run this action, you must also run
+# 'trunk check enable trufflehog-git'
 actions:
   definitions:
     - id: trufflehog-pre-commit
-      description: Don't allow secrets in commits (via Trufflehog)
       display_name: Trufflehog Pre-Commit Hook
+      description:
+        Don't allow secrets in commits (via Trufflehog). Enable linter 'trufflehog-git' before
+        running
       run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog-git
       interactive: optional
       triggers:

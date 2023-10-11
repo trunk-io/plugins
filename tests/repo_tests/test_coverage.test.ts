@@ -8,7 +8,7 @@ import { REPO_ROOT } from "tests/utils";
 const excludedLinters: string[] = [];
 
 // This test asserts that all linters have at least one test. All new linters are expected to have
-// test coverage. Review tests/readme.md for testing guidelines. Prefer using npm test for indirection
+// test coverage. Review tests/README.md for testing guidelines. Prefer using npm test for indirection
 // in this test so that we get an accurate list of all tests, regardless of any changes to the test spec
 // in jest.config.json.
 describe("All linters must have tests", () => {
@@ -16,12 +16,13 @@ describe("All linters must have tests", () => {
   const stdout = execSync("npm test -- --listTests", { cwd: REPO_ROOT }).toString();
   const testFiles = stdout
     .split("\n")
-    .filter((file) => file.startsWith("/"))
+    .filter((file) => file.startsWith("/") || file.match(/[A-Z]:\\/))
     .map((file) => path.relative(REPO_ROOT, file));
 
   // Key the tests by their linter subdirectory
   const testDirMap = testFiles.reduce((accumulator: Map<string, string[]>, file: string) => {
-    const linterSubdir = file.match(/linters\/[^/]+/);
+    const linterSubdir =
+      process.platform === "win32" ? file.match(/linters\\[^\\]+/) : file.match(/linters\/[^/]+/);
     if (linterSubdir) {
       const matches = accumulator.get(linterSubdir[0]) ?? [];
       accumulator.set(linterSubdir[0], [...matches, file]);

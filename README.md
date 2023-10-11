@@ -18,12 +18,13 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v0.0.21
+      ref: v1.2.5
 ```
 
 This repo is open to contributions! See our
 [contribution guidelines](https://github.com/trunk-io/plugins/blob/main/contributing.md) and join
-our [slack community][slack] for help.
+our [slack community][slack] for help. **If you're adding new tools, please see our
+[testing guide](tests/README.md) as well!**
 
 ### Supported Linters, Formatters, and Security Tools
 
@@ -35,7 +36,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check]                                                                  |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks]                                              |
 | Ansible         | [ansible-lint]                                                                                                       |
 | Apex            | [pmd]                                                                                                                |
 | Bash            | [shellcheck], [shfmt]                                                                                                |
@@ -130,8 +131,9 @@ trunk check enable {linter}
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
 [pmd]: https://pmd.github.io/
-[pragma-once]: linters/pragma-once/readme.md
+[pragma-once]: linters/pragma-once/README.md
 [prettier]: https://github.com/prettier/prettier#readme
+[pre-commit-hooks]: https://pre-commit.com/hooks.html
 [prisma]: https://github.com/prisma/prisma#readme
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
@@ -199,19 +201,24 @@ trunk actions enable {action}
 
 | action                                                               | description                                                |
 | -------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [`buf-gen`](actions/buf/readme.md)                                   | run `buf` on .proto file change                            |
+| [`buf-gen`](actions/buf/README.md)                                   | run `buf` on .proto file change                            |
 | [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
-| [`go-mod-tidy`](actions/go-mod-tidy/readme.md)                       | automatically tidy go.mod file                             |
-| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/readme.md)         | automatically tidy and vendor go.mod file                  |
-| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/readme.md)   | automatically configure git to use .git-blame-ignore-revs  |
-| [`npm-check`](actions/npm-check/readme.md)                           | check whether NPM installation is up to date               |
-| [`yarn-check`](actions/yarn-check/readme.md)                         | check whether Yarn installation is up to date              |
+| [`go-mod-tidy`](actions/go-mod-tidy/README.md)                       | automatically tidy go.mod file                             |
+| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)         | automatically tidy and vendor go.mod file                  |
+| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/README.md)   | automatically configure git to use .git-blame-ignore-revs  |
+| [`npm-check`](actions/npm-check/README.md)                           | check whether NPM installation is up to date               |
+| [`yarn-check`](actions/yarn-check/README.md)                         | check whether Yarn installation is up to date              |
+
+### Supported Tools
+
+This repository also defines configuration for Trunk Tools, which provides hermetic management of
+different CLI tools. You can read more about it in our [docs](https://docs.trunk.io/tools).
 
 ### Mission
 
 Our goal is to make engineering faster, more efficient and dare we say - more fun. This repository
 will hopefully allow our community to share ideas on the best tools and best practices/workflows to
-make everyone's job of building code a little bit easier, a little bit faster and maybe in the
+make everyone's job of building code a little bit easier, a little bit faster, and maybe in the
 process - a little bit more fun.
 
 ### Additional Reference

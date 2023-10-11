@@ -37,6 +37,7 @@ lint:
         - tox.ini
       known_good_version: 0.0.250
       suggest_if: files_present
+      issue_url_format: https://docs.astral.sh/ruff/rules/#{}
       version_command:
         parse_regex: ruff ${semver}
         run: ruff --version

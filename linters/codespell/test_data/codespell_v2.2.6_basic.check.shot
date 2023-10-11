@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter codespell test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "misspelled",
+      "file": "codespell.test.ts",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "codespell.test.ts",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "codespell",
+      "message": "realy ==> really, relay",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_md.in.md",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "codespell",
+      "message": "realy ==> really, relay",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_py.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "20",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_py.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "20",
+      "linter": "codespell",
+      "message": "lamda ==> lambda",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_py.in.py",
+      "level": "LEVEL_HIGH",
+      "line": "22",
+      "linter": "codespell",
+      "message": "anme ==> name, anime",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_ts.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "17",
+      "linter": "codespell",
+      "message": "callbakc ==> callback",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_ts.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "18",
+      "linter": "codespell",
+      "message": "callbak ==> callback",
+      "targetType": "ALL",
+    },
+    {
+      "code": "misspelled",
+      "file": "test_data/basic_ts.in.ts",
+      "level": "LEVEL_HIGH",
+      "line": "19",
+      "linter": "codespell",
+      "message": "asnyc ==> async",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        ".trunk/trunk.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "codespell.test.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "codespell_to_sarif.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "plugin.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "result.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "test_data/basic_md.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "test_data/basic_py.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "test_data/basic_ts.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "codespell",
+      "paths": [
+        "test_data/empty.in.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

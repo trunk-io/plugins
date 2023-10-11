@@ -522,6 +522,7 @@ lint:
       extensions:
         - ts
         - tsx
+        - mts
       comments:
         - slashes-inline
         - slashes-block

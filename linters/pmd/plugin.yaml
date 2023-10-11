@@ -49,6 +49,7 @@ lint:
       suggest_if: never
       known_good_version: 6.55.0
       known_bad_versions:
+        - pmd_releases/7.0.0-rc4
         - pmd_releases/7.0.0-rc3
         - pmd_releases/7.0.0-rc2
         - pmd_releases/7.0.0-rc1

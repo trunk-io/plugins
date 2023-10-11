@@ -3,7 +3,7 @@ actions:
   definitions:
     - id: hello-world-python
       display_name: Hello World
-      description: prints 'Hello World' to the terminal during pre-commit trigger
+      description: Prints 'Hello World' to the terminal during pre-commit trigger
       runtime: python
       packages_file: requirements.txt
       run: python3 ${cwd}/hello # {cwd} resolves to current directory containing this plugin.yaml file

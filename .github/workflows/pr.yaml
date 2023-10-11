@@ -23,6 +23,7 @@ jobs:
       tools: ${{ steps.filter.outputs.tools }}
       all-tools: ${{ steps.post-filter-tools.outputs.out }}
       tools-files: ${{ steps.post-filter-tools-paths.outputs.out }}
+      runners: ${{ steps.post-filter.outputs.runners}}
 
     steps:
       - name: Checkout
@@ -47,12 +48,22 @@ jobs:
           filters: .github/filters.yaml
           list-files: shell
 
+      - name: Recommend runners
+        id: workers
+        run: |
+          if [ ${{steps.filter.outputs.all-linters == 'true' ]; then
+            echo "runners='[ubuntu-latest, mac-2latest]'" >> $GITHUB_OUTPUT
+          else
+          echo "runners='[ubuntu-latest, mac-3latest]'" >> $GITHUB_OUTPUT
+          fi
+
       - name: Suggest all linter tests
         id: post-filter
         if: steps.filter.outputs.all-linters == 'true'
         run: |
           echo "Run all linter tests"
           echo "out=linters" >> "$GITHUB_OUTPUT"
+          echo "linux-runner=ubuntu-latest" >> $GITHUB_OUTPUT"
 
       - name: Suggest all tool tests
         id: post-filter-tools
@@ -93,7 +104,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: ${{ needs.detect_changes.outputs.runners }}
     steps:
       - name: Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
