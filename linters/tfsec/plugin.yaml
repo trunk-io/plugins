@@ -47,3 +47,9 @@ lint:
       version_command:
         parse_regex: v${semver}
         run: tfsec --version
+      direct_configs:
+        - tfsec.yml
+        - tfsec.yaml
+        - .tfsec/config.json
+        - .tfsec/config.yml
+        - .tfsec/config.yaml
