@@ -236,6 +236,14 @@ lint:
       comments:
         - hyphen-hash
 
+    - name: haskell
+      extensions:
+        - hs
+        - lhs
+      comments:
+        - brace-hyphen-block
+        - dashes-inline
+
     - name: hcl
       extensions:
         - hcl
