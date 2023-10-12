@@ -23,5 +23,14 @@ lint:`,
 linterCheckTest({
   linterName: "sourcery",
   preCheck,
-  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
+  skipTestIf: (version) => {
+    if (!process.env.SOURCERY_TOKEN) {
+      // NOTE(Tyler): This is the simplest approach in order to streamline local development and running from forks.
+      console.log(
+        "Skipping sourcery test. Must provide SOURCERY_TOKEN environment variable in order to run.",
+      );
+      return true;
+    }
+    return skipCPUOS([{ os: "linux", cpu: "arm64" }])(version);
+  },
 });

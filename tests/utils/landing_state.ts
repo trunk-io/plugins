@@ -71,6 +71,7 @@ const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix
 const normalizeMessage = (message?: string) =>
   message
     ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
+    .replace(`${process.env.LOCALAPPDATA ?? ""}\\Temp`, "/tmp")
     .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")

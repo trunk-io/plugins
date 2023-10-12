@@ -167,6 +167,25 @@ jobs:
             needs.detect_changes.outputs.tools-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
+  trunk_check_runner:
+    name: Trunk Check runner [linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      checks: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Trunk Check
+        # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
+        uses: trunk-io/trunk-action@main
+        env:
+          TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
+
   # Run Windows tests for modified linters and tools
   # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
   windows_linter_tests:
@@ -192,7 +211,7 @@ jobs:
           linter-version: Latest
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
-          append-args: ${{needs.detect_changes.outputs.linters-files }}
+          append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   windows_tool_tests:
@@ -215,7 +234,7 @@ jobs:
         # Run tests using KnownGoodVersion with any modified tools
         uses: ./.github/actions/tool_tests
         with:
-          append-args: ${{needs.detect_changes.outputs.tools-files }}
+          append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
