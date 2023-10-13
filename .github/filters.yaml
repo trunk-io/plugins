@@ -14,6 +14,7 @@ all-linters:
   - *framework
   - runtimes/**
   - tests/driver/!(tool_driver.ts)
+  - linters/plugin.yaml
 
 all-tools:
   - *framework
@@ -25,7 +26,7 @@ all-tools:
 # Someone should not be able to add a new linter without verifying that it also works on the latest version.
 # e.g. `PLUGINS_TEST_LINTER_VERSION=[KnownGoodVersion,Latest] npm test linters/sqlfluff`
 linters:
-  - added|modified: linters/**
+  - added|modified: linters/*/**
 
 tools:
   - added|modified: tools/**
