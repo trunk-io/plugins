@@ -20,6 +20,8 @@ plugins:
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
 
+  enabled:
+    - tfsec@1.28.4
   disabled:
     - pylint # pylint diagnostics are too strict
 
