@@ -1,4 +1,5 @@
 version: 0.1
+# TODO: REMOVE test
 lint:
   comment_formats:
     - name: dashes-block
