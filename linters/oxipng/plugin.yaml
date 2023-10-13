@@ -11,6 +11,11 @@ lint:
           url: https://github.com/shssoichiro/oxipng/releases/download/v${version}/oxipng-${version}-x86_64-unknown-linux-musl.tar.gz
           strip_components: 1
         - os: windows
+          version: ">=9.0.0"
+          cpu: x86_64
+          url: https://github.com/shssoichiro/oxipng/releases/download/v${version}/oxipng-${version}-x86_64-pc-windows-msvc.zip
+          strip_components: 1
+        - os: windows
           cpu: x86_64
           url: https://github.com/shssoichiro/oxipng/releases/download/v${version}/oxipng-${version}-x86_64-pc-windows-msvc.zip
 
