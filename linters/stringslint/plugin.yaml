@@ -1,5 +1,4 @@
 version: 0.1
-# TODO: REMOVE TEST
 downloads:
   # This is a Mac-exclusive linter
   - name: stringslint
