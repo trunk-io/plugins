@@ -50,7 +50,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/{}.html
+      issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/list.html
       known_good_version: 16.0.3
       version_command:
         parse_regex: ${semver}

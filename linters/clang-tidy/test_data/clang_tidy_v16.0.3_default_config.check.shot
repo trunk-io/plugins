@@ -18,7 +18,7 @@ exports[`Testing linter clang-tidy test default_config 1`] = `
       "code": "readability-convert-member-functions-to-static",
       "column": "15",
       "file": "test.hh",
-      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/list.html",
       "level": "LEVEL_MEDIUM",
       "line": "2",
       "linter": "clang-tidy",
