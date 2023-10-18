@@ -41,6 +41,7 @@ def find_line_number(secret, path):
             for _ in secret.splitlines():
                 check_window.append(next(lines))
         except StopIteration:
+            # file is fewer lines than the secret
             return None
 
         if 1 not in secret_line_cache[secret] and secret in "".join(check_window):
