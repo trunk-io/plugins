@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trufflehog test wrong_line_number 1`] = `
+{
+  "issues": [
+    {
+      "code": "Github",
+      "file": "test_data/wrong_line_number.in.ts",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "587",
+      "linter": "trufflehog",
+      "message": "Secret detected",
+      "targetType": "ALL",
+    },
+    {
+      "code": "Github",
+      "file": "test_data/wrong_line_number.in.ts",
+      "isSecurity": true,
+      "level": "LEVEL_HIGH",
+      "line": "592",
+      "linter": "trufflehog",
+      "message": "Secret detected",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trufflehog",
+      "paths": [
+        "test_data/wrong_line_number.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,5 +1,4 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter trufflehog test buff_size 1`] = `
 {
@@ -9,7 +8,7 @@ exports[`Testing linter trufflehog test buff_size 1`] = `
       "file": "test_data/buff_size.in.cc",
       "isSecurity": true,
       "level": "LEVEL_HIGH",
-      "line": "233",
+      "line": "232",
       "linter": "trufflehog",
       "message": "Secret detected: https://gitlab-ci-token:********@gitlab.com",
       "targetType": "ALL",

@@ -28,6 +28,40 @@ def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str)
     }
 
 
+secret_line_cache = {}
+
+
+def find_line_number(secret, path):
+    with open(path) as lines:
+        if secret not in secret_line_cache:
+            secret_line_cache[secret] = []
+
+        check_window = []
+        try:
+            for _ in secret.splitlines():
+                check_window.append(next(lines))
+        except StopIteration:
+            return None
+
+        if 1 not in secret_line_cache[secret] and secret in "".join(check_window):
+            secret_line_cache[secret].append(1)
+            return 1
+
+        for lineno, line in enumerate(lines, 2):
+            # remove first line of window and append next line from file
+            check_window = check_window[1:]
+            check_window.append(line)
+
+            # trufflehog can report the same secret multiple times
+            # if it truly appears multiple times, then we want to log different lines for each issue
+            if lineno in secret_line_cache[secret]:
+                continue
+            if secret in "".join(check_window):
+                secret_line_cache[secret].append(lineno)
+                return lineno
+        return None
+
+
 def main(argv):
     results = []
 
@@ -48,11 +82,11 @@ def main(argv):
             description = "Secret detected"
 
         if "Filesystem" in vuln_json["SourceMetadata"]["Data"]:
+            secret = vuln_json["Raw"]
             path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
-            line_number = (
-                int(vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0"))
-                + 1
-            )
+            line_number = find_line_number(secret, path)
+            if line_number is None:
+                continue
         elif "Git" in vuln_json["SourceMetadata"]["Data"]:
             file = vuln_json["SourceMetadata"]["Data"]["Git"]["file"]
             line = vuln_json["SourceMetadata"]["Data"]["Git"]["line"]
