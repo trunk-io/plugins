@@ -26,9 +26,7 @@ lint:
       commands:
         - name: lint
           output: sarif
-          run:
-            trufflehog filesystem --json --fail --no-verification --no-update
-            --exclude-detectors=PagerDutyApiKey,LaunchDarkly ${target}
+          run: trufflehog filesystem --json --fail --only-verified --no-update ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
@@ -57,7 +55,7 @@ lint:
           output: sarif
           target: .
           run:
-            trufflehog git --json --fail --no-verification --no-update file://${target}
+            trufflehog git --json --fail --only-verified --no-update file://${target}
             --since-commit ${upstream-ref}
           disable_upstream: true
           read_output_from: stdout
