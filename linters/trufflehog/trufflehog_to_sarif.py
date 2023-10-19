@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 import os
 import sys
@@ -28,7 +29,24 @@ def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str)
     }
 
 
-def main(argv):
+# Create an ArgumentParser object
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--parse-mode",
+        choices=("0-indexed-linenos", "1-indexed-linenos"),
+        required=True,
+    )
+    args = parser.parse_args()
+
+    lineno_modifier = None
+    if args.parse_mode == "0-indexed-linenos":
+        lineno_modifier = 1
+    elif args.parse_mode == "1-indexed-linenos":
+        lineno_modifier = 0
+
     results = []
 
     for line in sys.stdin.readlines():
@@ -51,7 +69,7 @@ def main(argv):
             path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
             line_number = (
                 int(vuln_json["SourceMetadata"]["Data"]["Filesystem"].get("line", "0"))
-                + 1
+                + lineno_modifier
             )
         elif "Git" in vuln_json["SourceMetadata"]["Data"]:
             file = vuln_json["SourceMetadata"]["Data"]["Git"]["file"]
@@ -90,4 +108,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()
