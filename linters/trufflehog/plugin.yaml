@@ -27,6 +27,7 @@ lint:
         - name: lint
           output: sarif
           run: trufflehog filesystem --json --fail --only-verified --no-update ${target}
+          version: ">=3.60.1"
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
@@ -40,7 +41,6 @@ lint:
         - name: lint
           output: sarif
           run: trufflehog filesystem --json --fail --only-verified --no-update ${target}
-          version: <3.60.1
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
@@ -73,6 +73,7 @@ lint:
           run:
             trufflehog git --json --fail --only-verified --no-update file://${target} --since-commit
             ${upstream-ref}
+          version: ">=3.60.1"
           disable_upstream: true
           read_output_from: stdout
           success_codes: [0, 183]
@@ -86,7 +87,6 @@ lint:
               --parse-mode=1-indexed-linenos
         - name: lint
           output: sarif
-          version: <3.60.1
           target: .
           run:
             trufflehog git --json --fail --only-verified --no-update file://${target} --since-commit
