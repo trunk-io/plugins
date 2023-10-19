@@ -34,7 +34,23 @@ lint:
           cache_ttl: 1h
           parser:
             runtime: python
-            run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+            run:
+              python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+              --parse-mode=1-indexed-linenos
+        - name: lint
+          output: sarif
+          run: trufflehog filesystem --json --fail --only-verified --no-update ${target}
+          version: <3.60.1
+          read_output_from: stdout
+          success_codes: [0, 183]
+          is_security: true
+          batch: true
+          cache_ttl: 1h
+          parser:
+            runtime: python
+            run:
+              python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
+              --parse-mode=0-indexed-linenos
       suggest_if: files_present
       environment:
         - name: PATH

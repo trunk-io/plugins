@@ -2,41 +2,54 @@
 
 exports[`Testing linter trufflehog-git test CUSTOM 1`] = `
 {
-  "issues": [
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
     {
-      "code": "URI",
-      "file": ".",
-      "isSecurity": true,
-      "issueClass": "ISSUE_CLASS_NEW",
-      "level": "LEVEL_HIGH",
-      "linter": "trufflehog-git",
-      "message": "secrets.in.py:8: Secret detected: https://admin:********@the-internet.herokuapp.com on commit <hash> (file since deleted)",
-      "targetType": "ALL",
-    },
-    {
-      "code": "URI",
-      "file": "secrets2.in.py",
-      "isSecurity": true,
-      "issueClass": "ISSUE_CLASS_NEW",
-      "level": "LEVEL_HIGH",
-      "line": "8",
-      "linter": "trufflehog-git",
-      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com on commit <hash>",
-      "targetType": "ALL",
+      "details": "trunk_cli_version: 1.16.3-beta.13
+title: trufflehog-git exited with exit_code=183
+report:
+  - trufflehog-git exited with exit_code=183
+  - linter:
+      command: |
+        /tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68/trufflehog git --json --fail --only-verified --no-update file://. --since-commit 17f7dbe5e6a1822fe40638769f97bd8d9d67bfb1
+      stdin_path: (none)
+      run_from: /tmp/plugins_HH5vdW
+      timeout: 10m
+      rerun: (cd /tmp/plugins_HH5vdW; env -i PATH=/tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68:/home/sam/plugins/node_modules/.bin:/home/sam/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3:/home/sam/plugins/.trunk/tools:.trunk/tools/:/home/sam/.nvm/versions/node/v16.18.1/bin:/home/sam/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin HOME=/home/sam /tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68/trufflehog git --json --fail --only-verified --no-update file://. --since-commit 17f7dbe5e6a1822fe40638769f97bd8d9d67bfb1)
+      affects_cache:
+        []
+      direct_configs:
+        []
+      exit_status: exited
+      exit_code: 183
+      stdout: |
+        {"SourceMetadata":{"Data":{"Git":{"commit":"5a164fec1732cfbb4df1a3c3414ce0071e75265c","file":"secrets.in.py","email":"Plugin Author \\u003ctrunk-plugins@example.com\\u003e","timestamp":"2023-10-19 00:04:28 +0000","line":8}}},"SourceID":1,"SourceType":16,"SourceName":"trufflehog - git","DetectorType":17,"DetectorName":"URI","DecoderName":"PLAIN","Verified":true,"Raw":"https://admin:admin@the-internet.herokuapp.com","RawV2":"https://admin:admin@the-internet.herokuapp.com/basic_auth","Redacted":"https://admin:********@the-internet.herokuapp.com","ExtraData":null,"StructuredData":null}
+        {"SourceMetadata":{"Data":{"Git":{"commit":"5a164fec1732cfbb4df1a3c3414ce0071e75265c","file":"secrets2.in.py","email":"Plugin Author \\u003ctrunk-plugins@example.com\\u003e","timestamp":"2023-10-19 00:04:28 +0000","line":8}}},"SourceID":1,"SourceType":16,"SourceName":"trufflehog - git","DetectorType":17,"DetectorName":"URI","DecoderName":"BASE64","Verified":true,"Raw":"https://admin:admin@the-internet.herokuapp.com","RawV2":"https://admin:admin@the-internet.herokuapp.com/basic_auth","Redacted":"https://admin:********@the-internet.herokuapp.com","ExtraData":null,"StructuredData":null}
+
+      stderr: |
+        {"level":"info-0","ts":"2023-10-18T18:04:39-06:00","logger":"trufflehog","msg":"finished scanning","chunks":2,"bytes":6100,"verified_secrets":2,"unverified_secrets":0,"scan_duration":"9.756169671s"}
+
+    parser:
+      command: |
+        /tmp/plugins_testing_download_cache/python/3.10.8-b6e96641f2c120698c300f1bdd98bc0e/bin/python3 /home/sam/plugins/linters/trufflehog/trufflehog_to_sarif.py
+      stdin_path: (none)
+      run_from: /tmp/plugins_HH5vdW
+      timeout: 10m
+      rerun: (cd /tmp/plugins_HH5vdW; env -i PATH=/tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68:/tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68/bin:/tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68/Scripts:/tmp/plugins_testing_download_cache/python/3.10.8-b6e96641f2c120698c300f1bdd98bc0e/bin:/tmp/plugins_testing_download_cache/python/3.10.8-b6e96641f2c120698c300f1bdd98bc0e:/home/sam/plugins/node_modules/.bin:/home/sam/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3:/home/sam/plugins/.trunk/tools:.trunk/tools/:/home/sam/.nvm/versions/node/v16.18.1/bin:/home/sam/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/sam/plugins/node_modules/.bin:/home/sam/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3/bin:/home/sam/.cache/trunk/tools/node/18.12.1-00ae74f39ac4de3ff3c7e3686016ebf3:/home/sam/plugins/.trunk/tools:.trunk/tools/:/home/sam/.nvm/versions/node/v16.18.1/bin:/home/sam/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin HOME=/home/sam VIRTUAL_ENV=/tmp/plugins_testing_download_cache/trufflehog/3.59.0-e4d4cdebabd8492b1d0f03993dc6fa68 PYTHONUTF8=1 /tmp/plugins_testing_download_cache/python/3.10.8-b6e96641f2c120698c300f1bdd98bc0e/bin/python3 /home/sam/plugins/linters/trufflehog/trufflehog_to_sarif.py)
+      exit_status: exited
+      exit_code: 2
+      stdout: (none)
+      stderr: |
+        usage: trufflehog_to_sarif.py [-h] --parse-mode
+                                      {0-indexed-linenos,1-indexed-linenos}
+        trufflehog_to_sarif.py: error: the following arguments are required: --parse-mode
+
+",
+      "message": ".",
+      "name": "trufflehog-git",
     },
   ],
-  "lintActions": [
-    {
-      "command": "lint",
-      "fileGroupName": "ALL",
-      "linter": "trufflehog-git",
-      "paths": [
-        ".",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-  ],
-  "taskFailures": [],
   "unformattedFiles": [],
 }
 `;
