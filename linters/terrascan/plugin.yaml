@@ -51,5 +51,5 @@ lint:
         run: terrascan version
       environment:
         - name: PATH
-          list: ["${linter}"]
+          list: ["${linter}", "${env.PATH}"]
       direct_configs: [terrascan_config.toml]
