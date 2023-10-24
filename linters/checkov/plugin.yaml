@@ -20,12 +20,14 @@ lint:
           success_codes: [0, 1]
           read_output_from: tmp_file
           is_security: true
+          decode_uri: true
         - name: lint
           run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},
           output: sarif
           success_codes: [0, 1]
           read_output_from: tmp_file
           is_security: true
+          decode_uri: true
       known_good_version: 2.3.75
       suggest_if: files_present
       direct_configs:
