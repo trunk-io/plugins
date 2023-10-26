@@ -17,7 +17,7 @@ lint:
           output: sarif
           run: markdown-link-check -q "${target}"
           success_codes: [0, 1]
-          cache_results: true
+          cache_results: false
           read_output_from: stdout
           parser:
             runtime: python
