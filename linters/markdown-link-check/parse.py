@@ -12,9 +12,19 @@ markdown-link-check output looks like this
 ```
 """
 
+import argparse
 import json
 import re
 import sys
+
+
+def try_find_string_in_file(filename, search_string):
+    with open(filename, "r") as f:
+        for i, line in enumerate(f):
+            index = line.find(search_string)
+            if index != -1:
+                return i + 1, index + 1
+    return 0, 0
 
 
 def to_result_sarif(
@@ -43,21 +53,29 @@ def to_result_sarif(
 
 
 def main(argv):
+    parser = argparse.ArgumentParser(description="Parse output of markdown-link-check")
+    parser.add_argument("--target", dest="target")
+    args = parser.parse_args()
+
     results = []
 
     # Line numbers are not reported out of the tool right now - so we regex parse the output to extract issue codes
     for line in sys.stdin:
         parse_reg = "\s*(\[.*\])\s(.*)→.*Status:\s*(\d*)(.*)"
+        filename = args.target
 
         parse_result = re.fullmatch(parse_reg, line, flags=re.DOTALL)
         if parse_result:
+            bad_link = parse_result.group(2).strip()
+            line, col = try_find_string_in_file(filename, bad_link)
+
             results.append(
                 to_result_sarif(
                     ".",
-                    0,
-                    0,
+                    line,
+                    col,
                     parse_result.group(3),
-                    parse_result.group(2),
+                    bad_link,
                 )
             )
         else:
