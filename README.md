@@ -44,13 +44,13 @@ trunk check enable {linter}
 | C, C++          | [clang-format], [clang-tidy], [include-what-you-use], [pragma-once]                                                  |
 | CircleCI Config | [circleci]                                                                                                           |
 | Cloudformation  | [cfnlint], [checkov]                                                                                                 |
-| CSS, SCSS       | [stylelint]                                                                                                          |
+| CSS, SCSS       | [stylelint], [prettier]                                                                                              |
 | Cue             | [cue-fmt]                                                                                                            |
 | Docker          | [hadolint], [checkov]                                                                                                |
 | Dotenv          | [dotenv-linter]                                                                                                      |
 | GitHub          | [actionlint]                                                                                                         |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                     |
-| GraphQL         | [graphql-schema-linter]                                                                                              |
+| GraphQL         | [graphql-schema-linter], [prettier]                                                                                  |
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
@@ -59,7 +59,7 @@ trunk check enable {linter}
 | Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
-| Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check]                                                         |
+| Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check], [prettier]                                             |
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
