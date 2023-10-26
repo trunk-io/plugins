@@ -21,7 +21,7 @@ lint:
           read_output_from: stdout
           parser:
             runtime: python
-            run: python3 ${plugin}/linters/markdown-link-check/parse.py
+            run: python3 ${plugin}/linters/markdown-link-check/parse.py --target="${target}"
       suggest_if: never
       known_good_version: 3.11.2
       version_command:
