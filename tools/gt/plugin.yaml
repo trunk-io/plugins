@@ -22,3 +22,10 @@ tools:
       shims:
         - name: gt
           target: gt
+    - name: gt-1
+      known_good_version: 1.0.0
+      runtime: node
+      package: "@withgraphite/graphite-cli"
+      shims:
+        - name: gt
+          target: gt

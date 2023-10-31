@@ -7,3 +7,10 @@ toolTest({
   testConfigs: [makeToolTestConfig({ command: ["gt", "--version"], expectedOut: "0.20.19" })],
   skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
 });
+
+toolTest({
+  toolName: "gt-1",
+  toolVersion: "1.0.0",
+  testConfigs: [makeToolTestConfig({ command: ["gt", "--version"], expectedOut: "1.0.0" })],
+  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
+});
