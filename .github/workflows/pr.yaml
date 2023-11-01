@@ -83,7 +83,7 @@ jobs:
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
-    name: Linter Tests ${{ matrix.version }}
+    name: Linter Tests ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: detect_changes
     if:
