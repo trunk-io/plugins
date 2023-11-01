@@ -8,9 +8,9 @@ permissions:
   deployments: read
   id-token: write
   issues: write
-  discussions: write
-  packages: write
-  pages: write
+  discussions: read
+  packages: read
+  pages: read
   pull-requests: write
   repository-projects: write
   security-events: write
