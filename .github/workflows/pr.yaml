@@ -8,14 +8,11 @@ permissions:
   issues: read
   pull-requests: write
   statuses: write
-
-  # discussions: read|write|none
-  # packages: read|write|none
-  # pages: read|write|none
-  # pull-requests: read|write|none
-  # repository-projects: read|write|none
-  # security-events: read|write|none
-  # statuses: read|write|none
+  discussions: read
+  packages: read
+  pages: read
+  repository-projects: read
+  security-events: read
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
