@@ -12,8 +12,8 @@ permissions:
   packages: read
   pages: read
   pull-requests: write
-  repository-projects: write
-  security-events: write
+  repository-projects: read
+  security-events: read
   statuses: write
 
 concurrency:
