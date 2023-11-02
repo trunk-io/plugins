@@ -2,19 +2,20 @@ name: Pull Request
 on: [pull_request, workflow_dispatch]
 
 permissions:
-  actions: write
-  checks: write
-  contents: read
-  deployments: read
-  id-token: write
-  issues: write
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: write
-  repository-projects: read
-  security-events: read
-  statuses: write
+  write-all
+  # actions: write
+  # checks: write
+  # contents: read
+  # deployments: read
+  # id-token: write
+  # issues: write
+  # discussions: read
+  # packages: read
+  # pages: read
+  # pull-requests: write
+  # repository-projects: read
+  # security-events: read
+  # statuses: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
