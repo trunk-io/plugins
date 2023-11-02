@@ -81,6 +81,7 @@ runs:
       with:
         breakpoint-id: trunk-plugins-linter-tests
         shell: bash
+        debug: true
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
