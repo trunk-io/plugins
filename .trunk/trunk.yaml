@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.16.3-beta.13
+  version: 1.17.2-beta.11
 
 api:
   address: api.trunk-staging.io:8443
@@ -15,7 +15,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v0.0.7
+      ref: v0.0.8
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
