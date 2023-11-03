@@ -29,38 +29,30 @@ def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str)
 
 
 secret_line_cache = {}
+file_cache = {}
 
 
 def find_line_number(secret, path):
-    with open(path) as lines:
-        if secret not in secret_line_cache:
-            secret_line_cache[secret] = []
+    if path not in file_cache:
+        file_cache[path] = open(path).readlines()
 
-        check_window = []
-        try:
-            for _ in secret.splitlines():
-                check_window.append(next(lines))
-        except StopIteration:
-            # file is fewer lines than the secret
-            return None
+    if secret not in secret_line_cache:
+        secret_line_cache[secret] = []
 
-        if 1 not in secret_line_cache[secret] and secret in "".join(check_window):
-            secret_line_cache[secret].append(1)
-            return 1
+    secret_length = len(secret.splitlines())
+    lines = file_cache[path]
 
-        for lineno, line in enumerate(lines, 2):
-            # remove first line of window and append next line from file
-            check_window = check_window[1:]
-            check_window.append(line)
+    for lineno in range(1, len(lines) - secret_length):
+        check_window = lines[lineno : lineno + secret_length]
 
-            # trufflehog can report the same secret multiple times
-            # if it truly appears multiple times, then we want to log different lines for each issue
-            if lineno in secret_line_cache[secret]:
-                continue
-            if secret in "".join(check_window):
-                secret_line_cache[secret].append(lineno)
-                return lineno
-        return None
+        # trufflehog can report the same secret multiple times
+        # if it truly appears multiple times, then we want to log different lines for each issue
+        if lineno in secret_line_cache[secret]:
+            continue
+        if secret in "".join(check_window):
+            secret_line_cache[secret].append(lineno)
+            return lineno
+    return None
 
 
 def main(argv):

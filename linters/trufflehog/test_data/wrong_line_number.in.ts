@@ -1,4 +1,4 @@
-// github secret on line 587 and 592 - ctrl+F "ghs_"
+// github secret on line 587 and 592 - ctrl+F "basic_auth"
 import "reflect-metadata";
 
 import { faker } from "@faker-js/faker";
@@ -584,12 +584,12 @@ describe("repo/cluster_job", function () {
           (req, res, ctx) =>
             res(
               ctx.json({
-                token: "ghs_111111111111111111111111111111111111",
+                token: "https://admin:admin@the-internet.herokuapp.com/basic_auth",
                 expires_at: dayjs().add(1, "days").toISOString(),
                 permissions: { contents: "read" },
                 repository_selection: "selected",
                 // again to make sure we can report it multiple times
-                moreToken: "ghs_111111111111111111111111111111111111",
+                moreToken: "https://admin:admin@the-internet.herokuapp.com/basic_auth",
               }),
             ),
         ),
