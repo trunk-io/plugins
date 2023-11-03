@@ -10,7 +10,7 @@ exports[`Testing linter trufflehog test wrong_line_number 1`] = `
       "level": "LEVEL_HIGH",
       "line": "586",
       "linter": "trufflehog",
-      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com",
+      "message": "Secret detected: https://********:********@the-internet.herokuapp.com",
       "targetType": "ALL",
     },
     {
@@ -20,7 +20,7 @@ exports[`Testing linter trufflehog test wrong_line_number 1`] = `
       "level": "LEVEL_HIGH",
       "line": "591",
       "linter": "trufflehog",
-      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com",
+      "message": "Secret detected: https://********:********@the-internet.herokuapp.com",
       "targetType": "ALL",
     },
   ],
