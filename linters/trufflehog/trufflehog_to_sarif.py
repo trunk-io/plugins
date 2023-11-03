@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+import collections
 import json
 import os
 import sys
+from itertools import islice
 
 
 def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str):
@@ -28,7 +30,16 @@ def to_result_sarif(path: str, line_number: int, vuln_id: str, description: str)
     }
 
 
-secret_line_cache = {}
+def sliding_window(iterable, n):
+    # sliding_window('ABCDEFG', 4) --> ABCD BCDE CDEF DEFG
+    it = iter(iterable)
+    window = collections.deque(islice(it, n - 1), maxlen=n)
+    for x in it:
+        window.append(x)
+        yield tuple(window)
+
+
+secret_lineno_cache = {}
 file_cache = {}
 
 
@@ -36,21 +47,19 @@ def find_line_number(secret, path):
     if path not in file_cache:
         file_cache[path] = open(path).readlines()
 
-    if secret not in secret_line_cache:
-        secret_line_cache[secret] = []
+    if secret not in secret_lineno_cache:
+        secret_lineno_cache[secret] = []
 
     secret_length = len(secret.splitlines())
     lines = file_cache[path]
 
-    for lineno in range(1, len(lines) - secret_length):
-        check_window = lines[lineno : lineno + secret_length]
-
+    for lineno, window in enumerate(sliding_window(lines, secret_length), 1):
         # trufflehog can report the same secret multiple times
         # if it truly appears multiple times, then we want to log different lines for each issue
-        if lineno in secret_line_cache[secret]:
+        if lineno in secret_lineno_cache[secret]:
             continue
-        if secret in "".join(check_window):
-            secret_line_cache[secret].append(lineno)
+        if secret in "".join(window):
+            secret_lineno_cache[secret].append(lineno)
             return lineno
     return None
 

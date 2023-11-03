@@ -1,598 +1,598 @@
-// github secret on line 587 and 592 - ctrl+F "basic_auth"
-import "reflect-metadata";
+// secrets on lines 587 and 592 - ctrl+f "admin"
+xxxxxx xxxxxxxxxxxxxxxxxxx
 
-import { faker } from "@faker-js/faker";
-import chai, { expect } from "chai";
-import chaiExclude from "chai-exclude";
-import dayjs from "dayjs";
-import { LDClient } from "launchdarkly-node-server-sdk";
-import range from "lodash.range";
-import { rest } from "msw";
-import { App } from "trunk/trunk/base/ts/di";
-import logger from "trunk/trunk/base/ts/logger";
-import {
-  awsPassThroughHandler,
-  createServer,
-  ldPassThroughHandler,
-  ServerApi,
-} from "trunk/trunk/base/ts/testing/msw";
-import * as github from "trunk/trunk/services/common/source_control_clients/github";
-import { createGithubClientFactoryWithGithubMock } from "trunk/trunk/services/common/source_control_clients/github/testing";
-import * as prismaTypes from "trunk/trunk/services/prisma/client";
-import PrismaClientFactory from "trunk/trunk/services/prisma/factory";
-import * as synth from "trunk/trunk/services/prisma/synth";
-import { ORGS_TO_NOT_SYNC_REPOKEYS_FOR } from "trunk/trunk/services/repo/cluster_job/constants";
-import ApiTokenFixer from "trunk/trunk/services/repo/cluster_job/fix_api_token";
-import DefaultBranchFixer from "trunk/trunk/services/repo/cluster_job/fix_default_branch";
-import SyncRepoCommand, { SyncRepoOptions } from "trunk/trunk/services/repo/cluster_job/sync_repo";
-import SyncRepoKeyCommand, {
-  SyncRepoKeyOptions,
-} from "trunk/trunk/services/repo/cluster_job/sync_repokey";
-import * as aws from "trunk/trunk/services/third-party/aws/module";
-import * as ld from "trunk/trunk/services/third-party/launchdarkly/module";
-import { MODULE as PRISMA_MODULE } from "trunk/trunk/services/third-party/prisma/module";
-import { anything, reset, when } from "ts-mockito";
-import { DependencyContainer } from "tsyringe";
-import { v4 as uuidv4 } from "uuid";
+xxxxxx x xxxxx x xxxx xxxxxxxxxxxxxxxxxx
+xxxxxx xxxxx x xxxxxx x xxxx xxxxxxx
+xxxxxx xxxxxxxxxxx xxxx xxxxxxxxxxxxxxx
+xxxxxx xxxxx xxxx xxxxxxxx
+xxxxxx x xxxxxxxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxx xxxx xxxxxxxxxxxxxxx
+xxxxxx x xxxx x xxxx xxxxxx
+xxxxxx x xxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x
+  xxxxxxxxxxxxxxxxxxxxxx
+  xxxxxxxxxxxxx
+  xxxxxxxxxxxxxxxxxxxxx
+  xxxxxxxxxx
+x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xx xxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xx xxxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxxxxxxxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xx xxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xxxxxxxxxxxxxxxxxxxxxxxxxxxxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxxxxxxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxxxxxxxxxxxx x xxxxxxxxxxxxxxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx xxxxxxxxxxxxxxxxxxx x
+  xxxxxxxxxxxxxxxxxxx
+x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xx xxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xx xx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xxxxxx xx xxxxxxxxxxxxx x xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxx x xxxxxxxxx xxxxxx xxxx x xxxx xxxxxxxxxxxxx
+xxxxxx x xxxxxxxxxxxxxxxxxxx x xxxx xxxxxxxxxxx
+xxxxxx x xx xx xxxxxx x xxxx xxxxxxx
 
-chai.use(chaiExclude);
+xxxxxxxxxxxxxxxxxxxxxx
 
-describe("repo/cluster_job", function () {
-  this.timeout(5000);
+xxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx x
+  xxxxxxxxxxxxxxxxxxx
 
-  const prisma = new PrismaClientFactory({ verbose: false, unsanitized: false }).create();
-  const { githubClientFactory, mockedGithubClient } = createGithubClientFactoryWithGithubMock();
-  const provider = "Github";
+  xxxxx xxxxxx x xxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxx xxxxxx xxxxxxxxxxxx xxxxx xxxxxxxxxxxx
+  xxxxx x xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx x x xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  xxxxx xxxxxxxx x xxxxxxxxx
 
-  const createRepos = async (numRepos: number, repoFields: Partial<prismaTypes.Repo>) => {
-    const { id: repoKeyId } = await prisma.repoKey.create({
-      data: {
-        id: uuidv4(),
-        provider,
-        // NOTE(sam): I'm not sure what repoKey.key actually maps to. I think it's the github org
-        // ID, but don't have a prod DB pulled up right now.
-        key: uuidv4(),
-      },
-    });
-    const orgName = faker.lorem.words(3).replace(/ /g, "-");
-    logger.info(`Creating ${numRepos} repos for ${provider} organization '${orgName}'`);
-    const repos = range(numRepos).map((i) => ({
-      id: uuidv4(),
-      provider,
-      providerId: `github-${uuidv4()}`,
-      name: `${orgName}/repo${i}`,
-      mainHead: "asdf1234",
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.recent(),
-      repoKeyId,
-      ...repoFields,
-    }));
-    await prisma.repo.createMany({ data: repos });
+  xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxx xxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx xx x
+    xxxxx x xxx xxxxxxxxx x x xxxxx xxxxxxxxxxxxxxxxxxxxxxx
+      xxxxx x
+        xxx xxxxxxxxx
+        xxxxxxxxx
+        xx xxxxxxxxxx xxx xxx xxxx xxxx xxxxxxxxxxx xxxxxxxx xxxx xxx x xxxxx xxxx xxx xxxxxx xxx
+        xx xxx xxx xxxxx xxxx x xxxx xx xxxxxx xx xxxxx xxxx
+        xxxx xxxxxxxxx
+      xx
+    xxx
+    xxxxx xxxxxxx x xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxx xxxxx
+    xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxx xxxxx xxx xxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxxxxx
+    xxxxx xxxxx x xxxxxxxxxxxxxxxxxxxxxxx xx xx
+      xxx xxxxxxxxx
+      xxxxxxxxx
+      xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxx
+      xxxxx xxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxx xxxxxxxxxxx
+      xxxxxxxxxx xxxxxxxxxxxxxxxxxx
+      xxxxxxxxxx xxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxx
+      xxxxxxxxxxxxxx
+    xxxx
+    xxxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxxx xxx
 
-    logger.info(`Created ${numRepos} repos for ${provider} organization '${orgName}'`);
-  };
+    xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxx xxxxx xxx xxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxxxxx
+  xx
 
-  beforeEach(async function () {
-    reset(mockedGithubClient);
-    when(mockedGithubClient.getToken(anything())).thenResolve("fake-github-token");
-    await synth.reset();
-  });
+  xxxxxxxxxxxxxxxx xxxxxxxx xx x
+    xxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxx xxxxxxxxxxxxxx
+  xxx
 
-  describe("ApiTokenFixer", function () {
-    it("dry runs missing api tokens", async function () {
-      await createRepos(7, { apiToken: null });
-      await createRepos(4, { apiToken: "" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+  xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx x
+    xxxxxxx xxxx xxxxxxx xxx xxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxx xxxx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxx xx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new ApiTokenFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: false,
-        pageSize: 3,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 11,
-        repoFixedCount: 11,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).to.deep.equal(beforeRepos);
-    });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xxx
+        xxxxxxxxxxxxxxx xxx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxx
 
-    it("sets missing api tokens", async function () {
-      await createRepos(7, { apiToken: null });
-      await createRepos(4, { apiToken: "" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+    xxxxxxxx xxxxxxx xxx xxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxx xxxx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxx xx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new ApiTokenFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: true,
-        pageSize: 3,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 11,
-        repoFixedCount: 11,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).excluding(["apiToken", "updatedAt"]).to.deep.equal(beforeRepos);
-      afterRepos.forEach(({ apiToken }) => {
-        expect(apiToken).to.have.lengthOf.at.least(1);
-      });
-    });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xxx
+        xxxxxxxxxxxxxxx xxx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx xx x
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxx
+    xxx
 
-    it("does not rotate existing api tokens", async function () {
-      await createRepos(5, { apiToken: "super-duper-secret" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+    xxxxxxxx xxx xxxxxx xxxxxxxx xxx xxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxx xxxxxxxxxxxxxxxxxxxx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new ApiTokenFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: true,
-        pageSize: 3,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 0,
-        repoFixedCount: 0,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).excluding(["updatedAt"]).to.deep.equal(beforeRepos);
-    });
-  });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xx
+        xxxxxxxxxxxxxxx xx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxx
+  xxx
 
-  describe("DefaultBranchFixer", function () {
-    it("dry runs missing default branches", async function () {
-      when(mockedGithubClient.getDefaultBranch(anything())).thenResolve("some-github-branch");
-      await createRepos(7, { defaultBranch: null });
-      await createRepos(4, { defaultBranch: "" });
-      await createRepos(4, { defaultBranch: "fake" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx x
+    xxxxxxx xxxx xxxxxxx xxxxxxx xxxxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxxxx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new DefaultBranchFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: false,
-        pageSize: 5,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 15,
-        repoFixedCount: 15,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).to.deep.equal(beforeRepos);
-    });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xxx
+        xxxxxxxxxxxxxxx xxx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxx
 
-    it("updates missing default branches", async function () {
-      when(mockedGithubClient.getDefaultBranch(anything())).thenResolve("some-github-branch");
-      await createRepos(7, { defaultBranch: null });
-      await createRepos(4, { defaultBranch: "" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+    xxxxxxxxxxx xxxxxxx xxxxxxx xxxxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new DefaultBranchFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: true,
-        pageSize: 5,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 11,
-        repoFixedCount: 11,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).excluding(["defaultBranch", "updatedAt"]).to.deep.equal(beforeRepos);
-      afterRepos.forEach(({ defaultBranch }) => {
-        expect(defaultBranch).to.equal("some-github-branch");
-      });
-    });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xxx
+        xxxxxxxxxxxxxxx xxx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxx xx xx x
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxx
+    xxx
 
-    it("updates incorrect default branches", async function () {
-      when(mockedGithubClient.getDefaultBranch(anything())).thenResolve("some-github-branch");
-      await createRepos(7, { defaultBranch: "some-github-branch" });
-      await createRepos(4, { defaultBranch: "wrong-branch" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+    xxxxxxxxxxx xxxxxxxxx xxxxxxx xxxxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxx xxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new DefaultBranchFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: true,
-        pageSize: 5,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 11,
-        repoFixedCount: 11,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).excluding(["defaultBranch", "updatedAt"]).to.deep.equal(beforeRepos);
-      afterRepos.forEach(({ defaultBranch }) => {
-        expect(defaultBranch).to.equal("some-github-branch");
-      });
-    });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xxx
+        xxxxxxxxxxxxxxx xxx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxx xx xx x
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxx
+    xxx
 
-    it("default branch should have no changes", async function () {
-      when(mockedGithubClient.getDefaultBranch(anything())).thenResolve("trunk");
-      await createRepos(8, { defaultBranch: "trunk" });
-      const beforeRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
+    xxxxxxxxxxx xxxxxx xxxxxx xxxx xx xxxxxxxxx xxxxx xxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxx xxxxxxxxxxxxxx x xxxxxxxxxxxxxx xxxxxxx xxx
+      xxxxx xxxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
 
-      const stats = await new DefaultBranchFixer(prisma, githubClientFactory).run({
-        all: true,
-        applyChanges: true,
-        pageSize: 9,
-      });
+      xxxxx xxxxx x xxxxx xxx xxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxx xxxxx
+        xxxxxxxxxxxxx xxxxx
+        xxxxxxxxx xx
+      xxx
 
-      expect(stats).to.deep.equal({
-        repoCount: 8,
-        repoFixedCount: 8,
-        repoFailedCount: 0,
-      });
-      const afterRepos = await prisma.repo.findMany({ orderBy: { id: "asc" } });
-      expect(afterRepos).excluding(["updatedAt"]).to.deep.equal(beforeRepos);
-    });
-  });
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxx xx
+        xxxxxxxxxxxxxxx xx
+        xxxxxxxxxxxxxxxx xx
+      xxx
+      xxxxx xxxxxxxxxx x xxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxx x xxx xxxxx x xxx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxx
+  xxx
 
-  describe("SyncRepoKeyCommand", function () {
-    const appInstallationsHandler = ({
-      installationIds,
-      account,
-      repositorySelection,
-    }: {
-      installationIds: number[];
-      account?: { login: string };
-      repositorySelection: "selected" | "all";
-    }) =>
-      rest.get("https://api.github.com/app/installations", (req, res, ctx) =>
-        res(
-          ctx.json(
-            installationIds.map((installationId) => ({
-              id: installationId,
-              account: account ?? {
-                login: "octoprawn",
-              },
-              html_url: `https://github.example/organizations/github/settings/installations/${installationId}`,
-              app_id: 10101,
-              target_id: `${faker.datatype.number(5000)}`,
-              target_type: "Organization",
-              repository_selection: repositorySelection,
-              created_at: "2017-07-08T16:18:44-04:00",
-              updated_at: "2017-07-08T16:18:44-04:00",
-              app_slug: "github-actions",
-              suspended_at: null,
-              suspended_by: null,
-            })),
-          ),
-        ),
-      );
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx x
+    xxxxx xxxxxxxxxxxxxxxxxxxxxxx x xx
+      xxxxxxxxxxxxxxxx
+      xxxxxxxx
+      xxxxxxxxxxxxxxxxxxxx
+    xx x
+      xxxxxxxxxxxxxxxx xxxxxxxxx
+      xxxxxxxxx x xxxxxx xxxxxx xx
+      xxxxxxxxxxxxxxxxxxxx xxxxxxxxxx x xxxxxx
+    xx xx
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxx xxxx xx
+        xxxx
+          xxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xx xx
+              xxx xxxxxxxxxxxxxxx
+              xxxxxxxx xxxxxxx xx x
+                xxxxxx xxxxxxxxxxxx
+              xx
+              xxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxx xxxxxx
+              xxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxx xxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxx xxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxx xxxxx
+              xxxxxxxxxxxxx xxxxx
+            xxxx
+          xx
+        xx
+      xx
 
-    const runSyncRepoKeyCommand = async (options: SyncRepoKeyOptions) => {
-      const app = App.uses(ld.MODULE, aws.MODULE, PRISMA_MODULE, github.MODULE);
-      return await app.run(async (deps: DependencyContainer) => {
-        try {
-          return await deps.resolve(SyncRepoKeyCommand).run(options);
-        } catch (err) {
-          logger.error("wrap error", err);
-          return { runFailed: 1 };
-        } finally {
-          const ldClient = deps.resolve<LDClient>("LDClient");
-          if (ldClient) {
-            await ldClient.close();
-          }
-        }
-      });
-    };
+    xxxxx xxxxxxxxxxxxxxxxxxxxx x xxxxx xxxxxxxxx xxxxxxxxxxxxxxxxxxx xx x
+      xxxxx xxx x xxxxxxxxxxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+      xxxxxx xxxxx xxxxxxxxxxxxx xxxxxx xxxxxxxxxxxxxxxxxxxx xx x
+        xxx x
+          xxxxxx xxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        x xxxxx xxxxx x
+          xxxxxxxxxxxxxxxxxx xxxxxxx xxxxx
+          xxxxxx x xxxxxxxxxx x xx
+        x xxxxxxx x
+          xxxxx xxxxxxxx x xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          xx xxxxxxxxxx x
+            xxxxx xxxxxxxxxxxxxxxxx
+          x
+        x
+      xxx
+    xx
 
-    const nonGithubFields = ["id", "createdAt", "updatedAt", "ownerOrganizationId", "ownerUserId"];
+    xxxxx xxxxxxxxxxxxxxx x xxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
 
-    let testServer: ServerApi;
+    xxx xxxxxxxxxxx xxxxxxxxxx
 
-    before(function () {
-      testServer = createServer([]);
-      testServer.start();
-    });
+    xxxxxxxxxxxxxxx xx x
+      xxxxxxxxxx x xxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxx
+    xxx
 
-    after(function () {
-      testServer.close();
-    });
+    xxxxxxxxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxx
+    xxx
 
-    beforeEach(function () {
-      testServer.reset();
-    });
+    xxxxxxxxxxxxxxxxxxx xx x
+      xxxxxxxxxxxxxxxxxxx
+    xxx
 
-    describe("prisma.RepoKey is missing records for GitHub app installs", function () {
-      const installationIds = [111, 222, 333];
-      const preInstalledRepoKey = {
-        id: faker.datatype.uuid(),
-        provider: "Github",
-        key: "1234",
-        githubAppInstallationUrl: "https://not.github/",
-        githubAppInAllRepos: true,
-      };
+    xxxxxxxxxxxxxxxxxxxxxxxx xx xxxxxxx xxxxxxx xxx xxxxxx xxx xxxxxxxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxxx x xxxxx xxxx xxxxx
+      xxxxx xxxxxxxxxxxxxxxxxxx x x
+        xxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxx xxxxxxxxx
+        xxxx xxxxxxx
+        xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxxxx xxxxx
+      xx
 
-      [
-        {
-          testCaseName:
-            "by default, reports intent to create prisma.RepoKey records for missing installs",
-          applyChanges: false,
-          expected: {
-            wouldCreate: installationIds.length,
-          },
-          expectFinalDbState: async () =>
-            expect(await prisma.repoKey.findMany())
-              .to.excluding(nonGithubFields)
-              .deep.equal([preInstalledRepoKey]),
-        },
-        {
-          testCaseName: "with --apply-changes, creates prisma.RepoKey records for missing installs",
-          applyChanges: true,
-          expected: {
-            created: installationIds.length,
-          },
-          expectFinalDbState: async () =>
-            expect(await prisma.repoKey.findMany({ orderBy: [{ key: "asc" }] }))
-              .to.excluding(nonGithubFields)
-              .deep.equal([
-                {
-                  githubAppInAllRepos: false,
-                  githubAppInstallationUrl:
-                    "https://github.example/organizations/github/settings/installations/111",
-                  key: "111",
-                  provider: "Github",
-                },
-                preInstalledRepoKey,
-                {
-                  githubAppInAllRepos: false,
-                  githubAppInstallationUrl:
-                    "https://github.example/organizations/github/settings/installations/222",
-                  key: "222",
-                  provider: "Github",
-                },
-                {
-                  githubAppInAllRepos: false,
-                  githubAppInstallationUrl:
-                    "https://github.example/organizations/github/settings/installations/333",
-                  key: "333",
-                  provider: "Github",
-                },
-              ]),
-        },
-      ].map(({ testCaseName, applyChanges, expected, expectFinalDbState }) =>
-        it(testCaseName, async function () {
-          testServer.overrideHandlers([
-            ldPassThroughHandler,
-            awsPassThroughHandler,
-            () =>
-              appInstallationsHandler({
-                installationIds,
-                repositorySelection: "selected",
-              }),
-          ]);
-          await prisma.repoKey.create({ data: preInstalledRepoKey });
-          expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
+      x
+        x
+          xxxxxxxxxxxxx
+            xxx xxxxxxxx xxxxxxx xxxxxx xx xxxxxx xxxxxxxxxxxxxx xxxxxxx xxx xxxxxxx xxxxxxxxxx
+          xxxxxxxxxxxxx xxxxxx
+          xxxxxxxxx x
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxx
+          xx
+          xxxxxxxxxxxxxxxxxxx xxxxx xx xx
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xx
+        x
+          xxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxx xxxxxxx xxxxxxxxxxxxxx xxxxxxx xxx xxxxxxx xxxxxxxxxx
+          xxxxxxxxxxxxx xxxxx
+          xxxxxxxxx x
+            xxxxxxxx xxxxxxxxxxxxxxxxxxxxxxx
+          xx
+          xxxxxxxxxxxxxxxxxxx xxxxx xx xx
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx xxxx xxxxx xx xxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxx
+                x
+                  xxxxxxxxxxxxxxxxxxxx xxxxxx
+                  xxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                  xxxx xxxxxx
+                  xxxxxxxxx xxxxxxxxx
+                xx
+                xxxxxxxxxxxxxxxxxxxx
+                x
+                  xxxxxxxxxxxxxxxxxxxx xxxxxx
+                  xxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                  xxxx xxxxxx
+                  xxxxxxxxx xxxxxxxxx
+                xx
+                x
+                  xxxxxxxxxxxxxxxxxxxx xxxxxx
+                  xxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                  xxxx xxxxxx
+                  xxxxxxxxx xxxxxxxxx
+                xx
+              xxx
+        xx
+      xxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxx xxxxxxxxxxxxxxxxxx xx xx
+        xxxxxxxxxxxxxxxx xxxxx xxxxxxxx xx x
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxx
+            xx xx
+              xxxxxxxxxxxxxxxxxxxxxxxxx
+                xxxxxxxxxxxxxxxx
+                xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxx
+              xxx
+          xxx
+          xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxxxxx xxx
+          xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          expect(
-            await runSyncRepoKeyCommand({ all: true, applyChanges, pageSize: 1 }),
-          ).to.deep.equal(expected);
+          xxxxxxx
+            xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxx xxxxx xxxxxxxxxxxxx xxxxxxxxx x xxx
+          xxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          await expectFinalDbState();
-        }),
-      );
-    });
+          xxxxx xxxxxxxxxxxxxxxxxxxxx
+        xxx
+      xx
+    xxx
 
-    describe("prisma.RepoKey records correspond to GitHub app installs but are out-of-sync", function () {
-      const installationIds = [1234];
-      const preInstalledRepoKey = {
-        id: faker.datatype.uuid(),
-        provider: "Github",
-        key: "1234",
-        githubAppInstallationUrl: "https://not.github/",
-        githubAppInAllRepos: true,
-      };
+    xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxxxxxxx xx xxxxxx xxx xxxxxxxx xxx xxx xxxxxxxxxxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxxx x xxxxxxx
+      xxxxx xxxxxxxxxxxxxxxxxxx x x
+        xxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxx xxxxxxxxx
+        xxxx xxxxxxx
+        xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxxxx xxxxx
+      xx
 
-      [
-        {
-          testCaseName:
-            "by default, reports intent to update prisma.RepoKey records to match GitHub",
-          applyChanges: false,
-          expected: {
-            wouldUpdate: installationIds.length,
-          },
-          expectFinalDbState: async () =>
-            expect(await prisma.repoKey.findMany())
-              .to.excluding(nonGithubFields)
-              .deep.equal([preInstalledRepoKey]),
-        },
-        {
-          testCaseName: "with --apply-changes, updates prisma.RepoKey records to match GitHub",
-          applyChanges: true,
-          expected: {
-            updated: installationIds.length,
-          },
-          expectFinalDbState: async () =>
-            expect(await prisma.repoKey.findMany())
-              .to.excluding(nonGithubFields)
-              .deep.equal([
-                {
-                  ...preInstalledRepoKey,
-                  githubAppInstallationUrl:
-                    "https://github.example/organizations/github/settings/installations/1234",
-                  githubAppInAllRepos: false,
-                },
-              ]),
-        },
-      ].map(({ testCaseName, applyChanges, expected, expectFinalDbState }) =>
-        it(testCaseName, async function () {
-          testServer.overrideHandlers([
-            ldPassThroughHandler,
-            awsPassThroughHandler,
-            () => appInstallationsHandler({ installationIds, repositorySelection: "selected" }),
-          ]);
-          await prisma.repoKey.create({
-            data: preInstalledRepoKey,
-          });
-          expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
+      x
+        x
+          xxxxxxxxxxxxx
+            xxx xxxxxxxx xxxxxxx xxxxxx xx xxxxxx xxxxxxxxxxxxxx xxxxxxx xx xxxxx xxxxxxxx
+          xxxxxxxxxxxxx xxxxxx
+          xxxxxxxxx x
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxx
+          xx
+          xxxxxxxxxxxxxxxxxxx xxxxx xx xx
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xx
+        x
+          xxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxx xxxxxxx xxxxxxxxxxxxxx xxxxxxx xx xxxxx xxxxxxxx
+          xxxxxxxxxxxxx xxxxx
+          xxxxxxxxx x
+            xxxxxxxx xxxxxxxxxxxxxxxxxxxxxxx
+          xx
+          xxxxxxxxxxxxxxxxxxx xxxxx xx xx
+            xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              xxxxxxxxxxxxx
+                x
+                  xxxxxxxxxxxxxxxxxxxxxxx
+                  xxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                  xxxxxxxxxxxxxxxxxxxx xxxxxx
+                xx
+              xxx
+        xx
+      xxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxx xxxxxxxxxxxxxxxxxx xx xx
+        xxxxxxxxxxxxxxxx xxxxx xxxxxxxx xx x
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxx
+            xx xx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxx xxxxxxxxxx xxx
+          xxx
+          xxxxx xxxxxxxxxxxxxxxxxxxxxxx
+            xxxxx xxxxxxxxxxxxxxxxxxxx
+          xxx
+          xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          expect(
-            await runSyncRepoKeyCommand({ all: true, applyChanges, pageSize: 1 }),
-          ).to.deep.equal(expected);
+          xxxxxxx
+            xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxx xxxxx xxxxxxxxxxxxx xxxxxxxxx x xxx
+          xxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          await expectFinalDbState();
-        }),
-      );
-    });
+          xxxxx xxxxxxxxxxxxxxxxxxxxx
+        xxx
+      xx
+    xxx
 
-    describe("prisma.RepoKey is up-to-date w.r.t. GitHub", function () {
-      const installationIds = [1234];
-      const preInstalledRepoKey = {
-        provider: "Github",
-        key: "1234",
-        githubAppInstallationUrl:
-          "https://github.example/organizations/github/settings/installations/1234",
-        githubAppInAllRepos: false,
-      };
+    xxxxxxxxxxxxxxxxxxxxxxxx xx xxxxxxxxxx xxxxxx xxxxxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxxx x xxxxxxx
+      xxxxx xxxxxxxxxxxxxxxxxxx x x
+        xxxxxxxxx xxxxxxxxx
+        xxxx xxxxxxx
+        xxxxxxxxxxxxxxxxxxxxxxxxx
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxxxx xxxxxx
+      xx
 
-      [
-        {
-          testCaseName: "by default, reports prisma.RepoKey records are up-to-date",
-          applyChanges: false,
-        },
-        {
-          testCaseName: "with --apply-changes, reports prisma.RepoKey records are up-to-date",
-          applyChanges: true,
-        },
-      ].map(({ testCaseName, applyChanges }) =>
-        it(testCaseName, async function () {
-          testServer.overrideHandlers([
-            ldPassThroughHandler,
-            awsPassThroughHandler,
-            () => appInstallationsHandler({ installationIds, repositorySelection: "selected" }),
-          ]);
-          await prisma.repoKey.create({
-            data: { id: faker.datatype.uuid(), ...preInstalledRepoKey },
-          });
-          expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
+      x
+        x
+          xxxxxxxxxxxxx xxx xxxxxxxx xxxxxxx xxxxxxxxxxxxxx xxxxxxx xxx xxxxxxxxxxxx
+          xxxxxxxxxxxxx xxxxxx
+        xx
+        x
+          xxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxx xxxxxxx xxxxxxxxxxxxxx xxxxxxx xxx xxxxxxxxxxxx
+          xxxxxxxxxxxxx xxxxx
+        xx
+      xxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxx xx xx
+        xxxxxxxxxxxxxxxx xxxxx xxxxxxxx xx x
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxx
+            xx xx xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxx xxxxxxxxxx xxx
+          xxx
+          xxxxx xxxxxxxxxxxxxxxxxxxxxxx
+            xxxxx x xxx xxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xx
+          xxx
+          xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          expect(
-            await runSyncRepoKeyCommand({ all: true, applyChanges, pageSize: 1 }),
-          ).to.deep.equal({ isUpToDate: installationIds.length });
+          xxxxxxx
+            xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxx xxxxx xxxxxxxxxxxxx xxxxxxxxx x xxx
+          xxxxxxxxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxx
 
-          expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
-        }),
-      );
-    });
+          xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxx
+      xx
+    xxx
 
-    describe("RepoKey corresponds to an app install used for internal testing", function () {
-      const installationIds = [111, 222, 333];
-      const preInstalledRepoKey = {
-        id: faker.datatype.uuid(),
-        provider: "Github",
-        key: "1234",
-        githubAppInstallationUrl: "https://not.github/",
-        githubAppInAllRepos: true,
-      };
+    xxxxxxxxxxxxxxxxx xxxxxxxxxxx xx xx xxx xxxxxxx xxxx xxx xxxxxxxx xxxxxxxxx xxxxxxxx xx x
+      xxxxx xxxxxxxxxxxxxxx x xxxxx xxxx xxxxx
+      xxxxx xxxxxxxxxxxxxxxxxxx x x
+        xxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxx xxxxxxxxx
+        xxxx xxxxxxx
+        xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxxxx xxxxx
+      xx
 
-      [
-        {
-          testCaseName: "by default, reports install skipped",
-          applyChanges: false,
-        },
-        {
-          testCaseName: "with --apply-changes, reports install skipped",
-          applyChanges: true,
-        },
-      ].map(({ testCaseName, applyChanges }) =>
-        it(testCaseName, async function () {
-          testServer.overrideHandlers([
-            ldPassThroughHandler,
-            awsPassThroughHandler,
-            () =>
-              appInstallationsHandler({
-                installationIds,
-                account: { login: ORGS_TO_NOT_SYNC_REPOKEYS_FOR.at(-2) as string },
-                repositorySelection: "selected",
-              }),
-          ]);
-          await prisma.repoKey.create({ data: preInstalledRepoKey });
-          expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
+      x
+        x
+          xxxxxxxxxxxxx xxx xxxxxxxx xxxxxxx xxxxxxx xxxxxxxxx
+          xxxxxxxxxxxxx xxxxxx
+        xx
+        x
+          xxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxx xxxxxxx xxxxxxx xxxxxxxxx
+          xxxxxxxxxxxxx xxxxx
+        xx
+      xxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxx xx xx
+        xxxxxxxxxxxxxxxx xxxxx xxxxxxxx xx x
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxx
+            xx xx
+              xxxxxxxxxxxxxxxxxxxxxxxxx
+                xxxxxxxxxxxxxxxx
+                xxxxxxxx x xxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xx xxxxxx xx
+                xxxxxxxxxxxxxxxxxxxx xxxxxxxxxxx
+              xxx
+          xxx
+          xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxxxxxxxxxxxxxxxxx xxx
+          xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-          expect(
-            await runSyncRepoKeyCommand({ all: true, applyChanges, pageSize: 1 }),
-          ).to.deep.equal({ skipped: installationIds.length });
+          xxxxxxx
+            xxxxx xxxxxxxxxxxxxxxxxxxxxxx xxxx xxxxx xxxxxxxxxxxxx xxxxxxxxx x xxx
+          xxxxxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxxxxxxxxxxxxx xxx
 
-          await expect(await prisma.repoKey.findMany())
-            .to.excluding(nonGithubFields)
-            .deep.equal([preInstalledRepoKey]);
-        }),
-      );
-    });
-  });
+          xxxxx xxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xxx
+      xx
+    xxx
+  xxx
 
-  describe("SyncRepoCommand", function () {
-    const installationId = 1234;
-    const appInstallation = {
-      id: installationId,
-      account: {
-        login: "octoprawn",
-      },
-      html_url: `https://github.example/organizations/octoprawn/settings/installations/${installationId}`,
-      app_id: 10101,
-      target_id: `${faker.datatype.number(5000)}`,
-      target_type: "Organization",
-      repository_selection: "all",
-      created_at: "2017-07-08T16:18:44-04:00",
-      updated_at: "2017-07-08T16:18:44-04:00",
-      app_slug: "github-actions",
-      suspended_at: null,
-      suspended_by: null,
-    };
-    const repoKeyId = faker.datatype.uuid();
+  xxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxx xx x
+    xxxxx xxxxxxxxxxxxxx x xxxxx
+    xxxxx xxxxxxxxxxxxxxx x x
+      xxx xxxxxxxxxxxxxxx
+      xxxxxxxx x
+        xxxxxx xxxxxxxxxxxx
+      xx
+      xxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxx xxxxxx
+      xxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxx xxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxx xxxxxx
+      xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxx xxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxx xxxxx
+      xxxxxxxxxxxxx xxxxx
+    xx
+    xxxxx xxxxxxxxx x xxxxxxxxxxxxxxxxxxxxxx
 
-    const preInstalledRepoKey = {
-      id: repoKeyId,
-      provider: "Github",
-      key: `${installationId}`,
-      githubAppInstallationUrl: "https://not.github/",
-      githubAppInAllRepos: true,
-    };
+    xxxxx xxxxxxxxxxxxxxxxxxx x x
+      xxx xxxxxxxxxx
+      xxxxxxxxx xxxxxxxxx
+      xxxx xxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxx xxxxx
+    xx
 
-    const handlers = [
-      ldPassThroughHandler,
-      awsPassThroughHandler,
-      () =>
-        rest.get("https://api.github.com/app/installations/:installationId", (req, res, ctx) =>
-          res(ctx.json(appInstallation)),
-        ),
-      () =>
-        rest.get("https://api.github.com/repos/:owner/:repo/installation", (req, res, ctx) =>
-          res(ctx.json(appInstallation)),
-        ),
-      () =>
-        rest.post(
-          "https://api.github.com/app/installations/:installationId/access_tokens",
-          (req, res, ctx) =>
-            res(
-              ctx.json({
-                token: "https://admin:admin@the-internet.herokuapp.com/basic_auth",
-                expires_at: dayjs().add(1, "days").toISOString(),
-                permissions: { contents: "read" },
-                repository_selection: "selected",
-                // again to make sure we can report it multiple times
-                moreToken: "https://admin:admin@the-internet.herokuapp.com/basic_auth",
-              }),
-            ),
-        ),
-    ];
-  });
-});
+    xxxxx xxxxxxxx x x
+      xxxxxxxxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxxxxxxxx
+      xx xx
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxx xxxx xx
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xx
+      xx xx
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxx xxxx xxxx xx
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        xx
+      xx xx
+        xxxxxxxxxx
+          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          xxxxx xxxx xxxx xx
+            xxxx
+              xxxxxxxxxx
+                xxxxxx "https://admin:admin@the-internet.herokuapp.com/basic_auth"
+                xxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxx
+                xxxxxxxxxxxx x xxxxxxxxx xxxxxx xx
+                xxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxx
+                xx xxxxx xx xxxx xxxx xx xxx xxxxxx xx xxxxxxxx xxxxx
+                xxxxxxxxxx "https://admin:admin@the-internet.herokuapp.com/basic_auth"
+              xxx
+            xx
+        xx
+    xx
+  xxx
+xxx
