@@ -23,14 +23,18 @@ lint:`,
 linterCheckTest({
   linterName: "sourcery",
   preCheck,
-  skipTestIf: (version) => {
-    if (!process.env.SOURCERY_TOKEN) {
-      // NOTE(Tyler): This is the simplest approach in order to streamline local development and running from forks.
-      console.log(
-        "Skipping sourcery test. Must provide SOURCERY_TOKEN environment variable in order to run.",
-      );
-      return true;
-    }
-    return skipCPUOS([{ os: "linux", cpu: "arm64" }])(version);
-  },
+  // TODO(Tyler): Sourcery's new pricing model means that we can no longer run trunk+sourcery
+  // in sandboxes with their open source tier. Disable this test until we have a robust solution.
+  skipTestIf: () => true,
+  // skipTestIf: (version) => {
+  //   return true;
+  //   if (!process.env.SOURCERY_TOKEN) {
+  //     // NOTE(Tyler): This is the simplest approach in order to streamline local development and running from forks.
+  //     console.log(
+  //       "Skipping sourcery test. Must provide SOURCERY_TOKEN environment variable in order to run.",
+  //     );
+  //     return true;
+  //   }
+  //   return skipCPUOS([{ os: "linux", cpu: "arm64" }])(version);
+  // },
 });
