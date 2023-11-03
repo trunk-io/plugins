@@ -51,11 +51,10 @@ runs:
     - name: Run plugin tests
       if: runner.os != 'Windows'
       # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-      uses: trunk-io/breakpoint@f8a1f08369323ed46f3ef7161d3d0a2fdc3488df
+      uses: trunk-io/breakpoint@v1
       with:
         breakpoint-id: trunk-plugins-tool-tests
         shell: bash
-        debug: true
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
