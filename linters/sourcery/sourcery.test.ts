@@ -1,7 +1,7 @@
 import path from "path";
 import { linterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { skipCPUOS, TEST_DATA } from "tests/utils";
+import { TEST_DATA } from "tests/utils";
 
 // // You must login in order to use sourcery
 const preCheck = (driver: TrunkLintDriver) => {
