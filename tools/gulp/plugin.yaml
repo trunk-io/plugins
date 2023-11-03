@@ -1,0 +1,9 @@
+version: 0.1
+tools:
+  definitions:
+    - name: gulp
+      runtime: node
+      package: gulp
+      known_good_version: 4.0.2
+      shims:
+        - gulp

@@ -1,0 +1,9 @@
+version: 0.1
+tools:
+  definitions:
+    - name: tailwindcss
+      runtime: node
+      package: tailwindcss
+      known_good_version: 3.3.5
+      shims:
+        - tailwindcss
