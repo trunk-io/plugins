@@ -2,7 +2,8 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.17.1
+  version: 1.17.2-beta.11
+
 api:
   address: api.trunk-staging.io:8443
   org: trunk-staging-org
@@ -19,8 +20,6 @@ plugins:
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
 
-  enabled:
-    - markdown-link-check@3.11.2
   disabled:
     - pylint # pylint diagnostics are too strict
 
