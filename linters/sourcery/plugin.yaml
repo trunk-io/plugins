@@ -19,6 +19,10 @@ lint:
           batch: true
           # NOTE(Tyler): Autofixes will show up as complete "formatting-like" diagnostics. However, strictly speaking, this isn't a formatter, so we don't want to set formatter: true
           in_place: true
+      environment:
+        - name: PATH
+          # needs system path for license verification
+          list: ["${linter}", "${env.PATH}"]
       tools: [sourcery]
       suggest_if: never
       direct_configs:

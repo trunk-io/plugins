@@ -3,7 +3,6 @@ version: 0.1
 # version used for local trunk runs and testing
 cli:
   version: 1.17.1
-
 api:
   address: api.trunk-staging.io:8443
   org: trunk-staging-org

@@ -1,0 +1,11 @@
+version: 0.1
+tools:
+  definitions:
+    - name: webpack
+      runtime: node
+      package: webpack
+      known_good_version: 5.89.0
+      shims:
+        - webpack
+      extra_packages:
+        - webpack-cli
