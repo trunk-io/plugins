@@ -180,8 +180,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-        uses: trunk-io/trunk-action@main
+        uses: trunk-io/trunk-action@3e6816d7e6e5d00c41ba363275046f92557b0044
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
