@@ -9,8 +9,7 @@ lint:
         - name: fix
           prepare_run: bash -c "sourcery login --token=${SOURCERY_TOKEN}"
       environment:
-        # TODO(Tyler): Once prepare_run supports proper environment template resolution, remove PATH and bash
         - name: PATH
-          list: ["${env.PATH}"]
+          list: ["${linter}", "${env.PATH}"]
         - name: SOURCERY_TOKEN
           value: ${env.SOURCERY_TOKEN}

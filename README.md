@@ -22,7 +22,7 @@ plugins:
 ```
 
 This repo is open to contributions! See our
-[contribution guidelines](https://github.com/trunk-io/plugins/blob/main/contributing.md) and join
+[contribution guidelines](https://github.com/trunk-io/plugins/blob/main/CONTRIBUTING.md) and join
 our [slack community][slack] for help. **If you're adding new tools, please see our
 [testing guide](tests/README.md) as well!**
 
