@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter eslint_d test bad_install 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/eof_autofix.ts... (4 files)",
+      "name": "eslint_d",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/eof_autofix.ts... (4 files)",
+      "name": "eslint_d",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

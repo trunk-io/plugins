@@ -1,0 +1,30 @@
+root: true
+
+extends:
+  # Order matters, later configs purposefully override settings from earlier configs
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/recommended
+  - plugin:import/typescript
+  - plugin:node/recommended
+  - prettier
+
+parser: "@typescript-eslint/parser"
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 12
+  # All @typescript-eslint type related checks are disabled if you don't point to your tsconfig, but if we do eslint takes minutes for each file versus a second
+  # TODO(dapirian): figure out how to re-enable this without making eslint take forever
+  # project: ./tsconfig.json
+
+plugins:
+  - "@typescript-eslint"
+  - import
+
+settings:
+  import/parsers:
+    "@typescript-eslint/parser":
+      - .ts
+      - .tsx
