@@ -26,9 +26,9 @@ lint:
           run_when: [cli, monitor, ci] # do not run from lsp - too slow compared to eslint_d
         - name: lint_lsp
           output: eslintd
-          run: eslint_d --output-file ${tmpfile} --format json ${target}
+          run: eslint_d --format json ${target}
           error_codes: [2]
-          read_output_from: tmp_file
+          read_output_from: stdout
           run_when: [lsp] # cannot batch, single threaded, only use in lsp
       direct_configs:
         - .eslintrc
