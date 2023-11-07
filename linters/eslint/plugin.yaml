@@ -6,6 +6,11 @@ tools:
       package: eslint
       shims: [eslint]
       known_good_version: 8.10.0
+    - name: eslint_d
+      runtime: node
+      package: eslint_d
+      shims: [eslint_d]
+      known_good_version: 13.0.0
 lint:
   definitions:
     - name: eslint
@@ -18,6 +23,13 @@ lint:
           error_codes: [2]
           read_output_from: tmp_file
           batch: true
+          run_when: [cli, monitor, ci] # do not run from lsp - too slow compared to eslint_d
+        - name: lint
+          output: eslint
+          run: eslint_d --output-file ${tmpfile} --format json ${target}
+          error_codes: [2]
+          read_output_from: tmp_file
+          run_when: [lsp] # cannot batch, single threaded, only use in lsp
       direct_configs:
         - .eslintrc
         - .eslintrc.cjs
@@ -33,5 +45,5 @@ lint:
       issue_url_format: https://eslint.org/docs/rules/{}
       known_good_version: 8.10.0
       version_command:
-        parse_regex: ${semver}
+        parse_regex: "eslint_d ${semver}"
         run: eslint --version
