@@ -15,7 +15,7 @@ lint:
   definitions:
     - name: eslint
       files: [typescript, javascript]
-      tools: [eslint]
+      tools: [eslint, eslint_d]
       commands:
         - name: lint
           output: eslint
