@@ -87,6 +87,8 @@ def main(argv):
             secret = vuln_json["Raw"]
             path = vuln_json["SourceMetadata"]["Data"]["Filesystem"]["file"]
             line_number = find_line_number(secret, path)
+            # trufflehog can report the same secret multiple times
+            # if the line number is None, then we've already logged this secret
             if line_number is None:
                 continue
         elif "Git" in vuln_json["SourceMetadata"]["Data"]:
