@@ -45,5 +45,5 @@ lint:
       issue_url_format: https://eslint.org/docs/rules/{}
       known_good_version: 8.10.0
       version_command:
-        parse_regex: "${semver}"
+        parse_regex: ${semver}
         run: eslint --version
