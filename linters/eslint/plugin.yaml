@@ -15,13 +15,16 @@ lint:
   definitions:
     - name: eslint
       files: [typescript, javascript]
-      tools: [eslint, eslint_d]
+      tools: [eslint, eslint_d, jq]
       commands:
         - name: lint_lsp
-          output: eslintd
+          output: eslint
           run: eslint_d --format json ${target}
           error_codes: [2]
           read_output_from: stdout
+          parser:
+            runtime: python
+            run: jq -e
       direct_configs:
         - .eslintrc
         - .eslintrc.cjs
