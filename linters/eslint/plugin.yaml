@@ -24,7 +24,7 @@ lint:
           read_output_from: tmp_file
           batch: true
           run_when: [cli, monitor, ci] # do not run from lsp - too slow compared to eslint_d
-        - name: lint
+        - name: lint_lsp
           output: eslint
           run: eslint_d --output-file ${tmpfile} --format json ${target}
           error_codes: [2]
