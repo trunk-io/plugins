@@ -5,6 +5,7 @@ lint:
       files: [python]
       commands:
         - name: lint
+          platforms: [linux, macos]
           output: regex
           run: bash -c "ln -s ${REPO_DIR}/.git .git; sourcery review  --no-summary --csv ${target}"
           parse_regex: ((?P<path>.*),(?P<line>\d+),(?P<code>.*),(?P<message>.*))
@@ -13,6 +14,7 @@ lint:
           batch: true
           cache_results: true
         - name: fix
+          platforms: [linux, macos]
           output: rewrite
           run:
             bash -c "ln -s ${REPO_DIR}/.git .git || true; sourcery review  --no-summary --csv --fix
