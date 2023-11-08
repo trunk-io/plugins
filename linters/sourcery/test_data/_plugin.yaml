@@ -13,3 +13,5 @@ lint:
           list: ["${linter}", "${env.PATH}"]
         - name: SOURCERY_TOKEN
           value: ${env.SOURCERY_TOKEN}
+        - name: REPO_DIR
+          value: "${workspace}"
