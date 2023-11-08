@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: tsc
+      runtime: node
+      package: typescript
+      known_good_version: 5.2.2
+      shims: [tsc]
