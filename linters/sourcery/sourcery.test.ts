@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { linterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { REPO_ROOT, TEST_DATA, skipCPUOS } from "tests/utils";
+import { REPO_ROOT, skipCPUOS, TEST_DATA } from "tests/utils";
 
 // // You must login in order to use sourcery
 const preCheck = (driver: TrunkLintDriver) => {
@@ -23,6 +23,7 @@ lint:`,
   // TODO(Tyler): Sourcery relies on checking if the repo is open source for its pricing model.
   // The sandbox tests run on a subset of the main repo, and it neesd access to the repo root .git folder in order to run.
   driver.deleteFile(".git");
+  // trunk-ignore(semgrep): This path is safe.
   fs.symlinkSync(path.join(REPO_ROOT, ".git"), path.join(driver.getSandbox(), ".git"));
 };
 
