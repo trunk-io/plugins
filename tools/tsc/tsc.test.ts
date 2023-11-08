@@ -1,4 +1,4 @@
-import { makeToolTestConfig, toolTest, toolInstallTest } from "tests";
+import { makeToolTestConfig, toolInstallTest, toolTest } from "tests";
 toolTest({
   toolName: "tsc",
   toolVersion: "5.2.2",
