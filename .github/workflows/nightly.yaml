@@ -220,6 +220,21 @@ jobs:
         with:
           name: windows-latest-test-results
 
+      - name: Print Test Outputs
+        continue-on-error: true
+        run: |
+          echo "::group::Ubuntu results"
+          cat "ubuntu-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
+          echo "::group::Macos results"
+          cat "macos-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
+          echo "::group::Windows results"
+          cat "windows-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
       - name: Slack Notification For Missing Artifacts
         uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         if:
