@@ -130,7 +130,7 @@ export interface LandingState {
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
  */
 export enum TestOS {
-  LINUX = "ubuntu-x64",
+  LINUX = "ubuntu-latest",
   MAC_OS = "macos-latest",
   WINDOWS = "windows-latest",
 }

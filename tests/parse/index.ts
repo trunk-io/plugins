@@ -279,7 +279,7 @@ const parseTestResultsAndWrite = () => {
   );
   if (totalParsedTests === 0) {
     throw new Error(
-      "No tests were parsed. Output files should be named {ubuntu-x64-res.json|macos-latest-res.json|windows-latest-res.json}",
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json|windows-latest-res.json}",
     );
   }
 
