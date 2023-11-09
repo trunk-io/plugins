@@ -99,6 +99,7 @@ jobs:
       # This assumes that any changes on main since the last release are backwards compatible
       # in terms of allowing existing linter tests to run.
       - name: Preserve test runner latest behavior
+        shell: bash
         run: |
           cp -r tests tests.bak
           cp package.json package.json.bak
@@ -131,6 +132,7 @@ jobs:
             tools
 
       - name: Overwrite test runners with latest behavior
+        shell: bash
         run: |
           rm -rf tests
           mv tests.bak tests
@@ -172,6 +174,7 @@ jobs:
         # TODO: TYLER REMOVE
       - name: DEBUG ACTION.YAML
         run: cat ./.github/actions/linter_tests/action.yaml
+        shell: bash
 
       - name: Linter Tests ${{ matrix.os }}
         # Use overwritten dependency action, rather than released version
@@ -226,6 +229,7 @@ jobs:
 
       - name: Print Test Outputs
         continue-on-error: true
+        shell: bash
         run: |
           echo "::group::Ubuntu results"
           cat "ubuntu-latest-res.json" || echo "missing"
@@ -267,16 +271,16 @@ jobs:
         with:
           node-version: 18
 
-      - name: Sync lfs
-        run: git lfs pull
-
       - name: Install Dependencies
+        shell: bash
         run: npm ci
 
       - name: Add npm bin to path
+        shell: bash
         run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Parse Test Results
+        shell: bash
         id: parse
         run: |
           npm run parse
@@ -297,6 +301,7 @@ jobs:
       #   # upload-linter-versions is a hidden command reserved exclusively for uploading
       #   # validated results from the plugins repo.
       #   # daemon must be restarted in order to propagate environment variable
+      #   shell: bash
       #   run: |
       #     trunk daemon shutdown
       #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
@@ -310,6 +315,7 @@ jobs:
       #   # upload-linter-versions is a hidden command reserved exclusively for uploading
       #   # validated results from the plugins repo.
       #   # daemon must be restarted in order to propagate environment variable
+      #   shell: bash
       #   run: |
       #     trunk daemon shutdown
       #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
