@@ -8,7 +8,20 @@ on:
   #   paths: [.github/workflows/nightly.yaml]
   workflow_dispatch: {}
 
-permissions: read-all
+permissions:
+  actions: write
+  checks: write
+  contents: read
+  deployments: read
+  id-token: write
+  issues: write
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: write
+  repository-projects: read
+  security-events: read
+  statuses: write
 
 jobs:
   # Run tests against all linters for snapshots and latest version as they exist on main
