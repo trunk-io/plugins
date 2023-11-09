@@ -52,7 +52,7 @@ runs:
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
-            if [[ ${{ inputs.cli-path }} == "" ]]; then
+            if [[ "${{ inputs.cli-path }}" == "" ]]; then
               echo "CLI_PATH=${{ github.workspace }}\trunk.ps1" >> "$GITHUB_ENV"
             fi
             ;;
