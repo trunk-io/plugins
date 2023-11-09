@@ -1,5 +1,4 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing formatter remark-lint test basic 1`] = `
 "* this is a list item
