@@ -18,7 +18,7 @@ permissions: read-all
 jobs:
   plugins_test:
     name: Plugin Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-x64
     timeout-minutes: 15
 
     steps:

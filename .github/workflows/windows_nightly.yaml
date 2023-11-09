@@ -1,11 +1,6 @@
 name: Windows Tests
 on:
-  schedule:
-    # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
-    - cron: 0 8 * * 1-5
-  # Only enable on pull requests for testing
-  # pull_request:
-  #   paths: [.github/workflows/windows_nightly.yaml]
+  # TODO(Tyler): Preserve this workflow for testing, but in the future we'll want to remove it.
   workflow_dispatch: {}
 
 permissions: read-all

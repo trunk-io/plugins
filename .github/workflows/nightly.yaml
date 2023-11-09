@@ -21,12 +21,14 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-x64, macos-latest, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       - name: Cache tool downloads
+        # ubuntu runner has persistent cache
+        if: matrix.os != 'ubuntu-x64'
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: /tmp/plugins_testing_download_cache
@@ -47,10 +49,23 @@ jobs:
         shell: bash
 
       - name: Linter Tests
+        if: matrix.os != 'windows-latest'
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+      - name: Linter Tests
+        if: matrix.os == 'windows-latest'
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          # manually specify more parallelism to avoid bottlenecks
+          append-args: linters -- --maxWorkers=5
+          # CI Debugger is not yet supported on Windows
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
@@ -63,7 +78,7 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-x64, macos-latest, windows-latest]
     outputs:
       plugin-version: ${{ steps.get-release.outputs.tag }}
 
@@ -125,6 +140,8 @@ jobs:
         continue-on-error: true
 
       - name: Cache tool downloads
+        # ubuntu runner has persistent cache
+        if: matrix.os != 'ubuntu-x64'
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: /tmp/plugins_testing_download_cache
@@ -145,6 +162,7 @@ jobs:
         shell: bash
 
       - name: Linter Tests
+        if: matrix.os != 'windows-latest'
         # Use overwritten dependency action, rather than released version
         uses: ./.github/actions/linter_tests
         with:
@@ -153,12 +171,17 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
-      # akin to the linter_tests job.
-      - name: Tool Tests
-        if: failure() || success()
-        uses: ./.github/actions/tool_tests
+      - name: Linter Tests
+        if: matrix.os == 'windows-latest'
+        # Use overwritten dependency action, rather than released version
+        uses: ./.github/actions/linter_tests
         with:
+          linter-version: ${{ matrix.linter-version }}
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          # manually specify more parallelism to avoid bottlenecks
+          append-args: linters -- --maxWorkers=5 --json --outputFile=${{ matrix.os }}-res.json
+          # CI Debugger is not yet supported on Windows
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
@@ -172,7 +195,7 @@ jobs:
   upload_test_results:
     name: Upload Test Results
     needs: linter_tests_release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-x64
     # Still run on test failure
     if: always()
     timeout-minutes: 10
@@ -185,12 +208,17 @@ jobs:
       - name: Retrieve Test Outputs ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
-          name: ubuntu-latest-test-results
+          name: ubuntu-x64-test-results
 
       - name: Retrieve Test Outputs macOS
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: macos-latest-test-results
+
+      - name: Retrieve Test Outputs Windows
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        with:
+          name: windows-latest-test-results
 
       - name: Setup Node
         uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
@@ -218,31 +246,31 @@ jobs:
           RUN_ID: ${{ github.run_id }}
           TEST_REF: Release
 
-      - name: Upload Test Results Staging
-        continue-on-error: true
-        id: upload-staging
-        env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
-          TRUNK_API_ADDRESS: api.trunk-staging.io:8443
-        # upload-linter-versions is a hidden command reserved exclusively for uploading
-        # validated results from the plugins repo.
-        # daemon must be restarted in order to propagate environment variable
-        run: |
-          trunk daemon shutdown
-          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+      # - name: Upload Test Results Staging
+      #   continue-on-error: true
+      #   id: upload-staging
+      #   env:
+      #     TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
+      #     TRUNK_API_ADDRESS: api.trunk-staging.io:8443
+      #   # upload-linter-versions is a hidden command reserved exclusively for uploading
+      #   # validated results from the plugins repo.
+      #   # daemon must be restarted in order to propagate environment variable
+      #   run: |
+      #     trunk daemon shutdown
+      #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
-      - name: Upload Test Results Prod
-        continue-on-error: true
-        id: upload-prod
-        env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
-          TRUNK_API_ADDRESS: api.trunk.io:8443
-        # upload-linter-versions is a hidden command reserved exclusively for uploading
-        # validated results from the plugins repo.
-        # daemon must be restarted in order to propagate environment variable
-        run: |
-          trunk daemon shutdown
-          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+      # - name: Upload Test Results Prod
+      #   continue-on-error: true
+      #   id: upload-prod
+      #   env:
+      #     TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+      #     TRUNK_API_ADDRESS: api.trunk.io:8443
+      #   # upload-linter-versions is a hidden command reserved exclusively for uploading
+      #   # validated results from the plugins repo.
+      #   # daemon must be restarted in order to propagate environment variable
+      #   run: |
+      #     trunk daemon shutdown
+      #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
       # Slack notifications
       - name: Slack Notification For Failures
@@ -254,47 +282,76 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
-      - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: steps.upload-staging.outcome == 'failure'
-        with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
-          payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+      # - name: Slack Notification For Staging Upload Failure
+      #   uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+      #   if: steps.upload-staging.outcome == 'failure'
+      #   with:
+      #     channel-id: ${{ env.SLACK_CHANNEL_ID }}
+      #     payload: |
+      #       {
+      #         "text": "Upload Failure",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
-      - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: steps.upload-prod.outcome == 'failure'
+      # - name: Slack Notification For Prod Upload Failure
+      #   uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+      #   if: steps.upload-prod.outcome == 'failure'
+      #   with:
+      #     channel-id: ${{ env.SLACK_CHANNEL_ID }}
+      #     payload: |
+      #       {
+      #         "text": "Upload Failure",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+  # Run tool tests only on main
+  tool_tests_main:
+    name: Tool Tests Main
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-x64, macos-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
+      # akin to the linter_tests job.
+      - name: Tool Tests ${{ matrix.os }}
+        if: matrix.os != 'windows-latest'
+        uses: ./.github/actions/tool_tests
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
-          payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+      - name: Tool Tests ${{ matrix.os }}
+        if: matrix.os == 'windows-latest'
+        uses: ./.github/actions/tool_tests
+        with:
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          append-args: tools -- --maxWorkers=5
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:
