@@ -38,7 +38,7 @@ runs:
 
     - name: Install packages and specify defaults
       run: |
-        echo "CLI_PATH='${{ inputs.cli-path }}'" >> "$GITHUB_ENV"
+        echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
 
         case "$RUNNER_OS" in
           Linux)
