@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter dotnet-format test CUSTOM 1`] = `
+"// Hello World! program
+namespace HelloWorld
+{
+    class Hello
+    {
+        static void Main(string[] args)
+        {
+            System.Console.WriteLine("Hello World!");
+        }
+    }
+}
+"
+`;
