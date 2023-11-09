@@ -1,4 +1,4 @@
-import { customLinterCheckTest } from "tests";
+import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
@@ -15,9 +15,14 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // Ruby build is quite slow on Mac, so only run tests on linux for now
-customLinterCheckTest({
+linterCheckTest({
   linterName: "standardrb",
-  args: "-a",
+  preCheck,
+  skipTestIf: skipOS(["darwin"]),
+});
+
+linterFmtTest({
+  linterName: "standardrb",
   preCheck,
   skipTestIf: skipOS(["darwin"]),
 });

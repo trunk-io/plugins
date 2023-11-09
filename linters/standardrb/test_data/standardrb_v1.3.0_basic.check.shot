@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter standardrb test CUSTOM 1`] = `
+exports[`Testing linter standardrb test basic 1`] = `
 {
   "issues": [
     {
       "code": "Layout/ExtraSpacing",
       "column": "6",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/ExtraSpacing",
       "level": "LEVEL_LOW",
       "line": "1",
@@ -14,7 +14,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Unnecessary spacing detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "7",
           "offset": "5",
         },
@@ -24,7 +24,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Style/LambdaCall",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/LambdaCall",
       "level": "LEVEL_LOW",
       "line": "12",
@@ -32,7 +32,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Prefer the use of \`lambda.call(...)\` over \`lambda.(...)\`.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "44",
           "offset": "59",
         },
@@ -42,7 +42,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Style/StringLiterals",
       "column": "10",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/StringLiterals",
       "level": "LEVEL_LOW",
       "line": "13",
@@ -50,7 +50,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "7",
           "offset": "76",
         },
@@ -60,7 +60,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Style/StringLiterals",
       "column": "10",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/StringLiterals",
       "level": "LEVEL_LOW",
       "line": "14",
@@ -68,7 +68,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "7",
           "offset": "94",
         },
@@ -78,7 +78,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/EmptyLines",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/EmptyLines",
       "level": "LEVEL_LOW",
       "line": "4",
@@ -86,7 +86,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Extra blank line detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "32",
         },
@@ -96,7 +96,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/EmptyLines",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/EmptyLines",
       "level": "LEVEL_LOW",
       "line": "5",
@@ -104,7 +104,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Extra blank line detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "33",
         },
@@ -114,7 +114,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/EmptyLines",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/EmptyLines",
       "level": "LEVEL_LOW",
       "line": "6",
@@ -122,7 +122,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Extra blank line detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "34",
         },
@@ -132,7 +132,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/EmptyLines",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/EmptyLines",
       "level": "LEVEL_LOW",
       "line": "7",
@@ -140,7 +140,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Extra blank line detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "35",
         },
@@ -150,7 +150,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/EmptyLines",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/EmptyLines",
       "level": "LEVEL_LOW",
       "line": "8",
@@ -158,7 +158,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Extra blank line detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "36",
         },
@@ -168,7 +168,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/IndentationWidth",
       "column": "1",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/IndentationWidth",
       "level": "LEVEL_LOW",
       "line": "9",
@@ -176,7 +176,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Use 2 (not 1) spaces for indentation.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "1",
           "offset": "37",
         },
@@ -186,7 +186,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Layout/IndentationConsistency",
       "column": "2",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/IndentationConsistency",
       "level": "LEVEL_LOW",
       "line": "9",
@@ -194,7 +194,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Inconsistent indentation detected.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "15",
           "offset": "38",
         },
@@ -204,7 +204,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Style/EmptyMethod",
       "column": "2",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/EmptyMethod",
       "level": "LEVEL_LOW",
       "line": "9",
@@ -212,7 +212,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Put the \`end\` of empty method definitions on the next line.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "15",
           "offset": "38",
         },
@@ -222,7 +222,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
     {
       "code": "Style/SingleLineMethods",
       "column": "2",
-      "file": "test_data/basic.rb",
+      "file": "test_data/basic.in.rb",
       "issueUrl": "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/SingleLineMethods",
       "level": "LEVEL_LOW",
       "line": "9",
@@ -230,7 +230,7 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
       "message": "Avoid single-line method definitions.",
       "ranges": [
         {
-          "filePath": "test_data/basic.rb",
+          "filePath": "test_data/basic.in.rb",
           "length": "15",
           "offset": "38",
         },
@@ -240,16 +240,35 @@ exports[`Testing linter standardrb test CUSTOM 1`] = `
   ],
   "lintActions": [
     {
+      "command": "fix",
+      "fileGroupName": "ruby",
+      "linter": "standardrb",
+      "paths": [
+        "test_data/basic.in.rb",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
       "command": "lint",
       "fileGroupName": "ruby",
       "linter": "standardrb",
       "paths": [
-        "test_data/basic.rb",
+        "test_data/basic.in.rb",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
   "taskFailures": [],
-  "unformattedFiles": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.rb",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "standardrb",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
 }
 `;

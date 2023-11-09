@@ -17,6 +17,14 @@ lint:
           run: standardrb ${target} --format json
           success_codes: [0, 1]
           batch: true
+        - name: fix
+          output: rewrite
+          # NOTE(Tyler): It does not seem necessary to add another command for --fix-unsafely, but we can revisit as necessary
+          run: standardrb ${target} --fix
+          success_codes: [0, 1]
+          formatter: true
+          batch: true
+          in_place: true
       direct_configs: [.standard.yml]
       suggest_if: config_present
       tools: [standardrb]
