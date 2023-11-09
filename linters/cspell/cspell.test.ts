@@ -74,7 +74,7 @@ const expectedDictionaryFileIssues = JSON.parse(
 fuzzyLinterCheckTest({
   linterName: "cspell",
   testName: "basic",
-  args: "-a --foo",
+  args: "-a",
   skipTestIf: skipOS(["darwin"]),
   fileIssueAssertionCallback: createFuzzyMatcher(() => expectedBasicFileIssues as FileIssue[], 25),
   normalizeLandingState,
@@ -83,7 +83,7 @@ fuzzyLinterCheckTest({
 fuzzyLinterCheckTest({
   linterName: "cspell",
   testName: "dictionary",
-  args: "-a -foo",
+  args: "-a",
   preCheck,
   skipTestIf: skipOS(["darwin"]),
   fileIssueAssertionCallback: createFuzzyMatcher(
