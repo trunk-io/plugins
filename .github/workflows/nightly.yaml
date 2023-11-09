@@ -169,6 +169,10 @@ jobs:
           fi
         shell: bash
 
+        # TODO: TYLER REMOVE
+      - name: DEBUG ACTION.YAML
+        run: cat ./.github/actions/linter_tests/action.yaml
+
       - name: Linter Tests ${{ matrix.os }}
         # Use overwritten dependency action, rather than released version
         uses: ./.github/actions/linter_tests
