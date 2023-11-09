@@ -200,22 +200,48 @@ jobs:
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       - name: Retrieve Test Outputs ubuntu
+        id: download-ubuntu
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         continue-on-error: true
         with:
           name: ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
+        id: download-macos
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         continue-on-error: true
         with:
           name: macos-latest-test-results
 
       - name: Retrieve Test Outputs Windows
+        id: download-windows
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         continue-on-error: true
         with:
           name: windows-latest-test-results
+
+      - name: Slack Notification For Missing Artifacts
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        if:
+          steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure' ||
+          steps.download-windows.outcome == 'failure'
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Artifact Download Failure",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }}, windows: ${{ steps.download-windows.outcome }}) >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
