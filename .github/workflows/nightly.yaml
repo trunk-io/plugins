@@ -82,11 +82,11 @@ jobs:
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-x64
-            results-file: ubuntu-latest-res.json
+            results-file: ubuntu-latest
           - os: macos-latest
-            results-file: macos-latest-res.json
+            results-file: macos-latest
           - os: windows-latest
-            results-file: windows-latest-res.json
+            results-file: windows-latest
     outputs:
       plugin-version: ${{ steps.get-release.outputs.tag }}
 
@@ -169,11 +169,6 @@ jobs:
             chmod -R u+w ${tmp_dir}
             rm -rf ${tmp_dir}
           fi
-        shell: bash
-
-        # TODO: TYLER REMOVE
-      - name: DEBUG ACTION.YAML
-        run: cat ./.github/actions/linter_tests/action.yaml
         shell: bash
 
       - name: Linter Tests ${{ matrix.os }}
