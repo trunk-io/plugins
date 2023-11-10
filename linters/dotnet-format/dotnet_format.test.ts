@@ -1,6 +1,6 @@
 import path from "path";
 import { customLinterFmtTest } from "tests";
-import { skipCPUOS, TEST_DATA } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 customLinterFmtTest({
@@ -13,5 +13,5 @@ customLinterFmtTest({
   ],
   // TODO(Tyler): There is an issue where the M1 Mac dotnet-format execution causes Trunk to hang on first run.
   // Disable this test until we can iron out the cause.
-  skipTestIf: skipCPUOS([{ os: "darwin", cpu: "arm64" }]),
+  skipTestIf: skipOS(["darwin"]),
 });
