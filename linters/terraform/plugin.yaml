@@ -19,8 +19,7 @@ lint:
           run: terraform fmt -no-color -
           stdin: true
           success_codes: [0]
-          # cache_results: true
-          # TODO - need cache_results to be by verb
+          cache_results: true
       suggest_if: never
       environment:
         - name: PATH
