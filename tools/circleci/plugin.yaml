@@ -44,4 +44,4 @@ tools:
     - name: circleci
       download: circleci
       shims: [circleci]
-      known_good_version: 0.1.22770
+      known_good_version: 0.1.28528
