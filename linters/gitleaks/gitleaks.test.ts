@@ -2,6 +2,9 @@ import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TEST_DATA } from "tests/utils";
 
+// TODO(Tyler): Address Go install issues
+jest.retryTimes(2);
+
 // gitleaks version 7.0.0 only had an amd64 release asset for darwin, and our runners are x86_64.
 const skipTestIf = (version?: string) => version === "7.0.0" && process.platform == "darwin";
 

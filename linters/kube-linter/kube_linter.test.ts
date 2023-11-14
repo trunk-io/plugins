@@ -1,6 +1,9 @@
 import { linterCheckTest } from "tests";
 import { osTimeoutMultiplier } from "tests/utils";
 
+// TODO(Tyler): Address Go install issues
+jest.retryTimes(2);
+
 jest.setTimeout(900000 * osTimeoutMultiplier); // 300s or 900s
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.

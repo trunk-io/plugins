@@ -6,6 +6,9 @@ import { FileIssue } from "tests/types";
 import { TEST_DATA } from "tests/utils";
 import { createFuzzyMatcher } from "tests/utils/landing_state";
 
+// TODO(Tyler): Address Go install issues
+jest.retryTimes(2);
+
 const preCheck = (driver: TrunkLintDriver) => {
   // trunk-ignore-begin(semgrep): driver.getSandbox() is generated during testing and is safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
@@ -16,7 +19,7 @@ const preCheck = (driver: TrunkLintDriver) => {
 
 // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
 const expectedFileIssues = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString()
+  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString(),
 );
 
 fuzzyLinterCheckTest({

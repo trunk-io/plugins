@@ -3,6 +3,9 @@ import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS, TEST_DATA } from "tests/utils";
 
+// TODO(Tyler): Address Go install issues
+jest.retryTimes(2);
+
 // Don't run on Windows since the typecheck errors are dependent on system libs, and the set of diagnostics seems to vary.
 customLinterCheckTest({
   linterName: "golangci-lint",
