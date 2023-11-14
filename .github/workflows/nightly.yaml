@@ -28,20 +28,21 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests Main
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macos-latest, windows-latest]
+        os: [ubuntu-x64, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
-        if: matrix.os != 'ubuntu-x64'
+        if: matrix.os == 'windows-latest'
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: /tmp/plugins_testing_download_cache
@@ -72,18 +73,19 @@ jobs:
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests Release
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macos-latest, windows-latest]
+        os: [ubuntu-x64, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-x64
             results-file: ubuntu-latest
-          - os: macos-latest
+          - os: macOS
             results-file: macos-latest
           - os: windows-latest
             results-file: windows-latest
@@ -150,8 +152,8 @@ jobs:
         continue-on-error: true
 
       - name: Cache tool downloads
-        # ubuntu runner has persistent cache
-        if: matrix.os != 'ubuntu-x64'
+        # ubuntu, mac runners have persistent cache
+        if: matrix.os == 'windows-latest'
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: /tmp/plugins_testing_download_cache
@@ -370,12 +372,13 @@ jobs:
   # Run tool tests only on main
   tool_tests_main:
     name: Tool Tests Main
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-x64, macos-latest, windows-latest]
+        os: [ubuntu-x64, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
