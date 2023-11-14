@@ -130,8 +130,9 @@ export interface LandingState {
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
  */
 export enum TestOS {
-  LINUX = "ubuntu-latest",
-  MAC_OS = "macos-latest",
+  LINUX = "ubuntu",
+  MAC_OS = "macos",
+  WINDOWS = "windows",
 }
 
 /**
@@ -152,6 +153,7 @@ export interface TestResult {
   testNames: string[];
   testResultStatus: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
 }
 
 /**
@@ -179,4 +181,5 @@ export interface FailedVersion {
   version?: string;
   status: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
 }

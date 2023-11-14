@@ -27,7 +27,7 @@ if (!process.env.PLUGIN_VERSION) {
 /**
  * Convert an OS into the expected file path.
  */
-const getResultsFileFromOS = (os: TestOS) => path.resolve(REPO_ROOT, `${os}-res.json`);
+const getResultsFileFromOS = (os: TestOS) => path.resolve(REPO_ROOT, `${os}-latest-res.json`);
 
 /**
  * Convert the name that jest uses for test status into a `TestResultStatus`.
@@ -89,6 +89,9 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   } else {
     original.testResultStatus = mergeTestStatuses(original.testResultStatus, testResultStatus);
   }
+  if (original.testResultStatus == "failed") {
+    original.failedPlatforms = new Set([...original.failedPlatforms, ...incoming.failedPlatforms]);
+  }
 };
 
 /**
@@ -123,9 +126,13 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
         return;
       }
 
-      const version = assertionResult.version;
-      const fullTestName = assertionResult.fullName;
+      const version: string = assertionResult.version;
+      const fullTestName: string = assertionResult.fullName;
       const status = parseTestStatus(assertionResult.status);
+      const failedPlatforms = new Set<TestOS>();
+      if (status == "failed") {
+        failedPlatforms.add(os);
+      }
 
       const originaltestResult = linterResults.get(linterName);
       const newResultAllVersions = new Map();
@@ -135,6 +142,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
         testNames: [fullTestName],
         testResultStatus: status,
         allVersions: newResultAllVersions,
+        failedPlatforms,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -162,6 +170,8 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
  */
 const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultSummary => {
   const compositeLinterResults = testResults[0].linters;
+
+  // Merge all other OS results into the first OS's results
   testResults.slice(1).forEach((testResult) => {
     testResult.linters.forEach((linterResult, linterName) => {
       const compositeLinterResult = compositeLinterResults.get(linterName);
@@ -185,13 +195,17 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  * Write the payload for a slack notification on test failures.
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
-  const allBlocks = failures.map(({ linter, version, status, allVersions }) => {
+  const allBlocks = failures.map(({ linter, version, status, allVersions, failedPlatforms }) => {
     const linterVersion = version ? `${linter}@${version}` : linter;
     let details = "";
     if (status == "mismatch") {
-      details = Array.from(allVersions)
+      details = `(${Array.from(allVersions)
         .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
-        .join("; ");
+        .join("; ")})`;
+    } else if (status == "failed") {
+      details = `(${Array.from(failedPlatforms.keys())
+        .map((os) => os.toString())
+        .join(", ")})`;
     }
     return {
       type: "section",
@@ -244,10 +258,16 @@ const writeTestResults = (testResults: TestResultSummary) => {
   const failures = Array.from(testResults.linters).reduce(
     (
       accumulator: FailedVersion[],
-      [linter, { version, testResultStatus: status, allVersions }],
+      [linter, { version, testResultStatus: status, allVersions, failedPlatforms }],
     ) => {
       if (status !== "passed" && status !== "skipped") {
-        const additionalFailedVersion: FailedVersion = { linter, version, status, allVersions };
+        const additionalFailedVersion: FailedVersion = {
+          linter,
+          version,
+          status,
+          allVersions,
+          failedPlatforms,
+        };
         return accumulator.concat([additionalFailedVersion]);
       }
       return accumulator;
@@ -279,7 +299,7 @@ const parseTestResultsAndWrite = () => {
   );
   if (totalParsedTests === 0) {
     throw new Error(
-      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}",
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json|windows-latest-res.json}",
     );
   }
 

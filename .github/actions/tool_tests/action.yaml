@@ -15,7 +15,7 @@ inputs:
   append-args:
     description: Additional args to append to the test invocation
     required: false
-    default: tools
+    default: tools --
   trunk-token:
     description: CI debugger api token
     required: true
@@ -29,10 +29,19 @@ runs:
       with:
         node-version: 18
 
-    - name: Sync lfs
-      run: git lfs pull
+    - name: Specify defaults
+      run: |
+        echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
+
+        case "$RUNNER_OS" in
+          Windows)
+            echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
+            if [[ "${{ inputs.cli-path }}" == "" ]]; then
+              echo "CLI_PATH=${{ github.workspace }}\trunk.ps1" >> "$GITHUB_ENV"
+            fi
+            ;;
+        esac
       shell: bash
-      working-directory: ${{ inputs.path }}
 
     - name: Install dependencies
       run: npm ci
@@ -41,12 +50,12 @@ runs:
 
     - name: Run plugin tests
       if: runner.os == 'Windows'
-      run: npm test --ci ${{ inputs.append-args }}
+      run: npm test --ci ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }}
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
+        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
 
     - name: Run plugin tests
       if: runner.os != 'Windows'
@@ -58,7 +67,7 @@ runs:
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
-        run: npm test --ci ${{ inputs.append-args }}
+        run: npm test --ci ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }}
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
+        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
