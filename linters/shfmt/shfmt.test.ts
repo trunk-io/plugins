@@ -1,9 +1,6 @@
 import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 
-// TODO(Tyler): Address Go install issues
-jest.retryTimes(2);
-
 // Grab the root .editorconfig
 const preCheck = (driver: TrunkLintDriver) => {
   driver.copyFileFromRoot(".editorconfig");

@@ -6,9 +6,6 @@ import { FileIssue } from "tests/types";
 import { TEST_DATA } from "tests/utils";
 import { createFuzzyMatcher } from "tests/utils/landing_state";
 
-// TODO(Tyler): Address Go install issues
-jest.retryTimes(2);
-
 const preCheck = (driver: TrunkLintDriver) => {
   // trunk-ignore-begin(semgrep): driver.getSandbox() is generated during testing and is safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
