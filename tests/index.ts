@@ -759,7 +759,6 @@ export const linterFmtTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
-            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );
