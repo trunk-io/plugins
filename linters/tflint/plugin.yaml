@@ -26,10 +26,29 @@ lint:
     - name: tflint
       files: [terraform]
       commands:
+        # KNOBS TO TURN:
+        # - run_from
+        # - target
+        # - --chdir (config must be in resulting dir)
+        # - --recursive is not a viable option
+
+        # - name: lint
+        #   output: sarif
+        #   prepare_run: tflint --init
+        #   run: tflint --format=sarif --force
+        #   # run: tflint --format=sarif --force --chdir=${target}
+        #   success_codes: [0, 1, 2]
+        #   read_output_from: stdout
+        #   # tflint can only run on the current directory unless --recursive is passed
+        #   target: ${parent}
+        #   run_from: ${root_or_parent_with(.tflint.hcl)}
+        #   version: ">=0.47.0"
+        #   sandbox_type: expanded
         - name: lint
           output: sarif
           prepare_run: tflint --init
           run: tflint --format=sarif --force
+          # run: tflint --format=sarif --force --chdir=${target}
           success_codes: [0, 1, 2]
           read_output_from: stdout
           # tflint can only run on the current directory unless --recursive is passed
@@ -54,8 +73,8 @@ lint:
         - name: GITHUB_TOKEN
           value: ${env.GITHUB_TOKEN}
           optional: true
-        - name: TFLINT_CONFIG_FILE
-          value: ${workspace}/.tflint.hcl
+        # - name: TFLINT_CONFIG_FILE
+        #   value: ${workspace}/.tflint.hcl
         - name: TFLINT_LOG
           value: debug
       known_good_version: 0.35.0
