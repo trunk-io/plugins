@@ -29,11 +29,12 @@ lint:
         - name: lint
           output: sarif
           prepare_run: tflint --init
-          run: tflint --format=sarif --chdir=${target} --force
+          run: tflint --format=sarif --force
           success_codes: [0, 1, 2]
           read_output_from: stdout
+          # tflint can only run on the current directory unless --recursive is passed
           target: ${parent}
-          run_from: ${root_or_parent_with(.tflint.hcl)}
+          run_from: ${target_directory}
           version: ">=0.47.0"
         - name: lint
           output: sarif
@@ -53,6 +54,10 @@ lint:
         - name: GITHUB_TOKEN
           value: ${env.GITHUB_TOKEN}
           optional: true
+        - name: TFLINT_CONFIG_FILE
+          value: ${workspace}/.tflint.hcl
+        - name: TFLINT_LOG
+          value: debug
       known_good_version: 0.35.0
       version_command:
         parse_regex: ${semver}
