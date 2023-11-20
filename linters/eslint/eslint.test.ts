@@ -8,7 +8,7 @@ import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
 const INSTALL_TIMEOUT = 150000 * osTimeoutMultiplier;
 
 const moveConfig = (driver: TrunkLintDriver) => {
-  [".eslintrc.yaml", "package.json"].forEach((file) => {
+  [".eslintrc.yaml", "package.json", "package-lock.json"].forEach((file) => {
     // trunk-ignore(semgrep): paths used here are safe
     driver.moveFile(path.join(TEST_DATA, file), file);
   });
@@ -41,7 +41,7 @@ const preCheck = (driver: TrunkLintDriver) => {
         process.platform == "win32" ? "npm.bat" : "npm",
       ),
       // trunk-ignore-end(semgrep)
-      ["install"],
+      ["ci"],
       {
         cwd: driver.getSandbox(),
         timeout: INSTALL_TIMEOUT,
