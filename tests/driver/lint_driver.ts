@@ -94,10 +94,6 @@ plugins:
   sources:
   - id: trunk
     local: ${REPO_ROOT}
-tools:
-  runtimes:
-    # Supports eslint test npm install and additional debugging
-    - node
 lint:
   ignore:
     - linters: [ALL]
