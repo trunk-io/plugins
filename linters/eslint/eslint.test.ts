@@ -57,6 +57,10 @@ const preCheck = (driver: TrunkLintDriver) => {
       },
     );
     driver.debug(install);
+    if (install.status !== 0) {
+      driver.debug(install.stdout.toString());
+      driver.debug(install.stderr.toString());
+    }
   } catch (err: any) {
     console.warn("Error installing eslint deps");
     console.warn(err);
