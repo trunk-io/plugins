@@ -18,6 +18,14 @@ const preCheck = (driver: TrunkLintDriver) => {
   moveConfig(driver);
   // TODO(Tyler): Cache node_modules between runs
   try {
+    const trunkYamlPath = ".trunk/trunk.yaml";
+    const currentContents = driver.readFile(trunkYamlPath);
+    const newContents = currentContents.concat(`tools:
+    runtimes:
+      - node
+  `);
+    driver.writeFile(trunkYamlPath, newContents);
+
     // NOTE(Tyler): It is slower to use the hermetic Trunk installation of the npm shim, but it is safer for more platforms
     // and avoids unhelpful circular JSON error messages.
     driver.debug("About to install shims");
@@ -49,6 +57,10 @@ const preCheck = (driver: TrunkLintDriver) => {
       },
     );
     driver.debug(install);
+    if (install.status !== 0) {
+      driver.debug(install.stdout.toString());
+      driver.debug(install.stderr.toString());
+    }
   } catch (err: any) {
     console.warn("Error installing eslint deps");
     console.warn(err);

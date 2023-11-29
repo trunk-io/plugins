@@ -93,4 +93,4 @@ runs:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
-        DEBUG: Driver:nixpkgs-fmt:*
+        DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
