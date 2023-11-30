@@ -1,1 +1,0 @@
-/home/tyler/repos/plugins/.trunk/configs/.tflint.hcl
