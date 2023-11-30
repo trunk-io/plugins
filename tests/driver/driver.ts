@@ -26,6 +26,8 @@ export const executionEnv = (sandbox: string) => {
     TRUNK_DOWNLOAD_CACHE: DOWNLOAD_CACHE,
     // This is necessary to prevent launcher collision of non-atomic operations
     TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
+    TRUNK_SEGMENT: "off",
+    TRUNK_MIXPANEL: "off",
   };
 };
 
