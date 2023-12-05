@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: tflint
-    version: 0.35.0
+    version: 0.47.0
     downloads:
       # macos arm64 was introduced after this version.
       - os: macos
@@ -20,30 +20,12 @@ tools:
     - name: tflint
       download: tflint
       shims: [tflint]
-      known_good_version: 0.35.0
+      known_good_version: 0.47.0
 lint:
   definitions:
     - name: tflint
       files: [terraform]
       commands:
-        # KNOBS TO TURN:
-        # - run_from
-        # - target
-        # - --chdir (config must be in resulting dir)
-        # - --recursive is not a viable option
-
-        # - name: lint
-        #   output: sarif
-        #   prepare_run: tflint --init
-        #   run: tflint --format=sarif --force
-        #   # run: tflint --format=sarif --force --chdir=${target}
-        #   success_codes: [0, 1, 2]
-        #   read_output_from: stdout
-        #   # tflint can only run on the current directory unless --recursive is passed
-        #   target: ${parent}
-        #   run_from: ${root_or_parent_with(.tflint.hcl)}
-        #   version: ">=0.47.0"
-        #   sandbox_type: expanded
         - name: lint
           output: sarif
           prepare_run: tflint --init
@@ -53,13 +35,6 @@ lint:
           # tflint can only run on the current directory unless --recursive is passed
           target: ${parent}
           run_from: ${target_directory}
-
-          # These would work except we get an error for File() failed on a directory
-          # run: tflint --format=sarif --force --chdir=${target}
-          # run_from: ${root_or_parent_with(.tflint.hcl)}
-
-          # NOTE(Tyler): This approach works, but it has some weird caveats where the upstream doesn't get the current config if it was deleted...
-          # This contrasts from most of our behavior, where the upstream should get run with the current config...
           version: ">=0.47.0"
           sandbox_type: expanded
         - name: lint
@@ -80,22 +55,7 @@ lint:
         - name: GITHUB_TOKEN
           value: ${env.GITHUB_TOKEN}
           optional: true
-        # - name: TFLINT_CONFIG_FILE
-        #   value: ${workspace}/.tflint.hcl
-        - name: TFLINT_LOG
-          value: debug
-      known_good_version: 0.35.0
+      known_good_version: 0.47.0
       version_command:
         parse_regex: ${semver}
         run: tflint --version
-
-      symlinks:
-        # TODO(Tyler): Remove this block once we can do hierarchical sandboxes.
-        # symlink the tool node_modules into the sandbox. this enables
-        # the hermetic tool to run correctly with plugins
-
-        # - from: ${workspace}/a.txt
-        #   to: a.txt
-
-        - from: ${sandbox}/.tflint.hcl
-          to: ${run_from}/.tflint.hcl
