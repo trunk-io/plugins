@@ -190,15 +190,15 @@ jobs:
           name: ${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
 
-  upload_linter_tests:
-    name: Upload Linter Test Results
-    needs: linter_tests_release
-    uses: ./.github/workflows/upload_results.reusable.yaml
-    with:
-      plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
-      upload-validated-versions: "true"
-      test-type: linter
-      test-ref: main
+  # upload_linter_tests:
+  #   name: Upload Linter Test Results
+  #   needs: linter_tests_release
+  #   uses: ./.github/workflows/upload_results.reusable.yaml
+  #   with:
+  #     plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
+  #     upload-validated-versions: "true"
+  #     test-type: linter
+  #     test-ref: main
 
   # Run tool tests only on main
   tool_tests_main:

@@ -7,7 +7,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["assh", "--version"],
-      expectedOut: "assh version n/a (n/a)",
+      expectedOut: "assh versssssssion n/a (n/a)",
     }),
   ],
   skipTestIf: skipOS(["win32"]),
