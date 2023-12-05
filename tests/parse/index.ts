@@ -132,8 +132,8 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       }
 
       const fullTestName: string = assertionResult.fullName;
-      const testType: string = assertionResult.testType;
-      if (testType !== TEST_TYPE) {
+      const testType = assertionResult.testType;
+      if (testType && testType !== TEST_TYPE) {
         console.warn(`Skipping test '${fullTestName}' because is type '${testType}'`);
         return;
       }

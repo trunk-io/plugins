@@ -35,8 +35,6 @@ jobs:
   upload_test_results:
     name: Upload Test Results
     runs-on: ubuntu-x64
-    # Still run on test failure
-    if: always()
     timeout-minutes: 10
     env:
       SLACK_CHANNEL_ID: plugins-notifications
