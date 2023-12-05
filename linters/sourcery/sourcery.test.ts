@@ -38,9 +38,6 @@ linterCheckTest({
       );
       return true;
     }
-    return skipCPUOS([
-      { os: "linux", cpu: "arm64" },
-      { os: "win32", cpu: "x64" },
-    ])(version);
+    return skipCPUOS([{ os: "linux", cpu: "arm64" }])(version);
   },
 });
