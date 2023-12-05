@@ -200,7 +200,7 @@ jobs:
       TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
-      upload-validated-versions: "true"
+      upload-validated-versions: true
       test-type: linter
       test-ref: latest release
 
