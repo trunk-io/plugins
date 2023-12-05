@@ -245,6 +245,8 @@ jobs:
   upload_tool_tests:
     name: Upload Tool Test Results
     needs: tool_tests_main
+    # Still run on test failure
+    if: always()
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
