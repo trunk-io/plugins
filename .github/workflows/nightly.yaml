@@ -194,6 +194,10 @@ jobs:
   #   name: Upload Linter Test Results
   #   needs: linter_tests_release
   #   uses: ./.github/workflows/upload_results.reusable.yaml
+  #   secrets:
+  #     TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+  #     TRUNK_STAGING_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
+  #     TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
   #   with:
   #     plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
   #     upload-validated-versions: "true"
@@ -242,6 +246,8 @@ jobs:
     name: Upload Tool Test Results
     needs: tool_tests_main
     uses: ./.github/workflows/upload_results.reusable.yaml
+    secrets:
+      TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-

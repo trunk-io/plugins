@@ -13,7 +13,7 @@ on:
       upload-validated-versions:
         required: false
         type: boolean
-        default: "false"
+        default: false
       test-type:
         required: false
         type: string
@@ -22,7 +22,13 @@ on:
         required: false
         type: string
         default: latest release
-
+    secrets:
+      TRUNKBOT_SLACK_BOT_TOKEN:
+        required: true
+      TRUNK_STAGING_API_TOKEN:
+        required: false
+      TRUNK_API_TOKEN:
+        required: false
 permissions: read-all
 
 jobs:
