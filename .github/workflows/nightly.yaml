@@ -251,7 +251,7 @@ jobs:
     with:
       plugin-version: main
       results-prefix: tools-
-      upload-validated-versions: "false"
+      upload-validated-versions: false
       test-type: tool
       test-ref: main
 
