@@ -198,7 +198,7 @@ jobs:
   #     plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
   #     upload-validated-versions: "true"
   #     test-type: linter
-  #     test-ref: main
+  #     test-ref: latest release
 
   # Run tool tests only on main
   tool_tests_main:
