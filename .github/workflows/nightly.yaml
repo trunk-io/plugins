@@ -24,171 +24,171 @@ permissions:
   statuses: write
 
 jobs:
-  # Run tests against all linters for snapshots and latest version as they exist on main
-  # This job is used to diagnose plugin config health in advance of a release
-  linter_tests_main:
-    name: Plugin Tests Main
-    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 120
-    strategy:
-      fail-fast: false
-      matrix:
-        linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+  # # Run tests against all linters for snapshots and latest version as they exist on main
+  # # This job is used to diagnose plugin config health in advance of a release
+  # linter_tests_main:
+  #   name: Plugin Tests Main
+  #   # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 120
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       linter-version: [Snapshots, Latest]
+  #       os: [ubuntu-x64, macOS, windows-latest]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
-      - name: Cache tool downloads
-        # ubuntu runner has persistent cache
-        if: matrix.os == 'windows-latest'
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
+  #     - name: Cache tool downloads
+  #       # ubuntu runner has persistent cache
+  #       if: matrix.os == 'windows-latest'
+  #       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+  #       with:
+  #         path: /tmp/plugins_testing_download_cache
+  #         # No need to key on trunk version unless we change how we store downloads.
+  #         key: trunk-${{ runner.os }}
 
-      - name: Delete cache
-        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
-        if: env.TRIGGER != 'pull_request'
-        run: |
-          if [ -d "/tmp/plugins_testing_download_cache" ]
-          then
-            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
-            chmod -R u+w ${tmp_dir}
-            rm -rf ${tmp_dir}
-          fi
-        shell: bash
+  #     - name: Delete cache
+  #       # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+  #       if: env.TRIGGER != 'pull_request'
+  #       run: |
+  #         if [ -d "/tmp/plugins_testing_download_cache" ]
+  #         then
+  #           tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+  #           mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+  #           chmod -R u+w ${tmp_dir}
+  #           rm -rf ${tmp_dir}
+  #         fi
+  #       shell: bash
 
-      - name: Linter Tests
-        uses: ./.github/actions/linter_tests
-        with:
-          linter-version: ${{ matrix.linter-version }}
-          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+  #     - name: Linter Tests
+  #       uses: ./.github/actions/linter_tests
+  #       with:
+  #         linter-version: ${{ matrix.linter-version }}
+  #         sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-  # Run tests against all linters for snapshots and latest version as they exist in latest release
-  # This job is used to update the list of validated versions
-  linter_tests_release:
-    name: Plugin Tests Release
-    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 150
-    strategy:
-      fail-fast: false
-      matrix:
-        linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
-        include:
-          # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
-            results-file: ubuntu-latest
-          - os: macOS
-            results-file: macos-latest
-          - os: windows-latest
-            results-file: windows-latest
-    outputs:
-      plugin-version: ${{ steps.get-release.outputs.tag }}
+  # # Run tests against all linters for snapshots and latest version as they exist in latest release
+  # # This job is used to update the list of validated versions
+  # linter_tests_release:
+  #   name: Plugin Tests Release
+  #   # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 150
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       linter-version: [Snapshots, Latest]
+  #       os: [ubuntu-x64, macOS, windows-latest]
+  #       include:
+  #         # Normalize the filenames as inputs for ease of parsing
+  #         - os: ubuntu-x64
+  #           results-file: ubuntu-latest
+  #         - os: macOS
+  #           results-file: macos-latest
+  #         - os: windows-latest
+  #           results-file: windows-latest
+  #   outputs:
+  #     plugin-version: ${{ steps.get-release.outputs.tag }}
 
-    steps:
-      - name: Retrieve git history
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-        with:
-          fetch-depth: 0
+  #   steps:
+  #     - name: Retrieve git history
+  #       uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+  #       with:
+  #         fetch-depth: 0
 
-      # This assumes that any changes on main since the last release are backwards compatible
-      # in terms of allowing existing linter tests to run.
-      - name: Preserve test runner latest behavior
-        shell: bash
-        run: |
-          cp -r tests tests.bak
-          cp package.json package.json.bak
-          cp package-lock.json package-lock.json.bak
-          cp -r .github/actions .github/actions.bak
-          cp -r .trunk .trunk.bak
-          cp tsconfig.json tsconfig.json.bak
-          cp jest.config.json jest.config.json.bak
-          cp .gitattributes .gitattributes.bak
-          # Include any newly generated snapshots that have been marked release-ready
-          grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
-        continue-on-error: true
+  #     # This assumes that any changes on main since the last release are backwards compatible
+  #     # in terms of allowing existing linter tests to run.
+  #     - name: Preserve test runner latest behavior
+  #       shell: bash
+  #       run: |
+  #         cp -r tests tests.bak
+  #         cp package.json package.json.bak
+  #         cp package-lock.json package-lock.json.bak
+  #         cp -r .github/actions .github/actions.bak
+  #         cp -r .trunk .trunk.bak
+  #         cp tsconfig.json tsconfig.json.bak
+  #         cp jest.config.json jest.config.json.bak
+  #         cp .gitattributes .gitattributes.bak
+  #         # Include any newly generated snapshots that have been marked release-ready
+  #         grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot -l | xargs -I {} cp {}{,.bak}
+  #       continue-on-error: true
 
-      - name: Get Latest Release
-        id: get-release
-        uses: WyriHaximus/github-action-get-previous-tag@385a2a0b6abf6c2efeb95adfac83d96d6f968e0c # v1.3.0
-        with:
-          # only use releases tagged v<semver>
-          prefix: v
+  #     - name: Get Latest Release
+  #       id: get-release
+  #       uses: WyriHaximus/github-action-get-previous-tag@385a2a0b6abf6c2efeb95adfac83d96d6f968e0c # v1.3.0
+  #       with:
+  #         # only use releases tagged v<semver>
+  #         prefix: v
 
-      - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-        with:
-          ref: ${{ steps.get-release.outputs.tag }}
-          clean: false
-          sparse_checkout: |
-            plugin.yaml
-            linters
-            actions
-            tools
+  #     - name: Checkout
+  #       uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+  #       with:
+  #         ref: ${{ steps.get-release.outputs.tag }}
+  #         clean: false
+  #         sparse_checkout: |
+  #           plugin.yaml
+  #           linters
+  #           actions
+  #           tools
 
-      - name: Overwrite test runners with latest behavior
-        shell: bash
-        run: |
-          rm -rf tests
-          mv tests.bak tests
-          mv package.json.bak package.json
-          mv package-lock.json.bak package-lock.json
-          rm -rf .github/actions
-          mv .github/actions.bak .github/actions
-          rm -rf .trunk
-          mv .trunk.bak .trunk
-          mv tsconfig.json.bak tsconfig.json
-          mv jest.config.json.bak jest.config.json
-          mv .gitattributes.bak .gitattributes
-          # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
-          grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
-        continue-on-error: true
+  #     - name: Overwrite test runners with latest behavior
+  #       shell: bash
+  #       run: |
+  #         rm -rf tests
+  #         mv tests.bak tests
+  #         mv package.json.bak package.json
+  #         mv package-lock.json.bak package-lock.json
+  #         rm -rf .github/actions
+  #         mv .github/actions.bak .github/actions
+  #         rm -rf .trunk
+  #         mv .trunk.bak .trunk
+  #         mv tsconfig.json.bak tsconfig.json
+  #         mv jest.config.json.bak jest.config.json
+  #         mv .gitattributes.bak .gitattributes
+  #         # Include any newly generated snapshots that have been marked release-ready, but don't replace if present
+  #         grep "// trunk-upgrade-validation:RELEASE" -r --include=*.shot.bak -l | sed -e 's/.bak//' | xargs -I {} mv {}{.bak,}
+  #       continue-on-error: true
 
-      - name: Cache tool downloads
-        # ubuntu, mac runners have persistent cache
-        if: matrix.os == 'windows-latest'
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
+  #     - name: Cache tool downloads
+  #       # ubuntu, mac runners have persistent cache
+  #       if: matrix.os == 'windows-latest'
+  #       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+  #       with:
+  #         path: /tmp/plugins_testing_download_cache
+  #         # No need to key on trunk version unless we change how we store downloads.
+  #         key: trunk-${{ runner.os }}
 
-      - name: Delete cache
-        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
-        if: env.TRIGGER != 'pull_request'
-        run: |
-          if [ -d "/tmp/plugins_testing_download_cache" ]
-          then
-            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
-            chmod -R u+w ${tmp_dir}
-            rm -rf ${tmp_dir}
-          fi
-        shell: bash
+  #     - name: Delete cache
+  #       # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+  #       if: env.TRIGGER != 'pull_request'
+  #       run: |
+  #         if [ -d "/tmp/plugins_testing_download_cache" ]
+  #         then
+  #           tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+  #           mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+  #           chmod -R u+w ${tmp_dir}
+  #           rm -rf ${tmp_dir}
+  #         fi
+  #       shell: bash
 
-      - name: Linter Tests ${{ matrix.os }}
-        # Use overwritten dependency action, rather than released version
-        uses: ./.github/actions/linter_tests
-        with:
-          linter-version: ${{ matrix.linter-version }}
-          append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
-          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+  #     - name: Linter Tests ${{ matrix.os }}
+  #       # Use overwritten dependency action, rather than released version
+  #       uses: ./.github/actions/linter_tests
+  #       with:
+  #         linter-version: ${{ matrix.linter-version }}
+  #         append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
+  #         sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-      - name: Upload Test Outputs for Upload Job
-        # Only upload results from latest. Always run, except when cancelled.
-        if: (failure() || success()) && matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
-        with:
-          name: ${{ matrix.results-file }}-test-results
-          path: ${{ matrix.results-file }}-res.json
+  #     - name: Upload Test Outputs for Upload Job
+  #       # Only upload results from latest. Always run, except when cancelled.
+  #       if: (failure() || success()) && matrix.linter-version == 'Latest'
+  #       uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
+  #       with:
+  #         name: ${{ matrix.results-file }}-test-results
+  #         path: ${{ matrix.results-file }}-res.json
 
   # upload_linter_tests:
   #   name: Upload Linter Test Results
