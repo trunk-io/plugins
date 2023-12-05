@@ -193,6 +193,8 @@ jobs:
   upload_linter_tests:
     name: Upload Linter Test Results
     needs: linter_tests_release
+    # Still run on test failure
+    if: always()
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
