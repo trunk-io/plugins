@@ -19,9 +19,6 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-
-  enabled:
-    - markdown-link-check@3.11.2
   disabled:
     - pylint # pylint diagnostics are too strict
 
