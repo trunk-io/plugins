@@ -21,7 +21,7 @@ const addEmpty = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "golangci-lint",
   testName: "empty",
-  args: "-a",
+  args: "-a --foo",
   preCheck: addEmpty,
   skipTestIf: skipOS(["win32"]),
 });
