@@ -4,8 +4,7 @@ version: 0.1
 cli:
   version: 1.18.0
   shell_hooks:
-    path_add:
-      - "${workspace}/tools"
+    enforce: true
 
 api:
   address: api.trunk-staging.io:8443
