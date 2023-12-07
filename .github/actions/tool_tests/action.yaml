@@ -60,7 +60,7 @@ runs:
     - name: Run plugin tests
       if: runner.os != 'Windows'
       # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-      uses: trunk-io/breakpoint@v1
+      uses: trunk-io/breakpoint@v1.3.0
       with:
         breakpoint-id: trunk-plugins-tool-tests
         shell: bash
