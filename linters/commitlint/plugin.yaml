@@ -1,0 +1,42 @@
+version: 0.1
+tools:
+  definitions:
+    - name: commitlint
+      runtime: node
+      package: "@commitlint/cli"
+      extra_packages: ["@commitlint/config-conventional"]
+      known_good_version: 18.4.3
+      shims: [commitlint]
+lint:
+  files:
+    - name: pre-commit-registry
+      filenames:
+        - TRUNK-PRE-COMMIT-FILE
+  definitions:
+    - name: commitlint
+      files: [pre-commit-registry]
+      main_tool: commitlint
+      known_good_version: 18.4.3
+      commands:
+        - name: lint-scm
+          output: sarif
+          run: commitlint --format --edit ${workspace}/.git/COMMIT_EDITMSG
+          disable_upstream: true
+          success_codes: [0, 1]
+          parser:
+            runtime: python
+            run: python ${plugin}/linters/commitlint/commitlint_to_sarif.py ${workspace}
+  # triggers:
+  #   - linters:
+  #       - commitlint
+  #     paths:
+  #       - .git/COMMIT_EDITMSG
+  #       - TRUNK-PRE-COMMIT-FILE
+  #     targets:
+  #       - TRUNK-PRE-COMMIT-FILE
+actions:
+  definitions:
+    - id: pre-commit-register
+      run: echo "pre-commit" > TRUNK-PRE-COMMIT-FILE
+      triggers:
+        - git_hooks: [pre-commit]

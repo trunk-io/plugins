@@ -20,6 +20,9 @@ plugins:
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
 
+  enabled:
+    - codespell@2.2.6
+    - commitlint@18.4.3
   disabled:
     - pylint # pylint diagnostics are too strict
 
@@ -70,6 +73,7 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - pre-commit-register
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
