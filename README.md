@@ -57,7 +57,7 @@ trunk check enable {linter}
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
 | Javascript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
 | JSON            | [deno], [eslint], [prettier], [semgrep]                                                                              |
-| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                            |
+| Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
 | Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check], [prettier]                                             |
@@ -76,7 +76,7 @@ trunk check enable {linter}
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                                |
 | SVG             | [svgo]                                                                                                               |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                            |
-| Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec], [terrascan]     |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint],[tfsec],[terrascan]                                              |
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
@@ -173,19 +173,6 @@ trunk check enable {linter}
 [txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
-
-<sup><ol>
-
-<li><a aria-hidden="true" tabindex="-1" class="customAnchor" id="note-detekt"></a>
-Support for Detekt is under active development; see our <a href="https://docs.trunk.io/docs/check-supported-linters#detekt">docs</a> for more
-details.
-</li>
-
-<li><a aria-hidden="true" tabindex="-1" class="customAnchor" id="note-tflint"></a>
-<a href="https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/module-inspection.md">Module inspection</a>, <a href="https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md">deep checking</a>, and setting variables are not currently supported.
-</li>
-
-</ol></sup>
 
 <br/>
 
