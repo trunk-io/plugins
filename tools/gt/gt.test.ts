@@ -1,5 +1,5 @@
 import { makeToolTestConfig, toolTest } from "tests";
-import { skipOS, skipCPUOS } from "tests/utils";
+import { skipCPUOS, skipOS } from "tests/utils";
 
 toolTest({
   toolName: "gt",
