@@ -159,11 +159,11 @@ export interface TestResult {
 
 /**
  * A summary of all tests run with an individual OS (or the merged result of all OSs).
- * Includes a map of linter name to linter test results.
+ * Includes a map of linter/tool name to linter/tool test results.
  */
 export interface TestResultSummary {
   os: TestOS | "composite";
-  linters: Map<string, TestResult>;
+  testResults: Map<string, TestResult>;
 }
 
 /**

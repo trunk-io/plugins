@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter tflint test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "terraform_unused_declarations",
+      "column": "1",
+      "file": "test_data/aws.tf",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "tflint",
+      "message": "variable "region" is declared but not used",
+      "ranges": [
+        {
+          "filePath": "test_data/aws.tf",
+          "length": "17",
+        },
+      ],
+      "targetType": "terraform",
+    },
+    {
+      "code": "terraform_typed_variables",
+      "column": "1",
+      "file": "test_data/aws.tf",
+      "level": "LEVEL_MEDIUM",
+      "line": "10",
+      "linter": "tflint",
+      "message": "\`foo\` variable has no type",
+      "ranges": [
+        {
+          "filePath": "test_data/aws.tf",
+          "length": "14",
+          "offset": "104",
+        },
+      ],
+      "targetType": "terraform",
+    },
+    {
+      "code": "terraform_unused_declarations",
+      "column": "1",
+      "file": "test_data/aws.tf",
+      "level": "LEVEL_MEDIUM",
+      "line": "10",
+      "linter": "tflint",
+      "message": "variable "foo" is declared but not used",
+      "ranges": [
+        {
+          "filePath": "test_data/aws.tf",
+          "length": "14",
+          "offset": "104",
+        },
+      ],
+      "targetType": "terraform",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "terraform",
+      "linter": "tflint",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

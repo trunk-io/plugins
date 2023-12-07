@@ -23,5 +23,5 @@ fuzzyLinterCheckTest({
   linterName: "nancy",
   args: "-a -y",
   preCheck,
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 24),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 18),
 });

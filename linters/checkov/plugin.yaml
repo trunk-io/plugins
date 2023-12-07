@@ -16,13 +16,13 @@ lint:
           # on Windows, we need to make sure 'checkov' resolves to 'checkov.cmd'
           platforms: [windows]
           run: checkov.cmd -f ${target} -o sarif --output-file-path ${tmpfile},
-          output: sarif
+          output: sarif_uri
           success_codes: [0, 1]
           read_output_from: tmp_file
           is_security: true
         - name: lint
           run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},
-          output: sarif
+          output: sarif_uri
           success_codes: [0, 1]
           read_output_from: tmp_file
           is_security: true
