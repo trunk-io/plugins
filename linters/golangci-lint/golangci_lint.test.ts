@@ -3,8 +3,7 @@ import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS, TEST_DATA } from "tests/utils";
 
-// NOTE(Tyler): Don't run on Windows since the typecheck errors are dependent on system libs, and the set of diagnostics
-// seems to vary.
+// Don't run on Windows since the typecheck errors are dependent on system libs, and the set of diagnostics seems to vary.
 customLinterCheckTest({
   linterName: "golangci-lint",
   args: "-a -y",
@@ -22,7 +21,7 @@ const addEmpty = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "golangci-lint",
   testName: "empty",
-  args: "-a --foo",
+  args: "-a",
   preCheck: addEmpty,
   skipTestIf: skipOS(["win32"]),
 });
