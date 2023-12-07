@@ -94,8 +94,8 @@ To add a new linter:
 7. Run `trunk check` to lint your changes.
 8. Open a PR!
 
-[custom linters]: https://docs.trunk.io/docs/check-custom-linters
-[custom parsers]: https://docs.trunk.io/docs/custom-parsers
+[custom linters]: https://docs.trunk.io/check/custom-linters
+[custom parsers]: https://docs.trunk.io/check/custom-parsers
 
 ## Actions
 
@@ -123,7 +123,7 @@ To add a new action:
 7. Run `trunk check` to lint your changes.
 8. Open a PR!
 
-[actions]: https://docs.trunk.io/docs/actions
+[actions]: https://docs.trunk.io/actions
 
 ## Tools
 

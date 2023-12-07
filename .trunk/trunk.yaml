@@ -15,7 +15,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v0.0.8
+      ref: c4691c927f715a15afb369a17fe7fb63cdc7bd91
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
