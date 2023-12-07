@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.17.2-beta.11
+  version: 1.18.0
 
 api:
   address: api.trunk-staging.io:8443
@@ -79,3 +79,6 @@ tools:
   enabled:
     - clangd-indexing-tools@16.0.2
     - clangd@16.0.2
+  runtimes:
+    # expose shims in .trunk/tools
+    - node

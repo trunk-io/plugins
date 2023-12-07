@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter standardrb test basic 1`] = `
+"class Plumbus
+  private
+
+  def smooth
+  end
+end
+
+Klass.call(
+  key_1: "hello",
+  key_2: "world"
+)
+"
+`;

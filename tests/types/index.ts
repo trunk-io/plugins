@@ -19,6 +19,7 @@ export type CheckType = "check" | "fmt";
  * 3. Snapshots: use all previously written snapshot versions.
  * 4. string: a manually specified version. Note that this will apply to all tests.
  */
+// trunk-ignore(eslint/@typescript-eslint/no-redundant-type-constituents): Added for clarity.
 export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 
 /**
@@ -30,7 +31,7 @@ export interface TestingArguments {
   /** Path to a cli binary. */
   cliPath?: string;
   /** Version of linters to enable and test against. */
-  linterVersion?: LinterVersion | string;
+  linterVersion?: LinterVersion;
   /** Whether tests should create new snapshot files if snapshots already exist
    * even if a match is found. */
   dumpNewSnapshot: boolean;
@@ -130,8 +131,9 @@ export interface LandingState {
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
  */
 export enum TestOS {
-  LINUX = "ubuntu-latest",
-  MAC_OS = "macos-latest",
+  LINUX = "ubuntu",
+  MAC_OS = "macos",
+  WINDOWS = "windows",
 }
 
 /**
@@ -152,15 +154,16 @@ export interface TestResult {
   testNames: string[];
   testResultStatus: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
 }
 
 /**
  * A summary of all tests run with an individual OS (or the merged result of all OSs).
- * Includes a map of linter name to linter test results.
+ * Includes a map of linter/tool name to linter/tool test results.
  */
 export interface TestResultSummary {
   os: TestOS | "composite";
-  linters: Map<string, TestResult>;
+  testResults: Map<string, TestResult>;
 }
 
 /**
@@ -179,4 +182,5 @@ export interface FailedVersion {
   version?: string;
   status: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
 }

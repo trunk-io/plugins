@@ -23,11 +23,15 @@ const PLUGIN_VERSION = process.env.PLUGIN_VERSION ?? "v0.0.10";
 if (!process.env.PLUGIN_VERSION) {
   console.log("Environment var `PLUGIN_VERSION` is not set, using fallback `v0.0.10`");
 }
+const TEST_TYPE = process.env.TEST_TYPE ?? "linter";
+if (!process.env.TEST_TYPE) {
+  console.log("Environment var `TEST_TYPE` is not set, using fallback `linter`");
+}
 
 /**
  * Convert an OS into the expected file path.
  */
-const getResultsFileFromOS = (os: TestOS) => path.resolve(REPO_ROOT, `${os}-res.json`);
+const getResultsFileFromOS = (os: TestOS) => path.resolve(REPO_ROOT, `${os}-latest-res.json`);
 
 /**
  * Convert the name that jest uses for test status into a `TestResultStatus`.
@@ -63,7 +67,7 @@ const mergeTestStatuses = (
 };
 
 /**
- * Combine maps of versions run on each OS.
+ * Combine maps of versions run on each OS. This consolidates in order to detail mismatches.
  */
 const mergeTestVersions = (original: TestResult, incoming: TestResult) => {
   Array.from(incoming.allVersions).reduce((accumulator, [os, versions]) => {
@@ -89,6 +93,9 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
   } else {
     original.testResultStatus = mergeTestStatuses(original.testResultStatus, testResultStatus);
   }
+  if (original.testResultStatus == "failed") {
+    original.failedPlatforms = new Set([...original.failedPlatforms, ...incoming.failedPlatforms]);
+  }
 };
 
 /**
@@ -105,10 +112,11 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   try {
     jsonResult = JSON.parse(fs.readFileSync(resultsJsonPath, { encoding: "utf-8" }));
   } catch (error) {
+    // The caller is primarily responsible for reporting if a file is missing.
     console.warn(`Failed to parse ${resultsJsonPath}. Skipping`);
     return {
       os,
-      linters: linterResults,
+      testResults: linterResults,
     };
   }
 
@@ -116,16 +124,26 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   jsonResult.testResults.forEach((testResult: any) => {
     testResult.assertionResults.forEach((assertionResult: any) => {
       const testName: string = assertionResult.ancestorTitles[0];
-      const foundLinterName = testName.match(/Testing (linter|formatter) (?<linter>.+)/);
+      const foundLinterName = testName.match(/Testing (linter|formatter|tool) (?<linter>.+)/);
       const linterName = foundLinterName?.groups?.linter;
       if (!linterName) {
         console.warn(`Failed to parse test name from ${testName}`);
         return;
       }
 
-      const version = assertionResult.version;
-      const fullTestName = assertionResult.fullName;
+      const fullTestName: string = assertionResult.fullName;
+      const testType = assertionResult.testType;
+      if (testType && testType !== TEST_TYPE) {
+        console.warn(`Skipping test '${fullTestName}' because is type '${testType}'`);
+        return;
+      }
+
+      const version: string = assertionResult.version;
       const status = parseTestStatus(assertionResult.status);
+      const failedPlatforms = new Set<TestOS>();
+      if (status == "failed") {
+        failedPlatforms.add(os);
+      }
 
       const originaltestResult = linterResults.get(linterName);
       const newResultAllVersions = new Map();
@@ -135,6 +153,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
         testNames: [fullTestName],
         testResultStatus: status,
         allVersions: newResultAllVersions,
+        failedPlatforms,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -152,7 +171,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
   console.log(`Parsed results for ${os}`);
   return {
     os,
-    linters: linterResults,
+    testResults: linterResults,
   };
 };
 
@@ -161,9 +180,11 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
  * same version and all tests must be skipped or pass to be considered passed.
  */
 const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultSummary => {
-  const compositeLinterResults = testResults[0].linters;
+  const compositeLinterResults = testResults[0].testResults;
+
+  // Merge all other OS results into the first OS's results
   testResults.slice(1).forEach((testResult) => {
-    testResult.linters.forEach((linterResult, linterName) => {
+    testResult.testResults.forEach((linterResult, linterName) => {
       const compositeLinterResult = compositeLinterResults.get(linterName);
       if (compositeLinterResult) {
         // Merge existing composite record
@@ -177,7 +198,7 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
 
   return {
     os: "composite",
-    linters: compositeLinterResults,
+    testResults: compositeLinterResults,
   };
 };
 
@@ -185,19 +206,23 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  * Write the payload for a slack notification on test failures.
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
-  const allBlocks = failures.map(({ linter, version, status, allVersions }) => {
+  const allBlocks = failures.map(({ linter, version, status, allVersions, failedPlatforms }) => {
     const linterVersion = version ? `${linter}@${version}` : linter;
     let details = "";
     if (status == "mismatch") {
-      details = Array.from(allVersions)
+      details = `(${Array.from(allVersions)
         .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
-        .join("; ");
+        .join("; ")})`;
+    } else if (status == "failed") {
+      details = `(${Array.from(failedPlatforms.keys())
+        .map((os) => os.toString())
+        .join(", ")})`;
     }
     return {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${TEST_TYPE} ${linterVersion} > _STATUS: ${status}_ ${details}`,
       },
     };
   });
@@ -231,7 +256,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
 const writeTestResults = (testResults: TestResultSummary) => {
   const cliVersion = getTrunkVersion();
   const pluginVersion = PLUGIN_VERSION;
-  const validatedVersions = Array.from(testResults.linters).reduce(
+  const validatedVersions = Array.from(testResults.testResults).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
       if (testResultStatus === "passed" && version) {
         const additionalValidatedVersion: ValidatedVersion = { linter, version };
@@ -241,13 +266,19 @@ const writeTestResults = (testResults: TestResultSummary) => {
     },
     [],
   );
-  const failures = Array.from(testResults.linters).reduce(
+  const failures = Array.from(testResults.testResults).reduce(
     (
       accumulator: FailedVersion[],
-      [linter, { version, testResultStatus: status, allVersions }],
+      [linter, { version, testResultStatus: status, allVersions, failedPlatforms }],
     ) => {
       if (status !== "passed" && status !== "skipped") {
-        const additionalFailedVersion: FailedVersion = { linter, version, status, allVersions };
+        const additionalFailedVersion: FailedVersion = {
+          linter,
+          version,
+          status,
+          allVersions,
+          failedPlatforms,
+        };
         return accumulator.concat([additionalFailedVersion]);
       }
       return accumulator;
@@ -274,12 +305,12 @@ const parseTestResultsAndWrite = () => {
   // Step 1: Parse each OS's results json file. If one of the expected files does not exist, throw and error out.
   const testResults = Object.values(TestOS).map((os) => parseResultsJson(os));
   const totalParsedTests = testResults.reduce(
-    (total, testResultsSummary) => total + testResultsSummary.linters.size,
+    (total, testResultsSummary) => total + testResultsSummary.testResults.size,
     0,
   );
   if (totalParsedTests === 0) {
     throw new Error(
-      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json}",
+      "No tests were parsed. Output files should be named {ubuntu-latest-res.json|macos-latest-res.json|windows-latest-res.json}",
     );
   }
 

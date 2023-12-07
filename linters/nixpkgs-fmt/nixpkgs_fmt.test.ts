@@ -10,7 +10,7 @@ const preCheck: TestCallback = (driver) => {
   const currentContents = driver.readFile(trunkYamlPath);
   const newContents = currentContents.concat(`runtimes:
   enabled:
-    - rust@1.65.0
+    - rust@1.71.1
 `);
   driver.writeFile(trunkYamlPath, newContents);
 };

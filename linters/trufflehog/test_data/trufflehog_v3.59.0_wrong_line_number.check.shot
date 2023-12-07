@@ -1,27 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter trufflehog test secrets 1`] = `
+exports[`Testing linter trufflehog test wrong_line_number 1`] = `
 {
   "issues": [
     {
-      "code": "PrivateKey",
-      "file": "test_data/secrets.in.py",
+      "code": "URI",
+      "file": "test_data/wrong_line_number.in.ts",
       "isSecurity": true,
       "level": "LEVEL_HIGH",
-      "line": "1",
+      "line": "587",
       "linter": "trufflehog",
-      "message": "Secret detected: -----BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAACmFl",
+      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com",
       "targetType": "ALL",
     },
     {
       "code": "URI",
-      "file": "test_data/secrets.in.py",
+      "file": "test_data/wrong_line_number.in.ts",
       "isSecurity": true,
       "level": "LEVEL_HIGH",
-      "line": "1",
+      "line": "592",
       "linter": "trufflehog",
-      "message": "Secret detected: https://********:********@the-internet.herokuapp.com",
+      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com",
       "targetType": "ALL",
     },
   ],
@@ -31,7 +30,7 @@ b3BlbnNzaC1rZXktdjEAAAAACmFl",
       "fileGroupName": "ALL",
       "linter": "trufflehog",
       "paths": [
-        "test_data/secrets.in.py",
+        "test_data/wrong_line_number.in.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

@@ -5,16 +5,20 @@ lint:
       files: [python]
       commands:
         - name: lint
+          platforms: [linux, macos]
           output: regex
-          run: sourcery review  --no-summary --csv ${target}
+          run: bash -c "ln -s ${REPO_DIR}/.git .git; sourcery review  --no-summary --csv ${target}"
           parse_regex: ((?P<path>.*),(?P<line>\d+),(?P<code>.*),(?P<message>.*))
           success_codes: [0]
           read_output_from: stdout
           batch: true
           cache_results: true
         - name: fix
+          platforms: [linux, macos]
           output: rewrite
-          run: sourcery review  --no-summary --csv --fix ${target}
+          run:
+            bash -c "ln -s ${REPO_DIR}/.git .git || true; sourcery review  --no-summary --csv --fix
+            ${target}"
           success_codes: [0]
           batch: true
           # NOTE(Tyler): Autofixes will show up as complete "formatting-like" diagnostics. However, strictly speaking, this isn't a formatter, so we don't want to set formatter: true
@@ -23,6 +27,8 @@ lint:
         - name: PATH
           # needs system path for license verification
           list: ["${linter}", "${env.PATH}"]
+        - name: REPO_DIR
+          value: "${workspace}"
       tools: [sourcery]
       suggest_if: never
       direct_configs:

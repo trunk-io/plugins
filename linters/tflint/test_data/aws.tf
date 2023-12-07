@@ -1,3 +1,12 @@
-resource "aws_instance" "foo" {
-  instance_type = "t1.2xlarge"
+variable "region" {
+  type = map(any)
+  default = {
+    "a" = {
+      "region" = "uswest",
+    }
+  }
+}
+
+variable "foo" {
+  default = "bar"
 }

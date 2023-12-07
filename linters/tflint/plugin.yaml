@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: tflint
-    version: 0.35.0
+    version: 0.47.0
     downloads:
       # macos arm64 was introduced after this version.
       - os: macos
@@ -20,7 +20,7 @@ tools:
     - name: tflint
       download: tflint
       shims: [tflint]
-      known_good_version: 0.35.0
+      known_good_version: 0.47.0
 lint:
   definitions:
     - name: tflint
@@ -29,12 +29,14 @@ lint:
         - name: lint
           output: sarif
           prepare_run: tflint --init
-          run: tflint --format=sarif --chdir=${target} --force
+          run: tflint --format=sarif --force
           success_codes: [0, 1, 2]
           read_output_from: stdout
+          # tflint can only run on the current directory unless --recursive is passed
           target: ${parent}
-          run_from: ${root_or_parent_with(.tflint.hcl)}
+          run_from: ${target_directory}
           version: ">=0.47.0"
+          sandbox_type: expanded
         - name: lint
           output: sarif
           prepare_run: tflint --init
@@ -53,7 +55,7 @@ lint:
         - name: GITHUB_TOKEN
           value: ${env.GITHUB_TOKEN}
           optional: true
-      known_good_version: 0.35.0
+      known_good_version: 0.47.0
       version_command:
         parse_regex: ${semver}
         run: tflint --version

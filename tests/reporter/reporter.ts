@@ -26,13 +26,21 @@ export default class TestReporter implements CustomReporter {
   onTestResult(_test: Test, testResult: TestResult, _aggregatedResult: AggregatedResult) {
     // Step 1: Strip console of linter version messages, and populate map
     const linterVersionMap = new Map<string, string | undefined>();
+    const testTypeMap = new Map<string, string | undefined>();
+
     const filteredConsole = testResult.console?.filter(({ message, origin, type }) => {
       const isLinterVersionMessage = type === ("linter-version" as LogType);
       if (isLinterVersionMessage) {
         // full test name is stored in origin, linter version is stored in message
         linterVersionMap.set(origin, message);
       }
-      return !isLinterVersionMessage;
+
+      const hasTestType = type === ("test-type" as LogType);
+      if (hasTestType) {
+        // full test name is stored in origin, test type label is stored in message
+        testTypeMap.set(origin, message);
+      }
+      return !isLinterVersionMessage && !hasTestType;
     });
     testResult.console = filteredConsole?.length ? filteredConsole : undefined;
 
@@ -40,6 +48,7 @@ export default class TestReporter implements CustomReporter {
     // trunk-ignore-begin(eslint): Unsafe assignment here is expected
     testResult.testResults = testResult.testResults.map((individualResult: any) => {
       individualResult.version = linterVersionMap.get(individualResult.fullName);
+      individualResult.testType = testTypeMap.get(individualResult.fullName);
       return individualResult;
     });
     // trunk-ignore-end(eslint)

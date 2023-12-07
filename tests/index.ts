@@ -38,14 +38,27 @@ declare global {
   }
 }
 
-const registerVersion = (linterVersion?: string) => {
+/**
+ * Add the version to the test reporter. This only applies when there are multiple workers,
+ * because the console buffer gets forwarded into the test reporter output.
+ * @param testType      linter or tool, whichever type of test. Used for defensive filtering
+ * @param linterVersion the linter or tool version that was enabled
+ */
+const registerVersion = (testType: string, linterVersion?: string) => {
   // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
-  // trunk-ignore(eslint): Manual patch is quired here for most reliable implementation
-  console._buffer?.push({
-    message: linterVersion,
-    origin: expect.getState().currentTestName,
-    type: "linter-version",
-  });
+  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
+  console._buffer?.push(
+    {
+      message: linterVersion,
+      origin: expect.getState().currentTestName,
+      type: "linter-version",
+    },
+    {
+      message: testType,
+      origin: expect.getState().currentTestName,
+      type: "test-type",
+    },
+  );
 };
 
 const baseDebug = Debug("Tests");
@@ -127,7 +140,7 @@ export const setupDriver = (
   });
 
   afterEach(() => {
-    registerVersion(driver.enabledVersion);
+    registerVersion("linter", driver.enabledVersion);
   });
   return driver;
 };
@@ -158,6 +171,10 @@ export const setupTrunkToolDriver = (
   afterAll(() => {
     driver.tearDown();
   });
+
+  afterEach(() => {
+    registerVersion("tool", driver.enabledVersion);
+  });
   return driver;
 };
 
@@ -186,6 +203,10 @@ export const setUpTrunkToolDriverForHealthCheck = (
 
   afterAll(() => {
     driver.tearDown();
+  });
+
+  afterEach(() => {
+    registerVersion("tool", driver.enabledVersion);
   });
   return driver;
 };
@@ -225,14 +246,16 @@ export const toolInstallTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: ToolTestCallback;
 }) => {
-  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
-  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
-    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain(toolName);
-    expect(stdout).toContain(toolVersion);
-    expect(stderr).toEqual("");
-    expect(stdout).not.toContain("Failures:");
+  describe(`Testing tool ${toolName}`, () => {
+    const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
+    conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
+      const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain(toolName);
+      expect(stdout).toContain(toolVersion);
+      expect(stderr).toEqual("");
+      expect(stdout).not.toContain("Failures:");
+    });
   });
 };
 
@@ -270,7 +293,7 @@ export const toolTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: ToolTestCallback;
 }) => {
-  describe(toolName, () => {
+  describe(`Testing tool ${toolName}`, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
@@ -759,7 +782,6 @@ export const linterFmtTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
-            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );
