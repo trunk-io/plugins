@@ -45,9 +45,6 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: stylelint --version
-      environment:
-        - name: NODE_PATH
-          list: ["${linter}/node_modules", "${workspace}/node_modules"]
 
     - name: stylelint-fmt
       files: [css, sass]
