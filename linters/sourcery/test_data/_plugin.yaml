@@ -5,10 +5,8 @@ lint:
     - name: sourcery
       commands:
         - name: lint
-          platforms: [linux, macos]
           prepare_run: bash -c "sourcery login --token=${SOURCERY_TOKEN}"
         - name: fix
-          platforms: [linux, macos]
           prepare_run: bash -c "sourcery login --token=${SOURCERY_TOKEN}"
       environment:
         - name: PATH
