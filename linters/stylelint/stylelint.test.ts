@@ -1,6 +1,6 @@
+import semver from "semver";
 import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import semver from "semver";
 
 // stylelint requires additional install steps
 const preCheck = (driver: TrunkLintDriver) => {
