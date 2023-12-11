@@ -5,7 +5,7 @@ import { TrunkLintDriver } from "tests/driver";
 import { DOWNLOAD_CACHE, osTimeoutMultiplier, recurseLevels, skipOS, TEST_DATA } from "tests/utils";
 
 // detekt tests can sometimes take a while.
-jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
+jest.setTimeout(500000 * osTimeoutMultiplier);
 
 // Running check on the input manually requires the existence of a top level .detekt.yaml
 const preCheck = (driver: TrunkLintDriver) => {
