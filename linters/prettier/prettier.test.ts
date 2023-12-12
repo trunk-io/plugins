@@ -1,4 +1,4 @@
-import { linterFmtTest } from "tests";
+import { linterFmtTest, linterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 
 // Grab the root .prettierrc.yaml
@@ -12,3 +12,4 @@ proseWrap: always`
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving other file types.
 linterFmtTest({ linterName: "prettier", preCheck });
+linterCheckTest({ linterName: "prettier", preCheck });
