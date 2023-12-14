@@ -30,5 +30,5 @@ lint:
           formatter: true
           in_place: true
           success_codes: [0]
-          enabled: true
+          enabled: false
           batch: true
