@@ -48,7 +48,7 @@ def main(argv):
     m = re.match(r"\[error\] (.*): SyntaxError:(.*)\((\d+):(\d+)\)", first_line)
     if m is None:
         print("Unexpected output from prettier")
-        sys.exit(1)
+        sys.exit(int(argv[1]))
 
     results = []
     results.append(to_result_sarif(m[1], m[2], int(m[3]), int(m[4])))
