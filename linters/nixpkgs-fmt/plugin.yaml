@@ -12,6 +12,7 @@ lint:
           success_codes: [0]
           in_place: true
           batch: true
+          formatter: true
 
       suggest_if: files_present
       known_good_version: 1.3.0
