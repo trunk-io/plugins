@@ -1,0 +1,9 @@
+version: 0.1
+tools:
+  definitions:
+    - name: diff-so-fancy
+      runtime: node
+      package: diff-so-fancy
+      known_good_version: 1.4.3
+      # NOTE: shim may differ from tool name
+      shims: [diff-so-fancy]
