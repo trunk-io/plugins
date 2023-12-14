@@ -8,9 +8,10 @@ lint:
       files: [nix]
       commands:
         - output: rewrite
-          run: nixpkgs-fmt
+          run: nixpkgs-fmt ${target}
           success_codes: [0]
-          stdin: true
-          formatter: true
+          in_place: true
+          batch: true
+
       suggest_if: files_present
       known_good_version: 1.3.0

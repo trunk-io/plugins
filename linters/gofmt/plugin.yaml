@@ -6,11 +6,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: gofmt ${target}
+          run: gofmt -w ${target}
           success_codes: [0]
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       download: go # loaded by default with trunk
       suggest_if: files_present
       # go releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
