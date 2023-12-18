@@ -129,11 +129,12 @@ export interface LandingState {
 
 /**
  * The reason why a test might fail (predictive).
- * - undefined: unknown, usually a test timeout or other setup error -> requires investigation
+ * - unknown: unknown, usually a test timeout, discrepancy, or other setup error -> requires investigation
  * - task_failure: a task failure occurred, whether during execution or linter install -> requires investigation
+ * - passed: only during post-processing, if at least some of the tests passed -> can still generate a snapshot
  * - assertion_failure: the exepcted diagnostics vary -> we can usually generate a snapshot proactively
  */
-export type FailureMode = undefined | "task_failure" | "assertion_failure";
+export type FailureMode = "unknown" | "passed" | "task_failure" | "assertion_failure";
 
 /**
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
@@ -159,7 +160,8 @@ export type TestResultStatus = "passed" | "failed" | "skipped" | "mismatch";
  */
 export interface TestResult {
   version?: string;
-  testNames: string[];
+  // A map of test fullName to suspected failure mode. Is the composite result across multiple OSs.
+  testFailureMetadata: Map<string, FailureMode>;
   testResultStatus: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
   failedPlatforms: Set<TestOS>;

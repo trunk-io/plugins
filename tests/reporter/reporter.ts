@@ -57,9 +57,10 @@ export default class TestReporter implements CustomReporter {
       individualResult.version = linterVersionMap.get(individualResult.fullName);
       individualResult.testType = testTypeMap.get(individualResult.fullName);
       if (individualResult.status === "failed") {
-        individualResult.suspectedFailureMode = suspectedFailureModeMap.get(
-          individualResult.fullName,
-        );
+        individualResult.suspectedFailureMode =
+          suspectedFailureModeMap.get(individualResult.fullName) ?? "unknown";
+      } else {
+        individualResult.suspectedFailureMode = "passed";
       }
       return individualResult;
     });
