@@ -32,8 +32,10 @@ tools:
 lint:
   definitions:
     - name: NAME_HERE
+      files: [FILE_TYPES_HERE]
       # TOOL_OR_RUNTIME_OR_DOWNLOAD_INFO_HERE
       known_good_version: # VERSION_HERE
+      suggest_if: never
       commands:
         - name: LINT_OR_FORMAT_HERE
           output: OUTPUT_TYPE_HERE

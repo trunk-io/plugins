@@ -60,7 +60,7 @@ trunk check enable {linter}
 | Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
-| Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check], [prettier]                                             |
+| Markdown        | [deno], [markdownlint], [markdown-link-check], [markdown-table-prettify], [prettier], [remark-lint]                  |
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
@@ -124,6 +124,7 @@ trunk check enable {linter}
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
+[markdown-table-prettify]: https://github.com/darkriszty/MarkdownTablePrettify-VSCodeExt#readme
 [markdown-link-check]: https://github.com/tcort/markdown-link-check#readme
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
