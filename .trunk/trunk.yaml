@@ -77,7 +77,6 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - yarn@1.22.21
     - clangd-indexing-tools@17.0.3
     - clangd@17.0.3
   runtimes:
