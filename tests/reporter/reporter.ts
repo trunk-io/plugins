@@ -32,7 +32,7 @@ export default class TestReporter implements CustomReporter {
 
     const filteredConsole = testResult.console?.filter(({ message, origin, type }) => {
       const hasFailureMode = type === ("suspected-failure-mode" as LogType);
-      if (hasFailureMode) {
+      if (hasFailureMode && !suspectedFailureModeMap.has(origin)) {
         suspectedFailureModeMap.set(origin, message as FailureMode);
       }
 
