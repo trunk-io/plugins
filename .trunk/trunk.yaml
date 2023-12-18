@@ -2,7 +2,9 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.18.1
+  version: 1.18.1-beta.5
+  shell_hooks:
+    enforce: true
 
 api:
   address: api.trunk-staging.io:8443
@@ -15,11 +17,10 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.1
+      ref: v0.0.10
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-
   disabled:
     - pylint # pylint diagnostics are too strict
 
