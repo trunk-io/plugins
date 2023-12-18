@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.18.0
+  version: 1.18.1
 
 api:
   address: api.trunk-staging.io:8443
@@ -15,7 +15,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: c4691c927f715a15afb369a17fe7fb63cdc7bd91
+      ref: v1.0.1
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
@@ -77,8 +77,9 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - clangd-indexing-tools@16.0.2
-    - clangd@16.0.2
+    - yarn@1.22.21
+    - clangd-indexing-tools@17.0.3
+    - clangd@17.0.3
   runtimes:
     # expose shims in .trunk/tools
     - node
