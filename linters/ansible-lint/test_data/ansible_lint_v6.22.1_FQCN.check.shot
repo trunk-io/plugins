@@ -12,7 +12,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "28",
       "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.wait_for\` or \`ansible.legacy.wait_for\` instead.",
+      "message": "Use \`aansible.builtin.wait_for\` or \`ansible.legacy.wait_for\` instead.",
       "targetType": "custom",
     },
     {
