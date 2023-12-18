@@ -117,6 +117,7 @@ jobs:
 
       - name: Parse Test Results
         shell: bash
+        continue-on-error: true
         id: parse
         run: |
           npm run parse
@@ -130,7 +131,7 @@ jobs:
           TEST_TYPE: ${{ inputs.test-type }}
 
       - name: Upload Test Results Staging
-        if: inputs.upload-validated-versions == 'true'
+        if: inputs.upload-validated-versions == true
         continue-on-error: true
         id: upload-staging
         env:
@@ -145,7 +146,7 @@ jobs:
           trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
       - name: Upload Test Results Prod
-        if: inputs.upload-validated-versions == 'true'
+        if: inputs.upload-validated-versions == true
         continue-on-error: true
         id: upload-prod
         env:
@@ -171,7 +172,7 @@ jobs:
 
       - name: Slack Notification For Staging Upload Failure
         uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: inputs.upload-validated-versions == 'true' && steps.upload-staging.outcome == 'failure'
+        if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
@@ -192,7 +193,7 @@ jobs:
 
       - name: Slack Notification For Prod Upload Failure
         uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: inputs.upload-validated-versions == 'true' && steps.upload-prod.outcome == 'failure'
+        if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
