@@ -294,7 +294,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
  * Write the payload for which tests to rerun
  */
 const writeRerunTests = (rerunLinters: string[]) => {
-  const rerunString = rerunLinters.map((linter) => `tests/${linter}/${linter}.test.ts`).join(" ");
+  const rerunString = rerunLinters.map((linter) => `linters/${linter}/${linter}.test.ts`).join(" ");
   fs.writeFileSync(RERUN_FILE, rerunString);
   console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}:`);
 };
