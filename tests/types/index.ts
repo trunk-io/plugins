@@ -194,4 +194,5 @@ export interface FailedVersion {
   status: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
   failedPlatforms: Set<TestOS>;
+  rerunningTest: boolean;
 }

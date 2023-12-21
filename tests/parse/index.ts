@@ -249,26 +249,31 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  * Write the payload for a slack notification on test failures.
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
-  const allBlocks = failures.map(({ linter, version, status, allVersions, failedPlatforms }) => {
-    const linterVersion = version ? `${linter}@${version}` : linter;
-    let details = "";
-    if (status == "mismatch") {
-      details = `(${Array.from(allVersions)
-        .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
-        .join("; ")})`;
-    } else if (status == "failed") {
-      details = `(${Array.from(failedPlatforms.keys())
-        .map((os) => os.toString())
-        .join(", ")})`;
-    }
-    return {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${TEST_TYPE} ${linterVersion} > _STATUS: ${status}_ ${details}`,
-      },
-    };
-  });
+  const allBlocks = failures.map(
+    ({ linter, version, status, allVersions, failedPlatforms, rerunningTest }) => {
+      const linterVersion = version ? `${linter}@${version}` : linter;
+      let details = "";
+      if (status == "mismatch") {
+        details = `(${Array.from(allVersions)
+          .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
+          .join("; ")})`;
+      } else if (status == "failed") {
+        details = `(${Array.from(failedPlatforms.keys())
+          .map((os) => os.toString())
+          .join(", ")})`;
+        if (rerunningTest) {
+          details = details.concat(" _(rerunning)_");
+        }
+      }
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${TEST_TYPE} ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        },
+      };
+    },
+  );
 
   const remainingBlock = {
     type: "section",
@@ -333,23 +338,23 @@ const writeTestResults = (testResults: TestResultSummary) => {
       },
     ]) => {
       if (status !== "passed" && status !== "skipped") {
+        const shouldRerunTest = Array.from(testFailureMetadata.values()).every(
+          // If any non-assertion-type failures occur, we can't proactively generate snapshot.
+          (failureMode) => failureMode === "assertion_failure" || failureMode === "passed",
+        );
+        if (shouldRerunTest) {
+          rerunPaths.push(testFilePath);
+        }
+
         const additionalFailedVersion: FailedVersion = {
           linter,
           version,
           status,
           allVersions,
           failedPlatforms,
+          rerunningTest: shouldRerunTest,
         };
         failures.push(additionalFailedVersion);
-
-        if (
-          Array.from(testFailureMetadata.values()).every(
-            // If any non-assertion-type failures occur, we can't proactively generate snapshot.
-            (failureMode) => failureMode === "assertion_failure" || failureMode === "passed",
-          )
-        ) {
-          rerunPaths.push(testFilePath);
-        }
       }
     },
   );
