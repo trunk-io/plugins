@@ -14,7 +14,7 @@ import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
-const RERUN_FILE = path.resolve(REPO_ROOT, "rerun.txt");
+const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
