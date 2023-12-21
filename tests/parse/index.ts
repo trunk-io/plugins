@@ -161,8 +161,11 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
 
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
+    // NOTE(Tyler): Jest does their own file path transformation that sometimes interferes with GH runners.
+    // Use this naive replacement in order to divine the relative path to the test file.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const testFilePath = path.relative(REPO_ROOT, testResult.name as string);
+    const testFilePath = (testResult.name as string).replace(/.*linters/, "linters").toString();
+
     testResult.assertionResults.forEach((assertionResult: any) => {
       const testName: string = assertionResult.ancestorTitles[0];
       const foundLinterName = testName.match(/Testing (linter|formatter|tool) (?<linter>.+)/);
