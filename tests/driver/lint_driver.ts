@@ -88,7 +88,7 @@ runtimes:
     # required in order to query latest
     - go@1.21.0
     - node@18.12.1
-    - python@3.10.8
+    - python@3.11.6
     - ruby@3.1.4
 plugins:
   sources:
