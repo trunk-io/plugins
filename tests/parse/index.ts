@@ -161,6 +161,8 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
 
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const testFilePath = path.relative(REPO_ROOT, testResult.name as string);
     testResult.assertionResults.forEach((assertionResult: any) => {
       const testName: string = assertionResult.ancestorTitles[0];
       const foundLinterName = testName.match(/Testing (linter|formatter|tool) (?<linter>.+)/);
@@ -194,6 +196,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
         testResultStatus: status,
         allVersions: newResultAllVersions,
         failedPlatforms,
+        testFilePath,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -293,13 +296,8 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
 /**
  * Write the payload for which tests to rerun
  */
-const writeRerunTests = (rerunLinters: string[]) => {
-  const rerunString = rerunLinters
-    .map((linter) => {
-      const normalizedLinter = linter.replaceAll("-", "_");
-      return `linters/${normalizedLinter}/${normalizedLinter}.test.ts`;
-    })
-    .join(" ");
+const writeRerunTests = (rerunPaths: string[]) => {
+  const rerunString = rerunPaths.join(" ");
   fs.writeFileSync(RERUN_FILE, rerunString);
   console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}:`);
 };
@@ -320,12 +318,19 @@ const writeTestResults = (testResults: TestResultSummary) => {
     },
     [],
   );
-  const rerunLinters: string[] = [];
+  const rerunPaths: string[] = [];
   const failures: FailedVersion[] = [];
   Array.from(testResults.testResults).forEach(
     ([
       linter,
-      { version, testFailureMetadata, testResultStatus: status, allVersions, failedPlatforms },
+      {
+        version,
+        testFailureMetadata,
+        testResultStatus: status,
+        allVersions,
+        failedPlatforms,
+        testFilePath,
+      },
     ]) => {
       if (status !== "passed" && status !== "skipped") {
         const additionalFailedVersion: FailedVersion = {
@@ -339,10 +344,11 @@ const writeTestResults = (testResults: TestResultSummary) => {
 
         if (
           Array.from(testFailureMetadata.values()).every(
+            // If any non-assertion-type failures occur, we can't proactively generate snapshot.
             (failureMode) => failureMode === "assertion_failure" || failureMode === "passed",
           )
         ) {
-          rerunLinters.push(linter);
+          rerunPaths.push(testFilePath);
         }
       }
     },
@@ -361,8 +367,8 @@ const writeTestResults = (testResults: TestResultSummary) => {
   if (failures.length >= 1) {
     writeFailuresForNotification(failures);
   }
-  if (rerunLinters.length >= 1) {
-    writeRerunTests(rerunLinters);
+  if (rerunPaths.length >= 1) {
+    writeRerunTests(rerunPaths);
   }
 };
 

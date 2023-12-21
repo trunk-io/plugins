@@ -165,6 +165,7 @@ export interface TestResult {
   testResultStatus: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
   failedPlatforms: Set<TestOS>;
+  testFilePath: string;
 }
 
 /**
