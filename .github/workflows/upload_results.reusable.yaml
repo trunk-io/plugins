@@ -134,35 +134,36 @@ jobs:
           TEST_REF: ${{ inputs.test-ref }}
           TEST_TYPE: ${{ inputs.test-type }}
 
-      - name: Upload Test Results Staging
-        if: inputs.upload-validated-versions == true
-        continue-on-error: true
-        id: upload-staging
-        env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
-          TRUNK_API_ADDRESS: api.trunk-staging.io:8443
-        # upload-linter-versions is a hidden command reserved exclusively for uploading
-        # validated results from the plugins repo.
-        # daemon must be restarted in order to propagate environment variable
-        shell: bash
-        run: |
-          trunk daemon shutdown
-          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+      # TODO: TYLER ADD THESE BACK IN
+      # - name: Upload Test Results Staging
+      #   if: inputs.upload-validated-versions == true
+      #   continue-on-error: true
+      #   id: upload-staging
+      #   env:
+      #     TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
+      #     TRUNK_API_ADDRESS: api.trunk-staging.io:8443
+      #   # upload-linter-versions is a hidden command reserved exclusively for uploading
+      #   # validated results from the plugins repo.
+      #   # daemon must be restarted in order to propagate environment variable
+      #   shell: bash
+      #   run: |
+      #     trunk daemon shutdown
+      #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
-      - name: Upload Test Results Prod
-        if: inputs.upload-validated-versions == true
-        continue-on-error: true
-        id: upload-prod
-        env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
-          TRUNK_API_ADDRESS: api.trunk.io:8443
-        # upload-linter-versions is a hidden command reserved exclusively for uploading
-        # validated results from the plugins repo.
-        # daemon must be restarted in order to propagate environment variable
-        shell: bash
-        run: |
-          trunk daemon shutdown
-          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+      # - name: Upload Test Results Prod
+      #   if: inputs.upload-validated-versions == true
+      #   continue-on-error: true
+      #   id: upload-prod
+      #   env:
+      #     TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+      #     TRUNK_API_ADDRESS: api.trunk.io:8443
+      #   # upload-linter-versions is a hidden command reserved exclusively for uploading
+      #   # validated results from the plugins repo.
+      #   # daemon must be restarted in order to propagate environment variable
+      #   shell: bash
+      #   run: |
+      #     trunk daemon shutdown
+      #     trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
 
       # Slack notifications
       - name: Slack Notification For Failures
@@ -174,47 +175,47 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
-      - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
-        with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
-          payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+      # - name: Slack Notification For Staging Upload Failure
+      #   uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+      #   if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
+      #   with:
+      #     channel-id: ${{ env.SLACK_CHANNEL_ID }}
+      #     payload: |
+      #       {
+      #         "text": "Upload Failure",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
-      - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
-        if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
-        with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
-          payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+      # - name: Slack Notification For Prod Upload Failure
+      #   uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+      #   if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
+      #   with:
+      #     channel-id: ${{ env.SLACK_CHANNEL_ID }}
+      #     payload: |
+      #       {
+      #         "text": "Upload Failure",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
   generate_snapshots_pr:
     name: Generate Snapshots PR
     runs-on: ubuntu-x64
