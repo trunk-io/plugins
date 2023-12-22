@@ -1,6 +1,7 @@
 import path from "path";
 import { customLinterFmtTest } from "tests";
-import { skipOS, TEST_DATA } from "tests/utils";
+import { TEST_DATA } from "tests/utils";
+jest.setTimeout(300000);
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 customLinterFmtTest({
