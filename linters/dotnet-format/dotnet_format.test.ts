@@ -13,5 +13,5 @@ customLinterFmtTest({
   ],
   // TODO(Tyler): There is an issue where the M1 Mac dotnet-format execution causes Trunk to hang on first run.
   // Disable this test until we can iron out the cause.
-  skipTestIf: skipOS(["darwin"]),
+  // skipTestIf: skipOS(["darwin"]),
 });

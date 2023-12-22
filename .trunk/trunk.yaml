@@ -21,6 +21,8 @@ plugins:
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
+  enabled:
+    - dotnet-format@7.0.400
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
@@ -79,6 +81,7 @@ actions:
     - tool-test-helper
 tools:
   enabled:
+    - dotnet@7.0.400
     - clangd-indexing-tools@17.0.3
     - clangd@17.0.3
   runtimes:
