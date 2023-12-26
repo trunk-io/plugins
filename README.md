@@ -55,8 +55,8 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
-| Javascript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
-| JSON            | [deno], [eslint], [prettier], [semgrep]                                                                              |
+| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                             |
+| JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                                     |
 | Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
@@ -87,6 +87,7 @@ trunk check enable {linter}
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
 [autopep8]: https://github.com/hhatto/autopep8#readme
 [bandit]: https://github.com/PyCQA/bandit#readme
+[biome]: https://github.com/biomejs/biome#readme
 [black]: https://github.com/psf/black#readme
 [brakeman]: https://github.com/presidentbeef/brakeman#readme
 [buf]: https://github.com/bufbuild/buf#readme
@@ -104,6 +105,7 @@ trunk check enable {linter}
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
+[dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
