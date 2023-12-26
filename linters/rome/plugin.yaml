@@ -34,7 +34,7 @@ lint:
           formatter: true
           in_place: true
       tools: [rome]
-      suggest_if: config_present
+      suggest_if: never
       direct_configs:
         - rome.json
       affects_cache:
