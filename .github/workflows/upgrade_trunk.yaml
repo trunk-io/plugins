@@ -1,0 +1,33 @@
+name: Upgrade Trunk Weekly
+on:
+  schedule:
+    # Weekly at midnight W morning
+    - cron: 0 8 * * 3
+  workflow_dispatch: {}
+
+permissions: read-all
+
+jobs:
+  trunk_upgrade:
+    name: Upgrade Trunk
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # For trunk to create PRs
+      pull-requests: write # For trunk to create PRs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create App Token for TrunkBuild App (Internal)
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
+          private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
+
+      - name: Trunk Upgrade
+        uses: trunk-io/trunk-action/upgrade@98224163e8e5d90318f26bca1eeb605f8ce8781b
+        with:
+          arguments: -n --bleeding-edge
+          github-token: ${{ steps.generate-token.outputs.token }}
+          reviewers: TylerJang27
