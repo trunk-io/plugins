@@ -4,7 +4,6 @@ on:
     # Weekly at midnight W morning
     - cron: 0 8 * * 3
   workflow_dispatch: {}
-  pull_request: {}
 
 permissions: read-all
 
