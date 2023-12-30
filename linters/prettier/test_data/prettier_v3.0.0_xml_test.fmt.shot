@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter prettier test xml_test 1`] = `
+"<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <array>
+    <dict>
+      <key>choiceAttribute</key>
+      <string>customLocation</string>
+         <key>attributeSetting</key>
+      <string>INSTALL_DIR</string>
+       <key>choiceIdentifier</key>
+      <string>default</string>
+    </dict>
+    </array>
+</plist>
+"
+`;

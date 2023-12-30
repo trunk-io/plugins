@@ -9,17 +9,8 @@ tools:
 lint:
   definitions:
     - name: prettier
-      files:
-        - typescript
-        - yaml
-        - css
-        - sass
-        - html
-        - markdown
-        - json
-        - javascript
-        - graphql
-        - prettier_supported_configs
+      extra_packages:
+        - "@prettier/plugin-xml"
       commands:
         - name: format
           output: rewrite
@@ -28,6 +19,27 @@ lint:
           batch: true
           in_place: true
           formatter: true
+          files:
+            - typescript
+            - yaml
+            - css
+            - sass
+            - html
+            - markdown
+            - json
+            - javascript
+            - graphql
+            - prettier_supported_configs
+        - name: format-xml
+          output: rewrite
+          run: prettier --plugin=@prettier/plugin-xml -w ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          formatter: true
+          version: ">=3.0.0"
+          files:
+            - xml
       tools: [prettier]
       suggest_if: files_present
       direct_configs:
