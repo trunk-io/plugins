@@ -254,6 +254,13 @@ jobs:
         run: |
           git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
 
+      - name: Create App Token for TrunkBuild App (Internal)
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
+          private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -267,5 +274,5 @@ jobs:
           add-paths: "**/*.shot"
           commit-message: Auto add snapshots
           delete-branch: true
+          github-token: ${{ steps.generate-token.outputs.token }}
           reviewers: TylerJang27
-          # token: ${{ inputs.github-token }}
