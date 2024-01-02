@@ -94,77 +94,77 @@ jobs:
           echo "Running tests on individual tools: ${tool_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
-  # # Run tests against all linters for known_good_version and latest version
-  # linter_tests:
-  #   name: Linter Tests ${{ matrix.os }}
-  #   runs-on: [self-hosted, "${{ matrix.os }}"]
-  #   needs: detect_changes
-  #   if:
-  #     needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-  #     'linters'
-  #   timeout-minutes: 90
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [Linux, macOS]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  # Run tests against all linters for known_good_version and latest version
+  linter_tests:
+    name: Linter Tests ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
+      'linters'
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [Linux, macOS]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-  #     - name: Linter Tests
-  #       # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
-  #       uses: ./.github/actions/linter_tests
-  #       if:
-  #         needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
-  #         == 'linters'
-  #       with:
-  #         linter-version: KnownGoodVersion
-  #         sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-  #         append-args:
-  #           ${{ needs.detect_changes.outputs.all-linters }} ${{
-  #           needs.detect_changes.outputs.linters-files }}
-  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        uses: ./.github/actions/linter_tests
+        if:
+          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
+          == 'linters'
+        with:
+          linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-  #     - name: Linter Tests Latest
-  #       # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-  #       if:
-  #         (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
-  #         needs.detect_changes.outputs.linters-files != ''
-  #       uses: ./.github/actions/linter_tests
-  #       with:
-  #         linter-version: Latest
-  #         sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-  #         append-args: ${{ needs.detect_changes.outputs.linters-files }}
-  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests Latest
+        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
+          needs.detect_changes.outputs.linters-files != ''
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args: ${{ needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-  # tool_tests:
-  #   name: Tool Tests
-  #   runs-on: [self-hosted, "${{ matrix.os }}"]
-  #   needs: detect_changes
-  #   if:
-  #     needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
-  #     'tools'
-  #   timeout-minutes: 60
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [Linux, macOS]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  tool_tests:
+    name: Tool Tests
+    runs-on: [self-hosted, "${{ matrix.os }}"]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
+      'tools'
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [Linux, macOS]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-  #     - name: Tool Tests
-  #       # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
-  #       # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
-  #       uses: ./.github/actions/tool_tests
-  #       if:
-  #         (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
-  #         needs.detect_changes.outputs.all-tools == 'tools'
-  #       with:
-  #         append-args:
-  #           ${{ needs.detect_changes.outputs.all-tools }} ${{
-  #           needs.detect_changes.outputs.tools-files }}
-  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Tool Tests
+        # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
+        # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
+        uses: ./.github/actions/tool_tests
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
+          needs.detect_changes.outputs.all-tools == 'tools'
+        with:
+          append-args:
+            ${{ needs.detect_changes.outputs.all-tools }} ${{
+            needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   trunk_check_runner:
     name: Trunk Check runner [linux]
@@ -184,57 +184,57 @@ jobs:
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
-  # # Run Windows tests for modified linters and tools
-  # # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
-  # windows_linter_tests:
-  #   name: Windows Linter Tests
-  #   runs-on: windows-latest
-  #   needs: detect_changes
-  #   if: needs.detect_changes.outputs.linters == 'true'
-  #   timeout-minutes: 90
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  # Run Windows tests for modified linters and tools
+  # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
+  windows_linter_tests:
+    name: Windows Linter Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.linters == 'true'
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-  #     - name: Cache tool downloads
-  #       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
-  #       with:
-  #         path: /tmp/plugins_testing_download_cache
-  #         key: trunk-${{ runner.os }}
+      - name: Cache tool downloads
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
 
-  #     - name: Linter Tests
-  #       # Run tests using Latest with any modified linters
-  #       uses: ./.github/actions/linter_tests
-  #       with:
-  #         linter-version: Latest
-  #         sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-  #         cli-path: ${{ github.workspace }}\trunk.ps1
-  #         append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
-  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests
+        # Run tests using Latest with any modified linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-  # windows_tool_tests:
-  #   name: Windows Tool Tests
-  #   runs-on: windows-latest
-  #   needs: detect_changes
-  #   if: needs.detect_changes.outputs.tools == 'true'
-  #   timeout-minutes: 60
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  windows_tool_tests:
+    name: Windows Tool Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.tools == 'true'
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-  #     - name: Cache tool downloads
-  #       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
-  #       with:
-  #         path: /tmp/plugins_testing_download_cache
-  #         key: trunk-${{ runner.os }}
+      - name: Cache tool downloads
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
 
-  #     - name: Tool Tests
-  #       # Run tests using KnownGoodVersion with any modified tools
-  #       uses: ./.github/actions/tool_tests
-  #       with:
-  #         append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
-  #         cli-path: ${{ github.workspace }}\trunk.ps1
-  #         trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Tool Tests
+        # Run tests using KnownGoodVersion with any modified tools
+        uses: ./.github/actions/tool_tests
+        with:
+          append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:
