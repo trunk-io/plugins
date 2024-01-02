@@ -117,7 +117,7 @@ jobs:
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Linter Tests ${{ matrix.os }}
-    runs-on: [self-hosted, "${{ matrix.os }}"]
+    runs-on: ["${{ matrix.os }}"]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
@@ -126,7 +126,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [Linux, macOS]
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1

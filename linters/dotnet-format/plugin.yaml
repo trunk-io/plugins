@@ -11,7 +11,7 @@ lint:
       known_good_version: 7.0.400
       commands:
         - name: format
-          run: dotnet format --no-restore --include ${target}
+          run: dotnet format whitespace --no-restore --include ${target}
           # TODO: TYLER TRY WHITESPACE AND STYLE ONLY
           output: rewrite
           # run: dotnet format --no-restore --folder ${target}
