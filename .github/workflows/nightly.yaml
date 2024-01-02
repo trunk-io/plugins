@@ -203,6 +203,8 @@ jobs:
       TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
       TRUNK_OPEN_PR_APP_ID: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
+      TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+      TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
       upload-validated-versions: true
@@ -255,6 +257,8 @@ jobs:
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+      TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+      TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-

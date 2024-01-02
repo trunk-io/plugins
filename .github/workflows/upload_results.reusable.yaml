@@ -34,6 +34,10 @@ on:
         required: false
       TRUNK_OPEN_PR_APP_PRIVATE_KEY:
         required: false
+      TRUNK_SOURCERY_TOKEN:
+        required: false
+      TRUNK_DEBUGGER_TOKEN:
+        required: false
 
 permissions: read-all
 
