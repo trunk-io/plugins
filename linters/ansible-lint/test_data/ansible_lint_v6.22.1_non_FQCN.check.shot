@@ -12,7 +12,7 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "12",
       "linter": "ansible-lint",
-      "message": "coullldn't resolve module/action 'ec2'. This often indicates a misspelling, missing collection, or incorrect module path.",
+      "message": "couldn't resolve module/action 'ec2'. This often indicates a misspelling, missing collection, or incorrect module path.",
       "targetType": "custom",
     },
   ],
