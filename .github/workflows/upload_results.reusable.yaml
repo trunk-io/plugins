@@ -279,5 +279,5 @@ jobs:
           add-paths: "**/*.shot"
           commit-message: Auto add snapshots
           delete-branch: true
-          github-token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ steps.generate-token.outputs.token }}
           reviewers: TylerJang27
