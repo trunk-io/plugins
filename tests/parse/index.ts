@@ -2,6 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import {
   FailedVersion,
+  FailureMode,
   TestOS,
   TestResult,
   TestResultStatus,
@@ -13,6 +14,7 @@ import { getTrunkVersion } from "tests/utils/trunk_config";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
+const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
@@ -80,13 +82,50 @@ const mergeTestVersions = (original: TestResult, incoming: TestResult) => {
 };
 
 /**
+ * Combines composite test statuses to compute a composite testFailureMetadata for each test fullName.
+ */
+const mergeTestFailureMetadata = (original: TestResult, incoming: TestResult) => {
+  Array.from(incoming.testFailureMetadata).forEach(
+    ([testFullName, incomingSuspectedFailureMode]) => {
+      const originalSuspectedFailureMode = original.testFailureMetadata.get(testFullName);
+      if (originalSuspectedFailureMode) {
+        // If the incoming test result is a pass, invalidate the failure mode
+        if (incoming.testResultStatus === "passed") {
+          original.testFailureMetadata.set(testFullName, "passed");
+          return;
+        }
+
+        // If the incoming test result is a version mismatch, invalidate the failure mode
+        if (incoming.version && original.version && incoming.version !== original.version) {
+          original.testFailureMetadata.set(testFullName, "unknown");
+          return;
+        }
+
+        // If the incoming test result is a failure and not assertion_failure, **invalidate the failure mode
+        if (incomingSuspectedFailureMode !== "assertion_failure") {
+          original.testFailureMetadata.set(testFullName, incomingSuspectedFailureMode);
+          return;
+        }
+
+        // Otherwise, we are clear to assume that this is accurately an assertion_failure
+      } else {
+        original.testFailureMetadata.set(testFullName, incomingSuspectedFailureMode);
+      }
+    },
+  );
+};
+
+/**
  * Merge the result of multiple tests into one. Concatenates test names, intelligently merges statuses,
  * and handles version mismatches.
  */
 const mergeTestResults = (original: TestResult, incoming: TestResult) => {
-  const { version, testNames, testResultStatus } = incoming;
-  // Merge existing composite record
-  original.testNames = original.testNames.concat(testNames);
+  // Merge existing composite records
+  const { version, testResultStatus } = incoming;
+  // Handle testFailureMetadata. Must occur before testResultStatus is merged.
+  mergeTestFailureMetadata(original, incoming);
+
+  // Handle TestResult information
   if (version && original.version && version !== original.version && PARSE_STRICTNESS !== "none") {
     original.testResultStatus = "mismatch";
     mergeTestVersions(original, incoming);
@@ -122,6 +161,11 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
 
   // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
+    // NOTE(Tyler): Jest does their own file path transformation that sometimes interferes with GH runners.
+    // Use this naive replacement in order to divine the relative path to the test file.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const testFilePath = (testResult.name as string).replace(/.*linters/, "linters").toString();
+
     testResult.assertionResults.forEach((assertionResult: any) => {
       const testName: string = assertionResult.ancestorTitles[0];
       const foundLinterName = testName.match(/Testing (linter|formatter|tool) (?<linter>.+)/);
@@ -139,9 +183,10 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       }
 
       const version: string = assertionResult.version;
+      const suspectedFailureMode: FailureMode = assertionResult.suspectedFailureMode ?? "unknown";
       const status = parseTestStatus(assertionResult.status);
       const failedPlatforms = new Set<TestOS>();
-      if (status == "failed") {
+      if (status === "failed") {
         failedPlatforms.add(os);
       }
 
@@ -150,10 +195,11 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       newResultAllVersions.set(os, new Set([version]));
       const newTestResult = {
         version,
-        testNames: [fullTestName],
+        testFailureMetadata: new Map<string, FailureMode>([[fullTestName, suspectedFailureMode]]),
         testResultStatus: status,
         allVersions: newResultAllVersions,
         failedPlatforms,
+        testFilePath,
       };
       if (originaltestResult) {
         mergeTestResults(originaltestResult, newTestResult);
@@ -206,26 +252,31 @@ const mergeTestResultSummaries = (testResults: TestResultSummary[]): TestResultS
  * Write the payload for a slack notification on test failures.
  */
 const writeFailuresForNotification = (failures: FailedVersion[]) => {
-  const allBlocks = failures.map(({ linter, version, status, allVersions, failedPlatforms }) => {
-    const linterVersion = version ? `${linter}@${version}` : linter;
-    let details = "";
-    if (status == "mismatch") {
-      details = `(${Array.from(allVersions)
-        .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
-        .join("; ")})`;
-    } else if (status == "failed") {
-      details = `(${Array.from(failedPlatforms.keys())
-        .map((os) => os.toString())
-        .join(", ")})`;
-    }
-    return {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${TEST_TYPE} ${linterVersion} > _STATUS: ${status}_ ${details}`,
-      },
-    };
-  });
+  const allBlocks = failures.map(
+    ({ linter, version, status, allVersions, failedPlatforms, rerunningTest }) => {
+      const linterVersion = version ? `${linter}@${version}` : linter;
+      let details = "";
+      if (status == "mismatch") {
+        details = `(${Array.from(allVersions)
+          .map(([os, versions]) => `${os}: ${Array.from(versions).join(", ")}`)
+          .join("; ")})`;
+      } else if (status == "failed") {
+        details = `(${Array.from(failedPlatforms.keys())
+          .map((os) => os.toString())
+          .join(", ")})`;
+        if (rerunningTest) {
+          details = details.concat(" _(rerunning)_");
+        }
+      }
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `${TEST_REF} Test Failure: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}| Testing latest ${TEST_TYPE} ${linterVersion} > _STATUS: ${status}_ ${details}`,
+        },
+      };
+    },
+  );
 
   const remainingBlock = {
     type: "section",
@@ -251,6 +302,15 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
 };
 
 /**
+ * Write the payload for which tests to rerun
+ */
+const writeRerunTests = (rerunPaths: string[]) => {
+  const rerunString = rerunPaths.join(" ");
+  fs.writeFileSync(RERUN_FILE, rerunString);
+  console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}:`);
+};
+
+/**
  * Write composite test results to `RESULTS_FILE` so that they may be uploaded via trunk CLI.
  */
 const writeTestResults = (testResults: TestResultSummary) => {
@@ -266,24 +326,40 @@ const writeTestResults = (testResults: TestResultSummary) => {
     },
     [],
   );
-  const failures = Array.from(testResults.testResults).reduce(
-    (
-      accumulator: FailedVersion[],
-      [linter, { version, testResultStatus: status, allVersions, failedPlatforms }],
-    ) => {
+  const rerunPaths: string[] = [];
+  const failures: FailedVersion[] = [];
+  Array.from(testResults.testResults).forEach(
+    ([
+      linter,
+      {
+        version,
+        testFailureMetadata,
+        testResultStatus: status,
+        allVersions,
+        failedPlatforms,
+        testFilePath,
+      },
+    ]) => {
       if (status !== "passed" && status !== "skipped") {
+        const shouldRerunTest = Array.from(testFailureMetadata.values()).every(
+          // If any non-assertion-type failures occur, we can't proactively generate snapshot.
+          (failureMode) => failureMode === "assertion_failure" || failureMode === "passed",
+        );
+        if (shouldRerunTest) {
+          rerunPaths.push(testFilePath);
+        }
+
         const additionalFailedVersion: FailedVersion = {
           linter,
           version,
           status,
           allVersions,
           failedPlatforms,
+          rerunningTest: shouldRerunTest,
         };
-        return accumulator.concat([additionalFailedVersion]);
+        failures.push(additionalFailedVersion);
       }
-      return accumulator;
     },
-    [],
   );
 
   const resultsObject = {
@@ -298,6 +374,9 @@ const writeTestResults = (testResults: TestResultSummary) => {
 
   if (failures.length >= 1) {
     writeFailuresForNotification(failures);
+  }
+  if (rerunPaths.length >= 1) {
+    writeRerunTests(rerunPaths);
   }
 };
 

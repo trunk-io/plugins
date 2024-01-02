@@ -2,7 +2,7 @@ import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
 import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
-import { FileIssue, LandingState } from "tests/types";
+import { FailureMode, FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
@@ -59,6 +59,21 @@ const registerVersion = (testType: string, linterVersion?: string) => {
       type: "test-type",
     },
   );
+};
+
+/**
+ * Adds the predictive failure mode to the test reporter. This is used to proactively generate snapshots
+ * For linters and add metadata about the type of failure to notifications.
+ * @param failureMode The type of suspected failure mode based on landing state properties.
+ */
+const registerFailureMode = (failureMode: FailureMode) => {
+  // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
+  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
+  console._buffer?.push({
+    message: failureMode,
+    origin: expect.getState().currentTestName,
+    type: "suspected-failure-mode",
+  });
 };
 
 const baseDebug = Debug("Tests");
@@ -306,8 +321,6 @@ export const toolTest = ({
   });
 };
 
-// TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
-// TODO(Tyler): Add additional options to the custom checks, including OS and CI-specific runs.
 /**
  * Test that running a linter filtered by `linterName` with any custom `args` produces the desired output
  * json. Optionally specify additional file paths to snapshot.
@@ -363,6 +376,9 @@ export const customLinterCheckTest = ({
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
           });
@@ -390,6 +406,8 @@ export const customLinterCheckTest = ({
             driver.enabledVersion ?? "no version",
             primarySnapshotPath,
           );
+
+          registerFailureMode("assertion_failure");
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(testRunResult.landingState, primarySnapshotPath),
@@ -478,6 +496,9 @@ export const customLinterFmtTest = ({
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runFmt({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
             landingState: {
@@ -487,6 +508,7 @@ export const customLinterFmtTest = ({
 
           // Step 4: Verify that any specified files match their expected snapshots for that linter version.
           const snapshotDir = path.resolve(dirname, TEST_DATA);
+          registerFailureMode("assertion_failure");
           pathsToSnapshot.forEach((pathToSnapshot) => {
             const normalizedName = `${testName}.${pathToSnapshot
               .replaceAll("/", ".")
@@ -576,6 +598,9 @@ export const fuzzyLinterCheckTest = ({
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
           });
@@ -605,6 +630,7 @@ export const fuzzyLinterCheckTest = ({
             driver.enabledVersion ?? "no version",
             primarySnapshotPath,
           );
+          registerFailureMode("assertion_failure");
           expect(strippedLandingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(strippedLandingState, primarySnapshotPath),
@@ -670,6 +696,9 @@ export const linterCheckTest = ({
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runCheckUnit(inputPath, linterName);
+            if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+              registerFailureMode("task_failure");
+            }
             expect(testRunResult).toMatchObject({
               success: true,
             });
@@ -698,6 +727,7 @@ export const linterCheckTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
+            registerFailureMode("assertion_failure");
             expect(testRunResult.landingState).toMatchSpecificSnapshot(
               snapshotPath,
               landingStateWrapper(testRunResult.landingState, snapshotPath),
@@ -758,6 +788,9 @@ export const linterFmtTest = ({
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
 
+            if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+              registerFailureMode("task_failure");
+            }
             expect(testRunResult).toMatchObject({
               success: true,
               landingState: {
@@ -782,6 +815,7 @@ export const linterFmtTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
+            registerFailureMode("assertion_failure");
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );

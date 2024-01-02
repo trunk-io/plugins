@@ -1,5 +1,6 @@
 # Parse test results and
-# Send upload notifications
+# Send upload notifications and
+# Generate new snapshots via PR
 name: Parse Test Results
 on:
   workflow_call:
@@ -29,6 +30,15 @@ on:
         required: false
       TRUNK_API_TOKEN:
         required: false
+      TRUNK_OPEN_PR_APP_ID:
+        required: false
+      TRUNK_OPEN_PR_APP_PRIVATE_KEY:
+        required: false
+      TRUNK_SOURCERY_TOKEN:
+        required: false
+      TRUNK_DEBUGGER_TOKEN:
+        required: false
+
 permissions: read-all
 
 jobs:
@@ -38,6 +48,8 @@ jobs:
     timeout-minutes: 10
     env:
       SLACK_CHANNEL_ID: plugins-notifications
+    outputs:
+      reruns: ${{ steps.parse.outputs.reruns }}
     steps:
       - name: Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
@@ -123,6 +135,7 @@ jobs:
           npm run parse
           echo "failures=$([[ -f failures.json ]] && echo "true" || echo "false")" >> "$GITHUB_OUTPUT"
           echo "failures-payload=$(cat failures.json)" >> "$GITHUB_OUTPUT"
+          echo "reruns=$(cat reruns.txt)" >> "$GITHUB_OUTPUT"
         env:
           PLUGIN_VERSION: ${{ inputs.plugin-version }}
           # Used to format Slack notification for failures
@@ -211,3 +224,63 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+  generate_snapshots_pr:
+    name: Generate Snapshots PR
+    runs-on: ubuntu-x64
+    timeout-minutes: 30
+    needs: upload_test_results
+    if: needs.upload_test_results.outputs.reruns != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: Setup Node
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        shell: bash
+        run: npm ci
+
+      - name: Add npm bin to path
+        shell: bash
+        run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Linter Tests Rerun Linux
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+        env:
+          PLUGINS_TEST_UPDATE_SNAPSHOTS: "true"
+
+      - name: Mark generated snapshots as ready for release
+        shell: bash
+        run: |
+          git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
+
+      - name: Create App Token for TrunkBuild App (Internal)
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
+          private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: Auto-add missing snapshots
+          body:
+            Create new snapshots from https://github.com/trunk-io/plugins/actions/runs/${{
+            github.run_id }}
+          base: main
+          branch: trunk-io/auto-update-snapshots
+          labels: trunk
+          add-paths: "**/*.shot"
+          commit-message: Auto add snapshots
+          delete-branch: true
+          token: ${{ steps.generate-token.outputs.token }}
+          reviewers: TylerJang27
