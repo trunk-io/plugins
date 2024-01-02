@@ -30,6 +30,11 @@ on:
         required: false
       TRUNK_API_TOKEN:
         required: false
+      TRUNK_OPEN_PR_APP_ID:
+        required: false
+      TRUNK_OPEN_PR_APP_PRIVATE_KEY:
+        required: false
+
 permissions: read-all
 
 jobs:
