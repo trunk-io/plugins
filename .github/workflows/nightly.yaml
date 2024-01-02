@@ -125,9 +125,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
-          # TODO: TYLER ADD THIS BACK IN
-          ref: tyler/auto-generate-snapshots-nightly
-          # ref: ${{ steps.get-release.outputs.tag }}
+          ref: ${{ steps.get-release.outputs.tag }}
           clean: false
           sparse_checkout: |
             plugin.yaml
@@ -180,8 +178,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
-          # TODO: TYLER RESET LINTERS/A
-          append-args: linters/a -- --json --outputFile=${{ matrix.results-file }}-res.json
+          append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
