@@ -212,12 +212,12 @@ export const setupTrunkActionDriver = (
   );
 
   beforeAll(async () => {
+    await driver.setUp();
     if (preCheck) {
       // preCheck is not always async, but we must await in case it is.
       await preCheck(driver);
       driver.debug("Finished running custom preCheck hook");
     }
-    await driver.setUp();
   });
 
   afterAll(() => {
