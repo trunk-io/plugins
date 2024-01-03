@@ -68,21 +68,21 @@ jobs:
         if: steps.filter.outputs.all-linters == 'true'
         run: |
           echo "Run all linter tests"
-          echo "out=linters" >> "$GITHUB_OUTPUT"
+          echo "out=linters/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest all tool tests
         id: post-filter-tools
         if: steps.filter.outputs.all-tools == 'true'
         run: |
           echo "Run all tool tests"
-          echo "out=tools" >> "$GITHUB_OUTPUT"
+          echo "out=tools/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest all action tests
         id: post-filter-actions
         if: steps.filter.outputs.all-actions == 'true'
         run: |
           echo "Run all action tests"
-          echo "out=actions" >> "$GITHUB_OUTPUT"
+          echo "out=actions/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
@@ -121,7 +121,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'linters'
+      'linters/'
     timeout-minutes: 90
     strategy:
       fail-fast: false
@@ -134,9 +134,6 @@ jobs:
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
-        if:
-          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
-          == 'linters'
         with:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
@@ -163,7 +160,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
-      'tools'
+      'tools/'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -177,9 +174,6 @@ jobs:
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
         # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
         uses: ./.github/actions/tool_tests
-        if:
-          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
-          needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
@@ -192,7 +186,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
-      'actions'
+      'actions/'
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -200,9 +194,6 @@ jobs:
 
       - name: Action Tests
         uses: ./.github/actions/action_tests
-        if:
-          (failure() || success()) && needs.detect_changes.outputs.actions == 'true' ||
-          needs.detect_changes.outputs.all-actions == 'actions'
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
