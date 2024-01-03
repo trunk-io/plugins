@@ -3,6 +3,7 @@ import fs from "fs";
 import * as os from "os";
 import path from "path";
 import semver from "semver";
+import { TestTarget } from "tests/driver";
 import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments } from "tests/types";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
@@ -277,10 +278,10 @@ export const osTimeoutMultiplier =
   process.platform === "darwin"
     ? 3
     : process.platform === "win32"
-    ? 3
-    : process.platform === "linux" && process.arch === "arm64"
-    ? 3
-    : 1;
+      ? 3
+      : process.platform === "linux" && process.arch === "arm64"
+        ? 3
+        : 1;
 
 /**
  * This wrapper on existing matchers is used to improve debuggability when an unexpected failure occurs.
@@ -337,4 +338,41 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
       details: snapshotContainsFailure(failure) ? expect.stringMatching(/.*$/m) : failure.details,
     })),
   };
+};
+
+export const conditionalTest = (
+  skipTest: boolean,
+  name: string,
+  fn?: jest.ProvidesCallback | undefined,
+  timeout?: number | undefined,
+) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
+
+/**
+ * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
+ * automatically scan `dirname` for all available test inputs.
+ * @param dirname absolute path to the linter subdir.
+ * @param namedTestPrefixes optional prefixes of test inputs.
+ */
+export const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTarget[] => {
+  const testDataDir = path.resolve(dirname, TEST_DATA);
+  const testTargets = fs
+    .readdirSync(testDataDir)
+    .sort()
+    .reduce((accumulator: Map<string, TestTarget>, file: string) => {
+      // Check if this is an input file. If so, set it in the accumulator.
+      const inFileRegex = /(?<prefix>.+)\.in\.(?<extension>.+)$/;
+      const foundIn = file.match(inFileRegex);
+      const prefix = foundIn?.groups?.prefix;
+      if (foundIn && prefix) {
+        if (prefix && (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length === 0)) {
+          // inputPath is intentionally a relative path
+          const inputPath = path.join(TEST_DATA, file);
+          accumulator.set(prefix, { prefix, inputPath });
+          return accumulator;
+        }
+      }
+      return accumulator;
+    }, new Map<string, TestTarget>());
+
+  return [...testTargets.values()];
 };

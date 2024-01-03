@@ -154,6 +154,22 @@ lint:
     }
   }
 
+  runInstall = async (
+    toolName: string,
+  ): Promise<{
+    stdout: string;
+    stderr: string;
+    exitCode: number;
+  }> => {
+    try {
+      const { stdout, stderr } = await this.runTrunk(["tools", "install", toolName, "--ci"]);
+      return { exitCode: 0, stdout, stderr };
+    } catch (e: any) {
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+      return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+    }
+  };
+
   /**
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired tool version to enable.
    */
