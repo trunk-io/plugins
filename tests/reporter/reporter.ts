@@ -47,7 +47,8 @@ export default class TestReporter implements CustomReporter {
         // full test name is stored in origin, test type label is stored in message
         testTypeMap.set(origin, message);
       }
-      return !isLinterVersionMessage && !hasTestType;
+      // Return whether or not console should include the message.
+      return !isLinterVersionMessage && !hasTestType && !hasFailureMode;
     });
     testResult.console = filteredConsole?.length ? filteredConsole : undefined;
 

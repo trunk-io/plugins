@@ -1,17 +1,21 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { SetupSettings, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
 import { FailureMode, FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
+  conditionalTest,
+  detectTestTargets,
   getSnapshotPathForAssert,
   getVersionsForTest,
   landingStateWrapper,
   TEST_DATA,
 } from "tests/utils";
+
+/**** Custom Test Configuration ****/
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -80,45 +84,10 @@ const baseDebug = Debug("Tests");
 
 const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
 
-const conditionalTest = (
-  skipTest: boolean,
-  name: string,
-  fn?: jest.ProvidesCallback | undefined,
-  timeout?: number | undefined,
-) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
-
 export type TestCallback = (driver: TrunkLintDriver) => unknown;
 export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
 
-/**
- * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
- * automatically scan `dirname` for all available test inputs.
- * @param dirname absolute path to the linter subdir.
- * @param namedTestPrefixes optional prefixes of test inputs.
- */
-const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTarget[] => {
-  const testDataDir = path.resolve(dirname, TEST_DATA);
-  const testTargets = fs
-    .readdirSync(testDataDir)
-    .sort()
-    .reduce((accumulator: Map<string, TestTarget>, file: string) => {
-      // Check if this is an input file. If so, set it in the accumulator.
-      const inFileRegex = /(?<prefix>.+)\.in\.(?<extension>.+)$/;
-      const foundIn = file.match(inFileRegex);
-      const prefix = foundIn?.groups?.prefix;
-      if (foundIn && prefix) {
-        if (prefix && (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length === 0)) {
-          // inputPath is intentionally a relative path
-          const inputPath = path.join(TEST_DATA, file);
-          accumulator.set(prefix, { prefix, inputPath });
-          return accumulator;
-        }
-      }
-      return accumulator;
-    }, new Map<string, TestTarget>());
-
-  return [...testTargets.values()];
-};
+/**** Test Setup ****/
 
 /**
  * Setup the TrunkLintDriver to run tests in a `dirname`.
@@ -226,22 +195,7 @@ export const setUpTrunkToolDriverForHealthCheck = (
   return driver;
 };
 
-const runInstall = async (
-  driver: TrunkToolDriver,
-  toolName: string,
-): Promise<{
-  stdout: string;
-  stderr: string;
-  exitCode: number;
-}> => {
-  try {
-    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
-    return { exitCode: 0, stdout, stderr };
-  } catch (e: any) {
-    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
-  }
-};
+/**** Tool Tests ****/
 
 // NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
 // in case of tools with configured health checks, this should be a sufficient amount of testing. If not
@@ -264,7 +218,7 @@ export const toolInstallTest = ({
   describe(`Testing tool ${toolName}`, () => {
     const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
     conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
-      const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
+      const { exitCode, stdout, stderr } = await driver.runInstall(toolName);
       expect(exitCode).toEqual(0);
       expect(stdout).toContain(toolName);
       expect(stdout).toContain(toolVersion);
@@ -320,6 +274,8 @@ export const toolTest = ({
     });
   });
 };
+
+/**** Linter Tests ****/
 
 /**
  * Test that running a linter filtered by `linterName` with any custom `args` produces the desired output
