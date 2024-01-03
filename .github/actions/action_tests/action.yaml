@@ -50,7 +50,7 @@ runs:
 
     - name: Run action tests
       if: runner.os == 'Windows'
-      run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --passWithNoTests
+      run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
@@ -67,7 +67,7 @@ runs:
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
         run:
-          npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --passWithNoTests
+          npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}

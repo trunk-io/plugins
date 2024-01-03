@@ -206,7 +206,7 @@ jobs:
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
-            needs.detect_changes.outputs.actions-files }}
+            needs.detect_changes.outputs.actions-files }} --
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   trunk_check_runner:
