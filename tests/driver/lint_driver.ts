@@ -1,13 +1,11 @@
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
-import { SetupSettings } from "tests/driver";
+import { GenericTrunkDriver, SetupSettings } from "tests/driver/driver";
 import { LandingState, TrunkVerb } from "tests/types";
 import { ARGS, REPO_ROOT } from "tests/utils";
 import { tryParseLandingState } from "tests/utils/landing_state";
 import { getTrunkVersion } from "tests/utils/trunk_config";
-
-import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 let testNum = 1;

@@ -4,11 +4,22 @@ import * as fs from "fs";
 import * as os from "os";
 import path from "path";
 import * as git from "simple-git";
-import { SetupSettings } from "tests/driver";
 import { ARGS, DOWNLOAD_CACHE, REPO_ROOT, TEMP_PREFIX, TEST_DATA } from "tests/utils";
 import { getTrunkConfig } from "tests/utils/trunk_config";
 import * as util from "util";
 import YAML from "yaml";
+
+/**
+ * Configuration for when a TrunkLintDriver instance runs `setUp`.
+ */
+export interface SetupSettings {
+  /** Whether or not to run `git init` and attach a gitDriver. */
+  setupGit?: boolean;
+  /** Whether or not to create a new .trunk/trunk.yaml */
+  setupTrunk?: boolean;
+  /** Version of trunk to initialize (overrides environment vars) */
+  trunkVersion?: string;
+}
 
 const execFilePromise = util.promisify(execFile);
 
