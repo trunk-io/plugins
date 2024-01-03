@@ -21,6 +21,11 @@ all-tools:
   - runtimes/**
   - tests/driver/!(lint_driver.ts)
 
+all-actions:
+  - *framework
+  - runtimes/**
+  - tests/driver/!(action_driver.ts)
+
 # Run tests against specific linters if existing linters have been modified or updated.
 # These test will be run with KnownGoodVersion and Latest to verify linter integrity at the latest and fallback version.
 # Someone should not be able to add a new linter without verifying that it also works on the latest version.
@@ -30,6 +35,9 @@ linters:
 
 tools:
   - added|modified: tools/**
+
+actions:
+  - added|modified: actions/**
 
 # Run tests against the health and configuration of the repo if any plugin definition
 # or testing framework change is made.

@@ -36,6 +36,9 @@ jobs:
       tools: ${{ steps.filter.outputs.tools }}
       all-tools: ${{ steps.post-filter-tools.outputs.out }}
       tools-files: ${{ steps.post-filter-tools-paths.outputs.out }}
+      actions: ${{ steps.filter.outputs.actions }}
+      all-actions: ${{ steps.post-filter-actions.outputs.out }}
+      actions-files: ${{ steps.post-filter-actions-paths.outputs.out }}
 
     steps:
       - name: Checkout
@@ -74,6 +77,13 @@ jobs:
           echo "Run all tool tests"
           echo "out=tools" >> "$GITHUB_OUTPUT"
 
+      - name: Suggest all action tests
+        id: post-filter-actions
+        if: steps.filter.outputs.all-actions == 'true'
+        run: |
+          echo "Run all action tests"
+          echo "out=actions" >> "$GITHUB_OUTPUT"
+
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
         if: steps.filter.outputs.linters
@@ -93,6 +103,16 @@ jobs:
           uniq | tr '\n' ' ')
           echo "Running tests on individual tools: ${tool_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
+
+      - name: Suggest normalized individual action paths
+        id: post-filter-actions-paths
+        if: steps.filter.outputs.actions
+        run: |
+          action_files=$(echo ${{steps.filter.outputs.actions_files}} |
+          grep -oP "\Kactions/.*?(?=/)" |
+          uniq | tr '\n' ' ')
+          echo "Running tests on individual actions: ${action_files}"
+          echo "out=${action_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
@@ -164,6 +184,29 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  action_tests:
+    name: Action Tests
+    runs-on: [self-hosted, Linux]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
+      'actions'
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Action Tests
+        uses: ./.github/actions/action_tests
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.actions == 'true' ||
+          needs.detect_changes.outputs.all-actions == 'actions'
+        with:
+          append-args:
+            ${{ needs.detect_changes.outputs.all-actions }} ${{
+            needs.detect_changes.outputs.actions-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   trunk_check_runner:

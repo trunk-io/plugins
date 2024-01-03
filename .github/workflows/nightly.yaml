@@ -270,3 +270,16 @@ jobs:
   repo_tests:
     name: Repo Tests
     uses: ./.github/workflows/repo_tests.reusable.yaml
+
+  action_tests_main:
+    name: Action Tests Main
+    runs-on: [self-hosted, Linux]
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Action Tests
+        uses: ./.github/actions/action_tests
+        with:
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
