@@ -1,4 +1,6 @@
 import Debug from "debug";
+import * as fs from "fs";
+import path from "path";
 import { GenericTrunkDriver, SetupSettings } from "tests/driver/driver";
 import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
@@ -64,6 +66,17 @@ actions:
     try {
       this.debug("Syncing git hooks");
       await this.runTrunk(["git-hooks", "sync"]);
+
+      this.debug("Attaching stdout and stderr pipes");
+      const stdoutPath = path.resolve(this.sandboxPath, "stdout");
+      const stderrPath = path.resolve(this.sandboxPath, "stderr");
+      const stdoutStream = fs.createWriteStream(stdoutPath);
+      const stderrStream = fs.createWriteStream(stderrPath);
+      this.gitDriver?.outputHandler((_command, stdout, stderr) => {
+        // See https://github.com/steveukx/git-js/blob/main/examples/git-output-handler.md for more info
+        stdout.pipe(stdoutStream);
+        stderr.pipe(stderrStream);
+      });
     } catch (error) {
       console.warn(`Failed to sync git hooks for ${this.action}`, error);
       if ("stdout" in (error as any)) {
@@ -89,5 +102,21 @@ actions:
       // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
       return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
     }
+  };
+
+  readGitStdout = (): string => {
+    return this.readFile("stdout");
+  };
+
+  readGitStderr = (): string => {
+    return this.readFile("stderr");
+  };
+
+  flushGitStdout = () => {
+    this.deleteFile("stdout");
+  };
+
+  flushGitStderr = () => {
+    this.deleteFile("stderr");
   };
 }
