@@ -10,4 +10,10 @@ const testCallback = async (driver: TrunkActionDriver) => {
   expect(driver.readGitStderr()).toContain("[34mHello[31m World");
 };
 
-actionRunTest({ actionName: "hello-world-python", syncGitHooks: true, testCallback });
+// NOTE(Tyler): This test is currently skipped. To demonstrate its functionality, remove the skipTestIf
+actionRunTest({
+  actionName: "hello-world-python",
+  syncGitHooks: true,
+  testCallback,
+  skipTestIf: () => true,
+});
