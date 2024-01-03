@@ -17,6 +17,7 @@ lint:
           success_codes: [0]
           formatter: true
           stdin: true
+          # Linter does not support batching.
       tools: [sql-formatter]
       known_good_version: 7.0.1
       suggest_if: never

@@ -30,6 +30,7 @@ lint:
           run: oxipng --strip safe ${target}
           success_codes: [0]
           in_place: true
+          batch: true
           disable_upstream: true
           fix_verb: fix
           fix_prompt: Unoptimized image

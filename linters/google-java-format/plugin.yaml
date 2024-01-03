@@ -17,12 +17,14 @@ lint:
           success_codes: [0]
           in_place: true
           formatter: true
+          batch: true
         - name: format
           output: rewrite
           run: java -jar ${linter}/google-java-format.jar --replace ${target}
           success_codes: [0]
           in_place: true
           formatter: true
+          batch: true
       runtime: java
       suggest_if: never
       known_good_version: 1.15.0
