@@ -10,4 +10,4 @@ const preCheck: TestCallback = (driver) => {
   driver.moveFile(path.join(TEST_DATA, ".pylintrc"), ".pylintrc");
 };
 
-customLinterCheckTest({ linterName: "pylint", testName: "config", args: "-a", preCheck });
+customLinterCheckTest({ linterName: "pylint", testName: "config", args: TEST_DATA, preCheck });
