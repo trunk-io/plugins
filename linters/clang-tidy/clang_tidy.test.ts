@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";

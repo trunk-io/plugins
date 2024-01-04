@@ -3,7 +3,7 @@ import path from "path";
 import { fuzzyLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { FileIssue, LandingState } from "tests/types";
-import { TEST_DATA, skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 import { createFuzzyMatcher } from "tests/utils/landing_state";
 
 const preCheck = (driver: TrunkLintDriver) => {
