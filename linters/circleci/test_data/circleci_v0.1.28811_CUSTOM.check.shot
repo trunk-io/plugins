@@ -6,6 +6,7 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
     {
       "code": "error",
       "file": "test_data/bad_version/.circleci/config.yml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "linter": "circleci",
       "message": "Error: config compilation contains errors: config compilation contains errors:
@@ -15,6 +16,7 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
     {
       "code": "error",
       "file": "test_data/malformed/.circleci/config.yml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "linter": "circleci",
       "message": "Error: config compilation contains errors: config compilation contains errors:
@@ -97,6 +99,36 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
       "paths": [
         "test_data/malformed/.circleci/config.yml",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/bad_version/.circleci/config.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/basic/.circleci/config.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/malformed/.circleci/config.yml",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
