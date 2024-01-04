@@ -22,15 +22,11 @@ const getDebugger = (tool?: string) => {
 };
 
 export class TrunkActionDriver extends GenericTrunkDriver {
-  /** The name of action tool. If defined, enable the action during setup. */
-  action: string;
-  syncGitHooks: boolean;
-
   constructor(
     testDir: string,
     setupSettings: SetupSettings,
-    action: string,
-    syncGitHooks: boolean,
+    private action: string,
+    private syncGitHooks: boolean,
   ) {
     super(testDir, setupSettings, getDebugger(action));
     this.action = action;
