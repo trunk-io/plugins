@@ -10,14 +10,14 @@ jest.setTimeout(600000 * osTimeoutMultiplier); // 300s or 900s
 customLinterCheckTest({
   linterName: "rufo",
   testName: "empty",
-  args: "-a",
+  args: TEST_DATA,
   skipTestIf: skipOS(["darwin"]),
 });
 
 customLinterFmtTest({
   linterName: "rufo",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   pathsToSnapshot: [path.join(TEST_DATA, "basic.rb")],
   skipTestIf: skipOS(["darwin"]),
 });
