@@ -6,6 +6,7 @@ exports[`Testing linter terraform test variables 1`] = `
     {
       "code": "Invalid quoted type constraints",
       "file": "test_data/variables.in.tf",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "terraform",
@@ -30,6 +31,16 @@ exports[`Testing linter terraform test variables 1`] = `
       "paths": [
         "test_data",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "terraform",
+      "linter": "terraform",
+      "paths": [
+        "test_data",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
