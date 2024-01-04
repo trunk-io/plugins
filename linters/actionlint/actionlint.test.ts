@@ -14,4 +14,4 @@ const preCheck = async (driver: TrunkLintDriver) => {
   await driver.gitDriver?.add(".").commit("moved");
 };
 
-customLinterCheckTest({ linterName: "actionlint", args: "-a", preCheck });
+customLinterCheckTest({ linterName: "actionlint", args: ".github", preCheck });
