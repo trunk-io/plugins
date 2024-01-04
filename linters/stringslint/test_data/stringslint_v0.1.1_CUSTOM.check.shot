@@ -56,7 +56,7 @@ exports[`Testing linter stringslint test CUSTOM 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-        {
+    {
       "command": "lint",
       "fileGroupName": "strings",
       "linter": "stringslint",
