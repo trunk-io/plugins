@@ -23,6 +23,7 @@ exports[`Testing linter shellcheck test unicode 1`] = `
       "code": "SC2086",
       "column": "6",
       "file": "test_data/unicode.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2086",
       "level": "LEVEL_LOW",
       "line": "6",
@@ -58,6 +59,7 @@ exports[`Testing linter shellcheck test unicode 1`] = `
       "code": "SC2250",
       "column": "6",
       "file": "test_data/unicode.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2250",
       "level": "LEVEL_LOW",
       "line": "6",
@@ -81,6 +83,16 @@ exports[`Testing linter shellcheck test unicode 1`] = `
       "paths": [
         "test_data/unicode.in.sh",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/unicode.in.sh",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
