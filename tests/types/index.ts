@@ -69,7 +69,7 @@ export interface FileIssue {
   code: string;
   level: string;
   // bucket: string;
-  // issueClass: string;
+  issueClass: string;
   // below_threshold: boolean;
   linter: string;
   targetType: string;
