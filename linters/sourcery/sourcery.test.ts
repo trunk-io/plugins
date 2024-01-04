@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import path from "path";
-import { linterCheckTest } from "tests";
+import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { REPO_ROOT, skipCPUOS, TEST_DATA } from "tests/utils";
 
@@ -27,8 +27,10 @@ lint:`,
   fs.symlinkSync(path.join(REPO_ROOT, ".git"), path.join(driver.getSandbox(), ".git"));
 };
 
-linterCheckTest({
+customLinterCheckTest({
   linterName: "sourcery",
+  // Deliberately use -a here because our test setup involves messing with .git, which obscures the state of upstream.
+  args: "-a --cache=false",
   preCheck,
   skipTestIf: (version) => {
     if (!process.env.SOURCERY_TOKEN) {
