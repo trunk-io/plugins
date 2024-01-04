@@ -7,6 +7,7 @@ exports[`Testing linter bandit test basic 1`] = `
       "code": "B403",
       "file": "test_data/basic.in.py",
       "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://pypi.org/project/bandit/",
       "level": "LEVEL_LOW",
       "line": "1",
@@ -18,6 +19,7 @@ exports[`Testing linter bandit test basic 1`] = `
       "code": "B301",
       "file": "test_data/basic.in.py",
       "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://pypi.org/project/bandit/",
       "level": "LEVEL_MEDIUM",
       "line": "6",
@@ -34,6 +36,16 @@ exports[`Testing linter bandit test basic 1`] = `
       "paths": [
         "test_data/basic.in.py",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "bandit",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
