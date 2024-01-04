@@ -7,6 +7,7 @@ exports[`Testing linter taplo test CUSTOM 1`] = `
       "code": "error",
       "column": "1",
       "file": "test_data/bad.toml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "taplo",
@@ -17,6 +18,7 @@ exports[`Testing linter taplo test CUSTOM 1`] = `
       "code": "error",
       "column": "8",
       "file": "test_data/bad.toml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "9",
       "linter": "taplo",
@@ -59,6 +61,26 @@ exports[`Testing linter taplo test CUSTOM 1`] = `
       "paths": [
         "test_data/empty.toml",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "toml",
+      "linter": "taplo",
+      "paths": [
+        "test_data/basic.toml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "toml",
+      "linter": "taplo",
+      "paths": [
+        "test_data/empty.toml",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
