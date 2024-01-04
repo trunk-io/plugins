@@ -1,11 +1,9 @@
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
-import { SetupSettings } from "tests/driver";
+import { GenericTrunkDriver, SetupSettings } from "tests/driver/driver";
 import { ARGS, REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
-
-import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 
@@ -24,7 +22,7 @@ const getDebugger = (tool?: string) => {
 };
 
 /**
- * The result of running a 'trunk check' or 'trunk fmt' command.
+ * The result of invoking a tool.
  */
 export interface TrunkToolRunResult {
   exitCode: number;

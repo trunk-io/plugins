@@ -1,7 +1,8 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { TrunkActionDriver, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { SetupSettings } from "tests/driver/driver";
 import { FailureMode, FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
@@ -86,6 +87,7 @@ const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
 
 export type TestCallback = (driver: TrunkLintDriver) => unknown;
 export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
+export type ActionTestCallback = (driver: TrunkActionDriver) => unknown;
 
 /**** Test Setup ****/
 
@@ -96,7 +98,7 @@ export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
  * @param linterName if specified, enables this linter during setup.
  * @param version the version of a linter to enable, if specified. May be a version string or one of `LinterVersion`
  */
-export const setupDriver = (
+export const setupLintDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   linterName?: string,
@@ -191,6 +193,35 @@ export const setUpTrunkToolDriverForHealthCheck = (
 
   afterEach(() => {
     registerVersion("tool", driver.enabledVersion);
+  });
+  return driver;
+};
+
+export const setupTrunkActionDriver = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  actionName: string,
+  syncGitHooks: boolean,
+  preCheck?: ActionTestCallback,
+): TrunkActionDriver => {
+  const driver = new TrunkActionDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    actionName,
+    syncGitHooks,
+  );
+
+  beforeAll(async () => {
+    await driver.setUp();
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
+  });
+
+  afterAll(() => {
+    driver.tearDown();
   });
   return driver;
 };
@@ -325,7 +356,7 @@ export const customLinterCheckTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
@@ -445,7 +476,7 @@ export const customLinterFmtTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
@@ -547,7 +578,7 @@ export const fuzzyLinterCheckTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
@@ -646,7 +677,7 @@ export const linterCheckTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
@@ -737,7 +768,7 @@ export const linterFmtTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
@@ -783,6 +814,41 @@ export const linterFmtTest = ({
           });
         });
       });
+    });
+  });
+};
+
+/**** Action Tests ****/
+
+/**
+ * Test an action by enabling it and provided a hook to test any assertions. Bare-bones setup
+ * Without any frills.
+ *
+ * @param dirname absolute path to the linter subdir.
+ * @param actionName action to enable
+ * @param testCallback callback to run for any assertions. Use built-in methods to run actions.
+ * @param skipTestIf callback to check if test should be skipped or run.
+ * @param preCheck callback to run during setup
+ */
+export const actionRunTest = ({
+  actionName,
+  syncGitHooks,
+  testCallback,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  actionName: string;
+  syncGitHooks: boolean;
+  testCallback: ActionTestCallback;
+  dirName?: string;
+  skipTestIf?: () => boolean;
+  preCheck?: ActionTestCallback;
+}) => {
+  describe(`Testing action ${actionName}`, () => {
+    const driver = setupTrunkActionDriver(dirName, {}, actionName, syncGitHooks, preCheck);
+    conditionalTest(skipTestIf(), "action ", async () => {
+      await testCallback(driver);
     });
   });
 };
