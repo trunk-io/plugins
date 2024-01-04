@@ -7,6 +7,7 @@ exports[`Testing linter golangci-lint test empty 1`] = `
       "code": "typecheck",
       "column": "1",
       "file": "test_data/empty.go",
+      "issueClass": "ISSUE_CLASS_NEW",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
       "line": "1",
@@ -17,6 +18,7 @@ exports[`Testing linter golangci-lint test empty 1`] = `
     {
       "code": "typecheck",
       "file": "test_data/wrapper/printer.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://golangci-lint.run/usage/linters/",
       "level": "LEVEL_HIGH",
       "line": "1",

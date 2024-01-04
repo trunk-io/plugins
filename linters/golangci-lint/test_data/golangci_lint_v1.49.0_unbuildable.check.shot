@@ -6,6 +6,7 @@ exports[`Testing linter golangci-lint test unbuildable 1`] = `
     {
       "code": "error",
       "file": ".",
+      "issueClass": "ISSUE_CLASS_NEW",
       "level": "LEVEL_HIGH",
       "linter": "golangci-lint",
       "message": "typechecking error: build constraints exclude all Go files in /tmp/plugins_",

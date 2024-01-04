@@ -6,7 +6,7 @@ import { skipOS, TEST_DATA } from "tests/utils";
 // Don't run on Windows since the typecheck errors are dependent on system libs, and the set of diagnostics seems to vary.
 customLinterCheckTest({
   linterName: "golangci-lint",
-  args: "-a -y",
+  args: `${TEST_DATA} -y`,
   testName: "all",
   skipTestIf: skipOS(["win32"]),
 });
@@ -21,7 +21,7 @@ const addEmpty = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "golangci-lint",
   testName: "empty",
-  args: "-a",
+  args: TEST_DATA,
   preCheck: addEmpty,
   skipTestIf: skipOS(["win32"]),
 });
@@ -35,6 +35,6 @@ const setupUnbuildable = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "golangci-lint",
   testName: "unbuildable",
-  args: "-a",
+  args: "unbuildable.go",
   preCheck: setupUnbuildable,
 });
