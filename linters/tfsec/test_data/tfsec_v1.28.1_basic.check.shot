@@ -8,6 +8,7 @@ exports[`Testing linter tfsec test basic 1`] = `
       "column": "1",
       "file": "test_data/aws.in.tf",
       "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "tfsec",
@@ -25,6 +26,7 @@ exports[`Testing linter tfsec test basic 1`] = `
       "column": "1",
       "file": "test_data/aws.in.tf",
       "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "tfsec",
@@ -46,6 +48,16 @@ exports[`Testing linter tfsec test basic 1`] = `
       "paths": [
         "test_data",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "terraform",
+      "linter": "tfsec",
+      "paths": [
+        "test_data",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
