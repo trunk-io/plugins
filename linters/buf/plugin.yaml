@@ -35,10 +35,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: buf format ${target}
+          run: buf format -w --path=${target}
           success_codes: [0, 100]
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       environment:
         - name: PATH
           # needs system path for `diff`

@@ -13,11 +13,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: goimports ${target}
+          run: goimports -w ${target}
           success_codes: [0]
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       tools: [goimports]
       suggest_if: never
       environment:

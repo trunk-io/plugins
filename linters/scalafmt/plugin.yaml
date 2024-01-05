@@ -31,12 +31,13 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: scalafmt --stdin --stdout
+          run: scalafmt ${target}
           success_codes: [0]
           run_from: ${root_or_parent_with(.scalafmt.conf)}
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       environment:
         - name: PATH
           list: ["${linter}"]

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import path from "path";
-import { setupDriver } from "tests";
+import { setupLintDriver } from "tests";
 import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 
 // Avoid strictly typing composite config
@@ -20,12 +20,12 @@ jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
  */
 describe("Global config health check", () => {
   // Step 1: Define test setup and teardown
-  const driver = setupDriver(REPO_ROOT, {
+  const driver = setupLintDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.17.0",
+    trunkVersion: "1.18.0",
     // ThenChange plugin.yaml
   });
 
@@ -180,7 +180,7 @@ describe("Global config health check", () => {
  */
 describe("Explicitly enabled healthcheck", () => {
   // Step 1: Define test setup and teardown
-  const driver = setupDriver(REPO_ROOT, {
+  const driver = setupLintDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
   });

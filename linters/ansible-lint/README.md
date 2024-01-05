@@ -5,7 +5,7 @@
 [Ansible-lint](https://github.com/ansible/ansible-lint) is used to check ansible playbooks. In order
 to integrate well with trunk, ansible is usually run using triggers. The trigger system allows file
 changes to trigger lint runs. An example of an ansible-lint trigger is included below, but more
-information can be found in our [docs](https://docs.trunk.io/docs/check-config#trigger-rules).
+information can be found in our [docs](https://docs.trunk.io/check/configuration#trigger-rules).
 
 ```yaml
 lint:

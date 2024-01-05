@@ -55,12 +55,12 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
-| Javascript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
-| JSON            | [deno], [eslint], [prettier], [semgrep]                                                                              |
-| Kotlin          | [detekt]<sup><a href="#note-detekt">1</a></sup>, [ktlint]                                                            |
+| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                             |
+| JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                                     |
+| Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
-| Markdown        | [deno], [markdownlint], [remark-lint], [markdown-link-check], [prettier]                                             |
+| Markdown        | [deno], [markdownlint], [markdown-link-check], [markdown-table-prettify], [prettier], [remark-lint]                  |
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
@@ -76,7 +76,7 @@ trunk check enable {linter}
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                                |
 | SVG             | [svgo]                                                                                                               |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                            |
-| Terraform       | [terraform] (validate and fmt), [checkov], [tflint]<sup><a href="#note-tflint">2</a></sup>, [tfsec], [terrascan]     |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint],[tfsec],[terrascan]                                              |
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
@@ -87,6 +87,7 @@ trunk check enable {linter}
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
 [autopep8]: https://github.com/hhatto/autopep8#readme
 [bandit]: https://github.com/PyCQA/bandit#readme
+[biome]: https://github.com/biomejs/biome#readme
 [black]: https://github.com/psf/black#readme
 [brakeman]: https://github.com/presidentbeef/brakeman#readme
 [buf]: https://github.com/bufbuild/buf#readme
@@ -104,6 +105,7 @@ trunk check enable {linter}
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
+[dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://github.com/eslint/eslint#readme
 [flake8]: https://github.com/PyCQA/flake8#readme
@@ -124,6 +126,7 @@ trunk check enable {linter}
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
+[markdown-table-prettify]: https://github.com/darkriszty/MarkdownTablePrettify-VSCodeExt#readme
 [markdown-link-check]: https://github.com/tcort/markdown-link-check#readme
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
@@ -173,19 +176,6 @@ trunk check enable {linter}
 [txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
-
-<sup><ol>
-
-<li><a aria-hidden="true" tabindex="-1" class="customAnchor" id="note-detekt"></a>
-Support for Detekt is under active development; see our <a href="https://docs.trunk.io/docs/check-supported-linters#detekt">docs</a> for more
-details.
-</li>
-
-<li><a aria-hidden="true" tabindex="-1" class="customAnchor" id="note-tflint"></a>
-<a href="https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/module-inspection.md">Module inspection</a>, <a href="https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md">deep checking</a>, and setting variables are not currently supported.
-</li>
-
-</ol></sup>
 
 <br/>
 

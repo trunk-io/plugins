@@ -8,6 +8,7 @@ tools:
       known_good_version: 10.0.1
 lint:
   definitions:
+    # No longer maintained. Succeeded by the biome linter+formatter
     - name: rome
       files:
         - typescript
@@ -33,7 +34,7 @@ lint:
           formatter: true
           in_place: true
       tools: [rome]
-      suggest_if: config_present
+      suggest_if: never
       direct_configs:
         - rome.json
       affects_cache:

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter markdown-table-prettify test basic 1`] = `
+"# Hello world
+
+Type | Size(bit) | Wrapper Class
+-----|-----------|--------------
+byte | 8         | Byte
+char | 16        | Character"
+`;

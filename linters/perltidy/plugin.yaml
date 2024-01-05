@@ -12,6 +12,7 @@ lint:
           read_output_from: stdout
           name: format
           run: perltidy -se ${target}
+          # TODO(chris): See if we can use batching here.
       files:
         - perl
       direct_configs:

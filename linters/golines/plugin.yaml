@@ -14,10 +14,11 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: golines ${target}
+          run: golines -w ${target}
           success_codes: [0]
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       suggest_if: never
       known_good_version: 0.11.0

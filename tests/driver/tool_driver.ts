@@ -1,11 +1,9 @@
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
-import { SetupSettings } from "tests/driver";
+import { GenericTrunkDriver, SetupSettings } from "tests/driver/driver";
 import { ARGS, REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
-
-import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 
@@ -24,7 +22,7 @@ const getDebugger = (tool?: string) => {
 };
 
 /**
- * The result of running a 'trunk check' or 'trunk fmt' command.
+ * The result of invoking a tool.
  */
 export interface TrunkToolRunResult {
   exitCode: number;
@@ -153,6 +151,22 @@ lint:
       }
     }
   }
+
+  runInstall = async (
+    toolName: string,
+  ): Promise<{
+    stdout: string;
+    stderr: string;
+    exitCode: number;
+  }> => {
+    try {
+      const { stdout, stderr } = await this.runTrunk(["tools", "install", toolName, "--ci"]);
+      return { exitCode: 0, stdout, stderr };
+    } catch (e: any) {
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+      return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+    }
+  };
 
   /**
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired tool version to enable.

@@ -50,6 +50,22 @@ downloads:
         version: <=3.11.1
         url: https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-${version}+20230116-${cpu}-${os}-install_only.tar.gz
         strip_components: 1
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        version: <=3.11.6
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20231002/cpython-${version}+20230116-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
+      - os:
+          windows: pc-windows-msvc-shared
+        cpu:
+          x86_64: x86_64
+        version: <=3.11.6
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20231002/cpython-${version}+20230116-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
 
 runtimes:
   definitions:

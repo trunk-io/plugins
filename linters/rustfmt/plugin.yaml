@@ -7,11 +7,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: rustfmt
+          run: rustfmt ${target}
           success_codes: [0]
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       affects_cache:
         - Cargo.toml
         - Cargo.lock

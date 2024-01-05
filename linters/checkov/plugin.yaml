@@ -15,17 +15,21 @@ lint:
         - name: lint
           # on Windows, we need to make sure 'checkov' resolves to 'checkov.cmd'
           platforms: [windows]
-          run: checkov.cmd -f ${target} -o sarif --output-file-path ${tmpfile},
-          output: sarif
-          success_codes: [0, 1]
+          run: checkov.cmd -f ${target} -o sarif --output-file-path ${tmpfile}, --soft-fail
+          output: sarif_uri
+          success_codes: [0]
           read_output_from: tmp_file
           is_security: true
+          batch: true
         - name: lint
-          run: checkov -f ${target} -o sarif --output-file-path ${tmpfile},
-          output: sarif
-          success_codes: [0, 1]
+          # Comma is required on output-file-path.
+          # Use soft-fail so we can rely on exit code meaning the linter crashed.
+          run: checkov -f ${target} -o sarif --output-file-path ${tmpfile}, --soft-fail
+          output: sarif_uri
+          success_codes: [0]
           read_output_from: tmp_file
           is_security: true
+          batch: true
       known_good_version: 2.3.75
       suggest_if: files_present
       direct_configs:

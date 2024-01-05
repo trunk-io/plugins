@@ -1,0 +1,21 @@
+version: 0.1
+downloads:
+  - name: gk
+    downloads:
+      - os:
+          linux: Linux
+          windows: Windows
+          macos: macOS
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/gitkraken/gk-cli/releases/download/v${version}/gk_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: gk
+      download: gk
+      known_good_version: 1.2.2
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [gk]

@@ -36,10 +36,13 @@ jobs:
       tools: ${{ steps.filter.outputs.tools }}
       all-tools: ${{ steps.post-filter-tools.outputs.out }}
       tools-files: ${{ steps.post-filter-tools-paths.outputs.out }}
+      actions: ${{ steps.filter.outputs.actions }}
+      all-actions: ${{ steps.post-filter-actions.outputs.out }}
+      actions-files: ${{ steps.post-filter-actions-paths.outputs.out }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Determine upstream
         run: |
@@ -65,14 +68,21 @@ jobs:
         if: steps.filter.outputs.all-linters == 'true'
         run: |
           echo "Run all linter tests"
-          echo "out=linters" >> "$GITHUB_OUTPUT"
+          echo "out=linters/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest all tool tests
         id: post-filter-tools
         if: steps.filter.outputs.all-tools == 'true'
         run: |
           echo "Run all tool tests"
-          echo "out=tools" >> "$GITHUB_OUTPUT"
+          echo "out=tools/" >> "$GITHUB_OUTPUT"
+
+      - name: Suggest all action tests
+        id: post-filter-actions
+        if: steps.filter.outputs.all-actions == 'true'
+        run: |
+          echo "Run all action tests"
+          echo "out=actions/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
@@ -94,6 +104,16 @@ jobs:
           echo "Running tests on individual tools: ${tool_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
+      - name: Suggest normalized individual action paths
+        id: post-filter-actions-paths
+        if: steps.filter.outputs.actions
+        run: |
+          action_files=$(echo ${{steps.filter.outputs.actions_files}} |
+          grep -oP "\Kactions/.*?(?=/)" |
+          uniq | tr '\n' ' ')
+          echo "Running tests on individual actions: ${action_files}"
+          echo "out=${action_files}" >> "$GITHUB_OUTPUT"
+
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Linter Tests ${{ matrix.os }}
@@ -101,7 +121,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'linters'
+      'linters/'
     timeout-minutes: 90
     strategy:
       fail-fast: false
@@ -109,14 +129,11 @@ jobs:
         os: [Linux, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
-        if:
-          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
-          == 'linters'
         with:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
@@ -143,7 +160,7 @@ jobs:
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
-      'tools'
+      'tools/'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -151,19 +168,36 @@ jobs:
         os: [Linux, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
         # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
         uses: ./.github/actions/tool_tests
-        if:
-          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
-          needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  action_tests:
+    name: Action Tests
+    runs-on: [self-hosted, Linux]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
+      'actions/'
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Action Tests
+        uses: ./.github/actions/action_tests
+        with:
+          append-args:
+            ${{ needs.detect_changes.outputs.all-actions }} ${{
+            needs.detect_changes.outputs.actions-files }} --
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   trunk_check_runner:
@@ -175,7 +209,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: true
 
@@ -194,7 +228,7 @@ jobs:
     timeout-minutes: 90
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
@@ -220,7 +254,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2

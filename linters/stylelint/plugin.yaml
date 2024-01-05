@@ -13,6 +13,13 @@ lint:
       tools: [stylelint]
       commands:
         - name: lint
+          version: ">=16.0.0"
+          read_output_from: stderr
+          # Custom parser type defined in the trunk cli to handle stylelint's JSON output.
+          output: stylelint
+          success_codes: [0, 2]
+          run: stylelint -f json ${target}
+        - name: lint
           # Custom parser type defined in the trunk cli to handle stylelint's JSON output.
           output: stylelint
           success_codes: [0, 2]

@@ -1,0 +1,48 @@
+version: 0.1
+tools:
+  definitions:
+    - name: biome
+      # Available as a download, but release name doesn't configure well to our schema
+      runtime: node
+      package: "@biomejs/biome"
+      shims: [biome]
+      known_good_version: 1.4.1
+lint:
+  definitions:
+    # Successor to the rome linter+formatter
+    - name: biome
+      files:
+        - typescript
+        - javascript
+        - json
+      commands:
+        - name: lint
+          output: regex
+          parse_regex:
+            ' *(?P<path>.*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ ]+)(?:[^×]*\n).*×
+            (?P<message>.*)\n'
+          run: biome check ${target}
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          read_output_from: stderr
+        - name: fmt
+          output: rewrite
+          run: biome format --write "${target}"
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          formatter: true
+          in_place: true
+      tools: [biome]
+      suggest_if: config_present
+      direct_configs:
+        - biome.json
+        - rome.json # For backwards compatibility with rome
+      affects_cache:
+        - package.json
+        - .editorconfig # Undocumented config file
+      known_good_version: 1.4.1
+      version_command:
+        parse_regex: biome CLI version ${semver}
+        run: biome --version

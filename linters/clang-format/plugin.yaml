@@ -37,9 +37,10 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: clang-format --assume-filename=${target}
-          success_codes: [0]
-          stdin: true
+          run: clang-format -i ${target}
+          success_codes: [0, 1]
+          batch: true
+          in_place: true
           cache_results: true
           formatter: true
       tools: [clang-format]

@@ -1,0 +1,286 @@
+# Parse test results and
+# Send upload notifications and
+# Generate new snapshots via PR
+name: Parse Test Results
+on:
+  workflow_call:
+    inputs:
+      plugin-version:
+        required: false
+        type: string
+      results-prefix:
+        required: false
+        type: string
+      upload-validated-versions:
+        required: false
+        type: boolean
+        default: false
+      test-type:
+        required: false
+        type: string
+        default: linter
+      test-ref:
+        required: false
+        type: string
+        default: latest release
+    secrets:
+      TRUNKBOT_SLACK_BOT_TOKEN:
+        required: true
+      TRUNK_STAGING_API_TOKEN:
+        required: false
+      TRUNK_API_TOKEN:
+        required: false
+      TRUNK_OPEN_PR_APP_ID:
+        required: false
+      TRUNK_OPEN_PR_APP_PRIVATE_KEY:
+        required: false
+      TRUNK_SOURCERY_TOKEN:
+        required: false
+      TRUNK_DEBUGGER_TOKEN:
+        required: false
+
+permissions: read-all
+
+jobs:
+  upload_test_results:
+    name: Upload Test Results
+    runs-on: ubuntu-x64
+    timeout-minutes: 10
+    env:
+      SLACK_CHANNEL_ID: plugins-notifications
+    outputs:
+      reruns: ${{ steps.parse.outputs.reruns }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: Retrieve Test Outputs ubuntu
+        id: download-ubuntu
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        continue-on-error: true
+        with:
+          name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
+
+      - name: Retrieve Test Outputs macOS
+        id: download-macos
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        continue-on-error: true
+        with:
+          name: ${{ inputs.results-prefix }}macos-latest-test-results
+
+      - name: Retrieve Test Outputs Windows
+        id: download-windows
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        continue-on-error: true
+        with:
+          name: ${{ inputs.results-prefix }}windows-latest-test-results
+
+      - name: Print Test Outputs
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo "::group::Ubuntu results"
+          cat "ubuntu-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
+          echo "::group::Macos results"
+          cat "macos-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
+          echo "::group::Windows results"
+          cat "windows-latest-res.json" || echo "missing"
+          echo "::endgroup::"
+
+      - name: Slack Notification For Missing Artifacts
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        if:
+          steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure' ||
+          steps.download-windows.outcome == 'failure'
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Artifact Download Failure",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }}, windows: ${{ steps.download-windows.outcome }}) >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        shell: bash
+        run: npm ci
+
+      - name: Add npm bin to path
+        shell: bash
+        run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Parse Test Results
+        shell: bash
+        continue-on-error: true
+        id: parse
+        run: |
+          npm run parse
+          echo "failures=$([[ -f failures.json ]] && echo "true" || echo "false")" >> "$GITHUB_OUTPUT"
+          echo "failures-payload=$(cat failures.json)" >> "$GITHUB_OUTPUT"
+          echo "reruns=$(cat reruns.txt)" >> "$GITHUB_OUTPUT"
+        env:
+          PLUGIN_VERSION: ${{ inputs.plugin-version }}
+          # Used to format Slack notification for failures
+          RUN_ID: ${{ github.run_id }}
+          TEST_REF: ${{ inputs.test-ref }}
+          TEST_TYPE: ${{ inputs.test-type }}
+
+      - name: Upload Test Results Staging
+        if: inputs.upload-validated-versions == true
+        continue-on-error: true
+        id: upload-staging
+        env:
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
+          TRUNK_API_ADDRESS: api.trunk-staging.io:8443
+        # upload-linter-versions is a hidden command reserved exclusively for uploading
+        # validated results from the plugins repo.
+        # daemon must be restarted in order to propagate environment variable
+        shell: bash
+        run: |
+          trunk daemon shutdown
+          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+
+      - name: Upload Test Results Prod
+        if: inputs.upload-validated-versions == true
+        continue-on-error: true
+        id: upload-prod
+        env:
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+          TRUNK_API_ADDRESS: api.trunk.io:8443
+        # upload-linter-versions is a hidden command reserved exclusively for uploading
+        # validated results from the plugins repo.
+        # daemon must be restarted in order to propagate environment variable
+        shell: bash
+        run: |
+          trunk daemon shutdown
+          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
+
+      # Slack notifications
+      - name: Slack Notification For Failures
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        if: always() && steps.parse.outputs.failures == 'true'
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: ${{ steps.parse.outputs.failures-payload }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+      - name: Slack Notification For Staging Upload Failure
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Upload Failure",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+
+      - name: Slack Notification For Prod Upload Failure
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
+        if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Upload Failure",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+  generate_snapshots_pr:
+    name: Generate Snapshots PR
+    runs-on: ubuntu-x64
+    timeout-minutes: 30
+    needs: upload_test_results
+    if: needs.upload_test_results.outputs.reruns != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: Setup Node
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        shell: bash
+        run: npm ci
+
+      - name: Add npm bin to path
+        shell: bash
+        run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Linter Tests Rerun Linux
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+        env:
+          PLUGINS_TEST_UPDATE_SNAPSHOTS: "true"
+
+      - name: Mark generated snapshots as ready for release
+        shell: bash
+        run: |
+          git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
+
+      - name: Create App Token for TrunkBuild App (Internal)
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
+          private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: Auto-add missing snapshots
+          body:
+            Create new snapshots from https://github.com/trunk-io/plugins/actions/runs/${{
+            github.run_id }}
+          base: main
+          branch: trunk-io/auto-update-snapshots
+          labels: trunk
+          add-paths: "**/*.shot"
+          commit-message: Auto add snapshots
+          delete-branch: true
+          token: ${{ steps.generate-token.outputs.token }}
+          reviewers: TylerJang27

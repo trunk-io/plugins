@@ -1,17 +1,22 @@
 import caller from "caller";
 import * as fs from "fs";
 import * as path from "path";
-import { SetupSettings, TestTarget, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
-import { FileIssue, LandingState } from "tests/types";
+import { TrunkActionDriver, TrunkLintDriver, TrunkToolDriver } from "tests/driver";
+import { SetupSettings } from "tests/driver/driver";
+import { FailureMode, FileIssue, LandingState } from "tests/types";
 
 import specific_snapshot = require("jest-specific-snapshot");
 import Debug from "debug";
 import {
+  conditionalTest,
+  detectTestTargets,
   getSnapshotPathForAssert,
   getVersionsForTest,
   landingStateWrapper,
   TEST_DATA,
 } from "tests/utils";
+
+/**** Custom Test Configuration ****/
 
 // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
@@ -38,13 +43,41 @@ declare global {
   }
 }
 
-const registerVersion = (linterVersion?: string) => {
+/**
+ * Add the version to the test reporter. This only applies when there are multiple workers,
+ * because the console buffer gets forwarded into the test reporter output.
+ * @param testType      linter or tool, whichever type of test. Used for defensive filtering
+ * @param linterVersion the linter or tool version that was enabled
+ */
+const registerVersion = (testType: string, linterVersion?: string) => {
   // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
-  // trunk-ignore(eslint): Manual patch is quired here for most reliable implementation
+  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
+  console._buffer?.push(
+    {
+      message: linterVersion,
+      origin: expect.getState().currentTestName,
+      type: "linter-version",
+    },
+    {
+      message: testType,
+      origin: expect.getState().currentTestName,
+      type: "test-type",
+    },
+  );
+};
+
+/**
+ * Adds the predictive failure mode to the test reporter. This is used to proactively generate snapshots
+ * For linters and add metadata about the type of failure to notifications.
+ * @param failureMode The type of suspected failure mode based on landing state properties.
+ */
+const registerFailureMode = (failureMode: FailureMode) => {
+  // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
+  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
   console._buffer?.push({
-    message: linterVersion,
+    message: failureMode,
     origin: expect.getState().currentTestName,
-    type: "linter-version",
+    type: "suspected-failure-mode",
   });
 };
 
@@ -52,45 +85,11 @@ const baseDebug = Debug("Tests");
 
 const CUSTOM_SNAPSHOT_PREFIX = "CUSTOM";
 
-const conditionalTest = (
-  skipTest: boolean,
-  name: string,
-  fn?: jest.ProvidesCallback | undefined,
-  timeout?: number | undefined,
-) => (skipTest ? it.skip(name, fn, timeout) : it(name, fn, timeout));
-
 export type TestCallback = (driver: TrunkLintDriver) => unknown;
 export type ToolTestCallback = (driver: TrunkToolDriver) => unknown;
+export type ActionTestCallback = (driver: TrunkActionDriver) => unknown;
 
-/**
- * If `namedTestPrefixes` are specified, checks for their existence in `dirname`/test_data. Otherwise,
- * automatically scan `dirname` for all available test inputs.
- * @param dirname absolute path to the linter subdir.
- * @param namedTestPrefixes optional prefixes of test inputs.
- */
-const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTarget[] => {
-  const testDataDir = path.resolve(dirname, TEST_DATA);
-  const testTargets = fs
-    .readdirSync(testDataDir)
-    .sort()
-    .reduce((accumulator: Map<string, TestTarget>, file: string) => {
-      // Check if this is an input file. If so, set it in the accumulator.
-      const inFileRegex = /(?<prefix>.+)\.in\.(?<extension>.+)$/;
-      const foundIn = file.match(inFileRegex);
-      const prefix = foundIn?.groups?.prefix;
-      if (foundIn && prefix) {
-        if (prefix && (namedTestPrefixes.includes(prefix) || namedTestPrefixes.length === 0)) {
-          // inputPath is intentionally a relative path
-          const inputPath = path.join(TEST_DATA, file);
-          accumulator.set(prefix, { prefix, inputPath });
-          return accumulator;
-        }
-      }
-      return accumulator;
-    }, new Map<string, TestTarget>());
-
-  return [...testTargets.values()];
-};
+/**** Test Setup ****/
 
 /**
  * Setup the TrunkLintDriver to run tests in a `dirname`.
@@ -99,7 +98,7 @@ const detectTestTargets = (dirname: string, namedTestPrefixes: string[]): TestTa
  * @param linterName if specified, enables this linter during setup.
  * @param version the version of a linter to enable, if specified. May be a version string or one of `LinterVersion`
  */
-export const setupDriver = (
+export const setupLintDriver = (
   dirname: string,
   { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
   linterName?: string,
@@ -127,7 +126,7 @@ export const setupDriver = (
   });
 
   afterEach(() => {
-    registerVersion(driver.enabledVersion);
+    registerVersion("linter", driver.enabledVersion);
   });
   return driver;
 };
@@ -158,6 +157,10 @@ export const setupTrunkToolDriver = (
   afterAll(() => {
     driver.tearDown();
   });
+
+  afterEach(() => {
+    registerVersion("tool", driver.enabledVersion);
+  });
   return driver;
 };
 
@@ -187,25 +190,43 @@ export const setUpTrunkToolDriverForHealthCheck = (
   afterAll(() => {
     driver.tearDown();
   });
+
+  afterEach(() => {
+    registerVersion("tool", driver.enabledVersion);
+  });
   return driver;
 };
 
-const runInstall = async (
-  driver: TrunkToolDriver,
-  toolName: string,
-): Promise<{
-  stdout: string;
-  stderr: string;
-  exitCode: number;
-}> => {
-  try {
-    const { stdout, stderr } = await driver.runTrunk(["tools", "install", toolName, "--ci"]);
-    return { exitCode: 0, stdout, stderr };
-  } catch (e: any) {
-    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-    return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
-  }
+export const setupTrunkActionDriver = (
+  dirname: string,
+  { setupGit = true, setupTrunk = true, trunkVersion = undefined }: SetupSettings,
+  actionName: string,
+  syncGitHooks: boolean,
+  preCheck?: ActionTestCallback,
+): TrunkActionDriver => {
+  const driver = new TrunkActionDriver(
+    dirname,
+    { setupGit, setupTrunk, trunkVersion },
+    actionName,
+    syncGitHooks,
+  );
+
+  beforeAll(async () => {
+    await driver.setUp();
+    if (preCheck) {
+      // preCheck is not always async, but we must await in case it is.
+      await preCheck(driver);
+      driver.debug("Finished running custom preCheck hook");
+    }
+  });
+
+  afterAll(() => {
+    driver.tearDown();
+  });
+  return driver;
 };
+
+/**** Tool Tests ****/
 
 // NOTE(lauri): This is a variant of the testing framework that just validates a `trunk tools install`.
 // in case of tools with configured health checks, this should be a sufficient amount of testing. If not
@@ -225,14 +246,16 @@ export const toolInstallTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: ToolTestCallback;
 }) => {
-  const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
-  conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
-    const { exitCode, stdout, stderr } = await runInstall(driver, toolName);
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain(toolName);
-    expect(stdout).toContain(toolVersion);
-    expect(stderr).toEqual("");
-    expect(stdout).not.toContain("Failures:");
+  describe(`Testing tool ${toolName}`, () => {
+    const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
+    conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
+      const { exitCode, stdout, stderr } = await driver.runInstall(toolName);
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain(toolName);
+      expect(stdout).toContain(toolVersion);
+      expect(stderr).toEqual("");
+      expect(stdout).not.toContain("Failures:");
+    });
   });
 };
 
@@ -270,7 +293,7 @@ export const toolTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: ToolTestCallback;
 }) => {
-  describe(toolName, () => {
+  describe(`Testing tool ${toolName}`, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
@@ -283,8 +306,8 @@ export const toolTest = ({
   });
 };
 
-// TODO(Tyler): Add additional assertion options to the custom checks, including checking failures, etc.
-// TODO(Tyler): Add additional options to the custom checks, including OS and CI-specific runs.
+/**** Linter Tests ****/
+
 /**
  * Test that running a linter filtered by `linterName` with any custom `args` produces the desired output
  * json. Optionally specify additional file paths to snapshot.
@@ -333,13 +356,16 @@ export const customLinterCheckTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
           });
@@ -367,6 +393,8 @@ export const customLinterCheckTest = ({
             driver.enabledVersion ?? "no version",
             primarySnapshotPath,
           );
+
+          registerFailureMode("assertion_failure");
           expect(testRunResult.landingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(testRunResult.landingState, primarySnapshotPath),
@@ -448,13 +476,16 @@ export const customLinterFmtTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runFmt({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
             landingState: {
@@ -464,6 +495,7 @@ export const customLinterFmtTest = ({
 
           // Step 4: Verify that any specified files match their expected snapshots for that linter version.
           const snapshotDir = path.resolve(dirname, TEST_DATA);
+          registerFailureMode("assertion_failure");
           pathsToSnapshot.forEach((pathToSnapshot) => {
             const normalizedName = `${testName}.${pathToSnapshot
               .replaceAll("/", ".")
@@ -546,13 +578,16 @@ export const fuzzyLinterCheckTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });
+          if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+            registerFailureMode("task_failure");
+          }
           expect(testRunResult).toMatchObject({
             success: true,
           });
@@ -582,6 +617,7 @@ export const fuzzyLinterCheckTest = ({
             driver.enabledVersion ?? "no version",
             primarySnapshotPath,
           );
+          registerFailureMode("assertion_failure");
           expect(strippedLandingState).toMatchSpecificSnapshot(
             primarySnapshotPath,
             landingStateWrapper(strippedLandingState, primarySnapshotPath),
@@ -641,12 +677,15 @@ export const linterCheckTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runCheckUnit(inputPath, linterName);
+            if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+              registerFailureMode("task_failure");
+            }
             expect(testRunResult).toMatchObject({
               success: true,
             });
@@ -675,6 +714,7 @@ export const linterCheckTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
+            registerFailureMode("assertion_failure");
             expect(testRunResult.landingState).toMatchSpecificSnapshot(
               snapshotPath,
               landingStateWrapper(testRunResult.landingState, snapshotPath),
@@ -728,13 +768,16 @@ export const linterFmtTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
             const debug = baseDebug.extend(driver.debugNamespace);
             const testRunResult = await driver.runFmtUnit(inputPath, linterName);
 
+            if (!testRunResult.success || testRunResult.landingState?.taskFailures?.length) {
+              registerFailureMode("task_failure");
+            }
             expect(testRunResult).toMatchObject({
               success: true,
               landingState: {
@@ -759,6 +802,7 @@ export const linterFmtTest = ({
               driver.enabledVersion ?? "no version",
               snapshotPath,
             );
+            registerFailureMode("assertion_failure");
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );
@@ -770,6 +814,41 @@ export const linterFmtTest = ({
           });
         });
       });
+    });
+  });
+};
+
+/**** Action Tests ****/
+
+/**
+ * Test an action by enabling it and provided a hook to test any assertions. Bare-bones setup
+ * Without any frills.
+ *
+ * @param dirname absolute path to the linter subdir.
+ * @param actionName action to enable
+ * @param testCallback callback to run for any assertions. Use built-in methods to run actions.
+ * @param skipTestIf callback to check if test should be skipped or run.
+ * @param preCheck callback to run during setup
+ */
+export const actionRunTest = ({
+  actionName,
+  syncGitHooks,
+  testCallback,
+  dirName = path.dirname(caller()),
+  skipTestIf = (_version?: string) => false,
+  preCheck,
+}: {
+  actionName: string;
+  syncGitHooks: boolean;
+  testCallback: ActionTestCallback;
+  dirName?: string;
+  skipTestIf?: () => boolean;
+  preCheck?: ActionTestCallback;
+}) => {
+  describe(`Testing action ${actionName}`, () => {
+    const driver = setupTrunkActionDriver(dirName, {}, actionName, syncGitHooks, preCheck);
+    conditionalTest(skipTestIf(), "action ", async () => {
+      await testCallback(driver);
     });
   });
 };
