@@ -263,7 +263,7 @@ jobs:
           git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
 
       - name: Create App Token for TrunkBuild App (Internal)
-        uses: tibdex/github-app-token@v1
+        uses: tibdex/github-app-token@v2
         id: generate-token
         with:
           app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
