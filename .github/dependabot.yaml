@@ -5,7 +5,8 @@ updates:
     schedule:
       interval: weekly
       day: sunday
-      time: 08:00 # UTC
+      # trunk-ignore(yamllint/quoted-strings)
+      time: "08:00" # UTC
     labels: [🤖 dependabot]
     open-pull-requests-limit: 2
 
@@ -14,7 +15,8 @@ updates:
     schedule:
       interval: weekly
       day: sunday
-      time: 08:00 # UTC
+      # trunk-ignore(yamllint/quoted-strings)
+      time: "08:00" # UTC
     labels: [🤖 dependabot]
     groups:
       dependencies:
