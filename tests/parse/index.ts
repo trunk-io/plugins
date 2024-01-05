@@ -89,15 +89,15 @@ const mergeTestFailureMetadata = (original: TestResult, incoming: TestResult) =>
     ([testFullName, incomingSuspectedFailureMode]) => {
       const originalSuspectedFailureMode = original.testFailureMetadata.get(testFullName);
       if (originalSuspectedFailureMode) {
-        // If the incoming test result is a pass, invalidate the failure mode
-        if (incoming.testResultStatus === "passed") {
-          original.testFailureMetadata.set(testFullName, "passed");
-          return;
-        }
-
         // If the incoming test result is a version mismatch, invalidate the failure mode
         if (incoming.version && original.version && incoming.version !== original.version) {
           original.testFailureMetadata.set(testFullName, "unknown");
+          return;
+        }
+
+        // If the incoming test result is a pass, invalidate the failure mode
+        if (incoming.testResultStatus === "passed") {
+          original.testFailureMetadata.set(testFullName, "passed");
           return;
         }
 
