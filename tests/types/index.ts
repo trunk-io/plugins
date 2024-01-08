@@ -132,9 +132,10 @@ export interface LandingState {
  * - unknown: unknown, usually a test timeout, discrepancy, or other setup error -> requires investigation
  * - task_failure: a task failure occurred, whether during execution or linter install -> requires investigation
  * - passed: only during post-processing, if at least some of the tests passed -> can still generate a snapshot
- * - assertion_failure: the exepcted diagnostics vary -> we can usually generate a snapshot proactively
+ * - assertion_failure: the expected diagnostics vary -> we can usually generate a snapshot proactively
+ * - skipped: the test was skipped -> defer to other tests
  */
-export type FailureMode = "unknown" | "passed" | "task_failure" | "assertion_failure";
+export type FailureMode = "unknown" | "passed" | "task_failure" | "assertion_failure" | "skipped";
 
 /**
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.

@@ -60,6 +60,8 @@ export default class TestReporter implements CustomReporter {
       if (individualResult.status === "failed") {
         individualResult.suspectedFailureMode =
           suspectedFailureModeMap.get(individualResult.fullName) ?? "unknown";
+      } else if (individualResult.status === "pending") {
+        individualResult.suspectedFailureMode = "skipped";
       } else {
         individualResult.suspectedFailureMode = "passed";
       }

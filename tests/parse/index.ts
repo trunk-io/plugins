@@ -101,6 +101,11 @@ const mergeTestFailureMetadata = (original: TestResult, incoming: TestResult) =>
           return;
         }
 
+        // If the incoming test result is a skipped, use the current failure mode
+        if (incoming.testResultStatus === "skipped") {
+          return;
+        }
+
         // If the incoming test result is a failure and not assertion_failure, **invalidate the failure mode
         if (incomingSuspectedFailureMode !== "assertion_failure") {
           original.testFailureMetadata.set(testFullName, incomingSuspectedFailureMode);
@@ -343,7 +348,7 @@ const writeTestResults = (testResults: TestResultSummary) => {
       if (status !== "passed" && status !== "skipped") {
         const shouldRerunTest = Array.from(testFailureMetadata.values()).every(
           // If any non-assertion-type failures occur, we can't proactively generate snapshot.
-          (failureMode) => failureMode === "assertion_failure" || failureMode === "passed",
+          (failureMode) => failureMode === "assertion_failure" || failureMode === "skipped",
         );
         if (shouldRerunTest) {
           rerunPaths.push(testFilePath);
