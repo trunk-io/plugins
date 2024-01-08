@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter bandit test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "B403",
+      "file": "test_data/basic.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://pypi.org/project/bandit/",
+      "level": "LEVEL_LOW",
+      "line": "1",
+      "linter": "bandit",
+      "message": "Consider possible security implications associated with dill module.",
+      "targetType": "python",
+    },
+    {
+      "code": "B301",
+      "file": "test_data/basic.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://pypi.org/project/bandit/",
+      "level": "LEVEL_MEDIUM",
+      "line": "6",
+      "linter": "bandit",
+      "message": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "bandit",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "bandit",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
