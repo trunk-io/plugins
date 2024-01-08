@@ -15,7 +15,7 @@ inputs:
   append-args:
     description: Additional args to append to the test invocation
     required: false
-    default: actions --
+    default: actions/ --
   trunk-token:
     description: CI debugger api token
     required: true
