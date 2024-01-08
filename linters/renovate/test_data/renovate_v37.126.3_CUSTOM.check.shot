@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter renovate test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "Configuration-Error",
+      "file": "test_data/renovate.json",
+      "level": "LEVEL_HIGH",
+      "linter": "renovate",
+      "message": "Invalid configuration option: packageRules[0].matchUpdateTyped_badInfo",
+      "targetType": "renovate-config",
+    },
+    {
+      "code": "Configuration-Error",
+      "file": "test_data/renovate.json5",
+      "level": "LEVEL_HIGH",
+      "linter": "renovate",
+      "message": "Invalid configuration option: packageRules[0].matchUpdateTyped_badInfo",
+      "targetType": "renovate-config",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "validate",
+      "fileGroupName": "renovate-config",
+      "linter": "renovate",
+      "paths": [
+        "test_data/.renovaterc.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "renovate-config",
+      "linter": "renovate",
+      "paths": [
+        "test_data/renovate.json",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "renovate-config",
+      "linter": "renovate",
+      "paths": [
+        "test_data/renovate.json5",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
