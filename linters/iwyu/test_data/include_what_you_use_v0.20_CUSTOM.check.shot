@@ -9,7 +9,7 @@ exports[`Testing linter include-what-you-use test CUSTOM 1`] = `
       "fileGroupName": "c++-source",
       "linter": "include-what-you-use",
       "paths": [
-        "test.cc",
+        "test_data/test.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
