@@ -13,6 +13,16 @@ exports[`Testing linter detekt-explicit test basic_explicit 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
+    {
+      "command": "lint",
+      "fileGroupName": "kotlin",
+      "linter": "detekt-explicit",
+      "paths": [
+        "test_data/basic_explicit.in.kt",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
   ],
   "taskFailures": [],
   "unformattedFiles": [],

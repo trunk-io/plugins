@@ -7,6 +7,7 @@ exports[`Testing linter pmd test hello 1`] = `
       "code": "NoPackage",
       "column": "1",
       "file": "test_data/hello.in.java",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "pmd",
@@ -24,6 +25,7 @@ exports[`Testing linter pmd test hello 1`] = `
       "code": "UseUtilityClass",
       "column": "18",
       "file": "test_data/hello.in.java",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "pmd",
@@ -46,6 +48,16 @@ exports[`Testing linter pmd test hello 1`] = `
       "paths": [
         "test_data/hello.in.java",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint-java",
+      "fileGroupName": "java",
+      "linter": "pmd",
+      "paths": [
+        "test_data/hello.in.java",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

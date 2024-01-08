@@ -5,7 +5,7 @@ import { skipOS, TEST_DATA } from "tests/utils";
 customLinterFmtTest({
   linterName: "swiftformat",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   pathsToSnapshot: [path.join(TEST_DATA, "basic.swift")],
   skipTestIf: skipOS(["linux", "win32"]),
 });

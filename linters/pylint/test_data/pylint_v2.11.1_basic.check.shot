@@ -6,6 +6,7 @@ exports[`Testing linter pylint test basic 1`] = `
     {
       "code": "C0114",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0114",
       "level": "LEVEL_LOW",
       "line": "1",
@@ -16,6 +17,7 @@ exports[`Testing linter pylint test basic 1`] = `
     {
       "code": "C0103",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "3",
@@ -27,6 +29,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "code": "E0602",
       "column": "9",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:E0602",
       "level": "LEVEL_HIGH",
       "line": "4",
@@ -38,6 +41,7 @@ exports[`Testing linter pylint test basic 1`] = `
       "code": "E0602",
       "column": "7",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:E0602",
       "level": "LEVEL_HIGH",
       "line": "5",
@@ -48,6 +52,7 @@ exports[`Testing linter pylint test basic 1`] = `
     {
       "code": "C0103",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "6",
@@ -58,6 +63,7 @@ exports[`Testing linter pylint test basic 1`] = `
     {
       "code": "C0103",
       "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "http://pylint-messages.wikidot.com/messages:C0103",
       "level": "LEVEL_LOW",
       "line": "7",
@@ -74,6 +80,16 @@ exports[`Testing linter pylint test basic 1`] = `
       "paths": [
         "test_data/basic.in.py",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "pylint",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

@@ -7,6 +7,7 @@ exports[`Testing linter remark-lint test basic 1`] = `
       "code": "list-item-indent",
       "column": "4",
       "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "remark-lint",
@@ -31,6 +32,16 @@ exports[`Testing linter remark-lint test basic 1`] = `
       "paths": [
         "test_data/basic.in.md",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "remark-lint",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

@@ -3,7 +3,7 @@ import path from "path";
 import { fuzzyLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { FileIssue, LandingState } from "tests/types";
-import { skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 import { createFuzzyMatcher } from "tests/utils/landing_state";
 
 const preCheck = (driver: TrunkLintDriver) => {
@@ -74,16 +74,16 @@ const expectedDictionaryFileIssues = JSON.parse(
 fuzzyLinterCheckTest({
   linterName: "cspell",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   skipTestIf: skipOS(["darwin"]),
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedBasicFileIssues as FileIssue[], 25),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedBasicFileIssues as FileIssue[], 13),
   normalizeLandingState,
 });
 
 fuzzyLinterCheckTest({
   linterName: "cspell",
   testName: "dictionary",
-  args: "-a",
+  args: TEST_DATA,
   preCheck,
   skipTestIf: skipOS(["darwin"]),
   fileIssueAssertionCallback: createFuzzyMatcher(

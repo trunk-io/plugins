@@ -14,7 +14,7 @@ const versionGreaterThanOrEqual = (a: string, b: string) => {
 // NOTE(Tyler): Currently, taplo doesn't have a fully compatible download for Windows. We hope to enable it in the future.
 customLinterCheckTest({
   linterName: "taplo",
-  args: "-a -y",
+  args: `${TEST_DATA} -y`,
   pathsToSnapshot: [path.join(TEST_DATA, "basic.toml")],
   versionGreaterThanOrEqual,
 });

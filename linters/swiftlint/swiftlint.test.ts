@@ -1,11 +1,11 @@
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { skipOS } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 customLinterCheckTest({
   linterName: "swiftlint",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   skipTestIf: skipOS(["linux", "win32"]),
 });
 

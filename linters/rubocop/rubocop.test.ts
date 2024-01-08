@@ -22,7 +22,7 @@ const preCheck = (driver: TrunkLintDriver) => {
 customLinterCheckTest({
   linterName: "rubocop",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   preCheck,
   skipTestIf: skipOS(["darwin"]),
 });
@@ -30,7 +30,7 @@ customLinterCheckTest({
 customLinterFmtTest({
   linterName: "rubocop",
   testName: "basic",
-  args: "-a",
+  args: TEST_DATA,
   pathsToSnapshot: [path.join(TEST_DATA, "basic.rb")],
   preCheck,
   skipTestIf: skipOS(["darwin"]),

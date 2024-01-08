@@ -7,6 +7,7 @@ exports[`Testing linter biome test basic_check 1`] = `
       "code": "lint/style/useEnumInitializers",
       "column": "6",
       "file": "test_data/basic_check.in.ts",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "biome",
@@ -31,6 +32,16 @@ exports[`Testing linter biome test basic_check 1`] = `
       "paths": [
         "test_data/basic_check.in.ts",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

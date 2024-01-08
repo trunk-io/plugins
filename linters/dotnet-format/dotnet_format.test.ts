@@ -5,7 +5,7 @@ import { skipOS, TEST_DATA } from "tests/utils";
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 customLinterFmtTest({
   linterName: "dotnet-format",
-  args: "-a",
+  args: TEST_DATA,
   pathsToSnapshot: [
     path.join(TEST_DATA, "basic/basic.in.cs"),
     path.join(TEST_DATA, "basic/Program.cs"),

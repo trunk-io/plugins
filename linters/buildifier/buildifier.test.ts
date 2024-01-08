@@ -37,19 +37,19 @@ const writeConfigs = (driver: TrunkLintDriver) => {
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
 customLinterCheckTest({
   linterName: "buildifier",
-  args: "-a",
+  args: TEST_DATA,
   testName: "basic_check",
 });
 
 customLinterFmtTest({
   linterName: "buildifier",
-  args: "-a",
+  args: TEST_DATA,
   testName: "no_config",
   pathsToSnapshot: [path.join(TEST_DATA, "basic.bzl"), path.join(TEST_DATA, "add_tables.BUILD")],
 });
 customLinterFmtTest({
   linterName: "buildifier",
-  args: "-a",
+  args: TEST_DATA,
   testName: "with_config",
   pathsToSnapshot: [path.join(TEST_DATA, "add_tables.BUILD")],
   preCheck: writeConfigs,
