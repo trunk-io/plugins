@@ -7,6 +7,7 @@ exports[`Testing linter prettier test error 1`] = `
       "code": "SyntaxError",
       "column": "1",
       "file": "test_data/error.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "prettier",
