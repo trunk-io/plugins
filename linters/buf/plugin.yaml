@@ -68,6 +68,7 @@ lint:
           run: buf lint --path ${target} --error-format json
           success_codes: [0, 100]
           run_from: ${root_or_parent_with(buf.yaml)}
+          # sandbox_type: copy_targets
       direct_configs: [buf.yaml]
       suggest_if: config_present
       environment:
