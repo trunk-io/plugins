@@ -52,25 +52,25 @@ jobs:
       reruns: ${{ steps.parse.outputs.reruns }}
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Retrieve Test Outputs ubuntu
         id: download-ubuntu
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
         id: download-macos
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}macos-latest-test-results
 
       - name: Retrieve Test Outputs Windows
         id: download-windows
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}windows-latest-test-results
@@ -115,7 +115,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Setup Node
-        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
         with:
           node-version: 18
 
@@ -232,10 +232,10 @@ jobs:
     if: needs.upload_test_results.outputs.reruns != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Setup Node
-        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
         with:
           node-version: 18
 
@@ -263,7 +263,7 @@ jobs:
           git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
 
       - name: Create App Token for TrunkBuild App (Internal)
-        uses: tibdex/github-app-token@v1
+        uses: tibdex/github-app-token@v2
         id: generate-token
         with:
           app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
