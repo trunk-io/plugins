@@ -81,7 +81,7 @@ lint:
         - buf.gen.yaml
         - buf.work.yaml
       issue_url_format: https://docs.buf.build/lint/rules#{}
-      known_good_version: 1.5.0
+      known_good_version: 1.17.0 # newer version is needed to support Windows fully
       version_command:
         parse_regex: ${semver}
         run: buf --version
