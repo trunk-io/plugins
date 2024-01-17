@@ -241,6 +241,7 @@ describe("Explicitly enabled healthcheck", () => {
         "trunk-share-with-everyone",
         "trunk-single-player-auto-upgrade",
         "trunk-single-player-auto-on-upgrade",
+        "trunk-whoami",
       ]
     `);
   });
