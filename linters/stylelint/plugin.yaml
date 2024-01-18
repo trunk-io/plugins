@@ -31,12 +31,16 @@ lint:
           run: stylelint --fix ${target}
           in_place: true
       direct_configs:
-        - .stylelintrc
+        - stylelint.config.js
+        - .stylelintrc.js
+        - stylelint.config.mjs
+        - .stylelintrc.mjs
+        - stylelint.config.cjs
+        - .stylelintrc.cjs
         - .stylelintrc.json
         - .stylelintrc.yml
         - .stylelintrc.yaml
-        - .stylelintrc.js
-        - .stylelintrc.cjs
+        - .stylelintrc
       suggest_if: config_present
       affects_cache:
         - package.json
