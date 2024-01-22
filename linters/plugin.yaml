@@ -550,6 +550,10 @@ lint:
       extensions:
         - xib
 
+    - name: xml
+      extensions:
+        - xml
+
     - name: yaml
       extensions:
         - yaml
