@@ -159,10 +159,6 @@ jobs:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters/'
     timeout-minutes: 90
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [Linux, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
