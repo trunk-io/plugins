@@ -317,14 +317,18 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     name: Aggregate Test Results
-    needs: [linter_tests, tool_tests, repo_tests]
+    needs: [linter_tests_macos, linter_tests_linux, tool_tests, repo_tests]
     steps:
       - run: |
-          linters="${{ needs.linter_tests.result }}"
           repos="${{ needs.repo_tests.result }}"
           tools="${{ needs.tool_tests.result }}"
-          if [[ $linters != "success" && $linters != "skipped" ]]; then
-            echo "Detected failure in linter tests"
+          linters_macos = ${{ needs.linter_tests_macos.result }}
+          linters_linux = ${{ needs.linter_tests_linux.result }}
+          if [[ $linters_macos != "success" && $linters_macos != "skipped" ]]; then
+            echo "Detected failure in linter macos tests"
+            exit 1
+          elif [[ $linters_linux != "success" && $linters_linux != "skipped" ]]; then
+            echo "Detected failure in linter linux tests"
             exit 1
           elif [[ $tools != "success" && $tools != "skipped" ]]; then
             echo "Detected failure in tool tests"
