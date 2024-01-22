@@ -115,50 +115,18 @@ jobs:
           echo "out=${action_files}" >> "$GITHUB_OUTPUT"
 
   # Run tests against all linters for known_good_version and latest version
-  linter_tests_linux:
-    name: Linter Tests Linux
-    runs-on: public-amd64-2xlarge
+  linter_tests:
+    name: Linter Tests ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
       'linters/'
     timeout-minutes: 90
-    steps:
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      - name: Linter Tests
-        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
-        uses: ./.github/actions/linter_tests
-        with:
-          linter-version: KnownGoodVersion
-          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-
-      - name: Linter Tests Latest
-        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
-        if:
-          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
-          needs.detect_changes.outputs.linters-files != ''
-        uses: ./.github/actions/linter_tests
-        with:
-          linter-version: Latest
-          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          append-args: ${{ needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-
-  # Run tests against all linters for known_good_version and latest version
-  linter_tests_macos:
-    name: Linter Tests macOS
-    runs-on: [self-hosted, macOS]
-    needs: detect_changes
-    if:
-      needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'linters/'
-    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [Linux, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -188,7 +156,7 @@ jobs:
 
   tool_tests:
     name: Tool Tests
-    runs-on: public-amd64-2xlarge
+    runs-on: [self-hosted, "${{ matrix.os }}"]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
@@ -214,7 +182,7 @@ jobs:
 
   action_tests:
     name: Action Tests
-    runs-on: public-amd64-2xlarge
+    runs-on: [self-hosted, Linux]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
@@ -313,18 +281,14 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     name: Aggregate Test Results
-    needs: [linter_tests_macos, linter_tests_linux, tool_tests, repo_tests]
+    needs: [linter_tests, tool_tests, repo_tests]
     steps:
       - run: |
+          linters="${{ needs.linter_tests.result }}"
           repos="${{ needs.repo_tests.result }}"
           tools="${{ needs.tool_tests.result }}"
-          linters_macos = ${{ needs.linter_tests_macos.result }}
-          linters_linux = ${{ needs.linter_tests_linux.result }}
-          if [[ $linters_macos != "success" && $linters_macos != "skipped" ]]; then
-            echo "Detected failure in linter macos tests"
-            exit 1
-          elif [[ $linters_linux != "success" && $linters_linux != "skipped" ]]; then
-            echo "Detected failure in linter linux tests"
+          if [[ $linters != "success" && $linters != "skipped" ]]; then
+            echo "Detected failure in linter tests"
             exit 1
           elif [[ $tools != "success" && $tools != "skipped" ]]; then
             echo "Detected failure in tool tests"
