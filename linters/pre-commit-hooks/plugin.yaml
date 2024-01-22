@@ -15,7 +15,7 @@ lint:
           output: rewrite
           in_place: true
           formatter: true
-          run: end-of-file-fixer ${target}
+          run: python3 end-of-file-fixer ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -23,7 +23,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-added-large-files ${target}
+          run: python3 check-added-large-files ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -31,7 +31,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-ast ${target}
+          run: python3 check-ast ${target}
           success_codes: [0, 1]
           files:
             - python
@@ -39,7 +39,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-builtin-literals ${target}
+          run: python3 check-builtin-literals ${target}
           success_codes: [0, 1]
           files:
             - python
@@ -47,7 +47,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-case-conflict ${target}
+          run: python3 check-case-conflict ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -55,7 +55,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-docstring-first ${target}
+          run: python3 check-docstring-first ${target}
           success_codes: [0, 1]
           files:
             - python
@@ -63,7 +63,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-json ${target}
+          run: python3 check-json ${target}
           success_codes: [0, 1]
           files:
             - json
@@ -71,7 +71,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: check-merge-conflict ${target}
+          run: python3 check-merge-conflict ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -79,7 +79,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-shebang-scripts-are-executable ${target}
+          run: python3 check-shebang-scripts-are-executable ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -87,7 +87,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-symlinks ${target}
+          run: python3 check-symlinks ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -95,7 +95,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-toml ${target}
+          run: python3 check-toml ${target}
           success_codes: [0, 1]
           files:
             - toml
@@ -103,7 +103,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-vcs-permalinks ${target}
+          run: python3 check-vcs-permalinks ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -111,7 +111,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-xml ${target}
+          run: python3 check-xml ${target}
           success_codes: [0, 1]
           files:
             - xml
@@ -119,7 +119,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: check-yaml ${target}
+          run: python3 check-yaml ${target}
           success_codes: [0, 1]
           files:
             - yaml
@@ -127,7 +127,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: debug-statement-hook ${target}
+          run: python3 debug-statement-hook ${target}
           success_codes: [0, 1]
           files:
             - python
@@ -135,7 +135,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: destroyed-symlinks ${target}
+          run: python3 destroyed-symlinks ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -143,7 +143,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stderr
-          run: detect-private-key ${target}
+          run: python3 detect-private-key ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -151,7 +151,7 @@ lint:
           enabled: false
           output: pass_fail
           read_output_from: stdout
-          run: mixed-line-ending --fix=no ${target}
+          run: python3 mixed-line-ending --fix=no ${target}
           success_codes: [0, 1]
           files:
             - ALL
@@ -160,7 +160,7 @@ lint:
           output: rewrite
           in_place: true
           formatter: true
-          run: mixed-line-ending --fix=no ${target}
+          run: python3 mixed-line-ending --fix=no ${target}
           success_codes: [0, 1]
           files:
             - ALL
