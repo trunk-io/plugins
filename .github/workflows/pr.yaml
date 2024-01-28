@@ -56,7 +56,7 @@ jobs:
           echo "TEST_UPSTREAM=${upstream}" >>"${GITHUB_ENV}"
 
       - name: Detect changed paths
-        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
+        uses: dorny/paths-filter@0bc4621a3135347011ad047f9ecf449bf72ce2bd # v3.0.0
         id: filter
         with:
           base: ${{ env.TEST_UPSTREAM }}
@@ -231,7 +231,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
@@ -257,7 +257,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
