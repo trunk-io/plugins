@@ -45,6 +45,7 @@ trunk check enable {linter}
 | C#              | [dotnet-format]                                                                                                      |
 | CircleCI Config | [circleci]                                                                                                           |
 | Cloudformation  | [cfnlint], [checkov]                                                                                                 |
+| CMake           | [cmake-format]                                                                                                       |
 | CSS, SCSS       | [stylelint], [prettier]                                                                                              |
 | Cue             | [cue-fmt]                                                                                                            |
 | Docker          | [hadolint], [checkov]                                                                                                |
@@ -98,6 +99,7 @@ trunk check enable {linter}
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [clang-tidy]: https://clang.llvm.org/extra/clang-tidy/
 [clippy]: https://github.com/rust-lang/rust-clippy#readme
+[cmake-format]: https://cmake-format.readthedocs.io/en/latest
 [codespell]: https://github.com/codespell-project/codespell#readme
 [cspell]: https://github.com/streetsidesoftware/cspell#readme
 [cue-fmt]: https://cuelang.org/
