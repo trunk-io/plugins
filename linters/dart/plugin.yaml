@@ -45,5 +45,7 @@ lint:
           output: rewrite
           run: dart fix --apply ${target}
           batch: true
+          fix_prompt: Quick fix available
+          fix_verb: fix
           in_place: true
           success_codes: [0]
