@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter dart test basic 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "fix",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fix",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "format",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

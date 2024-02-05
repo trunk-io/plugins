@@ -1,0 +1,49 @@
+version: 0.1
+downloads:
+  - name: dart
+    downloads:
+      - os:
+          linux: linux
+          macos: macos
+          windows: windows
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://storage.googleapis.com/dart-archive/channels/stable/release/${version}/sdk/dartsdk-${os}-${cpu}-release.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: dart
+      download: dart
+      known_good_version: 3.2.6
+      shims: [dart, dartaotruntime]
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+lint:
+  files:
+    - name: dart
+      extensions: [dart]
+  definitions:
+    - name: dart
+      main_tool: dart
+      files: [dart]
+      known_good_version: 3.2.6
+      suggest_if: never
+      affects_cache:
+        - analysis_options.yaml
+        - pubspec.yaml
+      commands:
+        - name: format
+          output: rewrite
+          run: dart format ${target}
+          batch: true
+          in_place: true
+          formatter: true
+          success_codes: [0]
+        - name: fix
+          output: rewrite
+          run: dart fix --apply ${target}
+          batch: true
+          in_place: true
+          success_codes: [0]
