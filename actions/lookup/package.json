@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "node-jq": "^4.3.0"
+  }
+}

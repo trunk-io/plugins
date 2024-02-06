@@ -1,0 +1,9 @@
+version: 0.1
+actions:
+  definitions:
+    - id: lookup
+      display_name: Lookup
+      description: Use jq syntax to look up a Trunk config setting
+      run: trunk config print | node ${cwd}/parse.js ${@}
+      runtime: node
+      packages_file: package.json
