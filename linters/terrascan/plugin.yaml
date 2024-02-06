@@ -52,4 +52,3 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      direct_configs: [terrascan_config.toml]
