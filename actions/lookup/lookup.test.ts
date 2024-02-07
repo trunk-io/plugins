@@ -1,6 +1,8 @@
+// trunk-ignore-all(eslint/import/no-extraneous-dependencies)
+// trunk-ignore-all(eslint/node/no-extraneous-import)
+import semver from "semver";
 import { actionRunTest } from "tests";
 import { TrunkActionDriver } from "tests/driver";
-import semver from "semver";
 
 const testCallback = async (driver: TrunkActionDriver) => {
   const result = await driver.runAction(".cli.version");
