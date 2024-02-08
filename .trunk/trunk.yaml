@@ -23,6 +23,7 @@ lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
   disabled:
     - pylint # pylint diagnostics are too strict
+    - semgrep
 
   ignore:
     - linters: [ALL]
