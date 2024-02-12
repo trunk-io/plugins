@@ -36,7 +36,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks]                                              |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks], [trunk-toolbox]                             |
 | Ansible         | [ansible-lint]                                                                                                       |
 | Apex            | [pmd]                                                                                                                |
 | Bash            | [shellcheck], [shfmt]                                                                                                |
@@ -175,9 +175,10 @@ trunk check enable {linter}
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
 [trufflehog]: https://github.com/trufflesecurity/trufflehog/
-[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
-[yamllint]: https://github.com/adrienverge/yamllint#readme
-[yapf]: https://github.com/google/yapf#readme
+
+[trunk-toolbox] : https://github.com/trunk-io/toolbox/ [txtpbfmt]:
+https://github.com/protocolbuffers/txtpbfmt/ [yamllint]:
+https://github.com/adrienverge/yamllint#readme [yapf]: https://github.com/google/yapf#readme
 
 <br/>
 
