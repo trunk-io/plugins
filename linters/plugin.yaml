@@ -137,6 +137,12 @@ lint:
         - yml
       required_yaml_keys: [AWSTemplateFormatVersion]
 
+    - name: cmake
+      extensions:
+        - cmake
+      filenames:
+        - CMakeLists.txt
+
     - name: css
       extensions:
         - css
