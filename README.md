@@ -174,11 +174,11 @@ trunk check enable {linter}
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
-[trufflehog]: https://github.com/trufflesecurity/trufflehog/
-
-[trunk-toolbox] : https://github.com/trunk-io/toolbox/ [txtpbfmt]:
-https://github.com/protocolbuffers/txtpbfmt/ [yamllint]:
-https://github.com/adrienverge/yamllint#readme [yapf]: https://github.com/google/yapf#readme
+[trufflehog]: https://github.com/trufflesecurity/trufflehog#readme
+[trunk-toolbox]: https://github.com/trunk-io/toolbox#readme
+[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt#readme
+[yamllint]: https://github.com/adrienverge/yamllint#readme
+[yapf]: https://github.com/google/yapf#readme
 
 <br/>
 
