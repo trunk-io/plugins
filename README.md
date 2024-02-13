@@ -84,7 +84,7 @@ trunk check enable {linter}
 | Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                    |
 
-[actionlint]: https://github.com/rhysd/actionlint#readme
+[actionlint]: https://trunk.io/linters/ci-cd/actionlint
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
 [autopep8]: https://github.com/hhatto/autopep8#readme
 [bandit]: https://github.com/PyCQA/bandit#readme
@@ -94,7 +94,7 @@ trunk check enable {linter}
 [buf]: https://github.com/bufbuild/buf#readme
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
 [cfnlint]: https://github.com/aws-cloudformation/cfn-lint#readme
-[checkov]: https://github.com/bridgecrewio/checkov#readme
+[checkov]: https://trunk.io/linters/security/checkov
 [circleci]: https://github.com/CircleCI-Public/circleci-cli#readme
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [clang-tidy]: https://clang.llvm.org/extra/clang-tidy/
@@ -110,9 +110,9 @@ trunk check enable {linter}
 [dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://github.com/eslint/eslint#readme
-[flake8]: https://github.com/PyCQA/flake8#readme
+[flake8]: https://trunk.io/linters/python/flake8
 [git-diff-check]: https://git-scm.com/docs/git-diff
-[gitleaks]: https://github.com/zricethezav/gitleaks#readme
+[gitleaks]: https://trunk.io/linters/security/gitleaks
 [gofmt]: https://pkg.go.dev/cmd/gofmt
 [gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
@@ -148,7 +148,7 @@ trunk check enable {linter}
 [renovate]: https://github.com/renovatebot/renovate#readme
 [rome]: https://github.com/rome/tools#readme
 [rubocop]: https://github.com/rubocop/rubocop#readme
-[ruff]: https://github.com/charliermarsh/ruff
+[ruff]: https://trunk.io/linters/python/ruff
 [rufo]: https://github.com/ruby-formatter/rufo#readme
 [rustfmt]: https://github.com/rust-lang/rustfmt#readme
 [scalafmt]: https://github.com/scalameta/scalafmt#readme
@@ -173,10 +173,10 @@ trunk check enable {linter}
 [terragrunt]: https://terragrunt.gruntwork.io/docs/getting-started/quick-start/
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
-[trivy]: https://github.com/aquasecurity/trivy#readme
-[trufflehog]: https://github.com/trufflesecurity/trufflehog/
+[trivy]: https://trunk.io/linters/security/trivy
+[trufflehog]: https://trunk.io/linters/security/trufflehog
 [txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
-[yamllint]: https://github.com/adrienverge/yamllint#readme
+[yamllint]: https://trunk.io/linters/yaml/yamllint
 [yapf]: https://github.com/google/yapf#readme
 
 <br/>
