@@ -5,6 +5,9 @@
     "test": "jest",
     "trunk": "trunk"
   },
+  "dependencies": {
+    "ip": "^2.0.0"
+  },
   "devDependencies": {
     "@jest/console": "^29.4.1",
     "@jest/reporters": "^29.4.1",
