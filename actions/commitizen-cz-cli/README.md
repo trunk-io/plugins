@@ -6,18 +6,41 @@ https://github.com/commitizen/cz-cli
 
 Under the default configuration, Commitizen will pull its configuration from commitlint config files, as there is a high likelihood both tools will be used together. The below sample configuration will apply the [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) standard for both Commitizen and commitlint.
 
-1. `echo "{"path": "@commitlint/cz-commitlint"}" > .czrc`
+1. Create a `.czrc` Commitizen config file with the following contents:
+
+    ``` JSON
+    {"path": "@commitlint/cz-commitlint"}
+    ```
+
 1. If you don't already have a commitlint config, create one of the following:
-    - JS config:
-      - `echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js`
-    - YAML config:
-      - `echo "extends: \"@commitlint/config-conventional\"" > .commitlintrc.yaml`
+    - JS config (`commitlint.config.js`)
+
+        ``` JavaScript
+        {extends: ['@commitlint/config-conventional']}
+        ```
+
+    - YAML config: (`.commitlintrc.yaml`)
+
+        ``` YAML
+        extends: "@commitlint/config-conventional"
+        ```
+
 1. If you wish to install a git hook that will run Commitizen upon `git commit`:
-    - `trunk actions enable commitizen-cz-cli`
+
+    ``` Shell
+    trunk actions enable commitizen-cz-cli
+    ```
+
 1. If you wish to have the `commitizen` and `cz` CLIs available for your project:
-    - `trunk tools enable commitizen-cz-cli`
+
+    ``` Shell
+    trunk tools enable commitizen-cz-cli
+    ```
 1. If you wish to enable `commitlint` to lint your commit contents:
-    - `trunk actions enable commitlint`
+
+    ``` Shell
+    trunk actions enable commitlint
+    ```
 
 ## Overriding configuration
 
