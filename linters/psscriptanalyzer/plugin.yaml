@@ -1,0 +1,26 @@
+version: 0.1
+lint:
+  definitions:
+    - name: psscriptanalyzer
+      files: [powershell]
+      main_tool: pwsh
+      # NOTE: Similar to dotnet-format, pwsh and PSScriptAnalyzer are versioned differently
+      # but there doesn't appear to be a way to handle that right now.
+      known_good_version: 7.4.1
+      commands:
+        - name: Invoke-ScriptAnalyzer
+          run: pwsh -f ${cwd}/lint.ps1 -FilePath ${target} -OutputPath ${tmpfile}
+          output: sarif
+          read_output_from: tmp_file
+          batch: false
+          success_codes: [0]
+        - name: Invoke-Formatter
+          run: pwsh -f ${cwd}/format.ps1 -FilePath ${target}
+          output: rewrite
+          formatter: true
+          in_place: true
+          batch: false
+          success_codes: [0]
+      direct_configs: [PSScriptAnalyzerSettings.ps1]
+      suggest_if: config_present
+      run_linter_from: workspace
