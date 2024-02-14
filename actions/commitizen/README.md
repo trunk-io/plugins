@@ -1,4 +1,4 @@
-# Commitizen (cz-cli)
+# Commitizen
 
 https://github.com/commitizen/cz-cli
 

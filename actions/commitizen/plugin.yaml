@@ -1,8 +1,8 @@
 version: 0.1
 actions:
   definitions:
-    - id: commitizen-cz-cli
-      display_name: Commitizen (cz-cli)
+    - id: commitizen
+      display_name: Commitizen
       description: Assistant for writing commit messages that obey a standard
       runtime: node
       packages_file: package.json
@@ -12,7 +12,7 @@ actions:
         - git_hooks: [prepare-commit-msg]
 tools:
   definitions:
-    - name: commitizen-cz-cli
+    - name: commitizen
       runtime: node
       package: commitizen
       extra_packages:
