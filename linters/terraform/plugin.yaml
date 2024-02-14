@@ -10,7 +10,7 @@ lint:
           output: terraform_validate
           target: ${parent}
           run: terraform validate -json
-          run_linter_from: directory
+          run_from: ${target_directory}
           success_codes: [0, 1]
           enabled: false
         - name: fmt
@@ -19,8 +19,7 @@ lint:
           run: terraform fmt -no-color -
           stdin: true
           success_codes: [0]
-          # cache_results: true
-          # TODO - need cache_results to be by verb
+          cache_results: true
       suggest_if: never
       environment:
         - name: PATH
@@ -63,7 +62,6 @@ lint:
       files: [terraform]
       type: terraform_validate
       command: [terraform, validate, -json]
-      run_linter_from: directory
       download: terraform
       success_codes: [0, 1]
       environment:

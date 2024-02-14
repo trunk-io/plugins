@@ -1,0 +1,35 @@
+version: 0.1
+lint:
+  definitions:
+    - name: dotnet-format
+      files: [c#]
+      main_tool: dotnet
+      # NOTE(Tyler): dotnet and dotnet-format are versioned differently, so the version here is
+      # actually the dotnet version. We could specify a verison in a post-install hook via
+      # https://download.visualstudio.microsoft.com/download/pr/0f17575a-a6b0-4365-9b79-64db70022d23/56e0da10678e4b2cad0cba0a83a561af/dotnet-sdk-7.0.400-win-x86.zip,
+      # but we don't support that yet.
+      known_good_version: 7.0.400
+      commands:
+        - name: format
+          run: dotnet format --no-restore --include ${target}
+          output: rewrite
+          in_place: true
+          formatter: true
+          batch: true
+          success_codes: [0]
+          run_from: ${root_or_parent_with_regex((.+\.csproj)|(.+\.sln))}
+      run_timeout: 1m
+      environment:
+        # This is added in an attempt to address hanging errors on Mac.
+        - name: DOTNET_CLI_TELEMETRY_OPTOUT
+          value: 1
+        - name: DOTNET_GENERATE_ASPNET_CERTIFICATE
+          value: 0
+        - name: DOTNET_ROLL_FORWARD_ON_NO_CANDIDATE_FX
+          value: 0
+        - name: DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE
+          value: 1
+      affects_cache:
+        - buf.lock
+        - .editorconfig
+      suggest_if: never

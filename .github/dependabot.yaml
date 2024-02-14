@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      # trunk-ignore(yamllint/quoted-strings)
+      time: "08:00" # UTC
+    labels: [🤖 dependabot]
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 2
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      # trunk-ignore(yamllint/quoted-strings)
+      time: "08:00" # UTC
+    labels: [🤖 dependabot]
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 2

@@ -3,6 +3,7 @@ actions:
   definitions:
     - id: npm-check
       display_name: NPM Check
+      description: Generate notifications if node_modules are out of date
       runtime: node
       packages_file: package.json
       triggers:

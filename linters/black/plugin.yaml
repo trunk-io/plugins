@@ -9,7 +9,7 @@ tools:
 lint:
   definitions:
     - name: black
-      files: [python, jupyter]
+      files: [python, jupyter, python-interface]
       commands:
         - name: format
           output: rewrite

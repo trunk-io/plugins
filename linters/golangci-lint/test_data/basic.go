@@ -1,10 +1,9 @@
 package main
 
-import "fmt"
+import "time"
 
 // ✋✋✋✋
 // this is the main function 🏃
 func main() {
-	fmt.Println("✋ World!")
-
+	time.Parse("asdf", "")
 }

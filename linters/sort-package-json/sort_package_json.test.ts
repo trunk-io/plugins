@@ -6,7 +6,7 @@ import { TEST_DATA } from "tests/utils";
 customLinterFmtTest({
   linterName: "sort-package-json",
   testName: "basic",
-  args: "--all",
+  args: "-a",
   pathsToSnapshot: [path.join(TEST_DATA, "package.json")],
 });
 
@@ -18,6 +18,6 @@ const preCheck = (driver: TrunkLintDriver) => {
 // Run with check to assert error behavior when malformed json
 customLinterCheckTest({
   linterName: "sort-package-json",
-  args: "--all",
+  args: "-a",
   preCheck,
 });

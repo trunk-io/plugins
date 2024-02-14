@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter prettier test basic 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "yaml",
+      "linter": "prettier",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "prettier",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

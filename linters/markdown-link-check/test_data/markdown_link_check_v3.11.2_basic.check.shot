@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter markdown-link-check test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "404",
+      "column": "12",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "markdown-link-check",
+      "message": "#bad-header",
+      "targetType": "markdown",
+    },
+    {
+      "code": "0",
+      "column": "12",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "markdown-link-check",
+      "message": "https://nowhere.com/bad-link",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "markdown-link-check",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "markdown-link-check",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

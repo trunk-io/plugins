@@ -19,6 +19,7 @@ export type CheckType = "check" | "fmt";
  * 3. Snapshots: use all previously written snapshot versions.
  * 4. string: a manually specified version. Note that this will apply to all tests.
  */
+// trunk-ignore(eslint/@typescript-eslint/no-redundant-type-constituents): Added for clarity.
 export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 
 /**
@@ -30,7 +31,7 @@ export interface TestingArguments {
   /** Path to a cli binary. */
   cliPath?: string;
   /** Version of linters to enable and test against. */
-  linterVersion?: LinterVersion | string;
+  linterVersion?: LinterVersion;
   /** Whether tests should create new snapshot files if snapshots already exist
    * even if a match is found. */
   dumpNewSnapshot: boolean;
@@ -68,7 +69,7 @@ export interface FileIssue {
   code: string;
   level: string;
   // bucket: string;
-  // issueClass: string;
+  issueClass: string;
   // below_threshold: boolean;
   linter: string;
   targetType: string;
@@ -127,11 +128,22 @@ export interface LandingState {
 /**** Result post-processing ****/
 
 /**
+ * The reason why a test might fail (predictive).
+ * - unknown: unknown, usually a test timeout, discrepancy, or other setup error -> requires investigation
+ * - task_failure: a task failure occurred, whether during execution or linter install -> requires investigation
+ * - passed: only during post-processing, if at least some of the tests passed -> can still generate a snapshot
+ * - assertion_failure: the expected diagnostics vary -> we can usually generate a snapshot proactively
+ * - skipped: the test was skipped -> defer to other tests
+ */
+export type FailureMode = "unknown" | "passed" | "task_failure" | "assertion_failure" | "skipped";
+
+/**
  * Which OS the test was run on. Must be kept in sync with the matrix in nightly.yaml.
  */
 export enum TestOS {
-  LINUX = "ubuntu-latest",
-  MAC_OS = "macos-latest",
+  LINUX = "ubuntu",
+  MAC_OS = "macos",
+  WINDOWS = "windows",
 }
 
 /**
@@ -149,18 +161,21 @@ export type TestResultStatus = "passed" | "failed" | "skipped" | "mismatch";
  */
 export interface TestResult {
   version?: string;
-  testNames: string[];
+  // A map of test fullName to suspected failure mode. Is the composite result across multiple OSs.
+  testFailureMetadata: Map<string, FailureMode>;
   testResultStatus: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
+  testFilePath: string;
 }
 
 /**
  * A summary of all tests run with an individual OS (or the merged result of all OSs).
- * Includes a map of linter name to linter test results.
+ * Includes a map of linter/tool name to linter/tool test results.
  */
 export interface TestResultSummary {
   os: TestOS | "composite";
-  linters: Map<string, TestResult>;
+  testResults: Map<string, TestResult>;
 }
 
 /**
@@ -179,4 +194,6 @@ export interface FailedVersion {
   version?: string;
   status: TestResultStatus;
   allVersions: Map<TestOS, Set<string>>;
+  failedPlatforms: Set<TestOS>;
+  rerunningTest: boolean;
 }

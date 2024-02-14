@@ -35,10 +35,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: buf format ${target}
+          run: buf format -w --path=${target}
           success_codes: [0, 100]
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       environment:
         - name: PATH
           # needs system path for `diff`
@@ -65,8 +67,7 @@ lint:
           output: buf
           run: buf lint --path ${target} --error-format json
           success_codes: [0, 100]
-          run_linter_from: root_file
-          run_from_root_target: buf.yaml
+          run_from: ${root_or_parent_with(buf.yaml)}
       direct_configs: [buf.yaml]
       suggest_if: config_present
       environment:
@@ -80,7 +81,7 @@ lint:
         - buf.gen.yaml
         - buf.work.yaml
       issue_url_format: https://docs.buf.build/lint/rules#{}
-      known_good_version: 1.1.0
+      known_good_version: 1.17.0 # newer version is needed to support Windows fully
       version_command:
         parse_regex: ${semver}
         run: buf --version
@@ -97,11 +98,10 @@ lint:
             buf breaking --against .git#branch=${upstream-ref} --error-format json
             --disable-symlinks
           success_codes: [0, 1, 100]
-          run_linter_from: root_file
+          run_from: ${root_or_parent_with(buf.work.yaml)}
           # buf is configured to not follow symlinks, and relies on git state, so don't cache results
           sandbox_type: copy_targets
           cache_results: false
-          run_from_root_target: buf.work.yaml
       direct_configs: [buf.yaml, buf.work.yaml]
       environment:
         - name: PATH

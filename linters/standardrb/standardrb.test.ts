@@ -1,6 +1,10 @@
-import { customLinterCheckTest } from "tests";
+import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { skipOS } from "tests/utils";
+import { osTimeoutMultiplier, skipOS } from "tests/utils";
+
+// Note that the first-time ruby/rufo download can sometimes take a while.
+// Ruby build is quite slow on Mac, so only run tests on linux for now
+jest.setTimeout(600000 * osTimeoutMultiplier); // 300s or 900s
 
 const preCheck = (driver: TrunkLintDriver) => {
   if (process.platform == "win32") {
@@ -15,9 +19,14 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // Ruby build is quite slow on Mac, so only run tests on linux for now
-customLinterCheckTest({
+linterCheckTest({
   linterName: "standardrb",
-  args: "-a",
+  preCheck,
+  skipTestIf: skipOS(["darwin"]),
+});
+
+linterFmtTest({
+  linterName: "standardrb",
   preCheck,
   skipTestIf: skipOS(["darwin"]),
 });

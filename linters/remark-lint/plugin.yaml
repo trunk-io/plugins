@@ -28,7 +28,9 @@ lint:
           formatter: true
           success_codes: [0]
           in_place: true
+          batch: true
           cache_results: true
+
         - name: lint
           output: sarif
           run: remark ${target} --frail --output --report=vfile-reporter-json
@@ -40,6 +42,7 @@ lint:
             runtime: python
             run: python3 ${cwd}/parse.py
       symlinks:
+        # TODO(Tyler): Remove this block once we can do hierarchical sandboxes.
         # symlink the tool node_modules into the sandbox. this enables
         # the hermetic tool to run correctly with plugins
         - from: ${linter_dir}/node_modules

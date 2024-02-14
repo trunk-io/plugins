@@ -1,4 +1,5 @@
 version: 0.1
+# Because this tool can be functionally and semantically distinct, we do not merge it with linters/prisma/plugin.yaml
 tools:
   definitions:
     - name: prisma

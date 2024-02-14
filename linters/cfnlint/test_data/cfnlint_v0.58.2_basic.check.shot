@@ -7,6 +7,7 @@ exports[`Testing linter cfnlint test basic 1`] = `
       "code": "E3030",
       "column": "7",
       "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
       "level": "LEVEL_HIGH",
       "line": "19",
@@ -18,6 +19,7 @@ exports[`Testing linter cfnlint test basic 1`] = `
       "code": "E3002",
       "column": "7",
       "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
       "level": "LEVEL_HIGH",
       "line": "21",
@@ -34,6 +36,16 @@ exports[`Testing linter cfnlint test basic 1`] = `
       "paths": [
         "test_data/basic.in.yaml",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "cloudformation",
+      "linter": "cfnlint",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

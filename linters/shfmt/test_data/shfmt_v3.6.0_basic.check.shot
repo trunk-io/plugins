@@ -7,6 +7,7 @@ exports[`Testing linter shfmt test basic 1`] = `
       "code": "parse",
       "column": "1",
       "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "shfmt",

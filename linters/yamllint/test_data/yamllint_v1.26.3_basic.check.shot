@@ -7,6 +7,7 @@ exports[`Testing linter yamllint test basic 1`] = `
       "code": "quoted-strings",
       "column": "6",
       "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "issueUrl": "https://yamllint.readthedocs.io/en/stable/rules.html",
       "level": "LEVEL_HIGH",
       "line": "2",
@@ -23,6 +24,16 @@ exports[`Testing linter yamllint test basic 1`] = `
       "paths": [
         "test_data/basic.in.yaml",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "yaml",
+      "linter": "yamllint",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

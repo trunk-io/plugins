@@ -29,7 +29,6 @@ const extractLintActionFields = ({
   paths: _paths,
   ...rest
 }: LintAction): LintAction => ({
-  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   paths: _paths.map((originalPath) => normalizePlatformPath(originalPath)!),
   ...rest,
 });
@@ -39,7 +38,6 @@ const extractTaskFailureFields = (
   { detailPath, message, ...rest }: TaskFailure,
 ): TaskFailure => ({
   ...rest,
-  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   message: normalizePlatformPath(message)!,
   details: detailPath
     ? fs.readFileSync(path.resolve(sandboxPath, detailPath), { encoding: "utf-8" })
@@ -71,12 +69,12 @@ const normalizeAutofix = ({ replacements: _replacements = [], ...rest }: Autofix
 const normalizeMessage = (message?: string) =>
   message
     ?.replace(fs.realpathSync(os.tmpdir()), "/tmp")
+    .replace(`${process.env.LOCALAPPDATA ?? ""}\\Temp`, "/tmp")
     .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
     .trim();
 
-// trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
 const normalizeFile = (file: string) => normalizePlatformPath(file.replace(".dup.", "."))!;
 
 const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({

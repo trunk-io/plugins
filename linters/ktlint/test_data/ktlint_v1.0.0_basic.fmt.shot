@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter ktlint test basic 1`] = `
+"class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState) // note the spacing
+    setContentView(R.layout.activity_main)
+  }
+}
+"
+`;

@@ -1,0 +1,23 @@
+version: 0.1
+lint:
+  definitions:
+    - name: deno
+      files: [javascript, typescript, markdown, json]
+      commands:
+        - name: format
+          output: rewrite
+          run: deno fmt ${target}
+          success_codes: [0, 1]
+          cache_results: true
+          formatter: true
+          batch: true
+          in_place: true
+      tools: [deno]
+      suggest_if: config_present
+      direct_configs:
+        - deno.json
+        - deno.jsonc
+      known_good_version: 1.36.4
+      version_command:
+        parse_regex: deno ${semver} .*
+        run: deno --version

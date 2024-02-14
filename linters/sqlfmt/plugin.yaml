@@ -23,3 +23,4 @@ lint:
           read_output_from: stderr
           formatter: true
           in_place: true
+          batch: true

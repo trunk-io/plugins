@@ -15,23 +15,23 @@ tools:
     - name: trufflehog
       download: trufflehog
       shims: [trufflehog]
-      known_good_version: 3.31.3
+      known_good_version: 3.59.0
 lint:
   definitions:
     - name: trufflehog
       files: [ALL]
       tools: [trufflehog]
-      known_good_version: 3.31.3
-      known_bad_versions: [3.41.0, 3.45.0]
+      known_good_version: 3.59.0
+      known_bad_versions: [3.41.0, 3.45.0, 3.60.1, 3.60.2]
       commands:
         - name: lint
           output: sarif
-          run: trufflehog filesystem --json --fail --no-verification --no-update ${target}
+          run: trufflehog filesystem --json --fail --only-verified --no-update ${target}
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
           batch: true
-          cache_results: true
+          cache_ttl: 1h
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
@@ -47,20 +47,21 @@ lint:
     - name: trufflehog-git
       files: [ALL]
       download: trufflehog
-      known_good_version: 3.40.0
-      known_bad_versions: [3.41.0]
+      known_good_version: 3.59.0
+      known_bad_versions: [3.41.0, 3.60.1, 3.60.2]
       hold_the_line: false
       commands:
         - name: lint
           output: sarif
           target: .
           run:
-            trufflehog git --json --fail --no-verification --no-update file://${target}
-            --since-commit ${upstream-ref}
+            trufflehog git --json --fail --only-verified --no-update file://${target} --since-commit
+            ${upstream-ref}
           disable_upstream: true
           read_output_from: stdout
           success_codes: [0, 183]
           is_security: true
+          # If we mixed commit hashes into the cache keys, we could cache this, but we don't.
           cache_results: false
           parser:
             runtime: python
@@ -73,11 +74,16 @@ lint:
         parse_regex: trufflehog ${semver}
         run: trufflehog --version
 
+# This action runs trufflehog-git as a pre-commit hook in order to make sure that secrets don't show up in individual commits,
+# as opposed to the primary trufflehog linter integration, which is not git-aware. In order to run this action, you must also run
+# 'trunk check enable trufflehog-git'
 actions:
   definitions:
     - id: trufflehog-pre-commit
-      description: Don't allow secrets in commits (via Trufflehog)
       display_name: Trufflehog Pre-Commit Hook
+      description:
+        Don't allow secrets in commits (via Trufflehog). Enable linter 'trufflehog-git' before
+        running
       run: trunk check -t "git-commit" --upstream=HEAD --filter=trufflehog-git
       interactive: optional
       triggers:

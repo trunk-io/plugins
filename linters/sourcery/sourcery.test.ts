@@ -1,7 +1,8 @@
+import * as fs from "fs";
 import path from "path";
-import { linterCheckTest } from "tests";
+import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { skipCPUOS, TEST_DATA } from "tests/utils";
+import { REPO_ROOT, skipCPUOS, TEST_DATA } from "tests/utils";
 
 // // You must login in order to use sourcery
 const preCheck = (driver: TrunkLintDriver) => {
@@ -18,10 +19,30 @@ const preCheck = (driver: TrunkLintDriver) => {
 lint:`,
   );
   driver.writeFile(trunkYamlPath, newContents);
+
+  // NOTE(Tyler): Sourcery relies on checking if the repo is open source for its pricing model.
+  // The sandbox tests run on a subset of the main repo, and it needs access to the repo root .git folder in order to run.
+  driver.deleteFile(".git");
+  // trunk-ignore(semgrep): This path is safe.
+  fs.symlinkSync(path.join(REPO_ROOT, ".git"), path.join(driver.getSandbox(), ".git"));
 };
 
-linterCheckTest({
+customLinterCheckTest({
   linterName: "sourcery",
+  // Deliberately use -a here because our test setup involves messing with .git, which obscures the state of upstream.
+  args: "-a --cache=false",
   preCheck,
-  skipTestIf: skipCPUOS([{ os: "linux", cpu: "arm64" }]),
+  skipTestIf: (version) => {
+    if (!process.env.SOURCERY_TOKEN) {
+      // NOTE(Tyler): This is the simplest approach in order to streamline local development and running from forks.
+      console.log(
+        "Skipping sourcery test. Must provide SOURCERY_TOKEN environment variable in order to run.",
+      );
+      return true;
+    }
+    return skipCPUOS([
+      { os: "linux", cpu: "arm64" },
+      { os: "win32", cpu: "x64" },
+    ])(version);
+  },
 });

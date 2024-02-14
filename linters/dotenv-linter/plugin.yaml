@@ -41,6 +41,7 @@ lint:
           in_place: true
           cache_results: true
           formatter: true
+          batch: true
       suggest_if: files_present
       environment:
         - name: PATH

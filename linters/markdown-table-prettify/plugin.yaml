@@ -1,0 +1,23 @@
+version: 0.1
+tools:
+  definitions:
+    - name: markdown-table-prettify
+      known_good_version: 3.6.0
+      runtime: node
+      package: markdown-table-prettify
+      shims: [markdown-table-prettify]
+lint:
+  definitions:
+    - name: markdown-table-prettify
+      files: [markdown]
+      main_tool: markdown-table-prettify
+      known_good_version: 3.6.0
+      suggest_if: never
+      commands:
+        - name: format
+          output: rewrite
+          formatter: true
+          run: markdown-table-prettify --silent
+          read_output_from: stdout
+          stdin: true
+          success_codes: [0]

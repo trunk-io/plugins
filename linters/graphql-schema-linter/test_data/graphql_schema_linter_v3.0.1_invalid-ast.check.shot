@@ -7,6 +7,7 @@ exports[`Testing linter graphql-schema-linter test invalid-ast 1`] = `
       "code": "invalid-graphql-schema",
       "column": "1",
       "file": "test_data/invalid-ast.in.graphqls",
+      "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "9",
       "linter": "graphql-schema-linter",
@@ -22,6 +23,16 @@ exports[`Testing linter graphql-schema-linter test invalid-ast 1`] = `
       "paths": [
         "test_data/invalid-ast.in.graphqls",
       ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "graphql-schema",
+      "linter": "graphql-schema-linter",
+      "paths": [
+        "test_data/invalid-ast.in.graphqls",
+      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

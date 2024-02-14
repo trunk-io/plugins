@@ -5,12 +5,13 @@ import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
 // actionlint is specially triggered to run on github workflow files
-const preCheck = (driver: TrunkLintDriver) => {
+const preCheck = async (driver: TrunkLintDriver) => {
   // trunk-ignore-begin(semgrep): driver.getSandbox() is generated during testing and is safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, file), path.join(".github/workflows", file));
   });
   // trunk-ignore-end(semgrep)
+  await driver.gitDriver?.add(".").commit("moved");
 };
 
-customLinterCheckTest({ linterName: "actionlint", preCheck });
+customLinterCheckTest({ linterName: "actionlint", args: ".github", preCheck });

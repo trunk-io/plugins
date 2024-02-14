@@ -1,0 +1,32 @@
+version: 0.1
+tools:
+  definitions:
+    - name: cmake-format
+      runtime: python
+      package: cmake-format
+      shims: [cmake-format]
+      known_good_version: 0.6.13
+lint:
+  definitions:
+    - name: cmake-format
+      files: [cmake]
+      commands:
+        - name: fix
+          formatter: true
+          output: rewrite
+          success_codes: [0, 1]
+          run: cmake-format -i ${target}
+          in_place: true
+      tools: [cmake-format]
+      direct_configs:
+        - .cmake-format.json
+        - .cmake-format.py
+        - .cmake-format.yaml
+        - cmake-format.json
+        - cmake-format.py
+        - cmake-format.yaml
+      suggest_if: config_present
+      known_good_version: 0.6.13
+      version_command:
+        parse_regex: ${semver}
+        run: cmake-format --version

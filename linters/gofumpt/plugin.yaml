@@ -14,11 +14,12 @@ lint:
       commands:
         - name: format
           output: rewrite
-          run: gofumpt ${target}
+          run: gofumpt -w ${target}
           success_codes: [0]
-          stdin: true
           cache_results: true
           formatter: true
+          in_place: true
+          batch: true
       # gofumpt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
       known_good_version: 0.5.0
       suggest_if: never

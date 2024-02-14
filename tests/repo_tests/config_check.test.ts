@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import path from "path";
-import { setupDriver } from "tests";
-import { REPO_ROOT } from "tests/utils";
+import { setupLintDriver } from "tests";
+import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 
 // Avoid strictly typing composite config
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
@@ -9,6 +9,8 @@ import { REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
+
+jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
 
 /**
  * This test runs 'trunk config print' from the root of the repository to verify a healthy config.
@@ -18,12 +20,12 @@ import { REPO_ROOT } from "tests/utils";
  */
 describe("Global config health check", () => {
   // Step 1: Define test setup and teardown
-  const driver = setupDriver(REPO_ROOT, {
+  const driver = setupLintDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.13.1-beta.25",
+    trunkVersion: "1.18.2-beta.7",
     // ThenChange plugin.yaml
   });
 
@@ -147,7 +149,6 @@ describe("Global config health check", () => {
         "dotenv-linter",
         "git-diff-check",
         "gofmt",
-        "gokart",
         "golangci-lint",
         "hadolint",
         "haml-lint",
@@ -166,7 +167,6 @@ describe("Global config health check", () => {
         "taplo",
         "terrascan",
         "tflint",
-        "tfsec",
         "trivy",
         "trufflehog",
         "yamllint",
@@ -180,7 +180,7 @@ describe("Global config health check", () => {
  */
 describe("Explicitly enabled healthcheck", () => {
   // Step 1: Define test setup and teardown
-  const driver = setupDriver(REPO_ROOT, {
+  const driver = setupLintDriver(REPO_ROOT, {
     setupGit: false,
     setupTrunk: true,
   });
@@ -241,6 +241,7 @@ describe("Explicitly enabled healthcheck", () => {
         "trunk-share-with-everyone",
         "trunk-single-player-auto-upgrade",
         "trunk-single-player-auto-on-upgrade",
+        "trunk-whoami",
       ]
     `);
   });

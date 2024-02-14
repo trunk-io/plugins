@@ -17,6 +17,14 @@ downloads:
 tools:
   definitions:
     - name: gt
+      version_constraint: ">=1.0.0"
+      known_good_version: 1.0.0
+      runtime: node
+      package: "@withgraphite/graphite-cli"
+      shims:
+        - name: gt
+          target: gt
+    - name: gt
       known_good_version: 0.20.19
       download: gt
       shims:

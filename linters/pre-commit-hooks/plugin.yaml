@@ -1,0 +1,166 @@
+version: 0.1
+lint:
+  definitions:
+    - name: pre-commit-hooks
+      known_good_version: 4.4.0
+      runtime: python
+      package: pre-commit-hooks
+      suggest_if: never
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
+      commands:
+        - name: end-of-file-fixer
+          enabled: false
+          output: rewrite
+          in_place: true
+          formatter: true
+          run: end-of-file-fixer ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-added-large-files
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-added-large-files ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-ast
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-ast ${target}
+          success_codes: [0, 1]
+          files:
+            - python
+        - name: check-builtin-literals
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-builtin-literals ${target}
+          success_codes: [0, 1]
+          files:
+            - python
+        - name: check-case-conflict
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-case-conflict ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-docstring-first
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-docstring-first ${target}
+          success_codes: [0, 1]
+          files:
+            - python
+        - name: check-json
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-json ${target}
+          success_codes: [0, 1]
+          files:
+            - json
+        - name: check-merge-conflict
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: check-merge-conflict ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-shebang-scripts-are-executable
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-shebang-scripts-are-executable ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-symlinks
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-symlinks ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-toml
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-toml ${target}
+          success_codes: [0, 1]
+          files:
+            - toml
+        - name: check-vcs-permalinks
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-vcs-permalinks ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: check-xml
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-xml ${target}
+          success_codes: [0, 1]
+          files:
+            - xml
+        - name: check-yaml
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: check-yaml ${target}
+          success_codes: [0, 1]
+          files:
+            - yaml
+        - name: debug-statement-hook
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: debug-statement-hook ${target}
+          success_codes: [0, 1]
+          files:
+            - python
+        - name: destroyed-symlinks
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: destroyed-symlinks ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: detect-private-key
+          enabled: false
+          output: pass_fail
+          read_output_from: stderr
+          run: detect-private-key ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: mixed-line-ending
+          enabled: false
+          output: pass_fail
+          read_output_from: stdout
+          run: mixed-line-ending --fix=no ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL
+        - name: trailing-whitespace
+          enabled: false
+          output: rewrite
+          in_place: true
+          formatter: true
+          run: mixed-line-ending --fix=no ${target}
+          success_codes: [0, 1]
+          files:
+            - ALL

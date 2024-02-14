@@ -1,7 +1,20 @@
 name: Pull Request
 on: [pull_request, workflow_dispatch]
 
-permissions: read-all
+permissions:
+  actions: write
+  checks: write
+  contents: read
+  deployments: read
+  id-token: write
+  issues: write
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: write
+  repository-projects: read
+  security-events: read
+  statuses: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -23,10 +36,13 @@ jobs:
       tools: ${{ steps.filter.outputs.tools }}
       all-tools: ${{ steps.post-filter-tools.outputs.out }}
       tools-files: ${{ steps.post-filter-tools-paths.outputs.out }}
+      actions: ${{ steps.filter.outputs.actions }}
+      all-actions: ${{ steps.post-filter-actions.outputs.out }}
+      actions-files: ${{ steps.post-filter-actions-paths.outputs.out }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Determine upstream
         run: |
@@ -52,14 +68,21 @@ jobs:
         if: steps.filter.outputs.all-linters == 'true'
         run: |
           echo "Run all linter tests"
-          echo "out=linters" >> "$GITHUB_OUTPUT"
+          echo "out=linters/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest all tool tests
         id: post-filter-tools
         if: steps.filter.outputs.all-tools == 'true'
         run: |
           echo "Run all tool tests"
-          echo "out=tools" >> "$GITHUB_OUTPUT"
+          echo "out=tools/" >> "$GITHUB_OUTPUT"
+
+      - name: Suggest all action tests
+        id: post-filter-actions
+        if: steps.filter.outputs.all-actions == 'true'
+        run: |
+          echo "Run all action tests"
+          echo "out=actions/" >> "$GITHUB_OUTPUT"
 
       - name: Suggest normalized individual linter paths
         id: post-filter-paths
@@ -81,36 +104,36 @@ jobs:
           echo "Running tests on individual tools: ${tool_files}"
           echo "out=${tool_files}" >> "$GITHUB_OUTPUT"
 
+      - name: Suggest normalized individual action paths
+        id: post-filter-actions-paths
+        if: steps.filter.outputs.actions
+        run: |
+          action_files=$(echo ${{steps.filter.outputs.actions_files}} |
+          grep -oP "\Kactions/.*?(?=/)" |
+          uniq | tr '\n' ' ')
+          echo "Running tests on individual actions: ${action_files}"
+          echo "out=${action_files}" >> "$GITHUB_OUTPUT"
+
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
-    name: Linter Tests
-    runs-on: ${{ matrix.os }}
+    name: Linter Tests ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
-      'linters'
+      'linters/'
     timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [Linux, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-
-      - name: Cache tool downloads
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
-        if:
-          needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters
-          == 'linters'
         with:
           linter-version: KnownGoodVersion
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
@@ -133,38 +156,118 @@ jobs:
 
   tool_tests:
     name: Tool Tests
-    runs-on: ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
-      'tools'
+      'tools/'
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [Linux, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-
-      - name: Cache tool downloads
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
-        with:
-          path: /tmp/plugins_testing_download_cache
-          # No need to key on trunk version unless we change how we store downloads.
-          key: trunk-${{ runner.os }}
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
         # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
         uses: ./.github/actions/tool_tests
-        if:
-          (failure() || success()) && needs.detect_changes.outputs.tools == 'true' ||
-          needs.detect_changes.outputs.all-tools == 'tools'
         with:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  action_tests:
+    name: Action Tests
+    runs-on: [self-hosted, Linux]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
+      'actions/'
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Action Tests
+        uses: ./.github/actions/action_tests
+        with:
+          append-args:
+            ${{ needs.detect_changes.outputs.all-actions }} ${{
+            needs.detect_changes.outputs.actions-files }} --
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  trunk_check_runner:
+    name: Trunk Check runner [linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      checks: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Trunk Check
+        uses: trunk-io/trunk-action@e92f97fdf03e4187a317da955e6f5bdb0a606c6f
+        env:
+          TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
+
+  # Run Windows tests for modified linters and tools
+  # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
+  windows_linter_tests:
+    name: Windows Linter Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.linters == 'true'
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Cache tool downloads
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
+
+      - name: Linter Tests
+        # Run tests using Latest with any modified linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          cli-path: ${{ github.workspace }}\trunk.ps1
+          append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  windows_tool_tests:
+    name: Windows Tool Tests
+    runs-on: windows-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.tools == 'true'
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Cache tool downloads
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        with:
+          path: /tmp/plugins_testing_download_cache
+          key: trunk-${{ runner.os }}
+
+      - name: Tool Tests
+        # Run tests using KnownGoodVersion with any modified tools
+        uses: ./.github/actions/tool_tests
+        with:
+          append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
+          cli-path: ${{ github.workspace }}\trunk.ps1
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run repo healthcheck tests

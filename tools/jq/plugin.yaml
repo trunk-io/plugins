@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: jq
+    args:
+      semver: ${version}=>(?:jq-|)?(?P<semver>.*)
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+        url: https://github.com/jqlang/jq/releases/download/jq-${semver}/jq-linux64
+      - os:
+          macos: darwin
+        url: https://github.com/jqlang/jq/releases/download/jq-${semver}/jq-osx-amd64
+      - os:
+          windows: win
+        url: https://github.com/jqlang/jq/releases/download/jq-${semver}/jq-win64.exe
+tools:
+  definitions:
+    - name: jq
+      known_good_version: 1.7
+      download: jq
+      shims:
+        - name: jq
+          target: jq

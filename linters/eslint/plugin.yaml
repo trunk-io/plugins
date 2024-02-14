@@ -23,6 +23,7 @@ lint:
         - .eslintrc.cjs
         - .eslintrc.js
         - .eslintrc.json
+        - .eslintrc.mjs
         - .eslintrc.yaml
         - .eslintrc.yml
       suggest_if: config_present

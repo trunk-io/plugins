@@ -44,8 +44,7 @@ lint:
           # 6 - no config file detected
           # 7 - error logged
           success_codes: [0, 2, 7]
-          run_linter_from: root_file
-          run_from_root_target: go.mod
+          run_from: ${root_or_parent_with(go.mod)}
           disable_upstream: true # TODO(Sam): re-enable the upstream for golang (needs test coverage)
       suggest_if: files_present
       direct_configs:

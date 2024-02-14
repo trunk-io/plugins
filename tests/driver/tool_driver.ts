@@ -1,11 +1,9 @@
 import Debug from "debug";
 import * as fs from "fs";
 import path from "path";
-import { SetupSettings } from "tests/driver";
+import { GenericTrunkDriver, SetupSettings } from "tests/driver/driver";
 import { ARGS, REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
-
-import { GenericTrunkDriver } from "./driver";
 
 const baseDebug = Debug("Driver");
 
@@ -24,7 +22,7 @@ const getDebugger = (tool?: string) => {
 };
 
 /**
- * The result of running a 'trunk check' or 'trunk fmt' command.
+ * The result of invoking a tool.
  */
 export interface TrunkToolRunResult {
   exitCode: number;
@@ -67,12 +65,16 @@ lint:
 `;
   }
 
+  async setUpWithInstall() {
+    await this.setUp();
+    await this.installTool();
+  }
+
   /**
    * Setup a sandbox test directory by copying in test contents and conditionally:
    * 1. Creating a git repo
    * 2. Dumping a newly generated trunk.yaml
    * 3. Enabling the specified 'tool'
-   * 4. Sync to make sure it's available
    */
   async setUp() {
     await super.setUp();
@@ -101,24 +103,6 @@ lint:
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
       }
-
-      // Sync the tool to ensure it's available
-      await this.runTrunk(["tools", "install"]);
-      const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
-        ? "dev-tools"
-        : "tools";
-      if (
-        !fs.existsSync(
-          path.resolve(
-            this.sandboxPath,
-            ".trunk",
-            tools_subdir,
-            `${this.tool}${process.platform == "win32" ? ".bat" : ""}`,
-          ),
-        )
-      ) {
-        throw new Error(`Could not install or find installed ${this.tool}`);
-      }
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
       if ("stdout" in (error as any)) {
@@ -129,6 +113,60 @@ lint:
       }
     }
   }
+
+  async installTool() {
+    // Enable tested tool if specified
+    if (!this.tool || !this.sandboxPath) {
+      console.error("Tool or sandbox path not specified - we should not be here!");
+      return;
+    }
+    try {
+      // Sync the tool to ensure it's available
+      await this.runTrunk(["tools", "install", this.tool, "--ci"]);
+      const tools_subdir = fs.existsSync(path.resolve(this.sandboxPath ?? "", ".trunk/dev-tools"))
+        ? "dev-tools"
+        : "tools";
+      for (const shim of this.getShims()) {
+        if (
+          !fs.existsSync(
+            path.resolve(
+              this.sandboxPath,
+              ".trunk",
+              tools_subdir,
+              `${shim}${process.platform == "win32" ? ".bat" : ""}`,
+            ),
+          )
+        ) {
+          throw new Error(`Could not install or find installed ${shim}`);
+        }
+      }
+      this.debug("Installed %s", this.tool);
+    } catch (error) {
+      console.warn(`Failed to enable ${this.tool}`, error);
+      if ("stdout" in (error as any)) {
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+        console.log("Error output:", ((error as any).stdout as Buffer).toString());
+      } else {
+        console.log("Error keys:  ", Object.keys(error as object));
+      }
+    }
+  }
+
+  runInstall = async (
+    toolName: string,
+  ): Promise<{
+    stdout: string;
+    stderr: string;
+    exitCode: number;
+  }> => {
+    try {
+      const { stdout, stderr } = await this.runTrunk(["tools", "install", toolName, "--ci"]);
+      return { exitCode: 0, stdout, stderr };
+    } catch (e: any) {
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+      return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+    }
+  };
 
   /**
    * Parse the result of 'getFullTrunkConfig' in the context of 'ARGS' to identify the desired tool version to enable.
@@ -193,5 +231,21 @@ lint:
       };
       // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
     }
+  }
+
+  getShims(): string[] {
+    // get the full trunk config
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    const fullTrunkConfig = this.getFullTrunkConfig();
+    // get the tool definition
+    const toolDefinition = fullTrunkConfig.tools.definitions.find(
+      ({ name }: { name: string }) => name === this.tool,
+    );
+    // get the shims
+    const shims = toolDefinition?.shims ?? [];
+    return shims.map(({ name }: { name: string }) => name) as string[];
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
   }
 }

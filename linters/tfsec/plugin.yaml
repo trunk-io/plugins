@@ -28,19 +28,28 @@ lint:
       files: [terraform]
       tools: [tfsec]
       known_good_version: 1.28.1
-      suggest_if: files_present
+      suggest_if: never
       commands:
         - name: lint
           output: sarif
           target: ${parent}
-          run: tfsec ${target} --format=sarif
-          run_linter_from: directory
+          run: tfsec ${target} --format=sarif --ignore-hcl-errors
+          run_from: ${target_directory}
           is_security: true
           success_codes: [0, 1]
           read_output_from: stdout
+          parser:
+            runtime: python
+            run: python3 ${cwd}/parse.py
       environment:
         - name: PATH
           list: ["${linter}"]
       version_command:
         parse_regex: v${semver}
         run: tfsec --version
+      direct_configs:
+        - tfsec.yml
+        - tfsec.yaml
+        - .tfsec/config.json
+        - .tfsec/config.yml
+        - .tfsec/config.yaml

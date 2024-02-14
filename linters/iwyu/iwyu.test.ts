@@ -1,5 +1,4 @@
-import * as fs from "fs";
-import path from "path";
+import * as path from "path";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS, TEST_DATA } from "tests/utils";
@@ -13,11 +12,13 @@ const preCheck = (driver: TrunkLintDriver) => {
   const currentContents = driver.readFile(trunkYamlPath);
   // Because include-what-you-use requires greater build-level awareness for full functionality, and we can't rely on certain
   // system-installed tools, this test provides some simple overrides to exercise the basic functionality.
-  const newContents = currentContents.concat(`  definitions:
+  const newContents = currentContents.concat(`  compile_commands_roots:
+    - ${TEST_DATA}
+  definitions:
     - name: include-what-you-use
       commands:
         - name: lint
-          run_linter_from: compile_command
+          run_from: \${compile_command}
           run: include-what-you-use -Xiwyu --no_fwd_decls \${compile_command}
           disable_upstream: true
           cache_results: false
@@ -25,27 +26,20 @@ const preCheck = (driver: TrunkLintDriver) => {
   compile_commands: json`);
   driver.writeFile(trunkYamlPath, newContents);
 
-  // Based on plugin.yaml, trunk expects compile_commands.json to exist at the workspace root.
-  // However, we expect .trunk/trunk.yaml to exist at the workspace root as well, so we move each file up to the workspace.
-  // trunk-ignore-begin(semgrep): paths used here are safe
-  fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA)).forEach((file) => {
-    driver.moveFile(path.join(TEST_DATA, file), file);
-  });
-  // trunk-ignore-end(semgrep)
-
   // Resolve templates in compile_commands.json
-  const oldCompileContents = driver.readFile("compile_commands.json");
+  const compileCommandsPath = path.join(TEST_DATA, "compile_commands.json");
+  const oldCompileContents = driver.readFile(compileCommandsPath);
   const newCompileContents = oldCompileContents.replace(
     /\$\{EXECUTION_ROOT\}/g,
-    driver.getSandbox(),
+    `${path.resolve(driver.getSandbox(), TEST_DATA)}`,
   );
-  driver.writeFile("compile_commands.json", newCompileContents);
+  driver.writeFile(compileCommandsPath, newCompileContents);
 };
 
 customLinterCheckTest({
   linterName: "include-what-you-use",
   args: "-a -y",
-  pathsToSnapshot: ["test.cc"],
+  pathsToSnapshot: [path.join(TEST_DATA, "test.cc")],
   versionGreaterThanOrEqual,
   preCheck,
   skipTestIf: skipOS(["win32"]),

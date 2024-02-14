@@ -40,8 +40,9 @@ lint:
           run: clang-tidy --export-fixes=${tmpfile} ${target} -p ${compile_commands_dir}
           success_codes: [0, 1]
           cache_results: true
-          run_linter_from: compile_command
+          run_from: ${compile_command}
           read_output_from: tmp_file
+          max_concurrency: 4 # Clang-tidy can be very memory intensive, limit the default concurrency.
       tools: [clang-tidy]
       suggest_if: config_present
       direct_configs: [.clang-tidy]
@@ -50,7 +51,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}/bin"]
-      issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/{}.html
+      issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/list.html
       known_good_version: 16.0.3
       version_command:
         parse_regex: ${semver}

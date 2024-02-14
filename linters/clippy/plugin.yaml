@@ -16,7 +16,7 @@ lint:
           target: ${parent_with(Cargo.toml)}
           run: cargo clippy --message-format json --locked -- --cap-lints=warn --no-deps
           success_codes: [0, 101, 383]
-          run_linter_from: directory
+          run_from: ${target_directory}
           disable_upstream: true
       affects_cache:
         - Cargo.toml

@@ -4,11 +4,33 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
 {
   "issues": [
     {
+      "code": "clang-diagnostic-error",
+      "column": "10",
+      "file": "test_data/a_includes.cc",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "clang-tidy",
+      "message": "'invalid_case_style.hh' file not found",
+      "targetType": "c++-source",
+    },
+    {
+      "code": "clang-diagnostic-error",
+      "column": "10",
+      "file": "test_data/b_includes.cc",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "clang-tidy",
+      "message": "'invalid_case_style.hh' file not found",
+      "targetType": "c++-source",
+    },
+    {
       "autofixOptions": [
         {
           "replacements": [
             {
-              "filePath": "basic.cc",
+              "filePath": "test_data/basic.cc",
               "length": "6",
               "offset": "29",
               "replacementText": "kUnused",
@@ -18,8 +40,9 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       ],
       "code": "readability-identifier-naming",
       "column": "30",
-      "file": "basic.cc",
-      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html",
+      "file": "test_data/basic.cc",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/list.html",
       "level": "LEVEL_MEDIUM",
       "line": "1",
       "linter": "clang-tidy",
@@ -31,7 +54,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
         {
           "replacements": [
             {
-              "filePath": "invalid_case_style.hh",
+              "filePath": "test_data/invalid_case_style.hh",
               "length": "16",
               "offset": "20",
               "replacementText": "InvalidCaseStyle",
@@ -41,8 +64,9 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       ],
       "code": "readability-identifier-naming",
       "column": "7",
-      "file": "invalid_case_style.hh",
-      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html",
+      "file": "test_data/invalid_case_style.hh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/list.html",
       "level": "LEVEL_MEDIUM",
       "line": "3",
       "linter": "clang-tidy",
@@ -54,7 +78,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
         {
           "replacements": [
             {
-              "filePath": "test.hh",
+              "filePath": "test_data/test.hh",
               "offset": "14",
               "replacementText": "static ",
             },
@@ -63,8 +87,9 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       ],
       "code": "readability-convert-member-functions-to-static",
       "column": "15",
-      "file": "test.hh",
-      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/readability-convert-member-functions-to-static.html",
+      "file": "test_data/test.hh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://clang.llvm.org/extra/clang-tidy/checks/list.html",
       "level": "LEVEL_MEDIUM",
       "line": "2",
       "linter": "clang-tidy",
@@ -78,7 +103,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
       "paths": [
-        "a_includes.cc",
+        "test_data/a_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -87,7 +112,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
       "paths": [
-        "b_includes.cc",
+        "test_data/b_includes.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -96,7 +121,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       "fileGroupName": "c++-source",
       "linter": "clang-tidy",
       "paths": [
-        "basic.cc",
+        "test_data/basic.cc",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -105,7 +130,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       "fileGroupName": "c++-header",
       "linter": "clang-tidy",
       "paths": [
-        "invalid_case_style.hh",
+        "test_data/invalid_case_style.hh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -114,7 +139,7 @@ exports[`Testing linter clang-tidy test test_config 1`] = `
       "fileGroupName": "c++-header",
       "linter": "clang-tidy",
       "paths": [
-        "test.hh",
+        "test_data/test.hh",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },

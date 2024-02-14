@@ -1,0 +1,29 @@
+version: 0.1
+tools:
+  definitions:
+    - name: markdown-link-check
+      runtime: node
+      package: markdown-link-check
+      shims: [markdown-link-check]
+      known_good_version: 3.11.2
+lint:
+  definitions:
+    - name: markdown-link-check
+      files: [markdown]
+      tools: [markdown-link-check]
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.
+          output: sarif
+          run: markdown-link-check -q "${target}"
+          success_codes: [0, 1]
+          cache_results: false
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/markdown-link-check/parse.py --target="${target}"
+      suggest_if: never
+      known_good_version: 3.11.2
+      version_command:
+        parse_regex: ${semver}
+        run: markdown-link-check --version

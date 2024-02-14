@@ -1,21 +1,10 @@
 version: 0.1
-downloads:
-  - name: bazel-differ
-    executable: true
-    downloads:
-      - os:
-          linux: linux
-          macos: darwin
-        cpu:
-          x86_64: x86_64
-          arm_64: arm64
-        url: https://github.com/ewhauser/bazel-differ/releases/download/v${version}/bazel-differ-${os}-${cpu}
-      # no windows download
 tools:
   definitions:
     - name: bazel-differ
-      download: bazel-differ
+      package: github.com/ewhauser/bazel-differ/cli
+      runtime: go
       known_good_version: 0.0.5
       shims:
         - name: bazel-differ
-          target: bazel-differ
+          target: cli

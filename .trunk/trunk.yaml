@@ -2,7 +2,9 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.14.2-beta.1
+  version: 1.19.1-beta.15
+  shell_hooks:
+    enforce: true
 
 api:
   address: api.trunk-staging.io:8443
@@ -15,14 +17,13 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v0.0.6
+      ref: v1.0.2
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
-  enabled: []
-
   disabled:
     - pylint # pylint diagnostics are too strict
+    - semgrep
 
   ignore:
     - linters: [ALL]
@@ -31,6 +32,8 @@ lint:
         - "**/test_data/**"
 
 actions:
+  # Uncomment to enable more verbose action logs
+  # output_level: verbose
   definitions:
     - id: repo-tests
       display_name: Repo Tests
@@ -74,3 +77,10 @@ actions:
     - remove-release-snapshots
     - repo-tests
     - tool-test-helper
+tools:
+  enabled:
+    - clangd-indexing-tools@17.0.3
+    - clangd@17.0.3
+  runtimes:
+    # expose shims in .trunk/tools
+    - node

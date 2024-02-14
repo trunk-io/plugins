@@ -13,6 +13,16 @@ exports[`Testing linter git-diff-check test conflict 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "git-diff-check",
+      "paths": [
+        "test_data/conflict.in.txt",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
   ],
   "taskFailures": [],
   "unformattedFiles": [],

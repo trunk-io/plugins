@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter stylelint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "10",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "20",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "23",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "27",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+    {
+      "code": "rule-empty-line-before",
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "stylelint",
+      "message": "Expected empty line before rule",
+      "targetType": "css",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fix",
+      "fileGroupName": "css",
+      "linter": "stylelint",
+      "paths": [
+        "test_data/basic.in.css",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "css",
+      "linter": "stylelint",
+      "paths": [
+        "test_data/basic.in.css",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "css",
+      "linter": "stylelint",
+      "paths": [
+        "test_data/basic.in.css",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.css",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "stylelint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

@@ -9,7 +9,7 @@ lint:
     - name: circleci
       files: [circleci-config]
       tools: [circleci]
-      known_good_version: 0.1.22770
+      known_good_version: 0.1.28811
       suggest_if: never
       commands:
         - name: validate

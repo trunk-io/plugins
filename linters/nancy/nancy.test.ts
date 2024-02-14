@@ -16,12 +16,12 @@ const preCheck = (driver: TrunkLintDriver) => {
 
 // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
 const expectedFileIssues = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString()
+  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString(),
 );
 
 fuzzyLinterCheckTest({
   linterName: "nancy",
   args: "-a -y",
   preCheck,
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 24),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 18),
 });

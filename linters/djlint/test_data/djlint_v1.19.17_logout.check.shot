@@ -22,6 +22,16 @@ exports[`Testing linter djlint test logout 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
+    {
+      "command": "lint",
+      "fileGroupName": "html",
+      "linter": "djlint",
+      "paths": [
+        "test_data/logout.in.html",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
   ],
   "taskFailures": [],
   "unformattedFiles": [

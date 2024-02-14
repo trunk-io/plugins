@@ -10,5 +10,5 @@
     "git-lfs": "latest",
     "ghcr.io/trunk-io/devcontainer-feature/trunk": "latest"
   },
-  "onCreateCommand": "npm ci && trunk install"
+  "onCreateCommand": "npm ci"
 }

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter prettier test error 1`] = `
+{
+  "issues": [
+    {
+      "code": "SyntaxError",
+      "column": "1",
+      "file": "test_data/error.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "prettier",
+      "message": "Implicit map keys need to be followed by map values",
+      "targetType": "yaml",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "yaml",
+      "linter": "prettier",
+      "paths": [
+        "test_data/error.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
