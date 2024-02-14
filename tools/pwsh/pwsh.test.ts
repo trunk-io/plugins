@@ -7,5 +7,5 @@ toolTest({
       command: ["pwsh", "--version"],
       expectedOut: "PowerShell 7.4.1",
     }),
-  ]
+  ],
 });
