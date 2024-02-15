@@ -1,0 +1,24 @@
+version: 0.1
+actions:
+  definitions:
+    - id: commitizen
+      display_name: Commitizen
+      description: Assistant for writing commit messages that obey a standard
+      runtime: node
+      packages_file: package.json
+      run: cz --hook
+      interactive: true
+      triggers:
+        - git_hooks: [prepare-commit-msg]
+tools:
+  definitions:
+    - name: commitizen
+      runtime: node
+      package: commitizen
+      extra_packages:
+        - "@commitlint/cli"
+        - "@commitlint/config-conventional"
+        - "@commitlint/cz-commitlint"
+        - inquirer
+      shims: [commitizen, cz]
+      known_good_version: 4.3.0
