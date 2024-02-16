@@ -1,0 +1,10 @@
+version: 0.1
+actions:
+  definitions:
+    - id: bazel-build
+      display_name: Bazel Build
+      description:
+        Run 'bazel build //...' before git push
+      run: bazel build //...
+      triggers:
+        - git_hooks: [pre-push]
