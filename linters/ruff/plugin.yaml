@@ -39,13 +39,23 @@ lint:
             run: python3 ${cwd}/ruff_to_sarif.py 1
           batch: true
           success_codes: [0, 1]
+        - name: format
+          output: rewrite
+          run: ruff format ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: true
+          formatter: true
+          enabled: false
       tools: [ruff]
       direct_configs: [ruff.toml]
       affects_cache:
         - pyproject.toml
         - setup.cfg
         - tox.ini
-      known_good_version: 0.0.250
+      known_good_version: 0.2.1
       suggest_if: files_present
       issue_url_format: https://docs.astral.sh/ruff/rules/#{}
       version_command:
