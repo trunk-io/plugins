@@ -1,6 +1,6 @@
 import { linterCheckTest, linterFmtTest } from "tests";
-import { skipOS } from "tests/utils";
 import { TrunkLintDriver } from "tests/driver";
+import { skipOS } from "tests/utils";
 
 linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic"] });
 
