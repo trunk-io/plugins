@@ -203,6 +203,7 @@ trunk actions enable {action}
 | [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/README.md)   | automatically configure git to use .git-blame-ignore-revs  |
 | [`npm-check`](actions/npm-check/README.md)                           | check whether NPM installation is up to date               |
 | [`yarn-check`](actions/yarn-check/README.md)                         | check whether Yarn installation is up to date              |
+| [`bazel-build`](actions/bazel/README.md)                         | run `bazel build //...` before `git push`              |
 
 ### Supported Tools
 
