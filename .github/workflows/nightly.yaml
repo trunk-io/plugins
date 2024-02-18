@@ -43,7 +43,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -117,7 +117,7 @@ jobs:
 
       - name: Get Latest Release
         id: get-release
-        uses: WyriHaximus/github-action-get-previous-tag@385a2a0b6abf6c2efeb95adfac83d96d6f968e0c # v1.3.0
+        uses: WyriHaximus/github-action-get-previous-tag@04e8485ecb6487243907e330d522ff60f02283ce # v1.4.0
         with:
           # only use releases tagged v<semver>
           prefix: v
@@ -154,7 +154,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu, mac runners have persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -185,7 +185,7 @@ jobs:
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -244,7 +244,7 @@ jobs:
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
         if: (failure() || success())
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: tools-${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
