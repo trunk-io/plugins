@@ -8,7 +8,7 @@ This linter provides support for linting and formatting PowerShell via
 By default, this linter will use the
 [default set of included rules](https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/rules/readme?view=ps-modules),
 but you can supply your own configuration by creating a `PSScriptAnalyzerSettings.psd1` either in
-the project root or in `.trunk`.
+the project root or in `.trunk/configs`.
 
 Here is a sample configuration that will disable several built-in rules while enabling optional
 rules for enforcing line terminators, the One True Brace Style, indentation, and casing:

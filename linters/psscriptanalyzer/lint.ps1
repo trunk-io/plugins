@@ -28,6 +28,6 @@ if (Test-Path "PSScriptAnalyzerSettings.psd1") {
     }
 }
 
-Invoke-ScriptAnalyzer @Analyzer Splat | ConvertTo-SARIF -FilePath $OutputPath
+Invoke-ScriptAnalyzer @AnalyzerSplat | ConvertTo-SARIF -FilePath $OutputPath
 
 Remove-Item -Path (Join-Path "TEMP:" "ConvertToSARIF") -Force

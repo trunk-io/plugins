@@ -33,7 +33,7 @@ lint:
           in_place: true
           batch: false
           success_codes: [0]
-      direct_configs: [PSScriptAnalyzerSettings.ps1]
+      direct_configs: [PSScriptAnalyzerSettings.psd1]
       suggest_if: config_present
       run_linter_from: workspace
       version_command:
