@@ -1,12 +1,12 @@
 param(
     [Parameter(Mandatory = $true)]
+    [string]$ModuleDir,
+    [Parameter(Mandatory = $true)]
     [string]$FilePath
 )
 
-# Install PSScriptAnalyzer module, if needed
-if ($null -eq (Get-InstalledModule -Name PSScriptAnalyzer -ErrorAction SilentlyContinue -WarningAction SilentlyContinue)) {
-    Install-Module -Name PSScriptAnalyzer -Force
-}
+# Import PSScriptAnalyzer module
+Import-Module -Name (Join-Path $ModuleDir "PSScriptAnalyzer.psd1")
 
 $ScriptDefinition = (Get-Content -Raw -Path $FilePath).Trim()
 
