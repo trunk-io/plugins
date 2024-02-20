@@ -10,4 +10,14 @@ Import-Module -Name (Join-Path $ModuleDir "PSScriptAnalyzer.psd1")
 
 $ScriptDefinition = (Get-Content -Raw -Path $FilePath).Trim()
 
-Invoke-Formatter -ScriptDefinition $ScriptDefinition -Settings PSScriptAnalyzerSettings.psd1 | Out-File -FilePath $FilePath
+$FormatterSplat = @{
+    ScriptDefinition = $ScriptDefinition
+}
+
+if (Test-Path "PSScriptAnalyzerSettings.psd1") {
+    $FormatterSplat += @{
+        Settings = "PSScriptAnalyzerSettings.psd1"
+    }
+}
+
+Invoke-Formatter @FormatterSplat | Out-File -FilePath $FilePath
