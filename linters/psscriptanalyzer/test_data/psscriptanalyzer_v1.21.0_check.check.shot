@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter psscriptanalyzer test check 1`] = `
+{
+  "issues": [
+    {
+      "code": "PSAvoidUsingWriteHost",
+      "column": "1",
+      "file": "test_data/check.in.ps1",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "psscriptanalyzer",
+      "message": "File 'check.in.ps1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information.",
+      "targetType": "powershell",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "Invoke-Formatter",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "Invoke-ScriptAnalyzer",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "Invoke-ScriptAnalyzer",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
