@@ -37,5 +37,7 @@ lint:
       suggest_if: config_present
       run_linter_from: workspace
       version_command:
-        parse_regex: PowerShell ${semver}
-        run: pwsh --version
+        parse_regex: ${semver}
+        run:
+          pwsh -c "(Get-InstalledModule -Name PSScriptAnalyzer -WarningAction
+          SilentlyContinue).Version"
