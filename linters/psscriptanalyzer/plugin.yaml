@@ -20,15 +20,14 @@ lint:
       tools: [psscriptanalyzer, pwsh]
       commands:
         - name: Invoke-ScriptAnalyzer
-          run: |
+          run:
             pwsh -f ${cwd}/lint.ps1 -ModuleDir ${linter} -FilePath ${target} -OutputPath ${tmpfile}
           output: sarif
           read_output_from: tmp_file
           batch: false
           success_codes: [0]
         - name: Invoke-Formatter
-          run: |
-            pwsh -f ${cwd}/format.ps1 -ModuleDir ${linter} -FilePath ${target}
+          run: pwsh -f ${cwd}/format.ps1 -ModuleDir ${linter} -FilePath ${target}
           output: rewrite
           formatter: true
           in_place: true
