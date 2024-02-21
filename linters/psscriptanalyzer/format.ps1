@@ -1,12 +1,10 @@
 param(
     [Parameter(Mandatory = $true)]
-    [string]$ModuleDir,
-    [Parameter(Mandatory = $true)]
     [string]$FilePath
 )
 
 # Import PSScriptAnalyzer module
-Import-Module -Name (Join-Path $ModuleDir "PSScriptAnalyzer.psd1")
+Import-Module -Name (Get-Command -Name "PSScriptAnalyzer.psd1").Source
 
 $ScriptDefinition = (Get-Content -Raw -Path $FilePath).Trim()
 
