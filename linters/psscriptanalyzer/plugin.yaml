@@ -28,7 +28,8 @@ lint:
   definitions:
     - name: psscriptanalyzer
       files: [powershell]
-      tools: [psscriptanalyzer, converttosarif, pwsh]
+      main_tool: psscriptanalyzer
+      tools: [converttosarif, pwsh]
       commands:
         - name: Invoke-ScriptAnalyzer
           run: pwsh -f ${cwd}/lint.ps1 -FilePath ${target} -OutputPath ${tmpfile}
