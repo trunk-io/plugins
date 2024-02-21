@@ -1,0 +1,19 @@
+version: 0.1
+downloads:
+  - name: kubectl
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://dl.k8s.io/release/v${version}/bin/${os}/${cpu}/kubectl
+tools:
+  definitions:
+    - name: kubectl
+      download: kubectl
+      known_good_version: 1.25.16
+      shims:
+        - name: kubectl
+          target: kubectl
