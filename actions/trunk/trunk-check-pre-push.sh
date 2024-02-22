@@ -3,8 +3,9 @@
 # Lightweight wrapper to call trunk-check with optional interactivity.
 
 # Find the trunk binary.
-# TODO: This can be done better by passing the trunk binary path as an environment variable.
-if ! trunk="$(command -v trunk)"; then
+if [[ -n ${TRUNK_LAUNCHER_PATH-} ]]; then
+  trunk="${TRUNK_LAUNCHER_PATH}"
+elif ! trunk="$(command -v trunk)"; then
   set -euo pipefail
   if [[ -f .trunk/bin/trunk && -x .trunk/bin/trunk ]]; then
     trunk=.trunk/bin/trunk
@@ -12,9 +13,9 @@ if ! trunk="$(command -v trunk)"; then
     trunk=tools/trunk
   elif [[ -f trunk && -x trunk ]]; then
     trunk=./trunk
-  elif [[ -n ${XDG_CACHE_HOME:-} && -f "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" && -x "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" ]]; then
+  elif [[ -n ${XDG_CACHE_HOME-} && -f "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" && -x "${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk" ]]; then
     trunk="${XDG_CACHE_HOME}/.cache/trunk/launcher/trunk"
-  elif [[ -n ${HOME:-} && -f "${HOME}/.cache/trunk/launcher/trunk" && -x "${HOME}/.cache/trunk/launcher/trunk" ]]; then
+  elif [[ -n ${HOME-} && -f "${HOME}/.cache/trunk/launcher/trunk" && -x "${HOME}/.cache/trunk/launcher/trunk" ]]; then
     trunk="${HOME}/.cache/trunk/launcher/trunk"
   else
     echo "Unable to find trunk binary"
