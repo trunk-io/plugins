@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter trufflehog-git test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "AWS",
+      "file": ".",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "linter": "trufflehog-git",
+      "message": "secrets.in.py:2: Secret detected: AKIAXYZDQCEN4EXAMPLE on commit <hash> (file since deleted)",
+      "targetType": "ALL",
+    },
+    {
+      "code": "URI",
+      "file": ".",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "linter": "trufflehog-git",
+      "message": "secrets.in.py:8: Secret detected: https://admin:********@the-internet.herokuapp.com on commit <hash> (file since deleted)",
+      "targetType": "ALL",
+    },
+    {
+      "code": "AWS",
+      "file": "secrets2.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "trufflehog-git",
+      "message": "Secret detected: AKIAXYZDQCEN4EXAMPLE on commit <hash>",
+      "targetType": "ALL",
+    },
+    {
+      "code": "URI",
+      "file": "secrets2.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "trufflehog-git",
+      "message": "Secret detected: https://admin:********@the-internet.herokuapp.com on commit <hash>",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trufflehog-git",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
