@@ -26,7 +26,7 @@ lint:
       known_good_version: 0.3.0
       commands:
         - name: lint
-          run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile}  ${target}
+          run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
           batch: true
           success_codes: [0]
