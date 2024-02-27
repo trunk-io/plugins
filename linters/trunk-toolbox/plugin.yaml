@@ -2,7 +2,7 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.3.0
+    version: 0.3.1
     downloads:
       - os:
           linux: unknown-linux-gnu
@@ -17,7 +17,7 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.3.0
+      known_good_version: 0.3.1
 lint:
   definitions:
     - name: trunk-toolbox
