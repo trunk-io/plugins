@@ -21,7 +21,7 @@ tools:
 lint:
   definitions:
     - name: trunk-toolbox
-      tools: [trunk-toolbox]
+      main_tool: trunk-toolbox
       files: [ALL]
       commands:
         - name: lint
