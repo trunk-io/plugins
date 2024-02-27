@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter trunk-toolbox test do_not_land 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
