@@ -23,7 +23,6 @@ lint:
     - name: trunk-toolbox
       tools: [trunk-toolbox]
       files: [ALL]
-      known_good_version: 0.3.0
       commands:
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
