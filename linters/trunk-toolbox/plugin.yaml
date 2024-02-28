@@ -2,31 +2,30 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.2.0
+    version: 0.3.1
     downloads:
-      - version: 0.2.0
-        os:
+      - os:
           linux: unknown-linux-gnu
           macos: apple-darwin
         cpu:
           x86_64: x86_64
           arm_64: aarch64
         url: https://github.com/trunk-io/toolbox/releases/download/${version}/trunk-toolbox-${version}-${cpu}-${os}.tar.gz
+        version: ">=0.2.0"
 tools:
   definitions:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.2.0
+      known_good_version: 0.3.1
 lint:
   definitions:
     - name: trunk-toolbox
-      tools: [trunk-toolbox]
+      main_tool: trunk-toolbox
       files: [ALL]
-      known_good_version: 0.2.0
       commands:
         - name: lint
-          run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile}  ${target}
+          run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
           batch: true
           success_codes: [0]
