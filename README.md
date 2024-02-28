@@ -66,6 +66,7 @@ trunk check enable {linter}
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
 | PNG             | [oxipng]                                                                                                             |
+| PowerShell      | [psscriptanalyzer]                                                                                                   |
 | Prisma          | [prisma]                                                                                                             |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                     |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright], [semgrep], [yapf], [ruff], [sourcery] |
@@ -142,6 +143,7 @@ trunk check enable {linter}
 [prettier]: https://github.com/prettier/prettier#readme
 [pre-commit-hooks]: https://pre-commit.com/hooks.html
 [prisma]: https://github.com/prisma/prisma#readme
+[psscriptanalyzer]: https://github.com/PowerShell/PSScriptAnalyzer
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme
