@@ -9,7 +9,7 @@ exports[`Testing linter psscriptanalyzer test check_custom_settings 1`] = `
       "fileGroupName": "powershell",
       "linter": "psscriptanalyzer",
       "paths": [
-        "test_data/check_custom_settings.in.ps1",
+        "test_data/check.in.ps1",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
@@ -18,7 +18,7 @@ exports[`Testing linter psscriptanalyzer test check_custom_settings 1`] = `
       "fileGroupName": "powershell",
       "linter": "psscriptanalyzer",
       "paths": [
-        "test_data/check_custom_settings.in.ps1",
+        "test_data/check.in.ps1",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -27,7 +27,7 @@ exports[`Testing linter psscriptanalyzer test check_custom_settings 1`] = `
       "fileGroupName": "powershell",
       "linter": "psscriptanalyzer",
       "paths": [
-        "test_data/check_custom_settings.in.ps1",
+        "test_data/check.in.ps1",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",

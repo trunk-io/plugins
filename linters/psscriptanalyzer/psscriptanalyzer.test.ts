@@ -1,9 +1,14 @@
-import { linterCheckTest, linterFmtTest } from "tests";
+import path from "path";
+import { customLinterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
+import { TEST_DATA } from "tests/utils";
+
+// Run with `-y` since on Windows Invoke-Formatter will add carriage returns, and for testing's sake it's easier to just apply.
+const checkArgs = `${path.join(TEST_DATA, "check.in.ps1")} -y`;
 
 // Run tests with default rules
 linterFmtTest({ linterName: "psscriptanalyzer", namedTestPrefixes: ["format"] });
-linterCheckTest({ linterName: "psscriptanalyzer", namedTestPrefixes: ["check"] });
+customLinterCheckTest({ linterName: "psscriptanalyzer", testName: "check", args: checkArgs });
 
 // Create a PSScriptAnalyzerSettings.psd1 for further testing
 const preCheck = (driver: TrunkLintDriver) => {
@@ -19,11 +24,12 @@ Rules = @{PSAvoidSemicolonsAsLineTerminators = @{Enable = $true}}
 // Run tests with custom settings
 linterFmtTest({
   linterName: "psscriptanalyzer",
-  namedTestPrefixes: ["format_custom_settings"],
+  namedTestPrefixes: ["format"],
   preCheck,
 });
-linterCheckTest({
+customLinterCheckTest({
   linterName: "psscriptanalyzer",
-  namedTestPrefixes: ["check_custom_settings"],
+  testName: "check_custom_settings",
+  args: checkArgs,
   preCheck,
 });

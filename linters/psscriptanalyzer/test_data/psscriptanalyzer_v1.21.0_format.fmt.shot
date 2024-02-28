@@ -4,3 +4,8 @@ exports[`Testing formatter psscriptanalyzer test format 1`] = `
 "Write-Host "Hello";
 "
 `;
+
+exports[`Testing formatter psscriptanalyzer test format 2`] = `
+"Write-Host "Hello"
+"
+`;

@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Testing formatter psscriptanalyzer test format_custom_settings 1`] = `
-"Write-Host "Hello"
-"
-`;
