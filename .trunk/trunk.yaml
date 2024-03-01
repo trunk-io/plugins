@@ -17,7 +17,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.2
+      ref: 'v1.0.2'
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin
@@ -72,6 +72,7 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - trunk-check-pre-push-always
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
