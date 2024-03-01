@@ -33,13 +33,13 @@ standard for both Commitizen and commitlint.
 1. If you wish to install a git hook that will run Commitizen upon `git commit`:
 
    ```Shell
-   trunk actions enable commitizen-cz-cli
+   trunk actions enable commitizen
    ```
 
 1. If you wish to have the `commitizen` and `cz` CLIs available for your project:
 
    ```Shell
-   trunk tools enable commitizen-cz-cli
+   trunk tools enable commitizen
    ```
 
 1. If you wish to enable `commitlint` to lint your commit contents:
@@ -50,7 +50,7 @@ standard for both Commitizen and commitlint.
 
 ## Overriding configuration
 
-In order to use s different Commitizen adapter than the default `@commitlint/cz-commitlint`, change
+In order to use a different Commitizen adapter than the default `@commitlint/cz-commitlint`, change
 the contents of the `path` value in `.czrc`. After changing this, Commitizen will no longer use
 commitlint config files.
 
