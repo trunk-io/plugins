@@ -45,14 +45,8 @@ actions:
     - id: trunk-check-pre-push-always
       display_name: Trunk Check Pre-Push Hook (Always)
       description: Always run 'trunk check' whenever you run 'git push'
-      run: bash "${cwd}/trunk-check-pre-push.sh" -n --commit-ref-from-pre-push '${hook_stdin_path}'
+      run: trunk check -n -t git-push --commit-ref-from-pre-push '${hook_stdin_path}'
       interactive: optional
       triggers:
         - git_hooks: [pre-push]
       notify_on_error: false
-      environment:
-        # Always set by the bash launcher, which is what invokes the git hooks.
-        # This is necessary because the wrapper obscures the `trunk` self-invocation.
-        - name: TRUNK_LAUNCHER_PATH
-          value: ${env.TRUNK_LAUNCHER_PATH}
-          optional: true
