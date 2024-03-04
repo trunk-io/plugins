@@ -97,6 +97,7 @@ export type ActionTestCallback = (driver: TrunkActionDriver) => unknown;
  * @param setupSettings configuration for the driver's repo setup. setupGit and setupTrunk default to true.
  * @param linterName if specified, enables this linter during setup.
  * @param version the version of a linter to enable, if specified. May be a version string or one of `LinterVersion`
+ * @param manualVersionReplacer a mutator to replace the enabled version with another version
  */
 export const setupLintDriver = (
   dirname: string,
@@ -104,12 +105,14 @@ export const setupLintDriver = (
   linterName?: string,
   version?: string,
   preCheck?: TestCallback,
+  manualVersionReplacer?: (version: string) => string,
 ): TrunkLintDriver => {
   const driver = new TrunkLintDriver(
     dirname,
     { setupGit, setupTrunk, trunkVersion },
     linterName,
     version,
+    manualVersionReplacer,
   );
 
   beforeAll(async () => {
@@ -325,6 +328,7 @@ export const toolTest = ({
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
  * @param normalizeLandingState a mutator to standardize the landing state output
+ * @param manualVersionReplacer a mutator to replace the enabled version with another version
  */
 export const customLinterCheckTest = ({
   linterName,
@@ -337,6 +341,7 @@ export const customLinterCheckTest = ({
   preCheck,
   postCheck,
   normalizeLandingState,
+  manualVersionReplacer,
 }: {
   linterName: string;
   testName?: string;
@@ -348,6 +353,7 @@ export const customLinterCheckTest = ({
   preCheck?: TestCallback;
   postCheck?: TestCallback;
   normalizeLandingState?: (landingState: LandingState) => void;
+  manualVersionReplacer?: (version: string) => string;
 }) => {
   describe(`Testing linter ${linterName}`, () => {
     // Step 1: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
@@ -356,7 +362,14 @@ export const customLinterCheckTest = ({
       // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
       describe("test", () => {
         // Step 2: Define test setup and teardown
-        const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
+        const driver = setupLintDriver(
+          dirname,
+          {},
+          linterName,
+          linterVersion,
+          preCheck,
+          manualVersionReplacer,
+        );
 
         // Step 3: Run the test
         conditionalTest(skipTestIf(linterVersion), testName, async () => {

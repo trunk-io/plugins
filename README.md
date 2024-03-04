@@ -36,7 +36,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks]                                              |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [pre-commit-hooks], [trunk-toolbox]                             |
 | Ansible         | [ansible-lint]                                                                                                       |
 | Apex            | [pmd]                                                                                                                |
 | Bash            | [shellcheck], [shfmt]                                                                                                |
@@ -66,6 +66,7 @@ trunk check enable {linter}
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
 | PNG             | [oxipng]                                                                                                             |
+| PowerShell      | [psscriptanalyzer]                                                                                                   |
 | Prisma          | [prisma]                                                                                                             |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                     |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright], [semgrep], [yapf], [ruff], [sourcery] |
@@ -142,6 +143,7 @@ trunk check enable {linter}
 [prettier]: https://github.com/prettier/prettier#readme
 [pre-commit-hooks]: https://pre-commit.com/hooks.html
 [prisma]: https://github.com/prisma/prisma#readme
+[psscriptanalyzer]: https://github.com/PowerShell/PSScriptAnalyzer
 [pylint]: https://github.com/PyCQA/pylint#readme
 [pyright]: https://github.com/microsoft/pyright
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme
@@ -174,8 +176,9 @@ trunk check enable {linter}
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec
 [trivy]: https://github.com/aquasecurity/trivy#readme
-[trufflehog]: https://github.com/trufflesecurity/trufflehog/
-[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt/
+[trufflehog]: https://github.com/trufflesecurity/trufflehog#readme
+[trunk-toolbox]: https://github.com/trunk-io/toolbox#readme
+[txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt#readme
 [yamllint]: https://github.com/adrienverge/yamllint#readme
 [yapf]: https://github.com/google/yapf#readme
 

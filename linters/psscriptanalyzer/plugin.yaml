@@ -1,0 +1,52 @@
+version: 0.1
+downloads:
+  - name: psscriptanalyzer
+    downloads:
+      - os:
+          linux: linux
+          windows: windows
+          macos: macos
+        url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/${version}/PSScriptAnalyzer.${version}.nupkg
+  - name: converttosarif
+    downloads:
+      - os:
+          linux: linux
+          windows: windows
+          macos: macos
+        url: https://psg-prod-eastus.azureedge.net/packages/converttosarif.${version}.nupkg
+tools:
+  definitions:
+    - name: psscriptanalyzer
+      download: psscriptanalyzer
+      shims: [PSScriptAnalyzer.psd1]
+      known_good_version: 1.21.0
+    - name: converttosarif
+      download: converttosarif
+      shims: [ConvertToSARIF.psd1]
+      known_good_version: 1.0.0
+lint:
+  definitions:
+    - name: psscriptanalyzer
+      files: [powershell]
+      main_tool: psscriptanalyzer
+      tools: [converttosarif, pwsh]
+      commands:
+        - name: Invoke-ScriptAnalyzer
+          run: pwsh -f ${cwd}/lint.ps1 -FilePath ${target} -OutputPath ${tmpfile}
+          output: sarif
+          read_output_from: tmp_file
+          batch: false
+          success_codes: [0]
+        - name: Invoke-Formatter
+          run: pwsh -f ${cwd}/format.ps1 -FilePath ${target}
+          output: rewrite
+          formatter: true
+          in_place: true
+          batch: false
+          success_codes: [0]
+      direct_configs: [PSScriptAnalyzerSettings.psd1]
+      suggest_if: config_present
+      version_command:
+        parse_regex: ${semver}
+        run: |
+          pwsh -c "Import-Module -Name (Get-Command -Name "PSScriptAnalyzer.psd1").Source; (Get-Module -Name PSScriptAnalyzer).Version"

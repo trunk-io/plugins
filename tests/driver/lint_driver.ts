@@ -70,11 +70,20 @@ export class TrunkLintDriver extends GenericTrunkDriver {
   toEnableVersion?: string;
   /** The version that was enabled during setup. Might still be undefined even if a linter was enabled. */
   enabledVersion?: string;
+  /** A function to manually replace a version string with another. */
+  manualVersionReplacer?: (version: string) => string;
 
-  constructor(testDir: string, setupSettings: SetupSettings, linter?: string, version?: string) {
+  constructor(
+    testDir: string,
+    setupSettings: SetupSettings,
+    linter?: string,
+    version?: string,
+    manualVersionReplacer?: (version: string) => string,
+  ) {
     super(testDir, setupSettings, getDebugger(linter));
     this.linter = linter;
     this.toEnableVersion = version;
+    this.manualVersionReplacer = manualVersionReplacer;
   }
 
   getTrunkYamlContents(trunkVersion: string | undefined): string {
@@ -159,6 +168,18 @@ lint:
       if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
+      }
+
+      // Apply version patch if applicable.
+      if (this.enabledVersion && this.manualVersionReplacer) {
+        const newEnabledVersion = this.manualVersionReplacer(this.enabledVersion);
+        if (newEnabledVersion !== this.enabledVersion) {
+          this.debug("Replacing %s with %s", this.enabledVersion, newEnabledVersion);
+          await this.runTrunkCmd(
+            `check enable ${this.linter}@${newEnabledVersion} --monitor=false --bypass-validated`,
+          );
+          this.enabledVersion = newEnabledVersion;
+        }
       }
     } catch (error) {
       console.warn(`Failed to enable ${this.linter}`, error, newTrunkContents);
