@@ -48,6 +48,7 @@ trunk check enable {linter}
 | CMake           | [cmake-format]                                                                                                       |
 | CSS, SCSS       | [stylelint], [prettier]                                                                                              |
 | Cue             | [cue-fmt]                                                                                                            |
+| Dart            | [dart]                                                                                                               |
 | Docker          | [hadolint], [checkov]                                                                                                |
 | Dotenv          | [dotenv-linter]                                                                                                      |
 | GitHub          | [actionlint]                                                                                                         |
@@ -104,6 +105,7 @@ trunk check enable {linter}
 [codespell]: https://github.com/codespell-project/codespell#readme
 [cspell]: https://github.com/streetsidesoftware/cspell#readme
 [cue-fmt]: https://cuelang.org/
+[dart]: https://dart.dev/tools/sdk
 [deno]: https://deno.land/manual
 [detekt]: https://github.com/detekt/detekt#readme
 [djlint]: https://github.com/Riverside-Healthcare/djlint#readme

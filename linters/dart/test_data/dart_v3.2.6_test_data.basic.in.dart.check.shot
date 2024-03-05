@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter dart test basic 1`] = `
+"library;
+
+class Vector2d {
+  final double x, y;
+  Vector2d(this.x, this.y);
+}
+
+class Vector3d extends Vector2d {
+  final double z;
+  Vector3d(super.x, super.y, this.z);
+}
+
+void main() {
+  expect(find.text(''), empty);
+}
+"
+`;

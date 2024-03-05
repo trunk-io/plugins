@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter dart test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "undefined_identifier",
+      "column": "10",
+      "file": "test_data/basic.in.dart",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "14",
+      "linter": "dart",
+      "message": "Undefined name 'find'. Try correcting the name to one that is defined, or defining the name.",
+      "targetType": "dart",
+    },
+    {
+      "code": "undefined_identifier",
+      "column": "25",
+      "file": "test_data/basic.in.dart",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "14",
+      "linter": "dart",
+      "message": "Undefined name 'empty'. Try correcting the name to one that is defined, or defining the name.",
+      "targetType": "dart",
+    },
+    {
+      "code": "undefined_function",
+      "column": "3",
+      "file": "test_data/basic.in.dart",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "14",
+      "linter": "dart",
+      "message": "The function 'expect' isn't defined. Try importing the library that defines 'expect', correcting the name to the name of an existing function, or defining a function named 'expect'.",
+      "targetType": "dart",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "analyze",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "analyze",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fix",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fix",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "format",
+      "fileGroupName": "dart",
+      "linter": "dart",
+      "paths": [
+        "test_data/basic.in.dart",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

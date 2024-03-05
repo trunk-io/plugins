@@ -1,0 +1,62 @@
+version: 0.1
+downloads:
+  - name: dart
+    downloads:
+      - os:
+          linux: linux
+          macos: macos
+          windows: windows
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://storage.googleapis.com/dart-archive/channels/stable/release/${version}/sdk/dartsdk-${os}-${cpu}-release.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: dart
+      download: dart
+      known_good_version: 3.2.6
+      shims: [dart, dartaotruntime]
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+lint:
+  files:
+    - name: dart
+      extensions: [dart]
+  definitions:
+    - name: dart
+      main_tool: dart
+      files: [dart]
+      known_good_version: 3.2.6
+      suggest_if: never
+      affects_cache:
+        - analysis_options.yaml
+        - pubspec.yaml
+      commands:
+        - name: format
+          output: rewrite
+          run: dart format ${target}
+          batch: true
+          in_place: true
+          formatter: true
+          success_codes: [0]
+        - name: fix
+          # Some analyze results are autofixable, others are not.
+          output: rewrite
+          run: dart fix --apply ${target}
+          batch: true
+          fix_prompt: Quick fix available
+          fix_verb: fix
+          in_place: true
+          success_codes: [0]
+        - name: analyze
+          output: regex
+          # The output only includes the filename so in order to use a relative path we need to run from parent.
+          run_from: ${parent}
+          parse_regex:
+            \s*(?P<severity>.*) - (?P<path>.*):(?P<line>\d+):(?P<col>\d+) - (?P<message>.*) -
+            (?P<code>.*)
+          run: dart analyze --no-fatal-warnings ${target}
+          success_codes: [0, 3]
+          batch: true
