@@ -6,11 +6,11 @@ import { createFuzzyMatcher } from "tests/utils/landing_state";
 
 // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
 const expectedFileIssues = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString()
+  fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString(),
 );
 
 fuzzyLinterCheckTest({
   linterName: "osv-scanner",
   args: "-a -y",
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 30),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 100),
 });
