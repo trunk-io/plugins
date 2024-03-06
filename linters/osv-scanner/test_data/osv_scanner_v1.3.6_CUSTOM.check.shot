@@ -9,6 +9,15 @@ exports[`Testing linter osv-scanner test CUSTOM 1`] = `
       "fileGroupName": "lockfile",
       "linter": "osv-scanner",
       "paths": [
+        "test_data/Cargo.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
         "test_data/Gemfile.lock",
       ],
       "verb": "TRUNK_VERB_CHECK",
