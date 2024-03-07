@@ -44,9 +44,11 @@ def main(argv):
         print(json.dumps(sarif, indent=2))
         sys.exit(0)
 
-    first_line = sys.stdin.readline()
-    m = re.match(r"\[error\] (.*): SyntaxError:(.*)\((\d+):(\d+)\)", first_line)
-    if m is None:
+    for line in sys.stdin:
+        m = re.match(r"\[error\] (.*): SyntaxError:(.*)\((\d+):(\d+)\)", line)
+        if m:
+            break
+    else:
         print("Unexpected output from prettier")
         sys.exit(int(argv[1]))
 
