@@ -1,2 +1,4 @@
 # Prettier friendly markdownlint config (all formatting rules disabled)
 extends: markdownlint/style/prettier
+blank_lines: false
+line_length: false
