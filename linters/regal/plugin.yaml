@@ -32,7 +32,6 @@ lint:
       commands:
         - name: lint
           output: sarif
-          # TODO(Tyler): Integrate opa fmt and turn off opa-fmt style rule.
           run: regal lint --format sarif ${target}
           batch: true
           cache_results: true

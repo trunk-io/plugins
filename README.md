@@ -71,7 +71,7 @@ trunk check enable {linter}
 | Prisma          | [prisma]                                                                                                             |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                     |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright], [semgrep], [yapf], [ruff], [sourcery] |
-| Rego            | [regal]                                                                                                              |
+| Rego            | [regal], [opa]                                                                                                       |
 | Renovate        | [renovate]                                                                                                           |
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                               |
 | Rust            | [clippy], [rustfmt]                                                                                                  |
@@ -137,6 +137,7 @@ trunk check enable {linter}
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
+[opa]: https://www.openpolicyagent.org/docs/latest/cli/
 [osv-scanner]: https://github.com/google/osv-scanner
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
