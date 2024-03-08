@@ -5,19 +5,16 @@ downloads:
     downloads:
       - os:
           linux: linux
-        cpu:
-          x86_64: amd64
-        url: https://openpolicyagent.org/downloads/v${version}/opa_linux_amd64_static
-      - os:
           macos: darwin
         cpu:
           x86_64: amd64
-        url: https://openpolicyagent.org/downloads/v${version}/opa_darwin_amd64
+          arm_64: arm64
+        url: https://github.com/open-policy-agent/opa/releases/download/v${version}/opa_${os}_${cpu}_static
       - os:
           windows: windows
         cpu:
           x86_64: amd64
-        url: https://openpolicyagent.org/downloads/v${version}/opa_windows_amd64.exe
+        url: https://github.com/open-policy-agent/opa/releases/download/v${version}/opa_windows_amd64.exe
 tools:
   definitions:
     - name: opa
