@@ -453,6 +453,12 @@ lint:
       comments:
         - hash
 
+    - name: rego
+      extensions:
+        - rego
+      comments:
+        - hash
+
     - name: ruby
       extensions:
         - rb
