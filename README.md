@@ -18,7 +18,7 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v1.2.5
+      ref: v1.4.4
 ```
 
 This repo is open to contributions! See our
@@ -71,7 +71,7 @@ trunk check enable {linter}
 | Prisma          | [prisma]                                                                                                             |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                     |
 | Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [pylint], [pyright], [semgrep], [yapf], [ruff], [sourcery] |
-| Rego            | [regal]                                                                                                              |
+| Rego            | [regal], [opa]                                                                                                       |
 | Renovate        | [renovate]                                                                                                           |
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                               |
 | Rust            | [clippy], [rustfmt]                                                                                                  |
@@ -137,6 +137,7 @@ trunk check enable {linter}
 [mypy]: https://github.com/python/mypy#readme
 [nancy]: https://github.com/sonatype-nexus-community/nancy#readme
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
+[opa]: https://www.openpolicyagent.org/docs/latest/cli/
 [osv-scanner]: https://github.com/google/osv-scanner
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
@@ -203,6 +204,7 @@ trunk actions enable {action}
 | action                                                               | description                                                |
 | -------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [`buf-gen`](actions/buf/README.md)                                   | run `buf` on .proto file change                            |
+| [`commitizen`](actions/commitizen/README.md)                         | enforce conventional commits and manage releases           |
 | [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
 | [`go-mod-tidy`](actions/go-mod-tidy/README.md)                       | automatically tidy go.mod file                             |
 | [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)         | automatically tidy and vendor go.mod file                  |
@@ -213,7 +215,8 @@ trunk actions enable {action}
 ### Supported Tools
 
 This repository also defines configuration for Trunk Tools, which provides hermetic management of
-different CLI tools. You can read more about it in our [docs](https://docs.trunk.io/tools).
+different CLI tools. You can run `trunk tools list` to view all supported tools. Check out our
+[docs](https://docs.trunk.io/tools).
 
 ### Mission
 

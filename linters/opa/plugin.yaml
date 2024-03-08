@@ -1,0 +1,37 @@
+version: 0.1
+downloads:
+  - name: opa
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/open-policy-agent/opa/releases/download/v${version}/opa_${os}_${cpu}_static
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/open-policy-agent/opa/releases/download/v${version}/opa_windows_amd64.exe
+tools:
+  definitions:
+    - name: opa
+      download: opa
+      known_good_version: 0.62.1
+      shims: [opa]
+lint:
+  definitions:
+    - name: opa
+      files: [rego]
+      main_tool: opa
+      known_good_version: 0.62.1
+      suggest_if: never
+      commands:
+        # TODO(Tyler): Add support for opa check command.
+        - name: format
+          output: rewrite
+          run: opa fmt ${target}
+          formatter: true
+          success_codes: [0]
