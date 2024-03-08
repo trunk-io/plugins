@@ -18,7 +18,7 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v1.2.5
+      ref: v1.4.4
 ```
 
 This repo is open to contributions! See our
@@ -203,6 +203,7 @@ trunk actions enable {action}
 | action                                                               | description                                                |
 | -------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [`buf-gen`](actions/buf/README.md)                                   | run `buf` on .proto file change                            |
+| [`commitizen`](actions/commitizen/README.md)                         | enforce conventional commits and manage releases           |
 | [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
 | [`go-mod-tidy`](actions/go-mod-tidy/README.md)                       | automatically tidy go.mod file                             |
 | [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)         | automatically tidy and vendor go.mod file                  |
@@ -213,7 +214,8 @@ trunk actions enable {action}
 ### Supported Tools
 
 This repository also defines configuration for Trunk Tools, which provides hermetic management of
-different CLI tools. You can read more about it in our [docs](https://docs.trunk.io/tools).
+different CLI tools. You can run `trunk tools list` to view all supported tools. Check out our
+[docs](https://docs.trunk.io/tools).
 
 ### Mission
 
