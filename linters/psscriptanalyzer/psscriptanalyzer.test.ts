@@ -6,25 +6,15 @@ import { TEST_DATA } from "tests/utils";
 // Run with `-y` since on Windows Invoke-Formatter will add carriage returns, and for testing's sake it's easier to just apply.
 const checkArgs = `${path.join(TEST_DATA, "check.in.ps1")} -y`;
 
-const manualVersionReplacer = (version: string) => {
-  if (version === "1.22.0") {
-    // As of 3/11, 1.22.0 doesn't have a release asset.
-    return "1.21.0";
-  }
-  return version;
-};
-
 // Run tests with default rules
 linterFmtTest({
   linterName: "psscriptanalyzer",
   namedTestPrefixes: ["format"],
-  manualVersionReplacer,
 });
 customLinterCheckTest({
   linterName: "psscriptanalyzer",
   testName: "check",
   args: checkArgs,
-  manualVersionReplacer,
 });
 
 // Create a PSScriptAnalyzerSettings.psd1 for further testing
@@ -43,12 +33,10 @@ linterFmtTest({
   linterName: "psscriptanalyzer",
   namedTestPrefixes: ["format"],
   preCheck,
-  manualVersionReplacer,
 });
 customLinterCheckTest({
   linterName: "psscriptanalyzer",
   testName: "check_custom_settings",
   args: checkArgs,
   preCheck,
-  manualVersionReplacer,
 });
