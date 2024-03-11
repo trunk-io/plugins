@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter biome test basic_fmt 1`] = `
+"const foobar = () => {};
+const barfoo = () => {};
+
+enum Bar {
+	Baz,
+}
+
+const foo = (bar: Bar) => {
+	switch (bar) {
+		case Bar.Baz:
+			foobar();
+			barfoo();
+			break;
+	}
+	{
+		!foo ? null : 1;
+	}
+};
+"
+`;

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter biome test basic_check 1`] = `
+{
+  "issues": [
+    {
+      "code": "lint/complexity/noUselessLoneBlockStatements",
+      "column": "3",
+      "file": "test_data/basic_check.in.ts",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "biome",
+      "message": "This block statement doesn't serve any purpose and can be safely removed.",
+      "targetType": "typescript",
+    },
+    {
+      "code": "lint/style/useEnumInitializers",
+      "column": "6",
+      "file": "test_data/basic_check.in.ts",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "biome",
+      "message": "This enum declaration contains members that are implicitly initialized.",
+      "targetType": "typescript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic_check.in.ts",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "biome",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
