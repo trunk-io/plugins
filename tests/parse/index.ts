@@ -106,7 +106,7 @@ const mergeTestFailureMetadata = (original: TestResult, incoming: TestResult) =>
           return;
         }
 
-        // If the incoming test result is a failure and not assertion_failure, **invalidate the failure mode
+        // If the incoming test result is a failure and not assertion_failure, invalidate the failure mode
         if (incomingSuspectedFailureMode !== "assertion_failure") {
           original.testFailureMetadata.set(testFullName, incomingSuspectedFailureMode);
           return;
@@ -312,7 +312,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
 const writeRerunTests = (rerunPaths: string[]) => {
   const rerunString = rerunPaths.join(" ");
   fs.writeFileSync(RERUN_FILE, rerunString);
-  console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}:`);
+  console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}`);
 };
 
 /**
@@ -346,10 +346,15 @@ const writeTestResults = (testResults: TestResultSummary) => {
       },
     ]) => {
       if (status !== "passed" && status !== "skipped") {
-        const shouldRerunTest = Array.from(testFailureMetadata.values()).every(
-          // If any non-assertion-type failures occur, we can't proactively generate snapshot.
-          (failureMode) => failureMode === "assertion_failure" || failureMode === "skipped",
-        );
+        const allMetadata = Array.from(testFailureMetadata.values());
+        // Must have at least one assertion_failure and no other failure types in order to proactively generate snapshot.
+        const shouldRerunTest =
+          allMetadata.every(
+            (failureMode) =>
+              failureMode === "assertion_failure" ||
+              failureMode === "skipped" ||
+              failureMode === "passed",
+          ) && allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
         if (shouldRerunTest) {
           rerunPaths.push(testFilePath);
         }

@@ -7,8 +7,15 @@ import { TEST_DATA } from "tests/utils";
 const checkArgs = `${path.join(TEST_DATA, "check.in.ps1")} -y`;
 
 // Run tests with default rules
-linterFmtTest({ linterName: "psscriptanalyzer", namedTestPrefixes: ["format"] });
-customLinterCheckTest({ linterName: "psscriptanalyzer", testName: "check", args: checkArgs });
+linterFmtTest({
+  linterName: "psscriptanalyzer",
+  namedTestPrefixes: ["format"],
+});
+customLinterCheckTest({
+  linterName: "psscriptanalyzer",
+  testName: "check",
+  args: checkArgs,
+});
 
 // Create a PSScriptAnalyzerSettings.psd1 for further testing
 const preCheck = (driver: TrunkLintDriver) => {
