@@ -4,8 +4,15 @@ import json
 import sys
 from typing import Optional
 
+
 def to_result_sarif(
-    path: str, start_line_number: int, start_column_number: int, end_line_number: Optional[int], end_column_number: Optional[int], rule_id: str, message: str
+    path: str,
+    start_line_number: int,
+    start_column_number: int,
+    end_line_number: Optional[int],
+    end_column_number: Optional[int],
+    rule_id: str,
+    message: str,
 ):
     region = {
         "startLine": start_line_number,
@@ -43,7 +50,9 @@ def main(argv):
         for violation in result["violations"]:
             # In sqlfluff 3.0.0, line_no/line_pos replaced with start_*/end_*
             start_line_number = violation.get("start_line_no", violation.get("line_no"))
-            start_column_number = violation.get("start_line_pos", violation.get("line_pos"))
+            start_column_number = violation.get(
+                "start_line_pos", violation.get("line_pos")
+            )
             end_line_number = violation.get("end_line_no")
             end_column_number = violation.get("end_line_pos")
 
@@ -51,7 +60,15 @@ def main(argv):
             message = violation["description"]
 
             results.append(
-                to_result_sarif(filepath, start_line_number, start_column_number, end_line_number, end_column_number, rule_id, message)
+                to_result_sarif(
+                    filepath,
+                    start_line_number,
+                    start_column_number,
+                    end_line_number,
+                    end_column_number,
+                    rule_id,
+                    message,
+                )
             )
 
     sarif = {
