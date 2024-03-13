@@ -51,6 +51,8 @@ const gradlePreCheck: TestCallback = (driver) => {
         - name: JAVA_HOME
           value: ${javaPath}
           optional: false
+        - name: PATH
+          list: ["\${env.PATH}"]
 `);
   driver.writeFile(trunkYamlPath, finalContents);
   // trunk-ignore-end(semgrep)
