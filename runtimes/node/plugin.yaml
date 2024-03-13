@@ -44,6 +44,9 @@ runtimes:
         - name: NODE_OPTIONS
           value: ${env.NODE_OPTIONS}
           optional: true
+        - name: NPM_CONFIG_USERCONFIG
+          value: ${env.NPM_CONFIG_USERCONFIG}
+          optional: true
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]

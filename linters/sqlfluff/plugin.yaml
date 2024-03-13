@@ -14,6 +14,8 @@ lint:
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff
+      affects_cache:
+        - pyproject.toml
       suggest_if: config_present
       commands:
         - name: lint

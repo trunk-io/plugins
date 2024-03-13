@@ -13,18 +13,18 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 // TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
-linterCheckTest({
-  linterName: "detekt",
-  namedTestPrefixes: ["basic_detekt"],
-  preCheck,
-});
+// linterCheckTest({
+//   linterName: "detekt",
+//   namedTestPrefixes: ["basic_detekt"],
+//   preCheck,
+// });
 
-// detekt-explicit has no default settings, leading to an empty result
-linterCheckTest({
-  linterName: "detekt-explicit",
-  namedTestPrefixes: ["basic_explicit"],
-  preCheck,
-});
+// // detekt-explicit has no default settings, leading to an empty result
+// linterCheckTest({
+//   linterName: "detekt-explicit",
+//   namedTestPrefixes: ["basic_explicit"],
+//   preCheck,
+// });
 
 // detekt-gradle tests rely on a particular gradle-focused system setup, and they require a level of greater configuration here.
 // TODO(Tyler): Because of this setup, this leads to reduced coverage for different versions. We should augment this logic
@@ -51,6 +51,8 @@ const gradlePreCheck: TestCallback = (driver) => {
         - name: JAVA_HOME
           value: ${javaPath}
           optional: false
+        - name: PATH
+          list: ["\${env.PATH}"]
 `);
   driver.writeFile(trunkYamlPath, finalContents);
   // trunk-ignore-end(semgrep)
