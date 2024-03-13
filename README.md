@@ -9,7 +9,7 @@
 
 ### Welcome
 
-This repository is the official Trunk.io repo containing Trunk's integrations for linters,
+This repository is the official [Trunk.io](https://trunk.io/) repo containing Trunk's integrations for linters,
 formatters, security tools, githooks, and default configs. By default, all trunk users import this
 repo as a plugin, via this snippet in `.trunk/trunk.yaml`:
 
@@ -223,7 +223,7 @@ different CLI tools. You can run `trunk tools list` to view all supported tools.
 Our goal is to make engineering faster, more efficient and dare we say - more fun. This repository
 will hopefully allow our community to share ideas on the best tools and best practices/workflows to
 make everyone's job of building code a little bit easier, a little bit faster, and maybe in the
-process - a little bit more fun.
+process - a little bit more fun. Read more about [Trunk Check](https://trunk.io/check).
 
 ### Additional Reference
 
