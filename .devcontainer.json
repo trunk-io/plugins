@@ -8,7 +8,10 @@
   },
   "features": {
     "git-lfs": "latest",
-    "ghcr.io/trunk-io/devcontainer-feature/trunk": "latest"
+    "ghcr.io/trunk-io/devcontainer-feature/trunk": "latest",
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
   },
   "onCreateCommand": "npm ci"
 }
