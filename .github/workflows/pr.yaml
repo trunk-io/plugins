@@ -131,17 +131,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-      # TODO: TYLER READD
-      # - name: Linter Tests
-      #   # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
-      #   uses: ./.github/actions/linter_tests
-      #   with:
-      #     linter-version: KnownGoodVersion
-      #     sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-      #     append-args:
-      #       ${{ needs.detect_changes.outputs.all-linters }} ${{
-      #       needs.detect_changes.outputs.linters-files }}
-      #     trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
