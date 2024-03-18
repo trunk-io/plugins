@@ -9,9 +9,9 @@
 
 ### Welcome
 
-This repository is the official [Trunk.io](https://trunk.io/) repo containing Trunk's integrations for linters,
-formatters, security tools, githooks, and default configs. By default, all trunk users import this
-repo as a plugin, via this snippet in `.trunk/trunk.yaml`:
+This repository is the official [Trunk.io](https://trunk.io/) repo containing Trunk's integrations
+for linters, formatters, security tools, githooks, and default configs. By default, all trunk users
+import this repo as a plugin, via this snippet in `.trunk/trunk.yaml`:
 
 ```yaml
 plugins:
