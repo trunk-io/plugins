@@ -86,7 +86,6 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     this.manualVersionReplacer = manualVersionReplacer;
   }
 
-  // TODO: TYLER REVERT PYTHON
   getTrunkYamlContents(trunkVersion: string | undefined): string {
     return `version: 0.1
 cli:
