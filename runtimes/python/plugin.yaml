@@ -66,6 +66,22 @@ downloads:
         version: <=3.11.6
         url: https://github.com/indygreg/python-build-standalone/releases/download/20231002/cpython-${version}+20231002-${cpu}-${os}-install_only.tar.gz
         strip_components: 1
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        version: <=3.12.2
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20240224/cpython-${version}+20240224-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
+      - os:
+          windows: pc-windows-msvc-shared
+        cpu:
+          x86_64: x86_64
+        version: <=3.12.2
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20240224/cpython-${version}+20240224-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
 
 runtimes:
   definitions:
@@ -96,7 +112,8 @@ runtimes:
             - "${linter}/Scripts" # Windows places binaries here instead of bin/
         - name: VIRTUAL_ENV
           value: ${linter}
-      known_good_version: 3.10.8
+      # TODO: TYLER REVERT ME
+      known_good_version: 3.12.2
       version_commands:
         - run: python3 --version
           parse_regex: Python ${semver}

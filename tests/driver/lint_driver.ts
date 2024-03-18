@@ -86,6 +86,7 @@ export class TrunkLintDriver extends GenericTrunkDriver {
     this.manualVersionReplacer = manualVersionReplacer;
   }
 
+  // TODO: TYLER REVERT PYTHON
   getTrunkYamlContents(trunkVersion: string | undefined): string {
     return `version: 0.1
 cli:
@@ -95,7 +96,7 @@ runtimes:
     # required in order to query latest
     - go@1.21.0
     - node@18.12.1
-    - python@3.10.8
+    - python@3.12.2
     - ruby@3.1.4
 plugins:
   sources:
