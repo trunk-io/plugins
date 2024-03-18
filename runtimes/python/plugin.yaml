@@ -66,6 +66,23 @@ downloads:
         version: <=3.11.6
         url: https://github.com/indygreg/python-build-standalone/releases/download/20231002/cpython-${version}+20231002-${cpu}-${os}-install_only.tar.gz
         strip_components: 1
+      # Note that older versions of pylint, djlint, flake8 are not compatible with python@3.12
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        version: <=3.12.2
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20240224/cpython-${version}+20240224-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
+      - os:
+          windows: pc-windows-msvc-shared
+        cpu:
+          x86_64: x86_64
+        version: <=3.12.2
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20240224/cpython-${version}+20240224-${cpu}-${os}-install_only.tar.gz
+        strip_components: 1
 
 runtimes:
   definitions:
