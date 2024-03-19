@@ -15,6 +15,7 @@ runtimes:
   definitions:
     - type: php
       system_version: required
+      version: ">=8.0.0"
       runtime_environment:
         - name: HOME
           value: ${env.HOME}
