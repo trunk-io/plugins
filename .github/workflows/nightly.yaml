@@ -127,11 +127,6 @@ jobs:
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
-          sparse_checkout: |
-            plugin.yaml
-            linters
-            actions
-            tools
 
       - name: Overwrite test runners with latest behavior
         shell: bash
