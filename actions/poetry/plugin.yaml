@@ -44,7 +44,7 @@ tools:
     - name: poetry
       runtime: python
       package: poetry
-      extra_packages: ["poetry-plugin-export"]
+      extra_packages: [poetry-plugin-export]
       known_good_version: 1.8.2
       health_checks:
         - command: poetry --version
