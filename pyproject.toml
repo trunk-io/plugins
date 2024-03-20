@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "test"
+description = "poetry test"
+version = "0.1.0"
+authors = ["Eli Schleifer <eli@trunk.io>", "Other <other@trunk.io>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+numpy = "^1.24.2"
+click = "^8.1.3"

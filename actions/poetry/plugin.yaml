@@ -1,0 +1,38 @@
+version: 0.1
+actions:
+  definitions:
+    - id: poetry-check
+      display_name: poetry check
+      description: run poetry check to validate config
+      runtime: python
+      run: poetry check
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"] # Needs to use system poetry
+      interactive: false
+      triggers:
+        - git_hooks: [pre-commit]
+
+    - id: poetry-lock
+      display_name: poetry lock
+      description: run poetry lock to update lock file
+      run: poetry lock
+      runtime: python
+      interactive: false
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"] # Needs to use system poetry
+
+    - id: poetry-export
+      display_name: poetry export
+      description: run poetry export to sync requirements.txt with lock file
+      run: poetry export -f requirements.txt -o requirement.txt
+      runtime: python
+      interactive: false
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"] # Needs to use system poetry
+      triggers:
+        - git_hooks: [pre-commit]
