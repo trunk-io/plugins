@@ -42,6 +42,7 @@ lint:
           cache_results: true
           run_from: ${compile_command}
           read_output_from: tmp_file
+          run_when: [cli, monitor, ci] # Do not run from lsp - clangd is more optimized for this use-case.
           max_concurrency: 4 # Clang-tidy can be very memory intensive, limit the default concurrency.
       tools: [clang-tidy]
       suggest_if: config_present
