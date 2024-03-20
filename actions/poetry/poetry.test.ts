@@ -15,6 +15,12 @@ const preCheck = (authors: boolean) => (driver: TrunkActionDriver) => {
   definitions:
     - id: poetry-check
       runtime: python
+      packages_file: \${cwd}/requirements.txt
+    - id: poetry-lock
+      runtime: python
+      packages_file: \${cwd}/requirements.txt
+    - id: poetry-export
+      runtime: python
       packages_file: \${cwd}/requirements.txt`);
   driver.writeFile(trunkYamlPath, newContents);
 
@@ -64,8 +70,6 @@ const fileExistsCallback = (filename: string) => async (driver: TrunkActionDrive
       [],
       { "--allow-empty": null },
       (_error, result) => {
-        console.log(_error);
-        console.log(result);
         expect(result).toBeTruthy();
       },
     );

@@ -5,7 +5,7 @@
 The recommended way to run [Poetry](https://python-poetry.org/docs/) using Trunk is to use the
 SYSTEM environment, rather than a hermetic setup. This is because Poetry provides its own
 environment management that will often collide with Trunk's hermetic setup. Nevertheless, leveraging
-Poetry and Trunk can be parallel.
+Poetry and Trunk in parallel can be powerful.
 
 Trunk provides 4 different Actions for running Poetry validation, matching parity with
 [Poetry pre-commit hooks](https://python-poetry.org/docs/pre-commit-hooks/).
