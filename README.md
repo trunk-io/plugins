@@ -201,16 +201,17 @@ Enable trunk actions via:
 trunk actions enable {action}
 ```
 
-| action                                                               | description                                                |
-| -------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [`buf-gen`](actions/buf/README.md)                                   | run `buf` on .proto file change                            |
-| [`commitizen`](actions/commitizen/README.md)                         | enforce conventional commits and manage releases           |
-| [`commitlint`](https://github.com/conventional-changelog/commitlint) | enforce conventional commit message for your local commits |
-| [`go-mod-tidy`](actions/go-mod-tidy/README.md)                       | automatically tidy go.mod file                             |
-| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)         | automatically tidy and vendor go.mod file                  |
-| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/README.md)   | automatically configure git to use .git-blame-ignore-revs  |
-| [`npm-check`](actions/npm-check/README.md)                           | check whether NPM installation is up to date               |
-| [`yarn-check`](actions/yarn-check/README.md)                         | check whether Yarn installation is up to date              |
+| action                                                                                                                                                                           | description                                                |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [`buf-gen`](actions/buf/README.md)                                                                                                                                               | run `buf` on .proto file change                            |
+| [`commitizen`](actions/commitizen/README.md)                                                                                                                                     | enforce conventional commits and manage releases           |
+| [`commitlint`](https://github.com/conventional-changelog/commitlint)                                                                                                             | enforce conventional commit message for your local commits |
+| [`go-mod-tidy`](actions/go-mod-tidy/README.md)                                                                                                                                   | automatically tidy go.mod file                             |
+| [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)                                                                                                                     | automatically tidy and vendor go.mod file                  |
+| [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/README.md)                                                                                                               | automatically configure git to use .git-blame-ignore-revs  |
+| [`npm-check`](actions/npm-check/README.md)                                                                                                                                       | check whether NPM installation is up to date               |
+| [`poetry-check`](actions/poetry/README.md), [`poetry-lock`](actions/poetry/README.md), [`poetry-export`](actions/poetry/README.md), [`poetry-install`](actions/poetry/README.md) | hooks to run validate poetry setup                         |
+| [`yarn-check`](actions/yarn-check/README.md)                                                                                                                                     | check whether Yarn installation is up to date              |
 
 ### Supported Tools
 
