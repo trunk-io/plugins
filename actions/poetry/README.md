@@ -34,7 +34,7 @@ actions:
   definitions:
     - id: poetry-check
       runtime: python
-      packages_file: ${workspace}/requirements.txt
+      packages_file: ${cwd}/requirements.txt
 ```
 
 These overrides will tell Trunk to use the hermetic install of `poetry` and use a sandboxed
