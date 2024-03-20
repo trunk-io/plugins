@@ -64,6 +64,8 @@ const fileExistsCallback = (filename: string) => async (driver: TrunkActionDrive
       [],
       { "--allow-empty": null },
       (_error, result) => {
+        console.log(_error);
+        console.log(result);
         expect(result).toBeTruthy();
       },
     );
