@@ -1,0 +1,22 @@
+version: 0.1
+downloads:
+  - name: difft
+    downloads:
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/Wilfred/difftastic/releases/download/${version}/difft-${cpu}-${os}.tar.gz
+      - os:
+          windows: pc-windows-msvc
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/Wilfred/difftastic/releases/download/${version}/difft-${cpu}-${os}.zip
+tools:
+  definitions:
+    - name: difft
+      download: difft
+      known_good_version: 0.56.1
+      shims: [difft]
