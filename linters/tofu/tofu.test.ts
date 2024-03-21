@@ -5,9 +5,9 @@ import { TrunkLintDriver } from "tests/driver";
 const preCheck = (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- tofu@(.+)\n/;
+  const enableRegex = /- tofu@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
+    enableRegex,
     "- tofu@$1:\n        commands: [validate, fmt]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);
