@@ -80,7 +80,7 @@ trunk check enable {linter}
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                                |
 | SVG             | [svgo]                                                                                                               |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                            |
-| Terraform       | [terraform] (validate and fmt), [checkov], [tflint],[tfsec],[terrascan] [tofu]                                       |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint],[tfsec],[terrascan], [tofu]                                      |
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
