@@ -5,7 +5,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["tofu", "--version"],
-      expectedOut: "tofu v1.6.2",
+      expectedOut: "OpenTofu v1.6.2",
     }),
   ],
 });
