@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter tofu test variables 1`] = `
+"variable "ssl_certificates" {
+  type = map(string)
+  default = {
+    lorem-elb-us-west-3 = "lorem"
+    ipsum-elb-us-east-1 = "ipsum"
+    dolor-elb-us-east-2 = "dolor"
+  }
+}
+"
+`;
