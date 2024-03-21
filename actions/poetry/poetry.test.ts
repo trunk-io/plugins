@@ -34,7 +34,7 @@ description = ""
 ${authorsSection}
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 pendulum = "^3.0.0"
 
 [build-system]
@@ -70,6 +70,7 @@ const fileExistsCallback = (filename: string) => async (driver: TrunkActionDrive
       [],
       { "--allow-empty": null },
       (_error, result) => {
+        expect(_error).toBeFalsy();
         expect(result).toBeTruthy();
       },
     );
