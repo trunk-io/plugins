@@ -690,6 +690,8 @@ export const linterCheckTest = ({
     linterTestTargets.forEach(({ prefix, inputPath }) => {
       // Step 1b: Detect versions to test against if PLUGINS_TEST_LINTER_VERSION=Snapshots
       const linterVersions = getVersionsForTest(dirname, linterName, prefix, "check");
+      console.log("linterName", linterName);
+      console.log("prefix", prefix);
       console.log("linterVersions", linterVersions);
       linterVersions.forEach((linterVersion) => {
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.

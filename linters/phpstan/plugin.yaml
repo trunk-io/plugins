@@ -20,9 +20,6 @@ lint:
         - phpstan.neon
         - phpstan.neon.dist
         - phpstan.dist.neon
-      environment:
-        - name: PATH
-          list: ["${linter}/vendor/bin"]
 tools:
   definitions:
     - name: phpstan

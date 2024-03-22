@@ -307,7 +307,7 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
         name: failure.name,
         message: failure.message,
         // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
-        details: expect.stringMatching(/.*$/m),
+        // details: expect.stringMatching(/.*$/m),
       })),
     };
   }

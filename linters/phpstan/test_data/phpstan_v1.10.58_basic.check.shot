@@ -6,7 +6,44 @@ exports[`Testing linter phpstan test basic 1`] = `
   "lintActions": [],
   "taskFailures": [
     {
-      "details": StringMatching /\\.\\*\\$/m,
+      "details": "trunk_cli_version: 1.21.1-beta.2
+title: "Error while executing: Preparing php v8.1.12"
+report:
+  - command: |
+      /tmp/plugins_testing_download_cache/phive/0.15.1-f6c8fdb9a4b04d65ad41bea5ad397f64/phive install --trust-gpg-keys '' --target /tmp/plugins_testing_download_cache/composer/2.5.1-7784b17d1d8ff658cfe8f0e111316a96 composer@2.5.1
+    stdin_path: (none)
+    run_from: /tmp/plugins_testing_download_cache/phive/0.15.1-f6c8fdb9a4b04d65ad41bea5ad397f64
+    timeout: 10m
+    rerun: (cd /tmp/plugins_testing_download_cache/phive/0.15.1-f6c8fdb9a4b04d65ad41bea5ad397f64; env -i HOME=/home/lauri PATH=/home/lauri/work/plugins/node_modules/.bin:/home/lauri/work/node_modules/.bin:/home/lauri/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/lauri/.cache/trunk/tools/node/20.11.0-7fda619991d78f392b0f0f08c92312bc/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/lauri/.cache/trunk/tools/node/20.11.0-7fda619991d78f392b0f0f08c92312bc/bin:/home/lauri/.cache/trunk/tools/node/20.11.0-7fda619991d78f392b0f0f08c92312bc:/home/lauri/work/plugins/.trunk/tools:/home/lauri/.vscode-server/cli/servers/Stable-863d2581ecda6849923a2118d93a088b0745d9d6/server/bin/remote-cli:/home/lauri/.local/bin:/home/lauri/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin:/opt/nvim-linux64/bin USER=lauri /tmp/plugins_testing_download_cache/phive/0.15.1-f6c8fdb9a4b04d65ad41bea5ad397f64/phive install --trust-gpg-keys '' --target /tmp/plugins_testing_download_cache/composer/2.5.1-7784b17d1d8ff658cfe8f0e111316a96 composer@2.5.1)
+    exit_status: exited
+    exit_code: 10
+    stdout: |
+      Phive 0.15.1 - Copyright (C) 2015-2024 by Arne Blankerts, Sebastian Heuer and Contributors
+
+    stderr: |
+      [ERROR]   An error occurred while processing your request:
+
+                Uninitialized string offset 0
+                
+                #0 src/shared/cli/Request.php(101)
+                #1 src/shared/cli/Request.php(101): PharIo\\Phive\\Cli\\Runner->errorHandler()
+                #2 src/shared/cli/Request.php(45): PharIo\\Phive\\Cli\\Request->handleLongOption()
+                #3 src/Factory.php(96): PharIo\\Phive\\Cli\\Request->parse()
+                #4 src/commands/CommandLocator.php(42): PharIo\\Phive\\Factory->getInstallCommand()
+                #5 src/shared/cli/Runner.php(241): PharIo\\Phive\\CommandLocator->getCommand()
+                #6 src/shared/cli/Runner.php(95): PharIo\\Phive\\Cli\\Runner->execute()
+                #7 (354): PharIo\\Phive\\Cli\\Runner->run()
+                #8 {main}
+
+                Environment: PHP 8.1.12-1ubuntu4.3 (on Linux 5.19.17-051917-generic)
+                Phive Version: 0.15.1
+
+                This should not have happened and is most likely a bug.
+                Please report it at https://github.com/phar-io/phive/issues, make sure you include
+                the full output of this error message. Thank you!
+
+
+",
       "message": "Preparing php v8.1.12",
       "name": "php",
     },
