@@ -17,9 +17,9 @@ const preCheck = (driver: TrunkLintDriver) => {
     : "stylelint-config-standard@25.0.0";
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- stylelint@(.+)\n/;
+  const enableRegex = /- stylelint@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
+    enableRegex,
     `- stylelint@$1:\n        packages: [${configVersion}]\n`,
   );
   driver.writeFile(trunkYamlPath, newContents);

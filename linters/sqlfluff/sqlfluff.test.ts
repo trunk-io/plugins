@@ -8,10 +8,10 @@ linterCheckTest({ linterName: "sqlfluff", namedTestPrefixes: ["basic_check"] });
 const fmtCallbacks: TestCallback = (driver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- sqlfluff@(.+)\n/;
+  const enableRegex = /- sqlfluff@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
-    "- sqlfluff@$1:\n        commands: [lint, fix]\n"
+    enableRegex,
+    "- sqlfluff@$1:\n        commands: [lint, fix]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);
 };

@@ -5,10 +5,10 @@ import { TrunkLintDriver } from "tests/driver";
 const preCheck = (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- terraform@(.+)\n/;
+  const enableRegex = /- terraform@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
-    "- terraform@$1:\n        commands: [validate, fmt]\n"
+    enableRegex,
+    "- terraform@$1:\n        commands: [validate, fmt]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);
 };
