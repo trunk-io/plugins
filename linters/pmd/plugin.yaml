@@ -6,9 +6,7 @@ lint:
         semver: ${version}=>(pmd_releases\/)*(?P<semver>.*)
       downloads:
         - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-dist-${semver}-bin.zip
-          version:
-            ">=7.0.0"
-            #  https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.0.0/pmd-dist-7.0.0-bin.zip
+          version: ">=7.0.0"
           strip_components: 1
         - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-bin-${semver}.zip
           strip_components: 1
