@@ -2,49 +2,66 @@ version: 0.1
 lint:
   downloads:
     - name: pmd
-      downloads:
-        - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-bin-${semver}.zip
-          strip_components: 1
       args:
         semver: ${version}=>(pmd_releases\/)*(?P<semver>.*)
+      downloads:
+        - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-dist-${semver}-bin.zip
+          version: ">=7.0.0"
+          strip_components: 1
+        - url: https://github.com/pmd/pmd/releases/download/pmd_releases%2F${semver}/pmd-bin-${semver}.zip
+          strip_components: 1
   definitions:
     - name: pmd
       download: pmd
       commands:
         - name: lint-apex
+          version: ">=7.0.0"
+          output: sarif
+          # Override this in your repo if you have custom rulesets
+          run: pmd check -R rulesets/apex/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files: [apex]
+        - name: lint-apex
           platforms: [windows]
           output: sarif
-          # Override this in your repo if you have a custom rulesets
+          # Override this in your repo if you have custom rulesets
           run: pmd.bat -R rulesets/apex/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          files:
-            - apex
+          files: [apex]
         - name: lint-apex
+          # 6.55.0 uses run.sh in place of pmd for non-Windows
           output: sarif
-          # Override this in your repo if you have a custom rulesets
+          # Override this in your repo if you have custom rulesets
           run: run.sh pmd -R rulesets/apex/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          files:
-            - apex
+          files: [apex]
+        - name: lint-java
+          version: ">=7.0.0"
+          output: sarif
+          # Override this in your repo if you have custom rulesets
+          run: pmd check -R rulesets/java/quickstart.xml -f sarif -d ${target}
+          success_codes: [0, 4]
+          read_output_from: stdout
+          files: [java]
         - name: lint-java
           platforms: [windows]
           output: sarif
-          # Override this in your repo if you have a custom rulesets
+          # Override this in your repo if you have custom rulesets
           run: pmd.bat -R rulesets/java/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          files:
-            - java
+          files: [java]
         - name: lint-java
+          # 6.55.0 uses run.sh in place of pmd
           output: sarif
-          # Override this in your repo if you have a custom rulesets
+          # Override this in your repo if you have custom rulesets
           run: run.sh pmd -R rulesets/java/quickstart.xml -f sarif -d ${target}
           success_codes: [0, 4]
           read_output_from: stdout
-          files:
-            - java
+          files: [java]
       runtime: java
       suggest_if: never
       known_good_version: 6.55.0

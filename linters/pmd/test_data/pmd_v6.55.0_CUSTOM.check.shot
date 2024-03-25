@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter pmd test apex 1`] = `
+exports[`Testing linter pmd test CUSTOM 1`] = `
 {
   "issues": [
     {
@@ -57,6 +57,42 @@ exports[`Testing linter pmd test apex 1`] = `
       ],
       "targetType": "apex",
     },
+    {
+      "code": "NoPackage",
+      "column": "1",
+      "file": "test_data/hello.in.java",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "pmd",
+      "message": "All classes, interfaces, enums and annotations must belong to a named package",
+      "ranges": [
+        {
+          "filePath": "test_data/hello.in.java",
+          "length": "116",
+          "offset": "23",
+        },
+      ],
+      "targetType": "java",
+    },
+    {
+      "code": "UseUtilityClass",
+      "column": "18",
+      "file": "test_data/hello.in.java",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "pmd",
+      "message": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+      "ranges": [
+        {
+          "filePath": "test_data/hello.in.java",
+          "length": "99",
+          "offset": "40",
+        },
+      ],
+      "targetType": "java",
+    },
   ],
   "lintActions": [
     {
@@ -74,6 +110,25 @@ exports[`Testing linter pmd test apex 1`] = `
       "linter": "pmd",
       "paths": [
         "test_data/apex.in.cls",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint-java",
+      "fileGroupName": "java",
+      "linter": "pmd",
+      "paths": [
+        "test_data/hello.in.java",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint-java",
+      "fileGroupName": "java",
+      "linter": "pmd",
+      "paths": [
+        "test_data/hello.in.java",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
