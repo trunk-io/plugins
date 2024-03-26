@@ -114,6 +114,14 @@ jobs:
           echo "Running tests on individual actions: ${action_files}"
           echo "out=${action_files}" >> "$GITHUB_OUTPUT"
 
+  new_runner_test:
+    name: New runner test
+    runs-on: public-amd64-nano
+    steps:
+      - name: Sleep
+        shell: bash
+        run: sleep 10
+
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Linter Tests ${{ matrix.os }}
