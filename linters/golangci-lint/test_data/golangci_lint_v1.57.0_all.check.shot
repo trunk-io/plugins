@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter golangci-lint test all 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.go",
+              "length": "34",
+              "offset": "45",
+              "replacementText": "// this is the main function 🏃.
+",
+            },
+          ],
+        },
+      ],
+      "code": "godot",
+      "column": "34",
+      "file": "test_data/basic.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "golangci-lint",
+      "message": "Comment should end in a period",
+      "targetType": "go",
+    },
+    {
+      "code": "errcheck",
+      "column": "12",
+      "file": "test_data/basic.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "golangci-lint",
+      "message": "Error return value of \`time.Parse\` is not checked",
+      "targetType": "go",
+    },
+    {
+      "code": "unused",
+      "column": "6",
+      "file": "test_data/unused_func.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "golangci-lint",
+      "message": "func \`helper\` is unused",
+      "targetType": "go",
+    },
+    {
+      "code": "typecheck",
+      "file": "test_data/wrapper/printer.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "golangci-lint",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data/wrapper",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

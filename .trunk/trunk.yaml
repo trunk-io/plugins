@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.20.2-beta.4
+  version: 1.21.1-beta.14
   shell_hooks:
     enforce: true
 
@@ -17,7 +17,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.2
+      ref: v1.0.4
 
 lint:
   # enabled linters inherited from github.com/trunk-io/configs plugin

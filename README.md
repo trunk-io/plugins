@@ -80,7 +80,7 @@ trunk check enable {linter}
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                                |
 | SVG             | [svgo]                                                                                                               |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                            |
-| Terraform       | [terraform] (validate and fmt), [checkov], [tflint],[tfsec],[terrascan]                                              |
+| Terraform       | [terraform] (validate and fmt), [checkov], [tflint], [tfsec], [terrascan], [tofu]                                    |
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
@@ -177,6 +177,7 @@ trunk check enable {linter}
 [taplo]: https://github.com/tamasfe/taplo#readme
 [terrascan]: https://github.com/tenable/terrascan#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
+[tofu]: https://opentofu.org/
 [terragrunt]: https://terragrunt.gruntwork.io/docs/getting-started/quick-start/
 [tflint]: https://github.com/terraform-linters/tflint#readme
 [tfsec]: https://github.com/aquasecurity/tfsec

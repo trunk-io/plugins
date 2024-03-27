@@ -1,0 +1,39 @@
+version: 0.1
+lint:
+  definitions:
+    - name: tofu
+      files: [terraform]
+      tools: [tofu]
+      commands:
+        - name: validate
+          # Custom parser type defined in the trunk cli to handle tofu's JSON output.
+          output: terraform_validate
+          target: ${parent}
+          run: tofu validate -json
+          run_from: ${target_directory}
+          success_codes: [0, 1]
+          enabled: false
+        - name: fmt
+          output: rewrite
+          formatter: true
+          run: tofu fmt -no-color -
+          stdin: true
+          success_codes: [0]
+          cache_results: true
+      suggest_if: never
+      environment:
+        - name: PATH
+          list: ["${linter}"]
+        - name: GITHUB_APP_ID
+          value: ${env.GITHUB_APP_ID}
+          optional: true
+        - name: GITHUB_APP_INSTALLATION_ID
+          value: ${env.GITHUB_APP_INSTALLATION_ID}
+          optional: true
+        - name: GITHUB_APP_PEM_FILE
+          value: ${env.GITHUB_APP_PEM_FILE}
+          optional: true
+      known_good_version: 1.6.2
+      version_command:
+        parse_regex: ${semver}
+        run: tofu --version

@@ -31,7 +31,10 @@ lint:
           success_codes: [0, 183]
           is_security: true
           batch: true
+          cache_results: true
           cache_ttl: 1h
+          # trufflehog 3.71.1 stopped linting symlinks
+          sandbox_type: copy_targets
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trufflehog/trufflehog_to_sarif.py
