@@ -1,0 +1,68 @@
+version: 0.1
+# NOTE: See README.md for usage guidelines.
+actions:
+  definitions:
+    - id: poetry-check
+      display_name: poetry check
+      description: Run 'poetry check' to validate config
+      # runtime: python
+      # packages_file: ${cwd}/requirements.txt
+      run: poetry check
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+    - id: poetry-lock
+      display_name: poetry lock
+      # You may wish to override this with 'poetry lock --no-update'
+      description: Run 'poetry lock' to update lock file to match pyproject.toml
+      run: poetry lock --no-update
+      # runtime: python
+      # packages_file: ${cwd}/requirements.txt
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+    - id: poetry-export
+      display_name: poetry export
+      description: Run 'poetry export' to sync requirements.txt with lock file
+      run: poetry export -f requirements.txt -o requirements.txt
+      # packages_file: ${cwd}/requirements.txt
+      # runtime: python
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+    - id: poetry-install
+      display_name: poetry install
+      description: Run 'poetry install' to ensure all locked packages are installed
+      run: poetry install
+      # packages_file: ${cwd}/requirements.txt
+      # runtime: python
+      triggers:
+        - git_hooks: [post-checkout, post-merge]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+tools:
+  definitions:
+    - name: poetry
+      runtime: python
+      package: poetry
+      extra_packages: [poetry-plugin-export]
+      known_good_version: 1.8.2
+      health_checks:
+        - command: poetry --version
+          parse_regex: ${semver}
+      shims: [poetry]
