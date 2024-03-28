@@ -52,6 +52,7 @@ runs:
             brew install cpm
             cpm install -g --no-test --color Perl::Critic Perl::Tidy
             brew unlink perl && brew link perl
+            brew install php gnupg
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
