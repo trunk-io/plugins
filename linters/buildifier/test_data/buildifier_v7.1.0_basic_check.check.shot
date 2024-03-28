@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter buildifier test basic_check 1`] = `
+{
+  "issues": [
+    {
+      "code": "module-docstring",
+      "column": "1",
+      "file": "test_data/basic.bzl",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#module-docstring",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "buildifier",
+      "message": "The file has no module docstring.
+A module docstring is a string literal (not a comment) which should be the first statement of a file (it may follow comment lines).",
+      "targetType": "starlark",
+    },
+    {
+      "code": "load",
+      "column": "26",
+      "file": "test_data/basic.bzl",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#load",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "buildifier",
+      "message": "Loaded symbol "a" is unused. Please remove it.
+To disable the warning, add '@unused' in a comment.
+If you want to re-export a symbol, use the following pattern:
+
+    load(..., _a = "a", ...)
+    a = _a",
+      "targetType": "starlark",
+    },
+    {
+      "code": "load",
+      "column": "26",
+      "file": "test_data/basic.bzl",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#load",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "buildifier",
+      "message": "Loaded symbol "b" is unused. Please remove it.
+To disable the warning, add '@unused' in a comment.
+If you want to re-export a symbol, use the following pattern:
+
+    load(..., _b = "b", ...)
+    b = _b",
+      "targetType": "starlark",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fix",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/add_tables.BUILD",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "fix",
+      "fileGroupName": "starlark",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/basic.bzl",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "warn",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/add_tables.BUILD",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "warn",
+      "fileGroupName": "starlark",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/basic.bzl",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "warn",
+      "fileGroupName": "bazel-build",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/add_tables.BUILD",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "warn",
+      "fileGroupName": "starlark",
+      "linter": "buildifier",
+      "paths": [
+        "test_data/basic.bzl",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/add_tables.BUILD",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "buildifier",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+    {
+      "column": "1",
+      "file": "test_data/basic.bzl",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "buildifier",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
