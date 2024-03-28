@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter phpstan test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "phpstan",
+      "file": "test_data/basic.in.php",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "phpstan",
+      "message": "Parameter $date of method HelloWorld::sayHello() has invalid type DateTimeImutable.",
+      "targetType": "php",
+    },
+    {
+      "code": "phpstan",
+      "file": "test_data/basic.in.php",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "phpstan",
+      "message": "Call to method format() on an unknown class DateTimeImutable.",
+      "targetType": "php",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "php",
+      "linter": "phpstan",
+      "paths": [
+        "test_data/basic.in.php",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "php",
+      "linter": "phpstan",
+      "paths": [
+        "test_data/basic.in.php",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

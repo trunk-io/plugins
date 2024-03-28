@@ -66,6 +66,7 @@ trunk check enable {linter}
 | Nix             | [nixpkgs-fmt]                                                                                                        |
 | package.json    | [sort-package-json]                                                                                                  |
 | Perl            | [perlcritic], [perltidy]                                                                                             |
+| PHP             | [phpstan]                                                                                                            |
 | PNG             | [oxipng]                                                                                                             |
 | PowerShell      | [psscriptanalyzer]                                                                                                   |
 | Prisma          | [prisma]                                                                                                             |
@@ -142,6 +143,7 @@ trunk check enable {linter}
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
+[phpstan]: https://phpstan.org/
 [pmd]: https://pmd.github.io/
 [pragma-once]: linters/pragma-once/README.md
 [prettier]: https://github.com/prettier/prettier#readme
