@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: ation
+      files: [ALL]
+      suggest_if: never
+      runtime: python
+      direct_configs: [.ation]
+      commands:
+        - name: format
+          output: rewrite
+          formatter: true
+          cache_results: true
+          stdin: true
+          run: python3 "${cwd}/ation.py" ${workspace}
+          success_codes: [0]
+  ignore:
+    - linters: [ation]
+      paths:
+        - "**/plugin.yaml"
+        - ".trunk/**/*"
