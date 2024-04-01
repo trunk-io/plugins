@@ -19,3 +19,5 @@ lint:
       paths:
         - "**/plugin.yaml"
         - .trunk/**/*
+  enabled:
+    - ation
