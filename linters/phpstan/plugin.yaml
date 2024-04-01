@@ -1,4 +1,14 @@
 version: 0.1
+tools:
+  definitions:
+    - name: phpstan
+      runtime: php
+      package: phpstan/phpstan
+      known_good_version: 1.10.58
+      shims: [phpstan]
+      environment:
+        - name: PATH
+          list: ["${tool}/vendor/bin"]
 lint:
   definitions:
     - name: phpstan
@@ -20,13 +30,3 @@ lint:
         - phpstan.neon
         - phpstan.neon.dist
         - phpstan.dist.neon
-tools:
-  definitions:
-    - name: phpstan
-      runtime: php
-      package: phpstan/phpstan
-      known_good_version: 1.10.58
-      shims: [phpstan]
-      environment:
-        - name: PATH
-          list: ["${tool}/vendor/bin"]
