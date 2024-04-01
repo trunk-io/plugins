@@ -18,4 +18,4 @@ lint:
     - linters: [ation]
       paths:
         - "**/plugin.yaml"
-        - ".trunk/**/*"
+        - .trunk/**/*
