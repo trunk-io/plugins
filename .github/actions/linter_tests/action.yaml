@@ -36,6 +36,8 @@ runs:
       with:
         node-version: 18
 
+    # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
+    #       it will prompt for a timezone selection
     - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
