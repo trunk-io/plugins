@@ -4,8 +4,8 @@ import { TrunkActionDriver } from "tests/driver";
 
 const preCheck = (driver: TrunkActionDriver) => {
   driver.writeFile(
-    "commitlint.config.js",
-    "module.exports = {extends: ['@commitlint/config-conventional']}",
+    "commitlint.config.mjs",
+    "export default {extends: ['@commitlint/config-conventional']}",
   );
 };
 
