@@ -9,7 +9,7 @@ tools:
 lint:
   definitions:
     - name: ruff
-      files: [python]
+      files: [python, python-interface]
       commands:
         - name: lint
           # As of ruff v0.1.0, --format is replaced with --output-format
