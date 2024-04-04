@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test interface 1`] = `
+{
+  "issues": [
+    {
+      "code": "F821",
+      "column": "2",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F821",
+      "level": "LEVEL_HIGH",
+      "line": "11",
+      "linter": "ruff",
+      "message": "Undefined name \`overload\`",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "8",
+          "offset": "170",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "code": "F811",
+      "column": "5",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F811",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "ruff",
+      "message": "Redefinition of unused \`a\` from line 9",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "1",
+          "offset": "183",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "code": "F821",
+      "column": "2",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F821",
+      "level": "LEVEL_HIGH",
+      "line": "14",
+      "linter": "ruff",
+      "message": "Undefined name \`overload\`",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "8",
+          "offset": "202",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "code": "F811",
+      "column": "5",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F811",
+      "level": "LEVEL_HIGH",
+      "line": "15",
+      "linter": "ruff",
+      "message": "Redefinition of unused \`a\` from line 12",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "1",
+          "offset": "215",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "autofixOptions": [
+        {
+          "message": "Remove unused import: \`json\`",
+          "replacements": [
+            {
+              "filePath": "test_data/interface.in.pyi",
+              "length": "12",
+              "offset": "47",
+            },
+          ],
+        },
+      ],
+      "code": "F401",
+      "column": "8",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F401",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "ruff",
+      "message": "\`json\` imported but unused",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "4",
+          "offset": "54",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "code": "F821",
+      "column": "6",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F821",
+      "level": "LEVEL_HIGH",
+      "line": "31",
+      "linter": "ruff",
+      "message": "Undefined name \`decorated\`",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "9",
+          "offset": "479",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "code": "F811",
+      "column": "1",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F811",
+      "level": "LEVEL_HIGH",
+      "line": "37",
+      "linter": "ruff",
+      "message": "Redefinition of unused \`a\` from line 15",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "1",
+          "offset": "548",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+    {
+      "autofixOptions": [
+        {
+          "message": "Remove unused import: \`typing.Sequence\`",
+          "replacements": [
+            {
+              "filePath": "test_data/interface.in.pyi",
+              "length": "32",
+              "offset": "60",
+              "replacementText": "from typing import Any",
+            },
+          ],
+        },
+      ],
+      "code": "F401",
+      "column": "25",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F401",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "ruff",
+      "message": "\`typing.Sequence\` imported but unused",
+      "ranges": [
+        {
+          "filePath": "test_data/interface.in.pyi",
+          "length": "8",
+          "offset": "84",
+        },
+      ],
+      "targetType": "python-interface",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python-interface",
+      "linter": "ruff",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python-interface",
+      "linter": "ruff",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
