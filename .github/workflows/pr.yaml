@@ -154,6 +154,84 @@ jobs:
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
+  linter_tests_2:
+    name: Linter Tests 2 ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
+      'linters/'
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [Linux, macOS]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+      - name: Linter Tests Latest
+        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
+          needs.detect_changes.outputs.linters-files != ''
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args: ${{ needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+  linter_tests_3:
+    name: Linter Tests 3 ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.os }}"]
+    needs: detect_changes
+    if:
+      needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
+      'linters/'
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [Linux, macOS]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Linter Tests
+        # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: KnownGoodVersion
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args:
+            ${{ needs.detect_changes.outputs.all-linters }} ${{
+            needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
+      - name: Linter Tests Latest
+        # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
+        if:
+          (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
+          needs.detect_changes.outputs.linters-files != ''
+        uses: ./.github/actions/linter_tests
+        with:
+          linter-version: Latest
+          sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          append-args: ${{ needs.detect_changes.outputs.linters-files }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+
   tool_tests:
     name: Tool Tests
     runs-on: [self-hosted, "${{ matrix.os }}"]
