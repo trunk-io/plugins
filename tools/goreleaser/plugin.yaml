@@ -1,0 +1,10 @@
+version: 0.1
+tools:
+  definitions:
+    - name: goreleaser
+      known_good_version: 1.25.1
+      package: github.com/goreleaser/goreleaser
+      runtime: go
+      shims:
+        - name: goreleaser
+          target: goreleaser
