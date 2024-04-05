@@ -44,6 +44,11 @@ runs:
 
         case "$RUNNER_OS" in
           Linux)
+            # Cleanup any existing apt locks
+            sudo killall apt-get || true
+            sudo rm /var/lib/apt/lists/lock || true
+
+            # Install non-hermetic linters
             sudo apt-get update
             sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev
             DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt-get -y install tzdata
