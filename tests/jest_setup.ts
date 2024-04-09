@@ -2,7 +2,7 @@ import { FileIssue } from "tests/types";
 import { osTimeoutMultiplier } from "tests/utils";
 import { isDeepStrictEqual } from "util";
 
-jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
+jest.setTimeout(300000 * osTimeoutMultiplier);
 
 /**
  * Compares 2 file issues to determine exact equality.
