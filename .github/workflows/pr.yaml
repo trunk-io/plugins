@@ -117,7 +117,7 @@ jobs:
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Linter Tests ${{ matrix.os }}
-    runs-on: [self-hosted, "${{ matrix.os }}"]
+    runs-on: ${{ matrix.os }}
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
@@ -156,7 +156,7 @@ jobs:
 
   tool_tests:
     name: Tool Tests
-    runs-on: [self-hosted, "${{ matrix.os }}"]
+    runs-on: ${{ matrix.os }}
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
@@ -182,7 +182,7 @@ jobs:
 
   action_tests:
     name: Action Tests
-    runs-on: [self-hosted, public-amd64-small]
+    runs-on: public-amd64-small
     needs: detect_changes
     if:
       needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
