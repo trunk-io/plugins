@@ -1,0 +1,28 @@
+version: 0.1
+lint:
+  definitions:
+    - name: eslint9
+      files: [typescript, javascript]
+      main_tool: eslint
+      commands:
+        - name: lint
+          version: ">=9.0.0"
+          output: eslint
+          run: eslint --output-file ${tmpfile} --format json ${target}
+          error_codes: [2]
+          read_output_from: tmp_file
+          batch: true
+      direct_configs:
+        - eslint.config.js
+        - eslint.config.mjs
+        - eslint.config.cjs
+      suggest_if: config_present
+      affects_cache:
+        - .eslintignore
+        - package.json
+        - tsconfig.json
+      issue_url_format: https://eslint.org/docs/rules/{}
+      known_good_version: 9.0.0
+      version_command:
+        parse_regex: ${semver}
+        run: eslint --version
