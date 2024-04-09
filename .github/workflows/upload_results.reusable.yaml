@@ -44,7 +44,7 @@ permissions: read-all
 jobs:
   upload_test_results:
     name: Upload Test Results
-    runs-on: ubuntu-x64
+    runs-on: public-amd64-small
     timeout-minutes: 10
     env:
       SLACK_CHANNEL_ID: plugins-notifications
@@ -226,7 +226,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
   generate_snapshots_pr:
     name: Generate Snapshots PR
-    runs-on: ubuntu-x64
+    runs-on: public-amd64-small
     timeout-minutes: 30
     needs: upload_test_results
     if: needs.upload_test_results.outputs.reruns != ''

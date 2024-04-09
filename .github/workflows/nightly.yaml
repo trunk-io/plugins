@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [public-amd64-small, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -80,10 +80,10 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [public-amd64-small, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: public-amd64-small
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -215,10 +215,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [public-amd64-small, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: public-amd64-small
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -268,7 +268,7 @@ jobs:
 
   action_tests_main:
     name: Action Tests Main
-    runs-on: [self-hosted, Linux]
+    runs-on: [self-hosted, public-amd64-small]
     timeout-minutes: 30
     steps:
       - name: Checkout

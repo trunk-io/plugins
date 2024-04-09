@@ -126,7 +126,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [Linux, macOS]
+        os: [public-amd64-small, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -165,7 +165,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [Linux, macOS]
+        os: [public-amd64-small, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -182,7 +182,7 @@ jobs:
 
   action_tests:
     name: Action Tests
-    runs-on: [self-hosted, Linux]
+    runs-on: [self-hosted, public-amd64-small]
     needs: detect_changes
     if:
       needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
