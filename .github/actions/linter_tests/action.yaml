@@ -98,7 +98,7 @@ runs:
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
-        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
+        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
