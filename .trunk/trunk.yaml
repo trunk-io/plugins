@@ -54,6 +54,11 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
+    # TODO(Tyler): Make eslint9 config work for js files in this repo.
+    - linters: [eslint9]
+      paths:
+        - "**/*.js"
+        - "**/*.cjs"
 
 actions:
   # Uncomment to enable more verbose action logs

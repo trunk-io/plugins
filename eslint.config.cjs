@@ -6,7 +6,7 @@ const nodeRecommended = require("eslint-plugin-n");
 const prettier = require("eslint-config-prettier");
 const jestPlugin = require("eslint-plugin-jest");
 const simpleImportSort = require("eslint-plugin-simple-import-sort");
-const preferArrowFunctions = require("eslint-plugin-prefer-arrow-functions");
+// const preferArrowFunctions = require("eslint-plugin-prefer-arrow-functions");
 
 module.exports = [
   eslint.configs.recommended,
@@ -17,7 +17,7 @@ module.exports = [
   {
     files: ["**/*.ts"],
     plugins: {
-      "prefer-arrow-functions": preferArrowFunctions,
+      // "prefer-arrow-functions": preferArrowFunctions,
       "simple-import-sort": simpleImportSort,
       "import-x": importPlugin,
       n: nodeRecommended,
@@ -100,12 +100,13 @@ module.exports = [
       "n/no-unpublished-import": "off",
       "n/no-missing-import": "off",
       "n/no-unsupported-features/es-syntax": ["error", { ignores: ["modules", "dynamicImport"] }],
-      "prefer-arrow-functions/prefer-arrow-functions": [
-        "error",
-        {
-          returnStyle: "implicit",
-        },
-      ],
+      // TODO(Tyler): Add prefer-arrow-functions once it becomes compatible.
+      // "prefer-arrow-functions/prefer-arrow-functions": [
+      //   "error",
+      //   {
+      //     returnStyle: "implicit",
+      //   },
+      // ],
       "simple-import-sort/exports": "error",
       "simple-import-sort/imports": "error",
       "@typescript-eslint/no-confusing-void-expression": "off",
