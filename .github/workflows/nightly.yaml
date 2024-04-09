@@ -167,6 +167,10 @@ jobs:
           fi
         shell: bash
 
+      - name: Clean jest cache
+        run: npx jest --clearCache
+        shell: bash
+
       - name: Linter Tests ${{ matrix.os }}
         # Use overwritten dependency action, rather than released version
         uses: ./.github/actions/linter_tests
