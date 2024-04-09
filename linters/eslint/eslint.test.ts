@@ -71,7 +71,7 @@ const preCheck = (driver: TrunkLintDriver) => {
 };
 
 const manualVersionReplacer = (version: string) => {
-  // NOTE(Tyler): Continue to test eslint pre-9.0.0 and gate until we have a long-term fix.
+  // NOTE(Tyler): Continue to test eslint pre-9.0.0 and gate until we have a long-term fix. See eslint9.test.ts
   const parsedVersion = semver.parse(version);
   if (parsedVersion && parsedVersion.major >= 9) {
     return "8.57.0";

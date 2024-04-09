@@ -4,10 +4,11 @@ import { setupLintDriver } from "tests";
 import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 
 // Avoid strictly typing composite config
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
+// trunk-ignore-all(eslint9/@typescript-eslint/no-unsafe-assignment)
+// trunk-ignore-all(eslint9/@typescript-eslint/no-unsafe-member-access)
+// trunk-ignore-all(eslint9/@typescript-eslint/no-unsafe-call)
+// trunk-ignore-all(eslint9/@typescript-eslint/no-unsafe-argument)
+// trunk-ignore-all(eslint9/@typescript-eslint/no-unsafe-return)
 
 jest.setTimeout(300000 * osTimeoutMultiplier);
 

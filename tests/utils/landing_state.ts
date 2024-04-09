@@ -30,6 +30,7 @@ const extractLintActionFields = ({
   paths: _paths,
   ...rest
 }: LintAction): LintAction => ({
+  // trunk-ignore(eslint9/@typescript-eslint/no-non-null-assertion)
   paths: _paths.map((originalPath) => normalizePlatformPath(originalPath)!),
   ...rest,
 });
@@ -39,6 +40,7 @@ const extractTaskFailureFields = (
   { detailPath, message, ...rest }: TaskFailure,
 ): TaskFailure => ({
   ...rest,
+  // trunk-ignore(eslint9/@typescript-eslint/no-non-null-assertion)
   message: normalizePlatformPath(message)!,
   details: detailPath
     ? fs.readFileSync(path.resolve(sandboxPath, detailPath), { encoding: "utf-8" })
@@ -76,6 +78,7 @@ const normalizeMessage = (message?: string) =>
     .replace(".dup.", ".")
     .trim();
 
+// trunk-ignore(eslint9/@typescript-eslint/no-non-null-assertion)
 const normalizeFile = (file: string) => normalizePlatformPath(file.replace(".dup.", "."))!;
 
 const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
@@ -97,8 +100,8 @@ const normalizeIssues = ({
     file: normalizeFile(_file),
   };
   if (_ranges) {
-    // trunk-ignore(eslint/@typescript-eslint/no-unsafe-argument)
-    ret["ranges"] = _ranges.map((range) => normalizeRange(range));
+    // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-argument)
+    ret.ranges = _ranges.map((range) => normalizeRange(range));
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
@@ -114,7 +117,7 @@ const extractLandingStateFields = (
   sandboxPath: string,
   { issues = [], unformattedFiles = [], lintActions = [], taskFailures = [] }: LandingState,
 ) =>
-  <LandingState>{
+  ({
     issues: sort(issues.map(normalizeIssues)).asc((issue) => [
       issue.file,
       issue.line,
@@ -140,7 +143,7 @@ const extractLandingStateFields = (
     taskFailures: sort(
       taskFailures.map((failure) => extractTaskFailureFields(sandboxPath, failure)),
     ).asc((failure) => [failure.name, failure.message]),
-  };
+  }) as LandingState;
 
 /**
  * Extract the LandingState from an input `json`, returning a deterministic landing state

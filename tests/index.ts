@@ -18,7 +18,7 @@ import {
 
 /**** Custom Test Configuration ****/
 
-// trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
+// trunk-ignore(eslint9/@typescript-eslint/no-unused-vars): Define the matcher as extracted from dependency
 const toMatchSpecificSnapshot = specific_snapshot.toMatchSpecificSnapshot;
 
 // The underlying implementation of jest-specific-snapshot supports forwarding additional arguments from
@@ -51,7 +51,7 @@ declare global {
  */
 const registerVersion = (testType: string, linterVersion?: string) => {
   // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
-  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
+  // trunk-ignore(eslint9): Manual patch is required here for most reliable implementation
   console._buffer?.push(
     {
       message: linterVersion,
@@ -73,7 +73,7 @@ const registerVersion = (testType: string, linterVersion?: string) => {
  */
 const registerFailureMode = (failureMode: FailureMode) => {
   // @ts-expect-error: `_buffer` is `private`, see `tests/reporter/reporters.ts` for rationale
-  // trunk-ignore(eslint): Manual patch is required here for most reliable implementation
+  // trunk-ignore(eslint9): Manual patch is required here for most reliable implementation
   console._buffer?.push({
     message: failureMode,
     origin: expect.getState().currentTestName,
@@ -836,6 +836,7 @@ export const linterFmtTest = ({
               snapshotPath,
             );
             registerFailureMode("assertion_failure");
+            // trunk-ignore(eslint9/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );

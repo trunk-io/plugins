@@ -76,7 +76,7 @@ actions:
     } catch (error) {
       console.warn(`Failed to sync git hooks for ${this.action}`, error);
       if ("stdout" in (error as any)) {
-        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+        // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
         console.log("Error output:", ((error as any).stdout as Buffer).toString());
       } else {
         console.log("Error keys:  ", Object.keys(error as object));
@@ -95,7 +95,7 @@ actions:
       const { stdout, stderr } = await this.runTrunk(["run", this.action, args ?? ""]);
       return { exitCode: 0, stdout, stderr };
     } catch (e: any) {
-      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
       return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
     }
   };

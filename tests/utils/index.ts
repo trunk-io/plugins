@@ -165,7 +165,7 @@ export const getSnapshotPathForAssert = (
   let closestMatchPath;
   for (const snapshotName of availableSnapshots) {
     const match = snapshotName.match(snapshotFileRegex);
-    if (match && match.groups) {
+    if (match?.groups) {
       const snapshotVersion = match.groups.version;
       const comparator = versionGreaterThanOrEqual ?? semver.gte;
       if (
@@ -306,7 +306,7 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
       taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
         name: failure.name,
         message: failure.message,
-        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+        // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-assignment)
         details: expect.stringMatching(/.*$/m),
       })),
     };
@@ -334,7 +334,7 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
     taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
       name: failure.name,
       message: failure.message,
-      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+      // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-assignment)
       details: snapshotContainsFailure(failure) ? expect.stringMatching(/.*$/m) : failure.details,
     })),
   };

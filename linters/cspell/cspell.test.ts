@@ -49,7 +49,7 @@ const normalizeLandingState = (landingState: LandingState) => {
         const suggestions = issue.message.match(suggestionsRegex);
         const suggestionsContent = suggestions?.groups?.suggestions;
         if (suggestionsContent) {
-          const sortedSuggestions = suggestionsContent?.split(", ").sort().join(", ");
+          const sortedSuggestions = suggestionsContent.split(", ").sort().join(", ");
           issue.message = issue.message.replace(suggestionsContent, sortedSuggestions);
         }
       }
@@ -57,7 +57,7 @@ const normalizeLandingState = (landingState: LandingState) => {
   }
 };
 
-// trunk-ignore-begin(eslint)
+// trunk-ignore-begin(eslint9)
 const expectedBasicFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_basic_issues.json")).toString(),
 );
@@ -65,7 +65,7 @@ const expectedBasicFileIssues = JSON.parse(
 const expectedDictionaryFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_dictionary_issues.json")).toString(),
 );
-// trunk-ignore-end(eslint)
+// trunk-ignore-end(eslint9)
 
 // TODO(Tyler): Determine root cause of flakiness on Mac runners
 // cspell will update their dictionaries fairly frequently. Rather than erroring every time this happens,

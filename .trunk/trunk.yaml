@@ -42,7 +42,10 @@ lint:
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
+    - eslint9@9.0.0
   disabled:
+    # TODO(Tyler): Explicitly disable eslint<9 to avoid clash with eslint9.
+    - eslint
     - pylint # pylint diagnostics are too strict
     - semgrep
 

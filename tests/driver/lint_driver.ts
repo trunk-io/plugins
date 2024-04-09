@@ -121,7 +121,7 @@ lint:
     if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
     } else if (toEnableVersion === "KnownGoodVersion") {
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       const kgv =
         (this.getFullTrunkConfig().lint.definitions.find(
           ({ name }: { name: string }) => name === this.linter,
@@ -131,7 +131,7 @@ lint:
         return `${kgv}0`;
       }
       return kgv;
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     } else if (toEnableVersion !== "Snapshots") {
       // toEnableVersion is a version string
       return toEnableVersion;
@@ -251,7 +251,7 @@ lint:
         targetAbsPath,
       );
     } catch (error: any) {
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access)
       // If critical failure occurs, JSON file might be empty
       let jsonContents = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
       if (!jsonContents) {
@@ -270,7 +270,7 @@ lint:
       if (trunkRunResult.exitCode != 1) {
         console.log(`${error.code as number} Failure running 'trunk check'`, error);
       }
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Check", targetAbsPath);
     }
   }
@@ -329,7 +329,7 @@ lint:
         targetAbsPath,
       );
     } catch (error: any) {
-      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access)
       // If critical failure occurs, JSON file might be empty
       let jsonContents = fs.readFileSync(resultJsonPath, { encoding: "utf-8" });
       if (!jsonContents) {
@@ -348,7 +348,7 @@ lint:
       if (trunkRunResult.exitCode != 1) {
         console.log(`${error.code as number} Failure running 'trunk fmt'`, error);
       }
-      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access)
       return this.parseRunResult(trunkRunResult, "Format", targetAbsPath);
     }
   }

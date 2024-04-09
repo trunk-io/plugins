@@ -61,8 +61,8 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
-| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                             |
-| JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                                     |
+| Javascript      | [biome], [deno], [eslint], [eslint9], [prettier], [rome], [semgrep]                                                  |
+| JSON            | [biome], [deno], [eslint], [eslint9], [prettier], [semgrep]                                                          |
 | Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
@@ -89,7 +89,7 @@ trunk check enable {linter}
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
-| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
+| Typescript      | [deno], [eslint], [eslint9], [prettier], [rome], [semgrep]                                                           |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                    |
 
 [actionlint]: https://trunk.io/linters/infra/actionlint
@@ -118,7 +118,8 @@ trunk check enable {linter}
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
 [dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock
-[eslint]: https://github.com/eslint/eslint#readme
+[eslint]: https://eslint.org/docs/latest/
+[eslint9]: https://eslint.org/docs/latest/
 [flake8]: https://trunk.io/linters/python/flake8
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gitleaks]: https://trunk.io/linters/security/gitleaks

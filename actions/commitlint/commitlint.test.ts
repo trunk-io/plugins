@@ -1,4 +1,4 @@
-/* trunk-ignore-all(eslint/import/no-extraneous-dependencies) */
+/* trunk-ignore-all(eslint9/import/no-extraneous-dependencies) */
 import { actionRunTest } from "tests";
 import { TrunkActionDriver } from "tests/driver";
 

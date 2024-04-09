@@ -16,7 +16,8 @@ lint:
         - eslint.config.js
         - eslint.config.mjs
         - eslint.config.cjs
-      suggest_if: config_present
+      # NOTE(Tyler): A main tool cannot be enabled at 2 different versions, so we cannot auto enable this without defining another tool.
+      suggest_if: never
       affects_cache:
         - .eslintignore
         - package.json

@@ -14,7 +14,7 @@ const preCheck = (driver: TrunkLintDriver) => {
   // trunk-ignore-end(semgrep)
 };
 
-// trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
+// trunk-ignore(eslint9/@typescript-eslint/no-unsafe-assignment)
 const expectedFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString(),
 );
