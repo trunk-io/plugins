@@ -136,10 +136,10 @@ jobs:
         if: matrix.os == 'macOS'
         # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
         run: |
-          if [ -d "/tmp/plugins_testing_download_cache" ]
+          if [ -d "${TMPDIR:-/tmp}/plugins_testing_download_cache" ]
           then
-            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            tmp_dir=${TMPDIR:-/tmp}/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "${TMPDIR:-/tmp}/plugins_testing_download_cache" ${tmp_dir}
             chmod -R u+w ${tmp_dir}
             rm -rf ${tmp_dir}
           fi
