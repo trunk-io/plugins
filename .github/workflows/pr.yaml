@@ -131,6 +131,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
+      # TODO(Tyler): Remove this once the cache has stabilized
+      - name: Delete cache (mac only)
+        if: matrix.os == 'macOS'
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        run: |
+          if [ -d "/tmp/plugins_testing_download_cache" ]
+          then
+            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
+
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests

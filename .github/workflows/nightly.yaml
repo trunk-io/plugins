@@ -157,7 +157,6 @@ jobs:
 
       - name: Delete cache
         # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
-        if: env.TRIGGER != 'pull_request'
         run: |
           if [ -d "/tmp/plugins_testing_download_cache" ]
           then
