@@ -10,7 +10,7 @@ import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
-jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
+jest.setTimeout(300000 * osTimeoutMultiplier);
 
 /**
  * This test runs 'trunk config print' from the root of the repository to verify a healthy config.

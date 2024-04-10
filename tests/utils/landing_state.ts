@@ -26,6 +26,7 @@ const normalizePlatformPath = (originalPath: string | undefined) => {
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
   cacheHit: _cacheHit,
+  cacheExpiration: _cacheExpiration,
   paths: _paths,
   ...rest
 }: LintAction): LintAction => ({

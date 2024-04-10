@@ -1,7 +1,7 @@
 import { linterFmtTest, TestCallback } from "tests";
 import { osTimeoutMultiplier, skipOS } from "tests/utils";
 
-jest.setTimeout(600000 * osTimeoutMultiplier); // 300s or 900s
+jest.setTimeout(600000 * osTimeoutMultiplier);
 
 // Earlier nixpkgs-fmt transitive dependencies are no longer
 // supported through older rust runtime installs.
