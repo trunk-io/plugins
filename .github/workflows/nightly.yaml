@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -80,10 +80,10 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -157,15 +157,18 @@ jobs:
 
       - name: Delete cache
         # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
-        if: env.TRIGGER != 'pull_request'
         run: |
-          if [ -d "/tmp/plugins_testing_download_cache" ]
+          if [ -d "${TMPDIR:-/tmp}/plugins_testing_download_cache" ]
           then
-            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            tmp_dir=${TMPDIR:-/tmp}/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "${TMPDIR:-/tmp}/plugins_testing_download_cache" ${tmp_dir}
             chmod -R u+w ${tmp_dir}
             rm -rf ${tmp_dir}
           fi
+        shell: bash
+
+      - name: Clean jest cache
+        run: npx jest --clearCache
         shell: bash
 
       - name: Linter Tests ${{ matrix.os }}
@@ -215,10 +218,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -268,7 +271,7 @@ jobs:
 
   action_tests_main:
     name: Action Tests Main
-    runs-on: [self-hosted, Linux]
+    runs-on: [ubuntu-latest]
     timeout-minutes: 30
     steps:
       - name: Checkout
