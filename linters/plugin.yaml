@@ -53,17 +53,33 @@ lint:
         - slashes-block
         - slashes-inline
 
-    - name: bazel
+    - name: bazel-build
       extensions:
         - BUILD
       filenames:
         - BUILD
         - BUILD.bazel
-        - MODULE.bazel
+      comments:
+        - hash
+
+    - name: bazel-workspace
+      filenames:
         - WORKSPACE
         - WORKSPACE.bazel
       comments:
         - hash
+
+    - name: bazel-module
+      filenames:
+        - MODULE.bazel
+      comments:
+        - hash
+
+    - name: bazel
+      inherit:
+        - bazel-build
+        - bazel-workspace
+        - bazel-module
 
     - name: c
       inherit:
@@ -144,6 +160,13 @@ lint:
         - css
       comments:
         - slashes-block
+
+    - name: cuda
+      extensions:
+        - cu
+      comments:
+        - slashes-block
+        - slashes-inline
 
     - name: cue
       extensions:
