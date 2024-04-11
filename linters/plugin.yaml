@@ -53,17 +53,14 @@ lint:
         - slashes-block
         - slashes-inline
 
-    - name: bazel-build
+    - name: bazel
       extensions:
         - BUILD
+        - bzl
       filenames:
         - BUILD
         - BUILD.bazel
-      comments:
-        - hash
-
-    - name: bazel-workspace
-      filenames:
+        - MODULE.bazel
         - WORKSPACE
         - WORKSPACE.bazel
       comments:
@@ -511,12 +508,6 @@ lint:
       comments:
         - dashes-inline
         - slashes-block
-
-    - name: starlark
-      extensions:
-        - bzl
-      comments:
-        - hash
 
     - name: storyboard
       extensions:

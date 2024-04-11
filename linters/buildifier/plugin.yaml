@@ -41,7 +41,7 @@ tools:
 lint:
   definitions:
     - name: buildifier
-      files: [starlark, bazel-build, bazel-workspace]
+      files: [bazel]
       tools: [buildifier]
       commands:
         - name: fix
