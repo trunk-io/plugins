@@ -161,13 +161,6 @@ lint:
       comments:
         - slashes-block
 
-    - name: cuda
-      extensions:
-        - cu
-      comments:
-        - slashes-block
-        - slashes-inline
-
     - name: cue
       extensions:
         - cue
