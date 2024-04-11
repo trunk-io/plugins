@@ -2,7 +2,7 @@ import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
-linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic"] });
+linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface"] });
 
 // ruff-nbqa still runs correctly on Windows, but the diagnostics are slightly different from the assertions.
 linterCheckTest({

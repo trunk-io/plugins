@@ -10,7 +10,7 @@ import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
-jest.setTimeout(300000 * osTimeoutMultiplier); // 300s or 900s
+jest.setTimeout(300000 * osTimeoutMultiplier);
 
 /**
  * This test runs 'trunk config print' from the root of the repository to verify a healthy config.
@@ -25,7 +25,7 @@ describe("Global config health check", () => {
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.21.1-beta.14",
+    trunkVersion: "1.21.1-beta.16",
     // ThenChange plugin.yaml
   });
 

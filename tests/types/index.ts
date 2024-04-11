@@ -88,6 +88,7 @@ export interface LintAction {
   parser: string;
   report: string;
   cacheHit?: boolean;
+  cacheExpiration?: string;
   upstream: boolean;
   fileGroupName: string;
   command: string;

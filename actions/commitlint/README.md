@@ -4,7 +4,7 @@ https://github.com/conventional-changelog/commitlint
 
 ## Simple configuration
 
-1. `echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js`
+1. `echo "export default {extends: ['@commitlint/config-conventional']}" > commitlint.config.mjs`
 2. `trunk actions enable commitlint`
 
 This will install the basic config and run commitlint on every `commit-msg` hook.
@@ -14,7 +14,7 @@ This will install the basic config and run commitlint on every `commit-msg` hook
 In order to use different commitlint configuration or specify a specific commitlint version, you
 must:
 
-1. Modify your `commitlint.config.js` accordingly
+1. Modify your `commitlint.config.mjs` accordingly
 2. Override the `packages_file` field for the action and specify a package.json
 
 For example:
@@ -30,10 +30,10 @@ actions:
       packages_file: ${workspace}/.trunk/commitlint/package.json
 ```
 
-`commitlint.config.js`:
+`commitlint.config.mjs`:
 
 ```js
-module.exports = {
+export default {
   extends: ["@commitlint/config-angular", "@commitlint/config-conventional"],
 };
 ```

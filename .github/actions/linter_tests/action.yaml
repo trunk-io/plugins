@@ -36,19 +36,30 @@ runs:
       with:
         node-version: 18
 
+    # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
+    #       it will prompt for a timezone selection
     - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
 
         case "$RUNNER_OS" in
           Linux)
+            # Cleanup any existing apt locks
+            sudo killall apt-get || true
+            sudo rm /var/lib/apt/lists/lock || true
+
+            # Install non-hermetic linters
             sudo apt-get update
-            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev software-properties-common
+            DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt-get -y install tzdata
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt install -y php8.0-fpm php8.0-xml php8.0-mbstring php8.0-curl
             ;;
           macOS)
             brew install cpm
             cpm install -g --no-test --color Perl::Critic Perl::Tidy
             brew unlink perl && brew link perl
+            brew install php gnupg
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
@@ -63,6 +74,10 @@ runs:
       run: npm ci
       shell: bash
       working-directory: ${{ inputs.path }}
+
+    - name: Clean jest cache
+      run: npx jest --clearCache
+      shell: bash
 
     - name: Run plugin tests
       if: runner.os == 'Windows'
@@ -87,7 +102,7 @@ runs:
         working-directory: ${{ inputs.path }}
         trunk-token: ${{ inputs.trunk-token  }}
         org: trunk-staging-org
-        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
+        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}

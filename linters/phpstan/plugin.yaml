@@ -1,0 +1,32 @@
+version: 0.1
+tools:
+  definitions:
+    - name: phpstan
+      runtime: php
+      package: phpstan/phpstan
+      known_good_version: 1.10.58
+      shims: [phpstan]
+      environment:
+        - name: PATH
+          list: ["${tool}/vendor/bin"]
+lint:
+  definitions:
+    - name: phpstan
+      main_tool: phpstan
+      known_good_version: 1.10.58
+      commands:
+        - run: phpstan analyze "${target}" --error-format=json --level=9
+          output: sarif
+          success_codes: [0, 1]
+          files: [php]
+          batch: true
+          cache_results: true
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/phpstan/phpstan_parser.py
+
+      direct_configs:
+        - phpstan.neon
+        - phpstan.neon.dist
+        - phpstan.dist.neon

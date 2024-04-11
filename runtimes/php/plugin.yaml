@@ -1,0 +1,29 @@
+version: 0.1
+downloads: # Needed for the php runtime to install packages
+  - name: composer
+    executable: true
+    version: 2.5.1
+    downloads:
+      - version: 2.5.1
+        gpg: CBB3D576F2A0946F
+  - name: phive
+    executable: true
+    version: 0.15.1
+    downloads:
+      - url: https://github.com/phar-io/phive/releases/download/${version}/phive-${version}.phar
+runtimes:
+  definitions:
+    - type: php
+      system_version: required
+      version: ">=8.0.0"
+      runtime_environment:
+        - name: HOME
+          value: ${env.HOME}
+        - name: PATH
+          list: ["${env.PATH}"]
+      linter_environment:
+        - name: PATH
+          list: ["${linter}/bin"]
+      version_commands:
+        - run: php --version
+          parse_regex: PHP ${short_semver}
