@@ -56,7 +56,6 @@ lint:
     - name: bazel
       extensions:
         - BUILD
-        - bzl
       filenames:
         - BUILD
         - BUILD.bazel
@@ -508,6 +507,12 @@ lint:
       comments:
         - dashes-inline
         - slashes-block
+
+    - name: starlark
+      extensions:
+        - bzl
+      comments:
+        - hash
 
     - name: storyboard
       extensions:
