@@ -419,6 +419,12 @@ lint:
       extensions:
         - png
 
+    - name: postcss
+      extensions:
+        # TODO(Tyler): Do we want to include css here as well?
+        - pcss
+        - postcss
+
     - name: powershell
       extensions:
         - ps1
