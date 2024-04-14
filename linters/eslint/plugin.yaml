@@ -6,18 +6,25 @@ tools:
       package: eslint
       shims: [eslint]
       known_good_version: 8.10.0
+    - name: eslint_d
+      runtime: node
+      package: eslint_d
+      shims: [eslint_d]
+      known_good_version: 13.0.0
 lint:
   definitions:
     - name: eslint
       files: [typescript, javascript]
-      tools: [eslint]
+      tools: [eslint, eslint_d, jq]
       commands:
-        - name: lint
+        - name: lint_lsp
           output: eslint
-          run: eslint --output-file ${tmpfile} --format json ${target}
+          run: eslint_d --format json ${target}
           error_codes: [2]
-          read_output_from: tmp_file
-          batch: true
+          read_output_from: stdout
+          parser:
+            runtime: python
+            run: jq -e
       direct_configs:
         - .eslintrc
         - .eslintrc.cjs
