@@ -78,6 +78,7 @@ runs:
     - name: Clean jest cache
       run: npx jest --clearCache
       shell: bash
+      working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
       if: runner.os == 'Windows'
