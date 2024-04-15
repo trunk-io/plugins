@@ -22,7 +22,7 @@ lint:
     - name: terrascan
       tools: [terrascan]
       known_good_version: 1.18.1
-      suggest_if: files_present
+      suggest_if: never
       commands:
         - name: lint
           output: sarif
