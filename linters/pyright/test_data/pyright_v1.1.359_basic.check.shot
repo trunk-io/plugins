@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter pyright test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "reportAttributeAccessIssue",
+      "column": "57",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportAttributeAccessIssue",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pyright",
+      "message": ""Enum" is unknown import symbol",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "4",
+          "offset": "56",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "column": "13",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
+      "level": "LEVEL_LOW",
+      "line": "15",
+      "linter": "pyright",
+      "message": "Type of "a.x" is "int | str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "384",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportAttributeAccessIssue",
+      "column": "3",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportAttributeAccessIssue",
+      "level": "LEVEL_HIGH",
+      "line": "18",
+      "linter": "pyright",
+      "message": "Cannot assign to attribute "x" for class "A"
+  Expression of type "float" cannot be assigned to attribute "x" of class "A"
+    Type "float" is incompatible with type "int | str"
+      "float" is incompatible with "int"
+      "float" is incompatible with "str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "462",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportUndefinedVariable",
+      "column": "8",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportUndefinedVariable",
+      "level": "LEVEL_HIGH",
+      "line": "24",
+      "linter": "pyright",
+      "message": ""ClassVar" is not defined",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "8",
+          "offset": "602",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportAttributeAccessIssue",
+      "column": "9",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportAttributeAccessIssue",
+      "level": "LEVEL_HIGH",
+      "line": "31",
+      "linter": "pyright",
+      "message": "Cannot access attribute "z" for class "type[A]"
+  Attribute "z" is unknown",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "742",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportReturnType",
+      "column": "29",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportReturnType",
+      "level": "LEVEL_HIGH",
+      "line": "39",
+      "linter": "pyright",
+      "message": "Function with declared return type "bool" must return value on all code paths
+  "None" is incompatible with "bool"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "4",
+          "offset": "864",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportReturnType",
+      "column": "12",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportReturnType",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "pyright",
+      "message": "Expression of type "int" is incompatible with return type "str"
+  "int" is incompatible with "str"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "105",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "column": "25",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
+      "level": "LEVEL_LOW",
+      "line": "51",
+      "linter": "pyright",
+      "message": "Type of "val" is "int"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "1128",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "column": "39",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#",
+      "level": "LEVEL_LOW",
+      "line": "54",
+      "linter": "pyright",
+      "message": "Type of "val" is "int"",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "1244",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "reportRedeclaration",
+      "column": "7",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportRedeclaration",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "pyright",
+      "message": "Class declaration "A" is obscured by a declaration of the same name",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "1",
+          "offset": "183",
+        },
+      ],
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "pyright",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "pyright",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
