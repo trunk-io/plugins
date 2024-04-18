@@ -30,6 +30,7 @@ lint:
     - name: include-what-you-use
       files: [c/c++-source]
       tools: [include-what-you-use]
+      description: Removes unused includes from C/C++ code.
       commands:
         - name: lint
           run_from: ${compile_command}
