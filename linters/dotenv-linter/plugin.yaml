@@ -33,6 +33,7 @@ lint:
     - name: dotenv-linter
       files: [dotenv]
       tools: [dotenv-linter]
+      description: Lightning-fast linter for .env files
       commands:
         - name: format
           output: rewrite

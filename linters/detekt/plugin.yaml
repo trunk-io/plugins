@@ -11,6 +11,7 @@ lint:
     - name: detekt
       files: [kotlin]
       download: detekt
+      description: Static code analysis for Kotlin
       commands:
         - name: lint
           platforms: [windows]

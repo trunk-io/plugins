@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: cmake-format
       files: [cmake]
+      description: A formatter for cmake files
       commands:
         - name: fix
           formatter: true

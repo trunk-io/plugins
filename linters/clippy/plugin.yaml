@@ -9,6 +9,7 @@ lint:
     - name: clippy
       files: [rust]
       download: rust
+      description: Catch common mistakes and improve your Rust code.
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle clippy's JSON output.

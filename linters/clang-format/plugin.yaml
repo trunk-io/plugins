@@ -34,6 +34,7 @@ lint:
     - name: clang-format
       supported_platforms: [linux, macos]
       files: [c/c++, proto]
+      description: Formatter for C/C++ and Protobuf
       commands:
         - name: format
           output: rewrite

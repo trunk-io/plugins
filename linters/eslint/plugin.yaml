@@ -11,6 +11,7 @@ lint:
     - name: eslint
       files: [typescript, javascript]
       tools: [eslint]
+      description: Find and fix problems in your TS/JS code
       commands:
         - name: lint
           output: eslint
