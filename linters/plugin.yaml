@@ -9,6 +9,10 @@ lint:
       leading_delimiter: "{/*"
       trailing_delimiter: "*/}"
 
+    - name: brace-slashes-block-spaced
+      leading_delimiter: "{ /*"
+      trailing_delimiter: "*/ }"
+
     - name: dashes-block
       leading_delimiter: --[[
       trailing_delimiter: --]]
@@ -300,6 +304,7 @@ lint:
         - slashes-block
         - slashes-inline
         - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: json
       extensions:
@@ -598,6 +603,7 @@ lint:
         - slashes-block
         - slashes-inline
         - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: xib
       extensions:
