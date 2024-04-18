@@ -15,6 +15,7 @@ lint:
         - typescript
         - javascript
         - json
+      description: A static analyzer for web projects
       commands:
         - name: lint
           output: regex

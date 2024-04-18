@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: cfnlint
       files: [cloudformation]
+      description: Checks Cloudformation files
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle cfnlint's JSON output and triggers.

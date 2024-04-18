@@ -29,6 +29,7 @@ lint:
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
       tools: [actionlint]
+      description: Verify your Github workflows
       commands:
         - name: lint
           output: actionlint
