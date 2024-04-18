@@ -14,6 +14,7 @@ lint:
       tools: [graphql-schema-linter]
       known_good_version: 3.0.1
       files: [graphql-schema]
+      description: Validate GraphQL Schema definitions
       commands:
         - name: lint
           # on Windows, we need to make sure the binary resolves to the cmd form
