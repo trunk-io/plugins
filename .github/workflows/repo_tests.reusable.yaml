@@ -13,7 +13,9 @@ on:
         required: false
         type: string
 
-permissions: read-all
+permissions:
+  contents: read
+  statuses: read
 
 jobs:
   plugins_test:

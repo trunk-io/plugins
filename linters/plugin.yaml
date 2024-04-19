@@ -149,6 +149,13 @@ lint:
       comments:
         - slashes-block
 
+    - name: cuda
+      extensions:
+        - cu
+      comments:
+        - slashes-block
+        - slashes-inline
+
     - name: cue
       extensions:
         - cue
@@ -411,6 +418,12 @@ lint:
     - name: png
       extensions:
         - png
+
+    - name: postcss
+      extensions:
+        # TODO(Tyler): Do we want to include css here as well?
+        - pcss
+        - postcss
 
     - name: powershell
       extensions:

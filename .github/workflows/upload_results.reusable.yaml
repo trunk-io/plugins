@@ -39,7 +39,11 @@ on:
       TRUNK_DEBUGGER_TOKEN:
         required: false
 
-permissions: read-all
+permissions:
+  actions: write
+  contents: read
+  statuses: read
+  pull-requests: write
 
 jobs:
   upload_test_results:
