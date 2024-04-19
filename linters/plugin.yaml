@@ -5,6 +5,14 @@ lint:
       leading_delimiter: "{-"
       trailing_delimiter: "-}"
 
+    - name: brace-slashes-block
+      leading_delimiter: "{/*"
+      trailing_delimiter: "*/}"
+
+    - name: brace-slashes-block-spaced
+      leading_delimiter: "{ /*"
+      trailing_delimiter: "*/ }"
+
     - name: dashes-block
       leading_delimiter: --[[
       trailing_delimiter: --]]
@@ -282,11 +290,21 @@ lint:
       extensions:
         - cjs
         - js
-        - jsx
         - mjs
+      inherit:
+        - javascript-xml
       comments:
         - slashes-block
         - slashes-inline
+
+    - name: javascript-xml
+      extensions:
+        - jsx
+      comments:
+        - slashes-block
+        - slashes-inline
+        - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: json
       extensions:
@@ -572,10 +590,20 @@ lint:
       extensions:
         - mts
         - ts
+      inherit:
+        - typescript-xml
+      comments:
+        - slashes-block
+        - slashes-inline
+
+    - name: typescript-xml
+      extensions:
         - tsx
       comments:
         - slashes-block
         - slashes-inline
+        - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: xib
       extensions:
