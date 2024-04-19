@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: sourcery
       files: [python]
+      description: AI code reviews to speed up your pull requests
       commands:
         - name: lint
           platforms: [linux, macos]

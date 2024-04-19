@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: standardrb
       files: [ruby, gemspec]
+      description: Ruby's bikeshed-proof linter and formatter
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle rubocop's JSON output.

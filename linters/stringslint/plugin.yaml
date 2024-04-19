@@ -23,6 +23,7 @@ lint:
         - xib
         - storyboard
       tools: [stringslint]
+      description: Ensures localized strings are complete and never unused
       commands:
         - name: lint
           output: regex

@@ -23,6 +23,7 @@ lint:
       tools: [terrascan]
       known_good_version: 1.18.1
       suggest_if: files_present
+      description: A static code analyzer for IaC
       commands:
         - name: lint
           output: sarif

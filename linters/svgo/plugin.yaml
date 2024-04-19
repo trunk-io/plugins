@@ -11,6 +11,7 @@ lint:
     # while svgo could be a formatter, it is optimizing, not formatting, so it's more intuitive to run on `trunk check`
     - name: svgo
       files: [svg]
+      description: Optimize SVG files
       commands:
         - name: fmt
           output: rewrite

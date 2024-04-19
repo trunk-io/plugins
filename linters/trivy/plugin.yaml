@@ -28,6 +28,7 @@ lint:
     - name: trivy
       tools: [trivy]
       suggest_if: files_present
+      description: A comprehensive and versatile security scanner
       known_good_version: 0.44.1
       commands:
         - name: fs-vuln

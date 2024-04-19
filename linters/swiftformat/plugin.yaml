@@ -17,6 +17,7 @@ lint:
     - name: swiftformat
       files: [swift]
       tools: [swiftformat]
+      description: Formatter for Swift
       commands:
         - name: format
           output: rewrite

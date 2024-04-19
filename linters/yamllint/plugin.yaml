@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: yamllint
       files: [yaml]
+      description: Validate, Verify and Reformat your YAML documents
       commands:
         - output: regex
           parse_regex:

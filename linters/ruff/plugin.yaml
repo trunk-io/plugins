@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: ruff
       files: [python, python-interface]
+      description: A Python linter and formatter
       commands:
         - name: lint
           # As of ruff v0.1.0, --format is replaced with --output-format
