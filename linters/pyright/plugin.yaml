@@ -11,6 +11,7 @@ lint:
     - name: pyright
       files: [python]
       suggest_if: config_present
+      description: Static type checker for Python
       commands:
         - name: lint
           output: sarif

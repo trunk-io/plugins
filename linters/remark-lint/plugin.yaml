@@ -4,6 +4,7 @@ lint:
     - name: remark-lint
       supported_platforms: [linux, macos]
       files: [markdown]
+      description: A markdown linter and formatter
       package: remark-cli
       extra_packages:
         - remark-preset-lint-consistent

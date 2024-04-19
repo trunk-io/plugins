@@ -13,6 +13,7 @@ lint:
   definitions:
     - name: pmd
       download: pmd
+      description: Static code analysis for Java and Apex
       commands:
         - name: lint-apex
           version: ">=7.0.0"

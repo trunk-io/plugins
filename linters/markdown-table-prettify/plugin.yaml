@@ -9,6 +9,7 @@ tools:
 lint:
   definitions:
     - name: markdown-table-prettify
+      description: Prettify markdown tables
       files: [markdown]
       main_tool: markdown-table-prettify
       known_good_version: 3.6.0

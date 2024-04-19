@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: pylint
       files: [python]
+      description: Static code analysis for Python
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle pylint's JSON output.

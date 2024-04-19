@@ -30,6 +30,7 @@ lint:
       files: [powershell]
       main_tool: psscriptanalyzer
       tools: [converttosarif, pwsh]
+      description: Linter for PowerShell scripts
       commands:
         - name: Invoke-ScriptAnalyzer
           run: pwsh -f ${cwd}/lint.ps1 -FilePath ${target} -OutputPath ${tmpfile}

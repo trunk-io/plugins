@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: perlcritic
       supported_platforms: [linux, macos]
+      description: Static analysis tool for Perl
       commands:
         - output: regex
           success_codes:
