@@ -55,6 +55,7 @@ const preCheck = (driver: TrunkLintDriver) => {
         cwd: driver.getSandbox(),
         timeout: INSTALL_TIMEOUT,
         windowsHide: true,
+        shell: true,
       },
     );
     driver.debug(install);
