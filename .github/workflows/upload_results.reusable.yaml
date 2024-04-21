@@ -60,21 +60,21 @@ jobs:
 
       - name: Retrieve Test Outputs ubuntu
         id: download-ubuntu
-        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        uses: actions/download-artifact@8caf195ad4b1dee92908e23f56eeb0696f1dd42d # v4.1.5
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
         id: download-macos
-        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        uses: actions/download-artifact@8caf195ad4b1dee92908e23f56eeb0696f1dd42d # v4.1.5
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}macos-latest-test-results
 
       - name: Retrieve Test Outputs Windows
         id: download-windows
-        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        uses: actions/download-artifact@8caf195ad4b1dee92908e23f56eeb0696f1dd42d # v4.1.5
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}windows-latest-test-results
@@ -96,7 +96,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Slack Notification For Missing Artifacts
-        uses: slackapi/slack-github-action@6c661ce58804a1a20f6dc5fbee7f0381b469e001 # v1.25.0
+        uses: slackapi/slack-github-action@70cd7be8e40a46e8b0eced40b0de447bdb42f68e # v1.26.0
         if:
           steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure' ||
           steps.download-windows.outcome == 'failure'
@@ -179,7 +179,7 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@6c661ce58804a1a20f6dc5fbee7f0381b469e001 # v1.25.0
+        uses: slackapi/slack-github-action@70cd7be8e40a46e8b0eced40b0de447bdb42f68e # v1.26.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -188,7 +188,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@6c661ce58804a1a20f6dc5fbee7f0381b469e001 # v1.25.0
+        uses: slackapi/slack-github-action@70cd7be8e40a46e8b0eced40b0de447bdb42f68e # v1.26.0
         if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -209,7 +209,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@6c661ce58804a1a20f6dc5fbee7f0381b469e001 # v1.25.0
+        uses: slackapi/slack-github-action@70cd7be8e40a46e8b0eced40b0de447bdb42f68e # v1.26.0
         if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
