@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.21.1-beta.20
+  version: 1.21.1-beta.43
   shell_hooks:
     enforce: true
 
@@ -79,8 +79,8 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - clangd-indexing-tools@17.0.3
-    - clangd@17.0.3
+    - clangd-indexing-tools@18.1.3
+    - clangd@18.1.3
   runtimes:
     # expose shims in .trunk/tools
     - node
