@@ -165,7 +165,6 @@ describe("Global config health check", () => {
         "shfmt",
         "svgo",
         "taplo",
-        "terrascan",
         "tflint",
         "trivy",
         "trufflehog",
