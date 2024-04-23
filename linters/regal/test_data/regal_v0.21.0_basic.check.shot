@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter regal test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "opa-fmt",
+      "column": "1",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "regal",
+      "message": "File should be formatted with \`opa fmt\`",
+      "targetType": "rego",
+    },
+    {
+      "code": "prefer-snake-case",
+      "column": "1",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "regal",
+      "message": "Prefer snake_case for names",
+      "targetType": "rego",
+    },
+    {
+      "code": "non-raw-regex-pattern",
+      "column": "27",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "regal",
+      "message": "Use raw strings for regex patterns",
+      "targetType": "rego",
+    },
+    {
+      "code": "use-assignment-operator",
+      "column": "15",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "regal",
+      "message": "Prefer := over = for assignment",
+      "targetType": "rego",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "rego",
+      "linter": "regal",
+      "paths": [
+        "test_data/basic.in.rego",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "rego",
+      "linter": "regal",
+      "paths": [
+        "test_data/basic.in.rego",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
