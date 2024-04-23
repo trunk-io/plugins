@@ -3,7 +3,7 @@ lint:
   definitions:
     - name: git-diff-check
       files: [ALL]
-      description: Check for trailing whitespace
+      description: Check for git conflicts
       commands:
         - output: regex
           name: lint

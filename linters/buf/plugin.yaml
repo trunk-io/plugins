@@ -32,7 +32,7 @@ lint:
       files: [proto]
       download: buf
       suggest_if: never
-      description: Formatter for API definitions
+      description: Formatter for Protobuf
       commands:
         - name: format
           output: rewrite
@@ -63,7 +63,7 @@ lint:
     - name: buf-lint
       files: [proto]
       download: buf
-      description: Accelerate API development with Buf
+      description: Accelerate Protobuf development with Buf
       commands:
         - name: lint
           output: buf
@@ -92,7 +92,7 @@ lint:
       files: [proto]
       download: buf
       suggest_if: never
-      description: Check for breaking API changes
+      description: Check for breaking Protobuf API changes
       commands:
         - name: lint
           output: buf

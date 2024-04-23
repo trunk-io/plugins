@@ -12,7 +12,7 @@ lint:
       files: [ALL]
       direct_configs: [.codespellrc]
       suggest_if: config_present
-      description: Check for spelling mistakes in your code
+      description: Check for common misspellings in your code
       affects_cache:
         - pyproject.toml
         - setup.cfg

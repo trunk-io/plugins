@@ -11,7 +11,7 @@ lint:
     - name: renovate
       files: [renovate-config]
       tools: [renovate]
-      description: Checks Renovate configuration files
+      description: Validate Renovate configuration files
       commands:
         - name: validate
           platforms: [windows]

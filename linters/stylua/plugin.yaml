@@ -22,7 +22,7 @@ lint:
     - name: stylua
       files: [lua]
       tools: [stylua]
-      description: An opinionated Lua code formatter
+      description: An opinionated Lua formatter
       commands:
         - name: format
           output: rewrite
