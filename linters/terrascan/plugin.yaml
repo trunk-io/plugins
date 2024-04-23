@@ -22,7 +22,8 @@ lint:
     - name: terrascan
       tools: [terrascan]
       known_good_version: 1.18.1
-      suggest_if: files_present
+      # terrascan does not support some modern terraform syntax. Don't auto-recommend.
+      suggest_if: never
       commands:
         - name: lint
           output: sarif
