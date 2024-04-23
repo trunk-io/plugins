@@ -1,6 +1,7 @@
 import { spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import semver from "semver";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
@@ -54,6 +55,7 @@ const preCheck = (driver: TrunkLintDriver) => {
         cwd: driver.getSandbox(),
         timeout: INSTALL_TIMEOUT,
         windowsHide: true,
+        shell: true,
       },
     );
     driver.debug(install);
@@ -68,12 +70,22 @@ const preCheck = (driver: TrunkLintDriver) => {
   }
 };
 
+const manualVersionReplacer = (version: string) => {
+  // NOTE(Tyler): Continue to test eslint pre-9.0.0 and gate until we have a long-term fix.
+  const parsedVersion = semver.parse(version);
+  if (parsedVersion && parsedVersion.major >= 9) {
+    return "8.57.0";
+  }
+  return version;
+};
+
 // This set of testing is incomplete with regard to failure modes and unicode autofixes with eslint, but it serves as a sampling
 // Use upstream=false in order to supply autofixes for committed files.
 customLinterCheckTest({
   linterName: "eslint",
   args: `${TEST_DATA} -y --upstream=false`,
   preCheck,
+  manualVersionReplacer,
   pathsToSnapshot: [
     path.join(TEST_DATA, "non_ascii.ts"),
     path.join(TEST_DATA, "eof_autofix.ts"),
@@ -86,4 +98,5 @@ customLinterCheckTest({
   testName: "bad_install",
   args: `${TEST_DATA} -y`,
   preCheck: moveConfig,
+  manualVersionReplacer,
 });
