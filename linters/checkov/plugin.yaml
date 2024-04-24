@@ -11,6 +11,7 @@ lint:
     - name: checkov
       files: [terraform, cloudformation, docker, yaml, json]
       tools: [checkov]
+      description: Finds security issues in IaC files
       commands:
         - name: lint
           # on Windows, we need to make sure 'checkov' resolves to 'checkov.cmd'

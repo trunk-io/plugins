@@ -13,6 +13,7 @@ lint:
       tools: [bandit]
       suggest_if: files_present
       direct_configs: [.bandit]
+      description: A security linter for Python
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle bandit's JSON output.

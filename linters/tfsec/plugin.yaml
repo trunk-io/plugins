@@ -29,6 +29,7 @@ lint:
       tools: [tfsec]
       known_good_version: 1.28.1
       suggest_if: never
+      description: Security scanner for your Terraform code
       commands:
         - name: lint
           output: sarif

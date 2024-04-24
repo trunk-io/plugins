@@ -42,6 +42,7 @@ lint:
       files: [lockfile]
       tools: [osv-scanner]
       known_good_version: 1.3.6
+      description: Checks for known vulnerabilities in your dependencies
       commands:
         - name: scan
           output: sarif

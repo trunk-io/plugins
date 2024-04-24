@@ -14,6 +14,7 @@ lint:
     - name: phpstan
       main_tool: phpstan
       known_good_version: 1.10.58
+      description: PHP Static Analysis Tool
       commands:
         - run: phpstan analyze "${target}" --error-format=json --level=9
           output: sarif

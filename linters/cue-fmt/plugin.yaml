@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: cue-fmt
       files: [cue]
+      description: A formatter for cue files
       commands:
         - name: format
           output: rewrite

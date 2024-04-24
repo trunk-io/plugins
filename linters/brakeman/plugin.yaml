@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: brakeman
       files: [ruby]
+      description: A vulnerability scanner for Ruby
       commands:
         - name: lint
           # 5.0.0 introduced the sarif output format.

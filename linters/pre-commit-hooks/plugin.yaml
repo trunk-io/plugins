@@ -5,6 +5,7 @@ lint:
       known_good_version: 4.4.0
       runtime: python
       package: pre-commit-hooks
+      description: A collection of pre-commit tools for Python
       suggest_if: never
       environment:
         - name: PATH

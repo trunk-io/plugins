@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: deno
       files: [javascript, typescript, markdown, json]
+      description: A formatter for web framework code
       commands:
         - name: format
           output: rewrite

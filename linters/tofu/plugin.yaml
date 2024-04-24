@@ -4,6 +4,7 @@ lint:
     - name: tofu
       files: [terraform]
       tools: [tofu]
+      description: A Terraform validator and formatter
       commands:
         - name: validate
           # Custom parser type defined in the trunk cli to handle tofu's JSON output.

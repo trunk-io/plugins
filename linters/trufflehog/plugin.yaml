@@ -21,6 +21,7 @@ lint:
     - name: trufflehog
       files: [ALL]
       tools: [trufflehog]
+      description: Validated and versatile secrets scanner
       known_good_version: 3.59.0
       known_bad_versions: [3.41.0, 3.45.0, 3.60.1, 3.60.2]
       commands:

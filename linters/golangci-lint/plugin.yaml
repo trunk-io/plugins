@@ -13,6 +13,7 @@ lint:
     - name: golangci-lint
       files: [go]
       tools: [golangci-lint]
+      description: A powerful Go linter runner
       environment:
         - name: GOLANGCI_LINT_CACHE
           value: ${cachedir}

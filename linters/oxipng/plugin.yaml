@@ -23,6 +23,7 @@ lint:
     - name: oxipng
       files: [png]
       download: oxipng
+      description: Optimize PNG images
       commands:
         - name: fmt
           output: rewrite

@@ -27,6 +27,7 @@ lint:
       main_tool: regal
       known_good_version: 0.18.0
       suggest_if: config_present
+      description: Linter for Rego files
       direct_configs:
         - .regal/config.yaml
       commands:

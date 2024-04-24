@@ -27,6 +27,7 @@ lint:
       files: [rego]
       main_tool: opa
       known_good_version: 0.62.1
+      description: Formatter for OPA files
       suggest_if: never
       commands:
         # TODO(Tyler): Add support for opa check command.

@@ -43,6 +43,7 @@ lint:
     - name: buildifier
       files: [starlark, bazel-build, bazel-workspace]
       tools: [buildifier]
+      description: Formatter for Bazel files
       commands:
         - name: fix
           run: buildifier --lint=fix --warnings=all "${target}"

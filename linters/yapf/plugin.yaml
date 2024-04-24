@@ -11,6 +11,7 @@ lint:
   definitions:
     - name: yapf
       files: [python]
+      description: A formatter for Python files
       commands:
         - name: format
           output: rewrite

@@ -23,6 +23,7 @@ lint:
     - name: trunk-toolbox
       main_tool: trunk-toolbox
       files: [ALL]
+      description: Collection of universal linting tools
       commands:
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}

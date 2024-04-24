@@ -33,6 +33,7 @@ lint:
   definitions:
     - name: clang-format
       supported_platforms: [linux, macos]
+      description: Formatter for C/C++ and Protobuf
       files: [c/c++, cuda, proto]
       commands:
         - name: format

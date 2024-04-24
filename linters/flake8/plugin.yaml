@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: flake8
       files: [python]
+      description: Python style guide enforcement
       commands:
         - name: lint
           run: flake8 ${target} --output-file "${tmpfile}" --exit-zero

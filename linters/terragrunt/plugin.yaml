@@ -24,6 +24,7 @@ lint:
   definitions:
     - name: terragrunt
       tools: [terragrunt]
+      description: Maintain HCL files in a canonical format
       known_good_version: 0.45.8
       files: [hcl]
       suggest_if: never

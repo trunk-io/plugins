@@ -22,6 +22,7 @@ lint:
     - name: terrascan
       tools: [terrascan]
       known_good_version: 1.18.1
+      description: A static code analyzer for IaC
       # terrascan does not support some modern terraform syntax. Don't auto-recommend.
       suggest_if: never
       commands:

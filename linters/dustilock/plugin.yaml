@@ -11,6 +11,7 @@ lint:
     - name: dustilock
       files: [dustilock]
       tools: [dustilock]
+      description: Finds security issues in dustilock files
       commands:
         - name: scan
           output: regex

@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: sourcery
       files: [python]
+      description: Static analyzer for Python
       commands:
         - name: lint
           platforms: [linux, macos]

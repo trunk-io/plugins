@@ -34,6 +34,7 @@ lint:
     - name: clang-tidy
       supported_platforms: [linux, macos]
       files: [c/c++-source]
+      description: Static Analyzer for C/C++
       commands:
         - name: lint
           output: llvm
