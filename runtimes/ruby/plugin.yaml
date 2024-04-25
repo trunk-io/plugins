@@ -47,7 +47,7 @@ runtimes:
       known_good_version: 3.1.4
       version_commands:
         - run: ruby --version
-          parse_regex: ruby ([0-9\.]+)(p+.*)
+          parse_regex: ruby ${semver}(p+.*)?
       shims:
         - bundle
         - bundler
