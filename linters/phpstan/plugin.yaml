@@ -9,6 +9,9 @@ tools:
       environment:
         - name: PATH
           list: ["${tool}/vendor/bin"]
+      health_checks:
+        - command: phpstan --version
+          parse_regex: PHP Static Analysis Tool ${semver}
 lint:
   definitions:
     - name: phpstan
