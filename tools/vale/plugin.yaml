@@ -1,0 +1,9 @@
+version: 0.1
+
+tools:
+  definitions:
+    - name: vale
+      runtime: python
+      package: vale
+      shims: [vale]
+      known_good_version: 3.4.1
