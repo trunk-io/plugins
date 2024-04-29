@@ -10,7 +10,7 @@
 ### Welcome
 
 This repository is the official [Trunk.io](https://trunk.io/) repo containing Trunk's integrations
-for linters, formatters, security tools, githooks, and default configs. By default, all trunk users
+for linters, formatters, security tools, githooks, and default configs. By default, all Trunk users
 import this repo as a plugin, via this snippet in `.trunk/trunk.yaml`:
 
 ```yaml
@@ -18,12 +18,11 @@ plugins:
   sources:
     - id: trunk
       uri: https://github.com/trunk-io/plugins
-      ref: v1.4.4
+      ref: v1.5.0
 ```
 
-This repo is open to contributions! See our
-[contribution guidelines](https://github.com/trunk-io/plugins/blob/main/CONTRIBUTING.md) and join
-our [slack community][slack] for help. **If you're adding new tools, please see our
+This repo is open to contributions! See our [contribution guidelines](CONTRIBUTING.md) and join our
+[slack community][slack] for help. **If you're adding new tools, please see our
 [testing guide](tests/README.md) as well!**
 
 ### Supported Linters, Formatters, and Security Tools
