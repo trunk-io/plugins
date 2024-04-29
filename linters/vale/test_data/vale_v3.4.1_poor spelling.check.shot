@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter vale test poor spelling 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "vale",
+      "paths": [
+        "test_data/documents/BAD_FILE.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "vale",
+      "paths": [
+        "test_data/documents/BAD_FILE.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
