@@ -5,7 +5,7 @@ import { createFuzzyMatcher } from "tests/utils/landing_state";
 import * as fs from "fs";
 import { FileIssue, LandingState } from "tests/types";
 
-// Specify a path and file to avoid accidentally
+// Specify a path and file to avoid linting a bad file on a happy case.
 customLinterCheckTest({
   linterName: "vale",
   testName: "basic",
