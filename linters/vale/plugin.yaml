@@ -4,7 +4,7 @@ lint:
   definitions:
     - name: vale
       files: [ALL]
-      description: Enforce editorial standards in your text documents.
+      description: Enforce editorial standards in your text documents
       commands:
         - name: lint
           output: regex
