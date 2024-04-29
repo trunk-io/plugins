@@ -1,5 +1,32 @@
 version: 0.1
 
+downloads:
+  - name: vale
+    downloads:
+      - os:
+          linux: Linux
+          macos: macOS
+        cpu:
+          x86_64: 64-bit
+          arm_64: arm64
+        url: https://github.com/errata-ai/vale/releases/download/v${version}/vale_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: 64-bit
+          arm_64: arm64
+        url: https://github.com/errata-ai/vale/releases/download/v${version}/vale_${version}_Windows_${cpu}.zip
+
+tools:
+  definitions:
+    - name: vale
+      download: vale
+      shims: [vale]
+      known_good_version: 3.4.1
+      environment:
+        - name: PATH
+          list: ["${tool}"]
+
 lint:
   definitions:
     - name: vale
