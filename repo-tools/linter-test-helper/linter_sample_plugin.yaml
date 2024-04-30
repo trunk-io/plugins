@@ -41,7 +41,7 @@ lint:
       # package: NAME_HERE
       # -- OR --
       # download: NAME_HERE
-      known_good_version: # VERSION_HERE
+      known_good_version: VERSION_HERE
       suggest_if: never
       commands:
         # https://docs.trunk.io/check/configuration/custom-linters/commands/definition

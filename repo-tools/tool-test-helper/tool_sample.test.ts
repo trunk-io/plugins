@@ -1,4 +1,4 @@
-import { makeToolTestConfig, toolTest, toolInstallTest } from "tests";
+import { makeToolTestConfig, toolInstallTest, toolTest } from "tests";
 
 // Guidelines for configuring tests:
 //  - Prefer using health check in config + toolInstallTest, if you must use toolTest leave a

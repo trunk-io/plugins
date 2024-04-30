@@ -8,8 +8,8 @@ import { linterCheckTest, linterFmtTest } from "tests";
 //
 // If you are unable to write a test for this linter, please document why in your PR. Feel free to ask for help!
 
-// Uncomment and use if your tool is a linter
-// linterCheckTest({ linterName: "NAME_HERE" });
+// Use if your tool is a linter
+linterCheckTest({ linterName: "NAME_HERE" });
 
-// Uncomment and use if your tool is a formatter
-// linterFmtTest({ linterName: "NAME_HERE" });
+// Use if your tool is a formatter
+linterFmtTest({ linterName: "NAME_HERE" });
