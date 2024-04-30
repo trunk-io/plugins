@@ -30,6 +30,7 @@ lint:
       runtime: node
       extra_packages:
         - ts-node
+        - yaml
       commands:
         - name: check
           run: ts-node ${workspace}/repo-tools/definition-checker/check.ts ${target}

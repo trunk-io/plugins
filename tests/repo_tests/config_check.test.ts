@@ -7,7 +7,6 @@ import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
 jest.setTimeout(300000 * osTimeoutMultiplier);

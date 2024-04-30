@@ -1,6 +1,14 @@
 import fs from "fs";
 import path from "path";
+// trunk-ignore(eslint/import/no-extraneous-dependencies)
 import YAML from "yaml";
+
+// Avoid strictly typing composite config
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
+// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
 /**** Helpers ****/
 
@@ -14,7 +22,7 @@ const generateMessage = (file: string, message: string, code: string): string =>
  * Validate that a plugin.yaml doesn't explicitly enable any linters, tools, or actions.
  */
 const validateEnables = (file: string, config: any): string[] => {
-  let enableErrors = [];
+  const enableErrors = [];
   const lintEnabled = config.lint?.enabled;
   const toolsEnabled = config.tools?.enabled;
   const actionsEnabled = config.actions?.enabled;
