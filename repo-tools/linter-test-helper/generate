@@ -5,60 +5,12 @@ from datetime import datetime, timedelta
 
 import click
 
-INITIAL_PLUGIN_CONTENTS = """version: 0.1
-# Tools can be either runtime package-based or
-# download-based. This boilerplate assumes the (far more verbose) latter case.
-downloads:
-  - name: NAME_HERE
-    # executable: true
-    # NOTE: These are (common) sample values. Please replace with real values.
-    downloads:
-      - os:
-          linux: linux
-          macos: darwin
-          windows: windows
-        cpu:
-          x86_64: amd64
-          arm_64: arm64
-        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
-# Fill out this part if the linter is tool-based (most common case) - otherwise delete
-tools:
-  definitions:
-    - name: NAME_HERE
-      # RUNTIME_OR_DOWNLOAD_INFO_HERE
-      # download: NAME_HERE
-      known_good_version: VERSION_HERE
-      shims: [NAME_HERE]
-lint:
-  definitions:
-    - name: NAME_HERE
-      files: [FILE_TYPES_HERE]
-      # TOOL_OR_RUNTIME_OR_DOWNLOAD_INFO_HERE
-      known_good_version: # VERSION_HERE
-      suggest_if: never
-      commands:
-        - name: LINT_OR_FORMAT_HERE
-          output: OUTPUT_TYPE_HERE
-          run: COMMAND_HERE
-          success_codes: [0]
-"""
+directory = os.path.dirname(__file__)
+with open(os.path.join(directory, "linter_sample_plugin.yaml"), "r") as file:
+    initial_plugin_contents = file.read()
 
-INITIAL_TEST_CONTENTS = """import { linterCheckTest, linterFmtTest } from "tests";
-// Uncomment and use if your tool is a linter
-// linterCheckTest({ linterName: "*{}*" });
-
-// Uncomment and use if your tool is a formatter
-// linterFmtTest({ linterName: "*{}*" });
-
-// Guidelines for configuring tests:
-//  - By default, linters and formatters will only run on files with syntax `<name>.in.<extension>`
-//  - You can customize test setup using the `preCheck` callback (see git_diff_check.test.ts and golangci_lint.test.ts)
-//  - You can specify additional customization using the `customLinterCheckTest and customLinterFmtTest` helpers
-//  - Additional information on test setup can be found in tests/README.md
-//
-// If you are unable to write a test for this linter, please document why in your PR, and add
-// it to the list in tests/repo_tests/test_coverage_test.ts
-"""
+with open(os.path.join(directory, "linter_sample.test.ts"), "r") as file:
+    initial_test_contents = file.read()
 
 
 @click.group()
@@ -86,7 +38,9 @@ def scan(workspace):
             generated_files = True
             # Write plugin.yaml
             with open(os.path.join(subdir_path, "plugin.yaml"), "w") as plugin_file:
-                plugin_file.write(INITIAL_PLUGIN_CONTENTS)
+                plugin_file.write(
+                    initial_plugin_contents.replace("NAME_HERE", linter_name)
+                )
 
             # Write test file
             with open(
@@ -95,7 +49,7 @@ def scan(workspace):
                 ),
                 "w",
             ) as test_file:
-                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", linter_name))
+                test_file.write(initial_test_contents.replace("NAME_HERE", linter_name))
 
             # Create empty test_data dir
             test_dir = os.path.join(subdir_path, "test_data")
