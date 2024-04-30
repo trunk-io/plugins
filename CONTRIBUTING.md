@@ -39,7 +39,7 @@ plugins:
 ```
 
 Adding a plugin source lets users run `trunk check enable`, `trunk tools enable`, or
-`trunk actions enable` with from definitions in that plugin. For more information, see our
+`trunk actions enable` with definitions in that plugin. For more information, see our
 [docs](https://docs.trunk.io/docs/plugins).
 
 **Please review our [Testing Guide](tests/README.md) for info on writing and running tests.**
