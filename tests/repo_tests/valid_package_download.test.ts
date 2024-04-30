@@ -3,6 +3,7 @@ import path from "path";
 import { REPO_ROOT } from "tests/utils";
 import { parseYaml } from "tests/utils/trunk_config";
 
+// TODO(Tyler): Move this to 'definition-checker' linter.
 // These linters use go or rust downloads.
 const excludedLinters: string[] = [
   "clippy",

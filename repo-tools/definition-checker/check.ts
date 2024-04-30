@@ -5,7 +5,6 @@ import YAML from "yaml";
 
 // Avoid strictly typing composite config
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
@@ -22,31 +21,29 @@ const generateMessage = (file: string, message: string, code: string): string =>
  * Validate that a plugin.yaml doesn't explicitly enable any linters, tools, or actions.
  */
 const validateEnables = (file: string, config: any): string[] => {
-  const enableErrors = [];
+  const enableErrors: string[] = [];
   const lintEnabled = config.lint?.enabled;
   const toolsEnabled = config.tools?.enabled;
   const actionsEnabled = config.actions?.enabled;
-  if (lintEnabled?.length) {
-    enableErrors.push(
-      ...lintEnabled.map((enabled: string) =>
-        generateMessage(file, `Linter ${enabled} is explicitly enabled`, "no-enable-linter"),
-      ),
-    );
-  }
-  if (toolsEnabled?.length) {
-    enableErrors.push(
-      ...toolsEnabled.map((enabled: string) =>
-        generateMessage(file, `Tool ${enabled} is explicitly enabled`, "no-enable-tool"),
-      ),
-    );
-  }
-  if (actionsEnabled?.length) {
-    enableErrors.push(
-      ...actionsEnabled.map((enabled: string) =>
-        generateMessage(file, `Action ${enabled} is explicitly enabled`, "no-enable-action"),
-      ),
-    );
-  }
+
+  [
+    [lintEnabled, "Linter"],
+    [toolsEnabled, "Tool"],
+    [actionsEnabled, "Action"],
+  ].forEach((value: any[][]) => {
+    const [enableds, enabledType] = value as [any[], string];
+    if (enableds?.length) {
+      enableErrors.push(
+        ...enableds.map((enabled: string) =>
+          generateMessage(
+            file,
+            `${enabledType} ${enabled} is explicitly enabled`,
+            `no-enable-${enabledType.toLowerCase()}`,
+          ),
+        ),
+      );
+    }
+  });
 
   const lintDefinitions = config.lint?.definitions;
   const toolsDefinitions = config.tools?.definitions;
