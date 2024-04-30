@@ -52,8 +52,10 @@ have a feature request, you can [file it here](https://features.trunk.io/).
 To add a new linter:
 
 1. Run `trunk check` to start up Trunk in the background.
-2. Run `mkdir linters/<my-linter>` to start. This should autopopulate with some sample files. If
-   necessary, add them yourself:
+2. Run `mkdir linters/<my-linter>` to start. This should autopopulate with a sample
+   [plugin.yaml](./repo-tools/linter-test-helper/linter_sample_plugin.yaml) and
+   [test file](./repo-tools/linter-test-helper/linter_sample.test.ts). If necessary, add them
+   yourself:
 
    ```text
    linters/
@@ -91,8 +93,9 @@ directory and follow the instructions below.
 To add a new tool:
 
 1. Run `trunk check` to start up Trunk in the background.
-2. Run `mkdir tools/<my-tool>` to start. This should autopopulate with some sample files. If
-   necessary, add them yourself:
+2. Run `mkdir tools/<my-tool>` to start. This should autopopulate with a sample
+   [plugin.yaml](./repo-tools/tool-test-helper/tool_sample_plugin.yaml) and
+   [test file](./repo-tools/tool-test-helper/tool_sample.test.ts). If necessary, add them yourself:
 
    ```text
    tests/

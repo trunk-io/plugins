@@ -30,8 +30,9 @@ linters/
 - Specify a `README.md` if your linter integration requires additional explanation or configuration.
 - Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if it is universally
   applicable. This will be created whenever someone enables your linter.
-- Specify a Jest test file that calls `linterCheckTest` or `linterFmtTest` with the name of your
-  linter and (optionally) the prefixes of your input files and any special callbacks.
+- Specify a [Jest test file](../repo-tools/linter-test-helper/linter_sample.test.ts) that calls
+  `linterCheckTest` or `linterFmtTest` with the name of your linter and (optionally) the prefixes of
+  your input files and any special callbacks.
 - Inside of `test_data/`, provide at least one input file. **This file should be named
   `<name>.in.<extension>` to be automatically picked up by the testing framework.**
 
