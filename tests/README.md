@@ -156,8 +156,7 @@ PRs will run 5 types of tests across all platforms as applicable:
 2. Enable and test all changed linters with their latest version, if applicable. To replicate this
    behavior, run: `npm test`.
 3. Assert that all linters pass config validation and best practices.
-4. Assert that all linters have test coverage.
-5. Assert that all linters are included in the [`README.md`](../README.md).
+4. Assert that all linters are included in the [`README.md`](../README.md).
 
 ### Debugging
 
