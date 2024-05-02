@@ -5,6 +5,11 @@ npm ci
 npm test <path-to-linter-subdir>
 ```
 
+- [Overview](#overview)
+- [Configuring Tests](#configuring-tests)
+- [Running and Debugging Tests](#running-tests)
+- [Additional Options](#additional-options)
+
 ## Overview
 
 We ask that all new linter and tool definitions in this repository add some basic testing. This
@@ -72,6 +77,7 @@ For context, the general test execution is as follows:
    [.trunk/trunk.yaml](../.trunk/trunk.yaml).
 3. Run `trunk check enable <linter>`.
 4. Run `trunk check` or `trunk fmt` on files with the `<name>.in.<extension>` syntax.
+5. Cache any linter/tool downloads in `${TMPDIR:-/tmp}/plugins_testing_download_cache`
 
 ### Linter Versioning
 

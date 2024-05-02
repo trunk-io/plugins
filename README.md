@@ -3,9 +3,14 @@
 [![Trunk.io](https://static.trunk.io/assets/trunk_plugins_logo.png)](https://trunk.io)
 
 [![docs](https://img.shields.io/badge/-docs-darkgreen?logo=readthedocs&logoColor=ffffff)][docs]
+[![contributing](https://img.shields.io/badge/contributing-darkgreen?logo=readthedocs&logoColor=ffffff)][contributing]
+[![testing guide](https://img.shields.io/badge/testing_guide-darkgreen?logo=readthedocs&logoColor=ffffff)][testing guide]
 [![slack](https://img.shields.io/badge/-slack-611f69?logo=slack)][slack]
 [![vscode](https://img.shields.io/visual-studio-marketplace/i/trunk.io?color=0078d7&label=vscode&logo=visualstudiocode)][vscode]
 [![openssf](https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins/badge)](https://api.securityscorecards.dev/projects/github.com/trunk-io/plugins)
+
+[testing guide]: ./tests/README.md
+[contributing]: ./CONTRIBUTING.md
 
 ### Welcome
 

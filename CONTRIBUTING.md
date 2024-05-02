@@ -76,8 +76,8 @@ To add a new linter:
    can help provide greater insights when debugging. You may also wish to run on your test data,
    i.e. `trunk check --verbose --force linters/<my-linter>/test_data/basic.in.foo`.
 5. Add a few simple test cases to `my_linter.test.ts` to exercise your linter and generate
-   snapshots. View our [Testing Guide](tests/README.md) for more information on writing, running,
-   and debugging tests.
+   snapshots. **Refer to the [Testing Guide](tests/README.md) for more information on writing,
+   running, and debugging tests.**
 6. Revert any `.trunk/trunk.yaml` changes, and run `trunk check` to lint your changes.
 7. Open a PR!
 
@@ -111,8 +111,8 @@ To add a new tool:
 4. Run `trunk tools enable <my-tool>` to enable your tool, and run its shim(s) from
    `.trunk/tools/<tool-name>`.
 5. Add a `toolInstallTest` to `my_tool.test.ts` to verify your tool's installation. If neccessary,
-   use `toolTest` instead. Refer to the [Testing Guide](tests/README.md) for more information on
-   writing, running, and debugging tests.
+   use `toolTest` instead. **Refer to the [Testing Guide](tests/README.md) for more information on
+   writing, running, and debugging tests.**
 6. Revert any `.trunk/trunk.yaml` changes, and run `trunk check` to lint your changes.
 7. Open a PR!
 
