@@ -70,13 +70,13 @@ export interface FileIssue {
   level: string;
   // bucket: string;
   issueClass: string;
-  // below_threshold: boolean;
   linter: string;
   targetType: string;
   targetPath?: string;
   autofixOptions?: Autofix[];
   ranges?: any[];
   issueUrl: string;
+  belowThreshold?: boolean;
 }
 
 /**

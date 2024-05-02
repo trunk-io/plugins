@@ -121,6 +121,7 @@ const extractLandingStateFields = (
       issue.column,
       issue.code,
       issue.message,
+      issue.belowThreshold,
     ]),
     unformattedFiles: sort(unformattedFiles.map(normalizeIssues)).asc((issue) => [
       issue.file,
