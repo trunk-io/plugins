@@ -35,6 +35,7 @@ lint:
         - name: check
           run: ts-node ${workspace}/repo-tools/definition-checker/check.ts ${target}
           batch: true
+          sandbox_type: expanded
           output: regex
           parse_regex: "((?P<path>.*) \\[(?P<severity>.*)\\]: (?P<message>.*) \\((?P<code>.*)\\))"
           success_codes: [0]
