@@ -4,9 +4,9 @@ import { linterFmtTest, TestCallback } from "tests";
 const fmtCallbacks: TestCallback = (driver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- pre-commit-hooks@(.+)\n/;
+  const enableRegex = /- pre-commit-hooks@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
+    enableRegex,
     "- pre-commit-hooks@$1:\n        commands: [end-of-file-fixer]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);

@@ -15,9 +15,9 @@ linterCheckTest({
 const preCheck = (driver: TrunkLintDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
   const currentContents = driver.readFile(trunkYamlPath);
-  const sqlfluffRegex = /- ruff@(.+)\n/;
+  const enableRegex = /- ruff@(.+)\n/;
   const newContents = currentContents.replace(
-    sqlfluffRegex,
+    enableRegex,
     "- ruff@$1:\n        commands: [format]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);
