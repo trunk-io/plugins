@@ -30,7 +30,7 @@ lint:
         - name: fmt
           output: rewrite
           run: biome format --write "${target}"
-          success_codes: [0, 1]
+          success_codes: [0]
           batch: true
           cache_results: true
           formatter: true
