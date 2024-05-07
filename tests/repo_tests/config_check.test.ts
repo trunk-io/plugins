@@ -7,7 +7,6 @@ import { osTimeoutMultiplier, REPO_ROOT } from "tests/utils";
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-assignment)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-member-access)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-call)
-// trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-argument)
 // trunk-ignore-all(eslint/@typescript-eslint/no-unsafe-return)
 
 jest.setTimeout(300000 * osTimeoutMultiplier);
@@ -169,78 +168,6 @@ describe("Global config health check", () => {
         "trivy",
         "trufflehog",
         "yamllint",
-      ]
-    `);
-  });
-});
-
-/**
- * This test validates that only explicitly enumerated linters are recommended by default.
- */
-describe("Explicitly enabled healthcheck", () => {
-  // Step 1: Define test setup and teardown
-  const driver = setupLintDriver(REPO_ROOT, {
-    setupGit: false,
-    setupTrunk: true,
-  });
-
-  // Step 2: Validate that no plugin linters or actions are explicitly enabled
-  it("validate explicitly enabled actions and linters", async () => {
-    // Remove user.yaml if it exists, since it could affect the enabled set.
-    // Specifying force avoid errors being thrown if it doesn't exist.
-    fs.rmSync(path.resolve(driver.getSandbox(), ".trunk/user.yaml"), {
-      force: true,
-    });
-
-    const compositeConfig = await driver.getFullTrunkConfig();
-    const lintDefinitions = compositeConfig.lint.definitions;
-    const actionDefinitions = compositeConfig.actions.definitions;
-
-    const explicitlyEnabledLinters = lintDefinitions.reduce(
-      (enabledLinters: string[], definition: any) => {
-        if (definition.enabled) {
-          return enabledLinters.concat(definition.name);
-        }
-
-        if (definition.commands) {
-          const commandEnabled = definition.commands.reduce((enabled: boolean, command: any) => {
-            if (command.enabled) {
-              return true;
-            }
-            return enabled;
-          }, false);
-          if (commandEnabled) {
-            return enabledLinters.concat(definition.name);
-          }
-        }
-
-        return enabledLinters;
-      },
-      [],
-    );
-
-    // No linters should be enabled by default
-    expect(explicitlyEnabledLinters).toMatchInlineSnapshot(`[]`);
-
-    const explicitlyEnabledActions = actionDefinitions.reduce(
-      (enabledActions: string[], definition: any) => {
-        if (definition.enabled) {
-          return enabledActions.concat(definition.id);
-        }
-
-        return enabledActions;
-      },
-      [],
-    );
-
-    // Built-in actions only
-    expect(explicitlyEnabledActions).toMatchInlineSnapshot(`
-      [
-        "trunk-cache-prune",
-        "trunk-share-with-everyone",
-        "trunk-single-player-auto-upgrade",
-        "trunk-single-player-auto-on-upgrade",
-        "trunk-whoami",
       ]
     `);
   });

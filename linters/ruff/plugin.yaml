@@ -64,6 +64,7 @@ lint:
         run: ruff --version
 
     - name: ruff-nbqa
+      description: A Python linter for Jupyter notebooks
       files: [jupyter]
       commands:
         - name: lint

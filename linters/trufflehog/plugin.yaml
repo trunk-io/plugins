@@ -49,6 +49,7 @@ lint:
 
     # Variant of trufflehog that scans git history.
     - name: trufflehog-git
+      description: Scan git history for secrets
       files: [ALL]
       download: trufflehog
       known_good_version: 3.59.0

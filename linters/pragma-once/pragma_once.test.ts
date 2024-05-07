@@ -1,4 +1,4 @@
 import { linterFmtTest } from "tests";
 
-// TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes and other autofixes.
+// A simple formatter test to run 'pragma-once' on 'test_data/basic.in.hh'
 linterFmtTest({ linterName: "pragma-once" });
