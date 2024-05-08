@@ -73,8 +73,8 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
 
     - name: Upload results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows'"
+      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
+      if: "!cancelled() && runner.os == 'Linux'"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
