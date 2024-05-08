@@ -66,6 +66,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
@@ -173,6 +174,7 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
+          ref-type: release
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 

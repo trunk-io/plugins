@@ -255,6 +255,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          ref-type: main
           append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
