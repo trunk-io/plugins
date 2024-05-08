@@ -96,6 +96,7 @@ runs:
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         # Debug recurrent eslint circular JSON errors
         DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*
+        JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
@@ -116,6 +117,7 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
+        JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 

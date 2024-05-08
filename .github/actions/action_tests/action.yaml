@@ -54,6 +54,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
+        JEST_SUITE_NAME: Action Tests
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
 
@@ -69,6 +70,7 @@ runs:
         run:
           npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       env:
+        JEST_SUITE_NAME: Action Tests
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
 
