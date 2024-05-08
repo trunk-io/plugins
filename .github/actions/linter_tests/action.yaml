@@ -128,3 +128,5 @@ runs:
         org-slug: trunk-staging-org
         token: ${{ inputs.trunk-token }}
         continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io
