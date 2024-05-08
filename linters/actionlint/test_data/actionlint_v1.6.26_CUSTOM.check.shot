@@ -12,7 +12,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "actionlint",
-      "message": "invalid CRON format "0 */3 * *" in schedule event: expected exactly 5 fields, found 4: [0 */3 * *]",
+      "message": "invalid format "0 */3 * *" in schedule event: expected exactly 5 fields, found 4: [0 */3 * *]",
       "targetType": "github-workflow",
     },
     {
@@ -24,7 +24,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "level": "LEVEL_HIGH",
       "line": "6",
       "linter": "actionlint",
-      "message": "scheduled job runs too frequently. it runs once per 60 seconds. the shortest interval is once every 5 minutes",
+      "message": "scheduled runs too frequently. it runs once per 60 seconds. the shortest interval is once every 5 minutes",
       "targetType": "github-workflow",
     },
     {
