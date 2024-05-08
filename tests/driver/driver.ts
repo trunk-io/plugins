@@ -29,7 +29,7 @@ const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it 
 Please call this method after setup has been called.`;
 
 export const executionEnv = (sandbox: string) => {
-  // trunk-ignore(eslint9/@typescript-eslint/no-unused-vars): Strip TRUNK_CLI_VERSION from CI-Debugger
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Strip TRUNK_CLI_VERSION from CI-Debugger
   const { PWD, INIT_CWD, TRUNK_CLI_VERSION, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
@@ -140,7 +140,7 @@ export abstract class GenericTrunkDriver {
       // The trunk launcher is not designed to handle concurrent installs.
       // This command may fail if another test installs at the same time.
       // Don't block if this happens.
-      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
       if (!(err.stderr as string).includes("Cannot remove item")) {
         console.warn(
           `Error running --help with stdout: %s\nand stderr: %s`,
@@ -148,7 +148,7 @@ export abstract class GenericTrunkDriver {
           err.stderr,
         );
       }
-      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
     }
   }
 

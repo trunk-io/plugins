@@ -53,7 +53,7 @@ export default class TestReporter implements CustomReporter {
     testResult.console = filteredConsole?.length ? filteredConsole : undefined;
 
     // Step 2: Lookup version/type/failure information and add to each test result
-    // trunk-ignore-begin(eslint9): Unsafe assignment here is expected
+    // trunk-ignore-begin(eslint): Unsafe assignment here is expected
     testResult.testResults = testResult.testResults.map((individualResult: any) => {
       individualResult.version = linterVersionMap.get(individualResult.fullName);
       individualResult.testType = testTypeMap.get(individualResult.fullName);
@@ -67,6 +67,6 @@ export default class TestReporter implements CustomReporter {
       }
       return individualResult;
     });
-    // trunk-ignore-end(eslint9)
+    // trunk-ignore-end(eslint)
   }
 }

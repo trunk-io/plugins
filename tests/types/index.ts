@@ -19,7 +19,7 @@ export type CheckType = "check" | "fmt";
  * 3. Snapshots: use all previously written snapshot versions.
  * 4. string: a manually specified version. Note that this will apply to all tests.
  */
-// trunk-ignore(eslint9/@typescript-eslint/no-redundant-type-constituents): Added for clarity.
+// trunk-ignore(eslint/@typescript-eslint/no-redundant-type-constituents): Added for clarity.
 export type LinterVersion = "KnownGoodVersion" | "Latest" | "Snapshots" | string;
 
 /**

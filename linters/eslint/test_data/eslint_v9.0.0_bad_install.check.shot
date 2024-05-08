@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter eslint9 test bad_install 1`] = `
+exports[`Testing linter eslint test bad_install 1`] = `
 {
   "issues": [],
   "lintActions": [],
@@ -8,42 +8,42 @@ exports[`Testing linter eslint9 test bad_install 1`] = `
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/eof_autofix.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/eof_autofix.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/format_imports.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/format_imports.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/non_ascii.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/non_ascii.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/null_rule_id.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
     {
       "details": StringMatching /\\.\\*\\$/m,
       "message": "test_data/null_rule_id.ts",
-      "name": "eslint9",
+      "name": "eslint",
     },
   ],
   "unformattedFiles": [],

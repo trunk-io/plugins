@@ -146,9 +146,9 @@ const mergeTestResults = (original: TestResult, incoming: TestResult) => {
  * Parse the results of tests run on a singular OS. Merges multiple tests per linter.
  */
 const parseResultsJson = (os: TestOS): TestResultSummary => {
-  // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-assignment)
-  // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access)
-  // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-argument)
+  // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
+  // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
+  // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-argument)
   const resultsJsonPath = getResultsFileFromOS(os);
   const linterResults = new Map<string, TestResult>();
 
@@ -164,7 +164,7 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
     };
   }
 
-  // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-call)
+  // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-call)
   jsonResult.testResults.forEach((testResult: any) => {
     // NOTE(Tyler): Jest does their own file path transformation that sometimes interferes with GH runners.
     // Use this naive replacement in order to divine the relative path to the test file.
@@ -214,10 +214,10 @@ const parseResultsJson = (os: TestOS): TestResultSummary => {
       }
     });
   });
-  // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-assignment)
-  // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access)
-  // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-argument)
-  // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-call)
+  // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-assignment)
+  // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
+  // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-argument)
+  // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-call)
 
   console.log(`Parsed results for ${os}`);
   return {

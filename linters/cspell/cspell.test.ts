@@ -57,7 +57,7 @@ const normalizeLandingState = (landingState: LandingState) => {
   }
 };
 
-// trunk-ignore-begin(eslint9)
+// trunk-ignore-begin(eslint)
 const expectedBasicFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_basic_issues.json")).toString(),
 );
@@ -65,7 +65,7 @@ const expectedBasicFileIssues = JSON.parse(
 const expectedDictionaryFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_dictionary_issues.json")).toString(),
 );
-// trunk-ignore-end(eslint9)
+// trunk-ignore-end(eslint)
 
 // TODO(Tyler): Determine root cause of flakiness on Mac runners
 // cspell will update their dictionaries fairly frequently. Rather than erroring every time this happens,

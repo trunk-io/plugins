@@ -24,9 +24,9 @@ describe("Validate linter download/package setup", () => {
     .filter((file) => fs.lstatSync(path.resolve(linterDir, file)).isDirectory());
 
   linters.forEach((linter) => {
-    // trunk-ignore(eslint9/jest/valid-title)
+    // trunk-ignore(eslint/jest/valid-title)
     it(linter, () => {
-      // trunk-ignore-begin(eslint9): Expected any accesses
+      // trunk-ignore-begin(eslint): Expected any accesses
       // Ignoring no-unsafe-member-access, no-unsafe-assignment, no-unsafe-call, no-unsafe-return, and conditional jest expect
       const yamlContents = parseYaml(path.resolve(linterDir, linter, "plugin.yaml"));
 
@@ -45,7 +45,7 @@ describe("Validate linter download/package setup", () => {
             });
           }
           expect(downloads).toContain(definition.download);
-          // trunk-ignore-end(eslint9)
+          // trunk-ignore-end(eslint)
         }
       });
     });

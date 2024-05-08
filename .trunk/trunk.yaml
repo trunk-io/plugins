@@ -42,10 +42,8 @@ lint:
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
-    - eslint9@9.0.0
+    - eslint@9.2.0
   disabled:
-    # TODO(Tyler): Explicitly disable eslint<9 to avoid clash with eslint9.
-    - eslint
     - pylint # pylint diagnostics are too strict
     - semgrep
 
@@ -54,11 +52,10 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
-    # TODO(Tyler): Make eslint9 config work for js files in this repo.
-    - linters: [eslint9]
-      paths:
-        - "**/*.js"
-        - "**/*.cjs"
+    # - linters: [eslint]
+    #   paths:
+    #     - "**/*.js"
+    #     - "**/*.cjs"
 
 actions:
   # Uncomment to enable more verbose action logs

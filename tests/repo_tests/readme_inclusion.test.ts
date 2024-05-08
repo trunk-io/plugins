@@ -26,7 +26,7 @@ describe("All linters must be included in README.md", () => {
   linters
     .filter((linter) => !excludedLinters.includes(linter))
     .forEach((linter) => {
-      // trunk-ignore(eslint9/jest/valid-title)
+      // trunk-ignore(eslint/jest/valid-title)
       it(linter, () => {
         const fullName = abbreviationMapping.get(linter) ?? linter;
         expect(reducedReadmeContents).toContain(fullName);

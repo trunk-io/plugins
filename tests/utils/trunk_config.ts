@@ -25,7 +25,7 @@ export const getTrunkConfig = (repoRoot: string): any => {
  * then the cli version in the .trunk/trunk.yaml of the repository root.
  */
 export const getTrunkVersion = (): string => {
-  // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
+  // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
   const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string | undefined;
   return ARGS.cliVersion ?? repoCliVersion ?? "bad-version";
 };

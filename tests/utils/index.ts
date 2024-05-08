@@ -306,7 +306,7 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
       taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
         name: failure.name,
         message: failure.message,
-        // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-assignment)
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
         details: expect.stringMatching(/.*$/m),
       })),
     };
@@ -334,7 +334,7 @@ export const landingStateWrapper = (actual: LandingState | undefined, snapshotPa
     taskFailures: (actual?.taskFailures ?? []).map((failure) => ({
       name: failure.name,
       message: failure.message,
-      // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-assignment)
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-assignment)
       details: snapshotContainsFailure(failure) ? expect.stringMatching(/.*$/m) : failure.details,
     })),
   };

@@ -106,7 +106,7 @@ lint:
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
       if ("stdout" in (error as any)) {
-        // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
         console.log("Error output:", ((error as any).stdout as Buffer).toString());
       } else {
         console.log("Error keys:  ", Object.keys(error as object));
@@ -144,7 +144,7 @@ lint:
     } catch (error) {
       console.warn(`Failed to enable ${this.tool}`, error);
       if ("stdout" in (error as any)) {
-        // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
+        // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
         console.log("Error output:", ((error as any).stdout as Buffer).toString());
       } else {
         console.log("Error keys:  ", Object.keys(error as object));
@@ -163,7 +163,7 @@ lint:
       const { stdout, stderr } = await this.runTrunk(["tools", "install", toolName, "--ci"]);
       return { exitCode: 0, stdout, stderr };
     } catch (e: any) {
-      // trunk-ignore(eslint9/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
       return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
     }
   };
@@ -178,13 +178,13 @@ lint:
     if (!toEnableVersion || toEnableVersion === "Latest") {
       return "";
     } else if (toEnableVersion === "KnownGoodVersion") {
-      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
       return (
         (this.getFullTrunkConfig().tool.definitions.find(
           ({ name }: { name: string }) => name === this.tool,
         )?.known_good_version as string) ?? ""
       );
-      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     } else if (toEnableVersion !== "Snapshots") {
       // toEnableVersion is a version string
       return toEnableVersion;
@@ -223,20 +223,20 @@ lint:
       };
     } catch (e: any) {
       console.log(e);
-      // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access)
       return {
         exitCode: e.code as number,
         stdout: e.stdout as string,
         stderr: e.stderr as string,
       };
-      // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access)
+      // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access)
     }
   }
 
   getShims(): string[] {
     // get the full trunk config
-    // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-assignment)
-    // trunk-ignore-begin(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-begin(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
     const fullTrunkConfig = this.getFullTrunkConfig();
     // get the tool definition
     const toolDefinition = fullTrunkConfig.tools.definitions.find(
@@ -245,7 +245,7 @@ lint:
     // get the shims
     const shims = toolDefinition?.shims ?? [];
     return shims.map(({ name }: { name: string }) => name) as string[];
-    // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-assignment)
-    // trunk-ignore-end(eslint9/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-assignment)
+    // trunk-ignore-end(eslint/@typescript-eslint/no-unsafe-member-access,eslint/@typescript-eslint/no-unsafe-call)
   }
 }
