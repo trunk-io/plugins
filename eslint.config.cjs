@@ -1,7 +1,6 @@
 const eslint = require("@eslint/js");
 const typescriptEslint = require("typescript-eslint");
 const importPlugin = require("eslint-plugin-import-x");
-const parser = require("@typescript-eslint/parser");
 const nodeRecommended = require("eslint-plugin-n");
 const prettier = require("eslint-config-prettier");
 const jestPlugin = require("eslint-plugin-jest");
@@ -10,12 +9,14 @@ const simpleImportSort = require("eslint-plugin-simple-import-sort");
 
 module.exports = [
   eslint.configs.recommended,
-  ...typescriptEslint.configs.recommended,
-  ...typescriptEslint.configs.strictTypeChecked,
-  ...typescriptEslint.configs.stylisticTypeChecked,
   prettier,
-  {
+  ...typescriptEslint.config({
     files: ["**/*.ts"],
+    extends: [
+      ...typescriptEslint.configs.recommended,
+      ...typescriptEslint.configs.strictTypeChecked,
+      ...typescriptEslint.configs.stylisticTypeChecked,
+    ],
     plugins: {
       // "prefer-arrow-functions": preferArrowFunctions,
       "simple-import-sort": simpleImportSort,
@@ -24,7 +25,7 @@ module.exports = [
     },
     languageOptions: {
       ecmaVersion: "latest",
-      parser,
+      parser: typescriptEslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -122,7 +123,7 @@ module.exports = [
         },
       },
     ],
-  },
+  }),
   {
     files: ["**/*test.ts"],
     plugins: {
@@ -130,6 +131,20 @@ module.exports = [
     },
     rules: {
       ...jestPlugin.configs.recommended.rules,
+    },
+  },
+  {
+    // Used for scripts and Trunk Actions.
+    files: ["**/*.{js,cjs}"],
+    languageOptions: {
+      globals: {
+        node: true,
+        require: true,
+        console: true,
+        module: true,
+        __dirname: true,
+      },
+      ecmaVersion: "latest",
     },
   },
 ];

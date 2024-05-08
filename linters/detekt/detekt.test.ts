@@ -32,7 +32,6 @@ linterCheckTest({
 const gradlePreCheck: TestCallback = (driver) => {
   // Based on plugin.yaml, trunk invokes ${workspace}/gradlew and expects gradlew, etc. to exist at the workspace root.
   // However, we expect .trunk/trunk.yaml to exist at the workspace root as well, so we move each file up to the workspace.
-  // trunk-ignore-begin(semgrep): paths used here are safe
   fs.readdirSync(path.resolve(driver.getSandbox(), TEST_DATA, "detekt_gradle")).forEach((file) => {
     driver.moveFile(path.join(TEST_DATA, "detekt_gradle", file), file);
   });
@@ -55,7 +54,6 @@ const gradlePreCheck: TestCallback = (driver) => {
           list: ["\${env.PATH}"]
 `);
   driver.writeFile(trunkYamlPath, finalContents);
-  // trunk-ignore-end(semgrep)
 };
 
 // TODO(Tyler): detekt-gradle has issues resolving stdin correctly on Windows.

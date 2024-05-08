@@ -52,10 +52,6 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
-    # - linters: [eslint]
-    #   paths:
-    #     - "**/*.js"
-    #     - "**/*.cjs"
 
 actions:
   # Uncomment to enable more verbose action logs

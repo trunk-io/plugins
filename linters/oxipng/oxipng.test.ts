@@ -19,10 +19,8 @@ const preCheck = (driver: TrunkLintDriver) => {
 
 const postCheck = (driver: TrunkLintDriver) => {
   const originalSize = fs.statSync(
-    // trunk-ignore(semgrep): paths used here are safe
     path.resolve(driver.getSandbox(), TEST_DATA, "good.png.bak"),
   ).size;
-  // trunk-ignore(semgrep): paths used here are safe
   const compressedSize = fs.statSync(path.resolve(driver.getSandbox(), TEST_DATA, "good.png")).size;
   expect(compressedSize).toBeLessThan(originalSize);
 };

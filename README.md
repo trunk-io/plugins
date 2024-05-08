@@ -61,8 +61,8 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                          |
 | HTML Templates  | [djlint]                                                                                                             |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                               |
-| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                  |
-| JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                          |
+| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                             |
+| JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                                     |
 | Kotlin          | [detekt], [ktlint]                                                                                                   |
 | Kubernetes      | [kube-linter]                                                                                                        |
 | Lua             | [stylua]                                                                                                             |
@@ -89,7 +89,7 @@ trunk check enable {linter}
 | Terragrunt      | [terragrunt]                                                                                                         |
 | Textproto       | [txtpbfmt]                                                                                                           |
 | TOML            | [taplo]                                                                                                              |
-| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                           |
+| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                      |
 | YAML            | [prettier], [semgrep], [yamllint]                                                                                    |
 
 [actionlint]: https://trunk.io/linters/infra/actionlint

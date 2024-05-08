@@ -19,7 +19,7 @@ const preCheck = (driver: TrunkLintDriver) => {
       driver.moveFile(path.join(TEST_DATA, file), file.replace("-old", ""));
     });
   }
-}
+};
 
 const preCheckWithInstall = (driver: TrunkLintDriver) => {
   preCheck(driver);
@@ -39,7 +39,6 @@ const preCheckWithInstall = (driver: TrunkLintDriver) => {
     driver.debug("About to install shims");
     driver.runTrunkSync(["tools", "install"]);
     driver.debug("Done installing shims");
-    // trunk-ignore-begin(semgrep): Safe paths
     const toolsPath = fs.existsSync(path.resolve(driver.getSandbox(), ".trunk/dev-tools"))
       ? "dev-tools"
       : "tools";
@@ -56,7 +55,6 @@ const preCheckWithInstall = (driver: TrunkLintDriver) => {
         `.trunk/${toolsPath}`,
         process.platform == "win32" ? "npm.bat" : "npm",
       ),
-      // trunk-ignore-end(semgrep)
       ["ci"],
       {
         cwd: driver.getSandbox(),
