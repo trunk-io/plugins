@@ -17,7 +17,7 @@ inputs:
     required: false
     default: tools --
   trunk-token:
-    description: CI debugger api token
+    description: CI debugger api token (org token)
     required: true
   ref-type:
     description: release or main
