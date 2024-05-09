@@ -24,8 +24,12 @@ inputs:
     description: Token to login for sourcery test
     required: true
   trunk-token:
-    description: CI debugger api token
+    description: CI debugger api token (org token)
     required: true
+  ref-type:
+    description: release or main
+    required: false
+    default: main
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -91,7 +95,10 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         # Debug recurrent eslint circular JSON errors
-        DEBUG: Driver:eslint:*,Driver:cspell:*,Driver:nixpkgs-fmt:*
+        DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*
+        JEST_SUITE_NAME: Linter Tests
+        JEST_JUNIT_SUITE_NAME:
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
     - name: Run plugin tests
       if: runner.os != 'Windows'
@@ -101,7 +108,7 @@ runs:
         breakpoint-id: trunk-plugins-linter-tests
         shell: bash
         working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token  }}
+        trunk-token: ${{ inputs.trunk-token }}
         org: trunk-staging-org
         run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
       env:
@@ -110,3 +117,18 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
+        JEST_SUITE_NAME: Linter Tests
+        JEST_JUNIT_SUITE_NAME:
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
+
+    - name: Upload results
+      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
+      if: "!cancelled() && runner.os == 'Linux'"
+      uses: trunk-io/analytics-uploader@main
+      with:
+        junit-paths: junit.xml
+        org-slug: trunk-staging-org
+        token: ${{ inputs.trunk-token }}
+      continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

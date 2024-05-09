@@ -54,6 +54,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
+        JEST_SUITE_NAME: Action Tests
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
 
@@ -64,10 +65,23 @@ runs:
         breakpoint-id: trunk-plugins-action-tests
         shell: bash
         working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token  }}
+        trunk-token: ${{ inputs.trunk-token }}
         org: trunk-staging-org
         run:
           npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       env:
+        JEST_SUITE_NAME: Action Tests
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+
+    - name: Upload results
+      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
+      if: "!cancelled() && runner.os == 'Linux'"
+      uses: trunk-io/analytics-uploader@main
+      with:
+        junit-paths: junit.xml
+        org-slug: trunk-staging-org
+        token: ${{ inputs.trunk-token }}
+      continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

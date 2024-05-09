@@ -2,6 +2,6 @@
   "preset": "ts-jest",
   "modulePaths": ["<rootDir>"],
   "setupFilesAfterEnv": ["<rootDir>/tests/jest_setup.ts"],
-  "reporters": ["<rootDir>/tests/reporter/index.js", "default"],
+  "reporters": ["<rootDir>/tests/reporter/index.js", "default", "jest-junit"],
   "testPathIgnorePatterns": ["<rootDir>/node_modules/", "<rootDir>/repo-tools/"]
 }
