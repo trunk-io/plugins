@@ -49,6 +49,15 @@ exports[`Testing linter trivy test config 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
+    {
+      "command": "config",
+      "fileGroupName": "terraform",
+      "linter": "trivy",
+      "paths": [
+        "test_data/main.tf",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
   ],
   "taskFailures": [],
   "unformattedFiles": [],

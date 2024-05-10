@@ -572,6 +572,10 @@ lint:
       extensions:
         - tf
         - tf.json
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
 
     - name: textproto
       extensions:
