@@ -30,7 +30,7 @@ fuzzyLinterCheckTest({
   linterName: "trivy",
   testName: "config",
   args: "-a",
-  fileIssueAssertionCallback: createFuzzyMatcher(() => configExpectedFileIssues, 13),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => configExpectedFileIssues, 15),
   preCheck: callbackGenerator("config"),
 });
 
