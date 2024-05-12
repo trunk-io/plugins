@@ -26,7 +26,7 @@ jobs:
           private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
 
       - name: Trunk Upgrade
-        uses: trunk-io/trunk-action/upgrade@da67635060feab46c164bc130690e61864a5d13b
+        uses: trunk-io/trunk-action/upgrade@bd686325615e9cf5a4ef98372ba94a472f9b5238
         with:
           arguments: -n --bleeding-edge
           github-token: ${{ steps.generate-token.outputs.token }}

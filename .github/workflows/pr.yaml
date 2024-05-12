@@ -230,7 +230,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@da67635060feab46c164bc130690e61864a5d13b
+        uses: trunk-io/trunk-action@bd686325615e9cf5a4ef98372ba94a472f9b5238
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
