@@ -29,6 +29,12 @@ runs:
       with:
         node-version: 18
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: "8.2"
+        extensions: mbstring, curl, xml, fpm
+
     - name: Specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
