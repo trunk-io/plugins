@@ -40,7 +40,7 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: "8.2"
-        extensions: mbstring, curl, xml, fpm
+        extensions: mbstring, curl, xml
 
     # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
     #       it will prompt for a timezone selection
