@@ -36,13 +36,6 @@ runs:
       with:
         node-version: 18
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: "8.2"
-        extensions: none, mbstring, curl, xml, dom
-        tools: none
-
     # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
     #       it will prompt for a timezone selection
     - name: Install packages and specify defaults
@@ -56,14 +49,17 @@ runs:
             sudo rm /var/lib/apt/lists/lock || true
 
             # Install non-hermetic linters
+            sudo add-apt-repository ppa:ondrej/php
             sudo apt-get update
             sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev software-properties-common
             DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt-get -y install tzdata
+            sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
             brew install cpm
             cpm install -g --no-test --color Perl::Critic Perl::Tidy
             brew unlink perl && brew link perl
+            brew install php gnupg
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
