@@ -40,7 +40,7 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: "8.2"
-        extensions: none, mbstring, curl, xml
+        extensions: none, mbstring, curl, xml, dom
         tools: none
 
     # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive

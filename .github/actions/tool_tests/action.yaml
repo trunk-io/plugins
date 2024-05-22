@@ -33,7 +33,8 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: "8.2"
-        extensions: mbstring, curl, xml
+        extensions: none, mbstring, curl, xml, dom
+        tools: none
 
     - name: Specify defaults
       run: |
