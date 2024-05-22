@@ -9,3 +9,6 @@ tools:
       environment:
         - name: PATH
           list: ["${tool}/vendor/bin"]
+      health_checks:
+        - command: paratest --version
+          parse_regex: ParaTest v${semver}
