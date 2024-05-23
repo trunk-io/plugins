@@ -12,9 +12,6 @@ on:
       cli-path:
         required: false
         type: string
-    secrets:
-      trunk-token:
-        required: false
 
 permissions:
   contents: read
@@ -44,14 +41,3 @@ jobs:
           JEST_SUITE_NAME: Repo Tests
           PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
           PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}
-
-      - name: Upload results
-        if: "!cancelled()"
-        uses: trunk-io/analytics-uploader@main
-        with:
-          junit-paths: junit.xml
-          org-slug: trunk-staging-org
-          token: ${{ secrets.trunk-token }}}
-        continue-on-error: true
-        env:
-          TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

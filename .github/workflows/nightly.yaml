@@ -266,8 +266,6 @@ jobs:
   repo_tests:
     name: Repo Tests
     uses: ./.github/workflows/repo_tests.reusable.yaml
-    secrets:
-      trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   action_tests_main:
     name: Action Tests Main
