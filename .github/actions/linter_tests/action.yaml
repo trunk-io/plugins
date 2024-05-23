@@ -45,6 +45,13 @@ runs:
     - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
+        if [[ "${{ inputs.linter-version }}" == "Latest" ]]; then
+          echo "JEST_LINTER_VERSION=Latest" >> "$GITHUB_ENV"
+        else
+          # If the linter version is KnownGoodVersions, coalesce to Snapshots
+          # For flaky analysis.
+          echo "JEST_LINTER_VERSION=Snapshots" >> "$GITHUB_ENV"
+        fi
 
         case "$RUNNER_OS" in
           Linux)

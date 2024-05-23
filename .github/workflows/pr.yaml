@@ -293,6 +293,8 @@ jobs:
     needs: detect_changes
     if: needs.detect_changes.outputs.repo-tests == 'true'
     uses: ./.github/workflows/repo_tests.reusable.yaml
+    secrets:
+      trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   report_test_success:
     if: ${{ always() }}
