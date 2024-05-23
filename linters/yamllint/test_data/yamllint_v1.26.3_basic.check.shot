@@ -4,7 +4,7 @@ exports[`Testing linter yamllint test basic 1`] = `
 {
   "issues": [
     {
-      "code": "quoted-strings",
+      "code": "quote-strings",
       "column": "6",
       "file": "test_data/basic.in.yaml",
       "issueClass": "ISSUE_CLASS_EXISTING",
