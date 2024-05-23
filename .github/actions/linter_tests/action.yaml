@@ -126,7 +126,7 @@ runs:
         DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
         JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
-          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ env.JEST_LINTER_VERSION }}"
 
     - name: Upload results
       # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
