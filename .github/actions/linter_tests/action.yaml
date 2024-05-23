@@ -45,6 +45,13 @@ runs:
     - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
+        if [[ "${{ inputs.linter-version }}" == "Latest" ]]; then
+          echo "JEST_LINTER_VERSION=Latest" >> "$GITHUB_ENV"
+        else
+          # If the linter version is KnownGoodVersions, coalesce to Snapshots
+          # For flaky analysis.
+          echo "JEST_LINTER_VERSION=Snapshots" >> "$GITHUB_ENV"
+        fi
 
         case "$RUNNER_OS" in
           Linux)
@@ -119,7 +126,7 @@ runs:
         DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
         JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
-          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ env.JEST_LINTER_VERSION }}"
 
     - name: Upload results
       # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
