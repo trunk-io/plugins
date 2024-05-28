@@ -1,0 +1,36 @@
+version: 0.1
+tools:
+  definitions:
+    - name: php-cs-fixer
+      runtime: php
+      package: friendsofphp/php-cs-fixer
+      known_good_version: 3.54.0
+      shims: [php-cs-fixer]
+      environment:
+        - name: PATH
+          list: ["${tool}/vendor/bin"]
+      health_checks:
+        - command: php-cs-fixer --version
+          parse_regex: PHP CS Fixer ${semver}
+lint:
+  definitions:
+    - name: php-cs-fixer
+      description: Keeps PHP code up to standards
+      tools: [php-cs-fixer]
+      known_good_version: 3.54.0
+      files: [php]
+      commands:
+        # TODO(Tyler): Do we want to define a lint command here?
+        - name: format
+          output: rewrite
+          success_codes: [0]
+          formatter: true
+          batch: true
+          in_place: true
+          run: php-cs-fixer fix --using-cache=no --show-progress=none ${target}
+      direct_configs:
+        # uses ruleset @PSR12 when a config is not present.
+        - .php-cs-fixer.dist.php
+      affects_cache:
+        - .php-cs-fixer.php
+      suggest_if: config_present

@@ -60,11 +60,11 @@ runs:
             sudo rm /var/lib/apt/lists/lock || true
 
             # Install non-hermetic linters
+            sudo add-apt-repository ppa:ondrej/php
             sudo apt-get update
             sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev software-properties-common
             DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt-get -y install tzdata
-            sudo add-apt-repository ppa:ondrej/php
-            sudo apt install -y php8.0-fpm php8.0-xml php8.0-mbstring php8.0-curl
+            sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
             brew install cpm
