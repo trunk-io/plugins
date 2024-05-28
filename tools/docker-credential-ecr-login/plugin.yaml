@@ -21,4 +21,4 @@ tools:
     - name: docker-credential-ecr-login
       download: docker-credential-ecr-login
       known_good_version: 0.8.0
-       shims: [docker-credential-ecr-login]
+      shims: [docker-credential-ecr-login]
