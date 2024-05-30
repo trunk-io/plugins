@@ -12,6 +12,12 @@ index dc4f1f8..fb8fe54 100644
 +  enabled:
 +    - diff-so-fancy@1.4.3`;
 
+let exitCode = 25;
+if (process.platform === "darwin") {
+  exitCode = 102;
+} else if (process.platform === "win32") {
+  exitCode = 0;
+}
 // diff-so-fancy returns a nonzero exit code for its version command, so we have to
 // use the custom test constructor.
 toolTest({
@@ -20,7 +26,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["diff-so-fancy"],
-      expectedExitCode: 25,
+      expectedExitCode: exitCode,
       expectedOut: "modified:",
       stdin: sampleDiff,
     }),
