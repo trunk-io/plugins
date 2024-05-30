@@ -20,7 +20,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["diff-so-fancy"],
-      expectedExitCode: 0,
+      expectedExitCode: 25,
       expectedOut: "modified:",
       stdin: sampleDiff,
     }),
