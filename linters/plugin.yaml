@@ -77,6 +77,18 @@ lint:
       comments:
         - hash
 
+    - name: bazel-module
+      filenames:
+        - MODULE.bazel
+      comments:
+        - hash
+
+    - name: bazel
+      inherit:
+        - bazel-build
+        - bazel-workspace
+        - bazel-module
+
     - name: c
       inherit:
         - c-header

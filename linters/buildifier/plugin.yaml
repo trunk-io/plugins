@@ -41,7 +41,7 @@ tools:
 lint:
   definitions:
     - name: buildifier
-      files: [starlark, bazel-build, bazel-workspace]
+      files: [bazel, starlark]
       tools: [buildifier]
       description: Formatter for Bazel files
       commands:
