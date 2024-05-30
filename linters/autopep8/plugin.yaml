@@ -11,6 +11,7 @@ lint:
   definitions:
     - name: autopep8
       files: [python]
+      description: A python formatter
       commands:
         - name: format
           output: rewrite

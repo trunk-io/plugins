@@ -79,6 +79,7 @@ lint:
     - name: taplo
       files: [toml]
       tools: [taplo]
+      description: Validate and format TOML files
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle taplo's output.

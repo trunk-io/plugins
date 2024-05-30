@@ -15,6 +15,7 @@ tools:
 lint:
   definitions:
     - name: swiftlint
+      description: Enforces Swift style and conventions
       files:
         - swift
       tools: [swiftlint]

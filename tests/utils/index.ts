@@ -165,7 +165,7 @@ export const getSnapshotPathForAssert = (
   let closestMatchPath;
   for (const snapshotName of availableSnapshots) {
     const match = snapshotName.match(snapshotFileRegex);
-    if (match && match.groups) {
+    if (match?.groups) {
       const snapshotVersion = match.groups.version;
       const comparator = versionGreaterThanOrEqual ?? semver.gte;
       if (

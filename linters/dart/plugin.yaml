@@ -30,6 +30,7 @@ lint:
       files: [dart]
       known_good_version: 3.2.6
       suggest_if: never
+      description: Lints and formats dart code
       affects_cache:
         - analysis_options.yaml
         - pubspec.yaml

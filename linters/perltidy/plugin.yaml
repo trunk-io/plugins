@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: perltidy
       supported_platforms: [linux, macos]
+      description: Formatter for Perl
       commands:
         - output: rewrite
           success_codes:

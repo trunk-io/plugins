@@ -1,0 +1,14 @@
+version: 0.1
+tools:
+  definitions:
+    - name: phpunit
+      runtime: php
+      package: phpunit/phpunit
+      known_good_version: 11.1.3
+      shims: [phpunit]
+      environment:
+        - name: PATH
+          list: ["${tool}/vendor/bin"]
+      health_checks:
+        - command: phpunit --version
+          parse_regex: PHPUnit ${semver}

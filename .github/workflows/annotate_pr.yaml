@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@540e7fe497a45ae76370d26d95cc249059c4ac3a # v1.1.12
+        uses: trunk-io/trunk-action@f6c5f1b90503c30e02059667dbc247f2257b63c5 # v1.1.15
         with:
           post-annotations: true
         # This job may fail when the PR was not run on a fork, and that's okay

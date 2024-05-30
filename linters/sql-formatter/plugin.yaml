@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: sql-formatter
       files: [sql]
+      description: A SQL formatter
       commands:
         - output: rewrite
           # sql-formatter does not autodetect dialect, so this may not be sufficient for all setups

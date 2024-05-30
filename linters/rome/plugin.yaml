@@ -10,6 +10,7 @@ lint:
   definitions:
     # No longer maintained. Succeeded by the biome linter+formatter
     - name: rome
+      description: A static analyzer for web projects
       files:
         - typescript
         - javascript

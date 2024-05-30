@@ -11,6 +11,7 @@ lint:
     - name: djlint
       files: [html]
       tools: [djlint]
+      description: HTML template linter and formatter
       commands:
         - name: lint
           output: regex

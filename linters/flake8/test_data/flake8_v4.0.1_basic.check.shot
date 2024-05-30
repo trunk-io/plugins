@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter flake8 test basic 1`] = `
 {
@@ -28,11 +29,12 @@ exports[`Testing linter flake8 test basic 1`] = `
       "targetType": "python",
     },
     {
+      "belowThreshold": true,
       "code": "ignore-does-nothing",
       "column": "3",
       "file": "test_data/basic.in.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "level": "LEVEL_MEDIUM",
+      "level": "LEVEL_NOTE",
       "line": "9",
       "linter": "trunk",
       "message": "trunk-ignore(flake8/F401) is not suppressing a lint issue",

@@ -2,6 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: rubocop
+      description: A Ruby static code analyzer and formatter
       files: [ruby, gemspec]
       direct_configs: [.rubocop.yml]
       suggest_if: config_present

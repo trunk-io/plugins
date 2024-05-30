@@ -3,7 +3,6 @@ import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { TEST_DATA } from "tests/utils";
 
-// trunk-ignore-all(semgrep)
 // Ensure that the Cargo files are at the same level as the src/ directory.
 const moveCargoFiles = (dest: string) => (driver: TrunkLintDriver) => {
   ["Cargo.lock", "Cargo.toml"].forEach((file) => {

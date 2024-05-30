@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter vale test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "vale",
+      "message": "Did you really mean 'Hallo'?",
+      "targetType": "ALL",
+    },
+    {
+      "code": "error",
+      "column": "8",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "vale",
+      "message": "Did you really mean 'wurld'?",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "vale",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "vale",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -25,6 +25,7 @@ lint:
   definitions:
     - name: tflint
       files: [terraform]
+      description: A pluggable Terraform linter
       commands:
         - name: lint
           output: sarif

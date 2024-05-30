@@ -1,4 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
 
 exports[`Testing linter circleci test CUSTOM 1`] = `
 {
@@ -69,7 +71,8 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
 	- |   |   |   |   |   INPUT:
 	- |   |   |   |   |     - true
 	- 2. [#/jobs/install-node-example] expected type: String, found: Mapping
-	- |   Job may be a string reference to another job",
+	- |   Job may be a string reference to another job
+	- 3. [#/jobs/install-node-example] required key [type] not found",
       "targetType": "circleci-config",
     },
   ],

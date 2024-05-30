@@ -11,6 +11,7 @@ lint:
     - name: txtpbfmt
       files: [textproto]
       tools: [txtpbfmt]
+      description: A formatter for textproto files
       commands:
         - name: format
           output: rewrite

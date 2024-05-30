@@ -16,7 +16,7 @@ export const parseYaml = (filePath: string): any => {
  * Return the yaml result of parsing the .trunk/trunk.yaml in a specified repo root.
  */
 export const getTrunkConfig = (repoRoot: string): any => {
-  const trunkYamlPath = path.resolve(repoRoot ?? "", ".trunk/trunk.yaml");
+  const trunkYamlPath = path.resolve(repoRoot, ".trunk/trunk.yaml");
   return parseYaml(trunkYamlPath);
 };
 
@@ -26,6 +26,6 @@ export const getTrunkConfig = (repoRoot: string): any => {
  */
 export const getTrunkVersion = (): string => {
   // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-  const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string;
+  const repoCliVersion = getTrunkConfig(REPO_ROOT).cli.version as string | undefined;
   return ARGS.cliVersion ?? repoCliVersion ?? "bad-version";
 };

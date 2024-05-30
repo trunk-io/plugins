@@ -11,6 +11,7 @@ lint:
     - name: sqlfluff
       files: [sql, sql-j2, dml, ddl]
       tools: [sqlfluff]
+      description: A dialect-flexible and configurable SQL linter
       known_good_version: 1.4.5
       direct_configs:
         - .sqlfluff

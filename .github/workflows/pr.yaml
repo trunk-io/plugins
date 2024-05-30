@@ -150,6 +150,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
@@ -164,6 +165,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
           trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
@@ -228,7 +230,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@540e7fe497a45ae76370d26d95cc249059c4ac3a
+        uses: trunk-io/trunk-action@f6c5f1b90503c30e02059667dbc247f2257b63c5
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
@@ -255,6 +257,7 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5

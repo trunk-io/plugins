@@ -13,7 +13,9 @@ on:
         required: false
         type: string
 
-permissions: read-all
+permissions:
+  contents: read
+  statuses: read
 
 jobs:
   plugins_test:
@@ -36,5 +38,6 @@ jobs:
       - name: Run repo tests
         run: npm test tests/repo_tests --ci
         env:
+          JEST_SUITE_NAME: Repo Tests
           PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
           PLUGINS_TEST_CLI_PATH: ${{ inputs.cli-path }}

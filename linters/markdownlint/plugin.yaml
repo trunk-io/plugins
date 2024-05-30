@@ -11,6 +11,7 @@ lint:
     - name: markdownlint
       files: [markdown]
       tools: [markdownlint]
+      description: A style checker and lint tool for markdown files
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.

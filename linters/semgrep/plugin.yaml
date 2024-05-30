@@ -9,6 +9,7 @@ tools:
 lint:
   definitions:
     - name: semgrep
+      description: Find bugs and enforce code standards
       supported_platforms: [linux, macos]
       files: [ALL]
       tools: [semgrep]

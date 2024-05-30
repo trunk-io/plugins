@@ -41,7 +41,7 @@ exports[`Testing linter golangci-lint test all 1`] = `
       "targetType": "go",
     },
     {
-      "code": "deadcode",
+      "code": "unused",
       "column": "6",
       "file": "test_data/unused_func.go",
       "issueClass": "ISSUE_CLASS_EXISTING",
@@ -49,7 +49,7 @@ exports[`Testing linter golangci-lint test all 1`] = `
       "level": "LEVEL_HIGH",
       "line": "5",
       "linter": "golangci-lint",
-      "message": "\`helper\` is unused",
+      "message": "func \`helper\` is unused",
       "targetType": "go",
     },
     {

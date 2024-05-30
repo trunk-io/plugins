@@ -17,8 +17,12 @@ inputs:
     required: false
     default: tools --
   trunk-token:
-    description: CI debugger api token
+    description: CI debugger api token (org token)
     required: true
+  ref-type:
+    description: release or main
+    required: false
+    default: main
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -29,11 +33,23 @@ runs:
       with:
         node-version: 18
 
-    - name: Specify defaults
+    - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
 
         case "$RUNNER_OS" in
+          Linux)
+            # Cleanup any existing apt locks
+            sudo killall apt-get || true
+            sudo rm /var/lib/apt/lists/lock || true
+
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt-get update
+            sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
+            ;;
+          macOS)
+            brew install php gnupg
+            ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
             if [[ "${{ inputs.cli-path }}" == "" ]]; then
@@ -56,6 +72,8 @@ runs:
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+        JEST_SUITE_NAME: Tool Tests
+        JEST_JUNIT_SUITE_NAME: "{title} ${{ runner.os }} ${{ inputs.ref-type }}"
 
     - name: Run plugin tests
       if: runner.os != 'Windows'
@@ -71,3 +89,17 @@ runs:
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+        JEST_SUITE_NAME: Tool Tests
+        JEST_JUNIT_SUITE_NAME: "{title} ${{ runner.os }} ${{ inputs.ref-type }}"
+
+    - name: Upload results
+      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
+      if: "!cancelled() && runner.os == 'Linux'"
+      uses: trunk-io/analytics-uploader@main
+      with:
+        junit-paths: junit.xml
+        org-slug: trunk-staging-org
+        token: ${{ inputs.trunk-token }}
+      continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

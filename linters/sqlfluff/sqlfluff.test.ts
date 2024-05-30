@@ -1,5 +1,6 @@
 import { linterCheckTest, linterFmtTest, TestCallback } from "tests";
 
+// A simple test to run 'sqlfluff lint'
 // basic_check.out.json is the result of running:
 // trunk check linters/sqlfluff/test/basic_check.in.sql --force --filter=sqlfluff --output=json
 linterCheckTest({ linterName: "sqlfluff", namedTestPrefixes: ["basic_check"] });
@@ -11,10 +12,10 @@ const fmtCallbacks: TestCallback = (driver) => {
   const sqlfluffRegex = /- sqlfluff@(.+)\n/;
   const newContents = currentContents.replace(
     sqlfluffRegex,
-    "- sqlfluff@$1:\n        commands: [lint, fix]\n"
+    "- sqlfluff@$1:\n        commands: [lint, fix]\n",
   );
   driver.writeFile(trunkYamlPath, newContents);
 };
 
-// TODO(Tyler): We will eventually need to add a couple more test cases involving failure modes.
+// An additional test to run 'sqlfluff fmt' with some additional test setup.
 linterFmtTest({ linterName: "sqlfluff", namedTestPrefixes: ["basic_fmt"], preCheck: fmtCallbacks });

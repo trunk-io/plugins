@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: git-diff-check
       files: [ALL]
+      description: Checks for git conflicts
       commands:
         - output: regex
           name: lint

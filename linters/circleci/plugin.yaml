@@ -11,6 +11,7 @@ lint:
       tools: [circleci]
       known_good_version: 0.1.28811
       suggest_if: never
+      description: Validates CircleCI configuration files
       commands:
         - name: validate
           platforms: [windows]

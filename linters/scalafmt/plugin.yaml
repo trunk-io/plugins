@@ -28,6 +28,7 @@ lint:
       tools: [scalafmt]
       direct_configs: [.scalafmt.conf]
       suggest_if: config_present
+      description: A Scala formatter
       commands:
         - name: format
           output: rewrite

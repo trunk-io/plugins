@@ -11,6 +11,7 @@ lint:
     - name: markdown-link-check
       files: [markdown]
       tools: [markdown-link-check]
+      description: Checks markdown files for broken links
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.

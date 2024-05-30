@@ -84,7 +84,7 @@ lint:
       return;
     }
     try {
-      // Cast version to string in case of decimal representation (e.g. 0.40)
+      // trunk-ignore(eslint/@typescript-eslint/no-useless-template-literals): Cast to string to handle decimal case
       const version = `${this.extractToolVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
       const toolVersionString = `${this.tool}${versionString}`;
@@ -99,7 +99,7 @@ lint:
       );
       const enabledVersionRegex = `(?<tool>${this.tool})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
-      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
+      if (foundIn?.groups?.version && foundIn.groups.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
       }
