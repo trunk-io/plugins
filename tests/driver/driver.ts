@@ -7,7 +7,6 @@ import * as git from "simple-git";
 import { ARGS, DOWNLOAD_CACHE, REPO_ROOT, TEMP_PREFIX, TEST_DATA } from "tests/utils";
 import { getTrunkConfig } from "tests/utils/trunk_config";
 import * as util from "util";
-import stream from "stream";
 import YAML from "yaml";
 
 /**
@@ -384,7 +383,7 @@ export abstract class GenericTrunkDriver {
    * @param execOptions options to pass the stdin to exec
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
-    let exec = execFile(bin, args, {
+    const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
@@ -396,21 +395,23 @@ export abstract class GenericTrunkDriver {
       let stdout = "";
       let stderr = "";
 
-      exec.stdout?.on("data", (data) => {
-        stdout += data;
+      exec.stdout?.on("data", (chunk: string) => {
+        stdout += chunk;
       });
 
-      exec.stderr?.on("data", (data) => {
-        stderr += data;
+      exec.stderr?.on("data", (chunk: string) => {
+        stderr += chunk;
       });
 
-      exec.on("error", (err) => {
+      exec.on("error", (err: any) => {
+        // trunk-ignore(eslint/@typescript-eslint/prefer-promise-reject-errors)
         reject(err);
       });
-      exec.on("exit", (code) => {
+      exec.on("exit", (code: number) => {
         if (code === 0) {
           resolve({ stdout, stderr });
         } else {
+          // trunk-ignore(eslint/@typescript-eslint/prefer-promise-reject-errors)
           reject({ error: new Error(`Process exited with code ${code}`), code, stdout, stderr });
         }
       });
