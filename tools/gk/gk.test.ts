@@ -1,7 +1,8 @@
-import { toolInstallTest } from "tests";
+import { makeToolTestConfig, toolTest } from "tests";
 
-// TODO(Tyler): tool def is missing healthcheck
-toolInstallTest({
+// No version command for gk
+toolTest({
   toolName: "gk",
   toolVersion: "1.2.2",
+  testConfigs: [makeToolTestConfig({ command: ["gk", "-h"], expectedErr: "Usage" })],
 });

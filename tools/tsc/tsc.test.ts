@@ -1,7 +1,6 @@
 import { toolInstallTest } from "tests";
 import { skipOS } from "tests/utils";
 
-// TODO(Tyler): tool def is missing healthcheck
 toolInstallTest({
   toolName: "tsc",
   toolVersion: "5.2.2",

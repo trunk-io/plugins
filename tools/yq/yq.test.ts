@@ -1,7 +1,7 @@
 import { toolInstallTest } from "tests";
 
-// TODO(Tyler): tool def is missing healthcheck
+// The binary name varies by platform so we can't roll this into a health_check as-is.
 toolInstallTest({
   toolName: "yq",
-  toolVersion: "4.40.5",
+  toolVersion: "4.44.1",
 });
