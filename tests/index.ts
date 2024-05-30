@@ -836,6 +836,7 @@ export const linterFmtTest = ({
               snapshotPath,
             );
             registerFailureMode("assertion_failure");
+            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );

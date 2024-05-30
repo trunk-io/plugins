@@ -8,15 +8,22 @@ import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
 
 const INSTALL_TIMEOUT = 150000 * osTimeoutMultiplier;
 
-const moveConfig = (driver: TrunkLintDriver) => {
-  [".eslintrc.yaml", "package.json", "package-lock.json"].forEach((file) => {
-    // trunk-ignore(semgrep): paths used here are safe
-    driver.moveFile(path.join(TEST_DATA, file), file);
-  });
+const preCheck = (driver: TrunkLintDriver) => {
+  const parsedVersion = semver.parse(driver.enabledVersion);
+  if (parsedVersion && parsedVersion.major >= 9) {
+    ["eslint.config.cjs", "package-new.json", "package-lock-new.json"].forEach((file) => {
+      driver.moveFile(path.join(TEST_DATA, file), file.replace("-new", ""));
+    });
+  } else {
+    [".eslintrc.yaml", "package-old.json", "package-lock-old.json"].forEach((file) => {
+      driver.moveFile(path.join(TEST_DATA, file), file.replace("-old", ""));
+    });
+  }
 };
 
-const preCheck = (driver: TrunkLintDriver) => {
-  moveConfig(driver);
+const preCheckWithInstall = (driver: TrunkLintDriver) => {
+  preCheck(driver);
+
   // TODO(Tyler): Cache node_modules between runs
   try {
     const trunkYamlPath = ".trunk/trunk.yaml";
@@ -32,7 +39,6 @@ const preCheck = (driver: TrunkLintDriver) => {
     driver.debug("About to install shims");
     driver.runTrunkSync(["tools", "install"]);
     driver.debug("Done installing shims");
-    // trunk-ignore-begin(semgrep): Safe paths
     const toolsPath = fs.existsSync(path.resolve(driver.getSandbox(), ".trunk/dev-tools"))
       ? "dev-tools"
       : "tools";
@@ -49,7 +55,6 @@ const preCheck = (driver: TrunkLintDriver) => {
         `.trunk/${toolsPath}`,
         process.platform == "win32" ? "npm.bat" : "npm",
       ),
-      // trunk-ignore-end(semgrep)
       ["ci"],
       {
         cwd: driver.getSandbox(),
@@ -70,22 +75,12 @@ const preCheck = (driver: TrunkLintDriver) => {
   }
 };
 
-const manualVersionReplacer = (version: string) => {
-  // NOTE(Tyler): Continue to test eslint pre-9.0.0 and gate until we have a long-term fix.
-  const parsedVersion = semver.parse(version);
-  if (parsedVersion && parsedVersion.major >= 9) {
-    return "8.57.0";
-  }
-  return version;
-};
-
 // This set of testing is incomplete with regard to failure modes and unicode autofixes with eslint, but it serves as a sampling
 // Use upstream=false in order to supply autofixes for committed files.
 customLinterCheckTest({
   linterName: "eslint",
-  args: `${TEST_DATA} -y --upstream=false`,
-  preCheck,
-  manualVersionReplacer,
+  args: `${TEST_DATA} -y --upstream=false --ignore=**/eslint.config.cjs`,
+  preCheck: preCheckWithInstall,
   pathsToSnapshot: [
     path.join(TEST_DATA, "non_ascii.ts"),
     path.join(TEST_DATA, "eof_autofix.ts"),
@@ -96,7 +91,6 @@ customLinterCheckTest({
 customLinterCheckTest({
   linterName: "eslint",
   testName: "bad_install",
-  args: `${TEST_DATA} -y`,
-  preCheck: moveConfig,
-  manualVersionReplacer,
+  args: `${TEST_DATA} -y --ignore=**/eslint.config.cjs`,
+  preCheck,
 });

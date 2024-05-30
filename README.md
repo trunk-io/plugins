@@ -118,7 +118,7 @@ trunk check enable {linter}
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
 [dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock
-[eslint]: https://github.com/eslint/eslint#readme
+[eslint]: https://eslint.org/docs/latest/
 [flake8]: https://trunk.io/linters/python/flake8
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gitleaks]: https://trunk.io/linters/security/gitleaks

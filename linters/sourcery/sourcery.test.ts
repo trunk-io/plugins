@@ -23,7 +23,6 @@ lint:`,
   // NOTE(Tyler): Sourcery relies on checking if the repo is open source for its pricing model.
   // The sandbox tests run on a subset of the main repo, and it needs access to the repo root .git folder in order to run.
   driver.deleteFile(".git");
-  // trunk-ignore(semgrep): This path is safe.
   fs.symlinkSync(path.join(REPO_ROOT, ".git"), path.join(driver.getSandbox(), ".git"));
 };
 

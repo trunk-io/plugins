@@ -24,7 +24,7 @@ describe("Global config health check", () => {
     setupTrunk: true,
     // NOTE: This version should be kept compatible in lockstep with the `required_trunk_version` in plugin.yaml
     // IfChange
-    trunkVersion: "1.21.1-beta.20",
+    trunkVersion: "1.22.2-beta.5",
     // ThenChange plugin.yaml
   });
 
