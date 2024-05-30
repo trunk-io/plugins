@@ -7,6 +7,7 @@ import * as git from "simple-git";
 import { ARGS, DOWNLOAD_CACHE, REPO_ROOT, TEMP_PREFIX, TEST_DATA } from "tests/utils";
 import { getTrunkConfig } from "tests/utils/trunk_config";
 import * as util from "util";
+import stream from "stream";
 import YAML from "yaml";
 
 /**
@@ -20,6 +21,8 @@ export interface SetupSettings {
   /** Version of trunk to initialize (overrides environment vars) */
   trunkVersion?: string;
 }
+
+export type CustomExecOptions = ExecOptions & { stdin?: string };
 
 const execFilePromise = util.promisify(execFile);
 
@@ -378,13 +381,39 @@ export abstract class GenericTrunkDriver {
    * Run a command inside the sandbox test repo.
    * @param bin command to run
    * @param args arguments to run
-   * @param execOptions
+   * @param execOptions options to pass the stdin to exec
    */
-  async run(bin: string, args: string[], execOptions?: ExecOptions) {
-    return await execFilePromise(bin, args, {
+  async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
+    let exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
+    });
+    exec.stdin?.write(execOptions?.stdin ?? "");
+    exec.stdin?.end();
+
+    return await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+      let stdout = "";
+      let stderr = "";
+
+      exec.stdout?.on("data", (data) => {
+        stdout += data;
+      });
+
+      exec.stderr?.on("data", (data) => {
+        stderr += data;
+      });
+
+      exec.on("error", (err) => {
+        reject(err);
+      });
+      exec.on("exit", (code) => {
+        if (code === 0) {
+          resolve({ stdout, stderr });
+        } else {
+          reject({ error: new Error(`Process exited with code ${code}`), code, stdout, stderr });
+        }
+      });
     });
   }
 }

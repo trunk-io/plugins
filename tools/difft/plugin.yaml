@@ -20,3 +20,6 @@ tools:
       download: difft
       known_good_version: 0.56.1
       shims: [difft]
+      health_checks:
+        - command: difft --version
+          parse_regex: Difftastic ${semver}
