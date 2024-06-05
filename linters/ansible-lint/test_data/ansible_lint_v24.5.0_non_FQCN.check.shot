@@ -217,7 +217,7 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.yum\` or \`ansible.legacy.yum\` instead.",
+      "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
       "targetType": "custom",
     },
     {
@@ -481,7 +481,7 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
       "level": "LEVEL_HIGH",
       "line": "78",
       "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.yum\` or \`ansible.legacy.yum\` instead.",
+      "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
       "targetType": "custom",
     },
     {

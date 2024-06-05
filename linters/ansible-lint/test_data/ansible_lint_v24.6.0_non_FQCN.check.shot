@@ -1,31 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 // trunk-upgrade-validation:RELEASE
 
-exports[`Testing linter ansible-lint test FQCN 1`] = `
+exports[`Testing linter ansible-lint test non_FQCN 1`] = `
 {
   "issues": [
     {
-      "code": "fqcn[action-core]",
-      "column": "1",
+      "code": "syntax-check[unknown-module]",
+      "column": "7",
       "file": "jboss-standalone/demo-aws-launch.yml",
       "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#fqcn[action-core]",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#syntax-check[unknown-module]",
       "level": "LEVEL_HIGH",
-      "line": "28",
+      "line": "12",
       "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.wait_for\` or \`ansible.legacy.wait_for\` instead.",
-      "targetType": "custom",
-    },
-    {
-      "code": "yaml[truthy]",
-      "column": "1",
-      "file": "jboss-standalone/demo-aws-launch.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#yaml[truthy]",
-      "level": "LEVEL_HIGH",
-      "line": "5",
-      "linter": "ansible-lint",
-      "message": "Truthy value should be one of [false, true]",
+      "message": "couldn't resolve module/action 'ec2'. This often indicates a misspelling, missing collection, or incorrect module path.",
       "targetType": "custom",
     },
     {
@@ -218,6 +206,18 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "17",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.unarchive\` or \`ansible.legacy.unarchive\` instead.",
+      "targetType": "custom",
+    },
+    {
+      "code": "fqcn[action-core]",
+      "column": "1",
+      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#fqcn[action-core]",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "ansible-lint",
+      "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
       "targetType": "custom",
     },
     {
@@ -458,6 +458,18 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "71",
       "linter": "ansible-lint",
       "message": "Task/Handler: deploy iptables rules",
+      "targetType": "custom",
+    },
+    {
+      "code": "fqcn[action-core]",
+      "column": "1",
+      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#fqcn[action-core]",
+      "level": "LEVEL_HIGH",
+      "line": "78",
+      "linter": "ansible-lint",
+      "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
       "targetType": "custom",
     },
     {
