@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter ansible-lint test FQCN 1`] = `
 {
@@ -217,18 +218,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "17",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.unarchive\` or \`ansible.legacy.unarchive\` instead.",
-      "targetType": "custom",
-    },
-    {
-      "code": "fqcn[action-core]",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#fqcn[action-core]",
-      "level": "LEVEL_HIGH",
-      "line": "2",
-      "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.yum\` or \`ansible.legacy.yum\` instead.",
       "targetType": "custom",
     },
     {
@@ -469,18 +458,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "71",
       "linter": "ansible-lint",
       "message": "Task/Handler: deploy iptables rules",
-      "targetType": "custom",
-    },
-    {
-      "code": "fqcn[action-core]",
-      "column": "1",
-      "file": "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      "issueClass": "ISSUE_CLASS_NEW",
-      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#fqcn[action-core]",
-      "level": "LEVEL_HIGH",
-      "line": "78",
-      "linter": "ansible-lint",
-      "message": "Use \`ansible.builtin.yum\` or \`ansible.legacy.yum\` instead.",
       "targetType": "custom",
     },
     {
