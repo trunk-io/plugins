@@ -389,9 +389,13 @@ lint:
         - requirements.txt
         - Pipfile.lock
         - poetry.lock
+        - pdm.lock
 
         # Ruby
         - Gemfile.lock
+
+        # R
+        - renv.lock
 
     - name: lua
       extensions:
