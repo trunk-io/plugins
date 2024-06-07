@@ -14,17 +14,6 @@ lint:
       description: Find and fix problems in your TS/JS code
       commands:
         - name: lint
-          version: ">=9.0.0"
-          direct_configs:
-            - eslint.config.js
-            - eslint.config.mjs
-            - eslint.config.cjs
-          output: eslint
-          run: eslint --output-file ${tmpfile} --format json ${target}
-          error_codes: [2]
-          read_output_from: tmp_file
-          batch: true
-        - name: lint
           version: <=8.57.0
           direct_configs:
             - .eslintrc
@@ -34,6 +23,17 @@ lint:
             - .eslintrc.mjs
             - .eslintrc.yaml
             - .eslintrc.yml
+          output: eslint
+          run: eslint --output-file ${tmpfile} --format json ${target}
+          error_codes: [2]
+          read_output_from: tmp_file
+          batch: true
+        - name: lint
+          # For eslint@>=9.0.0
+          direct_configs:
+            - eslint.config.js
+            - eslint.config.mjs
+            - eslint.config.cjs
           output: eslint
           run: eslint --output-file ${tmpfile} --format json ${target}
           error_codes: [2]
