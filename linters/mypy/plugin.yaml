@@ -21,6 +21,26 @@ lint:
           run_from: ${root_or_parent_with_any_config}
           success_codes: [0, 1]
           stdin: false
+        - name: lint-ci-all
+          # Run mypy on entire python codebase (ci only) when a python file changes
+          # allows dependent un-changed files to be checked vs. normal run that only checks changed files
+          # to enable add command to enabled list like this:
+          #
+          # enabled:
+          #   - mypy@1.5.1:
+          #       commands: [lint, lint-ci-all]
+          #
+          output: mypy
+          run:
+            mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
+            --show-column-numbers ${workspace}
+          success_codes: [0, 1]
+          stdin: false
+          target: ${root_or_parent_with(ROOT_OF_PYTHON_CODE)}
+          run_when: [ci]
+          enabled: false
+      runtime: python
+      package: mypy
       tools: [mypy]
       direct_configs:
         - mypy.ini
@@ -30,7 +50,7 @@ lint:
         - setup.cfg
       suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
-      known_good_version: 0.931
+      known_good_version: 1.5.1
       version_command:
         parse_regex: ${semver}
         run: mypy --version
