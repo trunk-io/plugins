@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="208" failures="0" errors="0" time="18.827">
+  <testsuite name="All linters must be included in README.md" errors="0" failures="0" skipped="0" timestamp="2024-06-17T23:34:57" time="1.12" tests="103">
+    <testcase classname="All linters must be included in README.md actionlint" name="All linters must be included in README.md actionlint" time="0.002">
+    </testcase>
+    <testcase classname="All linters must be included in README.md ansible-lint" name="All linters must be included in README.md ansible-lint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md autopep8" name="All linters must be included in README.md autopep8" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md bandit" name="All linters must be included in README.md bandit" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md biome" name="All linters must be included in README.md biome" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md black" name="All linters must be included in README.md black" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md brakeman" name="All linters must be included in README.md brakeman" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md buf" name="All linters must be included in README.md buf" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md buildifier" name="All linters must be included in README.md buildifier" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md cfnlint" name="All linters must be included in README.md cfnlint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md checkov" name="All linters must be included in README.md checkov" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md circleci" name="All linters must be included in README.md circleci" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md clang-format" name="All linters must be included in README.md clang-format" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md clang-tidy" name="All linters must be included in README.md clang-tidy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md clippy" name="All linters must be included in README.md clippy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md cmake-format" name="All linters must be included in README.md cmake-format" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md codespell" name="All linters must be included in README.md codespell" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md cspell" name="All linters must be included in README.md cspell" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md cue-fmt" name="All linters must be included in README.md cue-fmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md dart" name="All linters must be included in README.md dart" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md deno" name="All linters must be included in README.md deno" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md detekt" name="All linters must be included in README.md detekt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md djlint" name="All linters must be included in README.md djlint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md dotenv-linter" name="All linters must be included in README.md dotenv-linter" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md dotnet-format" name="All linters must be included in README.md dotnet-format" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md dustilock" name="All linters must be included in README.md dustilock" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md eslint" name="All linters must be included in README.md eslint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md flake8" name="All linters must be included in README.md flake8" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md git-diff-check" name="All linters must be included in README.md git-diff-check" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md gitleaks" name="All linters must be included in README.md gitleaks" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md gofmt" name="All linters must be included in README.md gofmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md gofumpt" name="All linters must be included in README.md gofumpt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md goimports" name="All linters must be included in README.md goimports" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md gokart" name="All linters must be included in README.md gokart" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md golangci-lint" name="All linters must be included in README.md golangci-lint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md golines" name="All linters must be included in README.md golines" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md google-java-format" name="All linters must be included in README.md google-java-format" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md graphql-schema-linter" name="All linters must be included in README.md graphql-schema-linter" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md hadolint" name="All linters must be included in README.md hadolint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md haml-lint" name="All linters must be included in README.md haml-lint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md isort" name="All linters must be included in README.md isort" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md iwyu" name="All linters must be included in README.md iwyu" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md ktlint" name="All linters must be included in README.md ktlint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md kube-linter" name="All linters must be included in README.md kube-linter" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md markdown-link-check" name="All linters must be included in README.md markdown-link-check" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md markdown-table-prettify" name="All linters must be included in README.md markdown-table-prettify" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md markdownlint" name="All linters must be included in README.md markdownlint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md mypy" name="All linters must be included in README.md mypy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md nancy" name="All linters must be included in README.md nancy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md nixpkgs-fmt" name="All linters must be included in README.md nixpkgs-fmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md opa" name="All linters must be included in README.md opa" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md osv-scanner" name="All linters must be included in README.md osv-scanner" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md oxipng" name="All linters must be included in README.md oxipng" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md perlcritic" name="All linters must be included in README.md perlcritic" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md perltidy" name="All linters must be included in README.md perltidy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md php-cs-fixer" name="All linters must be included in README.md php-cs-fixer" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md phpstan" name="All linters must be included in README.md phpstan" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md pmd" name="All linters must be included in README.md pmd" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md pragma-once" name="All linters must be included in README.md pragma-once" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md pre-commit-hooks" name="All linters must be included in README.md pre-commit-hooks" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md prettier" name="All linters must be included in README.md prettier" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md prisma" name="All linters must be included in README.md prisma" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md psscriptanalyzer" name="All linters must be included in README.md psscriptanalyzer" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md pylint" name="All linters must be included in README.md pylint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md pyright" name="All linters must be included in README.md pyright" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md regal" name="All linters must be included in README.md regal" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md remark-lint" name="All linters must be included in README.md remark-lint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md renovate" name="All linters must be included in README.md renovate" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md rome" name="All linters must be included in README.md rome" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md rubocop" name="All linters must be included in README.md rubocop" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md ruff" name="All linters must be included in README.md ruff" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md rufo" name="All linters must be included in README.md rufo" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md rustfmt" name="All linters must be included in README.md rustfmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md scalafmt" name="All linters must be included in README.md scalafmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md semgrep" name="All linters must be included in README.md semgrep" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md shellcheck" name="All linters must be included in README.md shellcheck" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md shfmt" name="All linters must be included in README.md shfmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md sort-package-json" name="All linters must be included in README.md sort-package-json" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md sourcery" name="All linters must be included in README.md sourcery" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md sql-formatter" name="All linters must be included in README.md sql-formatter" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md sqlfluff" name="All linters must be included in README.md sqlfluff" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md sqlfmt" name="All linters must be included in README.md sqlfmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md standardrb" name="All linters must be included in README.md standardrb" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md stringslint" name="All linters must be included in README.md stringslint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md stylelint" name="All linters must be included in README.md stylelint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md stylua" name="All linters must be included in README.md stylua" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md svgo" name="All linters must be included in README.md svgo" time="0.001">
+    </testcase>
+    <testcase classname="All linters must be included in README.md swiftformat" name="All linters must be included in README.md swiftformat" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md swiftlint" name="All linters must be included in README.md swiftlint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md taplo" name="All linters must be included in README.md taplo" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md terraform" name="All linters must be included in README.md terraform" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md terragrunt" name="All linters must be included in README.md terragrunt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md terrascan" name="All linters must be included in README.md terrascan" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md tflint" name="All linters must be included in README.md tflint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md tfsec" name="All linters must be included in README.md tfsec" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md tofu" name="All linters must be included in README.md tofu" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md trivy" name="All linters must be included in README.md trivy" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md trufflehog" name="All linters must be included in README.md trufflehog" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md trunk-toolbox" name="All linters must be included in README.md trunk-toolbox" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md txtpbfmt" name="All linters must be included in README.md txtpbfmt" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md vale" name="All linters must be included in README.md vale" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md yamllint" name="All linters must be included in README.md yamllint" time="0">
+    </testcase>
+    <testcase classname="All linters must be included in README.md yapf" name="All linters must be included in README.md yapf" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Validate linter download/package setup" errors="0" failures="0" skipped="0" timestamp="2024-06-17T23:34:57" time="1.238" tests="103">
+    <testcase classname="Validate linter download/package setup actionlint" name="Validate linter download/package setup actionlint" time="0.009">
+    </testcase>
+    <testcase classname="Validate linter download/package setup ansible-lint" name="Validate linter download/package setup ansible-lint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup autopep8" name="Validate linter download/package setup autopep8" time="0.002">
+    </testcase>
+    <testcase classname="Validate linter download/package setup bandit" name="Validate linter download/package setup bandit" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup biome" name="Validate linter download/package setup biome" time="0.002">
+    </testcase>
+    <testcase classname="Validate linter download/package setup black" name="Validate linter download/package setup black" time="0.003">
+    </testcase>
+    <testcase classname="Validate linter download/package setup brakeman" name="Validate linter download/package setup brakeman" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup buf" name="Validate linter download/package setup buf" time="0.004">
+    </testcase>
+    <testcase classname="Validate linter download/package setup buildifier" name="Validate linter download/package setup buildifier" time="0.002">
+    </testcase>
+    <testcase classname="Validate linter download/package setup cfnlint" name="Validate linter download/package setup cfnlint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup checkov" name="Validate linter download/package setup checkov" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup circleci" name="Validate linter download/package setup circleci" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup clang-format" name="Validate linter download/package setup clang-format" time="0.003">
+    </testcase>
+    <testcase classname="Validate linter download/package setup clang-tidy" name="Validate linter download/package setup clang-tidy" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup clippy" name="Validate linter download/package setup clippy" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup cmake-format" name="Validate linter download/package setup cmake-format" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup codespell" name="Validate linter download/package setup codespell" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup cspell" name="Validate linter download/package setup cspell" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup cue-fmt" name="Validate linter download/package setup cue-fmt" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup dart" name="Validate linter download/package setup dart" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup deno" name="Validate linter download/package setup deno" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup detekt" name="Validate linter download/package setup detekt" time="0.002">
+    </testcase>
+    <testcase classname="Validate linter download/package setup djlint" name="Validate linter download/package setup djlint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup dotenv-linter" name="Validate linter download/package setup dotenv-linter" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup dotnet-format" name="Validate linter download/package setup dotnet-format" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup dustilock" name="Validate linter download/package setup dustilock" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup eslint" name="Validate linter download/package setup eslint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup flake8" name="Validate linter download/package setup flake8" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup git-diff-check" name="Validate linter download/package setup git-diff-check" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup gitleaks" name="Validate linter download/package setup gitleaks" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup gofmt" name="Validate linter download/package setup gofmt" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup gofumpt" name="Validate linter download/package setup gofumpt" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup goimports" name="Validate linter download/package setup goimports" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup gokart" name="Validate linter download/package setup gokart" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup golangci-lint" name="Validate linter download/package setup golangci-lint" time="0.002">
+    </testcase>
+    <testcase classname="Validate linter download/package setup golines" name="Validate linter download/package setup golines" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup google-java-format" name="Validate linter download/package setup google-java-format" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup graphql-schema-linter" name="Validate linter download/package setup graphql-schema-linter" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup hadolint" name="Validate linter download/package setup hadolint" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup haml-lint" name="Validate linter download/package setup haml-lint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup isort" name="Validate linter download/package setup isort" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup iwyu" name="Validate linter download/package setup iwyu" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup ktlint" name="Validate linter download/package setup ktlint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup kube-linter" name="Validate linter download/package setup kube-linter" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup markdown-link-check" name="Validate linter download/package setup markdown-link-check" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup markdown-table-prettify" name="Validate linter download/package setup markdown-table-prettify" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup markdownlint" name="Validate linter download/package setup markdownlint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup mypy" name="Validate linter download/package setup mypy" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup nancy" name="Validate linter download/package setup nancy" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup nixpkgs-fmt" name="Validate linter download/package setup nixpkgs-fmt" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup opa" name="Validate linter download/package setup opa" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup osv-scanner" name="Validate linter download/package setup osv-scanner" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup oxipng" name="Validate linter download/package setup oxipng" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup perlcritic" name="Validate linter download/package setup perlcritic" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup perltidy" name="Validate linter download/package setup perltidy" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup php-cs-fixer" name="Validate linter download/package setup php-cs-fixer" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup phpstan" name="Validate linter download/package setup phpstan" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup pmd" name="Validate linter download/package setup pmd" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup pragma-once" name="Validate linter download/package setup pragma-once" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup pre-commit-hooks" name="Validate linter download/package setup pre-commit-hooks" time="0.003">
+    </testcase>
+    <testcase classname="Validate linter download/package setup prettier" name="Validate linter download/package setup prettier" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup prisma" name="Validate linter download/package setup prisma" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup psscriptanalyzer" name="Validate linter download/package setup psscriptanalyzer" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup pylint" name="Validate linter download/package setup pylint" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup pyright" name="Validate linter download/package setup pyright" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup regal" name="Validate linter download/package setup regal" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup remark-lint" name="Validate linter download/package setup remark-lint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup renovate" name="Validate linter download/package setup renovate" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup rome" name="Validate linter download/package setup rome" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup rubocop" name="Validate linter download/package setup rubocop" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup ruff" name="Validate linter download/package setup ruff" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup rufo" name="Validate linter download/package setup rufo" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup rustfmt" name="Validate linter download/package setup rustfmt" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup scalafmt" name="Validate linter download/package setup scalafmt" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup semgrep" name="Validate linter download/package setup semgrep" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup shellcheck" name="Validate linter download/package setup shellcheck" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup shfmt" name="Validate linter download/package setup shfmt" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup sort-package-json" name="Validate linter download/package setup sort-package-json" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup sourcery" name="Validate linter download/package setup sourcery" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup sql-formatter" name="Validate linter download/package setup sql-formatter" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup sqlfluff" name="Validate linter download/package setup sqlfluff" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup sqlfmt" name="Validate linter download/package setup sqlfmt" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup standardrb" name="Validate linter download/package setup standardrb" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup stringslint" name="Validate linter download/package setup stringslint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup stylelint" name="Validate linter download/package setup stylelint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup stylua" name="Validate linter download/package setup stylua" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup svgo" name="Validate linter download/package setup svgo" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup swiftformat" name="Validate linter download/package setup swiftformat" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup swiftlint" name="Validate linter download/package setup swiftlint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup taplo" name="Validate linter download/package setup taplo" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup terraform" name="Validate linter download/package setup terraform" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup terragrunt" name="Validate linter download/package setup terragrunt" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup terrascan" name="Validate linter download/package setup terrascan" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup tflint" name="Validate linter download/package setup tflint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup tfsec" name="Validate linter download/package setup tfsec" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup tofu" name="Validate linter download/package setup tofu" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup trivy" name="Validate linter download/package setup trivy" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup trufflehog" name="Validate linter download/package setup trufflehog" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup trunk-toolbox" name="Validate linter download/package setup trunk-toolbox" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup txtpbfmt" name="Validate linter download/package setup txtpbfmt" time="0">
+    </testcase>
+    <testcase classname="Validate linter download/package setup vale" name="Validate linter download/package setup vale" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup yamllint" name="Validate linter download/package setup yamllint" time="0.001">
+    </testcase>
+    <testcase classname="Validate linter download/package setup yapf" name="Validate linter download/package setup yapf" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Global config health check" errors="0" failures="0" skipped="0" timestamp="2024-06-17T23:34:57" time="18.688" tests="2">
+    <testcase classname="Global config health check trunk config print with required_trunk_version" name="Global config health check trunk config print with required_trunk_version" time="1.182">
+    </testcase>
+    <testcase classname="Global config health check validate auto-enabled linters" name="Global config health check validate auto-enabled linters" time="10.168">
+    </testcase>
+  </testsuite>
+</testsuites>

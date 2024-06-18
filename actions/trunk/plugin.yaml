@@ -21,22 +21,11 @@ actions:
     - id: trunk-fmt-pre-push
       description: Run 'trunk fmt' whenever you run 'git push'
       display_name: Trunk Fmt Pre-Push Hook
-      run: |
-        if [[ `git status --porcelain` ]]; then
-          # git workspace is not clean. user has unchecked files
-          echo "git has unchecked files. please commit them before git push"
-          exit 1
-        else
-          trunk fmt
-          if [[ `git status --porcelain` ]]; then
-            git add .
-            git commit -m "[automated git commit] trunk fmt"
-          fi
-        fi
+      run: trunk fmt -n -t git-commit --commit-ref-from-pre-push '${hook_stdin_path}'
       interactive: optional
       triggers:
         - git_hooks: [pre-push]
-      notify_on_error: false
+      notify_on_error: true
 
       # We do not auto-suggest turning on check pre-commit for several reasons:
       # - Linters can often be much slower than formatters, and we don't want to unnecessarily block iteration.
