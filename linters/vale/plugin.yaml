@@ -25,7 +25,8 @@ tools:
       known_good_version: 3.4.1
       environment:
         - name: PATH
-          list: ["${tool}"]
+          # Needs access to shared libraries on Windows.
+          list: ["${tool}", "${env.PATH}"]
 
 lint:
   definitions:
