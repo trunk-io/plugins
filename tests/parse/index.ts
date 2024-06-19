@@ -16,8 +16,7 @@ const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
-// TODO(Tyler): Remove this blocklist once eslint-friendly release is out.
-const VALIDATED_LINTER_BLOCKLIST = ["eslint"];
+const VALIDATED_LINTER_BLOCKLIST: string[] = [];
 
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
