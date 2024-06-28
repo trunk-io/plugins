@@ -68,13 +68,13 @@ lint:
       files: [jupyter]
       commands:
         - name: lint
-          run: nbqa ruff --cache-dir=${cachedir} ${target}
+          run: nbqa 'ruff check --cache-dir=${cachedir} --quiet' ${target}
           output: pass_fail
           batch: true
           success_codes: [0, 1]
       runtime: python
       package: ruff
-      extra_packages: [nbqa==1.6.3]
+      extra_packages: [nbqa==1.8.5]
       direct_configs: [ruff.toml]
       affects_cache:
         - pyproject.toml
