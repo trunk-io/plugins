@@ -11,7 +11,7 @@ exports[`Testing linter ruff-nbqa test basic_nb 1`] = `
       "linter": "ruff-nbqa",
       "message": "/tmp/plugins_/test_data/basic_nb.in.ipynb:cell_1:1:8: F401 [*] \`os\` imported but unused
   |
-1 | # %%NBQA-CELL-SEP22268f
+1 | # %%NBQA-CELL-SEP
 2 | import os
   |        ^^ F401
 3 | 
