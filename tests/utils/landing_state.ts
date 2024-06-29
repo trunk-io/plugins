@@ -76,6 +76,7 @@ const normalizeMessage = (message?: string) =>
     .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
+    .replace(/NBQA-CELL-SEP.{6}/gm, "NBQA-CELL-SEP")
     .trim();
 
 // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)

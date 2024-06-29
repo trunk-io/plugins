@@ -9,9 +9,7 @@ exports[`Testing linter ruff-nbqa test basic_nb 1`] = `
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "linter": "ruff-nbqa",
-      "message": "/tmp/plugins_/test_data/basic_nb.in.ipynb:cell_1:1:8: F401 [*] \`os\` imported but unused
-Found 1 error.
-[*] 1 fixable with the \`--fix\` option.",
+      "message": "/tmp/plugins_/test_data/basic_nb.in.ipynb:cell_1:1:8: F401 [*] \`os\` imported but unused",
       "targetType": "jupyter",
     },
   ],
