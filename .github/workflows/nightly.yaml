@@ -181,7 +181,7 @@ jobs:
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: ${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -240,7 +240,7 @@ jobs:
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
         if: (failure() || success())
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: tools-${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
