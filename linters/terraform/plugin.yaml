@@ -2,7 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: terraform
-      files: [terraform]
+      files: [terraform, tfvars]
       tools: [terraform]
       description: Validate and format terraform files
       commands:
