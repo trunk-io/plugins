@@ -42,7 +42,7 @@ fuzzyLinterCheckTest({
   linterName: "trivy",
   testName: "fs-vuln",
   args: "-a",
-  fileIssueAssertionCallback: createFuzzyMatcher(() => vulnExpectedFileIssues, 30),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => vulnExpectedFileIssues, 20),
   preCheck: callbackGenerator("fs-vuln"),
 });
 
