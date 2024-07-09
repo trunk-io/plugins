@@ -600,6 +600,11 @@ lint:
       comments:
         - hash
 
+    - name: tfvars
+      extensions:
+        # terraform/tofu can't format .tfvars.json files
+        - tfvars
+
     - name: toml
       extensions:
         - toml
