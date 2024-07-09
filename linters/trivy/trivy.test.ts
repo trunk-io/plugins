@@ -13,12 +13,14 @@ const callbackGenerator =
     const currentContents = driver.readFile(trunkYamlPath);
     const trivyRegex = /- trivy@(.+)\n/;
 
-    // fs-vuln sometimes fails in CI to query DB concurrently.
+    // fs-vuln, config sometimes fail in CI to query DB concurrently.
     const extraContents = `
   definitions:
     - name: trivy
       commands:
         - name: fs-vuln
+          max_concurrency: 1
+        - name: config
           max_concurrency: 1
 `;
     const newContents = currentContents.replace(
