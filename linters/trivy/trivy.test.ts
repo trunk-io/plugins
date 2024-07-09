@@ -12,9 +12,18 @@ const callbackGenerator =
     const trunkYamlPath = ".trunk/trunk.yaml";
     const currentContents = driver.readFile(trunkYamlPath);
     const trivyRegex = /- trivy@(.+)\n/;
+
+    // fs-vuln sometimes fails in CI to query DB concurrently.
+    const extraContents = `
+  definitions:
+    - name: trivy
+      commands:
+        - name: fs-vuln
+          max_concurrency: 1
+`;
     const newContents = currentContents.replace(
       trivyRegex,
-      `- trivy@$1:\n        commands: [${command}]\n`,
+      `- trivy@$1:\n        commands: [${command}]\n${extraContents}`,
     );
     driver.writeFile(trunkYamlPath, newContents);
     if (otherPreCheck) {

@@ -35,7 +35,6 @@ lint:
         - name: fs-vuln
           files: [lockfile]
           output: sarif
-          prepare_run: trivy fs --download-db-only --no-progress --cache-dir ${shared_cachedir}
           run:
             trivy fs ${target} --scanners vuln --format json --no-progress --cache-dir
             ${shared_cachedir}
