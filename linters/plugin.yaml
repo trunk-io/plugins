@@ -574,6 +574,12 @@ lint:
         - strings
         - stringsdict
 
+    - name: svelte
+      extensions:
+        - svelte
+      comments:
+        - html-tag
+
     - name: svg
       extensions:
         - svg
