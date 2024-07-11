@@ -75,8 +75,8 @@ runs:
         JEST_JUNIT_SUITE_NAME: "{title} ${{ runner.os }} ${{ inputs.ref-type }}"
 
     - name: Upload results
-      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
-      if: "!cancelled() && runner.os == 'Linux'"
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows'"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml

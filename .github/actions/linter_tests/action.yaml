@@ -107,8 +107,8 @@ runs:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
     - name: Upload results
-      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
-      if: "!cancelled() && runner.os == 'Linux'"
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows'"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
