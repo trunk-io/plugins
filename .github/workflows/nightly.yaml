@@ -203,6 +203,7 @@ jobs:
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
       upload-validated-versions: true
@@ -258,6 +259,7 @@ jobs:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-
