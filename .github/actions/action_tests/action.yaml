@@ -17,7 +17,7 @@ inputs:
     required: false
     default: actions/ --
   trunk-token:
-    description: CI debugger api token
+    description: Test analytics api token
     required: true
 
 runs:
@@ -49,26 +49,9 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run action tests
-      if: runner.os == 'Windows'
       run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       shell: bash
       working-directory: ${{ inputs.path }}
-      env:
-        JEST_SUITE_NAME: Action Tests
-        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
-
-    - name: Run action tests
-      if: runner.os != 'Windows'
-      uses: trunk-io/breakpoint@v1.3.0
-      with:
-        breakpoint-id: trunk-plugins-action-tests
-        shell: bash
-        working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token }}
-        org: trunk-staging-org
-        run:
-          npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
       env:
         JEST_SUITE_NAME: Action Tests
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}

@@ -24,7 +24,7 @@ inputs:
     description: Token to login for sourcery test
     required: true
   trunk-token:
-    description: CI debugger api token (org token)
+    description: Test analytics api token (org token)
     required: true
   ref-type:
     description: release or main
@@ -92,7 +92,6 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      if: runner.os == 'Windows'
       run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
       shell: bash
       working-directory: ${{ inputs.path }}
@@ -106,27 +105,6 @@ runs:
         JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
-
-    - name: Run plugin tests
-      if: runner.os != 'Windows'
-      # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-      uses: trunk-io/breakpoint@v1.3.0
-      with:
-        breakpoint-id: trunk-plugins-linter-tests
-        shell: bash
-        working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token }}
-        org: trunk-staging-org
-        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
-      env:
-        PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
-        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
-        SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
-        DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
-        JEST_SUITE_NAME: Linter Tests
-        JEST_JUNIT_SUITE_NAME:
-          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ env.JEST_LINTER_VERSION }}"
 
     - name: Upload results
       # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
