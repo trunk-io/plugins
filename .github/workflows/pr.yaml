@@ -155,7 +155,8 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -168,7 +169,8 @@ jobs:
           ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests:
     name: Tool Tests
@@ -194,7 +196,8 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   action_tests:
     name: Action Tests
@@ -214,7 +217,8 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
             needs.detect_changes.outputs.actions-files }} --
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   trunk_check_runner:
     name: Trunk Check runner [linux]
@@ -261,7 +265,8 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   windows_tool_tests:
     name: Windows Tool Tests
@@ -285,7 +290,8 @@ jobs:
         with:
           append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:

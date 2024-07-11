@@ -38,6 +38,8 @@ on:
         required: false
       TRUNK_DEBUGGER_TOKEN:
         required: false
+      TRUNK_ORG_PROD_TOKEN:
+        required: false
 
 permissions:
   actions: write
@@ -258,7 +260,8 @@ jobs:
           ref-type: main
           append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
         env:
           PLUGINS_TEST_UPDATE_SNAPSHOTS: "true"
 

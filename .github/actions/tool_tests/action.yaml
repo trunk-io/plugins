@@ -16,9 +16,12 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: tools --
-  trunk-token:
-    description: Test analytics api token (org token)
-    required: true
+  trunk-staging-token:
+    description: Test analytics staging api token (org token)
+    required: false
+  trunk-prod-token:
+    description: Test analytics prod api token (org token)
+    required: false
   ref-type:
     description: release or main
     required: false
@@ -74,9 +77,21 @@ runs:
         JEST_SUITE_NAME: Tool Tests
         JEST_JUNIT_SUITE_NAME: "{title} ${{ runner.os }} ${{ inputs.ref-type }}"
 
-    - name: Upload results
+    - name: Upload prod results
       # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows'"
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
+      uses: trunk-io/analytics-uploader@main
+      with:
+        junit-paths: junit.xml
+        org-slug: trunk
+        token: ${{ inputs.trunk-prod-token }}
+      continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
+
+    - name: Upload staging results
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
