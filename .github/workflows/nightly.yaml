@@ -68,7 +68,8 @@ jobs:
           linter-version: ${{ matrix.linter-version }}
           ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -176,7 +177,8 @@ jobs:
           append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
           ref-type: release
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
@@ -201,6 +203,7 @@ jobs:
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
       upload-validated-versions: true
@@ -235,7 +238,8 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
@@ -255,6 +259,7 @@ jobs:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-
@@ -278,4 +283,5 @@ jobs:
       - name: Action Tests
         uses: ./.github/actions/action_tests
         with:
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

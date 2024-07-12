@@ -23,9 +23,12 @@ inputs:
   sourcery-token:
     description: Token to login for sourcery test
     required: true
-  trunk-token:
-    description: CI debugger api token (org token)
-    required: true
+  trunk-staging-token:
+    description: Test analytics staging api token (org token)
+    required: false
+  trunk-prod-token:
+    description: Test analytics prod api token (org token)
+    required: false
   ref-type:
     description: release or main
     required: false
@@ -92,7 +95,6 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
-      if: runner.os == 'Windows'
       run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
       shell: bash
       working-directory: ${{ inputs.path }}
@@ -107,30 +109,21 @@ runs:
         JEST_JUNIT_SUITE_NAME:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
-    - name: Run plugin tests
-      if: runner.os != 'Windows'
-      # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-      uses: trunk-io/breakpoint@v1.3.0
+    - name: Upload prod results
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
+      uses: trunk-io/analytics-uploader@main
       with:
-        breakpoint-id: trunk-plugins-linter-tests
-        shell: bash
-        working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token }}
-        org: trunk-staging-org
-        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
+        junit-paths: junit.xml
+        org-slug: trunk
+        token: ${{ inputs.trunk-prod-token }}
+      continue-on-error: true
       env:
-        PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
-        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
-        SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
-        DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
-        JEST_SUITE_NAME: Linter Tests
-        JEST_JUNIT_SUITE_NAME:
-          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ env.JEST_LINTER_VERSION }}"
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
 
-    - name: Upload results
-      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
-      if: "!cancelled() && runner.os == 'Linux'"
+    - name: Upload staging results
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
