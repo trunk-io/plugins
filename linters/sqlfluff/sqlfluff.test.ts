@@ -18,4 +18,8 @@ const fmtCallbacks: TestCallback = (driver) => {
 };
 
 // An additional test to run 'sqlfluff fmt' with some additional test setup.
-linterFmtTest({ linterName: "sqlfluff", namedTestPrefixes: ["basic_fmt"], preCheck: fmtCallbacks });
+linterFmtTest({
+  linterName: "sqlfluff",
+  namedTestPrefixes: ["basic_fmt", "basic_check"],
+  preCheck: fmtCallbacks,
+});
