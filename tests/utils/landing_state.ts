@@ -87,10 +87,14 @@ const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
   ...rest,
 });
 
+const normalizeIssueUrl = (issueUrl: string) =>
+  issueUrl.replace(/markdownlint\/blob\/v[0-9.]+\//gm, "markdownlint/blob/vx.x.x/").trim();
+
 const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
   file: _file,
+  issueUrl: _issueUrl,
   autofixOptions: _autofixOptions = [],
   ranges: _ranges,
   ...rest
@@ -106,6 +110,9 @@ const normalizeIssues = ({
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
+  }
+  if (_issueUrl) {
+    ret.issueUrl = normalizeIssueUrl(_issueUrl);
   }
   return ret;
 };
