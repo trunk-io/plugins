@@ -601,8 +601,10 @@ lint:
 
     - name: textproto
       extensions:
+        - pbtxt
         - textpb
         - textproto
+        - txtpb
       comments:
         - hash
 
