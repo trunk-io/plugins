@@ -6,7 +6,6 @@ import { skipOS } from "tests/utils";
 linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface"] });
 
 const skipJupyterTestIf = (version?: string) => {
-  console.log(`Jupyter version: ${version}`);
   if (!version || !semver.valid(version)) {
     // Run if version is KGV or a string, or error loudly if malformed.
     return false;
