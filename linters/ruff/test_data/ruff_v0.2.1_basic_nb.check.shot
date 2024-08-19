@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test basic_nb 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
