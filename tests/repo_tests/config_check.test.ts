@@ -165,7 +165,6 @@ describe("Global config health check", () => {
         "svgo",
         "taplo",
         "tflint",
-        "trivy",
         "trufflehog",
         "yamllint",
       ]
