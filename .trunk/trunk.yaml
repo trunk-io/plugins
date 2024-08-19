@@ -46,6 +46,7 @@ lint:
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
+    - trivy # investigating issues with shared cachedir
 
   ignore:
     - linters: [ALL]
