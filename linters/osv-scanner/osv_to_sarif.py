@@ -3,6 +3,7 @@
 import json
 import re
 import sys
+from itertools import pairwise
 
 # Used to map OSV/GHSA severities to the corresponding SARIF severity
 # OSV/GHSA: https://docs.github.com/en/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-cvss-levels
@@ -161,15 +162,20 @@ def main(argv):
 
                 fixed_version = versions.get("fixed", None)
 
-                description = f"{message}{'.' if message[-1] != '.' else ''} Current version is vulnerable: {pkg_version}."
+                quoted_name = f" of '{pkg['name']}'"
+                description = f"{message}{'.' if message[-1] != '.' else ''} Current version{'' if pkg['name'] in message else quoted_name} is vulnerable: {pkg_version}."
                 if fixed_version:
                     description += (
                         f" Patch available: upgrade to {fixed_version} or higher."
                     )
 
                 lineno = 0
-                for num, line in enumerate(lockfiles[path], 1):
-                    if pkg["name"] in line and pkg["version"] in line:
+                for num, (line, nextline) in enumerate(
+                    pairwise(lockfiles[path] + [""]), 1
+                ):
+                    if pkg["name"] in line and (
+                        pkg["version"] in line or pkg["version"] in nextline
+                    ):
                         lineno = num
                         break
                 alias_set = set(vuln.get("aliases", [])) | {vuln_id}

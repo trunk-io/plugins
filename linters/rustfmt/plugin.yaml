@@ -4,6 +4,7 @@ lint:
     - name: rustfmt
       files: [rust]
       download: rust
+      description: A Rust formatter
       commands:
         - name: format
           output: rewrite

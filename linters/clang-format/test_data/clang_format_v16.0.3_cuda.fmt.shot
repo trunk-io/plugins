@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter clang-format test cuda 1`] = `
+"__global__ void cuda_hello() { printf("Hello World from GPU!\\n"); }
+
+int main() {
+  cuda_hello<<<1, 1>>>();
+  return 0;
+}
+"
+`;

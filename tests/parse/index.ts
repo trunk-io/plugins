@@ -16,6 +16,8 @@ const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
+const VALIDATED_LINTER_BLOCKLIST: string[] = [];
+
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "missing_repo";
@@ -106,7 +108,7 @@ const mergeTestFailureMetadata = (original: TestResult, incoming: TestResult) =>
           return;
         }
 
-        // If the incoming test result is a failure and not assertion_failure, **invalidate the failure mode
+        // If the incoming test result is a failure and not assertion_failure, invalidate the failure mode
         if (incomingSuspectedFailureMode !== "assertion_failure") {
           original.testFailureMetadata.set(testFullName, incomingSuspectedFailureMode);
           return;
@@ -312,7 +314,7 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
 const writeRerunTests = (rerunPaths: string[]) => {
   const rerunString = rerunPaths.join(" ");
   fs.writeFileSync(RERUN_FILE, rerunString);
-  console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}:`);
+  console.log(`Wrote ${rerunString} reruns out to ${RERUN_FILE}`);
 };
 
 /**
@@ -323,7 +325,11 @@ const writeTestResults = (testResults: TestResultSummary) => {
   const pluginVersion = PLUGIN_VERSION;
   const validatedVersions = Array.from(testResults.testResults).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
-      if (testResultStatus === "passed" && version) {
+      if (
+        testResultStatus === "passed" &&
+        version &&
+        !VALIDATED_LINTER_BLOCKLIST.includes(linter)
+      ) {
         const additionalValidatedVersion: ValidatedVersion = { linter, version };
         return accumulator.concat([additionalValidatedVersion]);
       }
@@ -346,10 +352,15 @@ const writeTestResults = (testResults: TestResultSummary) => {
       },
     ]) => {
       if (status !== "passed" && status !== "skipped") {
-        const shouldRerunTest = Array.from(testFailureMetadata.values()).every(
-          // If any non-assertion-type failures occur, we can't proactively generate snapshot.
-          (failureMode) => failureMode === "assertion_failure" || failureMode === "skipped",
-        );
+        const allMetadata = Array.from(testFailureMetadata.values());
+        // Must have at least one assertion_failure and no other failure types in order to proactively generate snapshot.
+        const shouldRerunTest =
+          allMetadata.every(
+            (failureMode) =>
+              failureMode === "assertion_failure" ||
+              failureMode === "skipped" ||
+              failureMode === "passed",
+          ) && allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
         if (shouldRerunTest) {
           rerunPaths.push(testFilePath);
         }

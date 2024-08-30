@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: pwsh
+    downloads:
+      - os:
+          linux: linux
+          macos: osx
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${os}-${cpu}.tar.gz
+      - os:
+          windows: win
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${os}-${cpu}.zip
+tools:
+  definitions:
+    - name: pwsh
+      download: pwsh
+      shims: [pwsh]
+      known_good_version: 7.4.1

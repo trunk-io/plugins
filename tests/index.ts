@@ -267,6 +267,7 @@ interface ToolTestConfig {
   expectedOut?: string;
   expectedErr?: string;
   expectedExitCode?: number;
+  stdin?: string;
 }
 
 export const makeToolTestConfig = ({
@@ -274,11 +275,13 @@ export const makeToolTestConfig = ({
   expectedOut = "",
   expectedErr = "",
   expectedExitCode = 0,
+  stdin = "",
 }: ToolTestConfig) => ({
   command,
   expectedOut,
   expectedErr,
   expectedExitCode,
+  stdin,
 });
 
 export const toolTest = ({
@@ -298,9 +301,9 @@ export const toolTest = ({
 }) => {
   describe(`Testing tool ${toolName}`, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
-    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
+    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode, stdin }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
-        const { stdout, stderr, exitCode } = await driver.runTool(command);
+        const { stdout, stderr, exitCode } = await driver.runTool(command, stdin);
         expect(stdout).toContain(expectedOut);
         expect(stderr).toContain(expectedErr);
         expect(exitCode).toEqual(expectedExitCode);
@@ -663,6 +666,7 @@ export const fuzzyLinterCheckTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param manualVersionReplacer a mutator to replace the enabled version with another version
  */
 export const linterCheckTest = ({
   linterName,
@@ -671,6 +675,7 @@ export const linterCheckTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  manualVersionReplacer,
 }: {
   linterName: string;
   dirname?: string;
@@ -678,6 +683,7 @@ export const linterCheckTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  manualVersionReplacer?: (version: string) => string;
 }) => {
   // Step 1a: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -690,7 +696,14 @@ export const linterCheckTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(
+            dirname,
+            {},
+            linterName,
+            linterVersion,
+            preCheck,
+            manualVersionReplacer,
+          );
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
@@ -754,6 +767,7 @@ export const linterCheckTest = ({
  *                   Takes in the test's linter version (from snapshots).
  * @param preCheck callback to run during setup
  * @param postCheck callback to run for additional assertions from the base snapshot
+ * @param manualVersionReplacer a mutator to replace the enabled version with another version
  */
 export const linterFmtTest = ({
   linterName,
@@ -762,6 +776,7 @@ export const linterFmtTest = ({
   skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
+  manualVersionReplacer,
 }: {
   linterName: string;
   dirname?: string;
@@ -769,6 +784,7 @@ export const linterFmtTest = ({
   skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
+  manualVersionReplacer?: (version: string) => string;
 }) => {
   // Step 1a: Detect test files to run and versions for asserts.
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
@@ -781,7 +797,14 @@ export const linterFmtTest = ({
         // TODO(Tyler): Find a reliable way to replace the name "test" with version that doesn't violate snapshot export names.
         describe("test", () => {
           // Step 2: Define test setup and teardown
-          const driver = setupLintDriver(dirname, {}, linterName, linterVersion, preCheck);
+          const driver = setupLintDriver(
+            dirname,
+            {},
+            linterName,
+            linterVersion,
+            preCheck,
+            manualVersionReplacer,
+          );
 
           // Step 3: Run each test
           conditionalTest(skipTestIf(linterVersion), prefix, async () => {
@@ -816,6 +839,7 @@ export const linterFmtTest = ({
               snapshotPath,
             );
             registerFailureMode("assertion_failure");
+            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );

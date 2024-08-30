@@ -23,9 +23,16 @@ inputs:
   sourcery-token:
     description: Token to login for sourcery test
     required: true
-  trunk-token:
-    description: CI debugger api token
-    required: true
+  trunk-staging-token:
+    description: Test analytics staging api token (org token)
+    required: false
+  trunk-prod-token:
+    description: Test analytics prod api token (org token)
+    required: false
+  ref-type:
+    description: release or main
+    required: false
+    default: main
 
 runs:
   # TODO(Tyler): See if this can be converted to a js action
@@ -36,19 +43,37 @@ runs:
       with:
         node-version: 18
 
+    # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
+    #       it will prompt for a timezone selection
     - name: Install packages and specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
+        if [[ "${{ inputs.linter-version }}" == "Latest" ]]; then
+          echo "JEST_LINTER_VERSION=Latest" >> "$GITHUB_ENV"
+        else
+          # If the linter version is KnownGoodVersions, coalesce to Snapshots
+          # For flaky analysis.
+          echo "JEST_LINTER_VERSION=Snapshots" >> "$GITHUB_ENV"
+        fi
 
         case "$RUNNER_OS" in
           Linux)
+            # Cleanup any existing apt locks
+            sudo killall apt-get || true
+            sudo rm /var/lib/apt/lists/lock || true
+
+            # Install non-hermetic linters
+            sudo add-apt-repository ppa:ondrej/php
             sudo apt-get update
-            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev
+            sudo apt-get -y install libperl-critic-perl perltidy zlib1g-dev software-properties-common
+            DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo apt-get -y install tzdata
+            sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
             brew install cpm
             cpm install -g --no-test --color Perl::Critic Perl::Tidy
             brew unlink perl && brew link perl
+            brew install php gnupg
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
@@ -64,8 +89,12 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
 
+    - name: Clean jest cache
+      run: npx jest --clearCache
+      shell: bash
+      working-directory: ${{ inputs.path }}
+
     - name: Run plugin tests
-      if: runner.os == 'Windows'
       run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
       shell: bash
       working-directory: ${{ inputs.path }}
@@ -75,22 +104,31 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         # Debug recurrent eslint circular JSON errors
-        DEBUG: Driver:eslint:*,Driver:cspell:*,Driver:nixpkgs-fmt:*
+        DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*
+        JEST_SUITE_NAME: Linter Tests
+        JEST_JUNIT_SUITE_NAME:
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
-    - name: Run plugin tests
-      if: runner.os != 'Windows'
-      # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
-      uses: trunk-io/breakpoint@v1.3.0
+    - name: Upload prod results
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
+      uses: trunk-io/analytics-uploader@main
       with:
-        breakpoint-id: trunk-plugins-linter-tests
-        shell: bash
-        working-directory: ${{ inputs.path }}
-        trunk-token: ${{ inputs.trunk-token  }}
-        org: trunk-staging-org
-        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
+        junit-paths: junit.xml
+        org-slug: trunk
+        token: ${{ inputs.trunk-prod-token }}
+      continue-on-error: true
       env:
-        PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
-        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
-        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
-        SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
-        DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
+
+    - name: Upload staging results
+      # TODO(Tyler): Add upload on Windows once the action supports it.
+      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
+      uses: trunk-io/analytics-uploader@main
+      with:
+        junit-paths: junit.xml
+        org-slug: trunk-staging-org
+        token: ${{ inputs.trunk-token }}
+      continue-on-error: true
+      env:
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

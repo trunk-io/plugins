@@ -1,16 +1,25 @@
 # Testing
 
-To run tests and generate snapshots, run `npm install` and `npm test <path-to-linter-subdir>`.
+```bash
+npm ci
+npm test <path-to-linter-subdir>
+```
+
+- [Overview](#overview)
+- [Configuring Tests](#configuring-tests)
+- [Running and Debugging Tests](#running-tests)
+- [Additional Options](#additional-options)
 
 ## Overview
 
-We ask that all new linter definitions in this repository add some basic testing. This should be a
-straightforward and simple process, with minimal overhead, but let us know if you need help! Please
-start by following the instructions below:
+We ask that all new linter and tool definitions in this repository add some basic testing. This
+should be a straightforward and simple process, with minimal overhead, but let us know if you need
+help! Please start by following the instructions below:
 
 ## Configuring Tests
 
-Please create a directory structure in your linter/formatter definition analogous to the following:
+Follow the setup quickstart in the [contributing guidelines](../CONTRIBUTING.md). As a result, you
+should have a directory structure like the following:
 
 ```text
 linters/
@@ -20,16 +29,17 @@ linters/
   │ README.md (optional)
   │ my-config.json (optional)
   └─test_data/
-    └─basic.in.py (with appropriate extension)
+    └─basic.in.foo (with appropriate extension)
 ```
 
 - Specify a `README.md` if your linter integration requires additional explanation or configuration.
-- Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if providing this
-  config file is sufficient to enable your linter in ALL cases. This will be created whenever
-  someone enables your linter.
-- Specify a typescript test file that calls `linterCheckTest` or `linterFmtTest` with the name of
-  your linter and (optionally) the prefixes of your input files and any special callbacks.
-- Inside of `test_data/`, provide at least one input file.
+- Specify a `my-config.json` (or whatever `direct_configs` item applies) ONLY if it is universally
+  applicable. This will be created whenever someone enables your linter.
+- Specify a [Jest test file](../repo-tools/linter-test-helper/linter_sample.test.ts) that calls
+  `linterCheckTest` or `linterFmtTest` with the name of your linter and (optionally) the prefixes of
+  your input files and any special callbacks.
+- Inside of `test_data/`, provide at least one input file. **This file should be named
+  `<name>.in.<extension>` to be automatically picked up by the testing framework.**
 
   - For linters, specify a sample input file (with an appropriate file extension). For reference,
     the tests will run the following command against your input file:
@@ -45,25 +55,20 @@ linters/
     trunk fmt <input-file> --force --filter=<my-linter>
     ```
 
-Refer to [sqlfluff](../linters/sqlfluff) or [pragma-once](../linters/pragma-once) as testing
-examples.
+Refer to [sqlfluff](../linters/sqlfluff/sqlfluff.test.ts) or
+[pragma-once](../linters/pragma-once/pragma_once.test.ts) as testing examples.
 
 ## Running Tests
 
-To run all tests, run `npm install` and then run:
+The first time you run a test, it will automatically generate the necessary snapshot for the
+`known_good_version`.
+
+To run a test with debug information and preserve a sandbox for debugging, run:
 
 ```bash
-npm test
+npm ci
+SANDBOX_DEBUG="true" DEBUG="Driver:*" npm test <path-to-linter-subdir>
 ```
-
-To run an individual test, run:
-
-```bash
-npm test <path-to-linter-subdir>
-```
-
-Then, verify that the generated snapshot file includes the results you would expect (e.g. an Object
-with several fileIssues, no taskFailures).
 
 For context, the general test execution is as follows:
 
@@ -72,6 +77,7 @@ For context, the general test execution is as follows:
    [.trunk/trunk.yaml](../.trunk/trunk.yaml).
 3. Run `trunk check enable <linter>`.
 4. Run `trunk check` or `trunk fmt` on files with the `<name>.in.<extension>` syntax.
+5. Cache any linter/tool downloads in `${TMPDIR:-/tmp}/plugins_testing_download_cache`
 
 ### Linter Versioning
 
@@ -99,7 +105,7 @@ The process of resolving snapshots for asserting output correctness is as follow
    If no such snapshot exists, a new snapshot is created with the enabled version of the linter (use
    [debug logging](#debugging) to see what version was enabled).
 
-The reasoning for this setup is threefold:
+[The reasoning for this setup is threefold](https://trunk.io/blog/how-we-eliminate-tool-rot-and-confidently-upgrade-our-open-source-dependencies):
 
 1. Linters can update their arguments or outputs on occasion, which can lead to a different trunk
    output. We would like to be aware of these changes, particularly if they require trunk to accept
@@ -142,42 +148,25 @@ include:
   version change.
 - `SANDBOX_DEBUG` if `true`, prevents sandbox test directories from being deleted, and logs their
   path for additional debugging.
+- [`DEBUG`](https://www.npmjs.com/package/debug) is used to configure log information. Use
+  `DEBUG=Driver:*` to view useful test driver logs, or use `DEBUG=*:sqlfluff*` to view all logs
+  related to a particular linter (`<Driver|Tests>:<linter>:<#>`).
 
 ### CI
 
 PRs will run 5 types of tests across all platforms as applicable:
 
-1. Enable and test all linters with their `known_good_version`, if applicable. To replicate this
-   behavior, run: `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test`. If the
+1. Enable and test all changed linters with their `known_good_version`, if applicable. To replicate
+   this behavior, run: `PLUGINS_TEST_LINTER_VERSION=KnownGoodVersion npm test`. If the
    `known_good_version` is different from the version enabled when you defined the linter, you will
    need to first run this locally to generate a snapshot file.
-2. Enable and test all linters with their latest version, if applicable. To replicate this behavior,
-   run: `npm test`.
-3. Assert that all linters pass config validation. This is also validated while running: `npm test`.
-4. Assert that all linters have test coverage.
-5. Assert that all linters are included in the [`README.md`](../README.md).
+2. Enable and test all changed linters with their latest version, if applicable. To replicate this
+   behavior, run: `npm test`.
+3. Assert that all linters pass config validation and best practices.
+4. Assert that all linters are included in the [`README.md`](../README.md).
 
 ### Debugging
 
 Individual tests normally complete in less than 1 minute. They may take up to 5 minutes or so if the
-dependency cache is empty (linters need to be downloaded and installed to run the linter tests).
-Subsequent runs will not experience this delay.
-
-Errors encountered during test runs are reported through the standard `console`, but additional
-debugging is provided using [debug](https://www.npmjs.com/package/debug). The namespace convention
-used is `<Location>:<linter>:<#>`, where Location is `Driver | Tests`, linter is the name of the
-linter being tested (alternatively `test<#>` if no linter is specified), and # is a counter used to
-distinguish between multiple tests with the same linter.
-
-Accordingly, in order to view debug logs for all sqlfluff tests, you can set the environment
-variable:
-
-```bash
-DEBUG=*:sqlfluff*
-```
-
-To just see debug logs from the test driver, use:
-
-```bash
-DEBUG=Driver:*
-```
+`/tmp/plugins_testing_download_cache` dependency cache is empty (linters need to be downloaded and
+installed to run the linter tests). Subsequent runs will not experience this delay.

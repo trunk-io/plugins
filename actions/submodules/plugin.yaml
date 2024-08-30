@@ -1,0 +1,10 @@
+version: 0.1
+actions:
+  definitions:
+    - id: submodule-init-update
+      display_name: Submodule Init Update
+      description: Git hook for updating submodules
+      run: git submodule update --init --recursive
+      triggers:
+        - git_hooks: [post-checkout, post-merge, pre-rebase]
+      notify_on_error: false

@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: goimports
       files: [go]
+      description: Removes unused imports from Go code
       commands:
         - name: format
           output: rewrite

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// trunk-ignore-all(eslint)
 const yarnCheck = require("yarn-check");
 const YAML = require("yaml");
 const path = require("path");
@@ -28,7 +27,7 @@ yarnCheck({})
           message: `${uninstalled_count} yarn ${pluralize(
             uninstalled_count,
             "package",
-            "packages"
+            "packages",
           )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "yarn install", title: "yarn install" }],
           icon: iconPath,

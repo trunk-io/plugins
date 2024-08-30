@@ -49,7 +49,7 @@ const normalizeLandingState = (landingState: LandingState) => {
         const suggestions = issue.message.match(suggestionsRegex);
         const suggestionsContent = suggestions?.groups?.suggestions;
         if (suggestionsContent) {
-          const sortedSuggestions = suggestionsContent?.split(", ").sort().join(", ");
+          const sortedSuggestions = suggestionsContent.split(", ").sort().join(", ");
           issue.message = issue.message.replace(suggestionsContent, sortedSuggestions);
         }
       }

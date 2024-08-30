@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter sqlfluff test basic_check 1`] = `
+{
+  "issues": [
+    {
+      "code": "AM04",
+      "column": "1",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Query produces an unknown number of result columns.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "49",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP01",
+      "column": "1",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Keywords must be consistently upper case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "6",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "LT09",
+      "column": "1",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Select targets should be on a new line unless there is only one select target.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "26",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "AL03",
+      "column": "12",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Column expression without alias. Use explicit \`AS\` clause.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "1",
+          "offset": "11",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP01",
+      "column": "20",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Keywords must be consistently upper case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "2",
+          "offset": "19",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "LT01",
+      "column": "22",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Expected only single space before naked identifier. Found '  '.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "2",
+          "offset": "21",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP02",
+      "column": "24",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "3",
+          "offset": "23",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "LT01",
+      "column": "27",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Expected only single space before 'from' keyword. Found '  '.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "2",
+          "offset": "26",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP01",
+      "column": "29",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Keywords must be consistently upper case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "4",
+          "offset": "28",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP02",
+      "column": "34",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "8",
+          "offset": "33",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "CP02",
+      "column": "43",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Unquoted identifiers must be consistently lower case.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "7",
+          "offset": "42",
+        },
+      ],
+      "targetType": "sql",
+    },
+    {
+      "code": "LT01",
+      "column": "7",
+      "file": "test_data/basic_check.in.sql",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "sqlfluff",
+      "message": "Expected only single space before star '*'. Found '  '.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic_check.in.sql",
+          "length": "2",
+          "offset": "6",
+        },
+      ],
+      "targetType": "sql",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "sql",
+      "linter": "sqlfluff",
+      "paths": [
+        "test_data/basic_check.in.sql",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "sql",
+      "linter": "sqlfluff",
+      "paths": [
+        "test_data/basic_check.in.sql",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

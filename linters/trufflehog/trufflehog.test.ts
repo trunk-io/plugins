@@ -13,6 +13,8 @@ const preCheck = async (driver: TrunkLintDriver) => {
     await driver.gitDriver.add("secrets.in.py").add("secrets2.in.py").commit("Add secrets");
     driver.deleteFile("secrets.in.py");
     await driver.gitDriver.add("secrets.in.py").commit("Remove secrets");
+  } else {
+    driver.debug("Error: failed to initialize git driver");
   }
 };
 

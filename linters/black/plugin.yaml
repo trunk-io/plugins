@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: black
       files: [python, jupyter, python-interface]
+      description: Uncompromising python formatter
       commands:
         - name: format
           output: rewrite

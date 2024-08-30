@@ -11,6 +11,7 @@ lint:
     - name: stylelint
       files: [css, sass]
       tools: [stylelint]
+      description: Over 100 built-in rules for modern CSS
       commands:
         - name: lint
           version: ">=16.0.0"

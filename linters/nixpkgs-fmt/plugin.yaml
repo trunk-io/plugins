@@ -6,6 +6,7 @@ lint:
       package: nixpkgs-fmt
       runtime: rust
       files: [nix]
+      description: Formatter for Nix
       commands:
         - output: rewrite
           run: nixpkgs-fmt ${target}

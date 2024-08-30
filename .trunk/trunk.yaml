@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.20.1-beta.2
+  version: 1.22.4-beta.1
   shell_hooks:
     enforce: true
 
@@ -17,13 +17,36 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.2
+      ref: v1.0.7
 
 lint:
-  # enabled linters inherited from github.com/trunk-io/configs plugin
+  files:
+    - name: plugin.yaml
+      filenames: [plugin.yaml]
+  definitions:
+    - name: definition-checker
+      description: Checks plugin.yaml files for repo best practices
+      files: [plugin.yaml]
+      runtime: node
+      extra_packages:
+        - ts-node
+        - yaml
+      commands:
+        - name: check
+          run: ts-node ${workspace}/repo-tools/definition-checker/check.ts ${target}
+          batch: true
+          sandbox_type: expanded
+          output: regex
+          parse_regex: "((?P<path>.*) \\[(?P<severity>.*)\\]: (?P<message>.*) \\((?P<code>.*)\\))"
+          success_codes: [0]
+  enabled:
+    # enabled linters inherited from github.com/trunk-io/configs plugin
+    - definition-checker
+    - eslint@9.9.0
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
+    - trivy # investigating issues with shared cachedir
 
   ignore:
     - linters: [ALL]
@@ -79,8 +102,8 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - clangd-indexing-tools@17.0.3
-    - clangd@17.0.3
+    - clangd-indexing-tools@18.1.3
+    - clangd@18.1.3
   runtimes:
     # expose shims in .trunk/tools
     - node

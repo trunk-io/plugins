@@ -9,6 +9,7 @@ tools:
 lint:
   definitions:
     - name: mypy
+      description: Static type checker for Python
       files: [python, python-interface]
       commands:
         - name: lint

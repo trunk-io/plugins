@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter tofu test variables 1`] = `
+{
+  "issues": [
+    {
+      "code": "Invalid quoted type constraints",
+      "file": "test_data/variables.in.tf",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "tofu",
+      "message": "OpenTofu 0.11 and earlier required type constraints to be given in quotes, but that form is now deprecated and will be removed in a future version of OpenTofu. Remove the quotes around "map" and write map(string) instead to explicitly indicate that the map elements are strings.",
+      "targetType": "terraform",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "terraform",
+      "linter": "tofu",
+      "paths": [
+        "test_data/variables.in.tf",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "terraform",
+      "linter": "tofu",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "terraform",
+      "linter": "tofu",
+      "paths": [
+        "test_data",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/variables.in.tf",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "tofu",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

@@ -126,6 +126,7 @@ lint:
         (this.getFullTrunkConfig().lint.definitions.find(
           ({ name }: { name: string }) => name === this.linter,
         )?.known_good_version as string) ?? "";
+      // trunk-ignore(eslint/@typescript-eslint/no-unnecessary-template-expression): Convert kgv to string
       if (this.linter === "include-what-you-use" && `${kgv}`.length === 3) {
         // TODO(Tyler): `trunk config print` does not correctly wrap quotes around kgv, so we must patch iwyu here
         return `${kgv}0`;
@@ -148,7 +149,7 @@ lint:
 
     let newTrunkContents = "<undefined contents>";
     try {
-      // Cast version to string in case of decimal representation (e.g. 0.40)
+      // trunk-ignore(eslint/@typescript-eslint/no-unnecessary-template-expression): Cast to string to handle decimal case
       const version = `${this.extractLinterVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${this.linter}${versionString}`;
@@ -165,7 +166,7 @@ lint:
       );
       const enabledVersionRegex = `(?<linter>${this.linter})@(?<version>.+)\n`;
       const foundIn = newTrunkContents.match(enabledVersionRegex);
-      if (foundIn && foundIn.groups?.version && foundIn.groups?.version.length > 0) {
+      if (foundIn?.groups?.version && foundIn.groups.version.length > 0) {
         this.enabledVersion = foundIn.groups.version;
         this.debug("Enabled %s", this.enabledVersion);
       }
@@ -284,7 +285,7 @@ lint:
     // this has been changed from ".json" to ".out.json" for linters that run on terraform files
     // terraform extensions are .tf and .tf.json - this change prevents accidentally linting the trunk output
     const resultJsonPath = `${targetAbsPath}.out.json`;
-    const args = `${targetRelativePath}`;
+    const args = targetRelativePath;
     this.debug("Running `trunk check` on %s", targetRelativePath);
     return await this.runCheck({ args, linter, targetAbsPath, resultJsonPath });
   }
@@ -360,7 +361,7 @@ lint:
   async runFmtUnit(targetRelativePath: string, linter: string): Promise<TestResult> {
     const targetAbsPath = path.resolve(this.sandboxPath ?? "", targetRelativePath);
     const resultJsonPath = `${targetAbsPath}.json`;
-    const args = `${targetRelativePath}`;
+    const args = targetRelativePath;
     this.debug("Running `trunk fmt` on %s", targetRelativePath);
     return await this.runFmt({ args, linter, targetAbsPath, resultJsonPath });
   }

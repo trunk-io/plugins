@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: yq
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: 386
+          arm_64: arm64
+        url: https://github.com/mikefarah/yq/releases/download/v${version}/yq_${os}_${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: 386
+          arm_64: arm64
+        url: https://github.com/mikefarah/yq/releases/download/v${version}/yq_${os}_${cpu}.exe
+tools:
+  definitions:
+    - name: yq
+      download: yq
+      known_good_version: 4.44.1
+      shims: [yq]
+      health_checks:
+        - command: yq --version
+          parse_regex: version v${semver}

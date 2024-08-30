@@ -13,6 +13,7 @@ lint:
 
   definitions:
     - name: sort-package-json
+      description: Sorts package.json keys
       files: [package-json]
       commands:
         - name: format

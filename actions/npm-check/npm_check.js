@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// trunk-ignore-all(eslint)
 const npmCheck = require("npm-check");
 const YAML = require("yaml");
 const path = require("path");
@@ -30,7 +29,7 @@ npmCheck({})
           message: `${uninstalled_count} npm ${pluralize(
             uninstalled_count,
             "package",
-            "packages"
+            "packages",
           )} ${pluralize(uninstalled_count, "needs", "need")} to be installed\n`,
           commands: [{ run: "npm install", title: "npm install" }],
           icon: iconPath,

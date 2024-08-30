@@ -3,6 +3,7 @@ lint:
   definitions:
     - name: gofmt
       files: [go]
+      description: A formatter for Go code
       commands:
         - name: format
           output: rewrite

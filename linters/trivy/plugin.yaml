@@ -27,8 +27,10 @@ lint:
   definitions:
     - name: trivy
       tools: [trivy]
-      suggest_if: files_present
+      suggest_if: config_present
+      description: A comprehensive and versatile security scanner
       known_good_version: 0.44.1
+      # trivy supports --format template --template "@contrib/sarif.tpl", but it reports the wrong filepaths.
       commands:
         - name: fs-vuln
           files: [lockfile]
@@ -72,7 +74,8 @@ lint:
           parser:
             runtime: python
             run: python3 ${plugin}/linters/trivy/trivy_config_to_sarif.py
-      direct_configs: [trivy-secret.yaml]
+      # trivy-secret.yaml is old config file https://aquasecurity.github.io/trivy/v0.27.1/docs/secret/configuration/
+      direct_configs: [trivy.yaml, .trivyignore, .trivyignore.yaml, trivy-secret.yaml]
       version_command:
         parse_regex: Version ${semver}
         run: trivy --version

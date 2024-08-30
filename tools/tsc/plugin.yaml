@@ -6,3 +6,6 @@ tools:
       package: typescript
       known_good_version: 5.2.2
       shims: [tsc]
+      health_checks:
+        - command: tsc --version
+          parse_regex: Version ${semver}

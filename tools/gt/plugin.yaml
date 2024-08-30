@@ -1,32 +1,11 @@
 version: 0.1
-downloads:
-  - name: gt
-    executable: true
-    downloads:
-      - os:
-          linux: linux
-        cpu:
-          x86_64: x86_64
-        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
-      - os:
-          macos: macos
-        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}
-      - os:
-          windows: win
-        url: https://github.com/withgraphite/graphite-cli/releases/download/v${version}/gt-${os}.exe
 tools:
   definitions:
     - name: gt
-      version_constraint: ">=1.0.0"
+      # There used to be a download for older versions, but the assets are no longer available.
       known_good_version: 1.0.0
       runtime: node
       package: "@withgraphite/graphite-cli"
-      shims:
-        - name: gt
-          target: gt
-    - name: gt
-      known_good_version: 0.20.19
-      download: gt
       shims:
         - name: gt
           target: gt

@@ -2,8 +2,9 @@ version: 0.1
 lint:
   definitions:
     - name: terraform
-      files: [terraform]
+      files: [terraform, tfvars]
       tools: [terraform]
+      description: Validate and format terraform files
       commands:
         - name: validate
           # Custom parser type defined in the trunk cli to handle terraform's JSON output.

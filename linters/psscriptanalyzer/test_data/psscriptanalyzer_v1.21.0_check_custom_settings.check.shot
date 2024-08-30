@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter psscriptanalyzer test check_custom_settings 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "Invoke-Formatter",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "Invoke-ScriptAnalyzer",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "Invoke-ScriptAnalyzer",
+      "fileGroupName": "powershell",
+      "linter": "psscriptanalyzer",
+      "paths": [
+        "test_data/check.in.ps1",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

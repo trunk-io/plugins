@@ -4,6 +4,7 @@ lint:
     # Inserts "#pragma once" if it wasn't there
     - name: pragma-once
       files: [c-header, c++-header]
+      description: Enforces "#pragma once" in header files
       commands:
         - name: format
           platforms: [windows]

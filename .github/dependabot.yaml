@@ -7,7 +7,6 @@ updates:
       day: sunday
       # trunk-ignore(yamllint/quoted-strings)
       time: "08:00" # UTC
-    labels: [🤖 dependabot]
     groups:
       dependencies:
         patterns:
@@ -21,9 +20,11 @@ updates:
       day: sunday
       # trunk-ignore(yamllint/quoted-strings)
       time: "08:00" # UTC
-    labels: [🤖 dependabot]
     groups:
       dependencies:
         patterns:
           - "*"
+    # TODO(Tyler): Readd once eslint9 is resolved.
+    ignore:
+      - dependency-name: eslint
     open-pull-requests-limit: 2

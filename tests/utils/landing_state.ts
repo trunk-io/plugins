@@ -26,9 +26,11 @@ const normalizePlatformPath = (originalPath: string | undefined) => {
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
   cacheHit: _cacheHit,
+  cacheExpiration: _cacheExpiration,
   paths: _paths,
   ...rest
 }: LintAction): LintAction => ({
+  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   paths: _paths.map((originalPath) => normalizePlatformPath(originalPath)!),
   ...rest,
 });
@@ -38,6 +40,7 @@ const extractTaskFailureFields = (
   { detailPath, message, ...rest }: TaskFailure,
 ): TaskFailure => ({
   ...rest,
+  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   message: normalizePlatformPath(message)!,
   details: detailPath
     ? fs.readFileSync(path.resolve(sandboxPath, detailPath), { encoding: "utf-8" })
@@ -73,8 +76,10 @@ const normalizeMessage = (message?: string) =>
     .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
+    .replace(/NBQA-CELL-SEP.{6}/gm, "NBQA-CELL-SEP")
     .trim();
 
+// trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
 const normalizeFile = (file: string) => normalizePlatformPath(file.replace(".dup.", "."))!;
 
 const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
@@ -82,10 +87,14 @@ const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
   ...rest,
 });
 
+const normalizeIssueUrl = (issueUrl: string) =>
+  issueUrl.replace(/markdownlint\/blob\/v[0-9.]+\//gm, "markdownlint/blob/vx.x.x/").trim();
+
 const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
   file: _file,
+  issueUrl: _issueUrl,
   autofixOptions: _autofixOptions = [],
   ranges: _ranges,
   ...rest
@@ -97,10 +106,13 @@ const normalizeIssues = ({
   };
   if (_ranges) {
     // trunk-ignore(eslint/@typescript-eslint/no-unsafe-argument)
-    ret["ranges"] = _ranges.map((range) => normalizeRange(range));
+    ret.ranges = _ranges.map((range) => normalizeRange(range));
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
+  }
+  if (_issueUrl) {
+    ret.issueUrl = normalizeIssueUrl(_issueUrl);
   }
   return ret;
 };
@@ -113,13 +125,14 @@ const extractLandingStateFields = (
   sandboxPath: string,
   { issues = [], unformattedFiles = [], lintActions = [], taskFailures = [] }: LandingState,
 ) =>
-  <LandingState>{
+  ({
     issues: sort(issues.map(normalizeIssues)).asc((issue) => [
       issue.file,
       issue.line,
       issue.column,
       issue.code,
       issue.message,
+      issue.belowThreshold,
     ]),
     unformattedFiles: sort(unformattedFiles.map(normalizeIssues)).asc((issue) => [
       issue.file,
@@ -138,7 +151,7 @@ const extractLandingStateFields = (
     taskFailures: sort(
       taskFailures.map((failure) => extractTaskFailureFields(sandboxPath, failure)),
     ).asc((failure) => [failure.name, failure.message]),
-  };
+  }) as LandingState;
 
 /**
  * Extract the LandingState from an input `json`, returning a deterministic landing state

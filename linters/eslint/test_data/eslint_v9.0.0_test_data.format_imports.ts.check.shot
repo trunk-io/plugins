@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter eslint test CUSTOM 1`] = `
+"/* eslint "import/first": "error" */
+import { zaphod } from "beetlebrox";
+import { arthur } from "dent";
+import { ford } from "prefect";
+
+export interface Marvin {
+  paranoid: boolean;
+}
+"
+`;

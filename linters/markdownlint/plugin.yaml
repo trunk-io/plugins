@@ -5,12 +5,13 @@ tools:
       runtime: node
       package: markdownlint-cli
       shims: [markdownlint]
-      known_good_version: 0.31.1
+      known_good_version: 0.33.0
 lint:
   definitions:
     - name: markdownlint
       files: [markdown]
       tools: [markdownlint]
+      description: A style checker and lint tool for markdown files
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.
@@ -29,7 +30,7 @@ lint:
         - .markdownlint-cli2.yaml
         - .markdownlint-cli2.jsonc
       issue_url_format: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#{}
-      known_good_version: 0.31.1
+      known_good_version: 0.33.0
       version_command:
         parse_regex: ${semver}
         run: markdownlint --version

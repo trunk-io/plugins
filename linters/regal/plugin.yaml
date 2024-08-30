@@ -1,0 +1,39 @@
+version: 0.1
+downloads:
+  - name: regal
+    downloads:
+      - os:
+          linux: Linux
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/StyraInc/regal/releases/download/v${version}/regal_${os}_${cpu}
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/StyraInc/regal/releases/download/v${version}/regal_Windows_x86_64.exe
+tools:
+  definitions:
+    - name: regal
+      download: regal
+      known_good_version: 0.18.0
+      shims: [regal]
+lint:
+  definitions:
+    - name: regal
+      files: [rego]
+      main_tool: regal
+      known_good_version: 0.18.0
+      suggest_if: config_present
+      description: Linter for Rego files
+      direct_configs:
+        - .regal/config.yaml
+      commands:
+        - name: lint
+          output: sarif
+          run: regal lint --format sarif ${target}
+          batch: true
+          cache_results: true
+          success_codes: [0, 3]

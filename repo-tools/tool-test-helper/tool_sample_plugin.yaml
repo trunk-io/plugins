@@ -1,0 +1,31 @@
+version: 0.1
+# Tools can be either runtime package-based or download-based. Modify this boilerplate
+# to fit your use case.
+
+# Fill out this part if the linter/tool is download-based - otherwise delete
+downloads:
+  - name: NAME_HERE
+    # executable: true
+    # DOWNLOAD_URL_INFO_HERE
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
+tools:
+  definitions:
+    - name: NAME_HERE
+      # RUNTIME_OR_DOWNLOAD_INFO_HERE
+      # runtime: RUNTIME_HERE
+      # package: NAME_HERE
+      # -- OR --
+      # download: NAME_HERE
+      known_good_version: VERSION_HERE
+      shims: [NAME_HERE]
+      health_checks:
+        - command: NAME_HERE --version
+          parse_regex: ${semver}

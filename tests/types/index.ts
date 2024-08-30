@@ -70,13 +70,13 @@ export interface FileIssue {
   level: string;
   // bucket: string;
   issueClass: string;
-  // below_threshold: boolean;
   linter: string;
   targetType: string;
   targetPath?: string;
   autofixOptions?: Autofix[];
   ranges?: any[];
-  issueUrl: string;
+  issueUrl?: string;
+  belowThreshold?: boolean;
 }
 
 /**
@@ -88,6 +88,7 @@ export interface LintAction {
   parser: string;
   report: string;
   cacheHit?: boolean;
+  cacheExpiration?: string;
   upstream: boolean;
   fileGroupName: string;
   command: string;

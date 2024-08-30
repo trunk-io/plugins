@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: gitleaks
       files: [ALL]
+      description: Protect and discover secrets
       commands:
         - name: lint
           run: gitleaks detect --no-git --source=${target} --exit-code=101 -f sarif -r "${tmpfile}"

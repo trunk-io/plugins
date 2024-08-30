@@ -6,6 +6,7 @@ lint:
       files: [prisma]
       known_good_version: 4.16.1
       suggest_if: never
+      description: A Prisma formatter
       commands:
         - name: format
           platforms: [windows]

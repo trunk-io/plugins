@@ -5,60 +5,12 @@ from datetime import datetime, timedelta
 
 import click
 
-INITIAL_PLUGIN_CONTENTS = """version: 0.1
-# Tools can be either runtime package-based or
-# download-based. This boilerplate assumes the (far more verbose) latter case.
-downloads:
-  - name: *{}*
-    # executable: true
-    # NOTE: These are (common) sample values. Please replace with real values.
-    downloads:
-      - os:
-          linux: linux
-          macos: darwin
-          windows: windows
-        cpu:
-          x86_64: amd64
-          arm_64: arm64
-        url: https://URL_HERE/${version}/${os}-${cpu}-NAME_HERE
-tools:
-  definitions:
-    - name: *{}*
-      # RUNTIME_OR_DOWNLOAD_INFO_HERE
-      # download: *{}*
-      known_good_version: VERSION_HERE
-      # NOTE: shim may differ from tool name
-      shims: [*{}*]
-"""
+directory = os.path.dirname(__file__)
+with open(os.path.join(directory, "tool_sample_plugin.yaml"), "r") as file:
+    initial_plugin_contents = file.read()
 
-INITIAL_TEST_CONTENTS = """import { makeToolTestConfig, toolTest, toolInstallTest } from "tests";
-toolTest({
-  toolName: "*{}*",
-  toolVersion: "VERSION_HERE",
-  testConfigs: [
-    makeToolTestConfig({
-      command: ["SHIM_NAME", "COMMAND_HERE"],
-      expectedOut: "OUTPUT_HERE",
-    }),
-  ],
-});
-
-toolInstallTest({
-  toolName: "*{}*",
-  toolVersion: "VERSION_HERE",
-})
-
-// Guidelines for configuring tests:
-//  - Prefer using health check in config + toolInstallTest, if you must use toolTest leave a
-//    comment explaining why. Only one of the two options is sufficient.
-//  - Usually, just a version or help text command is sufficient
-//  - add a test for each command that is used in the plugin.yaml
-//  - exit code 0 is assumed, so set expectedExitCode if it is different
-//  - expectedOut/expectedErr do a substring match, so you can just put a portion of the output
-//
-// If you are unable to write a test for this tool, please document why in your PR, and add
-// it to the list in tests/repo_tests/test_coverage_test.ts
-"""
+with open(os.path.join(directory, "tool_sample.test.ts"), "r") as file:
+    initial_test_contents = file.read()
 
 
 @click.group()
@@ -86,7 +38,9 @@ def scan(workspace):
             generated_files = True
             # Write plugin.yaml
             with open(os.path.join(subdir_path, "plugin.yaml"), "w") as plugin_file:
-                plugin_file.write(INITIAL_PLUGIN_CONTENTS.replace("*{}*", tool_name))
+                plugin_file.write(
+                    initial_plugin_contents.replace("NAME_HERE", tool_name)
+                )
 
             # Write test file
             with open(
@@ -95,7 +49,7 @@ def scan(workspace):
                 ),
                 "w",
             ) as test_file:
-                test_file.write(INITIAL_TEST_CONTENTS.replace("*{}*", tool_name))
+                test_file.write(initial_test_contents.replace("NAME_HERE", tool_name))
 
             print("Created starter files in {}", subdir_path)
 

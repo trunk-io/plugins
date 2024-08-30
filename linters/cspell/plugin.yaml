@@ -11,6 +11,7 @@ lint:
     - name: cspell
       files: [ALL]
       tools: [cspell]
+      description: Check for spelling mistakes in your code
       commands:
         - name: lint
           output: regex

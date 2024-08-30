@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter swiftlint test nested_configs 1`] = `
+{
+  "issues": [
+    {
+      "code": "type_name",
+      "column": "8",
+      "file": "basic.swift",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "swiftlint",
+      "message": "Type Name Violation: Type name 'a' should start with an uppercase character",
+      "targetType": "swift",
+    },
+    {
+      "code": "vertical_whitespace",
+      "column": "1",
+      "file": "basic.swift",
+      "level": "LEVEL_MEDIUM",
+      "line": "5",
+      "linter": "swiftlint",
+      "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line; currently 2",
+      "targetType": "swift",
+    },
+    {
+      "code": "vertical_whitespace",
+      "column": "1",
+      "file": "test_data/basic.swift",
+      "level": "LEVEL_MEDIUM",
+      "line": "5",
+      "linter": "swiftlint",
+      "message": "Vertical Whitespace Violation: Limit vertical whitespace to a single empty line; currently 2",
+      "targetType": "swift",
+    },
+    {
+      "code": "type_name",
+      "column": "8",
+      "file": "test_data/subdir/basic.swift",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "swiftlint",
+      "message": "Type Name Violation: Type name 'a' should start with an uppercase character",
+      "targetType": "swift",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "swiftlint",
+      "paths": [
+        "basic.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "swiftlint",
+      "paths": [
+        "test_data/basic.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "swift",
+      "linter": "swiftlint",
+      "paths": [
+        "test_data/subdir/basic.swift",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

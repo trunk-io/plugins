@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -44,12 +44,14 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           # manually specify more parallelism to avoid bottlenecks
           append-args: linters -- --maxWorkers=5
-          # CI Debugger is not yet supported on Windows
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          # Analytics uploader is not yet supported on Windows
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests_main:
     name: Tool Tests Main
@@ -60,7 +62,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -87,5 +89,6 @@ jobs:
         with:
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: tools -- --maxWorkers=5
-          # CI Debugger is not yet supported on Windows
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          # Analytics uploader is not yet supported on Windows
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

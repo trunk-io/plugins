@@ -1,0 +1,19 @@
+version: 0.1
+downloads:
+  - name: tofu
+    version: 1.6.2
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/opentofu/opentofu/releases/download/v${version}/tofu_${version}_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: tofu
+      download: tofu
+      shims: [tofu]
+      known_good_version: 1.6.2

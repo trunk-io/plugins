@@ -13,6 +13,7 @@ lint:
         - typescript
         - yaml
         - css
+        - postcss
         - sass
         - html
         - markdown
@@ -20,6 +21,7 @@ lint:
         - javascript
         - graphql
         - prettier_supported_configs
+      description: A universal formatter
       commands:
         - name: format
           output: sarif

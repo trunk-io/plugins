@@ -13,6 +13,7 @@ lint:
     - name: golangci-lint
       files: [go]
       tools: [golangci-lint]
+      description: A powerful Go linter runner
       environment:
         - name: GOLANGCI_LINT_CACHE
           value: ${cachedir}
@@ -29,6 +30,8 @@ lint:
         - name: lint
           # Custom parser type defined in the trunk cli to handle golangci-lint's JSON output.
           output: golangci_lint
+          # We need to run golangci-lint on directories since running on files only works for --fast
+          # and can also produce false positives.
           target: ${parent}
           # Exclude go linters we already include.
           run:
@@ -45,7 +48,8 @@ lint:
           # 7 - error logged
           success_codes: [0, 2, 7]
           run_from: ${root_or_parent_with(go.mod)}
-          disable_upstream: true # TODO(Sam): re-enable the upstream for golang (needs test coverage)
+          # TODO(Tyler): Audit golangci-lint running on upstream once sandboxing and relative path fix is landed.
+          disable_upstream: true
       suggest_if: files_present
       direct_configs:
         - .golangci.json

@@ -2,11 +2,26 @@
 
 import json
 import sys
+from typing import Optional
 
 
 def to_result_sarif(
-    path: str, line_number: int, column_number: int, rule_id: str, message: str
+    path: str,
+    start_line_number: int,
+    start_column_number: int,
+    end_line_number: Optional[int],
+    end_column_number: Optional[int],
+    rule_id: str,
+    message: str,
 ):
+    region = {
+        "startLine": start_line_number,
+        "startColumn": start_column_number,
+    }
+    if end_line_number is not None and end_column_number is not None:
+        region["endLine"] = end_line_number
+        region["endColumn"] = end_column_number
+
     return {
         "level": "error",
         "locations": [
@@ -15,10 +30,7 @@ def to_result_sarif(
                     "artifactLocation": {
                         "uri": path,
                     },
-                    "region": {
-                        "startColumn": column_number,
-                        "startLine": line_number,
-                    },
+                    "region": region,
                 }
             }
         ],
@@ -36,13 +48,27 @@ def main(argv):
     for result in sqlfluff_json:
         filepath = result["filepath"]
         for violation in result["violations"]:
-            line_number = violation["line_no"]
-            column_number = violation["line_pos"]
+            # In sqlfluff 3.0.0, line_no/line_pos replaced with start_*/end_*
+            start_line_number = violation.get("start_line_no", violation.get("line_no"))
+            start_column_number = violation.get(
+                "start_line_pos", violation.get("line_pos")
+            )
+            end_line_number = violation.get("end_line_no")
+            end_column_number = violation.get("end_line_pos")
+
             rule_id = violation["code"]
             message = violation["description"]
 
             results.append(
-                to_result_sarif(filepath, line_number, column_number, rule_id, message)
+                to_result_sarif(
+                    filepath,
+                    start_line_number,
+                    start_column_number,
+                    end_line_number,
+                    end_column_number,
+                    rule_id,
+                    message,
+                )
             )
 
     sarif = {
