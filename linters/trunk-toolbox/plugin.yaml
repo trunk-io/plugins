@@ -26,12 +26,20 @@ lint:
       files: [ALL]
       commands:
         - name: lint
+          version: ">=0.4.1"
           run:
             trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
             ${target}
           output: sarif
           batch: true
           success_codes: [0]
+          read_output_from: tmp_file
+        - name: lint
+          run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
+          output: sarif
+          batch: true
+          success_codes: [0]
+          disable_upstream: true
           read_output_from: tmp_file
       suggest_if: never
       version_command:
