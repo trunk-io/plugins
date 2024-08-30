@@ -82,7 +82,7 @@ trunk check enable {linter}
 | Rust            | [clippy], [rustfmt]                                                                                                  |
 | Scala           | [scalafmt]                                                                                                           |
 | Security        | [checkov], [dustilock], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                          |
-| SQL             | [sqlfluff], [sqlfmt], [sql-formatter]                                                                                |
+| SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                      |
 | SVG             | [svgo]                                                                                                               |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                            |
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint], [tfsec], [terrascan], [tofu]                                    |
@@ -173,6 +173,7 @@ trunk check enable {linter}
 [sql-formatter]: https://github.com/sql-formatter-org/sql-formatter#readme
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff#readme
 [sqlfmt]: https://github.com/tconbeer/sqlfmt#readme
+[squawk]: https://github.com/sbdchd/squawk#readme
 [standardrb]: https://github.com/testdouble/standard#readme
 [stringslint]: https://github.com/dral3x/StringsLint#readme
 [stylelint]: https://github.com/stylelint/stylelint#readme

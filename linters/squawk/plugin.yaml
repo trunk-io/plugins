@@ -15,7 +15,7 @@ lint:
       files: [sql]
       tools: [squawk]
       known_good_version: 1.1.2
-      suggest_if: never
+      suggest_if: config_present
       direct_configs: [.squawk.toml]
       commands:
         - name: lint
