@@ -17,7 +17,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.7
+      ref: v1.0.8
 
 lint:
   files:
@@ -47,7 +47,6 @@ lint:
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
-    - trivy # investigating issues with shared cachedir
 
   ignore:
     - linters: [ALL]

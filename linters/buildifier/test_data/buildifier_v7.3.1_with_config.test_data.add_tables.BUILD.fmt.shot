@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter buildifier test with_config 1`] = `
+"foo_macro(
+    fizz = [
+        ":lib1",
+        ":lib2",
+    ],
+)
+
+filegroup(
+    name = "files",
+    srcs = glob(["**"]),
+)
+
+sh_library(
+    name = "lib1",
+    srcs = ["src1.sh"],
+)
+
+sh_library(
+    name = "lib2",
+    srcs = ["src1.sh"],
+)
+
+sh_binary(
+    name = "foo",
+    srcs = ["foo.sh"],
+    deps = [
+        ":lib1",
+        ":lib2",
+    ],
+)
+"
+`;
