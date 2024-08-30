@@ -1,0 +1,29 @@
+version: 0.1
+tools:
+  definitions:
+    - name: squawk
+      runtime: node
+      package: squawk-cli
+      known_good_version: 1.1.2
+      shims: [squawk]
+      health_checks:
+        - command: squawk --version
+          parse_regex: squawk ${semver}
+lint:
+  definitions:
+    - name: squawk
+      files: [sql]
+      tools: [squawk]
+      known_good_version: 1.1.2
+      suggest_if: never
+      direct_configs: [.squawk.toml]
+      commands:
+        - name: lint
+          run: squawk --reporter Gcc ${target}
+          output: regex
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          parse_regex:
+            "(?P<path>.*):(?P<line>\\d+):(?P<col>\\d+): (?P<severity>\\S*) (?P<code>\\S*)
+            (?P<message>.*)"
