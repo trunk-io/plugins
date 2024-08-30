@@ -2,7 +2,7 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.3.0
+    version: 0.4.0
     downloads:
       - os:
           linux: unknown-linux-gnu
@@ -17,7 +17,7 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.3.0
+      known_good_version: 0.4.0
 lint:
   definitions:
     - name: trunk-toolbox
@@ -30,7 +30,6 @@ lint:
           batch: true
           success_codes: [0]
           read_output_from: tmp_file
-          disable_upstream: true
       suggest_if: never
       version_command:
         parse_regex: ${semver}
