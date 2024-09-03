@@ -21,7 +21,7 @@ tools:
 lint:
   definitions:
     - name: trunk-toolbox
-      description: repository level linting tools
+      description: Repository level linting tools
       main_tool: trunk-toolbox
       files: [ALL]
       commands:
