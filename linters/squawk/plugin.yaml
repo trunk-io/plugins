@@ -7,9 +7,6 @@ tools:
       # First version to include Windows install.
       known_good_version: 1.2.0
       shims: [squawk]
-      health_checks:
-        - command: squawk --version
-          parse_regex: squawk ${semver}
 lint:
   definitions:
     - name: squawk
