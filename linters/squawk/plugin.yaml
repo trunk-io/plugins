@@ -18,6 +18,16 @@ lint:
       direct_configs: [.squawk.toml]
       commands:
         - name: lint
+          platforms: [windows]
+          run: ${linter}/node_modules/squawk-cli/js/binaries/squawk --reporter Gcc ${target}
+          output: regex
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          parse_regex:
+            "(?P<path>.*):(?P<line>\\d+):(?P<col>\\d+): (?P<severity>\\S*) (?P<code>\\S*)
+            (?P<message>.*)"
+        - name: lint
           run: squawk --reporter Gcc ${target}
           output: regex
           success_codes: [0, 1]
