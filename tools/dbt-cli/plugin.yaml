@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: dbt-cli
+    version: 0.38.14
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/dbt-labs/dbt-cli/releases/download/v${version}/dbt_${version}_${os}_${cpu}.tar.gz
+      - os:
+          macos: darwin
+        url: https://github.com/dbt-labs/dbt-cli/releases/download/v${version}/dbt_${version}_darwin_all.tar.gz
+      - os:
+          windows: windows
+        url: https://github.com/dbt-labs/dbt-cli/releases/download/v${version}/dbt_${version}_windows_amd64.tar.gz
+tools:
+  definitions:
+    - name: dbt-cli
+      download: dbt-cli
+      known_good_version: 0.38.14
+      shims: [dbt]
+      health_checks:
+        - command: dbt --version
+          parse_regex: dbt Cloud CLI - ${semver}
