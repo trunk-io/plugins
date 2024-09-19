@@ -1,6 +1,6 @@
 version: 0.1
 downloads:
-  - name: dbt
+  - name: dbt-cli
     version: 0.38.14
     downloads:
       - os:
@@ -17,8 +17,8 @@ downloads:
         url: https://github.com/dbt-labs/dbt-cli/releases/download/v${version}/dbt_${version}_windows_amd64.tar.gz
 tools:
   definitions:
-    - name: dbt
-      download: dbt
+    - name: dbt-cli
+      download: dbt-cli
       known_good_version: 0.38.14
       shims: [dbt]
       health_checks:
