@@ -33,6 +33,8 @@ lint:
           output: sarif
           batch: true
           success_codes: [0]
+          cache_results: true
+          cache_ttl: 1h
           read_output_from: tmp_file
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
