@@ -4,8 +4,8 @@ tools:
     - name: squawk
       runtime: node
       package: squawk-cli
-      # First version to include Windows install.
-      known_good_version: 1.2.0
+      # First version to include Windows install and linux arm64
+      known_good_version: 1.4.0
       shims: [squawk]
 lint:
   definitions:
@@ -13,7 +13,7 @@ lint:
       description: A linter for Postgres migrations
       files: [sql]
       tools: [squawk]
-      known_good_version: 1.2.0
+      known_good_version: 1.4.0
       suggest_if: config_present
       direct_configs: [.squawk.toml]
       commands:
