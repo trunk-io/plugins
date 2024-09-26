@@ -137,6 +137,7 @@ trunk check enable {linter}
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [markdownlint]: https://github.com/DavidAnson/markdownlint#readme
+[markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2#readme
 [markdown-table-prettify]: https://github.com/darkriszty/MarkdownTablePrettify-VSCodeExt#readme
 [markdown-link-check]: https://github.com/tcort/markdown-link-check#readme
 [mypy]: https://github.com/python/mypy#readme
