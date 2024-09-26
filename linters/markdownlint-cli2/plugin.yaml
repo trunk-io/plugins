@@ -25,7 +25,7 @@ lint:
           success_codes: [0, 1]
           batch: true
           cache_results: true
-      suggest_if: files_present
+      suggest_if: config_present
       direct_configs:
         - .markdownlint-cli2.jsonc
         - .markdownlint-cli2.yaml

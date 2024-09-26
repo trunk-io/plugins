@@ -20,7 +20,7 @@ lint:
           success_codes: [0, 1]
           batch: true
           cache_results: true
-      suggest_if: config_present
+      suggest_if: files_present
       direct_configs:
         - .markdownlint.json
         - .markdownlint.yaml
