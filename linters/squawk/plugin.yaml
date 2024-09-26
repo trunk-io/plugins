@@ -1,0 +1,38 @@
+version: 0.1
+tools:
+  definitions:
+    - name: squawk
+      runtime: node
+      package: squawk-cli
+      # First version to include Windows install and linux arm64
+      known_good_version: 1.4.0
+      shims: [squawk]
+lint:
+  definitions:
+    - name: squawk
+      description: A linter for Postgres migrations
+      files: [sql]
+      tools: [squawk]
+      known_good_version: 1.4.0
+      suggest_if: config_present
+      direct_configs: [.squawk.toml]
+      commands:
+        - name: lint
+          platforms: [windows]
+          run: ${linter}/node_modules/squawk-cli/js/binaries/squawk --reporter Gcc ${target}
+          output: regex
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          parse_regex:
+            "(?P<path>.*):(?P<line>\\d+):(?P<col>\\d+): (?P<severity>\\S*) (?P<code>\\S*)
+            (?P<message>.*)"
+        - name: lint
+          run: squawk --reporter Gcc ${target}
+          output: regex
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          parse_regex:
+            "(?P<path>.*):(?P<line>\\d+):(?P<col>\\d+): (?P<severity>\\S*) (?P<code>\\S*)
+            (?P<message>.*)"

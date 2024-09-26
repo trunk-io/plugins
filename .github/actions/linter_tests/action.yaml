@@ -128,7 +128,7 @@ runs:
       with:
         junit-paths: junit.xml
         org-slug: trunk-staging-org
-        token: ${{ inputs.trunk-token }}
+        token: ${{ inputs.trunk-staging-token }}
       continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

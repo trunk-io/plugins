@@ -84,7 +84,7 @@ lint:
       return;
     }
     try {
-      // trunk-ignore(eslint/@typescript-eslint/no-useless-template-literals): Cast to string to handle decimal case
+      // trunk-ignore(eslint/@typescript-eslint/no-unnecessary-template-expression): Cast to string to handle decimal case
       const version = `${this.extractToolVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
       const toolVersionString = `${this.tool}${versionString}`;
