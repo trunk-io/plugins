@@ -11,6 +11,7 @@ lint:
     - name: detekt
       files: [kotlin]
       download: detekt
+      description: Static code analysis for Kotlin
       commands:
         - name: lint
           platforms: [windows]
@@ -45,6 +46,7 @@ lint:
     - name: detekt-explicit
       files: [kotlin]
       download: detekt
+      description: Static code analysis for Kotlin
       commands:
         - name: lint
           platforms: [windows]
@@ -75,6 +77,7 @@ lint:
     - name: detekt-gradle
       supported_platforms: [linux, macos]
       files: [kotlin]
+      description: Static code analysis for Kotlin
       commands:
         - name: lint
           # Custom parser/trigger type defined in the trunk cli.

@@ -21,6 +21,7 @@ lint:
       files: [go-lockfile]
       download: nancy
       runtime: go
+      description: Checks for vulnerabilities in your Go dependencies
       commands:
         - output: sarif
           run: sh ${plugin}/linters/nancy/run.sh

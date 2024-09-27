@@ -1,158 +1,169 @@
 [
   {
+    "file": "test_data/aws.tf",
     "line": "1",
+    "message": "Instance does not require IMDS access to require a token",
     "code": "AVD-AWS-0028",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "terraform",
-    "isSecurity": true,
-    "message": "Instance does not require IMDS access to require a token",
-    "file": "test_data/aws.tf"
+    "isSecurity": true
   },
   {
+    "file": "test_data/aws.tf",
     "line": "1",
+    "message": "Root block device is not encrypted.",
     "code": "AVD-AWS-0131",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "terraform",
-    "isSecurity": true,
-    "message": "Root block device is not encrypted.",
-    "file": "test_data/aws.tf"
+    "isSecurity": true
   },
   {
-    "code": "DS026",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "docker",
-    "isSecurity": true,
-    "message": "Add HEALTHCHECK instruction in your Dockerfile",
-    "file": "test_data/basic.Dockerfile"
-  },
-  {
+    "file": "test_data/basic.Dockerfile",
+    "message": "Specify at least 1 USER command in Dockerfile with non-root user as argument",
     "code": "DS002",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "docker",
-    "isSecurity": true,
-    "message": "Specify at least 1 USER command in Dockerfile with non-root user as argument",
-    "file": "test_data/basic.Dockerfile"
+    "isSecurity": true
   },
   {
-    "code": "KSV116",
+    "file": "test_data/basic.Dockerfile",
+    "message": "Add HEALTHCHECK instruction in your Dockerfile",
+    "code": "DS026",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "pod security-context-demo in default namespace should set spec.securityContext.runAsGroup, spec.securityContext.supplementalGroups[*] and spec.securityContext.fsGroup to integer greater than 0",
-    "file": "test_data/basic.yaml"
+    "targetType": "docker",
+    "isSecurity": true
   },
   {
+    "file": "test_data/basic.yaml",
+    "message": "container \"sec-ctx-demo\" of pod \"security-context-demo\" in \"default\" namespace should specify a seccomp profile",
     "code": "KSV104",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "yaml",
-    "isSecurity": true,
-    "message": "container sec-ctx-demo of pod security-context-demo in default namespace should specify a seccomp profile",
-    "file": "test_data/basic.yaml"
+    "isSecurity": true
   },
   {
+    "file": "test_data/basic.yaml",
     "line": "14",
-    "code": "KSV106",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "container should drop all",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
-    "code": "KSV020",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsUser' > 10000",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should add 'ALL' to 'securityContext.capabilities.drop'",
     "code": "KSV003",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should add 'ALL' to 'securityContext.capabilities.drop'",
-    "file": "test_data/basic.yaml"
+    "isSecurity": true
   },
   {
+    "file": "test_data/basic.yaml",
     "line": "14",
-    "code": "KSV013",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should specify an image tag",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
-    "code": "KSV021",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsGroup' > 10000",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
-    "code": "KSV014",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.readOnlyRootFilesystem' to true",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
-    "code": "KSV030",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-    "file": "test_data/basic.yaml"
-  },
-  {
-    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.cpu'",
     "code": "KSV011",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.cpu'",
-    "file": "test_data/basic.yaml"
+    "isSecurity": true
   },
   {
+    "file": "test_data/basic.yaml",
     "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsNonRoot' to true",
     "code": "KSV012",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsNonRoot' to true",
-    "file": "test_data/basic.yaml"
+    "isSecurity": true
   },
   {
+    "file": "test_data/basic.yaml",
     "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should specify an image tag",
+    "code": "KSV013",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.readOnlyRootFilesystem' to true",
+    "code": "KSV014",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.memory'",
     "code": "KSV018",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "yaml",
-    "isSecurity": true,
-    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'resources.limits.memory'",
-    "file": "test_data/basic.yaml"
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsUser' > 10000",
+    "code": "KSV020",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "Container 'sec-ctx-demo' of Pod 'security-context-demo' should set 'securityContext.runAsGroup' > 10000",
+    "code": "KSV021",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+    "code": "KSV030",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/basic.yaml",
+    "line": "14",
+    "message": "container should drop all",
+    "code": "KSV106",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "yaml",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/main.tf",
+    "line": "17",
+    "message": "IAM policy document uses sensitive action 'logs:CreateLogGroup' on wildcarded resource '34c9c025-d988-4bcc-9d4a-4581749e7576:*'",
+    "code": "AVD-AWS-0057",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "terraform",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/main.tf",
+    "line": "17",
+    "message": "Function does not have tracing enabled.",
+    "code": "AVD-AWS-0066",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "terraform",
+    "isSecurity": true
   }
 ]

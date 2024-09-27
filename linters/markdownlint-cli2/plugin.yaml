@@ -1,0 +1,46 @@
+version: 0.1
+tools:
+  definitions:
+    - name: markdownlint-cli2
+      runtime: node
+      package: markdownlint-cli2
+      shims: [markdownlint-cli2]
+      known_good_version: 0.14.0
+
+lint:
+  definitions:
+    - name: markdownlint-cli2
+      files: [markdown]
+      tools: [markdownlint-cli2]
+      description: A style checker and lint tool for markdown files
+      commands:
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle markdownlint's JSON output.
+          output: regex
+          read_output_from: stderr
+          parse_regex:
+            "(?P<path>[^:]+):(?P<line>[\\d+]+)(?::(?P<col>[\\d+]+))? (?P<code>[^ ]+)
+            (?P<message>.*)\n"
+          run: markdownlint-cli2 ${target} --json
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+      suggest_if: config_present
+      direct_configs:
+        - .markdownlint-cli2.jsonc
+        - .markdownlint-cli2.yaml
+        - .markdownlint-cli2.cjs
+        - .markdownlint-cli2.mjs
+      affects_cache:
+        - package.json
+        - .markdownlint.jsonc
+        - .markdownlint.json
+        - .markdownlint.yaml
+        - .markdownlint.yml
+        - .markdownlint.cjs
+        - .markdownlint.mjs
+      issue_url_format: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#{}
+      known_good_version: 0.14.0
+      version_command:
+        parse_regex: ${semver}
+        run: markdownlint --version

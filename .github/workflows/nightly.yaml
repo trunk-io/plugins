@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -66,8 +66,10 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -80,10 +82,10 @@ jobs:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -157,12 +159,11 @@ jobs:
 
       - name: Delete cache
         # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
-        if: env.TRIGGER != 'pull_request'
         run: |
-          if [ -d "/tmp/plugins_testing_download_cache" ]
+          if [ -d "${TMPDIR:-/tmp}/plugins_testing_download_cache" ]
           then
-            tmp_dir=/tmp/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
-            mv "/tmp/plugins_testing_download_cache" ${tmp_dir}
+            tmp_dir=${TMPDIR:-/tmp}/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "${TMPDIR:-/tmp}/plugins_testing_download_cache" ${tmp_dir}
             chmod -R u+w ${tmp_dir}
             rm -rf ${tmp_dir}
           fi
@@ -174,13 +175,15 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
+          ref-type: release
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: ${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -200,6 +203,7 @@ jobs:
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
       upload-validated-versions: true
@@ -215,10 +219,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-x64, macOS, windows-latest]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
-          - os: ubuntu-x64
+          - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
@@ -234,12 +238,13 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
         if: (failure() || success())
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: tools-${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -254,6 +259,7 @@ jobs:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-
@@ -268,7 +274,7 @@ jobs:
 
   action_tests_main:
     name: Action Tests Main
-    runs-on: [self-hosted, Linux]
+    runs-on: [ubuntu-latest]
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -277,4 +283,5 @@ jobs:
       - name: Action Tests
         uses: ./.github/actions/action_tests
         with:
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

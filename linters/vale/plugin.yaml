@@ -1,0 +1,47 @@
+version: 0.1
+
+downloads:
+  - name: vale
+    downloads:
+      - os:
+          linux: Linux
+          macos: macOS
+        cpu:
+          x86_64: 64-bit
+          arm_64: arm64
+        url: https://github.com/errata-ai/vale/releases/download/v${version}/vale_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: 64-bit
+          arm_64: arm64
+        url: https://github.com/errata-ai/vale/releases/download/v${version}/vale_${version}_Windows_${cpu}.zip
+
+tools:
+  definitions:
+    - name: vale
+      download: vale
+      shims: [vale]
+      known_good_version: 3.4.1
+      environment:
+        - name: PATH
+          # Needs access to shared libraries on Windows.
+          list: ["${tool}", "${env.PATH}"]
+
+lint:
+  definitions:
+    - name: vale
+      files: [ALL]
+      description: Enforce editorial standards in your text documents
+      commands:
+        - name: lint
+          output: regex
+          parse_regex: (?P<path>.*):(?P<line>\d+):(?P<col>\d+):(?P<severity>[^:]+):(?P<message>.+)
+          run: vale --output=line ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+      suggest_if: config_present
+      tools: [vale]
+      known_good_version: 3.4.1
+      direct_configs: [.vale.ini]

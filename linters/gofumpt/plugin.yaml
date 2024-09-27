@@ -11,6 +11,7 @@ lint:
     - name: gofumpt
       tools: [gofumpt]
       files: [go]
+      description: An opinionated formatter for Go code
       commands:
         - name: format
           output: rewrite

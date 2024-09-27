@@ -47,6 +47,10 @@ runtimes:
         - name: NPM_CONFIG_USERCONFIG
           value: ${env.NPM_CONFIG_USERCONFIG}
           optional: true
+          # Necessary for some Windows install scripts
+        - name: COMSPEC
+          value: ${env.COMSPEC}
+          optional: true
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]

@@ -21,6 +21,8 @@ export interface SetupSettings {
   trunkVersion?: string;
 }
 
+export type CustomExecOptions = ExecOptions & { stdin?: string };
+
 const execFilePromise = util.promisify(execFile);
 
 const TEMP_SUBDIR = "tmp";
@@ -29,8 +31,8 @@ const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it 
 Please call this method after setup has been called.`;
 
 export const executionEnv = (sandbox: string) => {
-  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Strip TRUNK_CLI_VERSION from CI-Debugger
-  const { PWD, INIT_CWD, TRUNK_CLI_VERSION, ...strippedEnv } = process.env;
+  // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Remove vars.
+  const { PWD, INIT_CWD, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
     // This keeps test downloads separate from manual trunk invocations
@@ -378,13 +380,41 @@ export abstract class GenericTrunkDriver {
    * Run a command inside the sandbox test repo.
    * @param bin command to run
    * @param args arguments to run
-   * @param execOptions
+   * @param execOptions options to pass the stdin to exec
    */
-  async run(bin: string, args: string[], execOptions?: ExecOptions) {
-    return await execFilePromise(bin, args, {
+  async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
+    const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(this.sandboxPath ?? ""),
       ...execOptions,
+    });
+    exec.stdin?.write(execOptions?.stdin ?? "");
+    exec.stdin?.end();
+
+    return await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+      let stdout = "";
+      let stderr = "";
+
+      exec.stdout?.on("data", (chunk: string) => {
+        stdout += chunk;
+      });
+
+      exec.stderr?.on("data", (chunk: string) => {
+        stderr += chunk;
+      });
+
+      exec.on("error", (err: any) => {
+        // trunk-ignore(eslint/@typescript-eslint/prefer-promise-reject-errors)
+        reject(err);
+      });
+      exec.on("exit", (code: number) => {
+        if (code === 0) {
+          resolve({ stdout, stderr });
+        } else {
+          // trunk-ignore(eslint/@typescript-eslint/prefer-promise-reject-errors)
+          reject({ error: new Error(`Process exited with code ${code}`), code, stdout, stderr });
+        }
+      });
     });
   }
 }

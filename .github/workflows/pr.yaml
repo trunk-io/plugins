@@ -117,7 +117,7 @@ jobs:
   # Run tests against all linters for known_good_version and latest version
   linter_tests:
     name: Linter Tests ${{ matrix.os }}
-    runs-on: [self-hosted, "${{ matrix.os }}"]
+    runs-on: ${{ matrix.os }}
     needs: detect_changes
     if:
       needs.detect_changes.outputs.linters == 'true' || needs.detect_changes.outputs.all-linters ==
@@ -126,21 +126,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [Linux, macOS]
+        os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      # TODO(Tyler): Remove this once the cache has stabilized
+      - name: Delete cache (mac only)
+        if: matrix.os == 'macOS'
+        # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
+        run: |
+          if [ -d "${TMPDIR:-/tmp}/plugins_testing_download_cache" ]
+          then
+            tmp_dir=${TMPDIR:-/tmp}/${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}
+            mv "${TMPDIR:-/tmp}/plugins_testing_download_cache" ${tmp_dir}
+            chmod -R u+w ${tmp_dir}
+            rm -rf ${tmp_dir}
+          fi
+        shell: bash
 
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -150,13 +166,15 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests:
     name: Tool Tests
-    runs-on: [self-hosted, "${{ matrix.os }}"]
+    runs-on: ${{ matrix.os }}
     needs: detect_changes
     if:
       needs.detect_changes.outputs.tools == 'true' || needs.detect_changes.outputs.all-tools ==
@@ -165,7 +183,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [Linux, macOS]
+        os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -178,11 +196,12 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   action_tests:
     name: Action Tests
-    runs-on: [self-hosted, Linux]
+    runs-on: ubuntu-latest
     needs: detect_changes
     if:
       needs.detect_changes.outputs.actions == 'true' || needs.detect_changes.outputs.all-actions ==
@@ -198,7 +217,8 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
             needs.detect_changes.outputs.actions-files }} --
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   trunk_check_runner:
     name: Trunk Check runner [linux]
@@ -214,7 +234,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@540e7fe497a45ae76370d26d95cc249059c4ac3a
+        uses: trunk-io/trunk-action@86b68ffae610a05105e90b1f52ad8c549ef482c2
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
@@ -241,10 +261,12 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   windows_tool_tests:
     name: Windows Tool Tests
@@ -268,7 +290,8 @@ jobs:
         with:
           append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:

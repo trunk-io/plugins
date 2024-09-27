@@ -1,0 +1,24 @@
+version: 0.1
+downloads:
+  - name: docker-credential-ecr-login
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/${version}/${os}-${cpu}/docker-credential-ecr-login
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/${version}/windows-${cpu}/docker-credential-ecr-login.exe
+tools:
+  definitions:
+    - name: docker-credential-ecr-login
+      download: docker-credential-ecr-login
+      known_good_version: 0.8.0
+      shims: [docker-credential-ecr-login]

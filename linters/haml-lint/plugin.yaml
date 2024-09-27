@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: haml-lint
       files: [haml]
+      description: Keeps HAML files clean and readable
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle haml_lint's JSON output.

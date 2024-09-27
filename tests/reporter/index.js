@@ -1,4 +1,3 @@
-// trunk-ignore-all(eslint)
 const path = require("path");
 const tsNode = require("ts-node");
 

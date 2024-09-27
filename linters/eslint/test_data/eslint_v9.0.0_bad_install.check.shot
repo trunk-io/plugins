@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter eslint test bad_install 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/eof_autofix.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/eof_autofix.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/format_imports.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/format_imports.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/non_ascii.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/non_ascii.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/null_rule_id.ts",
+      "name": "eslint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/null_rule_id.ts",
+      "name": "eslint",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

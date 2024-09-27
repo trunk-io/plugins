@@ -11,6 +11,7 @@ lint:
     - name: golines
       files: [go]
       tools: [golines]
+      description: Enforces line limits in Go
       commands:
         - name: format
           output: rewrite

@@ -9,6 +9,7 @@ lint:
       # https://download.visualstudio.microsoft.com/download/pr/0f17575a-a6b0-4365-9b79-64db70022d23/56e0da10678e4b2cad0cba0a83a561af/dotnet-sdk-7.0.400-win-x86.zip,
       # but we don't support that yet.
       known_good_version: 7.0.400
+      description: A formatter for dotnet files
       commands:
         - name: format
           run: dotnet format --no-restore --include ${target}

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter markdownlint-cli2 test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "MD025/single-title/single-h1",
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025/single-title/single-h1",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "markdownlint-cli2",
+      "message": "Multiple top-level headings in the same document [Context: "This file fails some rules"]",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "markdownlint-cli2",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "markdownlint-cli2",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

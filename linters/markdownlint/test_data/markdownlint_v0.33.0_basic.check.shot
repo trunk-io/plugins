@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter markdownlint test basic 1`] = `
 {
@@ -7,7 +8,7 @@ exports[`Testing linter markdownlint test basic 1`] = `
       "code": "MD025",
       "file": "test_data/basic.in.md",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/vx.x.x/doc/md025.md",
       "level": "LEVEL_LOW",
       "line": "3",
       "linter": "markdownlint",

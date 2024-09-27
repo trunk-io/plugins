@@ -267,6 +267,7 @@ interface ToolTestConfig {
   expectedOut?: string;
   expectedErr?: string;
   expectedExitCode?: number;
+  stdin?: string;
 }
 
 export const makeToolTestConfig = ({
@@ -274,11 +275,13 @@ export const makeToolTestConfig = ({
   expectedOut = "",
   expectedErr = "",
   expectedExitCode = 0,
+  stdin = "",
 }: ToolTestConfig) => ({
   command,
   expectedOut,
   expectedErr,
   expectedExitCode,
+  stdin,
 });
 
 export const toolTest = ({
@@ -298,9 +301,9 @@ export const toolTest = ({
 }) => {
   describe(`Testing tool ${toolName}`, () => {
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
-    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode }) => {
+    testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode, stdin }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
-        const { stdout, stderr, exitCode } = await driver.runTool(command);
+        const { stdout, stderr, exitCode } = await driver.runTool(command, stdin);
         expect(stdout).toContain(expectedOut);
         expect(stderr).toContain(expectedErr);
         expect(exitCode).toEqual(expectedExitCode);
@@ -836,6 +839,7 @@ export const linterFmtTest = ({
               snapshotPath,
             );
             registerFailureMode("assertion_failure");
+            // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
             expect(fs.readFileSync(testRunResult.targetPath!, "utf-8")).toMatchSpecificSnapshot(
               snapshotPath,
             );

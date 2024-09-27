@@ -44,12 +44,14 @@ jobs:
         uses: ./.github/actions/linter_tests
         with:
           linter-version: ${{ matrix.linter-version }}
+          ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           # manually specify more parallelism to avoid bottlenecks
           append-args: linters -- --maxWorkers=5
-          # CI Debugger is not yet supported on Windows
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          # Analytics uploader is not yet supported on Windows
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests_main:
     name: Tool Tests Main
@@ -87,5 +89,6 @@ jobs:
         with:
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: tools -- --maxWorkers=5
-          # CI Debugger is not yet supported on Windows
-          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          # Analytics uploader is not yet supported on Windows
+          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
+          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

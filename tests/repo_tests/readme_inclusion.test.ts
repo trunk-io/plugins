@@ -12,6 +12,7 @@ const readmeTableContents = readmeContents.substring(
 );
 const reducedReadmeContents = readmeTableContents ? readmeTableContents : readmeContents;
 
+// TODO(Tyler): Move this to 'definition-checker' linter.
 // This test asserts that all linters are included in the root README.md. This does not cover subcommands, and it assumes one
 // directory per linter. Name mapping can be achieved through `abbreviationMapping`.
 describe("All linters must be included in README.md", () => {

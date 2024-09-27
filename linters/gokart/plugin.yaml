@@ -12,6 +12,7 @@ lint:
       files: [go]
       tools: [gokart]
       suggest_if: config_present
+      description: Checks for security issues in Go code.
       environment:
         - name: PATH
           list: ["${linter}"]

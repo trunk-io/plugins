@@ -2,7 +2,7 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.3.1
+    version: 0.4.1
     downloads:
       - os:
           linux: unknown-linux-gnu
@@ -17,20 +17,30 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.3.1
+      known_good_version: 0.4.1
 lint:
   definitions:
     - name: trunk-toolbox
+      description: Repository level linting tools
       main_tool: trunk-toolbox
       files: [ALL]
       commands:
+        - name: lint
+          version: ">=0.4.1"
+          run:
+            trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
+            ${target}
+          output: sarif
+          batch: true
+          success_codes: [0]
+          read_output_from: tmp_file
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
           batch: true
           success_codes: [0]
-          read_output_from: tmp_file
           disable_upstream: true
+          read_output_from: tmp_file
       suggest_if: never
       version_command:
         parse_regex: ${semver}

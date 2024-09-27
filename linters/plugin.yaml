@@ -5,6 +5,14 @@ lint:
       leading_delimiter: "{-"
       trailing_delimiter: "-}"
 
+    - name: brace-slashes-block
+      leading_delimiter: "{/*"
+      trailing_delimiter: "*/}"
+
+    - name: brace-slashes-block-spaced
+      leading_delimiter: "{ /*"
+      trailing_delimiter: "*/ }"
+
     - name: dashes-block
       leading_delimiter: --[[
       trailing_delimiter: --]]
@@ -68,6 +76,18 @@ lint:
         - WORKSPACE.bazel
       comments:
         - hash
+
+    - name: bazel-module
+      filenames:
+        - MODULE.bazel
+      comments:
+        - hash
+
+    - name: bazel
+      inherit:
+        - bazel-build
+        - bazel-workspace
+        - bazel-module
 
     - name: c
       inherit:
@@ -148,6 +168,13 @@ lint:
         - css
       comments:
         - slashes-block
+
+    - name: cuda
+      extensions:
+        - cu
+      comments:
+        - slashes-block
+        - slashes-inline
 
     - name: cue
       extensions:
@@ -275,11 +302,21 @@ lint:
       extensions:
         - cjs
         - js
-        - jsx
         - mjs
+      inherit:
+        - javascript-xml
       comments:
         - slashes-block
         - slashes-inline
+
+    - name: javascript-xml
+      extensions:
+        - jsx
+      comments:
+        - slashes-block
+        - slashes-inline
+        - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: json
       extensions:
@@ -352,9 +389,13 @@ lint:
         - requirements.txt
         - Pipfile.lock
         - poetry.lock
+        - pdm.lock
 
         # Ruby
         - Gemfile.lock
+
+        # R
+        - renv.lock
 
     - name: lua
       extensions:
@@ -411,6 +452,12 @@ lint:
     - name: png
       extensions:
         - png
+
+    - name: postcss
+      extensions:
+        # TODO(Tyler): Do we want to include css here as well?
+        - pcss
+        - postcss
 
     - name: powershell
       extensions:
@@ -527,6 +574,12 @@ lint:
         - strings
         - stringsdict
 
+    - name: svelte
+      extensions:
+        - svelte
+      comments:
+        - html-tag
+
     - name: svg
       extensions:
         - svg
@@ -541,13 +594,24 @@ lint:
       extensions:
         - tf
         - tf.json
+      comments:
+        - hash
+        - slashes-inline
+        - slashes-block
 
     - name: textproto
       extensions:
+        - pbtxt
         - textpb
         - textproto
+        - txtpb
       comments:
         - hash
+
+    - name: tfvars
+      extensions:
+        # terraform/tofu can't format .tfvars.json files
+        - tfvars
 
     - name: toml
       extensions:
@@ -559,10 +623,20 @@ lint:
       extensions:
         - mts
         - ts
+      inherit:
+        - typescript-xml
+      comments:
+        - slashes-block
+        - slashes-inline
+
+    - name: typescript-xml
+      extensions:
         - tsx
       comments:
         - slashes-block
         - slashes-inline
+        - brace-slashes-block
+        - brace-slashes-block-spaced
 
     - name: xib
       extensions:

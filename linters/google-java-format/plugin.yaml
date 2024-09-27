@@ -9,6 +9,7 @@ lint:
     - name: google-java-format
       files: [java]
       download: google-java-format.jar
+      description: A formatter for Java files
       commands:
         - name: format
           platforms: [windows]

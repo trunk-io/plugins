@@ -12,6 +12,7 @@ const preCheck = (driver: TrunkLintDriver) => {
 
   driver.writeFile(".trunk/configs/.stylelintrc", stylelintContents);
 
+  // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
   const configVersion = semver.gte(driver.enabledVersion!, "16.0.0")
     ? "stylelint-config-standard@35.0.0"
     : "stylelint-config-standard@25.0.0";

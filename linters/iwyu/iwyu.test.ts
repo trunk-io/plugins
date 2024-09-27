@@ -31,7 +31,7 @@ const preCheck = (driver: TrunkLintDriver) => {
   const oldCompileContents = driver.readFile(compileCommandsPath);
   const newCompileContents = oldCompileContents.replace(
     /\$\{EXECUTION_ROOT\}/g,
-    `${path.resolve(driver.getSandbox(), TEST_DATA)}`,
+    path.resolve(driver.getSandbox(), TEST_DATA),
   );
   driver.writeFile(compileCommandsPath, newCompileContents);
 };

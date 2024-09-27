@@ -16,6 +16,8 @@ const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
+const VALIDATED_LINTER_BLOCKLIST: string[] = [];
+
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "missing_repo";
@@ -323,7 +325,11 @@ const writeTestResults = (testResults: TestResultSummary) => {
   const pluginVersion = PLUGIN_VERSION;
   const validatedVersions = Array.from(testResults.testResults).reduce(
     (accumulator: ValidatedVersion[], [linter, { version, testResultStatus }]) => {
-      if (testResultStatus === "passed" && version) {
+      if (
+        testResultStatus === "passed" &&
+        version &&
+        !VALIDATED_LINTER_BLOCKLIST.includes(linter)
+      ) {
         const additionalValidatedVersion: ValidatedVersion = { linter, version };
         return accumulator.concat([additionalValidatedVersion]);
       }

@@ -10,6 +10,7 @@ lint:
   definitions:
     - name: isort
       files: [python]
+      description: Sorts your Python imports
       commands:
         - name: format
           output: rewrite

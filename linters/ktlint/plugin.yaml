@@ -12,6 +12,7 @@ lint:
       files: [kotlin]
       download: ktlint
       runtime: java
+      description: An anti-bikeshedding Kotlin linter and formatter
       commands:
         - name: format
           platforms: [windows]
