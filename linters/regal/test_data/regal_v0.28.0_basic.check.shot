@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter regal test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "opa-fmt",
+      "column": "1",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "regal",
+      "message": "File should be formatted with \`opa fmt\`",
+      "targetType": "rego",
+    },
+    {
+      "code": "directory-package-mismatch",
+      "column": "9",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "regal",
+      "message": "Directory structure should mirror package",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.rego",
+          "length": "5",
+          "offset": "8",
+        },
+      ],
+      "targetType": "rego",
+    },
+    {
+      "code": "prefer-snake-case",
+      "column": "1",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "regal",
+      "message": "Prefer snake_case for names",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.rego",
+          "length": "10",
+          "offset": "119",
+        },
+      ],
+      "targetType": "rego",
+    },
+    {
+      "code": "non-raw-regex-pattern",
+      "column": "27",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "regal",
+      "message": "Use raw strings for regex patterns",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.rego",
+          "length": "18",
+          "offset": "145",
+        },
+      ],
+      "targetType": "rego",
+    },
+    {
+      "code": "use-assignment-operator",
+      "column": "15",
+      "file": "test_data/basic.in.rego",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "regal",
+      "message": "Prefer := over = for assignment",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.rego",
+          "length": "1",
+          "offset": "45",
+        },
+      ],
+      "targetType": "rego",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "rego",
+      "linter": "regal",
+      "paths": [
+        "test_data/basic.in.rego",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "rego",
+      "linter": "regal",
+      "paths": [
+        "test_data/basic.in.rego",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
