@@ -234,7 +234,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@86b68ffae610a05105e90b1f52ad8c549ef482c2
+        uses: trunk-io/trunk-action@12da16fcdd5cad1903d0082e591e09df7b67c7f0
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
@@ -251,7 +251,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4.1.0
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
@@ -279,7 +279,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4.1.0
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
