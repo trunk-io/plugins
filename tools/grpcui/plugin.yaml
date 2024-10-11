@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: grpcui
+    downloads:
+      - os:
+          linux: linux
+          macos: osx
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/fullstorydev/grpcui/releases/download/v${version}/grpcui_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/fullstorydev/grpcui/releases/download/v${version}/grpcui_${version}_windows_x86_64.zip
+tools:
+  definitions:
+    - name: grpcui
+      download: grpcui
+      known_good_version: 1.4.1
+      shims: [grpcui]
+      health_checks:
+        - command: grpcui --version
+          parse_regex: grpcui v${semver}
+          check_stderr: true
