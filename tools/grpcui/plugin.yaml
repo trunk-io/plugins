@@ -4,7 +4,7 @@ downloads:
     downloads:
       - os:
           linux: linux
-          macos: darwin
+          macos: osx
         cpu:
           x86_64: x86_64
           arm_64: arm64
