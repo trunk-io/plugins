@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.7-beta.8
+  version: 1.22.8-beta.1
   shell_hooks:
     enforce: true
 
