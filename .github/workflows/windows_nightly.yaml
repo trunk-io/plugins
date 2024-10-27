@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -62,7 +62,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.

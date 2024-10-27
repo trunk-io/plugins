@@ -43,7 +43,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -151,7 +151,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu, mac runners have persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
