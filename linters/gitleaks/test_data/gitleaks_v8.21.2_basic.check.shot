@@ -1,26 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter gitleaks test basic 1`] = `
 {
   "issues": [
-    {
-      "code": "aws-access-token",
-      "column": "22",
-      "file": "test_data/basic.py",
-      "issueClass": "ISSUE_CLASS_EXISTING",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "gitleaks",
-      "message": "aws-access-token has detected secret for file test_data/basic.py.",
-      "ranges": [
-        {
-          "filePath": "test_data/basic.py",
-          "length": "19",
-          "offset": "21",
-        },
-      ],
-      "targetType": "ALL",
-    },
     {
       "code": "aws-access-token",
       "column": "15",
@@ -33,25 +16,25 @@ exports[`Testing linter gitleaks test basic 1`] = `
       "ranges": [
         {
           "filePath": "test_data/basic.py",
-          "length": "19",
+          "length": "20",
           "offset": "58",
         },
       ],
       "targetType": "ALL",
     },
     {
-      "code": "OPENSSH-PK",
+      "code": "private-key",
       "column": "19",
       "file": "test_data/basic.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "line": "5",
       "linter": "gitleaks",
-      "message": "OPENSSH-PK has detected secret for file test_data/basic.py.",
+      "message": "private-key has detected secret for file test_data/basic.py.",
       "ranges": [
         {
           "filePath": "test_data/basic.py",
-          "length": "34",
+          "length": "397",
           "offset": "98",
         },
       ],
