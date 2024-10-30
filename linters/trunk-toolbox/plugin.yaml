@@ -33,10 +33,10 @@ lint:
           output: sarif
           batch: true
           success_codes: [0]
-          read_output_from: tmp_file
-          max_concurrency: 1
           disable_upstream: false
+          read_output_from: tmp_file
           direct_configs: [toolbox.toml, log4rs.yaml]
+          max_concurrency: 1
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
