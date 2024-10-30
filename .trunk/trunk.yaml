@@ -43,7 +43,7 @@ lint:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
     - eslint@9.13.0
-    - trunk-toolbox@0.5.0
+    - trunk-toolbox@0.4.1
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
@@ -93,21 +93,13 @@ actions:
         '/^\/\/ trunk-upgrade-validation:RELEASE/d' {}
       shell: bash
 
-    - id: trunk-check-pre-push
-      run: trunk check -n -t git-push --commit-ref-from-pre-push '${hook_stdin_path}' --verbose
-      interactive: true
-      triggers:
-        - git_hooks: [pre-push]
-      notify_on_error: false
-
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
-    - trunk-check-pre-push
-    # - linter-test-helper
-    # - npm-check-pre-push
-    # - remove-release-snapshots
-    # - repo-tests
-    # - tool-test-helper
+    - linter-test-helper
+    - npm-check-pre-push
+    - remove-release-snapshots
+    - repo-tests
+    - tool-test-helper
 tools:
   enabled:
     - clangd-indexing-tools@18.1.3
