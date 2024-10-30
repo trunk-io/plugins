@@ -4,7 +4,6 @@ appenders:
       pattern: "{d(%H:%M:%S)} | {({l}):5.5} | {f}:{L} | {m}{n}"
     kind: console
 
-  # Appender for the step strategy
   file:
     kind: file
     path: { REPLACE_THIS_WITH_PATH_WHERE_YOU_WANT_LOGFILE }
