@@ -1,0 +1,18 @@
+[ifchange]
+# Default value: true
+#enabled = true
+
+[donotland]
+# Default value: true
+#enabled = true
+
+[todo]
+# Default value: false
+#enabled = true
+
+[neveredit]
+# Default value: false
+#enabled = true
+
+# Default value: []
+#paths = []
