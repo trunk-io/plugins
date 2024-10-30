@@ -43,7 +43,7 @@ lint:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
     - eslint@9.13.0
-    - trunk-toolbox@0.4.1
+    - trunk-toolbox@0.5.0
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
@@ -95,11 +95,12 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
-    - linter-test-helper
-    - npm-check-pre-push
-    - remove-release-snapshots
-    - repo-tests
-    - tool-test-helper
+    - trunk-check-pre-push
+    # - linter-test-helper
+    # - npm-check-pre-push
+    # - remove-release-snapshots
+    # - repo-tests
+    # - tool-test-helper
 tools:
   enabled:
     - clangd-indexing-tools@18.1.3
