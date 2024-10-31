@@ -2,7 +2,7 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.4.1
+    version: 0.5.0
     downloads:
       - os:
           linux: unknown-linux-gnu
@@ -17,13 +17,14 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.4.1
+      known_good_version: 0.5.0
 lint:
   definitions:
     - name: trunk-toolbox
       description: Repository level linting tools
       main_tool: trunk-toolbox
       files: [ALL]
+      affects_cache: [toolbox.toml, log4rs.yaml]
       commands:
         - name: lint
           version: ">=0.4.1"
@@ -33,7 +34,10 @@ lint:
           output: sarif
           batch: true
           success_codes: [0]
+          disable_upstream: false
           read_output_from: tmp_file
+          direct_configs: [toolbox.toml]
+          max_concurrency: 1
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
