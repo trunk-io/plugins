@@ -35,7 +35,8 @@ lint:
           success_codes: [0]
           disable_upstream: false
           read_output_from: tmp_file
-          direct_configs: [toolbox.toml, log4rs.yaml]
+          affects_cache: [toolbox.toml, log4rs.yaml]
+          direct_configs: [toolbox.toml]
           max_concurrency: 1
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
