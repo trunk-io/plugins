@@ -24,6 +24,7 @@ lint:
       description: Repository level linting tools
       main_tool: trunk-toolbox
       files: [ALL]
+      affects_cache: [toolbox.toml, log4rs.yaml]
       commands:
         - name: lint
           version: ">=0.4.1"
@@ -35,7 +36,6 @@ lint:
           success_codes: [0]
           disable_upstream: false
           read_output_from: tmp_file
-          affects_cache: [toolbox.toml, log4rs.yaml]
           direct_configs: [toolbox.toml]
           max_concurrency: 1
         - name: lint
