@@ -1,36 +1,44 @@
 version: 0.1
-lint:
-  # TODO(Tyler): This should be its own tool if we can avoid the eponymous pitfall
-  downloads:
+downloads:
+  - name: buf
+    version: 1.0.0-rc11
+    executable: true
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        version: <0.42.0
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
+      - os:
+          linux: Linux
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os:
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
+tools:
+  definitions:
     - name: buf
-      version: 1.0.0-rc11
-      executable: true
-      downloads:
-        # macos arm64 was introduced after this version.
-        - os: macos
-          version: <0.42.0
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
-        - os:
-            linux: Linux
-          cpu:
-            x86_64: x86_64
-            arm_64: aarch64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
-        - os:
-            macos: Darwin
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
-        - os: windows
-          cpu:
-            x86_64: x86_64
-            arm_64: arm64
-          url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
+      download: buf
+      known_good_version: 1.0.0-rc11
+      shims: [buf]
+      health_checks:
+        - command: buf --version
+          parse_regex: ${semver}
+lint:
   definitions:
     - name: buf-format
       files: [proto]
-      download: buf
+      main_tool: buf
       suggest_if: never
       description: Formatter for Protobuf
       commands:
@@ -56,13 +64,10 @@ lint:
         - buf.gen.yaml
         - buf.work.yaml
       known_good_version: 1.17.0 # format subcommand was added in 1.2.0
-      version_command:
-        parse_regex: ${semver}
-        run: buf --version
 
     - name: buf-lint
       files: [proto]
-      download: buf
+      main_tool: buf
       description: Accelerate Protobuf development with Buf
       commands:
         - name: lint
@@ -84,13 +89,10 @@ lint:
         - buf.work.yaml
       issue_url_format: https://docs.buf.build/lint/rules#{}
       known_good_version: 1.17.0 # newer version is needed to support Windows fully
-      version_command:
-        parse_regex: ${semver}
-        run: buf --version
 
     - name: buf-breaking
       files: [proto]
-      download: buf
+      main_tool: buf
       suggest_if: never
       description: Check for breaking Protobuf API changes
       commands:
@@ -119,6 +121,3 @@ lint:
         - buf.work.yaml
       issue_url_format: https://docs.buf.build/breaking/rules#{}
       known_good_version: 1.5.0
-      version_command:
-        parse_regex: ${semver}
-        run: buf --version

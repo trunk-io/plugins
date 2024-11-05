@@ -455,7 +455,6 @@ lint:
 
     - name: postcss
       extensions:
-        # TODO(Tyler): Do we want to include css here as well?
         - pcss
         - postcss
 

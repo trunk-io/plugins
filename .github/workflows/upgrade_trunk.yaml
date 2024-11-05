@@ -1,8 +1,8 @@
 name: Upgrade Trunk Weekly
 on:
   schedule:
-    # Weekly at midnight W morning
-    - cron: 0 8 * * 3
+    # Weekly W morning
+    - cron: 0 10 * * 3
   workflow_dispatch: {}
 
 permissions: read-all
