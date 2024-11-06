@@ -81,8 +81,8 @@ To add a new linter:
 6. Revert any `.trunk/trunk.yaml` changes, and run `trunk check` to lint your changes.
 7. Open a PR!
 
-[custom linters]: https://docs.trunk.io/check/custom-linters
-[custom parsers]: https://docs.trunk.io/check/custom-parsers
+[custom linters]: https://docs.trunk.io/code-quality/linters/custom-linters
+[custom parsers]: https://docs.trunk.io/cli/configuration/lint/output-parsing
 
 ## Tools
 
