@@ -69,8 +69,9 @@ To add a new linter:
    ```
 
 3. Add your linter definition to `plugin.yaml` (consult the docs for [custom linters] and [custom
-   parsers] to understand how it should be defined). Most linters in this repository are defined as
-   tools as well, so that they can be easily run manually from the command line.
+   parsers]
+   to understand how it should be defined). Most linters in this repository are defined as tools as
+   well, so that they can be easily run manually from the command line.
 4. Run `trunk check enable <my-linter>` to enable your linter, and run `trunk check` to verify that
    the configuration is valid and that you get desired diagnostics. Running `trunk check --verbose`
    can help provide greater insights when debugging. You may also wish to run on your test data,
@@ -81,8 +82,8 @@ To add a new linter:
 6. Revert any `.trunk/trunk.yaml` changes, and run `trunk check` to lint your changes.
 7. Open a PR!
 
-[custom linters]: https://docs.trunk.io/check/custom-linters
-[custom parsers]: https://docs.trunk.io/check/custom-parsers
+[custom linters]: https://docs.trunk.io/code-quality/linters/custom-linters
+[custom parsers]: https://docs.trunk.io/cli/configuration/lint/output-parsing
 
 ## Tools
 
