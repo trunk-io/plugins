@@ -334,3 +334,4 @@ jobs:
         run: |
           env
           echo "my title is ${{github.event.pull_request.title}}"
+          echo "my job id is ${{ github.job }}"
