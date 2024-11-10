@@ -234,7 +234,7 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@2eaee169140ec559bd556208f9f99cdfdf468da8
+        uses: trunk-io/trunk-action@4d5ecc89b2691705fd08c747c78652d2fc806a94
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
