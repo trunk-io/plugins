@@ -46,3 +46,5 @@ lint:
         parse_regex: scalafmt ${semver}
         run: scalafmt --version
       known_good_version: 3.4.3
+      # We don't support this semver format, and it's a prerelease
+      known_bad_versions: [3.8.4-RC1]

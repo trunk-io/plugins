@@ -29,7 +29,7 @@ tools:
   definitions:
     - name: buf
       download: buf
-      known_good_version: 1.0.0-rc11
+      known_good_version: 1.17.0
       shims: [buf]
       health_checks:
         - command: buf --version
