@@ -37,7 +37,6 @@ lint:
           read_output_from: tmp_file
           cache_results: true
           disable_upstream: false
-          max_concurrency: 1
           direct_configs: [toolbox.toml]
           max_concurrency: 1
         - name: lint
