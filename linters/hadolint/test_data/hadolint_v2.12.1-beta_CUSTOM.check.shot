@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter hadolint test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "DL3059",
+      "column": "1",
+      "file": "test_data/basic.Dockerfile",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/hadolint/hadolint/wiki/DL3059",
+      "level": "LEVEL_LOW",
+      "line": "4",
+      "linter": "hadolint",
+      "message": "Multiple consecutive \`RUN\` instructions. Consider consolidation.",
+      "targetType": "docker",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/Dockerfile.empty",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/basic.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/empty.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/Dockerfile.debug",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/prefix.Dockerfile",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/Dockerfile",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/Dockerfile.empty",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/basic.Dockerfile",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/empty.Dockerfile",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/Dockerfile.debug",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/dockerfile",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "docker",
+      "linter": "hadolint",
+      "paths": [
+        "test_data/nested/prefix.Dockerfile",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
