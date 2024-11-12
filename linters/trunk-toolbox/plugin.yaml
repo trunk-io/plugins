@@ -27,7 +27,7 @@ lint:
       affects_cache: [toolbox.toml, log4rs.yaml]
       commands:
         - name: lint
-          version: ">=0.4.1"
+          version: ">=0.5.3"
           run:
             trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
             ${target}
@@ -36,6 +36,18 @@ lint:
           success_codes: [0]
           read_output_from: tmp_file
           cache_results: true
+          disable_upstream: false
+          direct_configs: [toolbox.toml]
+          max_concurrency: 1
+        - name: lint
+          version: ">=0.4.1"
+          run:
+            trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
+            ${target}
+          output: sarif
+          batch: true
+          success_codes: [0]
+          read_output_from: tmp_file
           disable_upstream: false
           direct_configs: [toolbox.toml]
           max_concurrency: 1
