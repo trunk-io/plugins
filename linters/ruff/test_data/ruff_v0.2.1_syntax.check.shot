@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test syntax 1`] = `
+{
+  "issues": [
+    {
+      "code": "E999",
+      "column": "1",
+      "file": "test_data/syntax.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#E999",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "ruff",
+      "message": "SyntaxError: unexpected EOF while parsing",
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": [
+        "test_data/syntax.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": [
+        "test_data/syntax.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

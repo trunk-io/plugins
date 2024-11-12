@@ -3,7 +3,7 @@ import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
-linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface"] });
+linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface", "syntax"] });
 
 const skipJupyterTestIf = (version?: string) => {
   if (!version || !semver.valid(version)) {
