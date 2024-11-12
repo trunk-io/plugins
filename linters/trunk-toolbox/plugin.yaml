@@ -48,7 +48,7 @@ lint:
           batch: true
           success_codes: [0]
           read_output_from: tmp_file
-          disable_upstream: false
+          disable_upstream: true
           direct_configs: [toolbox.toml]
           max_concurrency: 1
         - name: lint
