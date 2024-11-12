@@ -2,7 +2,7 @@ version: 0.1
 
 downloads:
   - name: trunk-toolbox
-    version: 0.5.0
+    version: 0.5.3
     downloads:
       - os:
           linux: unknown-linux-gnu
@@ -17,7 +17,7 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.5.0
+      known_good_version: 0.5.3
 lint:
   definitions:
     - name: trunk-toolbox
@@ -34,8 +34,10 @@ lint:
           output: sarif
           batch: true
           success_codes: [0]
-          disable_upstream: false
           read_output_from: tmp_file
+          cache_results: true
+          disable_upstream: false
+          max_concurrency: 1
           direct_configs: [toolbox.toml]
           max_concurrency: 1
         - name: lint
