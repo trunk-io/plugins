@@ -31,7 +31,7 @@ for result in json.load(sys.stdin):
 
     filepath = result["filename"]
     # Ruff will set code to null for syntax errors
-    rule_id = result["code"] or "syntax"
+    rule_id = result["code"] or "E999"
     message = result["message"]
 
     sarif_result = {

@@ -4,11 +4,11 @@ exports[`Testing linter ruff test syntax 1`] = `
 {
   "issues": [
     {
-      "code": "syntax",
+      "code": "E999",
       "column": "1",
       "file": "test_data/syntax.in.py",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://docs.astral.sh/ruff/rules/#syntax",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#E999",
       "level": "LEVEL_HIGH",
       "line": "2",
       "linter": "ruff",
