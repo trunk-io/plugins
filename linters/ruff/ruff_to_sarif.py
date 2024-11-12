@@ -30,7 +30,8 @@ for result in json.load(sys.stdin):
         continue
 
     filepath = result["filename"]
-    rule_id = result["code"]
+    # Ruff will set code to null for syntax errors
+    rule_id = result["code"] or "E999"
     message = result["message"]
 
     sarif_result = {
