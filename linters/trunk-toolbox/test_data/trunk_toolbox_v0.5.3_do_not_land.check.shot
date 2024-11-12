@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trunk-toolbox test do_not_land 1`] = `
+{
+  "issues": [
+    {
+      "code": "do-not-land",
+      "column": "3",
+      "file": "test_data/do_not_land.in.txt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "trunk-toolbox",
+      "message": "Found 'DONOTLAND'",
+      "ranges": [
+        {
+          "filePath": "test_data/do_not_land.in.txt",
+          "length": "9",
+          "offset": "2",
+        },
+      ],
+      "targetType": "ALL",
+    },
+    {
+      "code": "do-not-land",
+      "column": "3",
+      "file": "test_data/do_not_land.in.txt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "trunk-toolbox",
+      "message": "Found 'do-not-land'",
+      "ranges": [
+        {
+          "filePath": "test_data/do_not_land.in.txt",
+          "length": "11",
+          "offset": "14",
+        },
+      ],
+      "targetType": "ALL",
+    },
+    {
+      "code": "do-not-land",
+      "column": "3",
+      "file": "test_data/do_not_land.in.txt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "trunk-toolbox",
+      "message": "Found 'do_not_land'",
+      "ranges": [
+        {
+          "filePath": "test_data/do_not_land.in.txt",
+          "length": "11",
+          "offset": "28",
+        },
+      ],
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trunk-toolbox",
+      "paths": [
+        "test_data/do_not_land.in.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "trunk-toolbox",
+      "paths": [
+        "test_data/do_not_land.in.txt",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
