@@ -152,9 +152,11 @@ jobs:
           linter-version: KnownGoodVersion
           ref-type: main
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
+          # DONOTLAND
           append-args:
-            ${{ needs.detect_changes.outputs.all-linters }} ${{
-            needs.detect_changes.outputs.linters-files }}
+            trunk_toolbox
+            # ${{ needs.detect_changes.outputs.all-linters }} ${{
+            # needs.detect_changes.outputs.linters-files }}
           trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
