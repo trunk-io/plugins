@@ -21,8 +21,7 @@ const normalizePlatformPath = (originalPath: string | undefined) => {
   return originalPath;
 };
 
-// TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
-// we should preserve the original structure and use jest matchers on the non-deterministic fields.
+// These extract functions are used to filter down to deterministic fields.
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
   cacheHit: _cacheHit,

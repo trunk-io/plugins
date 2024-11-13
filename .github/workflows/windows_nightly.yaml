@@ -1,6 +1,6 @@
 name: Windows Tests
 on:
-  # TODO(Tyler): Preserve this workflow for testing, but in the future we'll want to remove it.
+  # NOTE(Tyler): Preserve this workflow for testing, but in the future we'll want to remove it.
   workflow_dispatch: {}
 
 permissions: read-all

@@ -1,8 +1,8 @@
 name: Nightly
 on:
   schedule:
-    # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
-    - cron: 0 8 * * 1-5
+    # Times in UTC (PST+8), this translates to running Mon-Fri at 2am/3am (depending on DST)
+    - cron: 0 10 * * 1-5
   # Only enable on pull requests for testing
   # pull_request:
   #   paths: [.github/workflows/nightly.yaml]
