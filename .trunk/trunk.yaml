@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.8-beta.2
+  version: 1.22.8-beta.6
   shell_hooks:
     enforce: true
 
@@ -42,8 +42,8 @@ lint:
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
-    - eslint@9.13.0
-    - trunk-toolbox@0.5.0
+    - eslint@9.14.0
+    - trunk-toolbox@0.5.3
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
