@@ -103,22 +103,16 @@ jobs:
           steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure' ||
           steps.download-windows.outcome == 'failure'
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          method: chat.postMessage
+          token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
           payload: |
-            {
-              "text": "Artifact Download Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }}, windows: ${{ steps.download-windows.outcome }}) >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+            channel: ${{ env.SLACK_CHANNEL_ID }}
+            text: "Artifact Download Failure"
+            blocks:
+              - type: section
+                text:
+                  type: mrkdwn
+                  text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }}, windows: ${{ steps.download-windows.outcome }}) >"
 
       - name: Setup Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -139,8 +133,9 @@ jobs:
         id: parse
         run: |
           npm run parse
-          echo "failures=$([[ -f failures.json ]] && echo "true" || echo "false")" >> "$GITHUB_OUTPUT"
-          echo "failures-payload=$(cat failures.json)" >> "$GITHUB_OUTPUT"
+          echo "failures=$([[ -f failures.yaml ]] && echo "true" || echo "false")" >> "$GITHUB_OUTPUT"
+          failures_payload=$(cat failures.yaml)
+          printf "failures-payload<<EOF\n%s\nEOF\n" "$failures_payload" >> "$GITHUB_OUTPUT"
           echo "reruns=$(cat reruns.txt)" >> "$GITHUB_OUTPUT"
         env:
           PLUGIN_VERSION: ${{ inputs.plugin-version }}
@@ -148,6 +143,7 @@ jobs:
           RUN_ID: ${{ github.run_id }}
           TEST_REF: ${{ inputs.test-ref }}
           TEST_TYPE: ${{ inputs.test-type }}
+          SLACK_CHANNEL_ID: ${{ env.SLACK_CHANNEL_ID }}
 
       - name: Upload Test Results Staging
         if: inputs.upload-validated-versions == true
@@ -184,52 +180,39 @@ jobs:
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          method: chat.postMessage
+          token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
           payload: ${{ steps.parse.outputs.failures-payload }}
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
 
       - name: Slack Notification For Staging Upload Failure
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
         if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          method: chat.postMessage
+          token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
           payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+            channel: ${{ env.SLACK_CHANNEL_ID }}
+            text: "Upload Failure"
+            blocks:
+              - type: section
+                text:
+                  type: mrkdwn
+                  text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
 
       - name: Slack Notification For Prod Upload Failure
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
         if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
         with:
-          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          method: chat.postMessage
+          token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
           payload: |
-            {
-              "text": "Upload Failure",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
+            channel: ${{ env.SLACK_CHANNEL_ID }}
+            text: "Upload Failure"
+            blocks:
+              - type: section
+                text:
+                  type: mrkdwn
+                  text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Prod >"
   generate_snapshots_pr:
     name: Generate Snapshots PR
     runs-on: ubuntu-latest

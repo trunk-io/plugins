@@ -11,9 +11,10 @@ import {
 } from "tests/types";
 import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
+import YAML from "yaml";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
-const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
+const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.yaml");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
 const VALIDATED_LINTER_BLOCKLIST: string[] = [];
@@ -299,10 +300,11 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const blocks = allBlocks.length > 50 ? allBlocks.slice(0, 49).concat(remainingBlock) : allBlocks;
 
   const failuresObject = {
+    channel: process.env.SLACK_CHANNEL_ID,
     text: `${failures.length} failures encountered running plugins tests for ${TEST_REF}`,
     blocks,
   };
-  const failuresString = JSON.stringify(failuresObject);
+  const failuresString = YAML.stringify(failuresObject);
   fs.writeFileSync(FAILURES_FILE, failuresString);
   console.log(`Wrote ${failures.length} failures out to ${FAILURES_FILE}:`);
   console.log(failuresString);
