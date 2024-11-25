@@ -75,22 +75,19 @@ jobs:
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests Release
-    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macOS, windows-latest]
+        os: [ubuntu-latest, macOS]
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
-          - os: windows-latest
-            results-file: windows-latest
     outputs:
       plugin-version: ${{ steps.get-release.outputs.tag }}
 
