@@ -45,7 +45,7 @@ const gradlePreCheck: TestCallback = (driver) => {
   driver.writeFile(trunkYamlPath, newContents);
 
   driver.runTrunkSync(["install"]);
-  const javaPath = recurseLevels(path.resolve(DOWNLOAD_CACHE, "jdk-13"), 1);
+  const javaPath = recurseLevels(path.resolve(DOWNLOAD_CACHE, "jdk-23"), 1);
   const finalContents = newContents.concat(`      environment:
         - name: JAVA_HOME
           value: ${javaPath}
