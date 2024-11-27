@@ -4,6 +4,16 @@ downloads:
   # implementing the Java runtime. The Temurin releases are hosted on GitHub, which would allow us
   # to use "latest version query" logic on them, but their release naming isn't trivially compatible
   # with our current schema (e.g. JDK 11.0.17+8 has URL /jdk-11.0.17+8/[...]_11.0.17_8.tar.gz).
+  - name: jdk-23
+    downloads:
+      - os:
+          linux: linux
+          macos: macosx
+        cpu:
+          x86_64: x64
+          arm_64: aarch64
+        url: https://cdn.azul.com/zulu/bin/zulu23.30.13-ca-jdk23.0.1-linux_x64.tar.gz
+        strip_components: 1
 
   - name: jdk-17
     downloads:
@@ -53,7 +63,7 @@ downloads:
 runtimes:
   definitions:
     - type: java
-      download: jdk-13
+      download: jdk-23
       runtime_environment:
         - name: HOME
           value: ${env.HOME:-}
