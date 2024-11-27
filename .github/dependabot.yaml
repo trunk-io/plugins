@@ -18,6 +18,8 @@ updates:
       interval: weekly
       day: sunday
       time: "10:00" # UTC
+    ignore:
+      - dependency-name: eslint
     groups:
       dependencies:
         patterns:
