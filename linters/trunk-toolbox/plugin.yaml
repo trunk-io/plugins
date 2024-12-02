@@ -25,6 +25,7 @@ lint:
       main_tool: trunk-toolbox
       files: [ALL]
       affects_cache: [toolbox.toml, log4rs.yaml]
+      known_good_version: 0.5.3
       commands:
         - name: lint
           version: ">=0.5.3"
