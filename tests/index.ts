@@ -256,8 +256,9 @@ export const toolInstallTest = ({
       expect(installResult).toMatchObject({
         exitCode: 0,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        stdout: expect.stringContaining(toolVersion),
+        stdout: expect.stringMatching(`${toolName}.+${toolVersion}(?!.*trunk)`),
         stderr: "",
+        details: undefined,
       });
       expect(installResult.stdout).not.toContain("Failures:");
     });
