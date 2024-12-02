@@ -12,7 +12,7 @@ downloads:
         cpu:
           x86_64: x64
           arm_64: aarch64
-        url: https://cdn.azul.com/zulu/bin/zulu23.30.13-ca-jdk23.0.1-linux_x64.tar.gz
+        url: https://cdn.azul.com/zulu/bin/zulu23.30.13-ca-jdk23.0.1-${os}_${cpu}.tar.gz
         strip_components: 1
 
   - name: jdk-17
