@@ -4,7 +4,8 @@ tools:
     - name: paratest
       runtime: php
       package: brianium/paratest
-      known_good_version: 7.4.3
+      # Minimum version compatible with php@8.4
+      known_good_version: 7.6.0
       shims: [paratest]
       environment:
         - name: PATH
