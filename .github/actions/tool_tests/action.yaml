@@ -51,7 +51,7 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
-            brew install php@8.2 gnupg
+            brew install php gnupg
             which php
             php --version
             ;;
