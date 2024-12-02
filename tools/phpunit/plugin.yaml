@@ -4,7 +4,7 @@ tools:
     - name: phpunit
       runtime: php
       package: phpunit/phpunit
-      known_good_version: 11.4.4
+      known_good_version: 11.1.3
       shims: [phpunit]
       environment:
         - name: PATH

@@ -52,8 +52,6 @@ runs:
             ;;
           macOS)
             brew install php gnupg
-            which php
-            php --version
             ;;
           Windows)
             echo "PLATFORM_APPEND_ARGS=--maxWorkers=5" >> "$GITHUB_ENV"
