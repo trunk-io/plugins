@@ -1,12 +1,12 @@
 version: 0.1
 downloads:
   - name: ruby-build
-    version: 20240319
+    version: 20241105
     downloads:
       - os:
           linux: linux
           macos: macos
-        url: https://github.com/rbenv/ruby-build/archive/refs/tags/v20240319.tar.gz
+        url: https://github.com/rbenv/ruby-build/archive/refs/tags/v20241105.tar.gz
         strip_components: 1
   - name: ruby-install
     version: 3.1.4
