@@ -1,502 +1,1122 @@
 [
   {
+    "file": "test_data/Gemfile.lock",
     "line": "5",
+    "message": "Vulnerability in 'actionpack': rubygem-actionpack: Denial of Service in Action Dispatch. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
     "code": "CVE-2023-22792",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'actionpack': Denial of Service in Action Dispatch. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
     "line": "5",
+    "message": "Vulnerability in 'actionpack': rubygem-actionpack: Denial of Service in Action Dispatch. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
     "code": "CVE-2023-22795",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'actionpack': Denial of Service in Action Dispatch. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
     "line": "5",
+    "message": "Vulnerability in 'actionpack': actionpack: Possible XSS via User Supplied Values to redirect_to. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.4, >= 7.0.5.1 or higher.",
     "code": "CVE-2023-28362",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'actionpack': Possible XSS via User Supplied Values to redirect_to. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.4, >= 7.0.5.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
+    "line": "5",
+    "message": "Vulnerability in 'actionpack': rubygem-actionpack: Possible ReDoS vulnerability in query parameter filtering in Action Dispatch. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.9, ~> 7.0.8.5, ~> 7.1.4, >= 7.1.4.1, >= 7.2.1.1 or higher.",
+    "code": "CVE-2024-41128",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "5",
+    "message": "Vulnerability in 'actionpack': rubygem-actionpack: Possible ReDoS vulnerability in HTTP Token authentication in Action Controller. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.9, ~> 7.0.8.5, ~> 7.1.4, >= 7.1.4.1, >= 7.2.1.1 or higher.",
+    "code": "CVE-2024-47887",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "8",
+    "message": "Vulnerability in 'actionmailer': rubygem-actionmailer: Possible ReDoS vulnerability in block_format in Action Mailer. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.9, ~> 7.0.8.5, ~> 7.1.4, >= 7.1.4.1, >= 7.2.1.1 or higher.",
+    "code": "CVE-2024-47889",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
     "line": "10",
+    "message": "Vulnerability in 'actionview': rails: DOM Based Cross-site Scripting in rails-ujs for contenteditable HTML Elements. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.3, >= 7.0.4.3 or higher.",
     "code": "CVE-2023-23913",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'actionview': DOM Based Cross-site Scripting in rails-ujs for contenteditable HTML Elements. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7.3, >= 7.0.4.3 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
     "line": "16",
-    "code": "CVE-2023-22796",
-    "level": "LEVEL_HIGH",
+    "message": "Vulnerability in 'activesupport': rubygem-activesupport: File Disclosure of Locally Encrypted Files. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7, >= 6.1.7.5, >= 7.0.7.1 or higher.",
+    "code": "CVE-2023-38037",
+    "level": "LEVEL_LOW",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'activesupport': Regular Expression Denial of Service. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
     "line": "16",
+    "message": "Vulnerability in 'activesupport': rubygem-activesupport: Possible XSS in SafeBuffer#bytesplice. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7, >= 6.1.7.3, >= 7.0.4.3 or higher.",
     "code": "CVE-2023-28120",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'activesupport': Possible XSS in SafeBuffer#bytesplice. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7, >= 6.1.7.3, >= 7.0.4.3 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
+    "line": "16",
+    "message": "Vulnerability in 'activesupport': rubygem-activesupport: Regular Expression Denial of Service. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
+    "code": "CVE-2023-22796",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
     "line": "34",
+    "message": "Vulnerability in 'activerecord': rubygem-activerecord: Denial of Service. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
     "code": "CVE-2022-44566",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'activerecord': Denial of Service. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 5.2.8, >= 5.2.8.15, ~> 6.1.7, >= 6.1.7.1, >= 7.0.4.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
+    "line": "38",
+    "message": "Vulnerability in 'activestorage': rubygem-activestorage: Possible Sensitive Session Information Leak in Active Storage. Current version is vulnerable: 5.2.8.1. Patch available: upgrade to ~> 6.1.7, >= 6.1.7.7, >= 7.0.8.1 or higher.",
+    "code": "CVE-2024-26144",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
     "line": "97",
+    "message": "Vulnerability in 'nokogiri': Use-after-free in libxml2 via Nokogiri::XML::Reader. Current version is vulnerable: 1.14.1. Patch available: upgrade to ~> 1.15.6, >= 1.16.2 or higher.",
+    "code": "GHSA-xc9x-jj77-9p9j",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "97",
+    "message": "Vulnerability in 'nokogiri': Use-after-free in libxml2 via Nokogiri::XML::Reader. Current version is vulnerable: 1.14.1. Patch available: upgrade to 1.15.6, 1.16.2 or higher.",
+    "code": "GHSA-vcc3-rw6f-jv97",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "97",
+    "message": "Vulnerability in 'nokogiri': Nokogiri updates packaged libxml2 to v2.12.7 to resolve CVE-2024-34459. Current version is vulnerable: 1.14.1. Patch available: upgrade to >= 1.16.5 or higher.",
+    "code": "GHSA-r95h-9x8f-r3f7",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "97",
+    "message": "Vulnerability in 'nokogiri': Update packaged libxml2 to v2.10.4 to resolve multiple CVEs. Current version is vulnerable: 1.14.1. Patch available: upgrade to >= 1.14.3 or higher.",
     "code": "GHSA-pxvg-2qj5-37jq",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'nokogiri': Update packaged libxml2 to v2.10.4 to resolve multiple CVEs. Current version is vulnerable: 1.14.1. Patch available: upgrade to >= 1.14.3 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
+    "line": "99",
+    "message": "Vulnerability in 'puma': rubygem-puma: Header normalization allows for client to clobber proxy set headers. Current version is vulnerable: 4.3.12. Patch available: upgrade to ~> 5.6.9, >= 6.4.3 or higher.",
+    "code": "CVE-2024-45614",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "99",
+    "message": "Vulnerability in 'puma': rubygem-puma: HTTP request smuggling when parsing chunked Transfer-Encoding Bodies. Current version is vulnerable: 4.3.12. Patch available: upgrade to ~> 5.6.8, >= 6.4.2 or higher.",
+    "code": "CVE-2024-21647",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "99",
+    "message": "Vulnerability in 'puma': rubygem-puma: HTTP request smuggling when parsing chunked transfer encoding bodies and zero-length content-length headers. Current version is vulnerable: 4.3.12. Patch available: upgrade to ~> 5.6.7, >= 6.3.1 or higher.",
+    "code": "CVE-2023-40175",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
     "line": "102",
+    "message": "Vulnerability in 'rack': rubygem-rack: Denial of service in Multipart MIME parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.0.9, >= 2.0.9.3, ~> 2.1.4, >= 2.1.4.3, ~> 2.2.6, >= 2.2.6.3, >= 3.0.4.2 or higher.",
     "code": "CVE-2023-27530",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'rack': Denial of service in Multipart MIME parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.0.9, >= 2.0.9.3, ~> 2.1.4, >= 2.1.4.3, ~> 2.2.6, >= 2.2.6.3, >= 3.0.4.2 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
     "line": "102",
+    "message": "Vulnerability in 'rack': rubygem-rack: Possible Denial of Service Vulnerability in Rack Header Parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.0.9, >= 2.0.9.4, ~> 2.1.4, >= 2.1.4.4, ~> 2.2.8, >= 2.2.8.1, >= 3.0.9.1 or higher.",
+    "code": "CVE-2024-26146",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/Gemfile.lock",
+    "line": "102",
+    "message": "Vulnerability in 'rack': rubygem-rack: denial of service in header parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.0, >= 2.2.6.4, >= 3.0.6.1 or higher.",
     "code": "CVE-2023-27539",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'rack': denial of service in header parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.0, >= 2.2.6.4, >= 3.0.6.1 or higher.",
-    "file": "test_data/Gemfile.lock"
+    "isSecurity": true
   },
   {
-    "line": "7",
-    "code": "CVE-2022-30781",
-    "level": "LEVEL_HIGH",
+    "file": "test_data/Gemfile.lock",
+    "line": "102",
+    "message": "Vulnerability in 'rack': rubygem-rack: Possible DoS Vulnerability with Range Header in Rack. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.2.8, >= 2.2.8.1, >= 3.0.9.1 or higher.",
+    "code": "CVE-2024-26141",
+    "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Shell command injection in gitea. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.16.7 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/Gemfile.lock",
+    "line": "102",
+    "message": "Vulnerability in 'rack': rubygem-rack: Denial of Service Vulnerability in Rack Content-Type Parsing. Current version is vulnerable: 2.2.6.2. Patch available: upgrade to ~> 2.2.8, >= 2.2.8.1, >= 3.0.9.1 or higher.",
+    "code": "CVE-2024-25126",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
     "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': code.gitea.io/gitea Open Redirect vulnerability. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.19.4 or higher.",
     "code": "CVE-2023-3515",
     "level": "LEVEL_LOW",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': code.gitea.io/gitea Open Redirect vulnerability. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.19.4 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "7",
-    "code": "CVE-2021-28378",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea erroneous repo clones. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.17.2 or higher.",
+    "code": "CVE-2022-38795",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Cross-site Scripting in Gitea. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.13.4 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea: Stored XSS due to improper sanitization. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.22.1 or higher.",
+    "code": "CVE-2024-6886",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea allowed assignment of private issues. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.9 or higher.",
+    "code": "CVE-2022-38183",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Shell command injection in gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.7 or higher.",
+    "code": "CVE-2022-30781",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Arbitrary file deletion in gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.4 or higher.",
     "code": "CVE-2022-27313",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Arbitrary file deletion in gitea. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.16.4 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Stored Cross-site Scripting in gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.9 or higher.",
     "code": "CVE-2022-1928",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Stored Cross-site Scripting in gitea. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.16.9 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "7",
-    "code": "CVE-2022-0905",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gogs and Gitea SSRF Vulnerability. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.0-rc1 or higher.",
+    "code": "CVE-2018-15192",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea Missing Authorization vulnerability. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.16.4 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Arbitrary Code Execution in Gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.12.6 or higher.",
+    "code": "CVE-2020-14144",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Cross-site Scripting in Gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.13.4 or higher.",
+    "code": "CVE-2021-28378",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Path Traversal in Gitea. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.13.6 or higher.",
     "code": "CVE-2021-29134",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'code.gitea.io/gitea': Path Traversal in Gitea. Current version is vulnerable: 1.9.0-dev. Patch available: upgrade to 1.13.6 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea Missing Authorization vulnerability. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.4 or higher.",
+    "code": "CVE-2022-0905",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "7",
+    "message": "Vulnerability in 'code.gitea.io/gitea': Gitea Open Redirect. Current version is vulnerable: v1.9.0-dev. Patch available: upgrade to 1.16.5 or higher.",
+    "code": "CVE-2022-1058",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
     "line": "40",
+    "message": "Vulnerability in 'github.com/dgrijalva/jwt-go': jwt-go: access restriction bypass vulnerability. Current version is vulnerable: v3.2.0+incompatible.",
     "code": "CVE-2020-26160",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/dgrijalva/jwt-go': jwt-go: access restriction bypass vulnerability. Current version is vulnerable: 3.2.0+incompatible.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "58",
-    "code": "CVE-2021-45329",
-    "level": "LEVEL_MEDIUM",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Cross-site Scripting in Gitea. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.5.1 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': gitea: Sanitize and Escape refs in git backend. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.17.3 or higher.",
     "code": "CVE-2022-42968",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Sanitize and Escape refs in git backend. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.17.3 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "58",
-    "code": "CVE-2021-45327",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Capture-replay in Gitea. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.11.2 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "58",
-    "code": "CVE-2021-45326",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Cross Site Request Forgery in Gitea. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.5.2 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "58",
-    "code": "CVE-2021-45325",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Cross-site Scripting in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.5.1 or higher.",
+    "code": "CVE-2021-45329",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Gitea displaying raw OpenID error in UI. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.7.0 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "58",
-    "code": "CVE-2020-13246",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Denial of Service in Gitea. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.12.0 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Open redirect in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.4.3 or higher.",
     "code": "CVE-2021-45328",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/go-gitea/gitea': Open redirect in Gitea. Current version is vulnerable: 1.2.3. Patch available: upgrade to 1.4.3 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
-    "line": "84",
-    "code": "CVE-2022-45004",
-    "level": "LEVEL_MEDIUM",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Cross-site Scripting via crafted landing page. Current version is vulnerable: 0.1.2.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "84",
-    "code": "CVE-2022-25295",
-    "level": "LEVEL_MEDIUM",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish before 0.12.0 vulnerable to Open Redirect. Current version is vulnerable: 0.1.2. Patch available: upgrade to 0.12.0 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "84",
-    "code": "CVE-2019-16146",
-    "level": "LEVEL_MEDIUM",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish XSS Vulnerability. Current version is vulnerable: 0.1.2. Patch available: upgrade to 0.9.0 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "84",
-    "code": "CVE-2022-45003",
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Capture-replay in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.11.2 or higher.",
+    "code": "CVE-2021-45327",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Denial of Service via crafted payload involving autofocus. Current version is vulnerable: 0.1.2.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Cross Site Request Forgery in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.5.2 or higher.",
+    "code": "CVE-2021-45326",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Gitea displaying raw OpenID error in UI. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.7.0 or higher.",
+    "code": "CVE-2021-45325",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Improper Access Control in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.12.6 or higher.",
+    "code": "CVE-2020-28991",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Denial of Service in Gitea. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.12.0 or higher.",
+    "code": "CVE-2020-13246",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Gitea Remote Code Execution. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.7.6 or higher.",
+    "code": "CVE-2019-11229",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Gitea Improper Input Validation. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.7.6 or higher.",
+    "code": "CVE-2019-11228",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "58",
+    "message": "Vulnerability in 'github.com/go-gitea/gitea': Gitea Exposes Private Email Addresses. Current version is vulnerable: v1.2.3. Patch available: upgrade to 1.5.1 or higher.",
+    "code": "CVE-2018-1000803",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
     "line": "84",
+    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Server-Side Request Forgery. Current version is vulnerable: v0.1.2. Patch available: upgrade to 0.11.0 or higher.",
     "code": "CVE-2020-24710",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Server-Side Request Forgery. Current version is vulnerable: 0.1.2. Patch available: upgrade to 0.11.0 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
+    "line": "84",
+    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Cross-site Scripting via crafted landing page. Current version is vulnerable: v0.1.2.",
+    "code": "CVE-2022-45004",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "84",
+    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish vulnerable to Denial of Service via crafted payload involving autofocus. Current version is vulnerable: v0.1.2.",
+    "code": "CVE-2022-45003",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "84",
+    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish before 0.12.0 vulnerable to Open Redirect. Current version is vulnerable: v0.1.2. Patch available: upgrade to 0.12.0 or higher.",
+    "code": "CVE-2022-25295",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "84",
+    "message": "Vulnerability in 'github.com/gophish/gophish': Gophish XSS Vulnerability. Current version is vulnerable: v0.1.2. Patch available: upgrade to 0.9.0 or higher.",
+    "code": "CVE-2019-16146",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
     "line": "161",
+    "message": "Vulnerability in 'github.com/unknwon/cae': github.com/unknwon/cae Path Traversal vulnerability. Current version is vulnerable: v1.0.0. Patch available: upgrade to 1.0.1 or higher.",
     "code": "CVE-2020-7668",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/unknwon/cae': Path Traversal in github.com/unknwon/cae/tz. Current version is vulnerable: 1.0.0. Patch available: upgrade to 1.0.1 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "161",
+    "message": "Vulnerability in 'github.com/unknwon/cae': Path Traversal in github.com/unknwon/cae/zip. Current version is vulnerable: v1.0.0. Patch available: upgrade to 1.0.1 or higher.",
     "code": "CVE-2020-7664",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'github.com/unknwon/cae': Path Traversal in github.com/unknwon/cae/zip. Current version is vulnerable: 1.0.0. Patch available: upgrade to 1.0.1 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "172",
-    "code": "CVE-2022-27191",
-    "level": "LEVEL_HIGH",
+    "message": "Vulnerability in 'golang.org/x/crypto': A message-forgery issue was discovered in crypto/openpgp/clearsign/cle ... Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20190424203555-c05e17bb3b2d or higher.",
+    "code": "CVE-2019-11841",
+    "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': crash in a golang.org/x/crypto/ssh server. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20220314234659-1baeb1ce4c0b or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "172",
-    "code": "CVE-2021-43565",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': empty plaintext packet causes panic. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20211202192323-5770296d904e or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "172",
-    "code": "CVE-2020-9283",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': golang.org/x/crypto: Processing of crafted ssh-ed25519 public keys allows for panic. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20200220183623-bac4c82f6975 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "172",
-    "code": "CVE-2020-7919",
-    "level": "LEVEL_HIGH",
-    "linter": "trivy",
-    "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': golang: Integer overflow on 32bit architectures via crafted certificate allows for denial of service. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20200124225646-8b5121be2f68 or higher.",
-    "file": "test_data/go.mod"
-  },
-  {
-    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang.org/x/crypto: Keystream loop in amd64 assembly when overflowing 32-bit counter. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20190320223903-b7391e95e576 or higher.",
     "code": "CVE-2019-11840",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': golang.org/x/crypto: Keystream loop in amd64 assembly when overflowing 32-bit counter. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20190320223903-b7391e95e576 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang: crypto/ssh: crafted authentication request can lead to nil pointer dereference. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20201216223049-8b5274cf687f or higher.",
     "code": "CVE-2020-29652",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/crypto': golang: crypto/ssh: crafted authentication request can lead to nil pointer dereference. Current version is vulnerable: 0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20201216223049-8b5274cf687f or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
-    "line": "174",
-    "code": "CVE-2021-33194",
+    "file": "test_data/go.mod",
+    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang: Integer overflow on 32bit architectures via crafted certificate allows for denial of service. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20200124225646-8b5121be2f68 or higher.",
+    "code": "CVE-2020-7919",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/net': golang: x/net/html: infinite loop in ParseFragment. Current version is vulnerable: 0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20210520170846-37e1c6afe023 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
+    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang.org/x/crypto: Processing of crafted ssh-ed25519 public keys allows for panic. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20200220183623-bac4c82f6975 or higher.",
+    "code": "CVE-2020-9283",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang.org/x/crypto: empty plaintext packet causes panic. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20211202192323-5770296d904e or higher.",
+    "code": "CVE-2021-43565",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': golang: crash in a golang.org/x/crypto/ssh server. Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.0.0-20220314234659-1baeb1ce4c0b or higher.",
+    "code": "CVE-2022-27191",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "172",
+    "message": "Vulnerability in 'golang.org/x/crypto': ssh: Prefix truncation attack on Binary Packet Protocol (BPP). Current version is vulnerable: v0.0.0-20190308221718-c2843e01d9a2. Patch available: upgrade to 0.17.0 or higher.",
+    "code": "CVE-2023-48795",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
     "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': HTTP/2: Multiple HTTP/2 enabled web servers are vulnerable to a DDoS attack (Rapid Reset Attack). Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.17.0 or higher.",
+    "code": "CVE-2023-44487",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.4.0 or higher.",
+    "code": "CVE-2022-41717",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang.org/x/net/http2: avoid quadratic complexity in HPACK decoding. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.7.0 or higher.",
     "code": "CVE-2022-41723",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/net': avoid quadratic complexity in HPACK decoding. Current version is vulnerable: 0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.7.0 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': A malicious HTTP/2 client which rapidly creates requests and immediate ... Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.17.0 or higher.",
+    "code": "CVE-2023-39325",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang.org/x/net/html: Cross site scripting. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.13.0 or higher.",
+    "code": "CVE-2023-3978",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang: net/http: handle server errors after sending GOAWAY. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20220906165146-f3363e06e74c or higher.",
     "code": "CVE-2022-27664",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/net': handle server errors after sending GOAWAY. Current version is vulnerable: 0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20220906165146-f3363e06e74c or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang: net/http, x/net/http2: unlimited number of CONTINUATION frames causes DoS. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.23.0 or higher.",
+    "code": "CVE-2023-45288",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang: x/net/html: infinite loop in ParseFragment. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20210520170846-37e1c6afe023 or higher.",
+    "code": "CVE-2021-33194",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "174",
+    "message": "Vulnerability in 'golang.org/x/net': golang: net/http: panic in ReadRequest and ReadResponse when reading a very large header. Current version is vulnerable: v0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20210428140749-89ef3d95e781 or higher.",
     "code": "CVE-2021-31525",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/net': golang: net/http: panic in ReadRequest and ReadResponse when reading a very large header. Current version is vulnerable: 0.0.0-20200324143707-d3edc9973b7e. Patch available: upgrade to 0.0.0-20210428140749-89ef3d95e781 or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
     "line": "175",
+    "message": "Vulnerability in 'golang.org/x/sys': golang: syscall: faccessat checks wrong group. Current version is vulnerable: v0.0.0-20200331124033-c3d80250170d. Patch available: upgrade to 0.0.0-20220412211240-33da011f77ad or higher.",
     "code": "CVE-2022-29526",
     "level": "LEVEL_MEDIUM",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'golang.org/x/sys': faccessat checks wrong group. Current version is vulnerable: 0.0.0-20200331124033-c3d80250170d. Patch available: upgrade to 0.0.0-20220412211240-33da011f77ad or higher.",
-    "file": "test_data/go.mod"
+    "isSecurity": true
   },
   {
+    "file": "test_data/go.mod",
+    "line": "189",
+    "message": "Vulnerability in 'gopkg.in/src-d/go-git.v4': go-git: Maliciously crafted Git server replies can lead to path traversal and RCE on go-git clients. Current version is vulnerable: v4.11.0.",
+    "code": "CVE-2023-49569",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/go.mod",
+    "line": "189",
+    "message": "Vulnerability in 'gopkg.in/src-d/go-git.v4': go-git: Maliciously crafted Git server replies can cause DoS on go-git clients. Current version is vulnerable: v4.11.0.",
+    "code": "CVE-2023-49568",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/nested/requirements.txt",
     "line": "1",
+    "message": "Vulnerability in 'pillow': Pillow before 9.2.0 performs Improper Handling of Highly Compressed GI ... Current version is vulnerable: 9.1.1. Patch available: upgrade to 9.2.0 or higher.",
     "code": "CVE-2022-45198",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'pillow': Pillow before 9.2.0 performs Improper Handling of Highly Compressed GI ... Current version is vulnerable: 9.1.1. Patch available: upgrade to 9.2.0 or higher.",
-    "file": "test_data/nested/requirements.txt"
+    "isSecurity": true
   },
   {
+    "file": "test_data/nested/requirements.txt",
     "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: uncontrolled resource consumption when textlength in an ImageDraw instance operates on a long text argument. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.0 or higher.",
+    "code": "CVE-2023-44271",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/nested/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': libwebp: Heap buffer overflow in WebP Codec. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "CVE-2023-4863",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/nested/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': pillow: Arbitrary Code Execution via the environment parameter. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.2.0 or higher.",
+    "code": "CVE-2023-50447",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/nested/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: buffer overflow in _imagingcms.c. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.3.0 or higher.",
+    "code": "CVE-2024-28219",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/nested/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': Bundled libwebp in Pillow vulnerable. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "GHSA-56pw-mpj4-fxww",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/no_errors/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': Bundled libwebp in Pillow vulnerable. Current version is vulnerable: 9.3.0. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "GHSA-56pw-mpj4-fxww",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/no_errors/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: buffer overflow in _imagingcms.c. Current version is vulnerable: 9.3.0. Patch available: upgrade to 10.3.0 or higher.",
+    "code": "CVE-2024-28219",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/no_errors/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': pillow: Arbitrary Code Execution via the environment parameter. Current version is vulnerable: 9.3.0. Patch available: upgrade to 10.2.0 or higher.",
+    "code": "CVE-2023-50447",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/no_errors/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': libwebp: Heap buffer overflow in WebP Codec. Current version is vulnerable: 9.3.0. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "CVE-2023-4863",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/no_errors/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: uncontrolled resource consumption when textlength in an ImageDraw instance operates on a long text argument. Current version is vulnerable: 9.3.0. Patch available: upgrade to 10.0.0 or higher.",
+    "code": "CVE-2023-44271",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': Pillow before 9.2.0 performs Improper Handling of Highly Compressed GI ... Current version is vulnerable: 9.1.1. Patch available: upgrade to 9.2.0 or higher.",
     "code": "CVE-2022-45198",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'pillow': Pillow before 9.2.0 performs Improper Handling of Highly Compressed GI ... Current version is vulnerable: 9.1.1. Patch available: upgrade to 9.2.0 or higher.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
   },
   {
-    "line": "2",
-    "code": "CVE-2023-36189",
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: uncontrolled resource consumption when textlength in an ImageDraw instance operates on a long text argument. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.0 or higher.",
+    "code": "CVE-2023-44271",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'langchain': langchain SQL Injection vulnerability. Current version is vulnerable: 0.0.171.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
   },
   {
-    "line": "2",
-    "code": "CVE-2023-34541",
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': libwebp: Heap buffer overflow in WebP Codec. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "CVE-2023-4863",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'langchain': Langchain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
   },
   {
-    "line": "2",
-    "code": "CVE-2023-34540",
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': pillow: Arbitrary Code Execution via the environment parameter. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.2.0 or higher.",
+    "code": "CVE-2023-50447",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'langchain': Langchain OS Command Injection vulnerability. Current version is vulnerable: 0.0.171.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
   },
   {
-    "line": "2",
-    "code": "CVE-2023-36188",
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': python-pillow: buffer overflow in _imagingcms.c. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.3.0 or higher.",
+    "code": "CVE-2024-28219",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'langchain': langchain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
   },
   {
+    "file": "test_data/requirements.txt",
+    "line": "1",
+    "message": "Vulnerability in 'pillow': Bundled libwebp in Pillow vulnerable. Current version is vulnerable: 9.1.1. Patch available: upgrade to 10.0.1 or higher.",
+    "code": "GHSA-56pw-mpj4-fxww",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
     "line": "2",
+    "message": "Vulnerability in 'langchain': langchain Code Injection vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.236 or higher.",
+    "code": "CVE-2023-36095",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain arbitrary code execution vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.247 or higher.",
     "code": "CVE-2023-36258",
     "level": "LEVEL_HIGH",
     "linter": "trivy",
     "targetType": "lockfile",
-    "isSecurity": true,
-    "message": "Vulnerability in 'langchain': langchain arbitrary code execution vulnerability. Current version is vulnerable: 0.0.171.",
-    "file": "test_data/requirements.txt"
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain SQL Injection vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.247 or higher.",
+    "code": "CVE-2023-36189",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.236 or higher.",
+    "code": "CVE-2023-36188",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.312 or higher.",
+    "code": "CVE-2023-36281",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Langchain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.247 or higher.",
+    "code": "CVE-2023-34541",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Langchain OS Command Injection vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.225 or higher.",
+    "code": "CVE-2023-34540",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Langchain Server-Side Request Forgery vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.329 or higher.",
+    "code": "CVE-2023-32786",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Langchain SQL Injection vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.247 or higher.",
+    "code": "CVE-2023-32785",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': LangChain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.247 or higher.",
+    "code": "CVE-2023-38860",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': LangChain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.236 or higher.",
+    "code": "CVE-2023-38896",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Langchain vulnerable to arbitrary code execution via the evaluate function in the numexpr library. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.308 or higher.",
+    "code": "CVE-2023-39631",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': LangChain vulnerable to arbitrary code execution. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.325 or higher.",
+    "code": "CVE-2023-39659",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': LangChain Server Side Request Forgery vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.317 or higher.",
+    "code": "CVE-2023-46229",
+    "level": "LEVEL_HIGH",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain Server-Side Request Forgery vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.1.0 or higher.",
+    "code": "CVE-2024-0243",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': LangChain directory traversal vulnerability. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.339 or higher.",
+    "code": "CVE-2024-28088",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': Denial of service in langchain-community. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.2.5 or higher.",
+    "code": "CVE-2024-2965",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain vulnerable to path traversal. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.0.353 or higher.",
+    "code": "CVE-2024-3571",
+    "level": "LEVEL_MEDIUM",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
+  },
+  {
+    "file": "test_data/requirements.txt",
+    "line": "2",
+    "message": "Vulnerability in 'langchain': langchain: SQL Injection in langchain-ai/langchain. Current version is vulnerable: 0.0.171. Patch available: upgrade to 0.2.0 or higher.",
+    "code": "CVE-2024-8309",
+    "level": "LEVEL_LOW",
+    "linter": "trivy",
+    "targetType": "lockfile",
+    "isSecurity": true
   }
 ]
