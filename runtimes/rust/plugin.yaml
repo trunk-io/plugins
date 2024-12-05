@@ -35,7 +35,7 @@ runtimes:
       linter_environment:
         - name: PATH
           list: ["${linter}/bin"]
-      known_good_version: 1.71.1
+      known_good_version: 1.82.0
       version_commands:
         - run: rustc --version
           parse_regex: ${semver}

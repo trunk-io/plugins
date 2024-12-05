@@ -158,13 +158,35 @@ lint:
     stdout: string;
     stderr: string;
     exitCode: number;
+    details?: string;
   }> => {
     try {
       const { stdout, stderr } = await this.runTrunk(["tools", "install", toolName, "--ci"]);
-      return { exitCode: 0, stdout, stderr };
+      return { exitCode: 0, stdout, stderr, details: undefined };
     } catch (e: any) {
-      // trunk-ignore(eslint/@typescript-eslint/no-unsafe-member-access)
-      return { exitCode: e.code as number, stdout: e.stdout as string, stderr: e.stderr as string };
+      let details = undefined;
+      /* eslint-disable-next-line
+        @typescript-eslint/no-unsafe-call,
+        @typescript-eslint/no-unsafe-member-access,
+        @typescript-eslint/no-unsafe-assignment
+      */
+      const detailsPath = e.stdout.match(/\.trunk\/out\/(.+\.yaml)/);
+      if (detailsPath) {
+        details = await fs.promises.readFile(
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access */
+          path.resolve(this.sandboxPath ?? "", detailsPath[0]),
+          "utf8",
+        );
+      }
+
+      /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+      return {
+        exitCode: e.code as number,
+        stdout: e.stdout as string,
+        stderr: e.stderr as string,
+        /* eslint-enable @typescript-eslint/no-unsafe-member-access */
+        details,
+      };
     }
   };
 
