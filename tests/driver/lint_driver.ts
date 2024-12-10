@@ -94,7 +94,7 @@ runtimes:
   enabled:
     # required in order to query latest
     - go@1.21.0
-    - node@18.12.1
+    - node@18.20.5
     - python@3.10.8
     - ruby@3.1.4
 plugins:

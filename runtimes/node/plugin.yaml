@@ -59,7 +59,7 @@ runtimes:
         - name: NODE_OPTIONS
           value: ${env.NODE_OPTIONS}
           optional: true
-      known_good_version: 18.12.1
+      known_good_version: 18.20.5
       version_commands:
         - run: node --version
           parse_regex: ${semver}
