@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter opa test basic 1`] = `
+"package authz
+
+import rego.v1
+
+default allow := false
+
+allow if {
+	isEmployee
+	"developer" in input.user.roles
+}
+
+isEmployee if regex.match("@acmecorp\\\\.com$", input.user.email)
+"
+`;
