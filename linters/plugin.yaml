@@ -592,7 +592,6 @@ lint:
     - name: terraform
       extensions:
         - tf
-        - tf.json
       comments:
         - hash
         - slashes-inline
