@@ -170,6 +170,18 @@ lint:
         - slashes-block
 
     - name: cuda
+      inherit:
+        - cuda-header
+        - cuda-source
+
+    - name: cuda-header
+      extensions:
+        - cuh
+      comments:
+        - slashes-block
+        - slashes-inline
+
+    - name: cuda-source
       extensions:
         - cu
       comments:
