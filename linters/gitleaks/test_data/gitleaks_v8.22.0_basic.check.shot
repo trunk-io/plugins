@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter gitleaks test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "aws-access-token",
+      "column": "15",
+      "file": "test_data/basic.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "gitleaks",
+      "message": "aws-access-token has detected secret for file test_data/basic.py.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.py",
+          "length": "19",
+          "offset": "58",
+        },
+      ],
+      "targetType": "ALL",
+    },
+    {
+      "code": "private-key",
+      "column": "19",
+      "file": "test_data/basic.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "gitleaks",
+      "message": "private-key has detected secret for file test_data/basic.py.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.py",
+          "length": "397",
+          "offset": "98",
+        },
+      ],
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "gitleaks",
+      "paths": [
+        "test_data/basic.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "gitleaks",
+      "paths": [
+        "test_data/basic.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
