@@ -202,7 +202,7 @@ lint:
         # ?: is a non-capturing group, so that the RE2 DFA is more memory efficient
         # NOTE(Tyler): This is more strict than it realistically needs to be, but this partial match
         # and the file extensions provide a general enough capture.
-        - (?i)(?:^|/)Dockerfile\..+$
+        - (?i)(?:^|/)Dockerfile\.(?!.*\.dockerignore$).+$
       filenames:
         - dockerfile
         - Dockerfile
