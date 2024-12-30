@@ -81,7 +81,7 @@ runs:
     - name: Upload prod results
       # TODO(Tyler): Add upload on Windows once the action supports it.
       if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
-      uses: trunk-io/analytics-uploader@main
+      uses: trunk-io/analytics-uploader@9c4858d418abf0d6c2053acf4f7e0e485336552e
       with:
         junit-paths: junit.xml
         org-slug: trunk
@@ -93,7 +93,7 @@ runs:
     - name: Upload staging results
       # TODO(Tyler): Add upload on Windows once the action supports it.
       if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
-      uses: trunk-io/analytics-uploader@main
+      uses: trunk-io/analytics-uploader@9c4858d418abf0d6c2053acf4f7e0e485336552e
       with:
         junit-paths: junit.xml
         org-slug: trunk-staging-org
