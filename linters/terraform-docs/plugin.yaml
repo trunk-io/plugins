@@ -1,0 +1,21 @@
+version: 0.1
+lint:
+  definitions:
+    - name: terraform-docs
+      files: [terraform]
+      main_tool: terraform-docs
+      description: Generate terraform + tofu module documentation
+      commands:
+        - name: terraform-docs
+          output: rewrite
+          formatter: true
+          run_from: ${target_directory}
+          run: terraform-docs markdown --output-file=README.md .
+          read_output_from: stdout
+          stdin: true
+          success_codes: [0]
+      suggest_if: never
+      known_good_version: 0.16.0
+      version_command:
+        parse_regex: ${semver}
+        run: terraform-docs --version
