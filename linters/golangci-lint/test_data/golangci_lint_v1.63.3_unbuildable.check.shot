@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter golangci-lint test unbuildable 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "file": ".",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "linter": "golangci-lint",
+      "message": "typechecking error: build constraints exclude all Go files in /tmp/plugins_",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
