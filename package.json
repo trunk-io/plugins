@@ -14,10 +14,10 @@
     "@types/debug": "^4.1.12",
     "@types/jest": "^29.5.14",
     "@types/jest-specific-snapshot": "^0.5.9",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.5",
     "@types/semver": "^7.5.8",
-    "@typescript-eslint/eslint-plugin": "^8.18.2",
-    "@typescript-eslint/parser": "^8.18.2",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
+    "@typescript-eslint/parser": "^8.19.0",
     "caller": "^1.1.0",
     "debug": "^4.4.0",
     "eslint": "9.14.0",
@@ -39,8 +39,8 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.2",
-    "yaml": "^2.6.1"
+    "typescript-eslint": "^8.19.0",
+    "yaml": "^2.7.0"
   },
   "bundleDependencies": [
     "tests"
