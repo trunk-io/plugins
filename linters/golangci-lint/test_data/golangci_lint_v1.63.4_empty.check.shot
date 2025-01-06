@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter golangci-lint test empty 1`] = `
+{
+  "issues": [
+    {
+      "code": "typecheck",
+      "column": "1",
+      "file": "test_data/empty.go",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "golangci-lint",
+      "message": "expected 'package', found 'EOF'",
+      "targetType": "go",
+    },
+    {
+      "code": "typecheck",
+      "file": "test_data/wrapper/printer.go",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://golangci-lint.run/usage/linters/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "golangci-lint",
+      "message": ": # golangcilint_linter_test/wrapper
+wrapper/printer.go:12:23: undefined: Wrapper2",
+      "targetType": "go",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "go",
+      "linter": "golangci-lint",
+      "paths": [
+        "test_data/wrapper",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
