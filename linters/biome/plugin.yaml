@@ -39,6 +39,7 @@ lint:
       suggest_if: config_present
       direct_configs:
         - biome.json
+        - biome.jsonc
         - rome.json # For backwards compatibility with rome
       affects_cache:
         - package.json
