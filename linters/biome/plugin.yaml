@@ -12,9 +12,11 @@ lint:
     # Successor to the rome linter+formatter
     - name: biome
       files:
-        - typescript
+        - css
+        - graphql
         - javascript
         - json
+        - typescript
       description: A static analyzer for web projects
       commands:
         - name: lint
