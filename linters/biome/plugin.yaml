@@ -31,8 +31,8 @@ lint:
           read_output_from: stderr
         - name: fmt
           output: rewrite
-          run: biome format --write "${target}"
-          success_codes: [0]
+          run: biome check --fix "${target}"
+          success_codes: [0, 1]
           batch: true
           cache_results: true
           formatter: true
