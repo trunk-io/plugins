@@ -12,6 +12,7 @@ lint:
     # Successor to the rome linter+formatter
     - name: biome
       files:
+        - astro
         - css
         - graphql
         - javascript
