@@ -6,7 +6,7 @@ lint:
       main_tool: terraform-docs
       description: Generate terraform + tofu module documentation
       commands:
-        - name: terraform-docs
+        - name: format
           output: rewrite
           formatter: true
           run_from: ${target_directory}
