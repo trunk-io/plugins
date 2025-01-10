@@ -61,6 +61,13 @@ lint:
         - slashes-block
         - slashes-inline
 
+    - name: astro
+      extensions:
+        - astro
+      comments:
+        - html-tag
+        - brace-slashes-block
+
     - name: bazel-build
       extensions:
         - BUILD
