@@ -44,7 +44,7 @@ lint:
           run: snyk code test --sarif ${target}
           success_codes: [0, 1]
           read_output_from: stdout
-          batch: false
+          batch: true
           is_security: true
         - name: container
           files: [docker]
@@ -52,7 +52,7 @@ lint:
           run: snyk container test --sarif ${target}
           success_codes: [0, 1]
           read_output_from: stdout
-          batch: false
+          batch: true
           is_security: true
       direct_configs: [.snyk]
       environment:
