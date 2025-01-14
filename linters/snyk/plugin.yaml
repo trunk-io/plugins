@@ -6,19 +6,19 @@ version: 0.1
 downloads:
   - name: snyk
     downloads:
-      - url: https://downloads.snyk.io/cli/${version}/snyk-linux-{cpu}
+      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}-${cpu}
         os: linux
         cpu:
           arm_64: arm64
-      - url: https://downloads.snyk.io/cli/${version}/snyk-macos
-        os: macos
-      - url: https://downloads.snyk.io/cli/${version}/snyk-win
-        os: windows
+      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}
+        os:
+          macos: macos
+          windows: win
 tools:
   definitions:
     - name: snyk
       download: snyk
-      known_good_version: v1.1295.0
+      known_good_version: 1.1295.0
       shims: [snyk]
       health_checks:
         - command: snyk --version
