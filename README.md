@@ -81,7 +81,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                   |
 | Rust            | [clippy], [rustfmt]                                                                                                      |
 | Scala           | [scalafmt]                                                                                                               |
-| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [tfsec], [trivy], [trufflehog], [terrascan]                              |
+| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                      |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                          |
 | SVG             | [svgo]                                                                                                                   |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                                |
@@ -175,6 +175,7 @@ trunk check enable {linter}
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff#readme
 [sqlfmt]: https://github.com/tconbeer/sqlfmt#readme
 [squawk]: https://github.com/sbdchd/squawk#readme
+[snyk]: https://github.com/snyk/cli#readme
 [standardrb]: https://github.com/testdouble/standard#readme
 [stringslint]: https://github.com/dral3x/StringsLint#readme
 [stylelint]: https://github.com/stylelint/stylelint#readme

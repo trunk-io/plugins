@@ -1,0 +1,62 @@
+version: 0.1
+# Tools can be either runtime package-based or download-based. Modify this boilerplate
+# to fit your use case.
+
+# Fill out this part if the linter/tool is download-based - otherwise delete
+downloads:
+  - name: snyk
+    downloads:
+      - url: https://downloads.snyk.io/cli/${version}/snyk-linux-{cpu}
+        os: linux
+        cpu:
+          arm_64: arm64
+      - url: https://downloads.snyk.io/cli/${version}/snyk-macos
+        os: macos
+      - url: https://downloads.snyk.io/cli/${version}/snyk-win
+        os: windows
+tools:
+  definitions:
+    - name: snyk
+      download: snyk
+      known_good_version: v1.1295.0
+      shims: [snyk]
+      health_checks:
+        - command: snyk --version
+          parse_regex: ${semver}
+lint:
+  definitions:
+    - name: snyk
+      tools: [snyk]
+      suggest_if: config_present
+      description: Security scanning tool for code, dependencies and containers
+      commands:
+        - name: test
+          files: [lockfile, docker]
+          output: sarif
+          run: snyk test --sarif ${target}
+          success_codes: [0, 1] # Snyk returns 1 when vulnerabilities are found
+          read_output_from: stdout
+          batch: false
+          is_security: true
+        - name: code
+          files: [javascript, typescript, java, python]
+          output: sarif
+          run: snyk code test --sarif ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: false
+          is_security: true
+        - name: container
+          files: [docker]
+          output: sarif
+          run: snyk container test --sarif ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: false
+          is_security: true
+      direct_configs: [.snyk]
+      environment:
+        - name: SNYK_TOKEN
+          optional: true
+        - name: PATH
+          list: ["${linter}", "${env.PATH}"]
