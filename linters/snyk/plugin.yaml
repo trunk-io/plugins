@@ -29,6 +29,7 @@ lint:
       tools: [snyk]
       suggest_if: config_present
       description: Security scanning tool for code, dependencies and containers
+      known_good_version: 1.1295.0
       commands:
         - name: test
           files: [lockfile, docker]
