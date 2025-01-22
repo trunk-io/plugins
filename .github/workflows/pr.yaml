@@ -151,6 +151,7 @@ jobs:
         with:
           linter-version: KnownGoodVersion
           ref-type: main
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
@@ -167,6 +168,7 @@ jobs:
         with:
           linter-version: Latest
           ref-type: main
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
           trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
@@ -262,6 +264,7 @@ jobs:
         with:
           linter-version: Latest
           ref-type: main
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5

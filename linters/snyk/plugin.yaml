@@ -61,5 +61,6 @@ lint:
       environment:
         - name: SNYK_TOKEN
           optional: true
+          value: ${env.SNYK_TOKEN}
         - name: PATH
           list: ["${linter}", "${env.PATH}"]
