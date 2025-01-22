@@ -1,19 +1,19 @@
 version: 0.1
-# Tools can be either runtime package-based or download-based. Modify this boilerplate
-# to fit your use case.
-
-# Fill out this part if the linter/tool is download-based - otherwise delete
 downloads:
   - name: snyk
     downloads:
       - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}-${cpu}
-        os: linux
-        cpu:
-          arm_64: arm64
-      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}
+        cpu: arm_64
         os:
           macos: macos
-          windows: win
+          linux: linux
+      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}
+        cpu: x86_64
+        os:
+          macos: macos
+          linux: linux
+      - url: https://downloads.snyk.io/cli/v${version}/snyk-win.exe
+        os: windows
 tools:
   definitions:
     - name: snyk
@@ -32,9 +32,9 @@ lint:
       known_good_version: 1.1295.0
       commands:
         - name: test
-          files: [lockfile, docker]
+          files: [lockfile]
           output: sarif
-          run: snyk test --sarif ${target}
+          run: snyk test --sarif --skip-unresolved --file=${target}
           success_codes: [0, 1] # Snyk returns 1 when vulnerabilities are found
           read_output_from: stdout
           batch: false
@@ -42,9 +42,11 @@ lint:
         - name: code
           files: [javascript, typescript, java, python]
           output: sarif
-          run: snyk code test --sarif ${target}
+          run: snyk code test --sarif .
+          run_from: ${parent}
           success_codes: [0, 1]
           read_output_from: stdout
+          sandbox_type: copy_targets
           batch: true
           is_security: true
         - name: container
