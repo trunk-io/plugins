@@ -34,6 +34,8 @@ on:
         required: false
       TRUNK_OPEN_PR_APP_PRIVATE_KEY:
         required: false
+      TRUNK_SNYK_TOKEN:
+        required: false
       TRUNK_SOURCERY_TOKEN:
         required: false
       TRUNK_DEBUGGER_TOKEN:
@@ -242,6 +244,7 @@ jobs:
           linter-version: Latest
           ref-type: main
           append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
+          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

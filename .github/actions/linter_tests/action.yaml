@@ -20,6 +20,9 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: linters --
+  snyk-token:
+    description: Token to login for snyk test
+    required: true
   sourcery-token:
     description: Token to login for sourcery test
     required: true
@@ -103,6 +106,7 @@ runs:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+        SNYK_TOKEN: ${{ inputs.snyk-token }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         # Debug recurrent eslint circular JSON errors
         DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*,Driver:trunk-toolbox:*
