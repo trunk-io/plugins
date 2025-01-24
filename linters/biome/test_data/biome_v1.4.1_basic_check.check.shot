@@ -46,16 +46,6 @@ exports[`Testing linter biome test basic_check 1`] = `
     },
   ],
   "taskFailures": [],
-  "unformattedFiles": [
-    {
-      "column": "1",
-      "file": "test_data/basic_check.in.ts",
-      "issueClass": "ISSUE_CLASS_UNFORMATTED",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "biome",
-      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
-    },
-  ],
+  "unformattedFiles": [],
 }
 `;
