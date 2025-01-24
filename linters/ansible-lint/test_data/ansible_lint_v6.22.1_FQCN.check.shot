@@ -1,5 +1,4 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter ansible-lint test FQCN 1`] = `
 {
@@ -541,16 +540,6 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "paths": [
         "jboss-standalone",
       ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "custom",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone",
-      ],
-      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

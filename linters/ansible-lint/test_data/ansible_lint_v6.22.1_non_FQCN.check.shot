@@ -26,16 +26,6 @@ exports[`Testing linter ansible-lint test non_FQCN 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-    {
-      "command": "lint",
-      "fileGroupName": "custom",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone",
-      ],
-      "upstream": true,
-      "verb": "TRUNK_VERB_CHECK",
-    },
   ],
   "taskFailures": [],
   "unformattedFiles": [],
