@@ -1,0 +1,10 @@
+version: 0.1
+actions:
+  definitions:
+    - id: terraform-docs
+      display_name: Terraform Docs
+      description: Generate documentation from Terraform modules in various output formats
+      runtime: python
+      triggers:
+        - git_hooks: [pre-commit]
+      run: python ${cwd}/terraform-docs.py
