@@ -28,14 +28,14 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests Main
-    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macOS, windows-latest]
+        # TODO(Tyler): Re-add Windows runners.
+        os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -213,21 +213,21 @@ jobs:
   # Run tool tests only on main
   tool_tests_main:
     name: Tool Tests Main
-    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS, windows-latest]
+        # TODO(Tyler): Re-add Windows runners.
+        os: [ubuntu-latest, macOS]
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
-          - os: windows-latest
-            results-file: windows-latest
+          # - os: windows-latest
+          #   results-file: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1

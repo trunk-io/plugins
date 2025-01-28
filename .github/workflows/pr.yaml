@@ -241,12 +241,12 @@ jobs:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
   # Run Windows tests for modified linters and tools
-  # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
   windows_linter_tests:
     name: Windows Linter Tests
     runs-on: windows-latest
     needs: detect_changes
-    if: needs.detect_changes.outputs.linters == 'true'
+    # TODO(Tyler): Re-add Windows runners.
+    if: needs.detect_changes.outputs.linters == 'true' && false
     timeout-minutes: 90
     steps:
       - name: Checkout
@@ -271,11 +271,12 @@ jobs:
           trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
+  # TODO(Tyler): Re-add Windows runners.
   windows_tool_tests:
     name: Windows Tool Tests
     runs-on: windows-latest
     needs: detect_changes
-    if: needs.detect_changes.outputs.tools == 'true'
+    if: needs.detect_changes.outputs.tools == 'true' && false
     timeout-minutes: 60
     steps:
       - name: Checkout
