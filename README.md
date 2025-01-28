@@ -222,6 +222,7 @@ trunk actions enable {action}
 | [`go-mod-tidy-vendor`](actions/go-mod-tidy-vendor/README.md)                                                                                                                     | automatically tidy and vendor go.mod file                  |
 | [`git-blame-ignore-revs`](actions/git-blame-ignore-revs/README.md)                                                                                                               | automatically configure git to use .git-blame-ignore-revs  |
 | [`npm-check`](actions/npm-check/README.md)                                                                                                                                       | check whether NPM installation is up to date               |
+| [`terraform-docs`](actions/terraform-docs/README.md)                                                                                                                             | generate documentation from Terraform modules              |
 | [`poetry-check`](actions/poetry/README.md), [`poetry-lock`](actions/poetry/README.md), [`poetry-export`](actions/poetry/README.md), [`poetry-install`](actions/poetry/README.md) | hooks to enforce poetry configuration                      |
 | [`yarn-check`](actions/yarn-check/README.md)                                                                                                                                     | check whether Yarn installation is up to date              |
 
