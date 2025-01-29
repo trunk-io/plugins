@@ -7,4 +7,4 @@ actions:
       runtime: python
       triggers:
         - git_hooks: [pre-commit]
-      run: python ${cwd}/terraform-docs.py
+      run: python3 ${cwd}/terraform-docs.py
