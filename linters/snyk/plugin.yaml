@@ -2,7 +2,7 @@ version: 0.1
 downloads:
   - name: snyk
     downloads:
-      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}-${cpu}
+      - url: https://downloads.snyk.io/cli/v${version}/snyk-${os}-arm64
         cpu: arm_64
         os:
           macos: macos

@@ -5,7 +5,7 @@ exports[`Testing formatter biome test basic_fmt 1`] = `
 const barfoo = () => {};
 
 enum Bar {
-	Baz,
+	Baz = 0,
 }
 
 const foo = (bar: Bar) => {
@@ -15,9 +15,7 @@ const foo = (bar: Bar) => {
 			barfoo();
 			break;
 	}
-	{
-		!foo ? null : 1;
-	}
+	!foo ? null : 1;
 };
 "
 `;

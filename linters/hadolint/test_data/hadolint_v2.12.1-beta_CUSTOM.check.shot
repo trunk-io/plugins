@@ -31,15 +31,6 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
       "fileGroupName": "docker",
       "linter": "hadolint",
       "paths": [
-        "test_data/Dockerfile.empty",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "docker",
-      "linter": "hadolint",
-      "paths": [
         "test_data/basic.Dockerfile",
       ],
       "verb": "TRUNK_VERB_CHECK",
@@ -50,15 +41,6 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
       "linter": "hadolint",
       "paths": [
         "test_data/empty.Dockerfile",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "docker",
-      "linter": "hadolint",
-      "paths": [
-        "test_data/nested/Dockerfile.debug",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -95,16 +77,6 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
       "fileGroupName": "docker",
       "linter": "hadolint",
       "paths": [
-        "test_data/Dockerfile.empty",
-      ],
-      "upstream": true,
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "docker",
-      "linter": "hadolint",
-      "paths": [
         "test_data/basic.Dockerfile",
       ],
       "upstream": true,
@@ -116,16 +88,6 @@ exports[`Testing linter hadolint test CUSTOM 1`] = `
       "linter": "hadolint",
       "paths": [
         "test_data/empty.Dockerfile",
-      ],
-      "upstream": true,
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "docker",
-      "linter": "hadolint",
-      "paths": [
-        "test_data/nested/Dockerfile.debug",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
