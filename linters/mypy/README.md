@@ -21,6 +21,7 @@ x: str = 1  # type: ignore
 x: str = 1
 
 # Unsupported in mypy
+x: str = 1
 ```
 
 ### Specific Issue
@@ -47,6 +48,7 @@ x: str = 1
 # trunk-ignore-end(mypy/assigment)
 
 # Unsupported in mypy
+x: str = 1
 ```
 
 ### Whole File
@@ -58,3 +60,8 @@ x: str = 1
 # mypy: disable-error-code="assignment"
 x: str = 1
 ```
+
+### Notes
+
+The applied linter rules can be specified in a
+[mypy config file](https://mypy.readthedocs.io/en/stable/config_file.html#example-mypy-ini).

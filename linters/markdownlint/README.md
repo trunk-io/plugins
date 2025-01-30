@@ -77,3 +77,8 @@ and [trunk-ignores](https://docs.trunk.io/code-quality/linters/ignoring-issues-a
 
 # (name)[link]
 ```
+
+### Notes
+
+Specific rules and multi-file ignores can be specified in a
+[markdownlint config file](https://github.com/DavidAnson/markdownlint#optionsconfig).

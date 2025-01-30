@@ -76,4 +76,6 @@ alert("foo");
 ### Notes
 
 Only `eslint-disable-line` and `eslint-disable-next-line` support `//` comments. All other
-ESLint-style ignores must use `/* */` comments.
+ESLint-style ignores must use `/* */` comments. The full set of rules and their applicable files can
+be configured in an
+[eslint config file](https://eslint.org/docs/latest/use/configure/rules#using-configuration-files).

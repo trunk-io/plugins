@@ -21,6 +21,7 @@ x = 1  # noqa
 x = 1
 
 # Unsupported in ruff
+x = 1
 ```
 
 ### Specific Issue
@@ -47,6 +48,7 @@ x = 1
 # trunk-ignore-end(ruff/F841)
 
 # Unsupported in ruff
+x = 1
 ```
 
 ### Whole File
