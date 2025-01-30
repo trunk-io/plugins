@@ -53,6 +53,9 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
+  threshold:
+    - linters: [trunk]
+      level: high
 
 actions:
   # Uncomment to enable more verbose action logs
