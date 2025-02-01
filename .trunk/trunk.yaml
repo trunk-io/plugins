@@ -53,6 +53,8 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
+    - linters: [prettier]
+      paths: [linters/markdownlint/README.md]
   threshold:
     - linters: [trunk]
       level: high

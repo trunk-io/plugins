@@ -17,6 +17,7 @@ const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
 const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.yaml");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
+const EXCLUDED_RERUN_LINTERS: string[] = ["snyk"];
 const VALIDATED_LINTER_BLOCKLIST: string[] = [];
 
 const RUN_ID = process.env.RUN_ID ?? "";
@@ -357,12 +358,14 @@ const writeTestResults = (testResults: TestResultSummary) => {
         const allMetadata = Array.from(testFailureMetadata.values());
         // Must have at least one assertion_failure and no other failure types in order to proactively generate snapshot.
         const shouldRerunTest =
+          !EXCLUDED_RERUN_LINTERS.includes(linter) &&
           allMetadata.every(
             (failureMode) =>
               failureMode === "assertion_failure" ||
               failureMode === "skipped" ||
               failureMode === "passed",
-          ) && allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
+          ) &&
+          allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
         if (shouldRerunTest) {
           rerunPaths.push(testFilePath);
         }
