@@ -118,7 +118,7 @@ jobs:
                   text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }})>"
 
       - name: Setup Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version: 18
 
@@ -227,7 +227,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Setup Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version: 18
 
