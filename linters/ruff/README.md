@@ -24,6 +24,14 @@ x = 1
 x = 1
 ```
 
+### With Comments
+
+```python
+x = 1  # trunk-ignore(ruff): Expected var
+
+x = 1  # noqa Expected var
+```
+
 ### Specific Issue
 
 ```python

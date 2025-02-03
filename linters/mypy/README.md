@@ -24,6 +24,14 @@ x: str = 1
 x: str = 1
 ```
 
+### With Comments
+
+```python
+x: str = 1  # trunk-ignore(mypy): Expected type
+
+x: str = 1  # Unsupported in mypy
+```
+
 ### Specific Issue
 
 ```python

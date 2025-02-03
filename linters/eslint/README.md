@@ -31,6 +31,16 @@ alert("foo");
 alert("foo");
 ```
 
+### With Comments
+
+```typescript
+// trunk-ignore(eslint): Expected alert
+alert("foo");
+
+/* eslint-disable-next-line -- Expected alert */
+alert("foo");
+```
+
 ### Specific Issue
 
 ```typescript
