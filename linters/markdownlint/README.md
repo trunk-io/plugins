@@ -84,7 +84,7 @@ and [trunk-ignores](https://docs.trunk.io/code-quality/linters/ignoring-issues-a
 
 ### Notes
 
-By default, prettier will add comments between markdown content and comments.
+By default, prettier will add empty lines between markdown content and comments.
 For this reason, we recommend using next-line ignores with [prettier ignores](https://prettier.io/docs/ignore/#range-ignore) or using ignore bocks.
 
 Specific rules and multi-file ignores can be specified in a
