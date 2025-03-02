@@ -64,14 +64,14 @@ jobs:
 
       - name: Retrieve Test Outputs ubuntu
         id: download-ubuntu
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
         id: download-macos
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}macos-latest-test-results
@@ -79,7 +79,7 @@ jobs:
       # TODO(Tyler): Re-add Windows runners.
       # - name: Retrieve Test Outputs Windows
       #   id: download-windows
-      #   uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      #   uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
       #   continue-on-error: true
       #   with:
       #     name: ${{ inputs.results-prefix }}windows-latest-test-results
