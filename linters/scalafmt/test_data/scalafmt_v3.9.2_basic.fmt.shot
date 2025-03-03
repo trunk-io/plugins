@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter scalafmt test basic 1`] = `
+"case class Demo(a: String, b: Int, c: Char)
+"
+`;
