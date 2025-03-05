@@ -11,7 +11,9 @@ lint:
     - name: basedpyright
       files: [python]
       suggest_if: config_present
-      description: Basedpyright is a fork of pyright with various type checking improvements, pylance features and more
+      description:
+        Basedpyright is a fork of pyright with various type checking improvements, pylance features
+        and more
       commands:
         - name: lint
           output: sarif
