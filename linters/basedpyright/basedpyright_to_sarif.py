@@ -14,13 +14,21 @@ for result in json.load(sys.stdin)["generalDiagnostics"]:
                     "artifactLocation": {
                         "uri": result["file"],
                     },
-                    "region": {
-                        "startLine": result["range"]["start"]["line"]
-                        + 1,  # basedpyright is 0-indexed, SARIF is 1-indexed
-                        "startColumn": result["range"]["start"]["character"] + 1,
-                        "endLine": result["range"]["end"]["line"] + 1,
-                        "endColumn": result["range"]["end"]["character"] + 1,
-                    },
+                    # Add region only if range information is available
+                    **(
+                        {
+                            "region": {
+                                "startLine": result["range"]["start"]["line"]
+                                + 1,  # basedpyright is 0-indexed, SARIF is 1-indexed
+                                "startColumn": result["range"]["start"]["character"]
+                                + 1,
+                                "endLine": result["range"]["end"]["line"] + 1,
+                                "endColumn": result["range"]["end"]["character"] + 1,
+                            }
+                        }
+                        if "range" in result
+                        else {}
+                    ),
                 }
             }
         ],

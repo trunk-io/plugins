@@ -1,8 +1,13 @@
 from typing import Callable, Iterator, Union, Optional, Enum
-
+# Create import cycle by importing from a module that will import this module
+from circular_dependency import some_function
 
 def wrong_type(x: int) -> str:
     return x  # error: Incompatible return value type (got "int", expected "str")
+
+# Export something for the circular module to import
+def function_for_circular_import():
+    return "This function will be imported in circular_dependency.py"
 
 class A:
     def method1(self) -> None:
