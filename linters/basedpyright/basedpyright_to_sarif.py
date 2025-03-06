@@ -15,6 +15,7 @@ for result in json.load(sys.stdin)["generalDiagnostics"]:
                         "uri": result["file"],
                     },
                     # Add region only if range information is available
+                    # e.g. reportImportCycles does not have "range" information
                     **(
                         {
                             "region": {

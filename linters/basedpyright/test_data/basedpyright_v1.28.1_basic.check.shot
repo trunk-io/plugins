@@ -1,5 +1,4 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
-// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter basedpyright test basic 1`] = `
 {
@@ -203,15 +202,15 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "18",
       "linter": "basedpyright",
       "message": "Cannot assign to attribute "x" for class "A"
-  Expression of type "float" cannot be assigned to attribute "x" of class "A"
-    Type "float" is not assignable to type "int | str"
-      "float" is not assignable to "int"
-      "float" is not assignable to "str"",
+  Expression of type "float" cannot be assigned to attribute "x" of class "A"
+    Type "float" is not assignable to type "int | str"
+      "float" is not assignable to "int"
+      "float" is not assignable to "str"",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "1",
-          "offset": "467",
+          "offset": "462",
         },
       ],
       "targetType": "python",
@@ -230,7 +229,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "1",
-          "offset": "609",
+          "offset": "599",
         },
       ],
       "targetType": "python",
@@ -249,7 +248,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "8",
-          "offset": "612",
+          "offset": "602",
         },
       ],
       "targetType": "python",
@@ -263,12 +262,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "27",
       "linter": "basedpyright",
-      "message": "Type annotation for attribute `z` is required because this class is not decorated with `@final`",
+      "message": "Type annotation for attribute \`z\` is required because this class is not decorated with \`@final\`",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "1",
-          "offset": "690",
+          "offset": "680",
         },
       ],
       "targetType": "python",
@@ -283,12 +282,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "30",
       "linter": "basedpyright",
       "message": "Argument type is unknown
-  Argument corresponds to parameter "values" in function "print"",
+  Argument corresponds to parameter "values" in function "print"",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "739",
+          "offset": "729",
         },
       ],
       "targetType": "python",
@@ -307,7 +306,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "739",
+          "offset": "729",
         },
       ],
       "targetType": "python",
@@ -322,12 +321,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "31",
       "linter": "basedpyright",
       "message": "Argument type is unknown
-  Argument corresponds to parameter "values" in function "print"",
+  Argument corresponds to parameter "values" in function "print"",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "750",
+          "offset": "740",
         },
       ],
       "targetType": "python",
@@ -346,7 +345,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "750",
+          "offset": "740",
         },
       ],
       "targetType": "python",
@@ -361,12 +360,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "31",
       "linter": "basedpyright",
       "message": "Cannot access attribute "z" for class "type[A]"
-  Attribute "z" is unknown",
+  Attribute "z" is unknown",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "1",
-          "offset": "752",
+          "offset": "742",
         },
       ],
       "targetType": "python",
@@ -385,7 +384,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "4",
-          "offset": "818",
+          "offset": "803",
         },
       ],
       "targetType": "python",
@@ -399,12 +398,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "36",
       "linter": "basedpyright",
-      "message": "Type annotation for attribute `RED` is required because this class is not decorated with `@final`",
+      "message": "Type annotation for attribute \`RED\` is required because this class is not decorated with \`@final\`",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "829",
+          "offset": "814",
         },
       ],
       "targetType": "python",
@@ -418,12 +417,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "37",
       "linter": "basedpyright",
-      "message": "Type annotation for attribute `BLUE` is required because this class is not decorated with `@final`",
+      "message": "Type annotation for attribute \`BLUE\` is required because this class is not decorated with \`@final\`",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "4",
-          "offset": "841",
+          "offset": "826",
         },
       ],
       "targetType": "python",
@@ -438,12 +437,12 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "39",
       "linter": "basedpyright",
       "message": "Function with declared return type "bool" must return value on all code paths
-  "None" is not assignable to "bool"",
+  "None" is not assignable to "bool"",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
           "length": "4",
-          "offset": "879",
+          "offset": "864",
         },
       ],
       "targetType": "python",
@@ -458,7 +457,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "line": "5",
       "linter": "basedpyright",
       "message": "Type "int" is not assignable to return type "str"
-  "int" is not assignable to "str"",
+  "int" is not assignable to "str"",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
@@ -481,7 +480,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "1143",
+          "offset": "1128",
         },
       ],
       "targetType": "python",
@@ -499,7 +498,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "3",
-          "offset": "1259",
+          "offset": "1244",
         },
       ],
       "targetType": "python",
@@ -518,7 +517,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
         {
           "filePath": "test_data/basic.in.py",
           "length": "9",
-          "offset": "1295",
+          "offset": "1280",
         },
       ],
       "targetType": "python",
@@ -551,7 +550,7 @@ exports[`Testing linter basedpyright test basic 1`] = `
       "level": "LEVEL_MEDIUM",
       "line": "9",
       "linter": "basedpyright",
-      "message": "Type annotation for attribute `x` is required because this class is not decorated with `@final`",
+      "message": "Type annotation for attribute \`x\` is required because this class is not decorated with \`@final\`",
       "ranges": [
         {
           "filePath": "test_data/basic.in.py",
