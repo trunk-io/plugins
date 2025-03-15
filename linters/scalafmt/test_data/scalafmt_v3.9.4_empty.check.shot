@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter scalafmt test empty 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "scala",
+      "linter": "scalafmt",
+      "paths": [
+        "test_data/empty.in.scala",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/empty.in.scala",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "scalafmt",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
