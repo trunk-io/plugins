@@ -55,7 +55,7 @@ lint:
           run_from: ${root_or_parent_with(go.mod)}
           # TODO(Tyler): Audit golangci-lint running on upstream once sandboxing and relative path fix is landed.
           disable_upstream: true
-      suggest_if: files_present
+      suggest_if: never
       direct_configs:
         - .golangci.json
         - .golangci.toml
