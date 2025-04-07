@@ -7,6 +7,11 @@ tools:
       package: github.com/golangci/golangci-lint/cmd/golangci-lint
       shims: [golangci-lint]
       known_good_version: 1.46.2
+    - name: golangci-lint2
+      runtime: go
+      package: github.com/golangci/golangci-lint/v2/cmd/golangci-lint
+      shims: [golangci-lint]
+      known_good_version: 2.0.0
 
 lint:
   definitions:
@@ -49,6 +54,60 @@ lint:
           success_codes: [0, 2, 7]
           run_from: ${root_or_parent_with(go.mod)}
           # TODO(Tyler): Audit golangci-lint running on upstream once sandboxing and relative path fix is landed.
+          disable_upstream: true
+      suggest_if: files_present
+      direct_configs:
+        - .golangci.json
+        - .golangci.toml
+        - .golangci.yaml
+        - .golangci.yml
+      affects_cache:
+        - go.mod
+        - go.sum
+      issue_url_format: https://golangci-lint.run/usage/linters/
+      known_good_version: 1.49.0
+      version_command:
+        parse_regex: ${semver}
+        run: golangci-lint --version
+      run_timeout: 10m
+    - name: golangci-lint2
+      files: [go]
+      tools: [golangci-lint2]
+      description: A powerful Go linter runner
+      environment:
+        - name: GOLANGCI_LINT_CACHE
+          value: ${cachedir}
+        # Needs to use system `diff` and `git`
+        - name: PATH
+          list: ["${env.PATH}"]
+        - name: GO111MODULE
+          value: auto
+        # May need to git clone with ssh authentication for private packages.
+        - name: SSH_AUTH_SOCK
+          value: ${env.SSH_AUTH_SOCK}
+          optional: true
+      commands:
+        - name: lint
+          output: sarif
+          read_output_from: tmp_file
+          # We need to run golangci-lint on directories since running on files only works for --fast
+          # and can also produce false positives.
+          target: ${parent}
+          # Exclude go linters we already include.
+          run:
+            golangci-lint run --output.sarif.path ${tmpfile} --timeout 10m --concurrency 1
+            --allow-parallel-runners --issues-exit-code 0 ${target}
+          # exit codes
+          # 0 - success
+          # 1 - issues found -> we override this to be 0
+          # 2 - warning in test
+          # 3 - failure
+          # 4 - timeout
+          # 5 - no go files
+          # 6 - no config file detected
+          # 7 - error logged
+          success_codes: [0, 2, 7]
+          run_from: ${root_or_parent_with(go.mod)}
           disable_upstream: true
       suggest_if: files_present
       direct_configs:
