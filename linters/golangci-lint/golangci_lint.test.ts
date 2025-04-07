@@ -1,8 +1,8 @@
 import path from "path";
+import semver from "semver";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS, TEST_DATA } from "tests/utils";
-import semver from "semver";
 
 const testGenerator = ({
   args,
