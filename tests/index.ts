@@ -685,6 +685,12 @@ export const linterCheckTest = ({
   postCheck?: TestCallback;
   manualVersionReplacer?: (version: string) => string;
 }) => {
+  if (linterName.startsWith("pretty")) {
+    throw new Error("`linterCheckTest` is not supported for pretty linters");
+  }
+  if (linterName.startsWith("bio")) {
+    throw new Error("`linterCheckTest` is not supported for bio linters");
+  }
   // Step 1a: Detect test files to run
   const linterTestTargets = detectTestTargets(dirname, namedTestPrefixes);
 

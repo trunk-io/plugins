@@ -12,6 +12,7 @@ lint:
       files: [python]
       description: Static code analysis for Python
       commands:
+        # lint should not be flaky
         - name: lint
           # Custom parser type defined in the trunk cli to handle pylint's JSON output.
           output: pylint
