@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter snyk test js 1`] = `
+{
+  "issues": [
+    {
+      "code": "javascript/NoRateLimitingForExpensiveWebOperation",
+      "column": "18",
+      "file": "test_data/js.in.js",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_MEDIUM",
+      "line": "166",
+      "linter": "snyk",
+      "message": "Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.",
+      "ranges": [
+        {
+          "filePath": "test_data/js.in.js",
+          "length": "1567",
+          "offset": "3702",
+        },
+      ],
+      "targetType": "javascript",
+    },
+    {
+      "code": "javascript/NoRateLimitingForExpensiveWebOperation",
+      "column": "21",
+      "file": "test_data/js.in.js",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_MEDIUM",
+      "line": "222",
+      "linter": "snyk",
+      "message": "Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.",
+      "ranges": [
+        {
+          "filePath": "test_data/js.in.js",
+          "length": "242",
+          "offset": "5292",
+        },
+      ],
+      "targetType": "javascript",
+    },
+    {
+      "code": "javascript/NoSqli",
+      "column": "8",
+      "file": "test_data/js.in.js",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "39",
+      "linter": "snyk",
+      "message": "Unsanitized input from the HTTP request body flows into find, where it is used in an NoSQL query. This may result in an NoSQL Injection vulnerability.",
+      "ranges": [
+        {
+          "filePath": "test_data/js.in.js",
+          "length": "4",
+          "offset": "918",
+        },
+      ],
+      "targetType": "javascript",
+    },
+    {
+      "code": "javascript/NoRateLimitingForExpensiveWebOperation",
+      "column": "18",
+      "file": "test_data/js.in.js",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_MEDIUM",
+      "line": "77",
+      "linter": "snyk",
+      "message": "Expensive operation (a system command execution) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.",
+      "ranges": [
+        {
+          "filePath": "test_data/js.in.js",
+          "length": "928",
+          "offset": "1741",
+        },
+      ],
+      "targetType": "javascript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "code",
+      "fileGroupName": "javascript",
+      "linter": "snyk",
+      "paths": [
+        "test_data/js.in.js",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/js.in.js",
+      "name": "snyk",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

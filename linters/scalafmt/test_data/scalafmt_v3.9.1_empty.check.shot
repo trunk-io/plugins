@@ -16,6 +16,16 @@ exports[`Testing linter scalafmt test empty 1`] = `
     },
   ],
   "taskFailures": [],
-  "unformattedFiles": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/empty.in.scala",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "scalafmt",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
 }
 `;

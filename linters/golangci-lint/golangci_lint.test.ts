@@ -1,11 +1,59 @@
 import path from "path";
+import semver from "semver";
 import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS, TEST_DATA } from "tests/utils";
 
+const testGenerator = ({
+  args,
+  testName,
+  preCheck,
+  skipTestIf,
+}: {
+  args: string;
+  testName: string;
+  preCheck?: (driver: TrunkLintDriver) => void;
+  skipTestIf?: (version?: string) => boolean;
+}) => {
+  const skipTest = (v1: boolean) => (version?: string) => {
+    if (v1 && semver.gte(version ?? "", "2.0.0")) {
+      return true;
+    } else if (!v1 && semver.lt(version ?? "", "2.0.0")) {
+      return true;
+    }
+
+    if (skipTestIf) {
+      return skipTestIf(version);
+    }
+    return false;
+  };
+
+  const preCheckV2 = (driver: TrunkLintDriver) => {
+    driver.moveFile(path.join(TEST_DATA, ".golangci.yml"), ".golangci2.yml");
+    if (preCheck) {
+      preCheck(driver);
+    }
+  };
+
+  customLinterCheckTest({
+    linterName: "golangci-lint",
+    args,
+    testName,
+    preCheck,
+    skipTestIf: skipTest(true),
+  });
+
+  customLinterCheckTest({
+    linterName: "golangci-lint2",
+    args,
+    testName,
+    preCheck: preCheckV2,
+    skipTestIf: skipTest(false),
+  });
+};
+
 // Don't run on Windows since the typecheck errors are dependent on system libs, and the set of diagnostics seems to vary.
-customLinterCheckTest({
-  linterName: "golangci-lint",
+testGenerator({
   args: `${TEST_DATA} -y`,
   testName: "all",
   skipTestIf: skipOS(["win32"]),
@@ -18,12 +66,11 @@ const addEmpty = (driver: TrunkLintDriver) => {
 
 // Don't run on Windows since the typecheck errors are dependent on system libs, and for the sake of these tests
 // it is easier to simply skip these tests than handle additional setup.
-customLinterCheckTest({
-  linterName: "golangci-lint",
-  testName: "empty",
+testGenerator({
   args: TEST_DATA,
-  preCheck: addEmpty,
+  testName: "empty",
   skipTestIf: skipOS(["win32"]),
+  preCheck: addEmpty,
 });
 
 // Having an ignored file and no other files causes an error diagnostic to be surfaced.
@@ -32,8 +79,7 @@ const setupUnbuildable = (driver: TrunkLintDriver) => {
   driver.deleteFile(TEST_DATA);
 };
 
-customLinterCheckTest({
-  linterName: "golangci-lint",
+testGenerator({
   testName: "unbuildable",
   args: "unbuildable.go",
   preCheck: setupUnbuildable,

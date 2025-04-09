@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter snyk test java 1`] = `
+{
+  "issues": [
+    {
+      "code": "java/Sqli",
+      "column": "18",
+      "file": "test_data/java.in.java",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "59",
+      "linter": "snyk",
+      "message": "Unsanitized input from an HTTP parameter flows into executeUpdate, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+      "ranges": [
+        {
+          "filePath": "test_data/java.in.java",
+          "length": "23",
+          "offset": "2394",
+        },
+      ],
+      "targetType": "java",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "code",
+      "fileGroupName": "java",
+      "linter": "snyk",
+      "paths": [
+        "test_data/java.in.java",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/java.in.java",
+      "name": "snyk",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

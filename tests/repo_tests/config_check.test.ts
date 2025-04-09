@@ -148,7 +148,7 @@ describe("Global config health check", () => {
         "dotenv-linter",
         "git-diff-check",
         "gofmt",
-        "golangci-lint",
+        "golangci-lint2",
         "hadolint",
         "haml-lint",
         "isort",
