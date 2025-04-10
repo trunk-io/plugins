@@ -13,37 +13,28 @@ const testGenerator = ({
   args: string;
   testName: string;
   preCheck?: (driver: TrunkLintDriver) => void;
-  skipTestIf?: (driver: TrunkLintDriver, version?: string) => boolean;
+  skipTestIf?: (version?: string) => boolean;
 }) => {
-  let currentDriver: TrunkLintDriver | undefined;
-
   const skipTest = (v1: boolean) => (version?: string) => {
-    if (!currentDriver) {
+    const parsedVersion = semver.parse(version);
+    if (!parsedVersion) {
       return false;
     }
-    const parsedVersion = semver.parse(currentDriver.enabledVersion);
-    if (v1 && parsedVersion && parsedVersion.major >= 2) {
+    console.log("Parsed version:", parsedVersion, parsedVersion.major, v1);
+    if (v1 && parsedVersion.major >= 2) {
       return true;
-    } else if (!v1 && parsedVersion && parsedVersion.major < 2) {
+    } else if (!v1 && parsedVersion.major < 2) {
       return true;
     }
 
     if (skipTestIf) {
-      return skipTestIf(currentDriver, version);
+      return skipTestIf(version);
     }
     return false;
   };
 
   const preCheckV2 = (driver: TrunkLintDriver) => {
-    currentDriver = driver;
     driver.moveFile(path.join(TEST_DATA, ".golangci.yml"), ".golangci2.yml");
-    if (preCheck) {
-      preCheck(driver);
-    }
-  };
-
-  const preCheckV1 = (driver: TrunkLintDriver) => {
-    currentDriver = driver;
     if (preCheck) {
       preCheck(driver);
     }
@@ -53,7 +44,7 @@ const testGenerator = ({
     linterName: "golangci-lint",
     args,
     testName,
-    preCheck: preCheckV1,
+    preCheck,
     skipTestIf: skipTest(true),
   });
 
@@ -70,7 +61,7 @@ const testGenerator = ({
 testGenerator({
   args: `${TEST_DATA} -y`,
   testName: "all",
-  skipTestIf: (driver, version) => skipOS(["win32"])(version),
+  skipTestIf: skipOS(["win32"]),
 });
 
 // Adding an empty file will cause some other issues to be suppressed.
@@ -83,7 +74,7 @@ const addEmpty = (driver: TrunkLintDriver) => {
 testGenerator({
   args: TEST_DATA,
   testName: "empty",
-  skipTestIf: (driver, version) => skipOS(["win32"])(version),
+  skipTestIf: skipOS(["win32"]),
   preCheck: addEmpty,
 });
 
