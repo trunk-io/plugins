@@ -19,7 +19,7 @@ const testGenerator = ({
     const parsedVersion = semver.parse(driver.enabledVersion);
     if (v1 && parsedVersion && parsedVersion.major >= 2) {
       return true;
-    } else if (!v1 && semver.lt(version ?? "", "2.0.0")) {
+    } else if (!v1 && parsedVersion && parsedVersion.major < 2) {
       return true;
     }
 
