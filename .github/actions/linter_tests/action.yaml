@@ -73,9 +73,8 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
-            brew install cpm
-            cpm install -g --no-test --color YAML::PP
-            cpm install -g --no-test --color Perl::Critic Perl::Tidy
+            brew install cpanminus
+            cpanm YAML::PP Class::Tiny Perl::Critic
             brew unlink perl && brew link perl
             brew install php gnupg
             ;;
