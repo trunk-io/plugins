@@ -5,7 +5,6 @@ import path from "path";
 import semver from "semver";
 import { TestTarget } from "tests/driver";
 import { CheckType, LandingState, LinterVersion, TaskFailure, TestingArguments } from "tests/types";
-import { TrunkLintDriver } from "tests/driver";
 
 export const REPO_ROOT = path.resolve(__dirname, "../..");
 export const TEST_DATA = "test_data";
@@ -248,7 +247,7 @@ export const recurseLevels = (starterPath: string, n: number) => {
  * Helper callback that skips a test if the OS is included in excludedOS.
  * Intended to be passed to `skipTestIf`.
  */
-export const skipOS = (excludedOS: string[]) => (_driver: TrunkLintDriver, _version?: string) =>
+export const skipOS = (excludedOS: string[]) => (_version?: string) =>
   excludedOS.length === 0 || excludedOS.includes(process.platform);
 
 /**
@@ -267,7 +266,7 @@ interface CpuOsPair {
   cpu: string;
 }
 
-export const skipCPUOS = (pairs: CpuOsPair[]) => (_driver: TrunkLintDriver, _version?: string) =>
+export const skipCPUOS = (pairs: CpuOsPair[]) => (_version?: string) =>
   pairs
     .map((pair: CpuOsPair) => pair.os == process.platform && pair.cpu == process.arch)
     .reduce((acc: boolean, val: boolean) => acc || val);
