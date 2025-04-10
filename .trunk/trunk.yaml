@@ -20,6 +20,7 @@ plugins:
       # update this to the latest version after config release
       ref: 5e2026bd4bc352ab52fa18762f86a254c44db2b5
 
+# DONOTLAND - remove this after config update
 runtimes:
   enabled:
     - ruby@>=3.4.2
