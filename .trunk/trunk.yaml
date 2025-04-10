@@ -109,6 +109,7 @@ tools:
   enabled:
     - clangd-indexing-tools@19.1.2
     - clangd@19.1.2
+
   runtimes:
     # expose shims in .trunk/tools
     - node
