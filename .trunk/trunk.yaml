@@ -17,13 +17,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      # update this to the latest version after config release
-      ref: 5e2026bd4bc352ab52fa18762f86a254c44db2b5
-
-# DONOTLAND - remove this after config update
-runtimes:
-  enabled:
-    - ruby@>=3.4.2
+      ref: v1.0.11
 
 lint:
   files:
