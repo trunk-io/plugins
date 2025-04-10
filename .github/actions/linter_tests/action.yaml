@@ -73,6 +73,7 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
+            brew install powershell/tap/powershell
             brew install cpanminus
             cpanm YAML::PP Class::Tiny Perl::Critic
             brew unlink perl && brew link perl
