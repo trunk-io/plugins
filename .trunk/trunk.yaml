@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.11-beta.4
+  version: 1.22.12
   shell_hooks:
     enforce: true
 
@@ -17,7 +17,7 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.10
+      ref: v1.0.11
 
 lint:
   files:
@@ -42,7 +42,7 @@ lint:
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - definition-checker
-    - eslint@9.20.1
+    - eslint@9.24.0
     - trunk-toolbox@0.5.4
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -109,6 +109,7 @@ tools:
   enabled:
     - clangd-indexing-tools@19.1.2
     - clangd@19.1.2
+
   runtimes:
     # expose shims in .trunk/tools
     - node
