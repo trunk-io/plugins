@@ -347,7 +347,7 @@ export const customLinterCheckTest = ({
   args = "",
   pathsToSnapshot = [],
   versionGreaterThanOrEqual,
-  skipTestIf = (_driver: TrunkLintDriver, _version?: string) => false,
+  skipTestIf = (_version?: string) => false,
   preCheck,
   postCheck,
   normalizeLandingState,
@@ -359,7 +359,7 @@ export const customLinterCheckTest = ({
   args?: string;
   pathsToSnapshot?: string[];
   versionGreaterThanOrEqual?: (_a: string, _b: string) => boolean;
-  skipTestIf?: (driver: TrunkLintDriver, version?: string) => boolean;
+  skipTestIf?: (version?: string) => boolean;
   preCheck?: TestCallback;
   postCheck?: TestCallback;
   normalizeLandingState?: (landingState: LandingState) => void;
@@ -382,7 +382,7 @@ export const customLinterCheckTest = ({
         );
 
         // Step 3: Run the test
-        conditionalTest(skipTestIf?.(driver, linterVersion) ?? false, testName, async () => {
+        conditionalTest(skipTestIf(linterVersion), testName, async () => {
           const debug = baseDebug.extend(driver.debugNamespace);
 
           const testRunResult = await driver.runCheck({ args, linter: linterName });

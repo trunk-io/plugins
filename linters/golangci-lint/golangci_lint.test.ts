@@ -15,8 +15,11 @@ const testGenerator = ({
   preCheck?: (driver: TrunkLintDriver) => void;
   skipTestIf?: (driver: TrunkLintDriver, version?: string) => boolean;
 }) => {
-  const skipTest = (v1: boolean) => (driver: TrunkLintDriver, version?: string) => {
-    const parsedVersion = semver.parse(driver.enabledVersion);
+  let currentDriver: TrunkLintDriver | undefined;
+
+  const skipTest = (v1: boolean) => (version?: string) => {
+    if (!currentDriver) return false;
+    const parsedVersion = semver.parse(currentDriver.enabledVersion);
     if (v1 && parsedVersion && parsedVersion.major >= 2) {
       return true;
     } else if (!v1 && parsedVersion && parsedVersion.major < 2) {
@@ -24,13 +27,21 @@ const testGenerator = ({
     }
 
     if (skipTestIf) {
-      return skipTestIf(driver, version);
+      return skipTestIf(currentDriver, version);
     }
     return false;
   };
 
   const preCheckV2 = (driver: TrunkLintDriver) => {
+    currentDriver = driver;
     driver.moveFile(path.join(TEST_DATA, ".golangci.yml"), ".golangci2.yml");
+    if (preCheck) {
+      preCheck(driver);
+    }
+  };
+
+  const preCheckV1 = (driver: TrunkLintDriver) => {
+    currentDriver = driver;
     if (preCheck) {
       preCheck(driver);
     }
@@ -40,7 +51,7 @@ const testGenerator = ({
     linterName: "golangci-lint",
     args,
     testName,
-    preCheck,
+    preCheck: preCheckV1,
     skipTestIf: skipTest(true),
   });
 
