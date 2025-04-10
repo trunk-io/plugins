@@ -13,17 +13,18 @@ const testGenerator = ({
   args: string;
   testName: string;
   preCheck?: (driver: TrunkLintDriver) => void;
-  skipTestIf?: (version?: string) => boolean;
+  skipTestIf?: (driver: TrunkLintDriver, version?: string) => boolean;
 }) => {
-  const skipTest = (v1: boolean) => (version?: string) => {
-    if (v1 && semver.gte(version ?? "", "2.0.0")) {
+  const skipTest = (v1: boolean) => (driver: TrunkLintDriver, version?: string) => {
+    const parsedVersion = semver.parse(driver.enabledVersion);
+    if (v1 && parsedVersion && parsedVersion.major >= 2) {
       return true;
     } else if (!v1 && semver.lt(version ?? "", "2.0.0")) {
       return true;
     }
 
     if (skipTestIf) {
-      return skipTestIf(version);
+      return skipTestIf(driver, version);
     }
     return false;
   };
@@ -56,7 +57,7 @@ const testGenerator = ({
 testGenerator({
   args: `${TEST_DATA} -y`,
   testName: "all",
-  skipTestIf: skipOS(["win32"]),
+  skipTestIf: (driver, version) => skipOS(["win32"])(version),
 });
 
 // Adding an empty file will cause some other issues to be suppressed.
@@ -69,7 +70,7 @@ const addEmpty = (driver: TrunkLintDriver) => {
 testGenerator({
   args: TEST_DATA,
   testName: "empty",
-  skipTestIf: skipOS(["win32"]),
+  skipTestIf: (driver, version) => skipOS(["win32"])(version),
   preCheck: addEmpty,
 });
 
