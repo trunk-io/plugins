@@ -378,6 +378,10 @@ lint:
         # Conan (C++)
         - conan.lock
 
+        # csharp
+        - deps.json
+        - packages.config
+
         # Golang
         - go.mod
         - go.sum
@@ -385,6 +389,10 @@ lint:
         # Gradle (Android/Java/Kotlin)
         - buildscript-gradle.lockfile
         - gradle.lockfile
+
+        # Haskell
+        - cabal.project.freeze
+        - stack.yaml.lock
 
         # Maven
         - pom.xml
@@ -396,6 +404,7 @@ lint:
         - package-lock.json
         - pnpm-lock.yaml
         - yarn.lock
+        - bun.lock
 
         # NuGet (.NET)
         - packages.lock.json
