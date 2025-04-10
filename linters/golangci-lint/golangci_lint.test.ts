@@ -18,7 +18,9 @@ const testGenerator = ({
   let currentDriver: TrunkLintDriver | undefined;
 
   const skipTest = (v1: boolean) => (version?: string) => {
-    if (!currentDriver) return false;
+    if (!currentDriver) {
+      return false;
+    }
     const parsedVersion = semver.parse(currentDriver.enabledVersion);
     if (v1 && parsedVersion && parsedVersion.major >= 2) {
       return true;
