@@ -16,11 +16,14 @@ const testGenerator = ({
   skipTestIf?: (version?: string) => boolean;
 }) => {
   const skipTest = (v1: boolean) => (version?: string) => {
+    if (v1 && version === "Latest") {
+      return true;
+    }
+
     const parsedVersion = semver.parse(version);
     if (!parsedVersion) {
       return false;
     }
-    console.log("Parsed version:", parsedVersion, parsedVersion.major, v1);
     if (v1 && parsedVersion.major >= 2) {
       return true;
     } else if (!v1 && parsedVersion.major < 2) {
