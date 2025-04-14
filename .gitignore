@@ -6,8 +6,3 @@ node_modules/
 
 # Typescript
 out/
-
-junit.xml
-
-# Snyk
-.dccache

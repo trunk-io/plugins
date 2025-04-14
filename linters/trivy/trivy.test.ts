@@ -12,20 +12,9 @@ const callbackGenerator =
     const trunkYamlPath = ".trunk/trunk.yaml";
     const currentContents = driver.readFile(trunkYamlPath);
     const trivyRegex = /- trivy@(.+)\n/;
-
-    // fs-vuln, config sometimes fail in CI to query DB concurrently.
-    const extraContents = `
-  definitions:
-    - name: trivy
-      commands:
-        - name: fs-vuln
-          max_concurrency: 1
-        - name: config
-          max_concurrency: 1
-`;
     const newContents = currentContents.replace(
       trivyRegex,
-      `- trivy@$1:\n        commands: [${command}]\n${extraContents}`,
+      `- trivy@$1:\n        commands: [${command}]\n`,
     );
     driver.writeFile(trunkYamlPath, newContents);
     if (otherPreCheck) {
@@ -53,7 +42,7 @@ fuzzyLinterCheckTest({
   linterName: "trivy",
   testName: "fs-vuln",
   args: "-a",
-  fileIssueAssertionCallback: createFuzzyMatcher(() => vulnExpectedFileIssues, 40),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => vulnExpectedFileIssues, 30),
   preCheck: callbackGenerator("fs-vuln"),
 });
 

@@ -9,14 +9,16 @@ const preCheck =
   (driver: TrunkLintDriver) => {
     const trunkYamlPath = ".trunk/trunk.yaml";
     const currentContents = driver.readFile(trunkYamlPath);
-    const newContents = currentContents.concat(`  definitions:
-    - name: ansible-lint
-      files: [yaml]
-  ignore:
-    - linters: [ansible-lint]
+    const newContents = currentContents.concat(`  triggers:
+  # Run these linters
+    - linters:
+        - ansible-lint
+      # If any files matching these change
       paths:
         - "**"
-        - "!jboss-standalone"
+      # On this target (A directory in this case)
+      targets:
+        - jboss-standalone
 `);
     driver.writeFile(trunkYamlPath, newContents);
 

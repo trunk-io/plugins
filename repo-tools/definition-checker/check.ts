@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-// trunk-ignore(eslint/import-x/no-extraneous-dependencies)
+// trunk-ignore(eslint/import/no-extraneous-dependencies)
 import YAML from "yaml";
 
 // Avoid strictly typing composite config

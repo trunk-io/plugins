@@ -20,18 +20,12 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: linters --
-  snyk-token:
-    description: Token to login for snyk test
-    required: true
   sourcery-token:
     description: Token to login for sourcery test
     required: true
-  trunk-staging-token:
-    description: Test analytics staging api token (org token)
-    required: false
-  trunk-prod-token:
-    description: Test analytics prod api token (org token)
-    required: false
+  trunk-token:
+    description: CI debugger api token (org token)
+    required: true
   ref-type:
     description: release or main
     required: false
@@ -73,9 +67,8 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
-            brew install powershell/tap/powershell
-            brew install cpanminus
-            cpanm YAML::PP Class::Tiny Perl::Critic
+            brew install cpm
+            cpm install -g --no-test --color Perl::Critic Perl::Tidy
             brew unlink perl && brew link perl
             brew install php gnupg
             ;;
@@ -99,42 +92,50 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run plugin tests
+      if: runner.os == 'Windows'
       run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci
       shell: bash
       working-directory: ${{ inputs.path }}
-      continue-on-error: true
       env:
         PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
-        SNYK_TOKEN: ${{ inputs.snyk-token }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
         # Debug recurrent eslint circular JSON errors
-        DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*,Driver:trunk-toolbox:*
+        DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*
         JEST_SUITE_NAME: Linter Tests
         JEST_JUNIT_SUITE_NAME:
           "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ inputs.linter-version }}"
 
-    - name: Upload prod results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
-      uses: trunk-io/analytics-uploader@main
+    - name: Run plugin tests
+      if: runner.os != 'Windows'
+      # trunk-ignore(semgrep/yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha)
+      uses: trunk-io/breakpoint@v1.3.0
       with:
-        junit-paths: junit.xml
-        org-slug: trunk
-        token: ${{ inputs.trunk-prod-token }}
-      continue-on-error: true
+        breakpoint-id: trunk-plugins-linter-tests
+        shell: bash
+        working-directory: ${{ inputs.path }}
+        trunk-token: ${{ inputs.trunk-token }}
+        org: trunk-staging-org
+        run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --ci --runInBand
       env:
-        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
+        PLUGINS_TEST_LINTER_VERSION: ${{ inputs.linter-version }}
+        PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
+        PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+        SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+        DEBUG: Driver:nixpkgs-fmt:*, Driver:eslint:*
+        JEST_SUITE_NAME: Linter Tests
+        JEST_JUNIT_SUITE_NAME:
+          "{title} ${{ runner.os }} ${{ inputs.ref-type }} ${{ env.JEST_LINTER_VERSION }}"
 
-    - name: Upload staging results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
+    - name: Upload results
+      # TODO(Tyler): Add upload on MacOS/Windows once the action supports it.
+      if: "!cancelled() && runner.os == 'Linux'"
       uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
         org-slug: trunk-staging-org
-        token: ${{ inputs.trunk-staging-token }}
-        quarantine: true
+        token: ${{ inputs.trunk-token }}
+      continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
 
 exports[`Testing linter ansible-lint test FQCN 1`] = `
 {
@@ -13,7 +14,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "28",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.wait_for\` or \`ansible.legacy.wait_for\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -25,7 +26,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "5",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[play]",
@@ -37,7 +38,19 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "4",
       "linter": "ansible-lint",
       "message": "All plays should be named.",
-      "targetType": "yaml",
+      "targetType": "custom",
+    },
+    {
+      "code": "role-name",
+      "column": "1",
+      "file": "jboss-standalone/roles/java-app",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#role-name",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ansible-lint",
+      "message": "Role name java-app does not match \`\`^[a-z][a-z0-9_]*$\`\` pattern.",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -49,7 +62,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "14",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.copy\` or \`ansible.legacy.copy\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "risky-file-permissions",
@@ -61,7 +74,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "14",
       "linter": "ansible-lint",
       "message": "Task/Handler: Copy application WAR file to host",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action]",
@@ -73,7 +86,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "19",
       "linter": "ansible-lint",
       "message": "Action \`jboss\` is not FQCN.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -85,7 +98,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "2",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.copy\` or \`ansible.legacy.copy\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "risky-file-permissions",
@@ -97,7 +110,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "2",
       "linter": "ansible-lint",
       "message": "Task/Handler: Copy application WAR file to host",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action]",
@@ -109,7 +122,19 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "7",
       "linter": "ansible-lint",
       "message": "Action \`jboss\` is not FQCN.",
-      "targetType": "yaml",
+      "targetType": "custom",
+    },
+    {
+      "code": "role-name",
+      "column": "1",
+      "file": "jboss-standalone/roles/jboss-standalone",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://ansible-lint.readthedocs.io/en/latest/default_rules.html#role-name",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ansible-lint",
+      "message": "Role name jboss-standalone does not match \`\`^[a-z][a-z0-9_]*$\`\` pattern.",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -121,7 +146,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "2",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.service\` or \`ansible.legacy.service\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[casing]",
@@ -133,7 +158,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "2",
       "linter": "ansible-lint",
       "message": "Task/Handler: restart jboss",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -145,7 +170,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "7",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.service\` or \`ansible.legacy.service\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[casing]",
@@ -157,7 +182,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "7",
       "linter": "ansible-lint",
       "message": "Task/Handler: restart iptables",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -169,7 +194,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "12",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.get_url\` or \`ansible.legacy.get_url\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "risky-file-permissions",
@@ -181,7 +206,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "12",
       "linter": "ansible-lint",
       "message": "Task/Handler: Download JBoss from jboss.org",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -193,7 +218,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "17",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.unarchive\` or \`ansible.legacy.unarchive\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -205,7 +230,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "2",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -217,7 +242,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "22",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -229,7 +254,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "25",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.command\` or \`ansible.legacy.command\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -241,7 +266,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "31",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.template\` or \`ansible.legacy.template\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "risky-file-permissions",
@@ -253,7 +278,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "31",
       "linter": "ansible-lint",
       "message": "Task/Handler: Copying standalone.xml configuration file",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -265,7 +290,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "37",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.group\` or \`ansible.legacy.group\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -277,7 +302,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "41",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.user\` or \`ansible.legacy.user\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -289,7 +314,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "47",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.file\` or \`ansible.legacy.file\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -301,7 +326,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "53",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -313,7 +338,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "55",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.copy\` or \`ansible.legacy.copy\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[octal-values]",
@@ -325,7 +350,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "59",
       "linter": "ansible-lint",
       "message": "Forbidden implicit octal value "0755"",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "command-instead-of-module",
@@ -337,7 +362,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "61",
       "linter": "ansible-lint",
       "message": "Task/Handler: Workaround for systemd bug",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -349,7 +374,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "61",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.shell\` or \`ansible.legacy.shell\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "ignore-errors",
@@ -361,7 +386,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "61",
       "linter": "ansible-lint",
       "message": "Task/Handler: Workaround for systemd bug",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "no-changed-when",
@@ -373,7 +398,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "61",
       "linter": "ansible-lint",
       "message": "Task/Handler: Workaround for systemd bug",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -385,7 +410,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "63",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -397,7 +422,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "65",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.service\` or \`ansible.legacy.service\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -409,7 +434,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "68",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -421,7 +446,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "71",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.template\` or \`ansible.legacy.template\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[casing]",
@@ -433,7 +458,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "71",
       "linter": "ansible-lint",
       "message": "Task/Handler: deploy iptables rules",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "risky-file-permissions",
@@ -445,7 +470,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "71",
       "linter": "ansible-lint",
       "message": "Task/Handler: deploy iptables rules",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -457,7 +482,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "78",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.dnf\` or \`ansible.legacy.dnf\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action-core]",
@@ -469,7 +494,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "84",
       "linter": "ansible-lint",
       "message": "Use \`ansible.builtin.service\` or \`ansible.legacy.service\` instead.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "fqcn[action]",
@@ -481,7 +506,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "90",
       "linter": "ansible-lint",
       "message": "Action \`firewalld\` is not FQCN.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[casing]",
@@ -493,7 +518,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "90",
       "linter": "ansible-lint",
       "message": "Task/Handler: deploy firewalld rules",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -505,7 +530,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "92",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "yaml[truthy]",
@@ -517,7 +542,7 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "95",
       "linter": "ansible-lint",
       "message": "Truthy value should be one of [false, true]",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
     {
       "code": "name[play]",
@@ -529,62 +554,27 @@ exports[`Testing linter ansible-lint test FQCN 1`] = `
       "line": "4",
       "linter": "ansible-lint",
       "message": "All plays should be named.",
-      "targetType": "yaml",
+      "targetType": "custom",
     },
   ],
   "lintActions": [
     {
       "command": "lint",
-      "fileGroupName": "yaml",
+      "fileGroupName": "custom",
       "linter": "ansible-lint",
       "paths": [
-        "jboss-standalone/demo-aws-launch.yml",
+        "jboss-standalone",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
     {
       "command": "lint",
-      "fileGroupName": "yaml",
+      "fileGroupName": "custom",
       "linter": "ansible-lint",
       "paths": [
-        "jboss-standalone/deploy-application.yml",
+        "jboss-standalone",
       ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "yaml",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone/roles/java-app/tasks/main.yml",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "yaml",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone/roles/jboss-standalone/handlers/main.yml",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "yaml",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone/roles/jboss-standalone/tasks/main.yml",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "lint",
-      "fileGroupName": "yaml",
-      "linter": "ansible-lint",
-      "paths": [
-        "jboss-standalone/site.yml",
-      ],
+      "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],

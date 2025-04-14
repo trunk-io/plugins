@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter biome test error 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/basic_check.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": "test_data/basic_check.in.ts",
+      "name": "biome",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;

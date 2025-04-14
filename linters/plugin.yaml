@@ -61,13 +61,6 @@ lint:
         - slashes-block
         - slashes-inline
 
-    - name: astro
-      extensions:
-        - astro
-      comments:
-        - html-tag
-        - brace-slashes-block
-
     - name: bazel-build
       extensions:
         - BUILD
@@ -177,18 +170,6 @@ lint:
         - slashes-block
 
     - name: cuda
-      inherit:
-        - cuda-header
-        - cuda-source
-
-    - name: cuda-header
-      extensions:
-        - cuh
-      comments:
-        - slashes-block
-        - slashes-inline
-
-    - name: cuda-source
       extensions:
         - cu
       comments:
@@ -378,10 +359,6 @@ lint:
         # Conan (C++)
         - conan.lock
 
-        # csharp
-        - deps.json
-        - packages.config
-
         # Golang
         - go.mod
         - go.sum
@@ -389,10 +366,6 @@ lint:
         # Gradle (Android/Java/Kotlin)
         - buildscript-gradle.lockfile
         - gradle.lockfile
-
-        # Haskell
-        - cabal.project.freeze
-        - stack.yaml.lock
 
         # Maven
         - pom.xml
@@ -404,7 +377,6 @@ lint:
         - package-lock.json
         - pnpm-lock.yaml
         - yarn.lock
-        - bun.lock
 
         # NuGet (.NET)
         - packages.lock.json
@@ -417,13 +389,9 @@ lint:
         - requirements.txt
         - Pipfile.lock
         - poetry.lock
-        - pdm.lock
 
         # Ruby
         - Gemfile.lock
-
-        # R
-        - renv.lock
 
     - name: lua
       extensions:
@@ -483,6 +451,7 @@ lint:
 
     - name: postcss
       extensions:
+        # TODO(Tyler): Do we want to include css here as well?
         - pcss
         - postcss
 
@@ -601,12 +570,6 @@ lint:
         - strings
         - stringsdict
 
-    - name: svelte
-      extensions:
-        - svelte
-      comments:
-        - html-tag
-
     - name: svg
       extensions:
         - svg
@@ -620,6 +583,7 @@ lint:
     - name: terraform
       extensions:
         - tf
+        - tf.json
       comments:
         - hash
         - slashes-inline
@@ -627,17 +591,10 @@ lint:
 
     - name: textproto
       extensions:
-        - pbtxt
         - textpb
         - textproto
-        - txtpb
       comments:
         - hash
-
-    - name: tfvars
-      extensions:
-        # terraform/tofu can't format .tfvars.json files
-        - tfvars
 
     - name: toml
       extensions:
@@ -715,6 +672,3 @@ lint:
 
     - linters: [osv-scanner]
       paths: ["**/go.sum"]
-
-    - linters: [checkov, hadolint, snyk, terrascan, trivy]
-      paths: ["**/*.dockerignore"]

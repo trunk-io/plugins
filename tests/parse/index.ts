@@ -11,14 +11,13 @@ import {
 } from "tests/types";
 import { REPO_ROOT } from "tests/utils";
 import { getTrunkVersion } from "tests/utils/trunk_config";
-import YAML from "yaml";
 
 const RESULTS_FILE = path.resolve(REPO_ROOT, "results.json");
-const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.yaml");
+const FAILURES_FILE = path.resolve(REPO_ROOT, "failures.json");
 const RERUN_FILE = path.resolve(REPO_ROOT, "reruns.txt");
 
-const EXCLUDED_RERUN_LINTERS: string[] = ["snyk"];
-const VALIDATED_LINTER_BLOCKLIST: string[] = [];
+// TODO(Tyler): Remove this blocklist once eslint-friendly release is out.
+const VALIDATED_LINTER_BLOCKLIST = ["eslint"];
 
 const RUN_ID = process.env.RUN_ID ?? "";
 const TEST_REF = process.env.TEST_REF ?? "latest release";
@@ -301,11 +300,10 @@ const writeFailuresForNotification = (failures: FailedVersion[]) => {
   const blocks = allBlocks.length > 50 ? allBlocks.slice(0, 49).concat(remainingBlock) : allBlocks;
 
   const failuresObject = {
-    channel: process.env.SLACK_CHANNEL_ID,
     text: `${failures.length} failures encountered running plugins tests for ${TEST_REF}`,
     blocks,
   };
-  const failuresString = YAML.stringify(failuresObject);
+  const failuresString = JSON.stringify(failuresObject);
   fs.writeFileSync(FAILURES_FILE, failuresString);
   console.log(`Wrote ${failures.length} failures out to ${FAILURES_FILE}:`);
   console.log(failuresString);
@@ -358,14 +356,12 @@ const writeTestResults = (testResults: TestResultSummary) => {
         const allMetadata = Array.from(testFailureMetadata.values());
         // Must have at least one assertion_failure and no other failure types in order to proactively generate snapshot.
         const shouldRerunTest =
-          !EXCLUDED_RERUN_LINTERS.includes(linter) &&
           allMetadata.every(
             (failureMode) =>
               failureMode === "assertion_failure" ||
               failureMode === "skipped" ||
               failureMode === "passed",
-          ) &&
-          allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
+          ) && allMetadata.find((failureMode) => failureMode === "assertion_failure") !== undefined;
         if (shouldRerunTest) {
           rerunPaths.push(testFilePath);
         }

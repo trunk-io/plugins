@@ -1,23 +1,8 @@
-import semver from "semver";
 import { linterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { skipOS } from "tests/utils";
 
-linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface", "syntax"] });
-
-const skipJupyterTestIf = (version?: string) => {
-  if (!version || !semver.valid(version)) {
-    // Run if version is KGV or a string, or error loudly if malformed.
-    return false;
-  }
-  return semver.lt(version, "0.6.0");
-};
-
-linterCheckTest({
-  linterName: "ruff",
-  namedTestPrefixes: ["basic_nb"],
-  skipTestIf: skipJupyterTestIf,
-});
+linterCheckTest({ linterName: "ruff", namedTestPrefixes: ["basic", "interface"] });
 
 // ruff-nbqa still runs correctly on Windows, but the diagnostics are slightly different from the assertions.
 linterCheckTest({

@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { REPO_ROOT } from "tests/utils";
 
-const excludedLinters: string[] = [];
+const excludedLinters: string[] = ["squawk", "snyk", "markdownlint-cli2"];
 const abbreviationMapping = new Map<string, string>([["iwyu", "include-what-you-use"]]);
 
 const readmeContents = fs.readFileSync(path.resolve(REPO_ROOT, "README.md"), { encoding: "utf-8" });

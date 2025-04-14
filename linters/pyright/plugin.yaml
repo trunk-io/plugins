@@ -19,7 +19,7 @@ lint:
           success_codes: [0, 1]
           read_output_from: stdout
           batch: true
-          cache_results: false
+          cache_results: true
           parser:
             runtime: python
             run: python3 ${plugin}/linters/pyright/pyright_to_sarif.py

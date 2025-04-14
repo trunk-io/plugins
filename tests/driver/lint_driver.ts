@@ -94,7 +94,7 @@ runtimes:
   enabled:
     # required in order to query latest
     - go@1.21.0
-    - node@18.20.5
+    - node@18.12.1
     - python@3.10.8
     - ruby@3.1.4
 plugins:
@@ -126,7 +126,7 @@ lint:
         (this.getFullTrunkConfig().lint.definitions.find(
           ({ name }: { name: string }) => name === this.linter,
         )?.known_good_version as string) ?? "";
-      // trunk-ignore(eslint/@typescript-eslint/no-unnecessary-template-expression): Convert kgv to string
+      // trunk-ignore(eslint/@typescript-eslint/no-useless-template-literals): Convert kgv to string
       if (this.linter === "include-what-you-use" && `${kgv}`.length === 3) {
         // TODO(Tyler): `trunk config print` does not correctly wrap quotes around kgv, so we must patch iwyu here
         return `${kgv}0`;
@@ -149,7 +149,7 @@ lint:
 
     let newTrunkContents = "<undefined contents>";
     try {
-      // trunk-ignore(eslint/@typescript-eslint/no-unnecessary-template-expression): Cast to string to handle decimal case
+      // trunk-ignore(eslint/@typescript-eslint/no-useless-template-literals): Cast to string to handle decimal case
       const version = `${this.extractLinterVersion()}`;
       const versionString = version.length > 0 ? `@${version}` : "";
       const linterVersionString = `${this.linter}${versionString}`;

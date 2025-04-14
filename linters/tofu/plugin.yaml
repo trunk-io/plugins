@@ -2,7 +2,7 @@ version: 0.1
 lint:
   definitions:
     - name: tofu
-      files: [terraform, tfvars]
+      files: [terraform]
       tools: [tofu]
       description: A Terraform validator and formatter
       commands:

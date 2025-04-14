@@ -3,6 +3,6 @@ import { skipOS } from "tests/utils";
 
 toolInstallTest({
   toolName: "paratest",
-  toolVersion: "7.6.0",
+  toolVersion: "7.4.3",
   skipTestIf: skipOS(["win32"]),
 });

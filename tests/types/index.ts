@@ -75,7 +75,7 @@ export interface FileIssue {
   targetPath?: string;
   autofixOptions?: Autofix[];
   ranges?: any[];
-  issueUrl?: string;
+  issueUrl: string;
   belowThreshold?: boolean;
 }
 
