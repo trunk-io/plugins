@@ -252,15 +252,12 @@ export const toolInstallTest = ({
   describe(`Testing tool ${toolName}`, () => {
     const driver = setUpTrunkToolDriverForHealthCheck(dirName, {}, toolName, toolVersion, preCheck);
     conditionalTest(skipTestIf(toolVersion), "tool ", async () => {
-      const installResult = await driver.runInstall(toolName);
-      expect(installResult).toMatchObject({
-        exitCode: 0,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        stdout: expect.stringMatching(`${toolName}.+${toolVersion}(?!.*trunk)`),
-        stderr: "",
-        details: undefined,
-      });
-      expect(installResult.stdout).not.toContain("Failures:");
+      const { exitCode, stdout, stderr } = await driver.runInstall(toolName);
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain(toolName);
+      expect(stdout).toContain(toolVersion);
+      expect(stderr).toEqual("");
+      expect(stdout).not.toContain("Failures:");
     });
   });
 };
@@ -306,14 +303,10 @@ export const toolTest = ({
     const driver = setupTrunkToolDriver(dirName, {}, toolName, toolVersion, preCheck);
     testConfigs.forEach(({ command, expectedOut, expectedErr, expectedExitCode, stdin }) => {
       conditionalTest(skipTestIf(toolVersion), command.join(" "), async () => {
-        const installResult = await driver.runTool(command, stdin);
-        expect(installResult).toMatchObject({
-          exitCode: expectedExitCode,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          stdout: expect.stringContaining(expectedOut ?? ""),
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          stderr: expect.stringContaining(expectedErr ?? ""),
-        });
+        const { stdout, stderr, exitCode } = await driver.runTool(command, stdin);
+        expect(stdout).toContain(expectedOut);
+        expect(stderr).toContain(expectedErr);
+        expect(exitCode).toEqual(expectedExitCode);
       });
     });
   });

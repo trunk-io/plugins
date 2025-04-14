@@ -151,13 +151,11 @@ jobs:
         with:
           linter-version: KnownGoodVersion
           ref-type: main
-          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -168,11 +166,9 @@ jobs:
         with:
           linter-version: Latest
           ref-type: main
-          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   tool_tests:
     name: Tool Tests
@@ -198,8 +194,7 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   action_tests:
     name: Action Tests
@@ -219,8 +214,7 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
             needs.detect_changes.outputs.actions-files }} --
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   trunk_check_runner:
     name: Trunk Check runner [linux]
@@ -236,24 +230,24 @@ jobs:
           lfs: true
 
       - name: Trunk Check
-        uses: trunk-io/trunk-action@4d5ecc89b2691705fd08c747c78652d2fc806a94
+        uses: trunk-io/trunk-action@f6c5f1b90503c30e02059667dbc247f2257b63c5
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check
 
   # Run Windows tests for modified linters and tools
+  # TODO(Tyler): When this is more stabilized and we want to gate on it, we can make it part of the matrix above.
   windows_linter_tests:
     name: Windows Linter Tests
     runs-on: windows-latest
     needs: detect_changes
-    # TODO(Tyler): Re-add Windows runners.
-    if: needs.detect_changes.outputs.linters == 'true' && false
+    if: needs.detect_changes.outputs.linters == 'true'
     timeout-minutes: 90
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
@@ -264,26 +258,23 @@ jobs:
         with:
           linter-version: Latest
           ref-type: main
-          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
-  # TODO(Tyler): Re-add Windows runners.
   windows_tool_tests:
     name: Windows Tool Tests
     runs-on: windows-latest
     needs: detect_changes
-    if: needs.detect_changes.outputs.tools == 'true' && false
+    if: needs.detect_changes.outputs.tools == 'true'
     timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Cache tool downloads
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           key: trunk-${{ runner.os }}
@@ -294,8 +285,7 @@ jobs:
         with:
           append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run repo healthcheck tests
   repo_tests:

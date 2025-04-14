@@ -21,7 +21,8 @@ const normalizePlatformPath = (originalPath: string | undefined) => {
   return originalPath;
 };
 
-// These extract functions are used to filter down to deterministic fields.
+// TODO(Tyler): These extract functions are used to filter down to deterministic fields. In the future
+// we should preserve the original structure and use jest matchers on the non-deterministic fields.
 const extractLintActionFields = ({
   actionDurationMs: _actionDurationMs,
   cacheHit: _cacheHit,
@@ -75,7 +76,6 @@ const normalizeMessage = (message?: string) =>
     .replaceAll("\\", "/")
     .replace(/\/plugins_.{6}/gm, "/plugins_")
     .replace(".dup.", ".")
-    .replace(/NBQA-CELL-SEP.{6}/gm, "NBQA-CELL-SEP")
     .trim();
 
 // trunk-ignore(eslint/@typescript-eslint/no-non-null-assertion)
@@ -86,14 +86,10 @@ const normalizeRange = ({ filePath: _filePath = undefined, ...rest }) => ({
   ...rest,
 });
 
-const normalizeIssueUrl = (issueUrl: string) =>
-  issueUrl.replace(/markdownlint\/blob\/v[0-9.]+\//gm, "markdownlint/blob/vx.x.x/").trim();
-
 const normalizeIssues = ({
   message: _message,
   targetPath: _targetPath,
   file: _file,
-  issueUrl: _issueUrl,
   autofixOptions: _autofixOptions = [],
   ranges: _ranges,
   ...rest
@@ -109,9 +105,6 @@ const normalizeIssues = ({
   }
   if (_autofixOptions.length > 0) {
     ret.autofixOptions = _autofixOptions.map(normalizeAutofix);
-  }
-  if (_issueUrl) {
-    ret.issueUrl = normalizeIssueUrl(_issueUrl);
   }
   return ret;
 };

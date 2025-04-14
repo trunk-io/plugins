@@ -1,8 +1,8 @@
 name: Upgrade Trunk Weekly
 on:
   schedule:
-    # Weekly W morning
-    - cron: 0 10 * * 3
+    # Weekly at midnight W morning
+    - cron: 0 8 * * 3
   workflow_dispatch: {}
 
 permissions: read-all
@@ -26,7 +26,7 @@ jobs:
           private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
 
       - name: Trunk Upgrade
-        uses: trunk-io/trunk-action/upgrade@4d5ecc89b2691705fd08c747c78652d2fc806a94
+        uses: trunk-io/trunk-action/upgrade@f6c5f1b90503c30e02059667dbc247f2257b63c5
         with:
           arguments: -n --bleeding-edge
           github-token: ${{ steps.generate-token.outputs.token }}

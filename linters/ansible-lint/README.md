@@ -2,32 +2,10 @@
 
 ## Usage
 
-### New Recommendation
-
-We now recommend using
-[inverse ignores](https://docs.trunk.io/code-quality/linters/ignoring-issues-and-files#ignoring-multiple-files)
-to run ansible-lint. For backwards compatibility, you will need to specify filetypes yourself and
-then a list of ignores.
-
-```yaml
-lint:
-  definitions:
-    - name: ansible-lint
-      files: [yaml]
-  enabled:
-    - ansible-lint@5.3.2
-  ignore:
-    - linters: [ansible-lint]
-      paths:
-        - "**"
-        - "!test_data/jboss-standalone"
-```
-
-### Legacy Mode
-
-[Ansible-lint](https://github.com/ansible/ansible-lint) is used to check ansible playbooks.
-Historically, in order to integrate well with trunk, you would invoke ansible-lint with
-[triggers](https://docs.trunk.io/check/configuration#trigger-rules).
+[Ansible-lint](https://github.com/ansible/ansible-lint) is used to check ansible playbooks. In order
+to integrate well with trunk, ansible is usually run using triggers. The trigger system allows file
+changes to trigger lint runs. An example of an ansible-lint trigger is included below, but more
+information can be found in our [docs](https://docs.trunk.io/check/configuration#trigger-rules).
 
 ```yaml
 lint:

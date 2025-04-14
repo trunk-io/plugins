@@ -148,7 +148,7 @@ describe("Global config health check", () => {
         "dotenv-linter",
         "git-diff-check",
         "gofmt",
-        "golangci-lint2",
+        "golangci-lint",
         "hadolint",
         "haml-lint",
         "isort",
@@ -165,6 +165,7 @@ describe("Global config health check", () => {
         "svgo",
         "taplo",
         "tflint",
+        "trivy",
         "trufflehog",
         "yamllint",
       ]

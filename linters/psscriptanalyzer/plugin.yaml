@@ -6,18 +6,6 @@ downloads:
           linux: linux
           windows: windows
           macos: macos
-        version: <=1.22.0
-        url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/${version}/PSScriptAnalyzer.${version}.nupkg
-      - os:
-          linux: linux
-          windows: windows
-          macos: macos
-        version: <=1.23.0
-        url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/v${version}/PSScriptAnalyzer.${version}.nupkg
-      - os:
-          linux: linux
-          windows: windows
-          macos: macos
         url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/${version}/PSScriptAnalyzer.${version}.nupkg
   - name: converttosarif
     downloads:

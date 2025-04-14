@@ -44,6 +44,11 @@ module.exports = [
       "no-unused-vars": "off",
       "no-use-before-define": "off",
       "no-useless-constructor": "off",
+      "@typescript-eslint/lines-between-class-members": [
+        "error",
+        "always",
+        { exceptAfterSingleLine: true },
+      ],
       "@typescript-eslint/naming-convention": [
         "error",
         { selector: "typeLike", format: ["PascalCase"] },
@@ -74,7 +79,7 @@ module.exports = [
       ],
       "import-x/no-unresolved": "off",
       "import-x/prefer-default-export": "off",
-      "lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
+      "lines-between-class-members": "off",
       "max-len": [
         "error",
         {

@@ -1,8 +1,8 @@
 name: Nightly
 on:
   schedule:
-    # Times in UTC (PST+8), this translates to running Mon-Fri at 2am/3am (depending on DST)
-    - cron: 0 10 * * 1-5
+    # Times in UTC (PST+8), this translates to running Mon-Fri at midnight/1am (depending on DST)
+    - cron: 0 8 * * 1-5
   # Only enable on pull requests for testing
   # pull_request:
   #   paths: [.github/workflows/nightly.yaml]
@@ -28,14 +28,14 @@ jobs:
   # This job is used to diagnose plugin config health in advance of a release
   linter_tests_main:
     name: Plugin Tests Main
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        # TODO(Tyler): Re-add Windows runners.
-        os: [ubuntu-latest, macOS]
+        os: [ubuntu-latest, macOS, windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -43,7 +43,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -67,28 +67,29 @@ jobs:
         with:
           linter-version: ${{ matrix.linter-version }}
           ref-type: main
-          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
   linter_tests_release:
     name: Plugin Tests Release
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
         linter-version: [Snapshots, Latest]
-        os: [ubuntu-latest, macOS]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
+          - os: windows-latest
+            results-file: windows-latest
     outputs:
       plugin-version: ${{ steps.get-release.outputs.tag }}
 
@@ -149,7 +150,7 @@ jobs:
       - name: Cache tool downloads
         # ubuntu, mac runners have persistent cache
         if: matrix.os == 'windows-latest'
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: /tmp/plugins_testing_download_cache
           # No need to key on trunk version unless we change how we store downloads.
@@ -174,15 +175,13 @@ jobs:
           linter-version: ${{ matrix.linter-version }}
           append-args: linters -- --json --outputFile=${{ matrix.results-file }}-res.json
           ref-type: release
-          snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
         if: (failure() || success()) && matrix.linter-version == 'Latest'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: ${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -200,10 +199,8 @@ jobs:
       TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
       TRUNK_OPEN_PR_APP_ID: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
-      TRUNK_SNYK_TOKEN: ${{ secrets.TRUNK_SNYK_TOKEN }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: ${{ needs.linter_tests_release.outputs.plugin-version }}
       upload-validated-versions: true
@@ -213,21 +210,21 @@ jobs:
   # Run tool tests only on main
   tool_tests_main:
     name: Tool Tests Main
+    # runs-on: [self-hosted, "${{ matrix.os }}"] TODO(Tyler): Set after Windows self-hosted are established.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        # TODO(Tyler): Re-add Windows runners.
-        os: [ubuntu-latest, macOS]
+        os: [ubuntu-latest, macOS, windows-latest]
         include:
           # Normalize the filenames as inputs for ease of parsing
           - os: ubuntu-latest
             results-file: ubuntu-latest
           - os: macOS
             results-file: macos-latest
-          # - os: windows-latest
-          #   results-file: windows-latest
+          - os: windows-latest
+            results-file: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -238,13 +235,12 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
 
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
         if: (failure() || success())
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: tools-${{ matrix.results-file }}-test-results
           path: ${{ matrix.results-file }}-res.json
@@ -257,10 +253,8 @@ jobs:
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
-      TRUNK_SNYK_TOKEN: ${{ secrets.TRUNK_SNYK_TOKEN }}
       TRUNK_SOURCERY_TOKEN: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
       TRUNK_DEBUGGER_TOKEN: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-      TRUNK_ORG_PROD_TOKEN: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
     with:
       plugin-version: main
       results-prefix: tools-
@@ -284,5 +278,4 @@ jobs:
       - name: Action Tests
         uses: ./.github/actions/action_tests
         with:
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
-          trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          trunk-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}

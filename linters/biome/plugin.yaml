@@ -6,18 +6,15 @@ tools:
       runtime: node
       package: "@biomejs/biome"
       shims: [biome]
-      known_good_version: 1.9.4
+      known_good_version: 1.4.1
 lint:
   definitions:
     # Successor to the rome linter+formatter
     - name: biome
       files:
-        - astro
-        - css
-        - graphql
+        - typescript
         - javascript
         - json
-        - typescript
       description: A static analyzer for web projects
       commands:
         - name: lint
@@ -32,8 +29,8 @@ lint:
           read_output_from: stderr
         - name: fmt
           output: rewrite
-          run: biome check --fix "${target}"
-          success_codes: [0, 1]
+          run: biome format --write "${target}"
+          success_codes: [0]
           batch: true
           cache_results: true
           formatter: true
@@ -42,12 +39,11 @@ lint:
       suggest_if: config_present
       direct_configs:
         - biome.json
-        - biome.jsonc
         - rome.json # For backwards compatibility with rome
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      known_good_version: 1.9.4
+      known_good_version: 1.4.1
       version_command:
         parse_regex: biome CLI version ${semver}
         run: biome --version

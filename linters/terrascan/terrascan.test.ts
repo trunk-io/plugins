@@ -20,5 +20,4 @@ const preCheck = (driver: TrunkLintDriver) => {
   driver.writeFile(trunkYamlPath, newContents);
 };
 
-// TODO(Tyler): Fix flakiness with this test.
-linterCheckTest({ linterName: "terrascan", preCheck, skipTestIf: () => true });
+linterCheckTest({ linterName: "terrascan", preCheck });

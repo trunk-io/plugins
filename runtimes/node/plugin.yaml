@@ -47,10 +47,6 @@ runtimes:
         - name: NPM_CONFIG_USERCONFIG
           value: ${env.NPM_CONFIG_USERCONFIG}
           optional: true
-          # Necessary for some Windows install scripts
-        - name: COMSPEC
-          value: ${env.COMSPEC}
-          optional: true
       linter_environment:
         - name: PATH
           list: ["${linter}/node_modules/.bin"]
@@ -59,7 +55,7 @@ runtimes:
         - name: NODE_OPTIONS
           value: ${env.NODE_OPTIONS}
           optional: true
-      known_good_version: 18.20.5
+      known_good_version: 18.12.1
       version_commands:
         - run: node --version
           parse_regex: ${semver}
