@@ -69,6 +69,7 @@ runs:
         junit-paths: junit.xml
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
+        variant: ${{ runner.os }}
       continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
@@ -76,7 +77,7 @@ runs:
     - name: Upload staging results
       # TODO(Tyler): Add upload on Windows once the action supports it.
       if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
-      uses: trunk-io/analytics-uploader@gabe/surface-variant
+      uses: trunk-io/analytics-uploader@main
       with:
         junit-paths: junit.xml
         org-slug: trunk-staging-org
