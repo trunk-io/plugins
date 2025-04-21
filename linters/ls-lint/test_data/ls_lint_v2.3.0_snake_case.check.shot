@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ls-lint test snake_case 1`] = `
+{
+  "issues": [],
+  "lintActions": [],
+  "taskFailures": [
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": ".",
+      "name": "ls-lint",
+    },
+    {
+      "details": StringMatching /\\.\\*\\$/m,
+      "message": ".",
+      "name": "ls-lint",
+    },
+  ],
+  "unformattedFiles": [],
+}
+`;
