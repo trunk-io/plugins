@@ -86,6 +86,7 @@ runs:
         junit-paths: junit.xml
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
+        variant: ${{ runner.os }}
       continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
@@ -99,5 +100,6 @@ runs:
         org-slug: trunk-staging-org
         token: ${{ inputs.trunk-staging-token }}
         quarantine: true
+        variant: ${{ runner.os }}
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io
