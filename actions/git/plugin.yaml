@@ -14,5 +14,7 @@ actions:
         - name: SSH_AGENT_PID
           value: ${env.SSH_AGENT_PID}
           optional: true
-
+        - name: GITHUB_SERVER_URL
+          value: ${env.GITHUB_SERVER_URL}
+          optional: true
       notify_on_error: false
