@@ -7,7 +7,7 @@ SYSTEM environment, rather than a hermetic setup. This is because Poetry provide
 environment management that will often collide with Trunk's hermetic setup. Nevertheless, leveraging
 Poetry and Trunk in parallel can be powerful.
 
-Trunk provides 4 different Actions for running your Poetry validation, matching parity with
+Trunk provides 4 different Actions for running Poetry validation, matching parity with
 [Poetry pre-commit hooks](https://python-poetry.org/docs/pre-commit-hooks/).
 
 | action           | description                                                                                                                                           |
