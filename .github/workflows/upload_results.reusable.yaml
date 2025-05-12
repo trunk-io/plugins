@@ -101,7 +101,7 @@ jobs:
           # echo "::endgroup::"
 
       - name: Slack Notification For Missing Artifacts
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
         if:
           steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure'
           # || steps.download-windows.outcome == 'failure'
@@ -180,7 +180,7 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           method: chat.postMessage
@@ -188,7 +188,7 @@ jobs:
           payload: ${{ steps.parse.outputs.failures-payload }}
 
       - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
         if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
         with:
           method: chat.postMessage
@@ -203,7 +203,7 @@ jobs:
                   text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
 
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
         if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
         with:
           method: chat.postMessage
