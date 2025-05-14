@@ -59,7 +59,11 @@ runtimes:
         - name: NODE_OPTIONS
           value: ${env.NODE_OPTIONS}
           optional: true
+<<<<<<< HEAD
       known_good_version: 22.16.0
+=======
+      known_good_version: 20.19.1
+>>>>>>> 1389fb0 (update node version)
       version_commands:
         - run: node --version
           parse_regex: ${semver}
