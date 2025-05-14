@@ -29,6 +29,7 @@ tools:
 lint:
   definitions:
     - name: ty
+      description: A Python type checker
       files: [python, python-interface]
       tools: [ty]
       known_good_version: 0.0.1-alpha.1
