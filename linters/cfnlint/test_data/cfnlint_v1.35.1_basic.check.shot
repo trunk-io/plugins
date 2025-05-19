@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter cfnlint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "E3030",
+      "column": "7",
+      "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
+      "level": "LEVEL_HIGH",
+      "line": "19",
+      "linter": "cfnlint",
+      "message": "'DNSS' is not one of ['DNS', 'EMAIL', 'HTTP']",
+      "targetType": "cloudformation",
+    },
+    {
+      "code": "E3012",
+      "column": "7",
+      "file": "test_data/basic.in.yaml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md",
+      "level": "LEVEL_HIGH",
+      "line": "21",
+      "linter": "cfnlint",
+      "message": "'*.test.io' is not of type 'array'",
+      "targetType": "cloudformation",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "cloudformation",
+      "linter": "cfnlint",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "cloudformation",
+      "linter": "cfnlint",
+      "paths": [
+        "test_data/basic.in.yaml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
