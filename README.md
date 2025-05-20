@@ -90,8 +90,8 @@ trunk check enable {linter}
 | Textproto       | [txtpbfmt]                                                                                                                 |
 | TOML            | [taplo]                                                                                                                    |
 | Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                            |
-| YAML            | [[prettier], [semgrep], [yamlfmt], [yamllint]                                                                              |
-
+| YAML            | [prettier], [semgrep], [yamlfmt], [yamllint]                                                                               |
+ 
 [actionlint]: https://trunk.io/linters/infra/actionlint
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
 [autopep8]: https://github.com/hhatto/autopep8#readme
