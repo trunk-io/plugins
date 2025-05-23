@@ -120,8 +120,14 @@ runtimes:
         - name: https_proxy
           value: ${env.https_proxy}
           optional: true
+        - name: REQUESTS_CA_BUNDLE          
+          value: ${env.REQUESTS_CA_BUNDLE}
+          optional: true
+        - name: PIP_CERT          
+          value: ${env.PIP_CERT}
+          optional: true                          
         - name: PYTHONUTF8 # Necessary for isort and our custom parsers on Windows
-          value: 1
+          value: 1          
       linter_environment:
         - name: PATH
           list:
@@ -129,6 +135,15 @@ runtimes:
             - "${linter}/Scripts" # Windows places binaries here instead of bin/
         - name: VIRTUAL_ENV
           value: ${linter}
+        - name: http_proxy
+          value: ${env.http_proxy}
+          optional: true
+        - name: https_proxy
+          value: ${env.https_proxy}
+          optional: true
+        - name: REQUESTS_CA_BUNDLE          
+          value: ${env.REQUESTS_CA_BUNDLE }
+          optional: true          
       known_good_version: 3.10.8
       version_commands:
         - run: python3 --version
