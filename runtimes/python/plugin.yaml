@@ -142,7 +142,7 @@ runtimes:
           value: ${env.https_proxy}
           optional: true
         - name: REQUESTS_CA_BUNDLE
-          value: ${env.REQUESTS_CA_BUNDLE }
+          value: ${env.REQUESTS_CA_BUNDLE}
           optional: true
       known_good_version: 3.10.8
       version_commands:
