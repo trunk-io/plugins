@@ -19,6 +19,10 @@ plugins:
       uri: https://github.com/trunk-io/configs
       ref: v1.0.12
 
+runtimes:
+  enabled:
+    - node@22.16.0
+
 lint:
   files:
     - name: plugin.yaml
