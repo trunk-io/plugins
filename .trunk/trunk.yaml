@@ -41,6 +41,7 @@ lint:
           success_codes: [0]
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
+    - pmd@pmd_releases/7.12.0
     - definition-checker
     - eslint@9.27.0
     - trunk-toolbox@0.5.4
