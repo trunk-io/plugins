@@ -107,7 +107,6 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - awscli@1.40.22
     - clangd-indexing-tools@19.1.2
     - clangd@19.1.2
 
