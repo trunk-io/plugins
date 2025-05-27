@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: cfn-lint
       shims: [cfn-lint]
-      known_good_version: 0.58.2
+      known_good_version: 1.35.3
 lint:
   definitions:
     - name: cfnlint
@@ -22,7 +22,7 @@ lint:
       tools: [cfnlint]
       suggest_if: files_present
       issue_url_format: https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md
-      known_good_version: 0.58.2
+      known_good_version: 1.35.3
       version_command:
         parse_regex: ${semver}
         run: cfn-lint --version

@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.12
+  version: 1.22.15
   shell_hooks:
     enforce: true
 
@@ -17,7 +17,11 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.11
+      ref: v1.0.12
+
+runtimes:
+  enabled:
+    - node@22.16.0
 
 lint:
   files:
@@ -41,8 +45,9 @@ lint:
           success_codes: [0]
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
+    - pmd@pmd_releases/7.12.0
     - definition-checker
-    - eslint@9.24.0
+    - eslint@9.27.0
     - trunk-toolbox@0.5.4
   disabled:
     - pylint # pylint diagnostics are too strict
