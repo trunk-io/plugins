@@ -4,5 +4,5 @@ tools:
     - name: awscli
       runtime: python
       package: awscli
-      known_good_version: 1.29.30
+      known_good_version: 1.40.22
       shims: [aws]
