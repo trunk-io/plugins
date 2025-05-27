@@ -39,7 +39,7 @@ lint:
         - pyproject.toml
         - setup.cfg
       issue_url_format: https://docs.sourcery.ai/Reference/Python/Default-Rules/{}
-      known_good_version: 1.2.0
+      known_good_version: 1.37.0
       version_command:
         parse_regex: sourcery ${semver}
         run: sourcery --version
