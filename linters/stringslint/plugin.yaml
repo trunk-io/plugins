@@ -44,4 +44,4 @@ lint:
       known_good_version: 0.1.1
       version_command:
         parse_regex: ${semver}
-        run: swiftlint --version
+        run: stringslint --version
