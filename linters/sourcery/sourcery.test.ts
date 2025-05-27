@@ -4,7 +4,7 @@ import { customLinterCheckTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
 import { REPO_ROOT, skipCPUOS, TEST_DATA } from "tests/utils";
 
-// // You must login in order to use sourcery
+// You must login in order to use sourcery
 const preCheck = (driver: TrunkLintDriver) => {
   driver.moveFile(path.join(TEST_DATA, "_plugin.yaml"), path.join(TEST_DATA, "plugin.yaml"));
 
