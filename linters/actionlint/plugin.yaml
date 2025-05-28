@@ -22,7 +22,7 @@ tools:
     - name: actionlint
       download: actionlint
       shims: [actionlint]
-      known_good_version: 1.6.9
+      known_good_version: 1.7.7
 lint:
   definitions:
     - name: actionlint
@@ -43,7 +43,7 @@ lint:
         - .github/actionlint.yaml
         - .github/actionlint.yml
       issue_url_format: https://github.com/rhysd/actionlint/blob/main/docs/checks.md
-      known_good_version: 1.6.9
+      known_good_version: 1.7.7
       version_command:
         parse_regex: ${semver}
         run: actionlint --version
