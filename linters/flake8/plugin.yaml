@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: flake8
       shims: [flake8]
-      known_good_version: 4.0.1
+      known_good_version: 7.2.0
 lint:
   definitions:
     - name: flake8
@@ -31,7 +31,7 @@ lint:
         # In case the user installs https://pypi.org/project/Flake8-pyproject/
         - pyproject.toml
       issue_url_format: https://flake8.pycqa.org/en/latest/user/error-codes.html
-      known_good_version: 4.0.1
+      known_good_version: 7.2.0
       version_command:
         parse_regex: ${semver}
         run: flake8 --version
