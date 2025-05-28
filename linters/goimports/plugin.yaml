@@ -26,4 +26,4 @@ lint:
         - name: PATH
           list: ["${linter}/bin"]
       # goimports releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
-      known_good_version: 0.9.1
+      known_good_version: 0.33.0
