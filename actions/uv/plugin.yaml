@@ -1,0 +1,47 @@
+version: 0.1
+# NOTE: See README.md for usage guidelines.
+actions:
+  definitions:
+    - id: uv-check
+      display_name: uv check
+      description: Run 'uv check' to validate the project configuration.
+      run: uv check
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+    - id: uv-lock
+      display_name: uv lock
+      description: Run 'uv lock' to create or update the lock file.
+      run: uv lock
+      triggers:
+        - git_hooks: [pre-commit]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+    - id: uv-sync
+      display_name: uv sync
+      description: Run 'uv sync' to install dependencies from the lock file.
+      run: uv sync
+      triggers:
+        - git_hooks: [post-checkout, post-merge]
+      environment:
+        - name: VIRTUAL_ENV
+          value: ${env.VIRTUAL_ENV}
+          optional: true
+
+tools:
+  definitions:
+    - name: uv
+      runtime: python
+      package: uv
+      known_good_version: 0.7.8
+      health_checks:
+        - command: uv --version
+          parse_regex: ${semver}
+      shims: [uv]
