@@ -90,7 +90,7 @@ trunk check enable {linter}
 | Textproto       | [txtpbfmt]                                                                                                                 |
 | TOML            | [taplo]                                                                                                                    |
 | Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                            |
-| YAML            | [prettier], [semgrep], [yamllint]                                                                                          |
+| YAML            | [prettier], [semgrep], [yamlfmt], [yamllint]                                                                               |
 
 [actionlint]: https://trunk.io/linters/infra/actionlint
 [ansible-lint]: https://github.com/ansible/ansible-lint#readme
@@ -197,6 +197,7 @@ trunk check enable {linter}
 [txtpbfmt]: https://github.com/protocolbuffers/txtpbfmt#readme
 [ty]: https://github.com/astral-sh/ty#readme
 [vale]: https://vale.sh/docs/
+[yamlfmt]: https://github.com/google/yamlfmt#readme
 [yamllint]: https://trunk.io/linters/yaml/yamllint
 [yapf]: https://github.com/google/yapf#readme
 
