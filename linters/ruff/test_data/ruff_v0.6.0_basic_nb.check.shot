@@ -4,17 +4,6 @@ exports[`Testing linter ruff test basic_nb 1`] = `
 {
   "issues": [
     {
-      "autofixOptions": [
-        {
-          "message": "Remove unused import: \`os\`",
-          "replacements": [
-            {
-              "filePath": "test_data/basic_nb.in.ipynb",
-              "length": "2",
-            },
-          ],
-        },
-      ],
       "code": "F401",
       "column": "1",
       "file": "test_data/basic_nb.in.ipynb",
