@@ -18,7 +18,6 @@ lint:
         - html
         - javascript
         - json
-        - sass
         - typescript
       description: A static analyzer for web projects
       commands:
