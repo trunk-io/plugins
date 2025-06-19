@@ -15,8 +15,10 @@ lint:
         - astro
         - css
         - graphql
+        - html
         - javascript
         - json
+        - sass
         - typescript
       description: A static analyzer for web projects
       commands:
@@ -26,6 +28,7 @@ lint:
             ' *(?P<path>.*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ ]+)(?:[^×]*\n).*×
             (?P<message>.*)\n'
           run: biome check ${target}
+          run_from: ${parent}
           success_codes: [0, 1]
           batch: true
           cache_results: true
@@ -33,6 +36,7 @@ lint:
         - name: fmt
           output: rewrite
           run: biome check --fix "${target}"
+          run_from: ${parent}
           success_codes: [0, 1]
           batch: true
           cache_results: true
