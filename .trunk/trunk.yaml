@@ -113,6 +113,7 @@ actions:
     - tool-test-helper
 tools:
   enabled:
+    - flyway@flyway-11.9.2
     - clangd-indexing-tools@19.1.2
     - clangd@19.1.2
 

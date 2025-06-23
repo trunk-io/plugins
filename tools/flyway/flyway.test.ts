@@ -6,7 +6,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["flyway", "--version"],
-      expectedOut: "Flyway Community Edition 11.9.2",
+      expectedOut: "Flyway OSS Edition 11.9.2 by Redgate",
     }),
   ],
 });
