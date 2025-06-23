@@ -1,0 +1,25 @@
+version: 0.1
+downloads:
+  - name: flyway
+    downloads:
+      - os:
+          linux: linux
+          macos: macosx
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/flyway/flyway/releases/download/flyway-${version}/flyway-commandline-${version}-${os}-${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/flyway/flyway/releases/download/flyway-${version}/flyway-commandline-${version}-windows-x64.zip
+tools:
+  definitions:
+    - name: flyway
+      download: flyway
+      known_good_version: 11.9.2
+      shims:
+        - name: flyway
+          target: flyway
