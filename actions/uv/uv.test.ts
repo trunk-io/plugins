@@ -47,9 +47,8 @@ const checkTestCallback = async (driver: TrunkActionDriver) => {
         expect(result).toBeTruthy();
       },
     );
-
   } catch (_err) {
-     // Intentionally empty
+    // Intentionally empty
   }
 };
 
