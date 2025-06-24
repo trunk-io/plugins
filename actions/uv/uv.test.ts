@@ -47,7 +47,7 @@ const checkTestCallback = async (driver: TrunkActionDriver) => {
         expect(result).toBeTruthy();
       },
     );
-  } catch (_err) {
+  } catch {
     // Intentionally empty
   }
 };
@@ -65,7 +65,7 @@ const fileExistsCallback = (filename: string) => async (driver: TrunkActionDrive
     );
 
     expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
-  } catch (_err) {
+  } catch {
     // Intentionally empty
   }
 };
