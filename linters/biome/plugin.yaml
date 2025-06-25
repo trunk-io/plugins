@@ -50,7 +50,7 @@ lint:
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      known_good_version: 1.9.4
+      known_good_version: 2.0.5
       version_command:
         parse_regex: biome CLI version ${semver}
         run: biome --version
