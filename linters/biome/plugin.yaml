@@ -27,7 +27,7 @@ lint:
             ' *(?P<path>.*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ ]+)(?:[^×]*\n).*×
             (?P<message>.*)\n'
           run: biome check ${target}
-          run_from: ${root_or_parent_with_any_config}
+          run_from: ${parent}
           success_codes: [0, 1]
           batch: true
           cache_results: true
@@ -35,7 +35,7 @@ lint:
         - name: fmt
           output: rewrite
           run: biome check --fix "${target}"
-          run_from: ${root_or_parent_with_any_config}
+          run_from: ${parent}
           success_codes: [0, 1]
           batch: true
           cache_results: true
