@@ -3,7 +3,7 @@ lint:
   definitions:
     - name: buf-format
       files: [proto]
-      download: buf
+      tools: [buf]
       suggest_if: never
       description: Formatter for Protobuf
       commands:
@@ -35,7 +35,7 @@ lint:
 
     - name: buf-lint
       files: [proto]
-      download: buf
+      tools: [buf]
       description: Accelerate Protobuf development with Buf
       commands:
         - name: lint
@@ -63,7 +63,7 @@ lint:
 
     - name: buf-breaking
       files: [proto]
-      download: buf
+      tools: [buf]
       suggest_if: never
       description: Check for breaking Protobuf API changes
       commands:

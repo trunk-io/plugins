@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.15
+  version: 1.24.0
   shell_hooks:
     enforce: true
 
@@ -17,6 +17,8 @@ plugins:
 
 runtimes:
   enabled:
+    - go@1.21.0
+    - java@13.0.11
     - node@22.16.0
     - python@3.12.2
 
@@ -42,12 +44,26 @@ lint:
           success_codes: [0]
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
-    - buf-breaking@1.55.1
-    - buf-format@1.55.1
-    - buf-lint@1.55.1
-    - pmd@pmd_releases/7.12.0
+    - actionlint@1.7.7
+    - bandit@1.8.6
+    - black@25.1.0
+    - checkov@3.2.447
+    - git-diff-check
+    - isort@6.0.1
+    - markdownlint@0.45.0
+    - osv-scanner@2.0.3
+    - oxipng@9.1.5
+    - prettier@3.6.2
+    - renovate@41.23.4
+    - ruff@0.12.2
+    - shellcheck@0.10.0
+    - shfmt@3.6.0
+    - taplo@0.9.3
+    - trufflehog@3.89.2
+    - yamllint@1.37.1
+    - pmd@pmd_releases/7.15.0
     - definition-checker
-    - eslint@9.27.0
+    - eslint@9.30.1
     - trunk-toolbox@0.5.4
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -105,6 +121,10 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - trunk-announce
+    - trunk-check-pre-push
+    - trunk-fmt-pre-commit
+    - trunk-upgrade-available
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
@@ -112,8 +132,9 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - clangd-indexing-tools@19.1.2
-    - clangd@19.1.2
+    - buf@1.55.1
+    - clangd-indexing-tools@20.1.0
+    - clangd@20.1.0
 
   runtimes:
     # expose shims in .trunk/tools
