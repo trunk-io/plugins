@@ -1,0 +1,35 @@
+version: 0.1
+downloads:
+  - name: buf
+    version: 1.55.1
+    executable: true
+    downloads:
+      # macos arm64 was introduced after this version.
+      - os: macos
+        version: <0.42.0
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Darwin-x86_64
+      - os:
+          linux: Linux
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os:
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-${os}-${cpu}
+      - os: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/bufbuild/buf/releases/download/v${version}/buf-Windows-${cpu}.exe
+tools:
+  definitions:
+    - name: buf
+      download: buf
+      known_good_version: 1.55.1
+      shims:
+        - name: buf
+          target: buf

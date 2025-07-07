@@ -15,10 +15,6 @@ plugins:
     - id: trunk
       local: .
 
-    - id: configs
-      uri: https://github.com/trunk-io/configs
-      ref: v1.0.12
-
 runtimes:
   enabled:
     - node@22.16.0
@@ -46,6 +42,9 @@ lint:
           success_codes: [0]
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
+    - buf-breaking@1.55.1
+    - buf-format@1.55.1
+    - buf-lint@1.55.1
     - pmd@pmd_releases/7.12.0
     - definition-checker
     - eslint@9.27.0
