@@ -26,27 +26,25 @@ lint:
           parse_regex:
             ' *(?P<path>.*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ ]+)(?:[^×]*\n).*×
             (?P<message>.*)\n'
-          run: biome check ${target}
-          run_from: ${target_directory}
+          run: biome check --config-path=${workspace}/biome.jsonc ${target}
+          run_from: ${root_or_parent_with(biome.jsonc)}
           success_codes: [0, 1]
           batch: true
-          cache_results: true
+          cache_results: false
           read_output_from: stderr
         - name: fmt
           output: rewrite
-          run: biome check --fix "${target}"
-          run_from: ${target_directory}
-          success_codes: [0, 1]
+          run: biome format --config-path=${workspace}/biome.jsonc --write ${target}
+          run_from: ${root_or_parent_with(biome.jsonc)}
+          success_codes: [0]
           batch: true
-          cache_results: true
+          cache_results: false
           formatter: true
           in_place: true
       tools: [biome]
       suggest_if: config_present
       direct_configs:
-        - biome.json
         - biome.jsonc
-        - rome.json # For backwards compatibility with rome
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
