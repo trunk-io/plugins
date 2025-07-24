@@ -10,9 +10,9 @@ It performs the following:
 4. Exits with failure if there are unstaged README changes, success otherwise
 """
 
-# trunk-ignore(bandit/B404)
+
 import os
-import subprocess
+import subprocess # trunk-ignore(bandit/B404)
 import sys
 
 
