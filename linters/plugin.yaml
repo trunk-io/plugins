@@ -345,7 +345,7 @@ lint:
       extensions:
         - jpg
         - jpeg
-        
+
     - name: json
       extensions:
         - json
@@ -680,11 +680,11 @@ lint:
         - slashes-inline
         - brace-slashes-block
         - brace-slashes-block-spaced
-        
+
     - name: webp
       extensions:
         - webp
-        
+
     - name: xib
       extensions:
         - xib
