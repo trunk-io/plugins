@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: bandit
       shims: [bandit]
-      known_good_version: 1.7.3
+      known_good_version: 1.8.3
 lint:
   definitions:
     - name: bandit
@@ -25,7 +25,7 @@ lint:
           cache_results: true
           is_security: true
       issue_url_format: https://pypi.org/project/bandit/
-      known_good_version: 1.7.3
+      known_good_version: 1.8.3
       version_command:
         parse_regex: ${semver}
         run: bandit --version
