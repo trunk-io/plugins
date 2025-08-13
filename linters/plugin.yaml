@@ -248,6 +248,10 @@ lint:
       filenames:
         - Gemfile
 
+    - name: gif
+      extensions:
+        - gif
+
     - name: github-workflow
       regexes:
         - .github/workflows/.+\.yaml
@@ -336,6 +340,11 @@ lint:
         - slashes-inline
         - brace-slashes-block
         - brace-slashes-block-spaced
+
+    - name: jpeg
+      extensions:
+        - jpg
+        - jpeg
 
     - name: json
       extensions:
@@ -476,6 +485,10 @@ lint:
         - hash
         - slashes-block
         - slashes-inline
+
+    - name: pcap
+      extensions:
+        - pcap
 
     - name: png
       extensions:
@@ -634,6 +647,10 @@ lint:
       comments:
         - hash
 
+    - name: tif
+      extensions:
+        - tif
+
     - name: tfvars
       extensions:
         # terraform/tofu can't format .tfvars.json files
@@ -663,6 +680,10 @@ lint:
         - slashes-inline
         - brace-slashes-block
         - brace-slashes-block-spaced
+
+    - name: webp
+      extensions:
+        - webp
 
     - name: xib
       extensions:
