@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test basic_nb 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "message": "Remove unused import: \`os\`",
+          "replacements": [
+            {
+              "filePath": "test_data/basic_nb.in.ipynb",
+              "length": "2",
+            },
+          ],
+        },
+      ],
+      "code": "F401",
+      "column": "1",
+      "file": "test_data/basic_nb.in.ipynb",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F401",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ruff",
+      "message": "\`os\` imported but unused",
+      "targetType": "jupyter",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "jupyter",
+      "linter": "ruff",
+      "paths": [
+        "test_data/basic_nb.in.ipynb",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "jupyter",
+      "linter": "ruff",
+      "paths": [
+        "test_data/basic_nb.in.ipynb",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
