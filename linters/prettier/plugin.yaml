@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: prettier
       shims: [prettier]
-      known_good_version: 2.6.2
+      known_good_version: 3.5.3
 lint:
   definitions:
     - name: prettier
@@ -53,7 +53,7 @@ lint:
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      known_good_version: 2.6.2
+      known_good_version: 3.5.3
       version_command:
         parse_regex: ${semver}
         run: prettier --version
