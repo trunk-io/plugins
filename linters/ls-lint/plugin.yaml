@@ -9,6 +9,9 @@ tools:
       runtime: node
       known_good_version: 2.3.0
       package: "@ls-lint/ls-lint"
+      health_checks:
+        - command: ls-lint --version
+          parse_regex: ls-lint v${semver}
 lint:
   definitions:
     - name: ls-lint
@@ -24,7 +27,8 @@ lint:
         run: ls-lint --version
       known_good_version: 2.3.0
       suggest_if: config_present
-      description: Lints thousands of files and directories in milliseconds
+      description: Lints naming conventions for thousands of files and directories in milliseconds
+      run_timeout: 1m
       commands:
         - name: lint
           target: .
@@ -36,5 +40,5 @@ lint:
           read_output_from: stderr
           parser:
             runtime: node
-            run: ${plugin}/helpers/json-to-sarif.js
+            run: node ${cwd}/helpers/json-to-sarif.js
           run: ls-lint --workdir ${workspace} --error-output-format json

@@ -40,7 +40,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                                    |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [ls-lint], [pre-commit-hooks], [trunk-toolbox], [vale]                           |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [ls-lint], [pre-commit-hooks], [trunk-toolbox], [vale]                |
 | Ansible         | [ansible-lint]                                                                                                             |
 | Apex            | [pmd]                                                                                                                      |
 | Bash            | [shellcheck], [shfmt]                                                                                                      |
