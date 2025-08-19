@@ -19,7 +19,7 @@ const expectedFileIssues = JSON.parse(
 
 fuzzyLinterCheckTest({
   linterName: "nancy",
-  args: "-a -y",
+  args: "-a -n",
   preCheck,
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 18),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 3),
 });

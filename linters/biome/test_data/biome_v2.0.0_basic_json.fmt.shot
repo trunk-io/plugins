@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter biome test basic_json 1`] = `
+"{ "a": "foo", "b": 1, "a": true }
+"
+`;
