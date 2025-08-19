@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter shellcheck test basic 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "185",
+              "replacementText": """,
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "194",
+              "replacementText": """,
+            },
+          ],
+        },
+      ],
+      "code": "SC2086",
+      "column": "33",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2086",
+      "level": "LEVEL_LOW",
+      "line": "11",
+      "linter": "shellcheck",
+      "message": "Double quote to prevent globbing and word splitting.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "9",
+          "offset": "185",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "length": "1",
+              "offset": "185",
+              "replacementText": "\${",
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "194",
+              "replacementText": "}",
+            },
+          ],
+        },
+      ],
+      "code": "SC2250",
+      "column": "33",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2250",
+      "level": "LEVEL_LOW",
+      "line": "11",
+      "linter": "shellcheck",
+      "message": "Prefer putting braces around variable references even when not strictly required.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "9",
+          "offset": "185",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "201",
+              "replacementText": """,
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "208",
+              "replacementText": """,
+            },
+          ],
+        },
+      ],
+      "code": "SC2086",
+      "column": "6",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2086",
+      "level": "LEVEL_LOW",
+      "line": "12",
+      "linter": "shellcheck",
+      "message": "Double quote to prevent globbing and word splitting.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "7",
+          "offset": "201",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "length": "1",
+              "offset": "201",
+              "replacementText": "\${",
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "208",
+              "replacementText": "}",
+            },
+          ],
+        },
+      ],
+      "code": "SC2250",
+      "column": "6",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2250",
+      "level": "LEVEL_LOW",
+      "line": "12",
+      "linter": "shellcheck",
+      "message": "Prefer putting braces around variable references even when not strictly required.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "7",
+          "offset": "201",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "35",
+              "replacementText": "[",
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "61",
+              "replacementText": "]",
+            },
+          ],
+        },
+      ],
+      "code": "SC2292",
+      "column": "4",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2292",
+      "level": "LEVEL_LOW",
+      "line": "5",
+      "linter": "shellcheck",
+      "message": "Prefer [[ ]] over [ ] for tests in Bash/Ksh/Busybox.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "26",
+          "offset": "35",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "code": "SC2312",
+      "column": "9",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2312",
+      "level": "LEVEL_LOW",
+      "line": "5",
+      "linter": "shellcheck",
+      "message": "Consider invoking this command separately to avoid masking its return value (or use '|| true' to ignore).",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "5",
+          "offset": "40",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "code": "SC2312",
+      "column": "11",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2312",
+      "level": "LEVEL_LOW",
+      "line": "7",
+      "linter": "shellcheck",
+      "message": "Consider invoking this command separately to avoid masking its return value (or use '|| true' to ignore).",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "5",
+          "offset": "97",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "92",
+              "replacementText": "[",
+            },
+            {
+              "filePath": "test_data/basic.in.sh",
+              "offset": "117",
+              "replacementText": "]",
+            },
+          ],
+        },
+      ],
+      "code": "SC2292",
+      "column": "6",
+      "file": "test_data/basic.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2292",
+      "level": "LEVEL_LOW",
+      "line": "7",
+      "linter": "shellcheck",
+      "message": "Prefer [[ ]] over [ ] for tests in Bash/Ksh/Busybox.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.sh",
+          "length": "25",
+          "offset": "92",
+        },
+      ],
+      "targetType": "shell",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/basic.in.sh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/basic.in.sh",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

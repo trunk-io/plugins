@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter shellcheck test unicode 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "66",
+              "replacementText": """,
+            },
+            {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "75",
+              "replacementText": """,
+            },
+          ],
+        },
+      ],
+      "code": "SC2086",
+      "column": "6",
+      "file": "test_data/unicode.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2086",
+      "level": "LEVEL_LOW",
+      "line": "6",
+      "linter": "shellcheck",
+      "message": "Double quote to prevent globbing and word splitting.",
+      "ranges": [
+        {
+          "filePath": "test_data/unicode.in.sh",
+          "length": "9",
+          "offset": "66",
+        },
+      ],
+      "targetType": "shell",
+    },
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": "test_data/unicode.in.sh",
+              "length": "1",
+              "offset": "66",
+              "replacementText": "\${",
+            },
+            {
+              "filePath": "test_data/unicode.in.sh",
+              "offset": "75",
+              "replacementText": "}",
+            },
+          ],
+        },
+      ],
+      "code": "SC2250",
+      "column": "6",
+      "file": "test_data/unicode.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2250",
+      "level": "LEVEL_LOW",
+      "line": "6",
+      "linter": "shellcheck",
+      "message": "Prefer putting braces around variable references even when not strictly required.",
+      "ranges": [
+        {
+          "filePath": "test_data/unicode.in.sh",
+          "length": "9",
+          "offset": "66",
+        },
+      ],
+      "targetType": "shell",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/unicode.in.sh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/unicode.in.sh",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
