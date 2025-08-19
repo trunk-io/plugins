@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "E402",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#E402",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "ruff",
+      "message": "Module level import not at top of file",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "10",
+          "offset": "83",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "autofixOptions": [
+        {
+          "message": "Remove unused import: \`sys\`",
+          "replacements": [
+            {
+              "filePath": "test_data/basic.in.py",
+              "length": "11",
+              "offset": "83",
+            },
+          ],
+        },
+      ],
+      "code": "F401",
+      "column": "8",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#F401",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "ruff",
+      "message": "\`sys\` imported but unused",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "3",
+          "offset": "90",
+        },
+      ],
+      "targetType": "python",
+    },
+    {
+      "code": "E402",
+      "column": "1",
+      "file": "test_data/basic.in.py",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.astral.sh/ruff/rules/#E402",
+      "level": "LEVEL_HIGH",
+      "line": "9",
+      "linter": "ruff",
+      "message": "Module level import not at top of file",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.py",
+          "length": "11",
+          "offset": "120",
+        },
+      ],
+      "targetType": "python",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "python",
+      "linter": "ruff",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
