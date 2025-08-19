@@ -3,6 +3,7 @@ downloads:
   - name: taplo
     args:
       semver: ${version}=>(?:release-cli-|release-taplo-cli-)?(?P<semver>.*)
+    rename_single_file: true
     downloads:
       # Versions >=0.8.0
       - os:

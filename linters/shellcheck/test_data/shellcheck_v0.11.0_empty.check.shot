@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter shellcheck test empty 1`] = `
+{
+  "issues": [
+    {
+      "code": "SC2148",
+      "column": "1",
+      "file": "test_data/empty.in.sh",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://github.com/koalaman/shellcheck/wiki/SC2148",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "shellcheck",
+      "message": "Tips depend on target shell and yours is unknown. Add a shebang or a 'shell' directive.",
+      "ranges": [
+        {
+          "filePath": "test_data/empty.in.sh",
+        },
+      ],
+      "targetType": "shell",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/empty.in.sh",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "shell",
+      "linter": "shellcheck",
+      "paths": [
+        "test_data/empty.in.sh",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

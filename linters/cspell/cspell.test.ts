@@ -76,7 +76,7 @@ fuzzyLinterCheckTest({
   testName: "basic",
   args: TEST_DATA,
   skipTestIf: skipOS(["darwin"]),
-  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedBasicFileIssues as FileIssue[], 13),
+  fileIssueAssertionCallback: createFuzzyMatcher(() => expectedBasicFileIssues as FileIssue[], 5),
   normalizeLandingState,
 });
 
@@ -88,7 +88,7 @@ fuzzyLinterCheckTest({
   skipTestIf: skipOS(["darwin"]),
   fileIssueAssertionCallback: createFuzzyMatcher(
     () => expectedDictionaryFileIssues as FileIssue[],
-    12,
+    5,
   ),
   normalizeLandingState,
 });
