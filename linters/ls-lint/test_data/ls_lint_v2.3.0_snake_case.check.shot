@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ls-lint test snake_case 1`] = `
+{
+  "issues": [
+    {
+      "code": "camelcase",
+      "column": "1",
+      "file": "test_data/snake_case.in.ts",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ls-lint",
+      "message": "File test_data/snake_case.in.ts does not comply with rule camelcase",
+      "targetType": "ALL",
+    },
+    {
+      "code": "pascalcase",
+      "column": "1",
+      "file": "test_data/snake_case.in.ts",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ls-lint",
+      "message": "File test_data/snake_case.in.ts does not comply with rule pascalcase",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "ls-lint",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "ls-lint",
+      "paths": [
+        ".",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

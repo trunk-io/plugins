@@ -1,0 +1,9 @@
+ls:
+  "*":
+    .ts: snake_case
+    .test.ts: snake_case
+    .in.ts: snake_case
+
+ignore:
+  - node_modules
+  - .git

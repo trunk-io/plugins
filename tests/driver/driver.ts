@@ -30,15 +30,13 @@ const TEMP_SUBDIR = "tmp";
 const UNINITIALIZED_ERROR = `You have attempted to modify the sandbox before it was created.
 Please call this method after setup has been called.`;
 
-export const executionEnv = (sandbox: string) => {
+export const executionEnv = () => {
   // trunk-ignore(eslint/@typescript-eslint/no-unused-vars): Remove vars.
   const { PWD, INIT_CWD, ...strippedEnv } = process.env;
   return {
     ...strippedEnv,
     // This keeps test downloads separate from manual trunk invocations
     TRUNK_DOWNLOAD_CACHE: DOWNLOAD_CACHE,
-    // This is necessary to prevent launcher collision of non-atomic operations
-    TMPDIR: path.resolve(sandbox, TEMP_SUBDIR),
     TRUNK_SEGMENT: "off",
     TRUNK_MIXPANEL: "off",
   };
@@ -313,7 +311,7 @@ export abstract class GenericTrunkDriver {
         ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
         {
           cwd: this.sandboxPath,
-          env: executionEnv(this.sandboxPath ?? ""),
+          env: executionEnv(),
           ...execOptions,
           windowsHide: true,
         },
@@ -324,7 +322,7 @@ export abstract class GenericTrunkDriver {
       args.filter((arg) => arg.length > 0),
       {
         cwd: this.sandboxPath,
-        env: executionEnv(this.sandboxPath ?? ""),
+        env: executionEnv(),
         ...execOptions,
         windowsHide: true,
       },
@@ -385,7 +383,7 @@ export abstract class GenericTrunkDriver {
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
     const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
-      env: executionEnv(this.sandboxPath ?? ""),
+      env: executionEnv(),
       ...execOptions,
     });
     exec.stdin?.write(execOptions?.stdin ?? "");
