@@ -77,7 +77,6 @@ lint:
         - cspell.jsonc
         - cspell.yaml
         - cspell.yml
-        - package.json
       affects_cache:
         - package.json
       known_good_version: 7.0.0
