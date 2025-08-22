@@ -24,15 +24,57 @@ lint:
           # NOTE(Tyler): cspell doesn't read symlinked config files, so we must create a copied sandbox.
           sandbox_type: copy_targets
       direct_configs:
-        - .cspell.json
-        - cspell.json
         - .cSpell.json
+        - .config/.cSpell.json
+        - .config/.cspell.config.cjs
+        - .config/.cspell.config.js
+        - .config/.cspell.config.json
+        - .config/.cspell.config.jsonc
+        - .config/.cspell.config.mjs
+        - .config/.cspell.config.yaml
+        - .config/.cspell.config.yml
+        - .config/.cspell.json
+        - .config/.cspell.jsonc
+        - .config/cSpell.json
+        - .config/cspell.config.cjs
+        - .config/cspell.config.js
+        - .config/cspell.config.json
+        - .config/cspell.config.jsonc
+        - .config/cspell.config.mjs
+        - .config/cspell.config.yaml
+        - .config/cspell.config.yml
+        - .config/cspell.json
+        - .config/cspell.jsonc
+        - .config/cspell.yaml
+        - .config/cspell.yml
+        - .cspell.config.cjs
+        - .cspell.config.js
+        - .cspell.config.json
+        - .cspell.config.jsonc
+        - .cspell.config.mjs
+        - .cspell.config.toml
+        - .cspell.config.yaml
+        - .cspell.config.yml
+        - .cspell.json
+        - .cspell.jsonc
+        - .cspell.yaml
+        - .cspell.yml
+        - .vscode/.cspell.json
+        - .vscode/cSpell.json
+        - .vscode/cspell.json
         - cSpell.json
-        - cspell.config.js
+        - config/.cspell.config.toml
+        - config/cspell.config.toml
         - cspell.config.cjs
+        - cspell.config.js
         - cspell.config.json
+        - cspell.config.jsonc
+        - cspell.config.mjs
+        - cspell.config.toml
         - cspell.config.yaml
         - cspell.config.yml
+        - cspell.json
+        - cspell.jsonc
         - cspell.yaml
         - cspell.yml
       affects_cache:
