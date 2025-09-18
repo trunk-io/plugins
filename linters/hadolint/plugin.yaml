@@ -7,25 +7,45 @@ downloads:
       - os: linux
         cpu: x86_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-x86_64
+        version: <2.13.1
       - os: linux
         cpu: arm_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Linux-arm64
+        version: <2.13.1
       - os: macos
         cpu: x86_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
+        version: <2.13.1
       # Use rosetta
       - os: macos
         cpu: arm_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Darwin-x86_64
+        version: <2.13.1
       - os: windows
         cpu: x86_64
         url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-Windows-x86_64.exe
+        version: <2.13.1
+      # >2.13.1 changed the download url
+      - os:
+          linux: linux
+          macos: macos
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-${os}-${cpu}
+        version: ">=2.13.1"
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/hadolint/hadolint/releases/download/v${version}/hadolint-${os}-${cpu}.exe
+        version: ">=2.13.1"
 tools:
   definitions:
     - name: hadolint
       download: hadolint
       shims: [hadolint]
-      known_good_version: 2.10.0
+      known_good_version: 2.13.1
 lint:
   definitions:
     - name: hadolint
@@ -47,7 +67,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       issue_url_format: https://github.com/hadolint/hadolint/wiki/{}
-      known_good_version: 2.10.0
+      known_good_version: 2.13.1
       suggest_if: files_present
       version_command:
         parse_regex: ${semver}
