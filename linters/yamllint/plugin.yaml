@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: yamllint
       shims: [yamllint]
-      known_good_version: 1.26.3
+      known_good_version: 1.37.1
 lint:
   definitions:
     - name: yamllint
@@ -26,7 +26,7 @@ lint:
         - .yamllint.yaml
         - .yamllint.yml
       issue_url_format: https://yamllint.readthedocs.io/en/stable/rules.html
-      known_good_version: 1.26.3
+      known_good_version: 1.37.1
       version_command:
         parse_regex: ${semver}
         run: yamllint --version
