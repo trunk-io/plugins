@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: mypy
       shims: [mypy]
-      known_good_version: 0.931
+      known_good_version: 1.15
 lint:
   definitions:
     - name: mypy
@@ -30,7 +30,7 @@ lint:
         - setup.cfg
       suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
-      known_good_version: 0.931
+      known_good_version: 1.15
       version_command:
         parse_regex: ${semver}
         run: mypy --version
