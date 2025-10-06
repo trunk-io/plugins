@@ -22,7 +22,7 @@ lint:
           cache_results: false
           formatter: true
       tools: [nbstripout]
-      suggest_if: files_present
+      suggest_if: never
       version_command:
         parse_regex: (.*)
         run: nbstripout --version
