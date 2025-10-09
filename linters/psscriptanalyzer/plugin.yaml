@@ -25,7 +25,7 @@ downloads:
           linux: linux
           windows: windows
           macos: macos
-        url: https://psg-prod-eastus.azureedge.net/packages/converttosarif.${version}.nupkg
+        url: https://www.powershellgallery.com/api/v2/package/ConvertToSARIF/${version}
 tools:
   definitions:
     - name: psscriptanalyzer
