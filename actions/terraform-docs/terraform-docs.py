@@ -4,14 +4,47 @@ Trunk.io plugin for terraform-docs integration.
 
 This script acts as a pre-commit hook to ensure terraform documentation is up to date.
 It performs the following:
-1. Runs terraform-docs to update documentation
-2. Checks if any README.md files show up in the unstaged changes
-3. Exits with failure if there are unstaged README changes, success otherwise
+1. Finds directories where Terraform files have changed
+2. Runs terraform-docs in each directory containing changed Terraform files
+3. Checks if any README.md files show up in the unstaged changes
+4. Exits with failure if there are unstaged README changes, success otherwise
 """
 
-# trunk-ignore(bandit/B404)
-import subprocess
+
+import os
+import subprocess # trunk-ignore(bandit/B404)
 import sys
+
+
+def get_changed_terraform_directories():
+    """
+    Get directories containing changed Terraform files.
+
+    Returns:
+        set: Set of directory paths containing changed Terraform files
+    """
+    # Get list of changed files from git
+    status_cmd = ["git", "diff", "--name-only", "HEAD"]
+    return_code, stdout, stderr = run_command(status_cmd)
+
+    if return_code != 0:
+        # If git diff fails, fall back to checking staged files
+        status_cmd = ["git", "diff", "--cached", "--name-only"]
+        return_code, stdout, stderr = run_command(status_cmd)
+
+    changed_files = stdout.strip().split("\n") if stdout.strip() else []
+
+    # Filter for Terraform files and get their directories
+    terraform_extensions = (".tf", ".tofu", ".tfvars")
+    terraform_dirs = set()
+
+    for file_path in changed_files:
+        if file_path.endswith(terraform_extensions):
+            dir_path = os.path.dirname(file_path)
+            # Use current directory if file is in root
+            terraform_dirs.add(dir_path if dir_path else ".")
+
+    return terraform_dirs
 
 
 def run_command(cmd):
@@ -46,12 +79,41 @@ def run_command(cmd):
         sys.exit(1)
 
 
-# First, run terraform-docs to update documentation
-update_cmd = ["terraform-docs", "."]
-return_code, stdout, stderr = run_command(update_cmd)
+# Get directories with changed Terraform files
+terraform_dirs = get_changed_terraform_directories()
 
-if stderr:
-    print(f"terraform-docs error: Warning during execution:\n{stderr}", file=sys.stderr)
+if not terraform_dirs:
+    print("terraform-docs: No Terraform files changed, skipping documentation update")
+    sys.exit(0)
+
+# Run terraform-docs in each directory with changed Terraform files
+for directory in sorted(terraform_dirs):
+    print(f"terraform-docs: Updating documentation in {directory}")
+
+    # Change to the target directory
+    original_cwd = os.getcwd()
+    try:
+        if directory != ".":
+            os.chdir(directory)
+
+        # Check if there's a config file in the repository root
+        config_file_path = os.path.join(original_cwd, ".terraform-docs.yaml")
+
+        # Run terraform-docs with config file if it exists
+        if os.path.exists(config_file_path):
+            update_cmd = ["terraform-docs", "--config", config_file_path, "."]
+        else:
+            # Fallback to markdown format if no config file
+            update_cmd = ["terraform-docs", "markdown", "table", "."]
+
+        return_code, stdout, stderr = run_command(update_cmd)
+
+        if stderr:
+            print(f"terraform-docs warning in {directory}: {stderr}", file=sys.stderr)
+
+    finally:
+        # Always return to original directory
+        os.chdir(original_cwd)
 
 # Check git status for unstaged README changes
 status_cmd = ["git", "status", "--porcelain"]
