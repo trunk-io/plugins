@@ -15,7 +15,7 @@ downloads:
 tools:
   definitions:
     - name: terragrunt
-      known_good_version: 0.45.8
+      known_good_version: 0.89.4
       download: terragrunt
       shims:
         - name: terragrunt
@@ -25,7 +25,7 @@ lint:
     - name: terragrunt
       tools: [terragrunt]
       description: Maintain HCL files in a canonical format
-      known_good_version: 0.45.8
+      known_good_version: 0.89.4
       files: [hcl]
       suggest_if: never
       environment:

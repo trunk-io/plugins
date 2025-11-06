@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: codespell
       shims: [codespell]
-      known_good_version: 2.2.2
+      known_good_version: 2.4.1
 lint:
   definitions:
     - name: codespell
@@ -17,7 +17,7 @@ lint:
         - pyproject.toml
         - setup.cfg
       tools: [codespell]
-      known_good_version: 2.2.2
+      known_good_version: 2.4.1
       known_bad_versions: [2.2.3]
       commands:
         - name: lint

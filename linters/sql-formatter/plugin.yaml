@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: sql-formatter
       shims: [sql-formatter]
-      known_good_version: 7.0.1
+      known_good_version: 15.6.10
 lint:
   definitions:
     - name: sql-formatter
@@ -20,7 +20,7 @@ lint:
           stdin: true
           # Linter does not support batching.
       tools: [sql-formatter]
-      known_good_version: 7.0.1
+      known_good_version: 15.6.10
       suggest_if: never
       version_command:
         parse_regex: ${semver}

@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: pyright
       shims: [pyright]
-      known_good_version: 1.1.304
+      known_good_version: 1.1.407
 lint:
   definitions:
     - name: pyright
@@ -30,7 +30,7 @@ lint:
         - pyproject.toml
         - setup.cfg
       issue_url_format: https://github.com/microsoft/pyright/blob/main/docs/configuration.md#{}
-      known_good_version: 1.1.304
+      known_good_version: 1.1.407
       version_command:
         parse_regex: pyright ${semver}
         run: pyright --version

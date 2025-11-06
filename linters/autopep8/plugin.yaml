@@ -6,7 +6,7 @@ tools:
       package: autopep8
       extra_packages: [pycodestyle]
       shims: [autopep8]
-      known_good_version: 2.0.4
+      known_good_version: 2.3.2
 lint:
   definitions:
     - name: autopep8
@@ -30,7 +30,7 @@ lint:
         - setup.cfg
         - tox.ini
       issue_url_format: https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
-      known_good_version: 2.0.4
+      known_good_version: 2.3.2
       version_command:
         parse_regex: autopep8 ${semver}
         run: autopep8 --version

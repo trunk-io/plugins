@@ -74,7 +74,7 @@ tools:
     - name: taplo
       download: taplo
       shims: [taplo]
-      known_good_version: 0.8.0
+      known_good_version: 0.10.0
 lint:
   definitions:
     - name: taplo
@@ -104,7 +104,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.8.0
+      known_good_version: 0.10.0
       version_command:
         parse_regex: Taplo TOML Utility ${semver}
         run: taplo --version
@@ -124,7 +124,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.8.0
+      known_good_version: 0.10.0
       version_command:
         parse_regex: Taplo TOML Utility ${semver}
         run: taplo --version

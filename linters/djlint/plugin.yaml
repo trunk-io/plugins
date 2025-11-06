@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: djlint
       shims: [djlint]
-      known_good_version: 1.19.16
+      known_good_version: 1.36.4
 lint:
   definitions:
     - name: djlint
@@ -37,7 +37,7 @@ lint:
         - setup.cfg
         - tox.ini
       issue_url_format: https://www.djlint.com/docs/linter/#rules
-      known_good_version: 1.19.16
+      known_good_version: 1.36.4
       version_command:
         parse_regex: djlint, version ${semver}
         run: djlint --version

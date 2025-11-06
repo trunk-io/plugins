@@ -34,7 +34,7 @@ lint:
         - name: GITHUB_APP_PEM_FILE
           value: ${env.GITHUB_APP_PEM_FILE}
           optional: true
-      known_good_version: 1.6.2
+      known_good_version: 1.10.6
       version_command:
         parse_regex: ${semver}
         run: tofu --version

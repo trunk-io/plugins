@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: sort-package-json
       shims: [sort-package-json]
-      known_good_version: 2.1.0
+      known_good_version: 3.4.0
 lint:
   files:
     - name: package-json
@@ -26,4 +26,4 @@ lint:
       tools: [sort-package-json]
       suggest_if: never # decide whether this is something we want on by default
       path_format: generic
-      known_good_version: 2.1.0
+      known_good_version: 3.4.0

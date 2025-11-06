@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: black[python2,jupyter]
       shims: [black]
-      known_good_version: 25.1.0
+      known_good_version: 25.9.0
 lint:
   definitions:
     - name: black
@@ -24,7 +24,7 @@ lint:
       tools: [black]
       suggest_if: files_present
       affects_cache: [pyproject.toml]
-      known_good_version: 25.1.0
+      known_good_version: 25.9.0
       version_command:
         parse_regex: black, version (.*)
         run: black --version
@@ -47,7 +47,7 @@ lint:
       suggest_if: never
       affects_cache: [pyproject.toml]
       formatter: true
-      known_good_version: 22.3.0
+      known_good_version: 25.9.0
       deprecated: "'black-py' is now handled by 'black'. Please delete 'black-py' from your config"
       version_command:
         parse_regex: black, version (.*)

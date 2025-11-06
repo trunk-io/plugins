@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: cspell
       shims: [cspell]
-      known_good_version: 7.0.0
+      known_good_version: 9.3.0
 lint:
   definitions:
     - name: cspell
@@ -79,7 +79,7 @@ lint:
         - cspell.yml
       affects_cache:
         - package.json
-      known_good_version: 7.0.0
+      known_good_version: 9.3.0
       suggest_if: never
       version_command:
         parse_regex: ${semver}
