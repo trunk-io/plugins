@@ -15,7 +15,7 @@ tools:
   definitions:
     - name: dart
       download: dart
-      known_good_version: 3.2.6
+      known_good_version: 3.9.2
       shims: [dart, dartaotruntime]
       environment:
         - name: PATH
@@ -28,11 +28,16 @@ lint:
     - name: dart
       main_tool: dart
       files: [dart]
-      known_good_version: 3.2.6
-      suggest_if: never
+      known_good_version: 3.9.2
+      version_command:
+        parse_regex: "Dart SDK version: ${semver}"
+        run: dart --version
+      suggest_if: files_present
       description: Lints and formats dart code
-      affects_cache:
+      issue_url_format: https://dart.dev/tools/linter-rules/{}
+      direct_configs:
         - analysis_options.yaml
+      affects_cache:
         - pubspec.yaml
       commands:
         - name: format
