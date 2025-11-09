@@ -52,7 +52,13 @@ for result in json.load(sys.stdin):
         "ruleId": rule_id,
     }
 
-    if "fix" in result and result["fix"] is not None:
+    have_fix = "fix" in result and result["fix"] is not None
+    # Skip autofixes specific to a jupyter notebook cell and they are difficult to apply.
+    have_cell = "cell" in result and result["cell"] is not None
+
+    if have_fix and not have_cell:
+        # Locations for jupyter notebooks are not relative to the file,
+        # so we can not easily handle them.
         fixes = result["fix"]
 
         # TODO(Tyler): If output format changes any more substantially, consider version-specific parsers
