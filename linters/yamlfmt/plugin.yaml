@@ -14,7 +14,7 @@ tools:
   definitions:
     - name: yamlfmt
       download: yamlfmt
-      known_good_version: 0.1.0
+      known_good_version: 0.20.0
       shims: [yamlfmt]
 lint:
   definitions:
@@ -42,4 +42,4 @@ lint:
       version_command:
         parse_regex: ${semver}
         run: yamlfmt -version
-      known_good_version: 0.1.0
+      known_good_version: 0.20.0

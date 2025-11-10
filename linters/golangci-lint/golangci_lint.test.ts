@@ -16,7 +16,7 @@ const testGenerator = ({
   skipTestIf?: (version?: string) => boolean;
 }) => {
   const skipTest = (v1: boolean) => (version?: string) => {
-    if (v1 && version === "Latest") {
+    if ((v1 && version === "Latest") || version === undefined) {
       return true;
     }
 

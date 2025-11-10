@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: checkov
       shims: [checkov]
-      known_good_version: 2.3.75
+      known_good_version: 3.2.490
 lint:
   definitions:
     - name: checkov
@@ -31,7 +31,7 @@ lint:
           read_output_from: tmp_file
           is_security: true
           batch: true
-      known_good_version: 2.3.75
+      known_good_version: 3.2.490
       suggest_if: files_present
       direct_configs:
         - .checkov.yml

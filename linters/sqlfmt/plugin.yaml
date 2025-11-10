@@ -5,14 +5,14 @@ tools:
       runtime: python
       package: shandy-sqlfmt
       shims: [sqlfmt]
-      known_good_version: 0.16.0
+      known_good_version: 0.28.2
 lint:
   definitions:
     - name: sqlfmt
       files: [sql, sql-j2]
       tools: [sqlfmt]
       description: A SQL formatter
-      known_good_version: 0.16.0
+      known_good_version: 0.28.2
       # trunk-ignore(yamllint/quoted-strings): see https://github.com/adrienverge/yamllint/issues/516
       extra_packages: ["shandy-sqlfmt[jinjafmt]"]
       suggest_if: never

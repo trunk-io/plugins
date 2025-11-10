@@ -2,7 +2,7 @@ version: 0.1
 downloads:
   # This is a Mac-exclusive linter
   - name: stringslint
-    version: 0.1.1
+    version: 0.1.9
     downloads:
       # macOS only, universal binary supports x86_64 and arm64
       - os: macos
@@ -12,7 +12,7 @@ tools:
     - name: stringslint
       download: stringslint
       shims: [stringslint]
-      known_good_version: 0.1.1
+      known_good_version: 0.1.9
 lint:
   definitions:
     - name: stringslint
@@ -41,7 +41,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.1.1
+      known_good_version: 0.1.9
       version_command:
         parse_regex: ${semver}
         run: stringslint --version

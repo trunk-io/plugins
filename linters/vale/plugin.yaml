@@ -22,7 +22,7 @@ tools:
     - name: vale
       download: vale
       shims: [vale]
-      known_good_version: 3.4.1
+      known_good_version: 3.13.0
       environment:
         - name: PATH
           # Needs access to shared libraries on Windows.
@@ -43,5 +43,5 @@ lint:
           batch: true
       suggest_if: config_present
       tools: [vale]
-      known_good_version: 3.4.1
+      known_good_version: 3.13.0
       direct_configs: [.vale.ini]

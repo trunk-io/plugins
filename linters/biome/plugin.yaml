@@ -6,7 +6,7 @@ tools:
       runtime: node
       package: "@biomejs/biome"
       shims: [biome]
-      known_good_version: 1.9.4
+      known_good_version: 2.3.4
 lint:
   definitions:
     # Successor to the rome linter+formatter
@@ -47,7 +47,7 @@ lint:
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      known_good_version: 1.9.4
+      known_good_version: 2.3.4
       version_command:
         parse_regex: biome CLI version ${semver}
         run: biome --version

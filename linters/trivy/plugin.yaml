@@ -22,14 +22,14 @@ tools:
     - name: trivy
       download: trivy
       shims: [trivy]
-      known_good_version: 0.44.1
+      known_good_version: 0.67.2
 lint:
   definitions:
     - name: trivy
       tools: [trivy]
       suggest_if: config_present
       description: A comprehensive and versatile security scanner
-      known_good_version: 0.44.1
+      known_good_version: 0.67.2
       # trivy supports --format template --template "@contrib/sarif.tpl", but it reports the wrong filepaths.
       commands:
         - name: fs-vuln

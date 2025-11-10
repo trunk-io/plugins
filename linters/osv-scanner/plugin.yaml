@@ -35,13 +35,13 @@ tools:
     - name: osv-scanner
       download: osv-scanner
       shims: [osv-scanner]
-      known_good_version: 2.0.1
+      known_good_version: 2.2.4
 lint:
   definitions:
     - name: osv-scanner
       files: [lockfile]
       tools: [osv-scanner]
-      known_good_version: 2.0.1
+      known_good_version: 2.2.4
       description: Checks for known vulnerabilities in your dependencies
       commands:
         - name: scan

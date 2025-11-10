@@ -65,7 +65,7 @@ lint:
           files: [java]
       runtime: java
       suggest_if: never
-      known_good_version: 7.13.0
+      known_good_version: 7.18.0
       known_bad_versions:
         - pmd_releases/7.0.0-rc4
         - pmd_releases/7.0.0-rc3

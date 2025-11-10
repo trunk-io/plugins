@@ -11,7 +11,7 @@ tools:
     - name: swiftformat
       download: swiftformat
       shims: [swiftformat]
-      known_good_version: 0.50.0
+      known_good_version: 0.55.5
 lint:
   definitions:
     - name: swiftformat
@@ -35,7 +35,7 @@ lint:
       direct_configs:
         - .swiftformat
       suggest_if: config_present
-      known_good_version: 0.50.0
+      known_good_version: 0.55.5
       version_command:
         parse_regex: ${semver}
         run: swiftformat --version

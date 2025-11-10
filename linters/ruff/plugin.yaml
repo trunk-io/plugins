@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: ruff
       shims: [ruff]
-      known_good_version: 0.0.250
+      known_good_version: 0.14.3
 lint:
   definitions:
     - name: ruff
@@ -70,7 +70,7 @@ lint:
         - pyproject.toml
         - setup.cfg
         - tox.ini
-      known_good_version: 0.2.1
+      known_good_version: 0.14.3
       suggest_if: files_present
       issue_url_format: https://docs.astral.sh/ruff/rules/#{}
       version_command:
@@ -95,7 +95,7 @@ lint:
         - pyproject.toml
         - setup.cfg
         - tox.ini
-      known_good_version: 0.0.250
+      known_good_version: 0.14.3
       suggest_if: never
       version_command:
         parse_regex: ruff ${semver}

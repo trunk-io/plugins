@@ -4,7 +4,7 @@ lint:
     - name: prisma
       tools: [prisma]
       files: [prisma]
-      known_good_version: 4.16.1
+      known_good_version: 6.19.0
       suggest_if: never
       description: A Prisma formatter
       commands:

@@ -45,7 +45,7 @@ tools:
     - name: hadolint
       download: hadolint
       shims: [hadolint]
-      known_good_version: 2.13.1
+      known_good_version: 2.14.0
 lint:
   definitions:
     - name: hadolint
@@ -67,7 +67,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       issue_url_format: https://github.com/hadolint/hadolint/wiki/{}
-      known_good_version: 2.13.1
+      known_good_version: 2.14.0
       suggest_if: files_present
       version_command:
         parse_regex: ${semver}

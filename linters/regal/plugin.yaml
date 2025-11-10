@@ -18,14 +18,14 @@ tools:
   definitions:
     - name: regal
       download: regal
-      known_good_version: 0.18.0
+      known_good_version: 0.36.1
       shims: [regal]
 lint:
   definitions:
     - name: regal
       files: [rego]
       main_tool: regal
-      known_good_version: 0.18.0
+      known_good_version: 0.36.1
       suggest_if: config_present
       description: Linter for Rego files
       direct_configs:
