@@ -33,6 +33,15 @@ lint:
           list: ["${linter}"]
       commands:
         - name: format
+          version: ">=0.90.0"
+          output: rewrite
+          run: terragrunt hcl fmt ${target}
+          success_codes: [0]
+          sandbox_type: copy_targets
+          in_place: true
+          formatter: true
+          batch: true
+        - name: format
           output: rewrite
           run: terragrunt hclfmt ${target}
           success_codes: [0]
