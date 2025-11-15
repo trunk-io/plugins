@@ -107,6 +107,7 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - terraform-docs
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
