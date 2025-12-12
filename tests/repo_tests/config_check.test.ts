@@ -146,6 +146,7 @@ describe("Global config health check", () => {
         "clippy",
         "cue-fmt",
         "dotenv-linter",
+        "ggshield",
         "git-diff-check",
         "gofmt",
         "golangci-lint2",

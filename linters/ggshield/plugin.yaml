@@ -1,0 +1,65 @@
+version: 0.1
+downloads:
+  - name: ggshield
+    downloads:
+      - url: https://github.com/GitGuardian/ggshield/releases/download/v${version}/ggshield-${version}-arm64-apple-darwin.tar.gz
+        os: macos
+        cpu: arm_64
+        strip_components: 1
+      - url: https://github.com/GitGuardian/ggshield/releases/download/v${version}/ggshield-${version}-x86_64-apple-darwin.tar.gz
+        os: macos
+        cpu: x86_64
+        strip_components: 1
+      - url: https://github.com/GitGuardian/ggshield/releases/download/v${version}/ggshield-${version}-x86_64-unknown-linux-gnu.tar.gz
+        os: linux
+        cpu: x86_64
+        strip_components: 1
+      - url: https://github.com/GitGuardian/ggshield/releases/download/v${version}/ggshield-${version}-x86_64-pc-windows-msvc.zip
+        os: windows
+        cpu: x86_64
+        strip_components: 1
+tools:
+  definitions:
+    - name: ggshield
+      download: ggshield
+      shims: [ggshield]
+      known_good_version: 1.45.0
+      health_checks:
+        - command: ggshield --version
+          parse_regex: ggshield, version ${semver}
+lint:
+  definitions:
+    - name: ggshield
+      files: [ALL]
+      tools: [ggshield]
+      description: Detect and fix hardcoded secrets in your codebase
+      known_good_version: 1.45.0
+      suggest_if: files_present
+      commands:
+        - name: lint
+          output: sarif
+          run: ggshield secret scan path --recursive --yes ${target} --json
+          read_output_from: stdout
+          success_codes: [0, 1]
+          is_security: true
+          batch: true
+          cache_results: true
+          sandbox_type: copy_targets
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/ggshield/ggshield_to_sarif.py
+      direct_configs:
+        - .gitguardian.yaml
+        - .gitguardian.yml
+        - .ggshield.yaml
+        - .ggshield.yml
+      environment:
+        - name: GITGUARDIAN_API_KEY
+          optional: true
+          value: ${env.GITGUARDIAN_API_KEY}
+        - name: GITGUARDIAN_INSTANCE
+          optional: true
+          value: ${env.GITGUARDIAN_INSTANCE}
+      version_command:
+        parse_regex: ggshield, version ${semver}
+        run: ggshield --version

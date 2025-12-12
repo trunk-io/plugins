@@ -81,7 +81,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                                   |
 | Rust            | [clippy], [rustfmt]                                                                                                                      |
 | Scala           | [scalafmt]                                                                                                                               |
-| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                                      |
+| Security        | [checkov], [dustilock], [ggshield], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                          |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                                          |
 | SVG             | [svgo]                                                                                                                                   |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                                                |
@@ -122,6 +122,7 @@ trunk check enable {linter}
 [flake8]: https://trunk.io/linters/python/flake8
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gitleaks]: https://trunk.io/linters/security/gitleaks
+[ggshield]: https://docs.gitguardian.com/ggshield-docs/reference/overview
 [gofmt]: https://pkg.go.dev/cmd/gofmt
 [gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
