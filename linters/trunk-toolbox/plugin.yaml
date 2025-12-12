@@ -40,6 +40,7 @@ lint:
           disable_upstream: false
           direct_configs: [toolbox.toml]
           max_concurrency: 1
+          sandbox_type: expanded
         - name: lint
           version: ">=0.4.1"
           run:
@@ -52,6 +53,7 @@ lint:
           disable_upstream: true
           direct_configs: [toolbox.toml]
           max_concurrency: 1
+          sandbox_type: expanded
         - name: lint
           run: trunk-toolbox --upstream=${upstream-ref} --results=${tmpfile} ${target}
           output: sarif
@@ -59,6 +61,7 @@ lint:
           success_codes: [0]
           disable_upstream: true
           read_output_from: tmp_file
+          sandbox_type: expanded
       suggest_if: never
       version_command:
         parse_regex: ${semver}
