@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ggshield test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "Generic-High-Entropy-Secret",
+      "file": "test_data/basic.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "ggshield",
+      "message": "Secret detected (Generic High Entropy Secret)",
+      "targetType": "ALL",
+    },
+    {
+      "code": "OpenSSH-Private-Key",
+      "file": "test_data/basic.in.py",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "ggshield",
+      "message": "Secret detected (OpenSSH Private Key)",
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "ggshield",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "ggshield",
+      "paths": [
+        "test_data/basic.in.py",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
