@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
