@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter yamlfmt test config 1`] = `
+"description: >-
+  Builds and pushes a Docker image to a container registry.
+  Requires authentication to be handled by the calling workflow.
+"
+`;

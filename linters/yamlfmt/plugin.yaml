@@ -25,7 +25,7 @@ lint:
         - name: format
           output: rewrite
           run: yamlfmt ${target}
-          run_from: ${parent}
+          run_from: workspace
           success_codes: [0, 1]
           cache_results: true
           formatter: true
@@ -38,6 +38,11 @@ lint:
         - .yamlfmt.yml
         - yamlfmt.yaml
         - yamlfmt.yml
+        - .trunk/configs/.yamlfmt
+        - .trunk/configs/.yamlfmt.yaml
+        - .trunk/configs/.yamlfmt.yml
+        - .trunk/configs/yamlfmt.yaml
+        - .trunk/configs/yamlfmt.yml
       suggest_if: config_present
       version_command:
         parse_regex: ${semver}
