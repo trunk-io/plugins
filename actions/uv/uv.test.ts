@@ -27,10 +27,10 @@ const preCheck = (driver: TrunkActionDriver) => {
 name = "uv-test"
 version = "0.1.0"
 description = ""
-
-[project.dependencies]
-python = "^3.12"
-pendulum = "^3.0.0"
+dependencies = [
+  "pendulum>=3.0.0",
+]
+requires-python = ">=3.12"
   `,
   );
 };
@@ -75,6 +75,7 @@ actionRunTest({
   syncGitHooks: true,
   testCallback: checkTestCallback,
   preCheck: preCheck,
+  skipTestIf: () => true, // uv check command doesn't exist in tested version
 });
 
 actionRunTest({
