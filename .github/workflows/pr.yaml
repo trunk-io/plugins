@@ -327,3 +327,18 @@ jobs:
             echo "All tests skipped or passed"
             exit 0
           fi
+  get_job_id:
+    runs-on: ubuntu-latest
+    name: TESTJOB # change SET-A-NEW-NAME
+    steps:
+      - name: set id
+        id: set-job-id
+        uses: ayachensiyuan/get-action-job-id@v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.TYLER_TEST_GITHUB_TOKEN }}
+        with:
+          job-name: TESTJOB # must be the same as 'get-job-id.name'
+
+      # get id
+      - name: get id
+        run: echo "The current job id is ${{ steps.set-job-id.outputs.jobId }}"
