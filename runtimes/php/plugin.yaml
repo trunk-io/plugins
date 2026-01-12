@@ -2,13 +2,13 @@ version: 0.1
 downloads: # Needed for the php runtime to install packages
   - name: composer
     executable: true
-    version: 2.8.3
+    version: 2.9.3
     downloads:
-      - version: 2.8.3
+      - version: 2.9.3
         gpg: CBB3D576F2A0946F
   - name: phive
     executable: true
-    version: 0.15.3
+    version: 0.16.0
     downloads:
       - url: https://github.com/phar-io/phive/releases/download/${version}/phive-${version}.phar
 runtimes:
