@@ -341,4 +341,6 @@ jobs:
 
       # get id
       - name: get id
-        run: echo "The current job id is ${{ steps.set-job-id.outputs.jobId }}"
+        run: |
+          echo "The current job id is ${{ steps.set-job-id.outputs.jobId }}"
+          echo "The current job url is https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}/job/${{ steps.set-job-id.outputs.jobId }}"
