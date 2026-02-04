@@ -4,6 +4,18 @@ exports[`Testing linter dart test basic 1`] = `
 {
   "issues": [
     {
+      "code": "use_super_parameters",
+      "column": "3",
+      "file": "test_data/basic.in.dart",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://dart.dev/tools/linter-rules/use_super_parameters",
+      "level": "LEVEL_LOW",
+      "line": "12",
+      "linter": "dart",
+      "message": "Parameters ''x' and 'y'' could be super parameters. Trying converting ''x' and 'y'' to super parameters.",
+      "targetType": "dart",
+    },
+    {
       "code": "undefined_identifier",
       "column": "10",
       "file": "test_data/basic.in.dart",
@@ -52,25 +64,6 @@ exports[`Testing linter dart test basic 1`] = `
     },
     {
       "command": "analyze",
-      "fileGroupName": "dart",
-      "linter": "dart",
-      "paths": [
-        "test_data/basic.in.dart",
-      ],
-      "upstream": true,
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "fix",
-      "fileGroupName": "dart",
-      "linter": "dart",
-      "paths": [
-        "test_data/basic.in.dart",
-      ],
-      "verb": "TRUNK_VERB_CHECK",
-    },
-    {
-      "command": "fix",
       "fileGroupName": "dart",
       "linter": "dart",
       "paths": [
