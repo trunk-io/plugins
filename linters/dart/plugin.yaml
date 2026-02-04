@@ -1,6 +1,7 @@
 version: 0.1
 downloads:
   - name: dart
+    # https://dart.dev/get-dart/archive
     downloads:
       - os:
           linux: linux
@@ -11,51 +12,52 @@ downloads:
           arm_64: arm64
         url: https://storage.googleapis.com/dart-archive/channels/stable/release/${version}/sdk/dartsdk-${os}-${cpu}-release.zip
         strip_components: 1
-tools:
-  definitions:
-    - name: dart
-      download: dart
-      known_good_version: 3.9.2
-      shims: [dart, dartaotruntime]
-      environment:
-        - name: PATH
-          list: ["${tool}/bin"]
 lint:
   files:
     - name: dart
       extensions: [dart]
   definitions:
     - name: dart
-      main_tool: dart
       files: [dart]
-      known_good_version: 3.9.2
+      download: dart
+      known_good_version: 3.10.8
       version_command:
         parse_regex: "Dart SDK version: ${semver}"
         run: dart --version
-      suggest_if: files_present
+      suggest_if: config_present
       description: Lints and formats dart code
       issue_url_format: https://dart.dev/tools/linter-rules/{}
       direct_configs:
         - analysis_options.yaml
       affects_cache:
         - pubspec.yaml
+      environment:
+        - name: PATH
+          list: ["${env.PATH}", "${linter}/bin"]
       commands:
         - name: format
           output: rewrite
+          # By default, trunk linters attempt to move to each file's directory to format it,
+          # but this slows down Dart formatters and increases the occurrence of errors.
+          run_from: ${root_or_parent_with(analysis_options.yaml)}
           run: dart format ${target}
           batch: true
           in_place: true
           formatter: true
           success_codes: [0]
+
         - name: fix
           # Some analyze results are autofixable, others are not.
           output: rewrite
+          run_from: ${root_or_parent_with(analysis_options.yaml)}
           run: dart fix --apply ${target}
           batch: true
           fix_prompt: Quick fix available
           fix_verb: fix
           in_place: true
           success_codes: [0]
+          enabled: false
+
         - name: analyze
           output: regex
           # The output only includes the filename so in order to use a relative path we need to run from parent.
