@@ -12,23 +12,14 @@ downloads:
           arm_64: arm64
         url: https://storage.googleapis.com/dart-archive/channels/stable/release/${version}/sdk/dartsdk-${os}-${cpu}-release.zip
         strip_components: 1
-tools:
-  definitions:
-    - name: dart
-      download: dart
-      known_good_version: 3.10.8
-      shims: [dart]
-      environment:
-        - name: PATH
-          list: ["${tool}/bin"]
 lint:
   files:
     - name: dart
       extensions: [dart]
   definitions:
     - name: dart
-      main_tool: dart
       files: [dart]
+      download: dart
       known_good_version: 3.10.8
       version_command:
         parse_regex: "Dart SDK version: ${semver}"
@@ -40,6 +31,9 @@ lint:
         - analysis_options.yaml
       affects_cache:
         - pubspec.yaml
+      environment:
+        - name: PATH
+          list: ["${linter}/bin"]
       commands:
         - name: format
           output: rewrite
