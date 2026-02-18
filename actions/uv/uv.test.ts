@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { actionRunTest, toolInstallTest } from "tests";
@@ -5,7 +6,7 @@ import { TrunkActionDriver } from "tests/driver";
 
 toolInstallTest({
   toolName: "uv",
-  toolVersion: "0.3",
+  toolVersion: "0.7.8",
 });
 
 const preCheck = (driver: TrunkActionDriver) => {
@@ -27,12 +28,15 @@ const preCheck = (driver: TrunkActionDriver) => {
 name = "uv-test"
 version = "0.1.0"
 description = ""
-
-[project.dependencies]
-python = "^3.12"
-pendulum = "^3.0.0"
+requires-python = ">=3.12"
+dependencies = [
+  "pendulum>=3.0.0",
+]
   `,
   );
+
+  // uv lock --check requires an existing lockfile; create it before the commit
+  execSync("uv lock", { cwd: driver.getSandbox(), stdio: "pipe" });
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
