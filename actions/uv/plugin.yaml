@@ -4,8 +4,8 @@ actions:
   definitions:
     - id: uv-check
       display_name: uv check
-      description: Run 'uv check' to validate the project configuration.
-      run: uv check
+      description: Run 'uv lock --check' to validate the project configuration.
+      run: uv lock --check
       triggers:
         - git_hooks: [pre-commit]
       environment:
