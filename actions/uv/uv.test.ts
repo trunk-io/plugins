@@ -27,10 +27,10 @@ const preCheck = (driver: TrunkActionDriver) => {
 name = "uv-test"
 version = "0.1.0"
 description = ""
-
-[project.dependencies]
-python = "^3.12"
-pendulum = "^3.0.0"
+requires-python = ">=3.12"
+dependencies = [
+  "pendulum>=3.0.0",
+]
   `,
   );
 };
