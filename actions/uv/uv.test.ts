@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { actionRunTest, toolInstallTest } from "tests";
@@ -33,6 +34,9 @@ dependencies = [
 ]
   `,
   );
+
+  // uv lock --check requires an existing lockfile; create it before the commit
+  execSync("uv lock", { cwd: driver.getSandbox(), stdio: "pipe" });
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
