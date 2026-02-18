@@ -5,7 +5,7 @@ import { TrunkActionDriver } from "tests/driver";
 
 toolInstallTest({
   toolName: "uv",
-  toolVersion: "0.3",
+  toolVersion: "0.7.8",
 });
 
 const preCheck = (driver: TrunkActionDriver) => {
