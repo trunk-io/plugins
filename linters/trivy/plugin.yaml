@@ -22,14 +22,14 @@ tools:
     - name: trivy
       download: trivy
       shims: [trivy]
-      known_good_version: 0.67.2
+      known_good_version: 0.69.2
 lint:
   definitions:
     - name: trivy
       tools: [trivy]
       suggest_if: config_present
       description: A comprehensive and versatile security scanner
-      known_good_version: 0.67.2
+      known_good_version: 0.69.2
       # trivy supports --format template --template "@contrib/sarif.tpl", but it reports the wrong filepaths.
       commands:
         - name: fs-vuln
@@ -65,7 +65,7 @@ lint:
         - name: config
           files: [docker, yaml, terraform]
           output: sarif
-          run: trivy config ${target} --format json --cache-dir ${shared_cachedir}
+          run: trivy config ${target} --format json --cache-dir ${tmpdir}
           success_codes: [0]
           read_output_from: stdout
           # Trivy does not support batching
