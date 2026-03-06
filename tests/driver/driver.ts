@@ -1,4 +1,12 @@
-import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
+import {
+  ChildProcess,
+  execFile,
+  execFileSync,
+  ExecFileOptionsWithStringEncoding,
+  ExecOptions,
+  ExecSyncOptionsWithStringEncoding,
+  execSync,
+} from "child_process";
 import { Debugger } from "debug";
 import * as fs from "fs";
 import * as os from "os";
@@ -296,37 +304,43 @@ export abstract class GenericTrunkDriver {
    */
   getFullTrunkConfig = (): any => {
     const [executable, args, options] = this.buildExecArgs(["config", "print"]);
-    const printConfig = execSync([executable, ...args].join(" "), options);
-    return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
+    const execOptions: ExecSyncOptionsWithStringEncoding = {
+      cwd: options.cwd,
+      env: options.env,
+      encoding: "utf8" as const,
+      windowsHide: options.windowsHide,
+    };
+    const printConfig = execSync([executable, ...args].join(" "), execOptions);
+    return YAML.parse(printConfig.replaceAll("\r\n", "\n"));
   };
 
   /**
    * Reformat trunk execution args into the expected platform-specific invocation
    */
-  buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
+  buildExecArgs(
+    args: string[],
+    execOptions?: ExecOptions,
+  ): [string, string[], ExecFileOptionsWithStringEncoding] {
     const trunkPath = ARGS.cliPath ?? "trunk";
+    const baseOptions: ExecFileOptionsWithStringEncoding = {
+      cwd: this.sandboxPath,
+      env: executionEnv(),
+      encoding: "utf8" as const,
+      windowsHide: true,
+      ...(execOptions && {
+        maxBuffer: execOptions.maxBuffer,
+        killSignal: execOptions.killSignal,
+        timeout: execOptions.timeout,
+      }),
+    };
     if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
       return [
         "powershell",
         ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(),
-          ...execOptions,
-          windowsHide: true,
-        },
+        baseOptions,
       ];
     }
-    return [
-      trunkPath,
-      args.filter((arg) => arg.length > 0),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(),
-        ...execOptions,
-        windowsHide: true,
-      },
-    ];
+    return [trunkPath, args.filter((arg) => arg.length > 0), baseOptions];
   }
 
   /**
@@ -353,7 +367,12 @@ export abstract class GenericTrunkDriver {
     args: string[],
     execOptions?: ExecOptions,
   ): Promise<{ stdout: string; stderr: string }> {
-    return await execFilePromise(...this.buildExecArgs(args, execOptions));
+    const result = await execFilePromise(...this.buildExecArgs(args, execOptions));
+    // execFilePromise with string encoding always returns strings
+    return {
+      stdout: result.stdout as string,
+      stderr: result.stderr as string,
+    };
   }
 
   /**
@@ -361,8 +380,9 @@ export abstract class GenericTrunkDriver {
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-  runTrunkSync(args: string[], execOptions?: ExecOptions) {
-    return execFileSync(...this.buildExecArgs(args, execOptions));
+  runTrunkSync(args: string[], execOptions?: ExecOptions): string {
+    const result = execFileSync(...this.buildExecArgs(args, execOptions));
+    return typeof result === "string" ? result : result.toString("utf8");
   }
 
   /**
@@ -371,7 +391,8 @@ export abstract class GenericTrunkDriver {
    * @param execOptions
    */
   runTrunkAsync(args: string[], execOptions?: ExecOptions) {
-    return execFile(...this.buildExecArgs(args, execOptions));
+    const [file, fileArgs, options] = this.buildExecArgs(args, execOptions);
+    return execFile(file, fileArgs, options);
   }
 
   /**
@@ -381,11 +402,18 @@ export abstract class GenericTrunkDriver {
    * @param execOptions options to pass the stdin to exec
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
-    const exec = execFile(bin, args, {
+    const execOptionsWithEncoding: ExecFileOptionsWithStringEncoding = {
       cwd: this.sandboxPath,
       env: executionEnv(),
-      ...execOptions,
-    });
+      encoding: "utf8" as const,
+      windowsHide: true,
+      ...(execOptions && {
+        maxBuffer: execOptions.maxBuffer,
+        killSignal: execOptions.killSignal,
+        timeout: execOptions.timeout,
+      }),
+    };
+    const exec = execFile(bin, args, execOptionsWithEncoding);
     exec.stdin?.write(execOptions?.stdin ?? "");
     exec.stdin?.end();
 

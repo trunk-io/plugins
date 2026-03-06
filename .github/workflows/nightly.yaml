@@ -38,7 +38,7 @@ jobs:
         os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
 
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
@@ -94,7 +94,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -123,7 +123,7 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
@@ -230,7 +230,7 @@ jobs:
           #   results-file: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
 
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # akin to the linter_tests job.
@@ -279,7 +279,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@v6
 
       - name: Action Tests
         uses: ./.github/actions/action_tests

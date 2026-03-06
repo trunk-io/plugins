@@ -44,7 +44,7 @@ runs:
     - name: Setup node
       uses: actions/setup-node@v4
       with:
-        node-version: 22
+        node-version: 24
 
     # NOTE: tzdata is a dependency of php, but without the DEBIAN_FRONTEND=noninteractive
     #       it will prompt for a timezone selection
