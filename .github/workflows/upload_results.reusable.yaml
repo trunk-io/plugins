@@ -60,18 +60,18 @@ jobs:
       reruns: ${{ steps.parse.outputs.reruns }}
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Retrieve Test Outputs ubuntu
         id: download-ubuntu
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
         id: download-macos
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}macos-latest-test-results
@@ -79,7 +79,7 @@ jobs:
       # TODO(Tyler): Re-add Windows runners.
       # - name: Retrieve Test Outputs Windows
       #   id: download-windows
-      #   uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      #   uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
       #   continue-on-error: true
       #   with:
       #     name: ${{ inputs.results-prefix }}windows-latest-test-results
@@ -118,7 +118,7 @@ jobs:
                   text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }})>"
 
       - name: Setup Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: 18
 
@@ -224,10 +224,10 @@ jobs:
     if: needs.upload_test_results.outputs.reruns != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: 18
 
@@ -265,7 +265,7 @@ jobs:
           private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           title: Auto-add missing snapshots
           body:
