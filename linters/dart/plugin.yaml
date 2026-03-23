@@ -33,7 +33,7 @@ lint:
         - pubspec.yaml
       environment:
         - name: PATH
-          list: ["${linter}/bin"]
+          list: ["${env.PATH}", "${linter}/bin"]
       commands:
         - name: format
           output: rewrite
