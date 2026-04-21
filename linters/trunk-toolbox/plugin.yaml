@@ -28,6 +28,19 @@ lint:
       known_good_version: 0.5.4
       commands:
         - name: lint
+          version: ">=0.7.0"
+          run:
+            trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
+            --workspace=${workspace} ${target}
+          output: sarif
+          batch: true
+          success_codes: [0]
+          read_output_from: tmp_file
+          cache_results: true
+          disable_upstream: false
+          direct_configs: [toolbox.toml]
+          max_concurrency: 1
+        - name: lint
           version: ">=0.5.3"
           run:
             trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
