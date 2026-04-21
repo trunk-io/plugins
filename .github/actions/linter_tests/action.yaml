@@ -73,7 +73,8 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
-            brew install --cask powershell
+            # PowerShell is pre-installed on GitHub macOS runners; trunk's pwsh
+            # tool plugin will fetch it on-demand otherwise.
             brew install cpanminus
             cpanm YAML::PP Class::Tiny Perl::Critic
             brew unlink perl && brew link perl
