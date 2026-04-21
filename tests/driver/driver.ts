@@ -1,4 +1,13 @@
-import { ChildProcess, execFile, execFileSync, ExecOptions, execSync } from "child_process";
+import {
+  ChildProcess,
+  execFile,
+  execFileSync,
+  ExecFileOptions,
+  ExecFileOptionsWithStringEncoding,
+  ExecFileSyncOptionsWithStringEncoding,
+  ExecSyncOptionsWithStringEncoding,
+  execSync,
+} from "child_process";
 import { Debugger } from "debug";
 import * as fs from "fs";
 import * as os from "os";
@@ -21,7 +30,7 @@ export interface SetupSettings {
   trunkVersion?: string;
 }
 
-export type CustomExecOptions = ExecOptions & { stdin?: string };
+export type CustomExecOptions = ExecFileOptions & { stdin?: string };
 
 const execFilePromise = util.promisify(execFile);
 
@@ -296,37 +305,39 @@ export abstract class GenericTrunkDriver {
    */
   getFullTrunkConfig = (): any => {
     const [executable, args, options] = this.buildExecArgs(["config", "print"]);
-    const printConfig = execSync([executable, ...args].join(" "), options);
+    const printConfig = execSync(
+      [executable, ...args].join(" "),
+      options as ExecSyncOptionsWithStringEncoding,
+    );
     return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
   };
 
   /**
    * Reformat trunk execution args into the expected platform-specific invocation
    */
-  buildExecArgs(args: string[], execOptions?: ExecOptions): [string, string[], ExecOptions] {
+  buildExecArgs(
+    args: string[],
+    execOptions?: ExecFileOptions,
+  ): [string, string[], ExecFileSyncOptionsWithStringEncoding] {
     const trunkPath = ARGS.cliPath ?? "trunk";
+    // Strip `encoding`: ExecFileOptions types it as `string`, which breaks
+    // ExecFileSyncOptionsWithStringEncoding / promisify(execFile) overload resolution.
+    const { encoding: _encoding, ...rest } = execOptions ?? {};
+    const opts: ExecFileSyncOptionsWithStringEncoding = {
+      cwd: this.sandboxPath,
+      env: executionEnv(),
+      ...rest,
+      windowsHide: true,
+      encoding: "utf8",
+    };
     if (process.platform == "win32" && (!ARGS.cliPath || ARGS.cliPath.endsWith(".ps1"))) {
       return [
         "powershell",
         ["-ExecutionPolicy", "ByPass", trunkPath].concat(args.filter((arg) => arg.length > 0)),
-        {
-          cwd: this.sandboxPath,
-          env: executionEnv(),
-          ...execOptions,
-          windowsHide: true,
-        },
+        opts,
       ];
     }
-    return [
-      trunkPath,
-      args.filter((arg) => arg.length > 0),
-      {
-        cwd: this.sandboxPath,
-        env: executionEnv(),
-        ...execOptions,
-        windowsHide: true,
-      },
-    ];
+    return [trunkPath, args.filter((arg) => arg.length > 0), opts];
   }
 
   /**
@@ -336,7 +347,7 @@ export abstract class GenericTrunkDriver {
    */
   async runTrunkCmd(
     argStr: string,
-    execOptions?: ExecOptions,
+    execOptions?: ExecFileOptions,
   ): Promise<{ stdout: string; stderr: string }> {
     return await this.runTrunk(
       argStr.split(" ").filter((arg) => arg.length > 0),
@@ -351,7 +362,7 @@ export abstract class GenericTrunkDriver {
    */
   async runTrunk(
     args: string[],
-    execOptions?: ExecOptions,
+    execOptions?: ExecFileOptions,
   ): Promise<{ stdout: string; stderr: string }> {
     return await execFilePromise(...this.buildExecArgs(args, execOptions));
   }
@@ -361,7 +372,7 @@ export abstract class GenericTrunkDriver {
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-  runTrunkSync(args: string[], execOptions?: ExecOptions) {
+  runTrunkSync(args: string[], execOptions?: ExecFileOptions) {
     return execFileSync(...this.buildExecArgs(args, execOptions));
   }
 
@@ -370,7 +381,7 @@ export abstract class GenericTrunkDriver {
    * @param args arguments to run, excluding `trunk`
    * @param execOptions
    */
-  runTrunkAsync(args: string[], execOptions?: ExecOptions) {
+  runTrunkAsync(args: string[], execOptions?: ExecFileOptions) {
     return execFile(...this.buildExecArgs(args, execOptions));
   }
 
@@ -381,12 +392,15 @@ export abstract class GenericTrunkDriver {
    * @param execOptions options to pass the stdin to exec
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
-    const exec = execFile(bin, args, {
+    const { stdin: stdinData, encoding: _encoding, ...fileOpts } = execOptions ?? {};
+    const opts: ExecFileOptionsWithStringEncoding = {
       cwd: this.sandboxPath,
       env: executionEnv(),
-      ...execOptions,
-    });
-    exec.stdin?.write(execOptions?.stdin ?? "");
+      ...fileOpts,
+      encoding: "utf8",
+    };
+    const exec = execFile(bin, args, opts);
+    exec.stdin?.write(stdinData ?? "");
     exec.stdin?.end();
 
     return await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
