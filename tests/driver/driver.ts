@@ -1,12 +1,12 @@
 import {
   ChildProcess,
   execFile,
-  execFileSync,
   ExecFileOptions,
   ExecFileOptionsWithStringEncoding,
+  execFileSync,
   ExecFileSyncOptionsWithStringEncoding,
-  ExecSyncOptionsWithStringEncoding,
   execSync,
+  ExecSyncOptionsWithStringEncoding,
 } from "child_process";
 import { Debugger } from "debug";
 import * as fs from "fs";
@@ -320,13 +320,10 @@ export abstract class GenericTrunkDriver {
     execOptions?: ExecFileOptions,
   ): [string, string[], ExecFileSyncOptionsWithStringEncoding] {
     const trunkPath = ARGS.cliPath ?? "trunk";
-    // Strip `encoding`: ExecFileOptions types it as `string`, which breaks
-    // ExecFileSyncOptionsWithStringEncoding / promisify(execFile) overload resolution.
-    const { encoding: _encoding, ...rest } = execOptions ?? {};
     const opts: ExecFileSyncOptionsWithStringEncoding = {
       cwd: this.sandboxPath,
       env: executionEnv(),
-      ...rest,
+      ...(execOptions ?? {}),
       windowsHide: true,
       encoding: "utf8",
     };
@@ -392,7 +389,7 @@ export abstract class GenericTrunkDriver {
    * @param execOptions options to pass the stdin to exec
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
-    const { stdin: stdinData, encoding: _encoding, ...fileOpts } = execOptions ?? {};
+    const { stdin: stdinData, ...fileOpts } = execOptions ?? {};
     const opts: ExecFileOptionsWithStringEncoding = {
       cwd: this.sandboxPath,
       env: executionEnv(),
