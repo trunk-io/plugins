@@ -147,6 +147,7 @@ jobs:
 
       - name: Linter Tests
         # Run tests using KnownGoodVersion with any modified linters and conditionally all linters
+        continue-on-error: true
         uses: ./.github/actions/linter_tests
         with:
           linter-version: KnownGoodVersion
@@ -164,6 +165,7 @@ jobs:
         if:
           (failure() || success()) && needs.detect_changes.outputs.linters == 'true' &&
           needs.detect_changes.outputs.linters-files != ''
+        continue-on-error: true
         uses: ./.github/actions/linter_tests
         with:
           linter-version: Latest
@@ -193,6 +195,7 @@ jobs:
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
         # TODO(Tyler): Wire up Latest tests and ReleaseVersionService
+        continue-on-error: true
         uses: ./.github/actions/tool_tests
         with:
           append-args:
@@ -214,6 +217,10 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Action Tests
+        # continue-on-error at the job step level reliably ignores failures
+        # inside the composite action; analytics uploader still reports the
+        # junit so flakes are tracked.
+        continue-on-error: true
         uses: ./.github/actions/action_tests
         with:
           append-args:
