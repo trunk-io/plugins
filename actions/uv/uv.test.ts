@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { actionRunTest, toolInstallTest } from "tests";
@@ -8,6 +8,27 @@ toolInstallTest({
   toolName: "uv",
   toolVersion: "0.7.8",
 });
+
+const runUvLock = (cwd: string) => {
+  const attempts: [string, string[]][] = [
+    ["uv", ["lock"]],
+    ["python3", ["-m", "uv", "lock"]],
+  ];
+  for (const [bin, args] of attempts) {
+    try {
+      execFileSync(bin, args, { cwd, stdio: "pipe" });
+      return;
+    } catch {
+      // Try the next invocation style.
+    }
+  }
+  // Last resort: pip-install uv into the system Python and retry.
+  execFileSync("python3", ["-m", "pip", "install", "--user", "--quiet", "uv"], {
+    cwd,
+    stdio: "pipe",
+  });
+  execFileSync("python3", ["-m", "uv", "lock"], { cwd, stdio: "pipe" });
+};
 
 const preCheck = (driver: TrunkActionDriver) => {
   const trunkYamlPath = ".trunk/trunk.yaml";
@@ -35,8 +56,10 @@ dependencies = [
   `,
   );
 
-  // uv lock --check requires an existing lockfile; create it before the commit
-  execSync("uv lock", { cwd: driver.getSandbox(), stdio: "pipe" });
+  // uv lock --check requires an existing lockfile; create it before the commit.
+  // GitHub runners don't ship uv globally, so fall back to `python -m uv` via
+  // pipx/pip when the shim isn't already on PATH.
+  runUvLock(driver.getSandbox());
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
