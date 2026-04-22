@@ -46,8 +46,8 @@ lint:
     - ls-lint@2.3.1
     - pmd@7.18.0
     - definition-checker
-    - eslint@10.2.1
-    - trunk-toolbox@0.7.0
+    - eslint@9.27.0
+    - trunk-toolbox@0.5.4
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
