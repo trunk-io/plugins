@@ -12,7 +12,7 @@ class Vector2d {
 
 class Vector3d extends Vector2d {
   final double z;
-  Vector3d(super.x, super.y, this.z);
+  Vector3d(final double x, final double y, this.z) : super(x, y);
 }
 
 void main() {
