@@ -394,7 +394,13 @@ export abstract class GenericTrunkDriver {
       env: executionEnv(),
       ...fileOpts,
     });
-    exec.stdin?.write(stdinData ?? "");
+    // Short-lived binaries (e.g. `foo --version`) can close stdin before we
+    // finish writing; swallow the resulting EPIPE so it doesn't propagate as
+    // an unhandled stream error and crash the jest worker.
+    exec.stdin?.on("error", () => {});
+    if (stdinData) {
+      exec.stdin?.write(stdinData);
+    }
     exec.stdin?.end();
 
     return await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
