@@ -40,38 +40,15 @@ dependencies = [
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
-  try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (error, result) => {
-        // uv check should pass for a valid pyproject.toml
-        expect(error).toBeFalsy();
-        expect(result).toBeTruthy();
-      },
-    );
-  } catch {
-    // Intentionally empty
-  }
+  // uv-check should accept a valid pyproject.toml and not block the commit.
+  const result = await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  expect(result).toBeTruthy();
 };
 
 const fileExistsCallback = (filename: string) => async (driver: TrunkActionDriver) => {
-  try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (_error, result) => {
-        expect(_error).toBeFalsy();
-        expect(result).toBeTruthy();
-      },
-    );
-
-    expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
-  } catch {
-    // Intentionally empty
-  }
+  const result = await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  expect(result).toBeTruthy();
+  expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
 };
 
 actionRunTest({
