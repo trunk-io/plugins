@@ -2,7 +2,6 @@ import {
   ChildProcess,
   execFile,
   ExecFileOptions,
-  ExecFileOptionsWithStringEncoding,
   execFileSync,
   ExecFileSyncOptionsWithStringEncoding,
   execSync,
@@ -390,13 +389,11 @@ export abstract class GenericTrunkDriver {
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
     const { stdin: stdinData, ...fileOpts } = execOptions ?? {};
-    const opts: ExecFileOptionsWithStringEncoding = {
+    const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(),
       ...fileOpts,
-      encoding: "utf8",
-    };
-    const exec = execFile(bin, args, opts);
+    });
     exec.stdin?.write(stdinData ?? "");
     exec.stdin?.end();
 
