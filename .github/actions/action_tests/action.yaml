@@ -52,7 +52,13 @@ runs:
       working-directory: ${{ inputs.path }}
 
     - name: Run action tests
-      run: npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci
+      # `|| true`: continue-on-error on a step inside a composite action does
+      # not actually prevent the composite from failing
+      # (https://github.com/actions/runner/issues/2347), so force a zero exit
+      # and let the analytics uploader below surface any junit failures.
+      run:
+        npm test ${{ inputs.append-args }} ${{ env.PLATFORM_APPEND_ARGS }} --passWithNoTests --ci ||
+        true
       shell: bash
       working-directory: ${{ inputs.path }}
       continue-on-error: true
