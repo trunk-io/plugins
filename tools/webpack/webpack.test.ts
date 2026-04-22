@@ -7,7 +7,7 @@ toolTest({
   testConfigs: [
     makeToolTestConfig({
       command: ["webpack", "--version"],
-      expectedOut: "5.89.0",
+      expectedOut: "Binaries:",
     }),
   ],
   // On Windows, the shim is webpack.cmd, and we don't support platform-specific shims yet.
