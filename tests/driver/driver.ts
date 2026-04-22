@@ -391,16 +391,16 @@ export abstract class GenericTrunkDriver {
     const { stdin: stdinData, ...fileOpts } = execOptions ?? {};
     // Avoid racing our empty-stdin write against short-lived children (e.g.
     // `foo --version`): when the caller has no stdin payload, give the child
-    // a closed stdin up front so nothing can emit EPIPE later.
-    const stdio: ("ignore" | "pipe")[] = stdinData
-      ? ["pipe", "pipe", "pipe"]
-      : ["ignore", "pipe", "pipe"];
+    // a closed stdin up front so nothing can emit EPIPE later. `stdio` isn't
+    // in the ExecFileOptions type but execFile forwards it to spawn at
+    // runtime, so cast through to keep TS happy.
+    const stdio = stdinData ? "pipe" : (["ignore", "pipe", "pipe"] as const);
     const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(),
-      stdio,
       ...fileOpts,
-    });
+      stdio,
+    } as ExecFileOptions);
     if (stdinData) {
       // Defensively swallow EPIPE if the child still manages to exit first.
       // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
