@@ -397,6 +397,7 @@ export abstract class GenericTrunkDriver {
     // Short-lived binaries (e.g. `foo --version`) can close stdin before we
     // finish writing; swallow the resulting EPIPE so it doesn't propagate as
     // an unhandled stream error and crash the jest worker.
+    // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
     exec.stdin?.on("error", () => {});
     if (stdinData) {
       exec.stdin?.write(stdinData);
