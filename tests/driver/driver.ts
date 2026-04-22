@@ -389,20 +389,25 @@ export abstract class GenericTrunkDriver {
    */
   async run(bin: string, args: string[], execOptions?: CustomExecOptions) {
     const { stdin: stdinData, ...fileOpts } = execOptions ?? {};
+    // Avoid racing our empty-stdin write against short-lived children (e.g.
+    // `foo --version`): when the caller has no stdin payload, give the child
+    // a closed stdin up front so nothing can emit EPIPE later.
+    const stdio: ("ignore" | "pipe")[] = stdinData
+      ? ["pipe", "pipe", "pipe"]
+      : ["ignore", "pipe", "pipe"];
     const exec = execFile(bin, args, {
       cwd: this.sandboxPath,
       env: executionEnv(),
+      stdio,
       ...fileOpts,
     });
-    // Short-lived binaries (e.g. `foo --version`) can close stdin before we
-    // finish writing; swallow the resulting EPIPE so it doesn't propagate as
-    // an unhandled stream error and crash the jest worker.
-    // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
-    exec.stdin?.on("error", () => {});
     if (stdinData) {
+      // Defensively swallow EPIPE if the child still manages to exit first.
+      // trunk-ignore(eslint/@typescript-eslint/no-empty-function)
+      exec.stdin?.on("error", () => {});
       exec.stdin?.write(stdinData);
+      exec.stdin?.end();
     }
-    exec.stdin?.end();
 
     return await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
       let stdout = "";
