@@ -32,6 +32,13 @@ runs:
       with:
         node-version: 22
 
+    # The uv action tests' preCheck shells out to `uv lock` directly (not
+    # through trunk), so we need uv available on PATH.
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: "0.7.8"
+
     - name: Specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
