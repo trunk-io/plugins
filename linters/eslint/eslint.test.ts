@@ -7,6 +7,8 @@ import { TrunkLintDriver } from "tests/driver";
 import { osTimeoutMultiplier, TEST_DATA } from "tests/utils";
 
 const INSTALL_TIMEOUT = 150000 * osTimeoutMultiplier;
+const manualVersionReplacer = (version: string) =>
+  semver.gte(version, "10.0.0") ? "9.0.0" : version;
 
 const preCheck = (driver: TrunkLintDriver) => {
   const parsedVersion = semver.parse(driver.enabledVersion);
@@ -81,6 +83,7 @@ customLinterCheckTest({
   linterName: "eslint",
   args: `${TEST_DATA} -y --upstream=false --ignore=**/eslint.config.cjs`,
   preCheck: preCheckWithInstall,
+  manualVersionReplacer,
   pathsToSnapshot: [
     path.join(TEST_DATA, "non_ascii.ts"),
     path.join(TEST_DATA, "eof_autofix.ts"),
@@ -93,4 +96,5 @@ customLinterCheckTest({
   testName: "bad_install",
   args: `${TEST_DATA} -y --ignore=**/eslint.config.cjs`,
   preCheck,
+  manualVersionReplacer,
 });
