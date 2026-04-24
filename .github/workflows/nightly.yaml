@@ -69,7 +69,6 @@ jobs:
           ref-type: main
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
@@ -176,7 +175,6 @@ jobs:
           ref-type: release
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
@@ -196,7 +194,6 @@ jobs:
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
-      TRUNK_STAGING_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
       TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
       TRUNK_OPEN_PR_APP_ID: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
@@ -238,7 +235,6 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Notification Job
@@ -284,5 +280,4 @@ jobs:
       - name: Action Tests
         uses: ./.github/actions/action_tests
         with:
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

@@ -51,7 +51,6 @@ jobs:
           # manually specify more parallelism to avoid bottlenecks
           append-args: linters -- --maxWorkers=5
           # Analytics uploader is not yet supported on Windows
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests_main:
@@ -91,5 +90,4 @@ jobs:
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: tools -- --maxWorkers=5
           # Analytics uploader is not yet supported on Windows
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
