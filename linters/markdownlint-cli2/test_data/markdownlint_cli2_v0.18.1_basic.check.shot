@@ -4,15 +4,15 @@ exports[`Testing linter markdownlint-cli2 test basic 1`] = `
 {
   "issues": [
     {
-      "code": "MD025/single-title/single-h1",
+      "code": "error",
       "column": "1",
       "file": "test_data/basic.in.md",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#MD025/single-title/single-h1",
+      "issueUrl": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#error",
       "level": "LEVEL_HIGH",
       "line": "3",
       "linter": "markdownlint-cli2",
-      "message": "Multiple top-level headings in the same document [Context: "This file fails some rules"]",
+      "message": "MD025/single-title/single-h1 Multiple top-level headings in the same document [Context: "This file fails some rules"]",
       "targetType": "markdown",
     },
   ],

@@ -31,7 +31,7 @@ exports[`Testing linter ruff test interface 1`] = `
       "level": "LEVEL_HIGH",
       "line": "12",
       "linter": "ruff",
-      "message": "Redefinition of unused \`a\` from line 9",
+      "message": "Redefinition of unused \`a\` from line 9: \`a\` redefined here",
       "ranges": [
         {
           "filePath": "test_data/interface.in.pyi",
@@ -69,7 +69,7 @@ exports[`Testing linter ruff test interface 1`] = `
       "level": "LEVEL_HIGH",
       "line": "15",
       "linter": "ruff",
-      "message": "Redefinition of unused \`a\` from line 12",
+      "message": "Redefinition of unused \`a\` from line 12: \`a\` redefined here",
       "ranges": [
         {
           "filePath": "test_data/interface.in.pyi",
@@ -138,7 +138,7 @@ exports[`Testing linter ruff test interface 1`] = `
       "level": "LEVEL_HIGH",
       "line": "37",
       "linter": "ruff",
-      "message": "Redefinition of unused \`a\` from line 15",
+      "message": "Redefinition of unused \`a\` from line 15: \`a\` redefined here",
       "ranges": [
         {
           "filePath": "test_data/interface.in.pyi",
