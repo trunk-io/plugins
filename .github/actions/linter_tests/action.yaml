@@ -124,4 +124,4 @@ runs:
         variant: ${{ runner.os }}
       continue-on-error: true
       env:
-        TRUNK_PUBLIC_API_ADDRESS: https://app.trunk.io
+        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
