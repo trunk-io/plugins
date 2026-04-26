@@ -122,6 +122,5 @@ runs:
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
         variant: ${{ runner.os }}
-      continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
