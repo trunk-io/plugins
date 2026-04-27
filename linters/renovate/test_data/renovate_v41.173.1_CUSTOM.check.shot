@@ -4,21 +4,21 @@ exports[`Testing linter renovate test CUSTOM 1`] = `
 {
   "issues": [
     {
-      "code": "error",
+      "code": "Configuration-Error",
       "file": "test_data/renovate.json",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "linter": "renovate",
-      "message": "INFO: Validating test_data/renovate.json as global config",
+      "message": "Invalid configuration option: packageRules[0].matchUpdateTyped_badInfo",
       "targetType": "renovate-config",
     },
     {
-      "code": "error",
+      "code": "Configuration-Error",
       "file": "test_data/renovate.json5",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
       "linter": "renovate",
-      "message": "INFO: Validating test_data/renovate.json5 as global config",
+      "message": "Invalid configuration option: packageRules[0].matchUpdateTyped_badInfo",
       "targetType": "renovate-config",
     },
   ],

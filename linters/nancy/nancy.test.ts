@@ -17,9 +17,21 @@ const expectedFileIssues = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "expected_issues.json")).toString(),
 );
 
+// OSS Index rejects unauthenticated requests, so keep this integration test credential-gated.
+const skipTestIf = () => {
+  if (!process.env.OSS_INDEX_USERNAME || !process.env.OSS_INDEX_TOKEN) {
+    console.log(
+      "Skipping nancy test. Must provide OSS_INDEX_USERNAME and OSS_INDEX_TOKEN to query OSS Index.",
+    );
+    return true;
+  }
+  return false;
+};
+
 fuzzyLinterCheckTest({
   linterName: "nancy",
   args: "-a -n",
   preCheck,
+  skipTestIf,
   fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 3),
 });
