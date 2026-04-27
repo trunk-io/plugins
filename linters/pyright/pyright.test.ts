@@ -6,7 +6,7 @@ const preCheck = (driver: TrunkLintDriver) => {
     ".trunk/configs/pyrightconfig.json",
     JSON.stringify(
       {
-        pythonVersion: "3.10",
+        pythonVersion: "3.14",
       },
       null,
       2,
