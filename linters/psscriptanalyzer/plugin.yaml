@@ -40,9 +40,8 @@ lint:
   definitions:
     - name: psscriptanalyzer
       files: [powershell]
-      supported_platforms: [linux, windows]
       main_tool: psscriptanalyzer
-      known_good_version: 1.24.0
+      known_good_version: 1.25.0
       tools: [converttosarif, pwsh]
       description: Linter for PowerShell scripts
       commands:
