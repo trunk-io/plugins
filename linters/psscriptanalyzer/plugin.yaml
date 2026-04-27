@@ -41,6 +41,7 @@ lint:
     - name: psscriptanalyzer
       files: [powershell]
       main_tool: psscriptanalyzer
+      known_good_version: 1.24.0
       tools: [converttosarif, pwsh]
       description: Linter for PowerShell scripts
       commands:
