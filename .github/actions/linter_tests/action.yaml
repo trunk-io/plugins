@@ -107,6 +107,7 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SNYK_TOKEN: ${{ inputs.snyk-token }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+        GITHUB_AUTH_TOKEN: ${{ github.token }}
         # Debug recurrent eslint circular JSON errors
         DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*,Driver:trunk-toolbox:*
         JEST_SUITE_NAME: Linter Tests

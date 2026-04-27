@@ -72,6 +72,7 @@ runs:
       env:
         PLUGINS_TEST_CLI_VERSION: ${{ inputs.cli-version }}
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
+        GITHUB_AUTH_TOKEN: ${{ github.token }}
         JEST_SUITE_NAME: Tool Tests
         JEST_JUNIT_SUITE_NAME: "{title} ${{ runner.os }} ${{ inputs.ref-type }}"
 

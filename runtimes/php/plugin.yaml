@@ -19,6 +19,8 @@ runtimes:
       runtime_environment:
         - name: HOME
           value: ${env.HOME}
+        - name: GITHUB_AUTH_TOKEN
+          value: ${env.GITHUB_AUTH_TOKEN}
         - name: PATH
           list: ["${env.PATH}"]
       linter_environment:
