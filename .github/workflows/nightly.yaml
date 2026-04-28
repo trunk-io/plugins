@@ -38,7 +38,7 @@ jobs:
         os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Cache tool downloads
         # ubuntu runner has persistent cache
@@ -69,7 +69,6 @@ jobs:
           ref-type: main
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
@@ -94,7 +93,7 @@ jobs:
 
     steps:
       - name: Retrieve git history
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
@@ -123,7 +122,7 @@ jobs:
           prefix: v
 
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ steps.get-release.outputs.tag }}
           clean: false
@@ -176,7 +175,6 @@ jobs:
           ref-type: release
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Upload Job
@@ -196,7 +194,6 @@ jobs:
     uses: ./.github/workflows/upload_results.reusable.yaml
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
-      TRUNK_STAGING_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
       TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
       TRUNK_OPEN_PR_APP_ID: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
       TRUNK_OPEN_PR_APP_PRIVATE_KEY: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
@@ -230,7 +227,7 @@ jobs:
           #   results-file: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # TODO(lauri): For now this just runs on the hardcoded versions. We should configure this
       # akin to the linter_tests job.
@@ -238,7 +235,6 @@ jobs:
         uses: ./.github/actions/tool_tests
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Upload Test Outputs for Notification Job
@@ -279,10 +275,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Action Tests
         uses: ./.github/actions/action_tests
         with:
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}

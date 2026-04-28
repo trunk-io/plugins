@@ -33,14 +33,18 @@ exports[`Testing linter snyk test java 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-  ],
-  "taskFailures": [
     {
-      "details": StringMatching /\\.\\*\\$/m,
-      "message": "test_data/java.in.java",
-      "name": "snyk",
+      "command": "code",
+      "fileGroupName": "java",
+      "linter": "snyk",
+      "paths": [
+        "test_data/java.in.java",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
     },
   ],
+  "taskFailures": [],
   "unformattedFiles": [],
 }
 `;

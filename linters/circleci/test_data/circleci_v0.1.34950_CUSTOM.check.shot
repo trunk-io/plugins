@@ -27,14 +27,15 @@ exports[`Testing linter circleci test CUSTOM 1`] = `
 	- |   |   1. [#/jobs/install-node-example/docker/1] 2 schema violations found
 	- |   |   |   1. [#/jobs/install-node-example/docker/1] extraneous key [foo] is not permitted
 	- |   |   |   |   Permitted keys:
-	- |   |   |   |     - image
+	- |   |   |   |     - gcp_auth
 	- |   |   |   |     - name
-	- |   |   |   |     - entrypoint
 	- |   |   |   |     - command
-	- |   |   |   |     - user
+	- |   |   |   |     - auth
+	- |   |   |   |     - entrypoint
+	- |   |   |   |     - image
 	- |   |   |   |     - environment
 	- |   |   |   |     - aws_auth
-	- |   |   |   |     - auth
+	- |   |   |   |     - user
 	- |   |   |   2. [#/jobs/install-node-example/docker/1] required key [image] not found
 	- |   |   2. [#/jobs/install-node-example/steps/3] 0 subschemas matched instead of one
 	- |   |   |   1. [#/jobs/install-node-example/steps/3] expected type: String, found: Mapping

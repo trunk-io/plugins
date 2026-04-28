@@ -26,9 +26,6 @@ inputs:
   sourcery-token:
     description: Token to login for sourcery test
     required: true
-  trunk-staging-token:
-    description: Test analytics staging api token (org token)
-    required: false
   trunk-prod-token:
     description: Test analytics prod api token (org token)
     required: false
@@ -42,7 +39,7 @@ runs:
   using: composite
   steps:
     - name: Setup node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
         node-version: 22
 
@@ -73,7 +70,8 @@ runs:
             sudo apt install -y php8.2-fpm php8.2-xml php8.2-mbstring php8.2-curl
             ;;
           macOS)
-            brew install powershell/tap/powershell
+            # PowerShell is pre-installed on GitHub macOS runners; trunk's pwsh
+            # tool plugin will fetch it on-demand otherwise.
             brew install cpanminus
             cpanm YAML::PP Class::Tiny Perl::Critic
             brew unlink perl && brew link perl
@@ -109,6 +107,7 @@ runs:
         PLUGINS_TEST_CLI_PATH: ${{ env.CLI_PATH }}
         SNYK_TOKEN: ${{ inputs.snyk-token }}
         SOURCERY_TOKEN: ${{ inputs.sourcery-token }}
+        GITHUB_AUTH_TOKEN: ${{ github.token }}
         # Debug recurrent eslint circular JSON errors
         DEBUG: Driver:eslint:*,Driver:nixpkgs-fmt:*,Driver:trunk-toolbox:*
         JEST_SUITE_NAME: Linter Tests
@@ -124,19 +123,5 @@ runs:
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
         variant: ${{ runner.os }}
-      continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
-
-    - name: Upload staging results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
-      uses: trunk-io/analytics-uploader@main
-      with:
-        junit-paths: junit.xml
-        org-slug: trunk-staging-org
-        token: ${{ inputs.trunk-staging-token }}
-        quarantine: true
-        variant: ${{ runner.os }}
-      env:
-        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

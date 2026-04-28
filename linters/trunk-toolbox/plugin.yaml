@@ -17,7 +17,7 @@ tools:
     - name: trunk-toolbox
       download: trunk-toolbox
       shims: [trunk-toolbox]
-      known_good_version: 0.5.4
+      known_good_version: 0.7.0
 lint:
   definitions:
     - name: trunk-toolbox
@@ -25,8 +25,21 @@ lint:
       main_tool: trunk-toolbox
       files: [ALL]
       affects_cache: [toolbox.toml, log4rs.yaml]
-      known_good_version: 0.5.4
+      known_good_version: 0.7.0
       commands:
+        - name: lint
+          version: ">=0.7.0"
+          run:
+            trunk-toolbox --upstream=${upstream-ref} --cache-dir=${cachedir} --results=${tmpfile}
+            --workspace=${workspace} ${target}
+          output: sarif
+          batch: true
+          success_codes: [0]
+          read_output_from: tmp_file
+          cache_results: true
+          disable_upstream: false
+          direct_configs: [toolbox.toml]
+          max_concurrency: 1
         - name: lint
           version: ">=0.5.3"
           run:
