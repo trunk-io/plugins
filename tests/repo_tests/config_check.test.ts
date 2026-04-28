@@ -149,6 +149,7 @@ describe("Global config health check", () => {
         "git-diff-check",
         "gofmt",
         "golangci-lint2",
+        "grype",
         "hadolint",
         "haml-lint",
         "isort",

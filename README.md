@@ -81,7 +81,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                                   |
 | Rust            | [clippy], [rustfmt]                                                                                                                      |
 | Scala           | [scalafmt]                                                                                                                               |
-| Security        | [checkov], [dustilock], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                                      |
+| Security        | [checkov], [dustilock], [grype], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                             |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                                          |
 | SVG             | [svgo]                                                                                                                                   |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                                                |
@@ -129,6 +129,7 @@ trunk check enable {linter}
 [golangci-lint]: https://github.com/golangci/golangci-lint#readme
 [golines]: https://pkg.go.dev/github.com/segmentio/golines
 [google-java-format]: https://github.com/google/google-java-format#readme
+[grype]: https://github.com/anchore/grype#readme
 [graphql-schema-linter]: https://github.com/cjoudrey/graphql-schema-linter#readme
 [hadolint]: https://github.com/hadolint/hadolint#readme
 [haml-lint]: https://github.com/sds/haml-lint#readme
