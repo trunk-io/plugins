@@ -19,7 +19,6 @@ lint:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
             --show-column-numbers ${target}
           run_from: ${root_or_parent_with_any_config}
-          batch: true
           success_codes: [0, 1]
           stdin: false
       tools: [mypy]
