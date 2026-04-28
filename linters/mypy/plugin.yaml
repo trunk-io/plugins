@@ -14,12 +14,23 @@ lint:
       commands:
         - name: lint
           # Custom parser type defined in the trunk cli to handle mypy's output.
+          version: ">=1.20.0"
           output: mypy
           run:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
             --show-column-numbers --no-incremental ${target}
           run_from: ${root_or_parent_with_any_config}
           batch: true
+          success_codes: [0, 1]
+          stdin: false
+        - name: lint
+          # Custom parser type defined in the trunk cli to handle mypy's output.
+          version: "<1.20.0"
+          output: mypy
+          run:
+            mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
+            --show-column-numbers ${target}
+          run_from: ${root_or_parent_with_any_config}
           success_codes: [0, 1]
           stdin: false
       tools: [mypy]
