@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: mypy
       shims: [mypy]
-      known_good_version: 1.18.2
+      known_good_version: 1.20.2
 lint:
   definitions:
     - name: mypy
@@ -17,8 +17,9 @@ lint:
           output: mypy
           run:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
-            --show-column-numbers ${target}
+            --show-column-numbers --no-incremental ${target}
           run_from: ${root_or_parent_with_any_config}
+          batch: true
           success_codes: [0, 1]
           stdin: false
       tools: [mypy]
@@ -30,7 +31,7 @@ lint:
         - setup.cfg
       suggest_if: config_present
       issue_url_format: https://mypy.readthedocs.io/en/stable/error_code_list.html
-      known_good_version: 1.18.2
+      known_good_version: 1.20.2
       version_command:
         parse_regex: ${semver}
         run: mypy --version
