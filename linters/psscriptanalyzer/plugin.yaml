@@ -31,16 +31,17 @@ tools:
     - name: psscriptanalyzer
       download: psscriptanalyzer
       shims: [PSScriptAnalyzer.psd1]
-      known_good_version: 1.24.0
+      known_good_version: 1.25.0
     - name: converttosarif
       download: converttosarif
       shims: [ConvertToSARIF.psd1]
-      known_good_version: 1.24.0
+      known_good_version: 1.25.0
 lint:
   definitions:
     - name: psscriptanalyzer
       files: [powershell]
       main_tool: psscriptanalyzer
+      known_good_version: 1.25.0
       tools: [converttosarif, pwsh]
       description: Linter for PowerShell scripts
       commands:

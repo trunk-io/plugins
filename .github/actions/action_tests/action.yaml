@@ -16,9 +16,6 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: actions/ --
-  trunk-staging-token:
-    description: Test analytics staging api token (org token)
-    required: false
   trunk-prod-token:
     description: Test analytics prod api token (org token)
     required: false
@@ -28,9 +25,16 @@ runs:
   using: composite
   steps:
     - name: Setup node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
         node-version: 22
+
+    # The uv action tests' preCheck shells out to `uv lock` directly (not
+    # through trunk), so we need uv available on PATH.
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: 0.7.8
 
     - name: Specify defaults
       run: |
@@ -70,19 +74,5 @@ runs:
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
         variant: ${{ runner.os }}
-      continue-on-error: true
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
-
-    - name: Upload staging results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
-      uses: trunk-io/analytics-uploader@main
-      with:
-        junit-paths: junit.xml
-        org-slug: trunk-staging-org
-        token: ${{ inputs.trunk-staging-token }}
-        quarantine: true
-        variant: ${{ runner.os }}
-      env:
-        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

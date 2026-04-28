@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Determine upstream
         run: |
@@ -129,7 +129,7 @@ jobs:
         os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # TODO(Tyler): Remove this once the cache has stabilized
       - name: Delete cache (mac only)
@@ -156,7 +156,6 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
       - name: Linter Tests Latest
@@ -171,7 +170,6 @@ jobs:
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   tool_tests:
@@ -188,7 +186,7 @@ jobs:
         os: [ubuntu-latest, macOS]
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Tool Tests
         # Run tests using KnownGoodVersion with any modified tools and conditionally all tools. Don't run when cancelled.
@@ -198,7 +196,6 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   action_tests:
@@ -211,7 +208,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Action Tests
         uses: ./.github/actions/action_tests
@@ -219,7 +216,6 @@ jobs:
           append-args:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
             needs.detect_changes.outputs.actions-files }} --
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   trunk_check_runner:
@@ -231,7 +227,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           lfs: true
 
@@ -250,7 +246,7 @@ jobs:
     timeout-minutes: 90
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Cache tool downloads
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
@@ -268,7 +264,6 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # TODO(Tyler): Re-add Windows runners.
@@ -280,7 +275,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Cache tool downloads
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
@@ -294,7 +289,6 @@ jobs:
         with:
           append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
 
   # Run repo healthcheck tests

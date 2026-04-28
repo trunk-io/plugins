@@ -35,43 +35,21 @@ dependencies = [
   `,
   );
 
-  // uv lock --check requires an existing lockfile; create it before the commit
+  // uv lock --check requires an existing lockfile; create it before the commit.
+  // CI installs uv via astral-sh/setup-uv in the Action Tests composite.
   execSync("uv lock", { cwd: driver.getSandbox(), stdio: "pipe" });
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
-  try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (error, result) => {
-        // uv check should pass for a valid pyproject.toml
-        expect(error).toBeFalsy();
-        expect(result).toBeTruthy();
-      },
-    );
-  } catch {
-    // Intentionally empty
-  }
+  // uv-check should accept a valid pyproject.toml and not block the commit.
+  const result = await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  expect(result).toBeTruthy();
 };
 
 const fileExistsCallback = (filename: string) => async (driver: TrunkActionDriver) => {
-  try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (_error, result) => {
-        expect(_error).toBeFalsy();
-        expect(result).toBeTruthy();
-      },
-    );
-
-    expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
-  } catch {
-    // Intentionally empty
-  }
+  const result = await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  expect(result).toBeTruthy();
+  expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
 };
 
 actionRunTest({
@@ -91,6 +69,13 @@ actionRunTest({
 actionRunTest({
   actionName: "uv-sync",
   syncGitHooks: true,
-  testCallback: fileExistsCallback(".venv"), // Assuming uv creates a .venv by default
+  // uv-sync triggers on post-checkout/post-merge, not on commit, so invoke
+  // the action directly via `trunk run` instead of piggy-backing on a
+  // gitDriver.commit() that would never fire the hook.
+  testCallback: async (driver: TrunkActionDriver) => {
+    const { exitCode } = await driver.runAction();
+    expect(exitCode).toBe(0);
+    expect(fs.existsSync(path.resolve(driver.getSandbox(), ".venv"))).toBeTruthy();
+  },
   preCheck: preCheck,
 });

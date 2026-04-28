@@ -45,40 +45,22 @@ build-backend = "poetry.core.masonry.api"
 };
 
 const checkTestCallback = async (driver: TrunkActionDriver) => {
+  let commitError: Error | undefined;
   try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (error, result) => {
-        expect(error?.message).toContain("The fields ['authors'] are required in package mode.");
-        expect(result).toBeUndefined();
-      },
-    );
-
-    // Commit step should throw
-    expect(1).toBe(2);
-  } catch (_err) {
-    // Intentionally empty
+    await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  } catch (err) {
+    commitError = err as Error;
   }
+
+  // Commit step should throw because poetry-check rejects the malformed pyproject.
+  expect(commitError).toBeDefined();
+  expect(commitError?.message).toContain("The fields ['authors'] are required in package mode.");
 };
 
 const fileExistsCallback = (filename: string) => async (driver: TrunkActionDriver) => {
-  try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (_error, result) => {
-        expect(_error).toBeFalsy();
-        expect(result).toBeTruthy();
-      },
-    );
-
-    expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
-  } catch (_err) {
-    // Intentionally empty
-  }
+  const result = await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  expect(result).toBeTruthy();
+  expect(fs.existsSync(path.resolve(driver.getSandbox(), filename))).toBeTruthy();
 };
 
 actionRunTest({

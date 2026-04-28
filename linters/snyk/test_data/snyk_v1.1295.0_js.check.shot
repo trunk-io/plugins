@@ -90,14 +90,18 @@ exports[`Testing linter snyk test js 1`] = `
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
-  ],
-  "taskFailures": [
     {
-      "details": StringMatching /\\.\\*\\$/m,
-      "message": "test_data/js.in.js",
-      "name": "snyk",
+      "command": "code",
+      "fileGroupName": "javascript",
+      "linter": "snyk",
+      "paths": [
+        "test_data/js.in.js",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
     },
   ],
+  "taskFailures": [],
   "unformattedFiles": [],
 }
 `;
