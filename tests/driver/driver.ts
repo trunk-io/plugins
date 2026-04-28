@@ -4,8 +4,6 @@ import {
   ExecFileOptions,
   execFileSync,
   ExecFileSyncOptionsWithStringEncoding,
-  execSync,
-  ExecSyncOptionsWithStringEncoding,
 } from "child_process";
 import { Debugger } from "debug";
 import * as fs from "fs";
@@ -304,10 +302,10 @@ export abstract class GenericTrunkDriver {
    */
   getFullTrunkConfig = (): any => {
     const [executable, args, options] = this.buildExecArgs(["config", "print"]);
-    const printConfig = execSync(
-      [executable, ...args].join(" "),
-      options as ExecSyncOptionsWithStringEncoding,
-    );
+    // Use execFileSync (not execSync + shell) so the trunk path / args are
+    // never interpreted by a shell — buildExecArgs already returns the same
+    // (executable, args, opts) tuple shape execFileSync expects.
+    const printConfig = execFileSync(executable, args, options);
     return YAML.parse(printConfig.toString().replaceAll("\r\n", "\n"));
   };
 
