@@ -25,7 +25,7 @@ lint:
           stdin: false
         - name: lint
           # Custom parser type defined in the trunk cli to handle mypy's output.
-          version: "<1.20.0"
+          version: <1.20.0
           output: mypy
           run:
             mypy --ignore-missing-imports --follow-imports=silent --show-error-codes
