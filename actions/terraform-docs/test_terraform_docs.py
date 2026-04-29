@@ -58,7 +58,9 @@ class TerraformDirsFromPathsTest(unittest.TestCase):
     def test_root_level_files_use_dot(self):
         self._touch("main.tf")
 
-        dirs = terraform_docs.terraform_dirs_from_paths(["main.tf"], repo_root=self.root)
+        dirs = terraform_docs.terraform_dirs_from_paths(
+            ["main.tf"], repo_root=self.root
+        )
 
         self.assertEqual(dirs, {"."})
 

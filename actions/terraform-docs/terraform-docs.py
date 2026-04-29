@@ -66,7 +66,9 @@ def terraform_dirs_from_paths(paths, repo_root="."):
         if not file_path or not file_path.endswith(TERRAFORM_EXTENSIONS):
             continue
         dir_path = os.path.dirname(file_path) or "."
-        abs_dir = dir_path if os.path.isabs(dir_path) else os.path.join(repo_root, dir_path)
+        abs_dir = (
+            dir_path if os.path.isabs(dir_path) else os.path.join(repo_root, dir_path)
+        )
         if os.path.isdir(abs_dir):
             dirs.add(dir_path)
     return dirs
@@ -122,7 +124,9 @@ def main():
     terraform_dirs = get_changed_terraform_directories()
 
     if not terraform_dirs:
-        print("terraform-docs: No Terraform files changed, skipping documentation update")
+        print(
+            "terraform-docs: No Terraform files changed, skipping documentation update"
+        )
         return 0
 
     update_cmd = build_terraform_docs_cmd(repo_root)
@@ -137,7 +141,9 @@ def main():
     _return_code, stdout, _stderr = run_command(["git", "status", "--porcelain"])
     unstaged_readmes = find_unstaged_readmes(stdout)
     if unstaged_readmes:
-        print("terraform-docs error: Please stage any README changes before committing.")
+        print(
+            "terraform-docs error: Please stage any README changes before committing."
+        )
         return 1
 
     print("terraform-docs: Documentation is up to date")
