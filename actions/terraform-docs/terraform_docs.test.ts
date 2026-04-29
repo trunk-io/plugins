@@ -50,9 +50,7 @@ actionRunTest({
     }
 
     expect(commitError).toBeDefined();
-    expect(commitError?.message).toContain(
-      "Please stage any README changes before committing.",
-    );
+    expect(commitError?.message).toContain("Please stage any README changes before committing.");
   },
 });
 
