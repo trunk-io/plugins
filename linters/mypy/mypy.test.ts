@@ -7,7 +7,7 @@ const versionGreaterThanOrEqual = (a: string, b: string) => [a.split(".")] >= [b
 const manualVersionReplacer = (version: string) => {
   const [major, minor] = version.split(".").map((part) => Number.parseInt(part, 10));
   if (!Number.isNaN(major) && !Number.isNaN(minor) && major === 1 && minor >= 20) {
-    return "1.18.2";
+    return "1.20.2";
   }
   return version;
 };
