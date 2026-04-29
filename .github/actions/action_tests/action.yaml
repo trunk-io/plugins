@@ -36,6 +36,21 @@ runs:
       with:
         version: 0.7.8
 
+    # The terraform-docs action's pre-commit hook shells out to
+    # `terraform-docs`, so the binary needs to be on PATH inside the action
+    # sandbox. There is no maintained setup-terraform-docs action, so install
+    # the release tarball directly. Action Tests only run on ubuntu-latest.
+    - name: Setup terraform-docs
+      run: |
+        version=0.16.0
+        tmp=$(mktemp -d)
+        curl -sSLo "$tmp/terraform-docs.tgz" \
+          "https://github.com/terraform-docs/terraform-docs/releases/download/v${version}/terraform-docs-v${version}-linux-amd64.tar.gz"
+        tar -xzf "$tmp/terraform-docs.tgz" -C "$tmp"
+        sudo install -m 0755 "$tmp/terraform-docs" /usr/local/bin/terraform-docs
+        terraform-docs --version
+      shell: bash
+
     - name: Specify defaults
       run: |
         echo "CLI_PATH=${{ inputs.cli-path }}" >> "$GITHUB_ENV"
