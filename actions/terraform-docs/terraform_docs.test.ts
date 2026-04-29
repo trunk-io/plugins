@@ -44,15 +44,9 @@ const testCallback = async (driver: TrunkActionDriver) => {
   expect(commitError?.message).toContain("Please stage any README changes before committing.");
 };
 
-// NOTE: Skipped by default. Running this test requires `terraform-docs` on
-// PATH inside the action sandbox; the action's plugin.yaml does not declare a
-// tool dependency, so CI would need a setup step (similar to the uv setup in
-// .github/actions/action_tests/action.yaml) to install terraform-docs before
-// the jest run. Drop `skipTestIf` once that is in place.
 actionRunTest({
   actionName: "terraform-docs",
   syncGitHooks: true,
   preCheck,
   testCallback,
-  skipTestIf: () => true,
 });
