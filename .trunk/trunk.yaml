@@ -2,7 +2,7 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.25.0
+  version: 1.25.1-beta.9
   shell_hooks:
     enforce: true
 
@@ -19,7 +19,7 @@ runtimes:
   enabled:
     - java@13.0.11
     - node@22.16.0
-    - python@3.12.2
+    - python@3.14.4
 
 lint:
   files:
@@ -44,9 +44,9 @@ lint:
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
     - ls-lint@2.3.1
-    - pmd@7.18.0
+    - pmd@pmd_releases/7.24.0
     - definition-checker
-    - eslint@9.27.0
+    - eslint@10.2.1
     - trunk-toolbox@0.7.0
   disabled:
     - pylint # pylint diagnostics are too strict
@@ -111,8 +111,8 @@ actions:
     - tool-test-helper
 tools:
   enabled:
-    - clangd-indexing-tools@19.1.2
-    - clangd@19.1.2
+    - clangd-indexing-tools@22.1.0
+    - clangd@22.1.0
 
   runtimes:
     # expose shims in .trunk/tools
