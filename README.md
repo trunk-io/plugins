@@ -55,7 +55,7 @@ trunk check enable {linter}
 | Dart            | [dart]                                                                                                                                   |
 | Docker          | [hadolint], [checkov]                                                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                                                                          |
-| GitHub          | [actionlint]                                                                                                                             |
+| GitHub          | [actionlint], [zizmor]                                                                                                                   |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                                         |
 | GraphQL         | [graphql-schema-linter], [prettier]                                                                                                      |
 | HAML            | [haml-lint]                                                                                                                              |
@@ -81,7 +81,7 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                                   |
 | Rust            | [clippy], [rustfmt]                                                                                                                      |
 | Scala           | [scalafmt]                                                                                                                               |
-| Security        | [checkov], [dustilock], [grype], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan]                             |
+| Security        | [checkov], [dustilock], [grype], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan], [zizmor]                   |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                                          |
 | SVG             | [svgo]                                                                                                                                   |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                                                |
@@ -203,6 +203,7 @@ trunk check enable {linter}
 [yamlfmt]: https://github.com/google/yamlfmt#readme
 [yamllint]: https://trunk.io/linters/yaml/yamllint
 [yapf]: https://github.com/google/yapf#readme
+[zizmor]: https://docs.zizmor.sh/
 
 <br/>
 

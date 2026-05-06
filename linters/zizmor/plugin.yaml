@@ -1,0 +1,40 @@
+version: 0.1
+tools:
+  definitions:
+    - name: zizmor
+      runtime: python
+      package: zizmor
+      shims: [zizmor]
+      known_good_version: 1.24.1
+lint:
+  definitions:
+    - name: zizmor
+      files: [github-workflow]
+      tools: [zizmor]
+      description: Static analysis for GitHub Actions
+      commands:
+        - name: lint
+          output: sarif
+          run: zizmor --format=sarif ${target}
+          success_codes: [0]
+          batch: true
+          cache_results: true
+          is_security: true
+      direct_configs:
+        - zizmor.yml
+        - zizmor.yaml
+        - .github/zizmor.yml
+        - .github/zizmor.yaml
+      suggest_if: config_present
+      environment:
+        - name: GH_TOKEN
+          value: ${env.GH_TOKEN}
+          optional: true
+        - name: GITHUB_TOKEN
+          value: ${env.GITHUB_TOKEN}
+          optional: true
+      issue_url_format: https://docs.zizmor.sh/audits/
+      known_good_version: 1.24.1
+      version_command:
+        parse_regex: ${semver}
+        run: zizmor --version
