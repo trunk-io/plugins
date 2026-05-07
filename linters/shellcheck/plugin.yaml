@@ -14,10 +14,9 @@ downloads:
         cpu: x86_64
         url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
         strip_components: 1
-      # Use rosetta
       - os: macos
         cpu: arm_64
-        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.aarch64.tar.xz
         strip_components: 1
       # No windows release
 tools:
