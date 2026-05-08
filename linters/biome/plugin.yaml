@@ -57,3 +57,10 @@ lint:
       version_command:
         parse_regex: biome CLI version ${semver}
         run: biome --version
+      symlinks:
+        # biome's vcs.useIgnoreFile reads .gitignore from the sandbox root.
+        # Without this, the per-target sandbox lacks .gitignore and biome
+        # aborts with internalError/fs, silently dropping all findings.
+        # See trunk-io/plugins#1113.
+        - from: ${workspace}/.gitignore
+          to: .gitignore
