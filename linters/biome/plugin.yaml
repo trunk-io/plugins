@@ -22,9 +22,15 @@ lint:
       commands:
         - name: lint
           output: regex
+          # Match both errors (×) and warnings (!). The marker line must be
+          # the immediate next line (after a blank line) following the header,
+          # so each diagnostic is parsed as a self-contained block — the prior
+          # regex lazily matched across diagnostics and silently mis-attributed
+          # path/line/col to a different finding's message. Info-level (i) is
+          # intentionally excluded; biome surfaces those for hints, not gating.
           parse_regex:
-            ' *(?P<path>.*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ ]+)(?:[^×]*\n).*×
-            (?P<message>.*)\n'
+            ' *(?P<path>[^\n]*?):(?P<line>\d+):(?P<col>\d+) (?P<code>[^ \n]+)[^\n]*\n[ \t]*\n[
+            \t]+[×!] (?P<message>[^\n]+)'
           run: biome check ${target}
           success_codes: [0, 1]
           batch: true
