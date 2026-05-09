@@ -57,9 +57,6 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
-    - linters: [eslint]
-      paths:
-        - linters/zizmor/zizmor.test.ts
     - linters: [prettier]
       paths: [linters/markdownlint/README.md]
   threshold:
@@ -107,6 +104,7 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - terraform-docs
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
