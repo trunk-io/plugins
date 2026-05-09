@@ -57,6 +57,9 @@ lint:
       paths:
         - "**/test_data" # required for golangci-lint, which runs on directories
         - "**/test_data/**"
+    - linters: [eslint]
+      paths:
+        - linters/zizmor/zizmor.test.ts
     - linters: [prettier]
       paths: [linters/markdownlint/README.md]
   threshold:
