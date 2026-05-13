@@ -1,0 +1,26 @@
+version: 0.1
+downloads:
+  - name: pinact
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: pinact
+      download: pinact
+      known_good_version: 3.9.2
+      shims: [pinact]
+      health_checks:
+        - command: pinact version
+          parse_regex: ${semver}

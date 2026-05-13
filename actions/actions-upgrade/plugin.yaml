@@ -1,0 +1,75 @@
+version: 0.1
+actions:
+  definitions:
+    - id: actions-upgrade
+      display_name: Upgrade GitHub Actions (pinact)
+      description:
+        Manually upgrade pinned GitHub Actions and composite actions to their latest versions using
+        pinact. Uses an existing GITHUB_TOKEN or GH_TOKEN when set; otherwise runs `gh auth token`
+        (requires the GitHub CLI to be logged in).
+      run: bash ${cwd}/actions-upgrade.sh ${workspace}
+      interactive: optional
+
+downloads:
+  - name: gh
+    downloads:
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.zip
+        strip_components: 1
+      - os:
+          macos: macOS
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.zip
+        strip_components: 1
+        version: ">=2.28.0"
+      - os:
+          macos: macOS
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/cli/cli/releases/download/v${version}/gh_${version}_${os}_${cpu}.tar.gz
+        strip_components: 1
+  - name: pinact
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: gh
+      download: gh
+      known_good_version: 2.27.0
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [gh]
+    - name: pinact
+      download: pinact
+      known_good_version: 3.9.2
+      shims: [pinact]
+      health_checks:
+        - command: pinact version
+          parse_regex: ${semver}
