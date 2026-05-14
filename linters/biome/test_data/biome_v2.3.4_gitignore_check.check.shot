@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing linter biome test basic_check 1`] = `
+exports[`Testing linter biome test gitignore_check 1`] = `
 {
   "issues": [
     {
       "code": "lint/correctness/noUnusedVariables",
       "column": "7",
-      "file": "test_data/basic_check.in.ts",
+      "file": "test_data/gitignore_check.in.ts",
       "issueClass": "ISSUE_CLASS_EXISTING",
       "level": "LEVEL_HIGH",
-      "line": "6",
+      "line": "1",
       "linter": "biome",
-      "message": "This variable foo is unused.",
+      "message": "This variable unusedHelper is unused.",
       "targetType": "typescript",
     },
   ],
@@ -21,7 +21,7 @@ exports[`Testing linter biome test basic_check 1`] = `
       "fileGroupName": "typescript",
       "linter": "biome",
       "paths": [
-        "test_data/basic_check.in.ts",
+        "test_data/gitignore_check.in.ts",
       ],
       "verb": "TRUNK_VERB_FMT",
     },
@@ -30,7 +30,7 @@ exports[`Testing linter biome test basic_check 1`] = `
       "fileGroupName": "typescript",
       "linter": "biome",
       "paths": [
-        "test_data/basic_check.in.ts",
+        "test_data/gitignore_check.in.ts",
       ],
       "verb": "TRUNK_VERB_CHECK",
     },
@@ -39,23 +39,13 @@ exports[`Testing linter biome test basic_check 1`] = `
       "fileGroupName": "typescript",
       "linter": "biome",
       "paths": [
-        "test_data/basic_check.in.ts",
+        "test_data/gitignore_check.in.ts",
       ],
       "upstream": true,
       "verb": "TRUNK_VERB_CHECK",
     },
   ],
   "taskFailures": [],
-  "unformattedFiles": [
-    {
-      "column": "1",
-      "file": "test_data/basic_check.in.ts",
-      "issueClass": "ISSUE_CLASS_UNFORMATTED",
-      "level": "LEVEL_HIGH",
-      "line": "1",
-      "linter": "biome",
-      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
-    },
-  ],
+  "unformattedFiles": [],
 }
 `;
