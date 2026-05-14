@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter trivy test fs-vuln 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/Gemfile.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/go.mod",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/nested/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/no_errors/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "trivy",
+      "paths": [
+        "test_data/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
