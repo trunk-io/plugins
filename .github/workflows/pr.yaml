@@ -126,14 +126,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS]
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # TODO(Tyler): Remove this once the cache has stabilized
       - name: Delete cache (mac only)
-        if: matrix.os == 'macOS'
+        if: matrix.os == 'macos-latest'
         # For now, avoid deleting cache on pull request changes to nightly. This improves PR experience.
         run: |
           if [ -d "${TMPDIR:-/tmp}/plugins_testing_download_cache" ]
@@ -183,7 +183,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS]
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
