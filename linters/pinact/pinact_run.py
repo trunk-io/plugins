@@ -1,13 +1,43 @@
 #!/usr/bin/env python3
 import os
+import shutil
 import subprocess
 import sys
+from pathlib import Path
+
+
+def resolve_executable(name: str) -> str | None:
+    return shutil.which(name)
+
+
+def require_executable(name: str) -> str:
+    path = resolve_executable(name)
+    if path is None:
+        print(f"{name} not found in PATH", file=sys.stderr)
+        raise SystemExit(127)
+    return path
+
+
+def validate_targets(paths: list[str]) -> list[str]:
+    validated: list[str] = []
+    for path in paths:
+        target = Path(path)
+        if not target.exists():
+            print(f"target not found: {path}", file=sys.stderr)
+            raise SystemExit(2)
+        validated.append(str(target.resolve()))
+    return validated
 
 
 def gh_auth_token() -> str | None:
+    gh = resolve_executable("gh")
+    if gh is None:
+        return None
+
     try:
         result = subprocess.run(
-            ["gh", "auth", "token"],
+            [gh, "auth", "token"],
+            shell=False,
             check=False,
             capture_output=True,
             text=True,
@@ -63,6 +93,15 @@ def build_pinact_args(mode: str) -> list[str]:
     return args
 
 
+def run_pinact(mode: str, targets: list[str]) -> int:
+    pinact = require_executable("pinact")
+    return subprocess.run(
+        [pinact, *build_pinact_args(mode)[1:], *validate_targets(targets)],
+        shell=False,
+        check=False,
+    ).returncode
+
+
 def main() -> int:
     configure_token_env()
 
@@ -72,7 +111,7 @@ def main() -> int:
         mode = "upgrade"
         argv = argv[1:]
 
-    return subprocess.call(build_pinact_args(mode) + argv)
+    return run_pinact(mode, argv)
 
 
 if __name__ == "__main__":
