@@ -23,7 +23,7 @@ tools:
 lint:
   definitions:
     - name: pinact
-      files: [github-workflow]
+      files: [github-workflow, github-actions]
       tools: [pinact]
       runtime: python
       hold_the_line: false
