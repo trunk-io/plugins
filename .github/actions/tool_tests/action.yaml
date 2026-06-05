@@ -79,7 +79,7 @@ runs:
     - name: Upload prod results
       # TODO(Tyler): Add upload on Windows once the action supports it.
       if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
-      uses: trunk-io/analytics-uploader@main
+      uses: trunk-io/analytics-uploader@413ecdb8036c3698131a278a921c8481ffeec502 # v2.1.1      uses: trunk-io/analytics-uploader@v2.1.1
       with:
         junit-paths: junit.xml
         org-slug: trunk
