@@ -259,6 +259,13 @@ lint:
       comments:
         - hash
 
+    - name: github-actions
+      regexes:
+        - .github/actions/.+\.yaml
+        - .github/actions/.+\.yml
+      comments:
+        - hash
+
     - name: go
       extensions:
         - go

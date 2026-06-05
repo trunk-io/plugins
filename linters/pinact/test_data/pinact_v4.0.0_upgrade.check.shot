@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pinact test upgrade 1`] = `
+{
+  "issues": [
+    {
+      "autofixOptions": [
+        {
+          "replacements": [
+            {
+              "filePath": ".github/workflows/unpinned.in.yaml",
+              "offset": "118",
+              "replacementText": "      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3",
+            },
+          ],
+        },
+      ],
+      "code": "unpinned-action",
+      "column": "1",
+      "file": ".github/workflows/unpinned.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "pinact",
+      "message": "Action should be pinned:       - uses: actions/checkout@v4 ->       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3",
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "upgrade",
+      "fileGroupName": "github-workflow",
+      "linter": "pinact",
+      "paths": [
+        ".github/workflows/unpinned.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
