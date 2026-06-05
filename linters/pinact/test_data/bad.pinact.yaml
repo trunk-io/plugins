@@ -1,5 +1,4 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/suzuki-shunsuke/pinact/refs/heads/main/json-schema/pinact.json
-# pinact - https://github.com/suzuki-shunsuke/pinact
 version: 3
 min_age:
   value: 30
@@ -9,5 +8,4 @@ rules:
   - min_age: 0
     conditions:
       - expr: |
-          ActionRepoFullName == "trunk-io/analytics-uploader" ||
-          ActionRepoFullName == "github/codeql-action"
+          ActionRepoFullName == "trunk-io/analytics-uploader" || "github/codeql-action/analyze"

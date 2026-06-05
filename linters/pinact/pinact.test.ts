@@ -58,6 +58,23 @@ const skipIfMissingGitHubToken = () => {
   return false;
 };
 
+const preCheckBadConfig = async (driver: TrunkLintDriver) => {
+  process.env.PINACT_DISABLE_GH_AUTH = "1";
+  driver.moveFile(path.join(TEST_DATA, "bad.pinact.yaml"), path.join(".pinact.yaml"));
+  driver.moveFile(
+    path.join(TEST_DATA, "missing_version_comment.in.yaml"),
+    path.join(".github/workflows", "missing_version_comment.in.yaml"),
+  );
+  await driver.gitDriver?.add(".").commit("moved");
+};
+
+customLinterCheckTest({
+  linterName: "pinact",
+  testName: "bad_config",
+  args: ".github",
+  preCheck: preCheckBadConfig,
+});
+
 customLinterCheckTest({
   linterName: "pinact",
   testName: "missing_version_comment",

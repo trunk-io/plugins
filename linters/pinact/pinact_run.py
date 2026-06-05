@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
+import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+SARIF_SCHEMA = (
+    "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/"
+    "Schemata/sarif-schema-2.1.0.json"
+)
+ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
+
+# pinact uses 1/2 when SARIF findings exist; empty stdout means it failed before emitting SARIF.
+PINACT_SARIF_EXIT_CODES = (1, 2)
+CONFIG_ERROR_RULE_ID = "config-error"
 
 
 def resolve_executable(name: str) -> str | None:
@@ -93,13 +105,93 @@ def build_pinact_args(mode: str) -> list[str]:
     return args
 
 
+def strip_ansi(text: str) -> str:
+    return ANSI_ESCAPE.sub("", text)
+
+
+def parse_pinact_stderr(stderr: str) -> str:
+    clean = strip_ansi(stderr).strip()
+    if not clean:
+        return "pinact failed"
+
+    match = re.search(r'error="((?:\\.|[^"\\])*)"', clean)
+    if match:
+        return match.group(1).encode("utf-8").decode("unicode_escape").strip()
+
+    if "error=" in clean:
+        return clean.split("error=", 1)[1].strip().strip('"')
+
+    return clean
+
+
+def build_failure_sarif(target: str, message: str) -> str:
+    sarif = {
+        "$schema": SARIF_SCHEMA,
+        "version": "2.1.0",
+        "runs": [
+            {
+                "results": [
+                    {
+                        "ruleId": CONFIG_ERROR_RULE_ID,
+                        "level": "error",
+                        "message": {"text": message},
+                        "locations": [
+                            {
+                                "physicalLocation": {
+                                    "artifactLocation": {"uri": target},
+                                    "region": {
+                                        "startLine": 1,
+                                        "startColumn": 1,
+                                    },
+                                }
+                            }
+                        ],
+                    }
+                ]
+            }
+        ],
+    }
+    return json.dumps(sarif, indent=2)
+
+
+def sarif_for_pinact_failure(stderr: str, targets: list[str]) -> str:
+    return build_failure_sarif(
+        targets[0] if targets else ".",
+        parse_pinact_stderr(stderr),
+    )
+
+
 def run_pinact(mode: str, targets: list[str]) -> int:
     pinact = require_executable("pinact")
-    return subprocess.run(
+    result = subprocess.run(
         [pinact, *build_pinact_args(mode)[1:], *validate_targets(targets)],
         shell=False,
         check=False,
-    ).returncode
+        capture_output=True,
+        text=True,
+    )
+
+    stdout = result.stdout
+    stderr = result.stderr
+    returncode = result.returncode
+
+    if returncode in PINACT_SARIF_EXIT_CODES and not stdout.strip():
+        sarif = sarif_for_pinact_failure(stderr, targets)
+        sys.stdout.write(sarif)
+        if not sarif.endswith("\n"):
+            sys.stdout.write("\n")
+        return 2
+
+    if stdout:
+        sys.stdout.write(stdout)
+        if not stdout.endswith("\n"):
+            sys.stdout.write("\n")
+    if stderr:
+        sys.stderr.write(stderr)
+        if not stderr.endswith("\n"):
+            sys.stderr.write("\n")
+
+    return returncode
 
 
 def main() -> int:
