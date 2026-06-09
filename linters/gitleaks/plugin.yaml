@@ -5,7 +5,7 @@ tools:
       runtime: go
       package: github.com/zricethezav/gitleaks/v${major_version}
       shims: [gitleaks]
-      known_good_version: 8.8.7
+      known_good_version: 8.29.0
 lint:
   definitions:
     - name: gitleaks
@@ -26,7 +26,7 @@ lint:
         - .gitleaks.toml
         - .gitleaksignore
       suggest_if: config_present
-      known_good_version: 8.8.7
+      known_good_version: 8.29.0
       known_bad_versions:
         - 8.10.0
         - 8.10.1

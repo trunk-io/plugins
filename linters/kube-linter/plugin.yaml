@@ -5,7 +5,7 @@ tools:
       runtime: go
       package: golang.stackrox.io/kube-linter/cmd/kube-linter
       shims: [kube-linter]
-      known_good_version: 0.6.4
+      known_good_version: 0.7.2
 lint:
   definitions:
     - name: kube-linter
@@ -20,5 +20,5 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.6.4
+      known_good_version: 0.7.2
       suggest_if: never

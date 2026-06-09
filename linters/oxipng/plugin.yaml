@@ -40,7 +40,7 @@ lint:
           list: ["${linter}"]
       include_lfs: true
       suggest_if: files_present
-      known_good_version: 7.0.0
+      known_good_version: 9.1.5
       version_command:
         parse_regex: ${semver}
         run: oxipng --version

@@ -2,7 +2,7 @@ version: 0.1
 lint:
   downloads:
     - name: detekt
-      version: 1.19.0
+      version: 1.23.8
       downloads:
         # Cross-platform download
         - url: https://github.com/detekt/detekt/releases/download/v${version}/detekt-cli-${version}.zip
@@ -38,7 +38,7 @@ lint:
       environment:
         - name: PATH
           list: ["${env.PATH}"]
-      known_good_version: 1.19.0
+      known_good_version: 1.23.8
       version_command:
         parse_regex: ${semver}
         run: detekt-cli --version
@@ -69,7 +69,7 @@ lint:
       environment:
         - name: PATH
           list: ["${env.PATH}"]
-      known_good_version: 1.19.0
+      known_good_version: 1.23.8
       version_command:
         parse_regex: ${semver}
         run: detekt-cli --version

@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: rome
       shims: [rome]
-      known_good_version: 10.0.1
+      known_good_version: 12.1.3
 lint:
   definitions:
     # No longer maintained. Succeeded by the biome linter+formatter
@@ -41,7 +41,7 @@ lint:
       affects_cache:
         - package.json
         - .editorconfig # Undocumented config file
-      known_good_version: 10.0.1
+      known_good_version: 12.1.3
       version_command:
         parse_regex: Rome CLI version ${semver}
         run: rome --version

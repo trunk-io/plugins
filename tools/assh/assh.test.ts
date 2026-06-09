@@ -3,7 +3,7 @@ import { skipOS } from "tests/utils";
 
 toolTest({
   toolName: "assh",
-  toolVersion: "2.15.0",
+  toolVersion: "2.17.1",
   testConfigs: [
     makeToolTestConfig({
       command: ["assh", "--version"],

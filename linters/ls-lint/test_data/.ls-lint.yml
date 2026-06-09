@@ -1,0 +1,13 @@
+ls:
+  "**/*":
+    .js: kebab-case
+    .in.ts: camelCase | PascalCase
+    .d.ts: camelCase
+    .spec.ts: camelCase | PascalCase
+    .mock.ts: camelCase
+
+ignore:
+  - node_modules
+  - .git
+  - .trunk
+  - tmp

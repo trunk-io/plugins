@@ -11,3 +11,7 @@ junit.xml
 
 # Snyk
 .dccache
+
+# Python
+__pycache__/
+*.pyc

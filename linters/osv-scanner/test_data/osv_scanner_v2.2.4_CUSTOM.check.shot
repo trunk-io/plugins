@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter osv-scanner test CUSTOM 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/Cargo.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/Gemfile.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/bun.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/composer.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/go.mod",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/requirements.txt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "scan",
+      "fileGroupName": "lockfile",
+      "linter": "osv-scanner",
+      "paths": [
+        "test_data/yarn.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

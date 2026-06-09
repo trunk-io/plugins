@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dependencies": {
+    "chalk@5.2.0": {
+      "integrity": "sha512-abc123...",
+      "resolved": "https://registry.npmjs.org/chalk/-/chalk-5.2.0.tgz"
+    },
+    "react@18.2.0": {
+      "integrity": "sha512-def456...",
+      "resolved": "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
+    },
+    "react-dom@18.2.0": {
+      "integrity": "sha512-ghi789...",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
+    }
+  }
+}

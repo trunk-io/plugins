@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter nbstripout test basic_nb 1`] = `
+"{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "LbWsYSsF_n0F"
+   },
+   "source": [
+    "# Test Notebook"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "LhkRbbgv_QeE"
+   },
+   "outputs": [],
+   "source": [
+    "print(\\"Hello World!\\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "provenance": []
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
+"
+`;

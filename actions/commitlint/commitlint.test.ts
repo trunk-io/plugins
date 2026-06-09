@@ -9,23 +9,17 @@ const preCheck = (driver: TrunkActionDriver) => {
 };
 
 const testCallback = async (driver: TrunkActionDriver) => {
+  let commitError: Error | undefined;
   try {
-    await driver.gitDriver?.commit(
-      "Test commit",
-      [],
-      { "--allow-empty": null },
-      (error, result) => {
-        expect(error?.message).toContain("subject may not be empty [subject-empty]");
-        expect(error?.message).toContain("type may not be empty [type-empty]");
-        expect(result).toBeUndefined();
-      },
-    );
-
-    // Commit step should throw
-    expect(1).toBe(2);
-  } catch (_err) {
-    // Intentionally empty
+    await driver.gitDriver?.commit("Test commit", [], { "--allow-empty": null });
+  } catch (err) {
+    commitError = err as Error;
   }
+
+  // Commit step should throw because commitlint rejects the invalid message.
+  expect(commitError).toBeDefined();
+  expect(commitError?.message).toContain("subject may not be empty [subject-empty]");
+  expect(commitError?.message).toContain("type may not be empty [type-empty]");
 };
 
 actionRunTest({

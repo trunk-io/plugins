@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Testing formatter svgo test basic 1`] = `"<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" xml:space="preserve" style="fill:red"><circle cx="60" cy="60" r="50"/><text>  test  </text></svg>"`;

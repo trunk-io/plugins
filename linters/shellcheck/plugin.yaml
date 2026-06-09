@@ -14,10 +14,9 @@ downloads:
         cpu: x86_64
         url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
         strip_components: 1
-      # Use rosetta
       - os: macos
         cpu: arm_64
-        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.x86_64.tar.xz
+        url: https://github.com/koalaman/shellcheck/releases/download/v${version}/shellcheck-v${version}.darwin.aarch64.tar.xz
         strip_components: 1
       # No windows release
 tools:
@@ -25,7 +24,7 @@ tools:
     - name: shellcheck
       download: shellcheck
       shims: [shellcheck]
-      known_good_version: 0.8.0
+      known_good_version: 0.11.0
 lint:
   definitions:
     - name: shellcheck
@@ -46,7 +45,7 @@ lint:
         - name: PATH
           list: ["${linter}"]
       issue_url_format: https://github.com/koalaman/shellcheck/wiki/{}
-      known_good_version: 0.8.0
+      known_good_version: 0.11.0
       suggest_if: files_present
       # uncached because shellcheck can follow includes, e.g. source other.sh
       cache_results: false

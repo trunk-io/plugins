@@ -11,6 +11,6 @@ const expectedFileIssues = JSON.parse(
 
 fuzzyLinterCheckTest({
   linterName: "osv-scanner",
-  args: "-a -y",
+  args: "-a -n",
   fileIssueAssertionCallback: createFuzzyMatcher(() => expectedFileIssues as FileIssue[], 100),
 });

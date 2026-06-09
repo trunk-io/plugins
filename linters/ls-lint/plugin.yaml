@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://static.trunk.io/pub/trunk-yaml-schema.json
+
+version: 0.1
+tools:
+  definitions:
+    - name: ls-lint
+      shims:
+        - ls-lint
+      runtime: node
+      known_good_version: 2.3.1
+      package: "@ls-lint/ls-lint"
+      health_checks:
+        - command: ls-lint --version
+          parse_regex: ls-lint v${semver}
+lint:
+  definitions:
+    - name: ls-lint
+      files:
+        - ALL
+      tools:
+        - ls-lint
+      direct_configs:
+        - .ls-lint.yml
+      hold_the_line: false
+      version_command:
+        parse_regex: ${semver}
+        run: ls-lint --version
+      known_good_version: 2.3.1
+      suggest_if: config_present
+      description: Lints naming conventions for thousands of files and directories in milliseconds
+      run_timeout: 1m
+      commands:
+        - name: lint
+          target: .
+          batch: true
+          output: sarif
+          success_codes:
+            - 0
+            - 1
+          read_output_from: stderr
+          parser:
+            runtime: node
+            run: node ${cwd}/helpers/json-to-sarif.js
+          run: ls-lint --workdir ${workspace} --error-output-format json

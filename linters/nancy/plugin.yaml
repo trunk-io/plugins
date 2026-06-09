@@ -39,6 +39,12 @@ lint:
       environment:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
+        - name: OSS_INDEX_USERNAME
+          value: ${env.OSS_INDEX_USERNAME}
+          optional: true
+        - name: OSS_INDEX_TOKEN
+          value: ${env.OSS_INDEX_TOKEN}
+          optional: true
         - name: USER
           value: ${env.USER}
           optional: true

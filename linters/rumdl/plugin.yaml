@@ -1,0 +1,55 @@
+version: 0.1
+downloads:
+  - name: rumdl
+    downloads:
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/rvben/rumdl/releases/download/v${version}/rumdl-v${version}-${cpu}-${os}.tar.gz
+      - os: windows
+        cpu: x86_64
+        url: https://github.com/rvben/rumdl/releases/download/v${version}/rumdl-v${version}-x86_64-pc-windows-msvc.zip
+tools:
+  definitions:
+    - name: rumdl
+      download: rumdl
+      known_good_version: 0.1.42
+      shims: [rumdl]
+      health_checks:
+        - command: rumdl --version
+          parse_regex: ${semver}
+lint:
+  definitions:
+    - name: rumdl
+      files: [markdown]
+      tools: [rumdl]
+      description: A high-performance Markdown linter and formatter written in Rust
+      commands:
+        - name: lint
+          output: regex
+          parse_regex: (?P<path>.*):(?P<line>\d+):(?P<col>\d+):\s+\[(?P<code>[^\]]+)\]\s+(?P<message>.*)
+          run: rumdl check ${target}
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          read_output_from: stdout
+        - name: fmt
+          output: rewrite
+          run: rumdl fmt ${target}
+          success_codes: [0]
+          batch: true
+          cache_results: true
+          formatter: true
+          in_place: true
+      suggest_if: config_present
+      direct_configs:
+        - .rumdl.toml
+        - rumdl.toml
+      issue_url_format: https://rumdl.dev/rules/{}
+      known_good_version: 0.1.42
+      version_command:
+        parse_regex: ${semver}
+        run: rumdl version

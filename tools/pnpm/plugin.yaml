@@ -1,8 +1,22 @@
 version: 0.1
 downloads:
   - name: pnpm
-    executable: true
     downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}.tar.gz
+        version: ">=11.0.0"
+      - os:
+          windows: win32
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}.zip
+        version: ">=11.0.0"
       - os:
           linux: linuxstatic
           macos: macos
@@ -10,17 +24,19 @@ downloads:
           x86_64: x64
           arm_64: arm64
         url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}
+        version: <11.0.0
       - os:
           windows: win
         cpu:
           x86_64: x64
           arm_64: arm64
         url: https://github.com/pnpm/pnpm/releases/download/v${version}/pnpm-${os}-${cpu}.exe
+        version: <11.0.0
 
 tools:
   definitions:
     - name: pnpm
-      known_good_version: 8.6.1
+      known_good_version: 11.0.9
       download: pnpm
       shims:
         - name: pnpm

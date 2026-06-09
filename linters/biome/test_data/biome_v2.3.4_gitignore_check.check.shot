@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter biome test gitignore_check 1`] = `
+{
+  "issues": [
+    {
+      "code": "lint/correctness/noUnusedVariables",
+      "column": "7",
+      "file": "test_data/gitignore_check.in.ts",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "biome",
+      "message": "This variable unusedHelper is unused.",
+      "targetType": "typescript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

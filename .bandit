@@ -1,0 +1,3 @@
+[bandit]
+# subprocess is used intentionally in CLI wrappers and linter integrations.
+skips = B404,B603

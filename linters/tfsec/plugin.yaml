@@ -21,13 +21,13 @@ tools:
     - name: tfsec
       download: tfsec
       shims: [tfsec]
-      known_good_version: 1.28.1
+      known_good_version: 1.28.14
 lint:
   definitions:
     - name: tfsec
       files: [terraform]
       tools: [tfsec]
-      known_good_version: 1.28.1
+      known_good_version: 1.28.14
       suggest_if: never
       description: Security scanner for your Terraform code
       commands:

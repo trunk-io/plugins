@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter zizmor test version_comment 1`] = `
+{
+  "issues": [
+    {
+      "code": "zizmor/ref-version-mismatch",
+      "column": "75",
+      "file": ".github/workflows/mismatched_version_comment.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.zizmor.sh/audits/",
+      "level": "LEVEL_MEDIUM",
+      "line": "13",
+      "linter": "zizmor",
+      "message": "action's hash pin has mismatched or missing version comment",
+      "ranges": [
+        {
+          "filePath": ".github/workflows/mismatched_version_comment.in.yaml",
+          "length": "6",
+          "offset": "210",
+        },
+      ],
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "zizmor",
+      "paths": [
+        ".github/workflows/mismatched_version_comment.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "zizmor",
+      "paths": [
+        ".github/workflows/mismatched_version_comment.in.yaml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

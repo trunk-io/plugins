@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: dbt-cli
-    version: 0.38.14
+    version: 0.40.16
     downloads:
       - os:
           linux: linux
@@ -19,7 +19,7 @@ tools:
   definitions:
     - name: dbt-cli
       download: dbt-cli
-      known_good_version: 0.38.14
+      known_good_version: 0.40.16
       shims: [dbt]
       health_checks:
         - command: dbt --version

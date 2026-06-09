@@ -28,7 +28,7 @@ lint:
           batch: true
       runtime: java
       suggest_if: never
-      known_good_version: 1.15.0
+      known_good_version: 1.32.0
       version_command:
         parse_regex: "google-java-format: Version ${semver}"
         run: java -jar ${linter}/google-java-format.jar.exe --version

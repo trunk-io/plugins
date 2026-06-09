@@ -1,0 +1,28 @@
+version: 0.1
+tools:
+  definitions:
+    - name: nbstripout
+      runtime: python
+      package: nbstripout
+      shims: [nbstripout]
+      known_good_version: 0.8.1
+lint:
+  definitions:
+    - name: nbstripout
+      files: [jupyter]
+      description: strip output from Jupyter and IPython notebooks
+      commands:
+        - name: format
+          output: rewrite
+          run: nbstripout ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          allow_empty_files: false
+          cache_results: false
+          formatter: true
+      tools: [nbstripout]
+      suggest_if: never
+      version_command:
+        parse_regex: (.*)
+        run: nbstripout --version

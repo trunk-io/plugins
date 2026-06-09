@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: pylint
       shims: [pylint]
-      known_good_version: 2.11.1
+      known_good_version: 4.0.2
 lint:
   definitions:
     - name: pylint
@@ -29,7 +29,7 @@ lint:
         - pyproject.toml
         - setup.cfg
       issue_url_format: http://pylint-messages.wikidot.com/messages:{}
-      known_good_version: 2.11.1
+      known_good_version: 4.0.2
       version_command:
         parse_regex: pylint ${semver}
         run: pylint --version

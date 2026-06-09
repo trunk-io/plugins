@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: swiftlint
-    version: 0.49.1
+    version: 0.58.2
     downloads:
       # macOS only, universal binary supports x86_64 and arm64
       - os: macos
@@ -11,7 +11,7 @@ tools:
     - name: swiftlint
       download: swiftlint
       shims: [swiftlint]
-      known_good_version: 0.49.1
+      known_good_version: 0.58.2
 lint:
   definitions:
     - name: swiftlint
@@ -38,7 +38,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 0.49.1
+      known_good_version: 0.58.2
       version_command:
         parse_regex: ${semver}
         run: swiftlint --version

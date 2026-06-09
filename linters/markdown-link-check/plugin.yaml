@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: markdown-link-check
       shims: [markdown-link-check]
-      known_good_version: 3.11.2
+      known_good_version: 3.14.1
 lint:
   definitions:
     - name: markdown-link-check
@@ -24,7 +24,7 @@ lint:
             runtime: python
             run: python3 ${plugin}/linters/markdown-link-check/parse.py --target="${target}"
       suggest_if: never
-      known_good_version: 3.11.2
+      known_good_version: 3.14.1
       version_command:
         parse_regex: ${semver}
         run: markdown-link-check --version

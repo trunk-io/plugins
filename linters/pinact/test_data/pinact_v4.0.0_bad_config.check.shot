@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pinact test bad_config 1`] = `
+{
+  "issues": [
+    {
+      "code": "config-error",
+      "column": "1",
+      "file": ".github/workflows/missing_version_comment.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pinact",
+      "message": "read configuration file: initialize rules[0]: initialize conditions[0]: compile expr: invalid operation: || (mismatched types bool and string) (1:53)
+ | ActionRepoFullName == "trunk-io/analytics-uploader" || "github/codeql-action/analyze"
+ | ....................................................^",
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "pinact",
+      "paths": [
+        ".github/workflows/missing_version_comment.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -16,9 +16,6 @@ inputs:
     description: Additional args to append to the test invocation
     required: false
     default: actions/ --
-  trunk-staging-token:
-    description: Test analytics staging api token (org token)
-    required: false
   trunk-prod-token:
     description: Test analytics prod api token (org token)
     required: false
@@ -28,9 +25,31 @@ runs:
   using: composite
   steps:
     - name: Setup node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
-        node-version: 18
+        node-version: 22
+
+    # The uv action tests' preCheck shells out to `uv lock` directly (not
+    # through trunk), so we need uv available on PATH.
+    - name: Setup uv
+      uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2      uses: astral-sh/setup-uv@v5
+      with:
+        version: 0.7.8
+
+    # The terraform-docs action's pre-commit hook shells out to
+    # `terraform-docs`, so the binary needs to be on PATH inside the action
+    # sandbox. There is no maintained setup-terraform-docs action, so install
+    # the release tarball directly. Action Tests only run on ubuntu-latest.
+    - name: Setup terraform-docs
+      run: |
+        version=0.16.0
+        tmp=$(mktemp -d)
+        curl -sSLo "$tmp/terraform-docs.tgz" \
+          "https://github.com/terraform-docs/terraform-docs/releases/download/v${version}/terraform-docs-v${version}-linux-amd64.tar.gz"
+        tar -xzf "$tmp/terraform-docs.tgz" -C "$tmp"
+        sudo install -m 0755 "$tmp/terraform-docs" /usr/local/bin/terraform-docs
+        terraform-docs --version
+      shell: bash
 
     - name: Specify defaults
       run: |
@@ -64,23 +83,11 @@ runs:
     - name: Upload prod results
       # TODO(Tyler): Add upload on Windows once the action supports it.
       if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-prod-token != ''"
-      uses: trunk-io/analytics-uploader@main
+      uses: trunk-io/analytics-uploader@413ecdb8036c3698131a278a921c8481ffeec502 # v2.1.1      uses: trunk-io/analytics-uploader@v2.1.1
       with:
         junit-paths: junit.xml
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
-      continue-on-error: true
+        variant: ${{ runner.os }}
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
-
-    - name: Upload staging results
-      # TODO(Tyler): Add upload on Windows once the action supports it.
-      if: "!cancelled() && runner.os != 'Windows' && inputs.trunk-staging-token != ''"
-      uses: trunk-io/analytics-uploader@main
-      with:
-        junit-paths: junit.xml
-        org-slug: trunk-staging-org
-        token: ${{ inputs.trunk-staging-token }}
-        quarantine: true
-      env:
-        TRUNK_PUBLIC_API_ADDRESS: https://api.trunk-staging.io

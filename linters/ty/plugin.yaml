@@ -1,0 +1,45 @@
+version: 0.1
+downloads:
+  - name: ty
+    version: 0.0.1-alpha.1
+    downloads:
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/astral-sh/ty/releases/download/${version}/ty-${cpu}-${os}.tar.gz
+        strip_components: 1
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x86_64
+        url: https://github.com/astral-sh/ty/releases/download/${version}/ty-x86_64-pc-windows-msvc.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: ty
+      download: ty
+      known_good_version: 0.0.1-alpha.1
+      shims: [ty]
+      health_checks:
+        - command: ty --version
+          parse_regex: ${semver}
+lint:
+  definitions:
+    - name: ty
+      description: A Python type checker
+      files: [python, python-interface]
+      tools: [ty]
+      known_good_version: 0.0.1-alpha.1
+      suggest_if: never
+      commands:
+        - name: check
+          output: regex
+          parse_regex:
+            ((?P<severity>.+)\[(?P<code>.+)\]
+            (?P<path>.+):(?P<line>\d+):(?P<column>\d+):\s*(?P<message>.*))
+          run: ty check --output-format=concise ${target}
+          success_codes: [0, 1]
+          batch: true

@@ -2,13 +2,9 @@ version: 0.1
 
 # version used for local trunk runs and testing
 cli:
-  version: 1.22.11-beta.4
+  version: 1.25.0
   shell_hooks:
     enforce: true
-
-api:
-  address: api.trunk-staging.io:8443
-  org: trunk-staging-org
 
 plugins:
   sources:
@@ -17,7 +13,13 @@ plugins:
 
     - id: configs
       uri: https://github.com/trunk-io/configs
-      ref: v1.0.10
+      ref: v1.2.1
+
+runtimes:
+  enabled:
+    - java@13.0.11
+    - node@22.16.0
+    - python@3.12.2
 
 lint:
   files:
@@ -41,9 +43,12 @@ lint:
           success_codes: [0]
   enabled:
     # enabled linters inherited from github.com/trunk-io/configs plugin
+    - pinact@4.0.0
+    - ls-lint@2.3.1
+    - pmd@7.18.0
     - definition-checker
-    - eslint@9.20.1
-    - trunk-toolbox@0.5.4
+    - eslint@9.27.0
+    - trunk-toolbox@0.7.0
   disabled:
     - pylint # pylint diagnostics are too strict
     - semgrep
@@ -100,6 +105,7 @@ actions:
 
   enabled:
     # enabled actions inherited from github.com/trunk-io/configs plugin
+    - terraform-docs
     - linter-test-helper
     - npm-check-pre-push
     - remove-release-snapshots
@@ -109,6 +115,7 @@ tools:
   enabled:
     - clangd-indexing-tools@19.1.2
     - clangd@19.1.2
+
   runtimes:
     # expose shims in .trunk/tools
     - node

@@ -16,12 +16,12 @@ tools:
     - name: terrascan
       download: terrascan
       shims: [terrascan]
-      known_good_version: 1.18.1
+      known_good_version: 1.19.1
 lint:
   definitions:
     - name: terrascan
       tools: [terrascan]
-      known_good_version: 1.18.1
+      known_good_version: 1.19.1
       description: A static code analyzer for IaC
       # terrascan does not support some modern terraform syntax. Don't auto-recommend.
       suggest_if: never

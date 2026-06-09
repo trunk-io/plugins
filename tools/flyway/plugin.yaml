@@ -1,0 +1,29 @@
+version: 0.1
+downloads:
+  - name: flyway
+    args:
+      semver: ${version}=>flyway-(?P<semver>.*)
+    downloads:
+      - os:
+          linux: linux
+          macos: macosx
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/flyway/flyway/releases/download/flyway-${semver}/flyway-commandline-${semver}-${os}-${cpu}.tar.gz
+        strip_components: 1
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/flyway/flyway/releases/download/flyway-${semver}/flyway-commandline-${semver}-windows-x64.zip
+        strip_components: 1
+tools:
+  definitions:
+    - name: flyway
+      download: flyway
+      known_good_version: 11.9.2
+      shims:
+        - name: flyway
+          target: flyway

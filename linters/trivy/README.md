@@ -20,6 +20,6 @@ To enable/disable these, add the subcommands you want enabled in your trunk.yaml
 ```yaml
 lint:
   enabled:
-    - trivy@0.45.1:
+    - trivy@0.70.0:
         commands: [config, fs-vuln]
 ```

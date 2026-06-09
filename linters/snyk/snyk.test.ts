@@ -1,5 +1,4 @@
-import { customLinterCheckTest } from "tests";
-import { TEST_DATA } from "tests/utils";
+import { linterCheckTest } from "tests";
 
 // Requires SNYK_TOKEN to run
-customLinterCheckTest({ linterName: "snyk", args: TEST_DATA, testName: "basic" });
+linterCheckTest({ linterName: "snyk" });

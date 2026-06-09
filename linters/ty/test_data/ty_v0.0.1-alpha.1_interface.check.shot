@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ty test interface 1`] = `
+{
+  "issues": [
+    {
+      "code": "unresolved-reference",
+      "column": "1",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "11",
+      "linter": "ty",
+      "message": "Name \`overload\` used when not defined",
+      "targetType": "python-interface",
+    },
+    {
+      "code": "unresolved-reference",
+      "column": "1",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "14",
+      "linter": "ty",
+      "message": "Name \`overload\` used when not defined",
+      "targetType": "python-interface",
+    },
+    {
+      "code": "unresolved-reference",
+      "column": "1",
+      "file": "test_data/interface.in.pyi",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "31",
+      "linter": "ty",
+      "message": "Name \`decorated\` used when not defined",
+      "targetType": "python-interface",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "check",
+      "fileGroupName": "python-interface",
+      "linter": "ty",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "python-interface",
+      "linter": "ty",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,20 +1,23 @@
 import path from "path";
 import { customLinterCheckTest, linterFmtTest } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { skipOS, TEST_DATA } from "tests/utils";
 
 // Run with `-y` since on Windows Invoke-Formatter will add carriage returns, and for testing's sake it's easier to just apply.
 const checkArgs = `${path.join(TEST_DATA, "check.in.ps1")} -y`;
+const skipMacOS = skipOS(["darwin"]);
 
 // Run tests with default rules
 linterFmtTest({
   linterName: "psscriptanalyzer",
   namedTestPrefixes: ["format"],
+  skipTestIf: skipMacOS,
 });
 customLinterCheckTest({
   linterName: "psscriptanalyzer",
   testName: "check",
   args: checkArgs,
+  skipTestIf: skipMacOS,
 });
 
 // Create a PSScriptAnalyzerSettings.psd1 for further testing
@@ -33,10 +36,12 @@ linterFmtTest({
   linterName: "psscriptanalyzer",
   namedTestPrefixes: ["format"],
   preCheck,
+  skipTestIf: skipMacOS,
 });
 customLinterCheckTest({
   linterName: "psscriptanalyzer",
   testName: "check_custom_settings",
   args: checkArgs,
   preCheck,
+  skipTestIf: skipMacOS,
 });

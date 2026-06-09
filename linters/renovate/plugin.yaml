@@ -41,7 +41,7 @@ lint:
         - .renovaterc.json
         - .renovaterc.json5
       suggest_if: config_present
-      known_good_version: 34.122.0
+      known_good_version: 41.173.1
       version_command:
         parse_regex: ${semver}
         run: renovate --version

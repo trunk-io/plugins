@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ruff-nbqa test basic_nb 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "file": "test_data/basic_nb.in.ipynb",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "ruff-nbqa",
+      "message": "F401 [*] \`os\` imported but unused
+ --> /tmp/plugins_/test_data/basic_nb.in.ipynb:2:8
+  |
+1 | # %%NBQA-CELL-SEP
+2 | import os
+  |        ^^
+3 |
+4 | print("Hello World!")
+  |
+help: Remove unused import: \`os\`",
+      "targetType": "jupyter",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "jupyter",
+      "linter": "ruff-nbqa",
+      "paths": [
+        "test_data/basic_nb.in.ipynb",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "jupyter",
+      "linter": "ruff-nbqa",
+      "paths": [
+        "test_data/basic_nb.in.ipynb",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

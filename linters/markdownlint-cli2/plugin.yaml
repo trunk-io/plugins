@@ -5,7 +5,7 @@ tools:
       runtime: node
       package: markdownlint-cli2
       shims: [markdownlint-cli2]
-      known_good_version: 0.14.0
+      known_good_version: 0.18.1
 
 lint:
   definitions:
@@ -40,7 +40,7 @@ lint:
         - .markdownlint.cjs
         - .markdownlint.mjs
       issue_url_format: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#{}
-      known_good_version: 0.14.0
+      known_good_version: 0.18.1
       version_command:
         parse_regex: ${semver}
         run: markdownlint --version

@@ -12,29 +12,36 @@ downloads:
           linux: linux
           windows: windows
           macos: macos
+        version: <=1.23.0
         url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/v${version}/PSScriptAnalyzer.${version}.nupkg
+      - os:
+          linux: linux
+          windows: windows
+          macos: macos
+        url: https://github.com/PowerShell/PSScriptAnalyzer/releases/download/${version}/PSScriptAnalyzer.${version}.nupkg
   - name: converttosarif
     downloads:
       - os:
           linux: linux
           windows: windows
           macos: macos
-        url: https://psg-prod-eastus.azureedge.net/packages/converttosarif.${version}.nupkg
+        url: https://www.powershellgallery.com/api/v2/package/ConvertToSARIF/${version}
 tools:
   definitions:
     - name: psscriptanalyzer
       download: psscriptanalyzer
       shims: [PSScriptAnalyzer.psd1]
-      known_good_version: 1.21.0
+      known_good_version: 1.25.0
     - name: converttosarif
       download: converttosarif
       shims: [ConvertToSARIF.psd1]
-      known_good_version: 1.0.0
+      known_good_version: 1.25.0
 lint:
   definitions:
     - name: psscriptanalyzer
       files: [powershell]
       main_tool: psscriptanalyzer
+      known_good_version: 1.25.0
       tools: [converttosarif, pwsh]
       description: Linter for PowerShell scripts
       commands:

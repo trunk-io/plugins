@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: isort
       shims: [isort]
-      known_good_version: 5.9.3
+      known_good_version: 7.0.0
 lint:
   definitions:
     - name: isort
@@ -28,7 +28,7 @@ lint:
         - tox.ini
         - .editorconfig
       issue_url_format: https://pypi.org/project/flake8-isort/
-      known_good_version: 5.9.3
+      known_good_version: 7.0.0
       version_command:
         parse_regex: ${semver}
         run: isort --version-number

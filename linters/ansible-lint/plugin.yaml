@@ -6,7 +6,7 @@ tools:
       package: ansible-lint
       extra_packages: [ansible]
       shims: [ansible-lint, ansible]
-      known_good_version: 6.13.0
+      known_good_version: 25.9.2
 lint:
   definitions:
     - name: ansible-lint
@@ -40,7 +40,7 @@ lint:
         - name: PATH
           list: ["${env.PATH}"] # Needs to use system git
       issue_url_format: https://ansible-lint.readthedocs.io/en/latest/default_rules.html#{}
-      known_good_version: 6.13.0
+      known_good_version: 25.9.2
       known_bad_versions: [6.0.1, 6.0.2, 6.12.0, 6.12.1, 6.12.2, 6.14.5]
       version_command:
         parse_regex: ${semver}

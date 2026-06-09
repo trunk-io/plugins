@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter rumdl test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "MD013",
+      "column": "81",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rumdl.dev/rules/MD013",
+      "level": "LEVEL_HIGH",
+      "line": "10",
+      "linter": "rumdl",
+      "message": "Line length 99 exceeds 80 characters",
+      "targetType": "markdown",
+    },
+    {
+      "code": "MD025",
+      "column": "3",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rumdl.dev/rules/MD025",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "rumdl",
+      "message": "Multiple top-level headings (level 1) in the same document [*]",
+      "targetType": "markdown",
+    },
+    {
+      "code": "MD013",
+      "column": "81",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rumdl.dev/rules/MD013",
+      "level": "LEVEL_HIGH",
+      "line": "5",
+      "linter": "rumdl",
+      "message": "Line length 98 exceeds 80 characters",
+      "targetType": "markdown",
+    },
+    {
+      "code": "MD012",
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://rumdl.dev/rules/MD012",
+      "level": "LEVEL_HIGH",
+      "line": "9",
+      "linter": "rumdl",
+      "message": "Multiple consecutive blank lines between content [*]",
+      "targetType": "markdown",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "markdown",
+      "linter": "rumdl",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "rumdl",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "markdown",
+      "linter": "rumdl",
+      "paths": [
+        "test_data/basic.in.md",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/basic.in.md",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "rumdl",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;

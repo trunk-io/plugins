@@ -5,7 +5,7 @@ tools:
       runtime: go
       package: github.com/segmentio/golines
       shims: [golines]
-      known_good_version: 0.11.0
+      known_good_version: 0.13.0
 lint:
   definitions:
     - name: golines
@@ -22,4 +22,4 @@ lint:
           in_place: true
           batch: true
       suggest_if: never
-      known_good_version: 0.11.0
+      known_good_version: 0.13.0

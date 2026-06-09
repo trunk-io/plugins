@@ -1,7 +1,7 @@
 version: 0.1
 downloads:
   - name: buildifier
-    version: 6.1.0
+    version: 8.2.1
     executable: true
     downloads:
       - os:
@@ -37,7 +37,7 @@ tools:
     - name: buildifier
       download: buildifier
       shims: [buildifier]
-      known_good_version: 6.1.0
+      known_good_version: 8.2.1
 lint:
   definitions:
     - name: buildifier
@@ -68,7 +68,7 @@ lint:
       environment:
         - name: PATH
           list: ["${linter}"]
-      known_good_version: 6.1.0
+      known_good_version: 8.2.1
       version_command:
         parse_regex: ${semver}
         run: buildifier --version

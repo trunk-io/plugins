@@ -221,8 +221,7 @@ lint:
         # ?: is a non-capturing group, so that the RE2 DFA is more memory efficient
         # NOTE(Tyler): This is more strict than it realistically needs to be, but this partial match
         # and the file extensions provide a general enough capture.
-        # Note that re2 does not support ?!, so this does not capture all correct cases.
-        - (?i)(?:^|/)Dockerfile\.(?!.*\.dockerignore$).+$
+        - (?i)(?:^|/)Dockerfile\..+$
       filenames:
         - dockerfile
         - Dockerfile
@@ -249,10 +248,21 @@ lint:
       filenames:
         - Gemfile
 
+    - name: gif
+      extensions:
+        - gif
+
     - name: github-workflow
       regexes:
         - .github/workflows/.+\.yaml
         - .github/workflows/.+\.yml
+      comments:
+        - hash
+
+    - name: github-actions
+      regexes:
+        - .github/actions/.+\.yaml
+        - .github/actions/.+\.yml
       comments:
         - hash
 
@@ -338,6 +348,11 @@ lint:
         - brace-slashes-block
         - brace-slashes-block-spaced
 
+    - name: jpeg
+      extensions:
+        - jpg
+        - jpeg
+
     - name: json
       extensions:
         - json
@@ -379,6 +394,10 @@ lint:
         # Conan (C++)
         - conan.lock
 
+        # csharp
+        - deps.json
+        - packages.config
+
         # Golang
         - go.mod
         - go.sum
@@ -386,6 +405,10 @@ lint:
         # Gradle (Android/Java/Kotlin)
         - buildscript-gradle.lockfile
         - gradle.lockfile
+
+        # Haskell
+        - cabal.project.freeze
+        - stack.yaml.lock
 
         # Maven
         - pom.xml
@@ -397,6 +420,7 @@ lint:
         - package-lock.json
         - pnpm-lock.yaml
         - yarn.lock
+        - bun.lock
 
         # NuGet (.NET)
         - packages.lock.json
@@ -468,6 +492,10 @@ lint:
         - hash
         - slashes-block
         - slashes-inline
+
+    - name: pcap
+      extensions:
+        - pcap
 
     - name: png
       extensions:
@@ -626,6 +654,10 @@ lint:
       comments:
         - hash
 
+    - name: tif
+      extensions:
+        - tif
+
     - name: tfvars
       extensions:
         # terraform/tofu can't format .tfvars.json files
@@ -655,6 +687,10 @@ lint:
         - slashes-inline
         - brace-slashes-block
         - brace-slashes-block-spaced
+
+    - name: webp
+      extensions:
+        - webp
 
     - name: xib
       extensions:
@@ -707,3 +743,6 @@ lint:
 
     - linters: [osv-scanner]
       paths: ["**/go.sum"]
+
+    - linters: [checkov, hadolint, snyk, terrascan, trivy]
+      paths: ["**/*.dockerignore"]

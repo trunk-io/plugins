@@ -1,0 +1,51 @@
+version: 0.1
+downloads:
+  - name: grype
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/anchore/grype/releases/download/v${version}/grype_${version}_${os}_${cpu}.tar.gz
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/anchore/grype/releases/download/v${version}/grype_${version}_windows_${cpu}.zip
+tools:
+  definitions:
+    - name: grype
+      download: grype
+      shims: [grype]
+      known_good_version: 0.110.0
+lint:
+  definitions:
+    - name: grype
+      files: [lockfile]
+      tools: [grype]
+      known_good_version: 0.110.0
+      description: Vulnerability scanner for container images, filesystems, and SBOMs
+      commands:
+        - name: fs-vuln
+          output: sarif
+          run: grype file:${target} -o sarif --quiet
+          read_output_from: stdout
+          success_codes: [0]
+          batch: false
+          is_security: true
+      direct_configs:
+        - .grype.yaml
+        - .grype.yml
+        - .grype/config.yaml
+        - .grype/config.yml
+      suggest_if: files_present
+      version_command:
+        parse_regex: Version:\\s+${semver}
+        run: grype version
+      environment:
+        - name: GRYPE_DB_CACHE_DIR
+          value: ${shared_cachedir}/grype/db
+        - name: PATH
+          list: ["${linter}", "${env.PATH}"]

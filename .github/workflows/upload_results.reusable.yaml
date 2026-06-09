@@ -26,8 +26,6 @@ on:
     secrets:
       TRUNKBOT_SLACK_BOT_TOKEN:
         required: true
-      TRUNK_STAGING_API_TOKEN:
-        required: false
       TRUNK_API_TOKEN:
         required: false
       TRUNK_OPEN_PR_APP_ID:
@@ -60,18 +58,18 @@ jobs:
       reruns: ${{ steps.parse.outputs.reruns }}
     steps:
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Retrieve Test Outputs ubuntu
         id: download-ubuntu
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}ubuntu-latest-test-results
 
       - name: Retrieve Test Outputs macOS
         id: download-macos
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         continue-on-error: true
         with:
           name: ${{ inputs.results-prefix }}macos-latest-test-results
@@ -79,7 +77,7 @@ jobs:
       # TODO(Tyler): Re-add Windows runners.
       # - name: Retrieve Test Outputs Windows
       #   id: download-windows
-      #   uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+      #   uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
       #   continue-on-error: true
       #   with:
       #     name: ${{ inputs.results-prefix }}windows-latest-test-results
@@ -101,7 +99,7 @@ jobs:
           # echo "::endgroup::"
 
       - name: Slack Notification For Missing Artifacts
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         if:
           steps.download-ubuntu.outcome == 'failure' || steps.download-macos.outcome == 'failure'
           # || steps.download-windows.outcome == 'failure'
@@ -118,9 +116,9 @@ jobs:
                   text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Unable to download some ${{ inputs.results-prefix }}test result artifacts (ubuntu: ${{ steps.download-ubuntu.outcome }}, macos: ${{ steps.download-macos.outcome }})>"
 
       - name: Setup Node
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install Dependencies
         shell: bash
@@ -148,21 +146,6 @@ jobs:
           TEST_TYPE: ${{ inputs.test-type }}
           SLACK_CHANNEL_ID: ${{ env.SLACK_CHANNEL_ID }}
 
-      - name: Upload Test Results Staging
-        if: inputs.upload-validated-versions == true
-        continue-on-error: true
-        id: upload-staging
-        env:
-          TRUNK_API_TOKEN: ${{ secrets.TRUNK_STAGING_API_TOKEN }}
-          TRUNK_API_ADDRESS: api.trunk-staging.io:8443
-        # upload-linter-versions is a hidden command reserved exclusively for uploading
-        # validated results from the plugins repo.
-        # daemon must be restarted in order to propagate environment variable
-        shell: bash
-        run: |
-          trunk daemon shutdown
-          trunk upload-linter-versions --token="$TRUNK_API_TOKEN" results.json
-
       - name: Upload Test Results Prod
         if: inputs.upload-validated-versions == true
         continue-on-error: true
@@ -180,30 +163,15 @@ jobs:
 
       # Slack notifications
       - name: Slack Notification For Failures
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         if: always() && steps.parse.outputs.failures == 'true'
         with:
           method: chat.postMessage
           token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
           payload: ${{ steps.parse.outputs.failures-payload }}
 
-      - name: Slack Notification For Staging Upload Failure
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
-        if: inputs.upload-validated-versions == true && steps.upload-staging.outcome == 'failure'
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.TRUNKBOT_SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ env.SLACK_CHANNEL_ID }}
-            text: "Upload Failure"
-            blocks:
-              - type: section
-                text:
-                  type: mrkdwn
-                  text: "Failure: <https://github.com/trunk-io/plugins/actions/runs/${{ github.run_id }}| Upload Test Results to Staging >"
-
       - name: Slack Notification For Prod Upload Failure
-        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         if: inputs.upload-validated-versions == true && steps.upload-prod.outcome == 'failure'
         with:
           method: chat.postMessage
@@ -224,12 +192,12 @@ jobs:
     if: needs.upload_test_results.outputs.reruns != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install Dependencies
         shell: bash
@@ -247,7 +215,6 @@ jobs:
           append-args: ${{ needs.upload_test_results.outputs.reruns }} -- -u
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
-          trunk-staging-token: ${{ secrets.TRUNK_DEBUGGER_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
         env:
           PLUGINS_TEST_UPDATE_SNAPSHOTS: "true"
@@ -258,14 +225,14 @@ jobs:
           git ls-files --others --exclude-standard | grep ".shot" | xargs sed -i '2i // trunk-upgrade-validation:RELEASE'
 
       - name: Create App Token for TrunkBuild App (Internal)
-        uses: tibdex/github-app-token@v2
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0        uses: tibdex/github-app-token@v2
         id: generate-token
         with:
           app_id: ${{ secrets.TRUNK_OPEN_PR_APP_ID }}
           private_key: ${{ secrets.TRUNK_OPEN_PR_APP_PRIVATE_KEY }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11        uses: peter-evans/create-pull-request@v7
         with:
           title: Auto-add missing snapshots
           body:
