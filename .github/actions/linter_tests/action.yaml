@@ -29,6 +29,10 @@ inputs:
   trunk-prod-token:
     description: Test analytics prod api token (org token)
     required: false
+  analytics-cli-version:
+    description: Analytics uploader CLI version; 'latest' uses the uploader's own resolution
+    required: false
+    default: latest
   ref-type:
     description: release or main
     required: false
@@ -123,5 +127,6 @@ runs:
         org-slug: trunk
         token: ${{ inputs.trunk-prod-token }}
         variant: ${{ runner.os }}
+        cli-version: ${{ inputs.analytics-cli-version }}
       env:
         TRUNK_PUBLIC_API_ADDRESS: https://api.trunk.io
