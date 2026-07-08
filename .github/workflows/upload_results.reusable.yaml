@@ -216,6 +216,7 @@ jobs:
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
         env:
           PLUGINS_TEST_UPDATE_SNAPSHOTS: "true"
 

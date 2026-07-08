@@ -157,6 +157,7 @@ jobs:
             ${{ needs.detect_changes.outputs.all-linters }} ${{
             needs.detect_changes.outputs.linters-files }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
       - name: Linter Tests Latest
         # Run tests on Latest with any modified linters (see filters.yaml). Don't run when cancelled.
@@ -171,6 +172,7 @@ jobs:
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           append-args: ${{ needs.detect_changes.outputs.linters-files }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   tool_tests:
     name: Tool Tests
@@ -197,6 +199,7 @@ jobs:
             ${{ needs.detect_changes.outputs.all-tools }} ${{
             needs.detect_changes.outputs.tools-files }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   action_tests:
     name: Action Tests
@@ -217,6 +220,7 @@ jobs:
             ${{ needs.detect_changes.outputs.all-actions }} ${{
             needs.detect_changes.outputs.actions-files }} --
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   trunk_check_runner:
     name: Trunk Check runner [linux]
@@ -265,6 +269,7 @@ jobs:
           cli-path: ${{ github.workspace }}\trunk.ps1
           append-args: ${{needs.detect_changes.outputs.linters-files }} -- --maxWorkers=5
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   # TODO(Tyler): Re-add Windows runners.
   windows_tool_tests:
@@ -290,6 +295,7 @@ jobs:
           append-args: ${{needs.detect_changes.outputs.tools-files }} -- --maxWorkers=5
           cli-path: ${{ github.workspace }}\trunk.ps1
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   # Run repo healthcheck tests
   repo_tests:

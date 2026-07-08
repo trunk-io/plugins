@@ -70,6 +70,7 @@ jobs:
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   # Run tests against all linters for snapshots and latest version as they exist in latest release
   # This job is used to update the list of validated versions
@@ -176,6 +177,7 @@ jobs:
           snyk-token: ${{ secrets.TRUNK_SNYK_TOKEN }}
           sourcery-token: ${{ secrets.TRUNK_SOURCERY_TOKEN }}
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
       - name: Upload Test Outputs for Upload Job
         # Only upload results from latest. Always run, except when cancelled.
@@ -236,6 +238,7 @@ jobs:
         with:
           append-args: tools -- --json --outputFile=${{ matrix.results-file }}-res.json
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
       - name: Upload Test Outputs for Notification Job
         # Always run, except when cancelled.
@@ -281,3 +284,4 @@ jobs:
         uses: ./.github/actions/action_tests
         with:
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}

@@ -52,6 +52,7 @@ jobs:
           append-args: linters -- --maxWorkers=5
           # Analytics uploader is not yet supported on Windows
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
 
   tool_tests_main:
     name: Tool Tests Main
@@ -91,3 +92,4 @@ jobs:
           append-args: tools -- --maxWorkers=5
           # Analytics uploader is not yet supported on Windows
           trunk-prod-token: ${{ secrets.TRUNK_ORG_PROD_TOKEN }}
+          analytics-cli-version: ${{ vars.ANALYTICS_CLI_PRE_RELEASE_TEST_VERSION }}
