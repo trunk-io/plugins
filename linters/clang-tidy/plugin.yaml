@@ -1,7 +1,18 @@
 version: 0.1
+# Binaries are hosted on the trunk.io CDN (small, clang-tidy-only tarballs).
+# Available versions per platform:
+#   14.0.1                            — linux-x86_64, macos-x86_64, macos-arm64
+#                                       (no linux-aarch64 build was published)
+#   15.0.6                            — linux-x86_64, macos-x86_64, macos-arm64
+#                                       (no linux-aarch64 build was published)
+#   16.0.3, 16.0.6                    — all four platforms
+#   17.0.1, 17.0.6                    — all four platforms
+#   18.1.8                            — all four platforms
+#   20.1.0                            — all four platforms
+# Any other version (e.g. 19.x, 20.1.x>0, 21+) will 404.
 downloads:
   - name: clang-tidy
-    version: 15.0.6
+    version: 20.1.0
     downloads:
       # macos arm64 was introduced after this version.
       - os: macos
@@ -25,7 +36,7 @@ tools:
     - name: clang-tidy
       download: clang-tidy
       shims: [clang-tidy]
-      known_good_version: 16.0.3
+      known_good_version: 20.1.0
       environment:
         - name: PATH
           list: ["${linter}/bin"]
@@ -54,7 +65,7 @@ lint:
         - name: PATH
           list: ["${linter}/bin"]
       issue_url_format: https://clang.llvm.org/extra/clang-tidy/checks/list.html
-      known_good_version: 16.0.3
+      known_good_version: 20.1.0
       version_command:
         parse_regex: ${semver}
         run: clang-tidy --version
