@@ -1,0 +1,56 @@
+version: 0.1
+tools:
+  definitions:
+    - name: oxlint
+      runtime: node
+      package: oxlint
+      shims: [oxlint]
+      known_good_version: 1.71.0
+    - name: oxfmt
+      runtime: node
+      package: oxfmt
+      shims: [oxfmt]
+      known_good_version: 0.56.0
+lint:
+  definitions:
+    - name: oxlint
+      files: [javascript, javascript-xml, typescript, typescript-xml]
+      main_tool: oxlint
+      tools: [oxfmt]
+      description: Fast JavaScript and TypeScript linting and formatting
+      commands:
+        - name: lint
+          output: sarif
+          run: oxlint --format sarif ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+          cache_results: true
+        - name: format
+          output: rewrite
+          run: oxfmt --write ${target}
+          success_codes: [0]
+          batch: true
+          cache_results: true
+          formatter: true
+          in_place: true
+      suggest_if: config_present
+      direct_configs:
+        - .oxlintrc.json
+        - .oxlintrc.jsonc
+        - .oxfmtrc.json
+        - .oxfmtrc.jsonc
+        - .prettierignore
+        - oxlint.config.ts
+        - oxlint.config.mts
+        - oxfmt.config.ts
+        - oxfmt.config.mts
+      affects_cache:
+        - .editorconfig
+        - .eslintignore
+        - package.json
+        - tsconfig.json
+      known_good_version: 1.71.0
+      version_command:
+        parse_regex: ${semver}
+        run: oxlint --version

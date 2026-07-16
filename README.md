@@ -61,7 +61,7 @@ trunk check enable {linter}
 | HAML            | [haml-lint]                                                                                                                              |
 | HTML Templates  | [djlint]                                                                                                                                 |
 | Java            | [google-java-format], [pmd], [semgrep]                                                                                                   |
-| Javascript      | [biome], [deno], [eslint], [prettier], [rome], [semgrep]                                                                                 |
+| Javascript      | [biome], [deno], [eslint], [oxlint], [prettier], [rome], [semgrep]                                                                       |
 | JSON            | [biome], [deno], [eslint], [prettier], [semgrep]                                                                                         |
 | Kotlin          | [detekt], [ktlint]                                                                                                                       |
 | Kubernetes      | [kube-linter]                                                                                                                            |
@@ -89,7 +89,7 @@ trunk check enable {linter}
 | Terragrunt      | [terragrunt]                                                                                                                             |
 | Textproto       | [txtpbfmt]                                                                                                                               |
 | TOML            | [taplo]                                                                                                                                  |
-| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                                          |
+| Typescript      | [deno], [eslint], [oxlint], [prettier], [rome], [semgrep]                                                                                |
 | YAML            | [prettier], [semgrep], [yamlfmt], [yamllint]                                                                                             |
 
 [actionlint]: https://trunk.io/linters/infra/actionlint
@@ -149,6 +149,7 @@ trunk check enable {linter}
 [opa]: https://www.openpolicyagent.org/docs/latest/cli/
 [osv-scanner]: https://trunk.io/linters/security/osv-scanner
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
+[oxlint]: https://oxc.rs/docs/guide/usage/linter.html
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
 [pinact]: https://github.com/suzuki-shunsuke/pinact#readme
