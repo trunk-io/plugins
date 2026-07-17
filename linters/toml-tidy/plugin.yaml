@@ -1,0 +1,26 @@
+version: 0.1
+tools:
+  definitions:
+    - name: toml-tidy
+      runtime: python
+      package: toml-tidy
+      shims: [toml-tidy]
+      known_good_version: 0.2.0
+lint:
+  definitions:
+    - name: toml-tidy
+      description: Sorts TOML keys while preserving table hierarchy, comments, and formatting
+      files: [toml]
+      commands:
+        - name: format
+          output: rewrite
+          run: toml-tidy --in-place ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          formatter: true
+      tools: [toml-tidy]
+      suggest_if: never # sorting keys is an opinionated choice; complements taplo (formatting) rather than replacing it
+      affects_cache:
+        - pyproject.toml
+      known_good_version: 0.2.0
