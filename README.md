@@ -75,7 +75,7 @@ trunk check enable {linter}
 | PowerShell      | [psscriptanalyzer]                                                                                                                       |
 | Prisma          | [prisma]                                                                                                                                 |
 | Protobuf        | [buf] (breaking, lint, and format), [clang-format], [clang-tidy]                                                                         |
-| Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [nbstripout], [pylint], [pyright], [semgrep], [yapf], [ruff], [sourcery], [ty] |
+| Python          | [autopep8], [bandit], [black], [flake8], [isort], [mypy], [nbstripout], [pylint], [pyright], [basedpyright], [semgrep], [yapf], [ruff], [sourcery], [ty] |
 | Rego            | [regal], [opa]                                                                                                                           |
 | Renovate        | [renovate]                                                                                                                               |
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                                   |
@@ -161,6 +161,7 @@ trunk check enable {linter}
 [prisma]: https://github.com/prisma/prisma#readme
 [psscriptanalyzer]: https://github.com/PowerShell/PSScriptAnalyzer
 [pylint]: https://github.com/PyCQA/pylint#readme
+[basedpyright]: https://github.com/DetachHead/basedpyright
 [pyright]: https://github.com/microsoft/pyright
 [regal]: https://github.com/StyraInc/regal#readme
 [remark-lint]: https://github.com/remarkjs/remark-lint#readme
