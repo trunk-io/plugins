@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter ty test interface 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "check",
+      "fileGroupName": "python-interface",
+      "linter": "ty",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "check",
+      "fileGroupName": "python-interface",
+      "linter": "ty",
+      "paths": [
+        "test_data/interface.in.pyi",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

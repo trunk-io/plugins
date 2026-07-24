@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter buf-breaking test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "FIELD_NO_DELETE",
+      "column": "5",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#field_no_delete",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "buf-breaking",
+      "message": "Previously present field "2" with name "world" on message "HelloWorld" was deleted.",
+      "targetType": "proto",
+    },
+    {
+      "code": "FIELD_SAME_TYPE",
+      "column": "7",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#field_same_type",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "buf-breaking",
+      "message": "Field "1" with name "hello" on message "HelloWorld" changed type from "string" to "int32".",
+      "targetType": "proto",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "proto",
+      "linter": "buf-breaking",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

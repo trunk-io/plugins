@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter biome test gitignore_check 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "fmt",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "biome",
+      "paths": [
+        "test_data/gitignore_check.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
