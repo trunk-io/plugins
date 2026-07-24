@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter grype test fs-vuln 1`] = `
+{
+  "issues": [],
+  "lintActions": [
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "grype",
+      "paths": [
+        "test_data/Gemfile.lock",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "fs-vuln",
+      "fileGroupName": "lockfile",
+      "linter": "grype",
+      "paths": [
+        "test_data/Gemfile.lock",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
