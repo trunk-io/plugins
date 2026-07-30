@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: toml-tidy
       shims: [toml-tidy]
-      known_good_version: 0.2.0
+      known_good_version: 0.3.1
 lint:
   definitions:
     - name: toml-tidy
@@ -23,4 +23,4 @@ lint:
       suggest_if: never # sorting keys is an opinionated choice; complements taplo (formatting) rather than replacing it
       affects_cache:
         - pyproject.toml
-      known_good_version: 0.2.0
+      known_good_version: 0.3.1

@@ -14,7 +14,7 @@ runtimes:
     - python@3.12.2
 lint:
   enabled:
-    - toml-tidy@0.2.0
+    - toml-tidy@0.3.1
 ```
 
 Per-file defaults (sort order, scope, pinned-first tables) can be configured in the nearest
