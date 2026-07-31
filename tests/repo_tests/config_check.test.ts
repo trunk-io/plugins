@@ -158,6 +158,7 @@ describe("Global config health check", () => {
         "nixpkgs-fmt",
         "osv-scanner",
         "oxipng",
+        "pinact",
         "prettier",
         "ruff",
         "rustfmt",

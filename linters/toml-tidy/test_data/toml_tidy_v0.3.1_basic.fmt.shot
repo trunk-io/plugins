@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing formatter toml-tidy test basic 1`] = `
+"# alpha gets sorted first and keeps this comment
+alpha = 1
+title = "example"
+
+[mike]
+item2 = "two"
+item10 = "ten"
+
+[[servers]]
+name = "second declared"
+
+[[servers]]
+name = "first stays first"
+[zulu]
+a = 1
+b = 2
+
+"
+`;

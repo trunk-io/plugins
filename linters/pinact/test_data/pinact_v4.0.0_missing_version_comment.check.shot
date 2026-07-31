@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pinact test missing_version_comment 1`] = `
+{
+  "issues": [
+    {
+      "code": "parse-error",
+      "column": "1",
+      "file": ".github/workflows/missing_version_comment.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "pinact",
+      "message": "failed to handle a line: SHA-pinned action requires a version comment for verifiability",
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "pinact",
+      "paths": [
+        ".github/workflows/missing_version_comment.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

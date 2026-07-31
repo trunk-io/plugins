@@ -55,7 +55,7 @@ trunk check enable {linter}
 | Dart            | [dart]                                                                                                                                   |
 | Docker          | [hadolint], [checkov]                                                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                                                                          |
-| GitHub          | [actionlint], [zizmor]                                                                                                                   |
+| GitHub          | [actionlint], [pinact], [zizmor]                                                                                                         |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                                         |
 | GraphQL         | [graphql-schema-linter], [prettier]                                                                                                      |
 | HAML            | [haml-lint]                                                                                                                              |
@@ -81,14 +81,14 @@ trunk check enable {linter}
 | Ruby            | [brakeman], [rubocop], [rufo], [semgrep], [standardrb]                                                                                   |
 | Rust            | [clippy], [rustfmt]                                                                                                                      |
 | Scala           | [scalafmt]                                                                                                                               |
-| Security        | [checkov], [dustilock], [grype], [nancy], [osv-scanner], [snyk], [tfsec], [trivy], [trufflehog], [terrascan], [zizmor]                   |
+| Security        | [checkov], [dustilock], [grype], [nancy], [osv-scanner], [pinact], [snyk], [tfsec], [trivy], [trufflehog], [terrascan], [zizmor]         |
 | SQL             | [sqlfluff], [sqlfmt], [sql-formatter], [squawk]                                                                                          |
 | SVG             | [svgo]                                                                                                                                   |
 | Swift           | [stringslint], [swiftlint], [swiftformat]                                                                                                |
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint], [tfsec], [terrascan], [tofu]                                                        |
 | Terragrunt      | [terragrunt]                                                                                                                             |
 | Textproto       | [txtpbfmt]                                                                                                                               |
-| TOML            | [taplo]                                                                                                                                  |
+| TOML            | [taplo], [toml-tidy]                                                                                                                     |
 | Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                                          |
 | YAML            | [prettier], [semgrep], [yamlfmt], [yamllint]                                                                                             |
 
@@ -151,6 +151,7 @@ trunk check enable {linter}
 [oxipng]: https://github.com/shssoichiro/oxipng#readme
 [perlcritic]: https://metacpan.org/pod/Perl::Critic
 [perltidy]: https://metacpan.org/dist/Perl-Tidy/view/bin/perltidy
+[pinact]: https://github.com/suzuki-shunsuke/pinact#readme
 [php-cs-fixer]: https://github.com/PHP-CS-Fixer/PHP-CS-Fixer#readme
 [phpstan]: https://phpstan.org/
 [pmd]: https://pmd.github.io/
@@ -188,6 +189,7 @@ trunk check enable {linter}
 [swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
 [swiftlint]: https://github.com/realm/SwiftLint#readme
 [taplo]: https://github.com/tamasfe/taplo#readme
+[toml-tidy]: https://github.com/AndrewDongminYoo/toml-tidy#readme
 [terrascan]: https://github.com/tenable/terrascan#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tofu]: https://opentofu.org/
