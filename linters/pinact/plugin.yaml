@@ -1,0 +1,76 @@
+version: 0.1
+downloads:
+  - name: pinact
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_${os}_${cpu}.tar.gz
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/suzuki-shunsuke/pinact/releases/download/v${version}/pinact_windows_${cpu}.zip
+tools:
+  definitions:
+    - name: pinact
+      download: pinact
+      shims: [pinact]
+      known_good_version: 4.0.0
+lint:
+  definitions:
+    - name: pinact
+      files: [github-workflow, github-actions]
+      tools: [pinact]
+      runtime: python
+      hold_the_line: false
+      description: Pin and verify GitHub Actions and reusable workflows
+      commands:
+        - name: lint
+          output: sarif
+          run: python3 ${plugin}/linters/pinact/pinact_run.py ${target}
+          success_codes: [0, 1, 2, 3]
+          batch: true
+          cache_results: true
+          is_security: true
+          read_output_from: stdout
+          disable_upstream: true
+        - name: upgrade
+          output: sarif
+          run: python3 ${plugin}/linters/pinact/pinact_run.py --upgrade ${target}
+          success_codes: [0, 1, 2, 3]
+          batch: true
+          cache_results: true
+          is_security: true
+          read_output_from: stdout
+          disable_upstream: true
+          enabled: false
+      direct_configs:
+        - .pinact.yml
+        - .pinact.yaml
+        - .github/pinact.yml
+        - .github/pinact.yaml
+      suggest_if: files_present
+      environment:
+        - name: GITHUB_TOKEN
+          value: ${env.GITHUB_TOKEN}
+          optional: true
+        - name: PINACT_GITHUB_TOKEN
+          value: ${env.PINACT_GITHUB_TOKEN}
+          optional: true
+        - name: GH_TOKEN
+          value: ${env.GH_TOKEN}
+          optional: true
+        - name: PINACT_DISABLE_GH_AUTH
+          value: ${env.PINACT_DISABLE_GH_AUTH}
+          optional: true
+        - name: PATH
+          list: ["${runtime}", "${linter}", "${env.PATH}"]
+      issue_url_format: https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/
+      known_good_version: 4.0.0
+      version_command:
+        parse_regex: ${semver}
+        run: pinact version

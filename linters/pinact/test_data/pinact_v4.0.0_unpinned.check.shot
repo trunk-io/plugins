@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter pinact test unpinned 1`] = `
+{
+  "issues": [
+    {
+      "code": "parse-error",
+      "column": "1",
+      "file": ".github/workflows/unpinned.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "pinact",
+      "message": "failed to handle a line: action can't be pinned",
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "pinact",
+      "paths": [
+        ".github/workflows/unpinned.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

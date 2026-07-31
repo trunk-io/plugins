@@ -1,0 +1,17 @@
+title = "example"
+# alpha gets sorted first and keeps this comment
+alpha = 1
+
+[zulu]
+b = 2
+a = 1
+
+[mike]
+item10 = "ten"
+item2 = "two"
+
+[[servers]]
+name = "second declared"
+
+[[servers]]
+name = "first stays first"
