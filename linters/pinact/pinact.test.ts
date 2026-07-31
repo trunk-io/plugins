@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
-import { customLinterCheckTest } from "tests";
+import { customLinterCheckTest, setupLintDriver } from "tests";
 import { TrunkLintDriver } from "tests/driver";
-import { TEST_DATA } from "tests/utils";
+import { conditionalTest, TEST_DATA } from "tests/utils";
 
 const moveWorkflowFile =
   (filename: string, disableGhAuth = false) =>
@@ -103,4 +103,37 @@ customLinterCheckTest({
   args: ".github",
   preCheck: enablePinactCommand("upgrade", moveWorkflowFile("unpinned.in.yaml")),
   skipTestIf: skipIfMissingGitHubToken,
+});
+
+// The snapshot tests above never apply a fix (the driver's runCheck forces
+// `-n`), so none of them caught pinact SARIF whose `deletedRegion` was
+// line-only: Trunk read that as a zero-width insert and concatenated the pinned
+// `uses:` with the original one on a single line. This applies the fix for real
+// and asserts the rewrite is clean. Kept online (a resolvable SHA is required to
+// exercise the fix path) and version-independent (no snapshot of the volatile
+// SHA) — it only asserts the structural invariant the bug violated.
+describe("Testing linter pinact fix application", () => {
+  const driver = setupLintDriver(
+    __dirname,
+    {},
+    "pinact",
+    undefined,
+    moveWorkflowFile("unpinned.in.yaml"),
+  );
+
+  conditionalTest(
+    skipIfMissingGitHubToken(),
+    "pins to a SHA without corrupting the line",
+    async () => {
+      await driver
+        .runTrunkCmd("check --filter=pinact --fix -y --no-progress --ignore-git-state .github")
+        .catch(() => undefined);
+
+      const fixed = driver.readFile(".github/workflows/unpinned.in.yaml");
+      // The action is pinned to a full 40-char SHA with its version comment...
+      expect(fixed).toMatch(/uses: actions\/checkout@[0-9a-f]{40} # v\d/);
+      // ...and no line carries the concatenated `<pinned> # … <original>` corruption.
+      expect(fixed).not.toMatch(/uses:.*#.*uses:/);
+    },
+  );
 });

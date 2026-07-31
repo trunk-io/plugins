@@ -105,6 +105,67 @@ def build_pinact_args(mode: str) -> list[str]:
     return args
 
 
+def normalize_fix_regions(sarif_text: str) -> str:
+    """Backfill full line spans on pinact's SARIF fix regions.
+
+    pinact emits each replacement's ``deletedRegion`` as ``{"startLine": N}``
+    only. Trunk's fix applier reads a region with no end/columns as a
+    zero-width insertion point at column 1, so it *prepends* the pinned
+    ``uses:`` and never deletes the original line — concatenating both onto
+    one line. Widen the region to cover the whole original line (col 1 → end)
+    so trunk replaces it, matching the convention the ruff/sqlfluff converters
+    already rely on.
+    """
+    try:
+        sarif = json.loads(sarif_text)
+    except (json.JSONDecodeError, TypeError):
+        return sarif_text
+
+    line_cache: dict[str, list[str]] = {}
+
+    def lines_for(uri: str) -> list[str] | None:
+        if uri not in line_cache:
+            try:
+                line_cache[uri] = Path(uri).read_text(encoding="utf-8").splitlines()
+            except OSError:
+                line_cache[uri] = []
+        return line_cache[uri] or None
+
+    for run in sarif.get("runs", []):
+        for result in run.get("results", []):
+            for fix in result.get("fixes", []):
+                for change in fix.get("artifactChanges", []):
+                    uri = change.get("artifactLocation", {}).get("uri")
+                    if not uri:
+                        continue
+                    for replacement in change.get("replacements", []):
+                        region = replacement.get("deletedRegion")
+                        if not region or "startLine" not in region:
+                            continue
+                        # Already fully specified — leave it alone.
+                        if any(
+                            key in region
+                            for key in (
+                                "endColumn",
+                                "endLine",
+                                "charLength",
+                                "charOffset",
+                            )
+                        ):
+                            continue
+                        lines = lines_for(uri)
+                        if lines is None:
+                            continue
+                        index = region["startLine"] - 1
+                        if index < 0 or index >= len(lines):
+                            continue
+                        region["startColumn"] = 1
+                        region["endLine"] = region["startLine"]
+                        region["endColumn"] = len(lines[index]) + 1
+
+    return json.dumps(sarif, indent=2)
+
+
 def strip_ansi(text: str) -> str:
     return ANSI_ESCAPE.sub("", text)
 
@@ -183,8 +244,9 @@ def run_pinact(mode: str, targets: list[str]) -> int:
         return 2
 
     if stdout:
-        sys.stdout.write(stdout)
-        if not stdout.endswith("\n"):
+        normalized = normalize_fix_regions(stdout)
+        sys.stdout.write(normalized)
+        if not normalized.endswith("\n"):
             sys.stdout.write("\n")
     if stderr:
         sys.stderr.write(stderr)
