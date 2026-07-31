@@ -262,6 +262,34 @@ describe("pinact SARIF fix-region normalization", () => {
 
   conditionalTest(
     pythonBin === undefined,
+    "preserves an explicit startColumn while backfilling the line end",
+    () => {
+      const out = normalize(sarifWithRegion({ startLine: 4, startColumn: 9 }));
+      expect(regionOf(out)).toEqual({
+        startLine: 4,
+        startColumn: 9,
+        endLine: 4,
+        endColumn: line.length + 1,
+      });
+    },
+  );
+
+  conditionalTest(
+    pythonBin === undefined,
+    "backfills endColumn when only startLine and endLine are given",
+    () => {
+      const out = normalize(sarifWithRegion({ startLine: 4, endLine: 4 }));
+      expect(regionOf(out)).toEqual({
+        startLine: 4,
+        startColumn: 1,
+        endLine: 4,
+        endColumn: line.length + 1,
+      });
+    },
+  );
+
+  conditionalTest(
+    pythonBin === undefined,
     "leaves a line-only region untouched when the target line is out of range",
     () => {
       const region: FixRegion = { startLine: 999 };

@@ -106,15 +106,18 @@ def build_pinact_args(mode: str) -> list[str]:
 
 
 def normalize_fix_regions(sarif_text: str) -> str:
-    """Backfill full line spans on pinact's SARIF fix regions.
+    """Backfill a concrete line end on pinact's SARIF fix regions.
 
-    pinact emits each replacement's ``deletedRegion`` as ``{"startLine": N}``
-    only. Trunk's fix applier reads a region with no end/columns as a
-    zero-width insertion point at column 1, so it *prepends* the pinned
-    ``uses:`` and never deletes the original line — concatenating both onto
-    one line. Widen the region to cover the whole original line (col 1 → end)
-    so trunk replaces it, matching the convention the ruff/sqlfluff converters
-    already rely on.
+    pinact emits each replacement's ``deletedRegion`` without an end column
+    (typically just ``{"startLine": N}``). Trunk's fix applier reads a region
+    with no explicit end as a zero-width insertion point, so it *prepends* the
+    pinned ``uses:`` and never deletes the original line — concatenating both
+    onto one line. Backfill only what's missing — preserving any explicit
+    ``startColumn``/``endLine`` — so the region carries a concrete end
+    (``endColumn`` at the end of its end line) that Trunk replaces rather than
+    inserts, matching the fully-specified regions the ruff/sqlfluff converters
+    already rely on. Regions that already carry an ``endColumn`` or an
+    offset-based span (``charOffset``/``charLength``) are left untouched.
     """
     try:
         sarif = json.loads(sarif_text)
@@ -142,26 +145,29 @@ def normalize_fix_regions(sarif_text: str) -> str:
                         region = replacement.get("deletedRegion")
                         if not region or "startLine" not in region:
                             continue
-                        # Already fully specified — leave it alone.
+                        # An explicit end column or an offset-based span is
+                        # unambiguous — Trunk applies it as-is, so leave it alone.
                         if any(
                             key in region
-                            for key in (
-                                "endColumn",
-                                "endLine",
-                                "charLength",
-                                "charOffset",
-                            )
+                            for key in ("endColumn", "charOffset", "charLength")
                         ):
                             continue
                         lines = lines_for(uri)
                         if lines is None:
                             continue
-                        index = region["startLine"] - 1
-                        if index < 0 or index >= len(lines):
+                        start_index = region["startLine"] - 1
+                        end_line = region.get("endLine", region["startLine"])
+                        end_index = end_line - 1
+                        if not 0 <= start_index < len(
+                            lines
+                        ) or not 0 <= end_index < len(lines):
                             continue
-                        region["startColumn"] = 1
-                        region["endLine"] = region["startLine"]
-                        region["endColumn"] = len(lines[index]) + 1
+                        # Preserve any explicit start/end line; only backfill what's
+                        # missing so the region carries a concrete end (end of its end
+                        # line) that Trunk won't read as a zero-width insert.
+                        region.setdefault("startColumn", 1)
+                        region["endLine"] = end_line
+                        region["endColumn"] = len(lines[end_index]) + 1
 
     return json.dumps(sarif, indent=2)
 
