@@ -88,8 +88,9 @@ trunk check enable {linter}
 | Terraform       | [terraform] (validate and fmt), [checkov], [tflint], [tfsec], [terrascan], [tofu]                                                        |
 | Terragrunt      | [terragrunt]                                                                                                                             |
 | Textproto       | [txtpbfmt]                                                                                                                               |
-| TOML            | [taplo]                                                                                                                                  |
 | Typescript      | [deno], [eslint], [oxlint], [prettier], [rome], [semgrep]                                                                                |
+| TOML            | [taplo], [toml-tidy]                                                                                                                     |
+| Typescript      | [deno], [eslint], [prettier], [rome], [semgrep]                                                                                          |
 | YAML            | [prettier], [semgrep], [yamlfmt], [yamllint]                                                                                             |
 
 [actionlint]: https://trunk.io/linters/infra/actionlint
@@ -190,6 +191,7 @@ trunk check enable {linter}
 [swiftformat]: https://github.com/nicklockwood/SwiftFormat#readme
 [swiftlint]: https://github.com/realm/SwiftLint#readme
 [taplo]: https://github.com/tamasfe/taplo#readme
+[toml-tidy]: https://github.com/AndrewDongminYoo/toml-tidy#readme
 [terrascan]: https://github.com/tenable/terrascan#readme
 [terraform]: https://developer.hashicorp.com/terraform/cli/code
 [tofu]: https://opentofu.org/
