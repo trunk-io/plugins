@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter oxlint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "eslint(no-unused-vars)",
+      "column": "7",
+      "file": "test_data/basic.in.ts",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "oxlint",
+      "message": "Variable 'unused' is declared but never used. Unused variables should start with a '_'.",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.ts",
+          "length": "6",
+          "offset": "6",
+        },
+      ],
+      "targetType": "typescript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "typescript",
+      "linter": "oxlint",
+      "paths": [
+        "test_data/basic.in.ts",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "oxlint",
+      "paths": [
+        "test_data/basic.in.ts",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "typescript",
+      "linter": "oxlint",
+      "paths": [
+        "test_data/basic.in.ts",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
