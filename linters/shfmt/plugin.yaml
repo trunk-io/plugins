@@ -1,12 +1,26 @@
 version: 0.1
+downloads:
+  - name: shfmt
+    executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/mvdan/sh/releases/download/v${version}/shfmt_v${version}_${os}_${cpu}
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/mvdan/sh/releases/download/v${version}/shfmt_v${version}_${os}_${cpu}.exe
 tools:
   definitions:
     - name: shfmt
-      runtime: go
-      package: mvdan.cc/sh/v${major_version}/cmd/shfmt
+      download: shfmt
       shims: [shfmt]
-      # shfmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
-      known_good_version: 3.6.0
+      known_good_version: 3.13.1
 lint:
   definitions:
     - name: shfmt
@@ -24,8 +38,7 @@ lint:
       tools: [shfmt]
       suggest_if: files_present
       affects_cache: [.editorconfig]
-      # shfmt releases are not auto-queriable with our current setup, so we will bump this fixed version from time to time
-      known_good_version: 3.6.0
+      known_good_version: 3.13.1
       version_command:
         parse_regex: ${semver}
         run: shfmt --version
