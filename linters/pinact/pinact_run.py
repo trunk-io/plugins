@@ -105,6 +105,73 @@ def build_pinact_args(mode: str) -> list[str]:
     return args
 
 
+def normalize_fix_regions(sarif_text: str) -> str:
+    """Backfill a concrete line end on pinact's SARIF fix regions.
+
+    pinact emits each replacement's ``deletedRegion`` without an end column
+    (typically just ``{"startLine": N}``). Trunk's fix applier reads a region
+    with no explicit end as a zero-width insertion point, so it *prepends* the
+    pinned ``uses:`` and never deletes the original line — concatenating both
+    onto one line. Backfill only what's missing — preserving any explicit
+    ``startColumn``/``endLine`` — so the region carries a concrete end
+    (``endColumn`` at the end of its end line) that Trunk replaces rather than
+    inserts, matching the fully-specified regions the ruff/sqlfluff converters
+    already rely on. Regions that already carry an ``endColumn`` or an
+    offset-based span (``charOffset``/``charLength``) are left untouched.
+    """
+    try:
+        sarif = json.loads(sarif_text)
+    except (json.JSONDecodeError, TypeError):
+        return sarif_text
+
+    line_cache: dict[str, list[str]] = {}
+
+    def lines_for(uri: str) -> list[str] | None:
+        if uri not in line_cache:
+            try:
+                line_cache[uri] = Path(uri).read_text(encoding="utf-8").splitlines()
+            except OSError:
+                line_cache[uri] = []
+        return line_cache[uri] or None
+
+    for run in sarif.get("runs", []):
+        for result in run.get("results", []):
+            for fix in result.get("fixes", []):
+                for change in fix.get("artifactChanges", []):
+                    uri = change.get("artifactLocation", {}).get("uri")
+                    if not uri:
+                        continue
+                    for replacement in change.get("replacements", []):
+                        region = replacement.get("deletedRegion")
+                        if not region or "startLine" not in region:
+                            continue
+                        # An explicit end column or an offset-based span is
+                        # unambiguous — Trunk applies it as-is, so leave it alone.
+                        if any(
+                            key in region
+                            for key in ("endColumn", "charOffset", "charLength")
+                        ):
+                            continue
+                        lines = lines_for(uri)
+                        if lines is None:
+                            continue
+                        start_index = region["startLine"] - 1
+                        end_line = region.get("endLine", region["startLine"])
+                        end_index = end_line - 1
+                        if not 0 <= start_index < len(
+                            lines
+                        ) or not 0 <= end_index < len(lines):
+                            continue
+                        # Preserve any explicit start/end line; only backfill what's
+                        # missing so the region carries a concrete end (end of its end
+                        # line) that Trunk won't read as a zero-width insert.
+                        region.setdefault("startColumn", 1)
+                        region["endLine"] = end_line
+                        region["endColumn"] = len(lines[end_index]) + 1
+
+    return json.dumps(sarif, indent=2)
+
+
 def strip_ansi(text: str) -> str:
     return ANSI_ESCAPE.sub("", text)
 
@@ -183,8 +250,9 @@ def run_pinact(mode: str, targets: list[str]) -> int:
         return 2
 
     if stdout:
-        sys.stdout.write(stdout)
-        if not stdout.endswith("\n"):
+        normalized = normalize_fix_regions(stdout)
+        sys.stdout.write(normalized)
+        if not normalized.endswith("\n"):
             sys.stdout.write("\n")
     if stderr:
         sys.stderr.write(stderr)

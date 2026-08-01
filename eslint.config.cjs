@@ -126,6 +126,8 @@ module.exports = [
     },
     rules: {
       ...jestPlugin.configs.recommended.rules,
+      // conditionalTest (tests/utils) is the repo's it()/it.skip() wrapper.
+      "jest/no-standalone-expect": ["error", { additionalTestBlockFunctions: ["conditionalTest"] }],
     },
   },
   {
