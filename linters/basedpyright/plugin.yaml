@@ -1,0 +1,38 @@
+version: 0.1
+tools:
+  definitions:
+    - name: basedpyright
+      runtime: python
+      package: basedpyright
+      shims: [basedpyright]
+      known_good_version: 1.28.1
+lint:
+  definitions:
+    - name: basedpyright
+      files: [python]
+      suggest_if: config_present
+      description:
+        Basedpyright is a fork of pyright with various type checking improvements, pylance features
+        and more
+      commands:
+        - name: lint
+          output: sarif
+          run: basedpyright --outputjson ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+          cache_results: false
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/basedpyright/basedpyright_to_sarif.py
+      tools: [basedpyright]
+      direct_configs:
+        - pyrightconfig.json
+      affects_cache:
+        - pyproject.toml
+        - setup.cfg
+      issue_url_format: https://github.com/DetachHead/basedpyright/blob/main/docs/configuration/config-files.md#{}
+      known_good_version: 1.28.1
+      version_command:
+        parse_regex: basedpyright ${semver}
+        run: basedpyright --version
