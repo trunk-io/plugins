@@ -1,0 +1,11 @@
+version: 0.1
+tools:
+  definitions:
+    - name: hol-guard
+      runtime: python
+      package: hol-guard
+      known_good_version: 2.2.88
+      shims: [hol-guard]
+      health_checks:
+        - command: hol-guard --version
+          parse_regex: ${semver}
