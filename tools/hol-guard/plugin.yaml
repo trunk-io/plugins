@@ -4,7 +4,7 @@ tools:
     - name: hol-guard
       runtime: python
       package: hol-guard
-      known_good_version: 3.0.12
+      known_good_version: 3.0.18
       shims: [hol-guard]
       health_checks:
         - command: hol-guard --version
