@@ -1,0 +1,31 @@
+version: 0.1
+downloads:
+  - name: pulumi
+    downloads:
+      # The unix archives hold `pulumi/<binary>`, so one level is stripped to land
+      # the CLI and its bundled language/resource plugins at the tool root.
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://get.pulumi.com/releases/sdk/pulumi-v${version}-${os}-${cpu}.tar.gz
+        strip_components: 1
+      # The windows zip nests one level deeper (`pulumi/bin/pulumi.exe`).
+      - os:
+          windows: windows
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://get.pulumi.com/releases/sdk/pulumi-v${version}-${os}-${cpu}.zip
+        strip_components: 2
+tools:
+  definitions:
+    - name: pulumi
+      download: pulumi
+      known_good_version: 3.210.0
+      shims: [pulumi]
+      health_checks:
+        - command: pulumi version
+          parse_regex: ${semver}
