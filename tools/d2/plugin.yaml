@@ -1,0 +1,29 @@
+version: 0.1
+downloads:
+  - name: d2
+    downloads:
+      # Every platform ships a tarball (windows included; the .msi is skipped).
+      # The archive holds `d2-v${version}/bin/d2`, so one level is stripped and the
+      # nested `bin` is added to PATH rather than stripping two levels, which would
+      # discard the bundled LICENSE/man files.
+      - os:
+          linux: linux
+          macos: macos
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/terrastruct/d2/releases/download/v${version}/d2-v${version}-${os}-${cpu}.tar.gz
+        strip_components: 1
+tools:
+  definitions:
+    - name: d2
+      download: d2
+      known_good_version: 0.7.1
+      environment:
+        - name: PATH
+          list: ["${tool}/bin"]
+      shims: [d2]
+      health_checks:
+        - command: d2 --version
+          parse_regex: ${semver}

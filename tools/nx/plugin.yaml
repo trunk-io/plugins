@@ -1,0 +1,13 @@
+version: 0.1
+tools:
+  definitions:
+    - name: nx
+      runtime: node
+      package: nx
+      known_good_version: 22.5.3
+      shims: [nx]
+      health_checks:
+        # `nx --version` reports both the workspace-local and the global version;
+        # outside a workspace only the global one is a semver.
+        - command: nx --version
+          parse_regex: ${semver}
