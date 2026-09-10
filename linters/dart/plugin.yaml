@@ -60,11 +60,11 @@ lint:
 
         - name: analyze
           output: regex
-          # The output only includes the filename so in order to use a relative path we need to run from parent.
-          run_from: ${parent}
-          parse_regex:
-            \s*(?P<severity>.*) - (?P<path>.*):(?P<line>\d+):(?P<col>\d+) - (?P<message>.*) -
-            (?P<code>.*)
-          run: dart analyze --no-fatal-warnings ${target}
+          # The JSON format reports absolute paths, so a batch can be analyzed in a single pass from
+          # the project root rather than once per parent directory. The default format is explicitly
+          # documented as unstable between releases.
+          run_from: ${root_or_parent_with(analysis_options.yaml)}
+          parse_regex: '"code":"(?P<code>[^"]+)","severity":"(?P<severity>[A-Z]+)","type":"[A-Z_]+","location":\{"file":"(?P<path>[^"]+)","range":\{"start":\{"offset":\d+,"line":(?P<line>\d+),"column":(?P<col>\d+)\}.*?"problemMessage":"(?P<message>[^"]*)"'
+          run: dart analyze --no-fatal-warnings --format=json ${target}
           success_codes: [0, 3]
           batch: true
