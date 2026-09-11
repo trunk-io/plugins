@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter zizmor test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "zizmor/unpinned-uses",
+      "column": "15",
+      "file": ".github/workflows/bad.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.zizmor.sh/audits/",
+      "level": "LEVEL_HIGH",
+      "line": "12",
+      "linter": "zizmor",
+      "message": "unpinned action reference: action is not pinned to a hash (required by blanket policy)",
+      "ranges": [
+        {
+          "filePath": ".github/workflows/bad.in.yaml",
+          "length": "19",
+          "offset": "129",
+        },
+      ],
+      "targetType": "github-workflow",
+    },
+    {
+      "code": "zizmor/artipacked",
+      "column": "9",
+      "file": ".github/workflows/bad.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.zizmor.sh/audits/",
+      "level": "LEVEL_MEDIUM",
+      "line": "12",
+      "linter": "zizmor",
+      "message": "credential persistence through GitHub Actions artifacts: does not set persist-credentials: false",
+      "ranges": [
+        {
+          "filePath": ".github/workflows/bad.in.yaml",
+          "length": "25",
+          "offset": "123",
+        },
+      ],
+      "targetType": "github-workflow",
+    },
+    {
+      "code": "zizmor/template-injection",
+      "column": "24",
+      "file": ".github/workflows/bad.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.zizmor.sh/audits/",
+      "level": "LEVEL_HIGH",
+      "line": "13",
+      "linter": "zizmor",
+      "message": "code injection via template expansion: may expand into attacker-controllable code",
+      "ranges": [
+        {
+          "filePath": ".github/workflows/bad.in.yaml",
+          "length": "31",
+          "offset": "172",
+        },
+      ],
+      "targetType": "github-workflow",
+    },
+    {
+      "code": "zizmor/dangerous-triggers",
+      "column": "1",
+      "file": ".github/workflows/bad.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://docs.zizmor.sh/audits/",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "zizmor",
+      "message": "use of fundamentally insecure workflow trigger: pull_request_target is almost always used insecurely",
+      "ranges": [
+        {
+          "filePath": ".github/workflows/bad.in.yaml",
+          "length": "26",
+          "offset": "11",
+        },
+      ],
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "zizmor",
+      "paths": [
+        ".github/workflows/bad.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "zizmor",
+      "paths": [
+        ".github/workflows/bad.in.yaml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
