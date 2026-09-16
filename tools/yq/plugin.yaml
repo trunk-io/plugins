@@ -6,13 +6,13 @@ downloads:
           linux: linux
           macos: darwin
         cpu:
-          x86_64: 386
+          x86_64: amd64
           arm_64: arm64
         url: https://github.com/mikefarah/yq/releases/download/v${version}/yq_${os}_${cpu}
       - os:
           windows: windows
         cpu:
-          x86_64: 386
+          x86_64: amd64
           arm_64: arm64
         url: https://github.com/mikefarah/yq/releases/download/v${version}/yq_${os}_${cpu}.exe
 tools:

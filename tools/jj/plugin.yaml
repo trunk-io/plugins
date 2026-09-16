@@ -1,0 +1,32 @@
+version: 0.1
+downloads:
+  - name: jj
+    downloads:
+      # Note the target-triple order: `${cpu}-${os}`, not `${os}-${cpu}`.
+      # The archives hold `jj` at their root alongside README/LICENSE, so there is
+      # nothing to strip.
+      - os:
+          linux: unknown-linux-musl
+          macos: apple-darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/jj-vcs/jj/releases/download/v${version}/jj-v${version}-${cpu}-${os}.tar.gz
+      - os:
+          windows: pc-windows-msvc
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/jj-vcs/jj/releases/download/v${version}/jj-v${version}-${cpu}-${os}.zip
+tools:
+  definitions:
+    - name: jj
+      download: jj
+      known_good_version: 0.45.1
+      shims: [jj]
+      health_checks:
+        # Release binaries report `jj <version>-<commit sha>`, so `${semver}`
+        # would capture the sha as a prerelease suffix and never match the
+        # enabled version. Capture just the `x.y.z` prefix.
+        - command: jj --version
+          parse_regex: jj (\d+\.\d+\.\d+)
