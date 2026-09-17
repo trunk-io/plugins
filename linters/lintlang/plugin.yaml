@@ -1,0 +1,27 @@
+version: 0.1
+tools:
+  definitions:
+    - name: lintlang
+      runtime: python
+      package: lintlang
+      shims: [lintlang]
+      known_good_version: 0.6.0
+lint:
+  definitions:
+    - name: lintlang
+      description:
+        Static analysis for AI agent instructions, tool descriptions, and agent configuration
+      files: [markdown, yaml, json, python]
+      tools: [lintlang]
+      known_good_version: 0.6.0
+      suggest_if: never
+      commands:
+        - name: lint
+          output: sarif
+          run: lintlang scan --format sarif --fail-on fail ${target}
+          success_codes: [0, 1]
+          read_output_from: stdout
+          batch: true
+      version_command:
+        parse_regex: lintlang ${semver}
+        run: lintlang --version
