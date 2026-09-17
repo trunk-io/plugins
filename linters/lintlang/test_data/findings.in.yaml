@@ -1,0 +1,10 @@
+system_prompt: |
+  You are a customer support agent. Help the user with their issues.
+tools:
+  - name: process_ticket
+    description: ""
+    parameters:
+      type: object
+      properties:
+        ticket_id:
+          type: string

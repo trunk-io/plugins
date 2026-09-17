@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter lintlang test findings 1`] = `
+{
+  "issues": [
+    {
+      "code": "H1.1",
+      "column": "1",
+      "file": "test_data/findings.in.yaml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "lintlang",
+      "message": "Tool 'process_ticket' has no description. Suggested action: Add a specific, disambiguating description that explains WHEN to use this tool, not just WHAT it does.",
+      "targetType": "yaml",
+    },
+    {
+      "code": "H2",
+      "column": "1",
+      "file": "test_data/findings.in.yaml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "lintlang",
+      "message": "System prompt defines tools but contains no termination conditions, retry budgets, or progress checks. Suggested action: Add explicit constraints: 'You have a maximum of 5 tool calls per task. If no progress after 2 attempts, stop and report the issue.'",
+      "targetType": "yaml",
+    },
+    {
+      "code": "H3",
+      "column": "1",
+      "file": "test_data/findings.in.yaml",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "lintlang",
+      "message": "Parameter 'ticket_id' in tool 'process_ticket' has no description. Suggested action: Add a description explaining what this parameter means semantically, not just its type.",
+      "targetType": "yaml",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "yaml",
+      "linter": "lintlang",
+      "paths": [
+        "test_data/findings.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "yaml",
+      "linter": "lintlang",
+      "paths": [
+        "test_data/findings.in.yaml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
