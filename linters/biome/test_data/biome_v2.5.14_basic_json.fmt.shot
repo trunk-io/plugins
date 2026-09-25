@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter biome test basic_json 1`] = `
+"{ "a": "foo", "b": 1, "a": true }
+"
+`;

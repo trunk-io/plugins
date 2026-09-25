@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter buf-breaking test dupFile 1`] = `
+{
+  "issues": [
+    {
+      "code": "COMPILE",
+      "column": "13",
+      "file": "test_data/buf_breaking.in.proto",
+      "issueUrl": "https://docs.buf.build/breaking/rules#compile",
+      "level": "LEVEL_HIGH",
+      "line": "7",
+      "linter": "buf-breaking",
+      "message": "\`HelloWorld\` declared multiple times",
+      "targetType": "proto",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "proto",
+      "linter": "buf-breaking",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
