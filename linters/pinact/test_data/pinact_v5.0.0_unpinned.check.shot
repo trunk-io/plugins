@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter pinact test unpinned 1`] = `
+{
+  "issues": [
+    {
+      "code": "config-error",
+      "column": "1",
+      "file": ".github/workflows/unpinned.in.yaml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "pinact",
+      "message": "unknown flag: -format. Long flags need two dashes since pinact v5: --format",
+      "targetType": "github-workflow",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "github-workflow",
+      "linter": "pinact",
+      "paths": [
+        ".github/workflows/unpinned.in.yaml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
