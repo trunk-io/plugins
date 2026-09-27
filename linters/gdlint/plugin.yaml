@@ -1,0 +1,31 @@
+version: 0.1
+lint:
+  definitions:
+    - name: gdlint
+      files: [gdscript]
+      runtime: python
+      package: gdtoolkit
+      description: A linter for GDScript, the Godot engine's scripting language
+      commands:
+        - name: lint
+          output: sarif
+          # gdlint reads gdlintrc from its working directory upward.
+          run_from: ${root_or_parent_with_any_config}
+          run: gdlint ${target}
+          # Exit 1 covers both rule findings and unparsable files; the parser
+          # tells them apart and fails the run when its count disagrees with gdlint's.
+          success_codes: [0, 1]
+          read_output_from: stderr
+          batch: true
+          cache_results: true
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/gdlint/gdlint_to_sarif.py ${exit_code}
+      direct_configs:
+        - gdlintrc
+        - .gdlintrc
+      suggest_if: config_present
+      known_good_version: 4.5.0
+      version_command:
+        parse_regex: gdlint ${semver}
+        run: gdlint --version

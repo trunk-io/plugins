@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter gdlint test parse_error 1`] = `
+{
+  "issues": [
+    {
+      "code": "parse-error",
+      "column": "13",
+      "file": "test_data/parse_error.in.gd",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "gdlint",
+      "message": "Unexpected token Token('COLON', ':') at line 4, column 13.",
+      "targetType": "gdscript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "gdscript",
+      "linter": "gdlint",
+      "paths": [
+        "test_data/parse_error.in.gd",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "gdscript",
+      "linter": "gdlint",
+      "paths": [
+        "test_data/parse_error.in.gd",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
