@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter gdlint test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "class-variable-name",
+      "column": "1",
+      "file": "test_data/basic.in.gd",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "3",
+      "linter": "gdlint",
+      "message": "Class-scope variable name "BadName" is not valid",
+      "targetType": "gdscript",
+    },
+    {
+      "code": "class-definitions-order",
+      "column": "1",
+      "file": "test_data/basic.in.gd",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "gdlint",
+      "message": "Definition out of order in global scope",
+      "targetType": "gdscript",
+    },
+    {
+      "code": "constant-name",
+      "column": "1",
+      "file": "test_data/basic.in.gd",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "4",
+      "linter": "gdlint",
+      "message": "Constant name "lower_constant" is not valid",
+      "targetType": "gdscript",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "gdscript",
+      "linter": "gdlint",
+      "paths": [
+        "test_data/basic.in.gd",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "gdscript",
+      "linter": "gdlint",
+      "paths": [
+        "test_data/basic.in.gd",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
