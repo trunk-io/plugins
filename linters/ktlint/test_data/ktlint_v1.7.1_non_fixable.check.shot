@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ktlint test non_fixable 1`] = `
+{
+  "issues": [
+    {
+      "code": "standard:filename",
+      "column": "1",
+      "file": "test_data/non_fixable.in.kt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ktlint",
+      "message": "File name 'non_fixable.kt' should conform PascalCase",
+      "targetType": "kotlin",
+    },
+    {
+      "code": "standard:function-naming",
+      "column": "5",
+      "file": "test_data/non_fixable.in.kt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ktlint",
+      "message": "Function name should start with a lowercase letter (except factory methods) and use camel case",
+      "targetType": "kotlin",
+    },
+    {
+      "code": "standard:indent",
+      "column": "1",
+      "file": "test_data/non_fixable.in.kt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "2",
+      "linter": "ktlint",
+      "message": "Unexpected indentation (4) (should be 2)",
+      "targetType": "kotlin",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/non_fixable.in.kt",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/non_fixable.in.kt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/non_fixable.in.kt",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [
+    {
+      "column": "1",
+      "file": "test_data/non_fixable.in.kt",
+      "issueClass": "ISSUE_CLASS_UNFORMATTED",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ktlint",
+      "message": "Incorrect formatting, autoformat by running 'trunk fmt'",
+    },
+  ],
+}
+`;
