@@ -89,19 +89,19 @@ def has_github_token() -> bool:
 
 
 def build_pinact_args(mode: str) -> list[str]:
-    args = ["pinact", "run", "-format", "sarif"]
+    args = ["pinact", "run", "--format", "sarif"]
     if mode == "upgrade":
         # -update bumps to latest semver; SARIF suggestions only (Trunk applies fixes).
-        args.extend(["-update"])
+        args.extend(["--update"])
         return args
 
     # SARIF output implies -fix=false; let Trunk apply fixes from SARIF suggestions.
     if os.environ.get("PINACT_DISABLE_GH_AUTH"):
-        args.append("-no-api")
+        args.append("--no-api")
     elif has_github_token():
-        args.append("-verify-comment")
+        args.append("--verify-comment")
     else:
-        args.append("-no-api")
+        args.append("--no-api")
     return args
 
 
