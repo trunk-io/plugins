@@ -1,28 +1,27 @@
 version: 0.1
 downloads:
   - name: actionlint
-    version: 1.6.9
+    version: 1.17.0
     downloads:
-      # macos arm64 was introduced after this version.
-      - os: macos
-        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_darwin_amd64.tar.gz
-        version: <1.4.1
       - os:
           linux: linux
           macos: darwin
         cpu:
           x86_64: amd64
           arm_64: arm64
-        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
-      # No x86_64 download available
-      - os: windows
-        url: https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_windows_386.zip
+        url: https://github.com/kjanat/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/kjanat/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.zip
 tools:
   definitions:
     - name: actionlint
       download: actionlint
       shims: [actionlint]
-      known_good_version: 1.7.8
+      known_good_version: 1.17.0
 lint:
   definitions:
     - name: actionlint
@@ -42,8 +41,9 @@ lint:
       direct_configs:
         - .github/actionlint.yaml
         - .github/actionlint.yml
-      issue_url_format: https://github.com/rhysd/actionlint/blob/main/docs/checks.md
-      known_good_version: 1.7.8
+      issue_url_format: https://github.com/kjanat/actionlint/blob/master/docs/checks.md
+      known_good_version: 1.17.0
       version_command:
         parse_regex: ${semver}
         run: actionlint --version
+
