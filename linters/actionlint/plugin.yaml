@@ -27,7 +27,7 @@ lint:
     - name: actionlint
       files: [github-workflow]
       # Custom parser/trigger type defined in the trunk cli.
-      tools: [actionlint, shellcheck]
+      tools: [actionlint]
       description: Verify your Github workflows
       commands:
         - name: lint
@@ -37,7 +37,7 @@ lint:
       suggest_if: files_present
       environment:
         - name: PATH
-          list: ["${linter}"]
+          list: ["${linter}", "${env.PATH}"]
       direct_configs:
         - .github/actionlint.yaml
         - .github/actionlint.yml
