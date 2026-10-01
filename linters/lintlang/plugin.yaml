@@ -5,7 +5,7 @@ tools:
       runtime: python
       package: lintlang
       shims: [lintlang]
-      known_good_version: 0.6.0
+      known_good_version: 0.8.2
 lint:
   definitions:
     - name: lintlang
@@ -13,7 +13,7 @@ lint:
         Static analysis for AI agent instructions, tool descriptions, and agent configuration
       files: [markdown, yaml, json, python]
       tools: [lintlang]
-      known_good_version: 0.6.0
+      known_good_version: 0.8.2
       suggest_if: never
       commands:
         - name: lint
