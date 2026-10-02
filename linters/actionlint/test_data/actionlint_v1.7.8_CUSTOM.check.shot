@@ -8,7 +8,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "column": "13",
       "file": ".github/workflows/bad.in.yaml",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md",
+      "issueUrl": "https://github.com/kjanat/actionlint/blob/master/docs/checks.md",
       "level": "LEVEL_HIGH",
       "line": "4",
       "linter": "actionlint",
@@ -20,7 +20,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "column": "13",
       "file": ".github/workflows/bad.in.yaml",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md",
+      "issueUrl": "https://github.com/kjanat/actionlint/blob/master/docs/checks.md",
       "level": "LEVEL_HIGH",
       "line": "6",
       "linter": "actionlint",
@@ -32,7 +32,7 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
       "column": "1",
       "file": ".github/workflows/empty.in.yaml",
       "issueClass": "ISSUE_CLASS_EXISTING",
-      "issueUrl": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md",
+      "issueUrl": "https://github.com/kjanat/actionlint/blob/master/docs/checks.md",
       "level": "LEVEL_HIGH",
       "line": "1",
       "linter": "actionlint",
@@ -84,3 +84,4 @@ exports[`Testing linter actionlint test CUSTOM 1`] = `
   "unformattedFiles": [],
 }
 `;
+
