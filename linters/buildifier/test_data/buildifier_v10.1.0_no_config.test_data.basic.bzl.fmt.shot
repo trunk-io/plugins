@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter buildifier test no_config 1`] = `
+"# Misformatted file
+def eponymous_name():
+    name = native.package_name()
+
+    return name[name.rfind("/") + 1:]
+"
+`;
