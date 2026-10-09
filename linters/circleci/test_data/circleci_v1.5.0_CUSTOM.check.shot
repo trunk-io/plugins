@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing linter circleci test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "error",
+      "file": "test_data/bad_version/.circleci/config.yml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "circleci",
+      "message": "/home/runner/work/plugins/plugins/linters/circleci/run.sh: line 6: circleci: command not found",
+      "targetType": "circleci-config",
+    },
+    {
+      "code": "error",
+      "file": "test_data/basic/.circleci/config.yml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "circleci",
+      "message": "/home/runner/work/plugins/plugins/linters/circleci/run.sh: line 6: circleci: command not found",
+      "targetType": "circleci-config",
+    },
+    {
+      "code": "error",
+      "file": "test_data/malformed/.circleci/config.yml",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "linter": "circleci",
+      "message": "/home/runner/work/plugins/plugins/linters/circleci/run.sh: line 6: circleci: command not found",
+      "targetType": "circleci-config",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/bad_version/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/basic/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/malformed/.circleci/config.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/bad_version/.circleci/config.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/basic/.circleci/config.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "validate",
+      "fileGroupName": "circleci-config",
+      "linter": "circleci",
+      "paths": [
+        "test_data/malformed/.circleci/config.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
