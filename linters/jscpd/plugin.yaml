@@ -41,15 +41,11 @@ lint:
           # points it at a temp directory and prints the report on stdout.
           run: sh ${plugin}/linters/jscpd/run.sh ${workspace}
           read_output_from: stdout
-          # jscpd writes URIs relative to the scan root; trunk needs paths it can map onto
-          # the workspace, so resolve them against the SARIF `originalUriBaseIds`.
-          parser:
-            runtime: python
-            run: python3 ${plugin}/linters/jscpd/sarif_absolute_paths.py
           # 0: scan finished (clones are reported in SARIF, not via the exit code).
           # 1: only when a gate from .jscpd.json fires (threshold, failOnNewClones, ...).
           success_codes: [0, 1]
-          cache_results: true
+          # Do not set `cache_results`: it makes trunk run the command in a (for `target: .`,
+          # empty) sandbox, and the workspace-relative SARIF paths are then discarded.
       # The whole repository is scanned on every run, so upstream and current results are
       # identical and hold-the-line would hide every issue (same as ls-lint).
       hold_the_line: false

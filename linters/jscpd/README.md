@@ -1,7 +1,7 @@
 # jscpd
 
-[jscpd](https://github.com/kucherenko/jscpd) is a copy/paste detector for 220+ programming
-languages and file formats (Rust binary, no runtime needed).
+[jscpd](https://github.com/kucherenko/jscpd) is a copy/paste detector for 220+ programming languages
+and file formats (Rust binary, no runtime needed).
 
 jscpd compares every file against every other file, so trunk runs it once per check from the
 workspace root (`target: .`) rather than once per file, in the same way as `ls-lint`. Because the
