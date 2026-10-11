@@ -40,7 +40,7 @@ trunk check enable {linter}
 
 | Technology      | Linters                                                                                                                                  |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [ls-lint], [pre-commit-hooks], [trunk-toolbox], [vale]                              |
+| All             | [codespell], [cspell], [gitleaks], [git-diff-check], [jscpd], [ls-lint], [pre-commit-hooks], [trunk-toolbox], [vale]                     |
 | Ansible         | [ansible-lint]                                                                                                                           |
 | Apex            | [pmd]                                                                                                                                    |
 | Bash            | [shellcheck], [shfmt]                                                                                                                    |
@@ -136,6 +136,7 @@ trunk check enable {linter}
 [haml-lint]: https://github.com/sds/haml-lint#readme
 [include-what-you-use]: https://github.com/include-what-you-use/include-what-you-use#readme
 [isort]: https://github.com/PyCQA/isort#readme
+[jscpd]: https://github.com/kucherenko/jscpd#readme
 [ktlint]: https://github.com/pinterest/ktlint#readme
 [kube-linter]: https://github.com/stackrox/kube-linter#readme
 [ls-lint]: https://github.com/loeffel-io/ls-lint#readme
