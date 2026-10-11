@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter jscpd test basic 1`] = `
+{
+  "issues": [
+    {
+      "code": "jscpd/duplicate-code",
+      "column": "37",
+      "file": "test_data/basic.in.ts",
+      "issueClass": "ISSUE_CLASS_NEW",
+      "issueUrl": "https://github.com/kucherenko/jscpd/blob/master/docs/rust.md",
+      "level": "LEVEL_MEDIUM",
+      "line": "1",
+      "linter": "jscpd",
+      "message": "Duplicated code block (127 tokens), duplicated at [test_data/basic.in.ts:18](0)",
+      "ranges": [
+        {
+          "filePath": "test_data/basic.in.ts",
+          "length": "525",
+          "offset": "36",
+        },
+      ],
+      "targetType": "ALL",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "jscpd",
+      "paths": [
+        ".",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "ALL",
+      "linter": "jscpd",
+      "paths": [
+        ".",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;

@@ -1,0 +1,65 @@
+version: 0.1
+downloads:
+  - name: jscpd
+    version: 5.4.1
+    downloads:
+      - os: linux
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/kucherenko/jscpd/releases/download/v${version}/jscpd-linux-${cpu}-gnu.tar.gz
+      - os: macos
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/kucherenko/jscpd/releases/download/v${version}/jscpd-darwin-${cpu}.tar.gz
+      - os: windows
+        cpu:
+          x86_64: x64
+          arm_64: arm64
+        url: https://github.com/kucherenko/jscpd/releases/download/v${version}/jscpd-windows-${cpu}-msvc.tar.gz
+tools:
+  definitions:
+    - name: jscpd
+      download: jscpd
+      shims: [jscpd]
+      known_good_version: 5.4.1
+lint:
+  definitions:
+    - name: jscpd
+      files: [ALL]
+      tools: [jscpd]
+      description: Copy/paste detector for 220+ programming languages and file formats
+      commands:
+        - name: lint
+          # jscpd compares files with each other, so it must see the whole repository:
+          # run a single invocation on the workspace instead of one per file (as ls-lint does).
+          target: .
+          batch: true
+          output: sarif
+          # The SARIF reporter writes <output-dir>/jscpd-report.sarif; the wrapper
+          # points it at a temp directory and prints the report on stdout.
+          run: sh ${plugin}/linters/jscpd/run.sh ${workspace}
+          read_output_from: stdout
+          # 0: scan finished (clones are reported in SARIF, not via the exit code).
+          # 1: only when a gate from .jscpd.json fires (threshold, failOnNewClones, ...).
+          success_codes: [0, 1]
+          # Do not set `cache_results`: it makes trunk run the command in a (for `target: .`,
+          # empty) sandbox, and the workspace-relative SARIF paths are then discarded.
+      # The whole repository is scanned on every run, so upstream and current results are
+      # identical and hold-the-line would hide every issue (same as ls-lint).
+      hold_the_line: false
+      direct_configs:
+        - .jscpd.json
+        - .config/jscpd.json
+      affects_cache:
+        - package.json
+      environment:
+        - name: PATH
+          list: ["${linter}", "${env.PATH}"]
+      suggest_if: config_present
+      issue_url_format: https://github.com/kucherenko/jscpd/blob/master/docs/rust.md
+      known_good_version: 5.4.1
+      version_command:
+        parse_regex: ${semver}
+        run: jscpd --version
