@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+// trunk-upgrade-validation:RELEASE
+
+exports[`Testing formatter sqlfluff test basic_check 1`] = `
+"SELECT
+    *,
+    1,
+    blah AS foo
+FROM myschema.mytable
+"
+`;
