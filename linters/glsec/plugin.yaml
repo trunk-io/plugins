@@ -1,0 +1,55 @@
+version: 0.1
+downloads:
+  - name: glsec
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/glsec/glsec/releases/download/v${version}/glsec_${version}_${os}_${cpu}.tar.gz
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/glsec/glsec/releases/download/v${version}/glsec_${version}_windows_${cpu}.zip
+tools:
+  definitions:
+    - name: glsec
+      download: glsec
+      shims: [glsec]
+      known_good_version: 1.23.0
+lint:
+  files:
+    - name: gitlab-ci
+      filenames:
+        - .gitlab-ci.yml
+      regexes:
+        - .+\.gitlab-ci\.yml
+      comments:
+        - hash
+  definitions:
+    - name: glsec
+      files: [gitlab-ci]
+      tools: [glsec]
+      description: Security linter for GitLab CI/CD pipelines
+      commands:
+        - name: lint
+          output: sarif
+          run: glsec --format sarif --no-color ${target}
+          success_codes: [0, 1]
+          batch: true
+          cache_results: true
+          is_security: true
+          # glsec refuses a pipeline file that is a symbolic link out of its
+          # directory, which the default symlinked sandbox would be.
+          sandbox_type: copy_targets
+      direct_configs:
+        - .glsec.yml
+      suggest_if: files_present
+      issue_url_format: https://glsec.github.io/rules/{}/
+      known_good_version: 1.23.0
+      version_command:
+        parse_regex: ${semver}
+        run: glsec --version
