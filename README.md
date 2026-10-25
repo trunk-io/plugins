@@ -56,6 +56,7 @@ trunk check enable {linter}
 | Docker          | [hadolint], [checkov]                                                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                                                                          |
 | GitHub          | [actionlint], [pinact], [zizmor]                                                                                                         |
+| GitLab          | [glsec]                                                                                                                                  |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                                         |
 | GraphQL         | [graphql-schema-linter], [prettier]                                                                                                      |
 | HAML            | [haml-lint]                                                                                                                              |
@@ -123,6 +124,7 @@ trunk check enable {linter}
 [flake8]: https://trunk.io/linters/python/flake8
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gitleaks]: https://trunk.io/linters/security/gitleaks
+[glsec]: https://github.com/glsec/glsec#readme
 [gofmt]: https://pkg.go.dev/cmd/gofmt
 [gofumpt]: https://pkg.go.dev/mvdan.cc/gofumpt
 [goimports]: https://pkg.go.dev/golang.org/x/tools/cmd/goimports

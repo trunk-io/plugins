@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter glsec test CUSTOM 1`] = `
+{
+  "issues": [
+    {
+      "code": "GL001",
+      "column": "1",
+      "file": ".gitlab-ci.yml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://glsec.github.io/rules/GL001/",
+      "level": "LEVEL_HIGH",
+      "line": "6",
+      "linter": "glsec",
+      "message": "image "alpine:latest" uses mutable tag "latest" — pin to a specific version or digest",
+      "targetType": "gitlab-ci",
+    },
+    {
+      "code": "GL011",
+      "column": "1",
+      "file": ".gitlab-ci.yml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://glsec.github.io/rules/GL011/",
+      "level": "LEVEL_HIGH",
+      "line": "8",
+      "linter": "glsec",
+      "message": "script line downloads and executes remote code without integrity verification: "curl -sSL https://example.com/install.sh | sh"",
+      "targetType": "gitlab-ci",
+    },
+    {
+      "code": "GL024",
+      "column": "1",
+      "file": ".gitlab-ci.yml",
+      "isSecurity": true,
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "issueUrl": "https://glsec.github.io/rules/GL024/",
+      "level": "LEVEL_MEDIUM",
+      "line": "8",
+      "linter": "glsec",
+      "message": "script uses a pipe without set -o pipefail — failures in all but the last command are silently ignored",
+      "targetType": "gitlab-ci",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "lint",
+      "fileGroupName": "gitlab-ci",
+      "linter": "glsec",
+      "paths": [
+        ".gitlab-ci.yml",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "gitlab-ci",
+      "linter": "glsec",
+      "paths": [
+        ".gitlab-ci.yml",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
