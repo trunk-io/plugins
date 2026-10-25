@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://static.trunk.io/pub/trunk-yaml-schema.json
+
+version: 0.1
+tools:
+  definitions:
+    - name: evergreen
+      runtime: node
+      package: evergreen-deprecation
+      shims: [evergreen]
+      known_good_version: 0.6.0
+      health_checks:
+        - command: evergreen --version
+          parse_regex: ${semver}
+lint:
+  definitions:
+    - name: evergreen
+      files: [ALL]
+      tools: [evergreen]
+      description: Finds end-of-life and deprecated runtimes, packages, and GitHub Actions at exact file locations
+      known_good_version: 0.6.0
+      suggest_if: never
+      hold_the_line: false
+      is_security: false
+      commands:
+        - name: scan
+          target: .
+          batch: true
+          output: sarif
+          run: evergreen scan ${workspace} --format sarif
+          success_codes: [0]
+          read_output_from: stdout
+          cache_results: false
+          run_timeout: 5m
+      version_command:
+        parse_regex: ${semver}
+        run: evergreen --version
