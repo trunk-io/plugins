@@ -7,6 +7,12 @@ const skipTestIfLambda = (version?: string | undefined) =>
 
 toolTest({
   toolName: "jq",
+  toolVersion: "1.7.1",
+  testConfigs: [makeToolTestConfig({ command: ["jq", "--version"], expectedOut: "jq-1.7.1" })],
+});
+
+toolTest({
+  toolName: "jq",
   toolVersion: "1.6",
   testConfigs: [makeToolTestConfig({ command: ["jq", "--version"], expectedOut: "jq-1.6" })],
   skipTestIf: skipTestIfLambda,
