@@ -5,6 +5,15 @@ downloads:
       semver: ${version}=>(?:jq-|)?(?P<semver>.*)
     executable: true
     downloads:
+      # arm64 builds were added in 1.7
+      - version: ">=1.7"
+        os:
+          linux: linux
+          macos: macos
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/jqlang/jq/releases/download/jq-${semver}/jq-${os}-${cpu}
       - os:
           linux: linux
         cpu:
