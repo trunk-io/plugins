@@ -31,6 +31,34 @@ lint:
           in_place: true
           batch: true
           success_codes: [0, 1]
+        # `format` accepts exit code 1, so violations ktlint cannot autocorrect never
+        # fail it. `lint` reports every violation; enable it with `commands: [format, lint]`.
+        - name: lint
+          platforms: [windows]
+          run:
+            java -jar ${linter}/ktlint.exe --relative --log-level=none --reporter=sarif "${target}"
+          output: sarif
+          read_output_from: stdout
+          cache_results: true
+          batch: true
+          success_codes: [0, 1]
+          enabled: false
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/ktlint/sarif_guard.py ${exit_code}
+        - name: lint
+          run: ktlint --relative --log-level=none --reporter=sarif "${target}"
+          output: sarif
+          read_output_from: stdout
+          cache_results: true
+          batch: true
+          # Exit 1 means violations were found, or that ktlint died before printing
+          # them; the parser fails the run on the second.
+          success_codes: [0, 1]
+          enabled: false
+          parser:
+            runtime: python
+            run: python3 ${plugin}/linters/ktlint/sarif_guard.py ${exit_code}
       affects_cache:
         - .editorconfig
       environment:

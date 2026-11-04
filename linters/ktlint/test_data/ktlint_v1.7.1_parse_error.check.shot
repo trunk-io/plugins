@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing linter ktlint test parse_error 1`] = `
+{
+  "issues": [
+    {
+      "code": "parse-error",
+      "column": "1",
+      "file": "test_data/parse_error.in.kt",
+      "issueClass": "ISSUE_CLASS_EXISTING",
+      "level": "LEVEL_HIGH",
+      "line": "1",
+      "linter": "ktlint",
+      "message": "Not a valid Kotlin file (2:1 parameter name expected)",
+      "targetType": "kotlin",
+    },
+  ],
+  "lintActions": [
+    {
+      "command": "format",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/parse_error.in.kt",
+      ],
+      "verb": "TRUNK_VERB_FMT",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/parse_error.in.kt",
+      ],
+      "verb": "TRUNK_VERB_CHECK",
+    },
+    {
+      "command": "lint",
+      "fileGroupName": "kotlin",
+      "linter": "ktlint",
+      "paths": [
+        "test_data/parse_error.in.kt",
+      ],
+      "upstream": true,
+      "verb": "TRUNK_VERB_CHECK",
+    },
+  ],
+  "taskFailures": [],
+  "unformattedFiles": [],
+}
+`;
