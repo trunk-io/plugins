@@ -55,6 +55,7 @@ trunk check enable {linter}
 | Dart            | [dart]                                                                                                                                   |
 | Docker          | [hadolint], [checkov]                                                                                                                    |
 | Dotenv          | [dotenv-linter]                                                                                                                          |
+| GDScript        | [gdformat], [gdlint]                                                                                                                     |
 | GitHub          | [actionlint], [pinact], [zizmor]                                                                                                         |
 | Go              | [gofmt], [gofumpt], [goimports], [gokart], [golangci-lint], [golines], [semgrep]                                                         |
 | GraphQL         | [graphql-schema-linter], [prettier]                                                                                                      |
@@ -121,6 +122,8 @@ trunk check enable {linter}
 [dustilock]: https://github.com/Checkmarx/dustilock
 [eslint]: https://eslint.org/docs/latest/
 [flake8]: https://trunk.io/linters/python/flake8
+[gdformat]: https://github.com/Scony/godot-gdscript-toolkit#readme
+[gdlint]: https://github.com/Scony/godot-gdscript-toolkit#readme
 [git-diff-check]: https://git-scm.com/docs/git-diff
 [gitleaks]: https://trunk.io/linters/security/gitleaks
 [gofmt]: https://pkg.go.dev/cmd/gofmt

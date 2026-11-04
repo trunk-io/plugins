@@ -242,6 +242,12 @@ lint:
         - package.json
         - requirements.txt
 
+    - name: gdscript
+      extensions:
+        - gd
+      comments:
+        - hash
+
     - name: gemspec
       extensions:
         - gemspec

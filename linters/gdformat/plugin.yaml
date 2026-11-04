@@ -1,0 +1,26 @@
+version: 0.1
+lint:
+  definitions:
+    - name: gdformat
+      files: [gdscript]
+      runtime: python
+      package: gdtoolkit
+      description: A formatter for GDScript, the Godot engine's scripting language
+      commands:
+        - name: format
+          output: rewrite
+          # gdformat reads gdformatrc from its working directory upward.
+          run_from: ${root_or_parent_with_any_config}
+          run: gdformat ${target}
+          success_codes: [0]
+          batch: true
+          in_place: true
+          formatter: true
+      direct_configs:
+        - gdformatrc
+        - .gdformatrc
+      suggest_if: config_present
+      known_good_version: 4.5.0
+      version_command:
+        parse_regex: gdformat ${semver}
+        run: gdformat --version
