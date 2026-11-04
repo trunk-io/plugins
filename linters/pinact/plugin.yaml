@@ -19,7 +19,7 @@ tools:
     - name: pinact
       download: pinact
       shims: [pinact]
-      known_good_version: 4.0.0
+      known_good_version: 5.0.0
 lint:
   definitions:
     - name: pinact
@@ -70,7 +70,7 @@ lint:
         - name: PATH
           list: ["${runtime}", "${linter}", "${env.PATH}"]
       issue_url_format: https://github.com/suzuki-shunsuke/pinact/blob/main/docs/codes/
-      known_good_version: 4.0.0
+      known_good_version: 5.0.0
       version_command:
         parse_regex: ${semver}
         run: pinact version
