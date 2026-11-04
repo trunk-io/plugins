@@ -1,0 +1,16 @@
+system_prompt: |
+  You are a weather information assistant.
+  Stop and report the failure after one retry.
+tools:
+  - name: get_current_weather
+    description: Retrieve current weather for one named location. Do not use this tool for forecasts.
+    parameters:
+      type: object
+      properties:
+        location:
+          type: string
+          description: City and country for the requested weather.
+      required: [location]
+constraints:
+  max_iterations: 2
+  timeout_seconds: 30
