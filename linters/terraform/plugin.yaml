@@ -14,6 +14,7 @@ lint:
           run_from: ${target_directory}
           success_codes: [0, 1]
           enabled: false
+          disable_upstream: true
         - name: fmt
           output: rewrite
           formatter: true
