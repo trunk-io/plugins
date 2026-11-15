@@ -1,9 +1,9 @@
-# DJLint
+# djLint
 
-- [README](https://github.com/Riverside-Healthcare/djlint#readme)
+- [README](https://github.com/djlint/djLint#readme)
 - [Rules](https://www.djlint.com/docs/linter/)
 
-DJLint supports HTML templates for:
+djLint supports HTML templates for:
 
 - Django
 - Jinja
@@ -13,6 +13,10 @@ DJLint supports HTML templates for:
 - Mustache
 - GoLang
 - Angular
+- Liquid
+- Tera
+- Askama
+- Mako
 
 For use of anything other than Django, please visit the readme and set the appropriate profile. You
 can set the appropriate profile in your djlint run command or in the linter config.

@@ -115,7 +115,7 @@ trunk check enable {linter}
 [dart]: https://dart.dev/tools/sdk
 [deno]: https://deno.land/manual
 [detekt]: https://github.com/detekt/detekt#readme
-[djlint]: https://github.com/Riverside-Healthcare/djlint#readme
+[djlint]: https://github.com/djlint/djLint#readme
 [dotenv-linter]: https://github.com/dotenv-linter/dotenv-linter#readme
 [dotnet-format]: https://github.com/dotnet/format#readme
 [dustilock]: https://github.com/Checkmarx/dustilock

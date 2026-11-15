@@ -29,13 +29,10 @@ lint:
           cache_results: true
           formatter: true
           in_place: true
-      direct_configs: [.djlintrc]
+      direct_configs: [.djlintrc, djlint.toml, .djlint.toml]
       suggest_if: config_present
       affects_cache:
-        - .flake8
         - pyproject.toml
-        - setup.cfg
-        - tox.ini
       issue_url_format: https://www.djlint.com/docs/linter/#rules
       known_good_version: 1.36.4
       version_command:
