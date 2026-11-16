@@ -33,7 +33,7 @@ lint:
       suggest_if: config_present
       affects_cache:
         - pyproject.toml
-      issue_url_format: https://www.djlint.com/docs/linter/#rules
+      issue_url_format: https://djlint.com/docs/linter/#rules
       known_good_version: 1.36.4
       version_command:
         parse_regex: djlint, version ${semver}
