@@ -14,8 +14,9 @@ runtimes:
     - python@3.12.2
 lint:
   enabled:
-    - toml-tidy@0.3.1
+    - toml-tidy@0.7.0
 ```
 
-Per-file defaults (sort order, scope, pinned-first tables) can be configured in the nearest
-`pyproject.toml` under `[tool.toml-tidy]`.
+Per-file defaults (sort order, scope, pinned-first tables, blank lines, line width) can be
+configured in a `.toml-tidy.toml` or `toml-tidy.toml` file, or under `[tool.toml-tidy]` in a
+`pyproject.toml`; the closest configuration file above each target applies.
