@@ -136,7 +136,7 @@ def main(argv):
                 # but not if it's part of a bigger string
                 # e.g. the package "golang.org/x/sys" should not get quoted in the string "golang.org/x/sys/unix"
                 message = re.sub(
-                    f'(^|\s)({pkg["name"]})($|\s)',
+                    rf'(^|\s)({re.escape(pkg["name"])})($|\s)',
                     r"\1'\2'\3",
                     message,
                     flags=re.IGNORECASE,
@@ -146,7 +146,9 @@ def main(argv):
                 versions = {}
                 affected = vuln.get("affected", [])
                 for affected_pkg in affected:
-                    if pkg["name"].lower() != affected_pkg["package"]["name"].lower():
+                    # Some affected entries have no package, e.g. ones with only GIT ranges
+                    affected_name = affected_pkg.get("package", {}).get("name", "")
+                    if pkg["name"].lower() != affected_name.lower():
                         continue
                     ranges = affected_pkg.get("ranges", [])
                     for r in ranges:
